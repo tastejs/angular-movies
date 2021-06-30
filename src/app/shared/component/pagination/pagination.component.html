@@ -1,0 +1,29 @@
+<footer class="pagination">
+  <nav>
+    <ul>
+      <li [ngClass]="{disabled:pager.currentPage === 1}">
+        <a (click)="setPage(1)">
+          <mat-icon>first_page</mat-icon>
+        </a>
+      </li>
+      <li [ngClass]="{disabled:pager.currentPage === 1}">
+        <a (click)="setPage(pager.currentPage - 1)">
+          <mat-icon>chevron_left</mat-icon>
+        </a>
+      </li>
+      <li *ngFor="let page of pager.pages" [ngClass]="{disabled:pager.currentPage === page}">
+        <a (click)="setPage(page)">{{page}}</a>
+      </li>
+      <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+        <a (click)="setPage(pager.currentPage + 1)">
+          <mat-icon>chevron_right</mat-icon>
+        </a>
+      </li>
+      <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+        <a (click)="setPage(pager.totalPages)">
+          <mat-icon>last_page</mat-icon>
+        </a>
+      </li>
+    </ul>
+  </nav>
+</footer>

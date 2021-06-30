@@ -1,0 +1,8 @@
+<h1 mat-dialog-title>{{'Account-dialog.Title' | translate}}</h1>
+<div mat-dialog-content>
+  <p>{{'Account-dialog.Content' | translate}}</p>
+</div>
+<div mat-dialog-actions>
+  <button mat-button color="primary" (click)="onNoClick()">{{'Btn-cancel' | translate}}</button>
+  <button mat-button color="primary" [mat-dialog-close]="true">OK</button>
+</div>

@@ -1,0 +1,159 @@
+<div class="loading-shade" *ngIf="isLoadingResults">
+  <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
+</div>
+<ng-template [ngIf]="!isLoadingResults">
+  <div
+    class="movie"
+    (swipeleft)="swipe($event.type)"
+    (swiperight)="swipe($event.type)"
+    *ngIf="movie"
+  >
+    <div class="movie--background">
+      <div
+        class="image-rotator"
+        [ngStyle]="{
+          'background-image':
+            'url(' +
+            'https://image.tmdb.org/t/p/original' +
+            movie.backdrop_path +
+            ')'
+        }"
+      ></div>
+      <div class="vignette"></div>
+    </div>
+    <div class="movie__head">
+      <button class="btn-back" (click)="back()">
+        <mat-icon>arrow_back</mat-icon>
+      </button>
+      <h2>{{ movie.title }}</h2>
+    </div>
+    <div class="movie__body">
+      <div class="movie--infos">
+        <p>
+          <mat-icon>date_range</mat-icon> {{ movie.release_date | date: "y" }} •
+          <mat-icon>timer</mat-icon> {{ movie.runtime }} minutes •
+          <mat-icon
+            [ngClass]="{
+              'mat-green': movie.vote_average >= 5,
+              'mat-red': movie.vote_average < 5
+            }"
+            >star</mat-icon>
+          {{ movie.vote_average }}
+        </p>
+      </div>
+      <div class="movie--genre">
+        <ul>
+          <li *ngFor="let genre of movie.genres">
+            <a [routerLink]="['/genre', { id: genre.id, name: genre.name }]">
+              {{ genre.name }}</a>
+          </li>
+        </ul>
+      </div>
+      <p class="movie--overview">{{ movie.overview }}</p>
+      <div class=" movie--actions">
+        <button
+          *ngIf="(authService.user | async)"
+          mat-button
+          (click)="pushMovieCategoryDefault(movie, 'MovieLater')"
+        >
+          <mat-icon class="mat-teal">watch_later</mat-icon>
+          {{ "Movie.Watch later" | translate }}
+        </button>
+        <button
+          *ngIf="(authService.user | async)"
+          mat-button
+          (click)="pushMovieCategoryDefault(movie, 'FavoriteMovie')"
+        >
+          <mat-icon class="mat-red">favorite_border</mat-icon>
+          {{ "Movie.Favorite" | translate }}
+        </button>
+        <button
+          *ngIf="(authService.user | async)"
+          mat-button
+          [matMenuTriggerFor]="menu"
+          (click)="getAllCategories()"
+        >
+          <mat-icon>create_new_folder</mat-icon>
+          {{ "Movie.Categories" | translate }}
+        </button>
+        <mat-menu #menu="matMenu">
+          <div *ngIf="categories.length > 0; else noData">
+            <button
+              mat-menu-item
+              *ngFor="let category of categories"
+              (click)="pushMovieCategory(movie, category)"
+            >
+              {{ category }}
+            </button>
+          </div>
+          <ng-template #noData>
+            <small>{{ "Movie.No lists" | translate }}</small>
+          </ng-template>
+        </mat-menu>
+        <button mat-button (click)="shareDialog(movie)">
+          <mat-icon class="mat-yellow">share</mat-icon>
+          {{ "Movie.Share" | translate }}
+        </button>
+      </div>
+    </div>
+  </div>
+  <mat-tab-group class="movie__tab">
+    <mat-tab label="{{ 'Movie.Cast' | translate }}">
+      <section class="movie--cast" *ngIf="cast.length > 0; else noCast">
+        <div class="cast" *ngFor="let person of cast">
+          <a [routerLink]="['/star', person.id]">
+            <div
+              class="icon-container avatar"
+              [ngStyle]="{
+                'background-image':
+                  'url(' +
+                  'https://image.tmdb.org/t/p/w92' +
+                  person.profile_path +
+                  ')'
+              }"
+            >
+              <mat-icon *ngIf="!person.profile_path" class="icon-person">person</mat-icon>
+            </div>
+            <h3>{{ person.name }}</h3>
+            <p>{{ person.character }}</p>
+          </a>
+        </div>
+      </section>
+      <ng-template #noCast>
+        <h3>
+          {{ "Movie-list.No results" | translate }}
+          <mat-icon>sentiment_very_dissatisfied</mat-icon>
+        </h3>
+      </ng-template>
+    </mat-tab>
+    <mat-tab label="{{ 'Movie.Trailer' | translate }}">
+      <section class="movie--trailers" *ngIf="videos.length > 0; else noTrailer">
+        <div class="btn-play" *ngFor="let url of moviesUrl">
+            <button mat-mini-fab color="primary" (click)="openDialogTrailer(url.url)">
+                <mat-icon aria-label="Example icon-button with a heart icon">play_circle_filled_white
+                </mat-icon>
+            </button>
+            <p>{{url.name}}</p>
+        </div>
+      </section>
+      <ng-template #noTrailer>
+        <h3>
+          {{ "Movie.No trailer" | translate }}
+          <mat-icon>sentiment_very_dissatisfied</mat-icon>
+        </h3>
+      </ng-template>
+    </mat-tab>
+    <mat-tab label="{{ 'Movie.Similar' | translate }}">
+      <section class="movie--similar items" *ngIf="similarMovies">
+        <app-movie-list
+          [movies]="similarMovies"
+          [lang]="lang"
+          [adult]="adult"
+          [title]="title"
+          [dataParam]="dataParam"
+        >
+        </app-movie-list>
+      </section>
+    </mat-tab>
+  </mat-tab-group>
+</ng-template>

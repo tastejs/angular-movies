@@ -1,0 +1,40 @@
+.about {
+    padding: 0 20px;
+    
+    small, mat-icon {
+        color: white;
+    }
+
+    &__head {
+        padding: 40px;
+
+        small {
+            display: block;
+        }
+    }
+
+    &__body {
+        display: flex;
+        flex-wrap: wrap;
+
+        .about {
+            &--container {
+                display: inherit;
+                width: 100%;
+                padding: 0 0 40px;
+            }
+            &--info {
+                display: inherit;
+                flex-direction: column;
+                width: 100%;
+                justify-content: center;
+                align-items: center;
+
+                p {
+                    margin: 0;
+                    color: grey;
+                }
+            }
+        }
+    }
+}

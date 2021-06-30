@@ -1,0 +1,25 @@
+/deep/ .mat-dialog-container {
+    padding: 0;
+    background: transparent;
+}
+
+.embedresize {
+    max-width: 600px;
+    margin: auto;
+    border: 2px solid red;
+    border-radius: 4px;
+}
+    
+.embedresize div {
+    position: relative;
+    height: 0;
+    padding-bottom: 56.25%;
+}
+    
+.embedresize iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}

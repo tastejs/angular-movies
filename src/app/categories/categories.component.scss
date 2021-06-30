@@ -1,0 +1,54 @@
+@import '../../assets/scss/palette';
+
+.btn-add-category,
+.btn-delete-category {
+    color: white;
+}
+
+.categories {
+    &__tab {
+
+        .mat-nav-list {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+        }
+        a.mat-list-item {
+            flex: 1;
+
+            &:hover {
+                background: $background;
+            }
+        }
+        .mat-list {
+            display: none;
+            @media only screen and (min-width: 731px) {
+                display: flex;
+            }
+        }
+        .mat-list-base {
+  
+            button {
+                color: $grey;
+            }
+        }
+        .actions {
+            display: flex;
+            color: $white;
+
+            @media only screen and (min-width: 731px) {
+                display: none;
+            }
+        }
+        /deep/ .mat-list-text {
+            h3 {
+                color: $primary-light;
+                text-align: left;
+            }
+            p {
+                color: $white;
+                text-align: left;
+            }
+        }
+    }
+}

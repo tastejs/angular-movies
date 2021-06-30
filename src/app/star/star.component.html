@@ -1,0 +1,41 @@
+<div class="loading-shade" *ngIf="isLoadingResults">
+    <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
+</div>
+<div class="person">
+  <button class="btn-back" (click)="back()">
+    <mat-icon>arrow_back</mat-icon>
+  </button>
+  <section *ngIf="person">
+    <img class="img_profile" src="https://image.tmdb.org/t/p/w185/{{person.profile_path}}" alt="profile">
+    <h2>{{person.name}}</h2>
+    <p>{{person.birthday | date}}</p>
+    <p>{{person.biography}}</p>
+  </section>
+
+  <mat-tab-group>
+    <mat-tab label="{{'Star.Known in movies' | translate}}">
+      <section class="items" *ngIf="movies">
+        <div class="item" *ngFor="let movie of movies">
+          <a [routerLink]="['/movie', movie.id]">
+            <img *ngIf="movie.poster_path" [defaultImage]="'assets/images/no_poster_available.jpg'" [lazyLoad]="'https://image.tmdb.org/t/p/w185/' + movie.poster_path"
+              alt="poster movie">
+            <img *ngIf="!movie.poster_path" src="assets/images/no_poster_available.jpg" alt="No poster available">
+            <p>{{movie.title}}</p>
+            <p>{{movie.character}}</p>
+          </a>
+        </div>
+      </section>
+    </mat-tab>
+    <mat-tab label="{{'Star.Known in TV' | translate}}">
+      <section class="items" *ngIf="tvCredits">
+        <div class="item" *ngFor="let tv of tv_credits">
+          <img *ngIf="tv.poster_path" [defaultImage]="'assets/images/no_poster_available.jpg'" [lazyLoad]="'https://image.tmdb.org/t/p/w185/' + tv.poster_path"
+            alt="poster movie">
+          <img *ngIf="!tv.poster_path" src="assets/images/no_poster_available.jpg" alt="No poster available">
+          <p>{{tv.name}}</p>
+          <p>{{tv.character}}</p>
+        </div>
+      </section>
+    </mat-tab>
+  </mat-tab-group>
+</div>

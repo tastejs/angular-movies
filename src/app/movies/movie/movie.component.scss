@@ -1,0 +1,220 @@
+@import '../../../assets/scss/palette';
+
+.movie {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    margin: 0;
+    padding: 20px;
+    height: auto;
+    background-position: top;
+    background-size: cover;
+    color: $white;
+    text-align: left;
+    @media only screen and (min-width: 731px) {
+        min-height: 500px;
+    }
+
+    &--background {
+        .image-rotator {
+            position: absolute;
+            top: 0;
+            left: 30%;
+            bottom: 0;
+            right: 0;
+            width: 70%;
+            overflow: hidden;
+            background-size: cover;
+            background-position: center;
+
+            @media only screen and (min-width: 731px) {
+                background-position: initial;
+            }
+        }
+        
+        .vignette {
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            width: 30%;
+            background: $black;
+            z-index: 2;
+        
+            &::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 100%;
+                bottom: 0;
+                width: 100%;
+                background-image: linear-gradient(to right,$black,transparent);
+            }
+        }
+    }
+
+    &__head {
+        display: inherit;
+        z-index: 2;
+
+        .btn-back {
+            border: none;
+            background: transparent;
+            color: $white;
+            cursor: pointer;
+        }
+
+        h1 {
+            color: $white;
+            text-align: left !important;
+        }
+    }
+    &__body {
+        z-index: 2;
+        .mat {
+        &-green {
+            color: $green;
+        }
+        &-red {
+            color: $primary-light;
+        }
+        &-yellow {
+            color: $yellow;
+        }
+        &-teal {
+            color: $teal;
+        }
+        }
+        .movie {
+
+            &--infos {
+                display: flex;
+                align-items: center;
+
+                span {
+                    margin: 0 5px 0 0;
+                }
+                .mat-icon {
+                    width: 20px;
+                    font-size: 20px;
+                }
+            }
+        &--overview {
+            font-weight: normal;
+            text-align: justify;
+        }
+        &--genre {
+            ul {
+                padding: 0;
+
+                li {
+                    display: inline-block;
+                    padding: 0 5px 0 0;
+
+                    &::after {
+                        content: '•';
+                        color: $primary-light;
+                    }
+                    &:last-child:after {
+                        content: '';
+                    }
+                }
+            }
+        }
+        &--actions {
+            button {
+                padding: 0;
+            }
+        }
+        }
+    }
+}
+
+
+.movie {
+    &__tab {
+        .movie {
+            &--cast {
+                display: flex;
+                flex-direction: row;
+                flex-wrap: wrap;
+                margin-top: 30px;
+
+                @media only screen and (max-width: 731px) {
+                    flex-direction: column;
+                }
+
+                .cast {
+                    display: flex;
+                    flex-direction: column;
+                    flex: 1;
+                    align-items: center;
+                    min-width: 200px;
+                    padding: 5px;
+                }
+
+                a {
+                    display: contents;
+
+                    &:hover {
+                        background: $background;
+                    }
+                }
+
+                .avatar {
+                    flex-shrink: 0;
+                    width: 60px;
+                    height: 60px;
+                    border-radius: 50%;
+                    object-fit: cover;
+                }
+            
+                h3 {
+                    color: $primary-light;
+                    margin: 20px 0 0;
+                }
+                
+                p {
+                    color: $grey;
+                    margin: 0 0 20px;
+                } 
+                .icon-person {
+                    margin-top: 15px;
+                } 
+            }
+            &--trailers {
+                display: flex;
+                flex-direction: row;
+                flex-wrap: wrap;
+                margin: 30px 0;
+
+                .btn-play {
+                    display: flex;
+                    flex-direction: column;
+                    flex: 1;
+                    align-items: center;
+                    width: 250px;
+                    margin: 5px;
+                }
+
+                p {
+                    color: #FFF;
+                    width: 250px;
+                }
+
+                /deep/ .mat-button-wrapper {
+                    line-height: 21px;
+                }
+            }
+            &--similar {
+                h3 {
+                    color: $primary-light;
+                }
+            }
+        }
+    }
+}
+
+small {
+    padding: 5px;
+}
