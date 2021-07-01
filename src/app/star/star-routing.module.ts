@@ -6,4 +6,4 @@ const routes: Routes = [
   { path: '', component: StarComponent }
 ];
 
-export const routing: ModuleWithProviders = RouterModule.forChild(routes);
+export const routing: ModuleWithProviders<any> = RouterModule.forChild(routes);

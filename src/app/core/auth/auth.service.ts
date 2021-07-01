@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
-import { auth } from 'firebase/app';
+import firebase from "firebase"
 import { Observable, of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 
@@ -39,7 +39,7 @@ export class AuthService {
     }
 
     oAuthLogin(name: string, callback: any) {
-        return this.afAuth.auth.signInWithPopup(this.getProvider(name))
+        return this.afAuth.signInWithPopup(this.getProvider(name))
             .then(credential => {
                 callback();
                 this.updateUserData(credential.user);
@@ -49,14 +49,14 @@ export class AuthService {
 
     getProvider(name: string) {
         switch (name) {
-            case 'google': return new auth.GoogleAuthProvider();
-            case 'facebook': return new auth.FacebookAuthProvider();
-            case 'twitter': return new auth.TwitterAuthProvider();
+            case 'google': return new firebase.auth.GoogleAuthProvider();
+            case 'facebook': return new firebase.auth.FacebookAuthProvider();
+            case 'twitter': return new firebase.auth.TwitterAuthProvider();
         }
     }
 
     signOut() {
-        this.afAuth.auth.signOut().then(() => this.router.navigate(['/']));
+        this.afAuth.signOut().then(() => this.router.navigate(['/']));
     }
 
     readUser() {
