@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { CategoriesDeleteModalComponent } from './categories-delete-modal.component';
 import { FormsModule } from '@angular/forms';
 import { MatDialogModule, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
@@ -23,7 +23,7 @@ describe('CategoriesDeleteModalComponent', () => {
   const matDialogRef = jasmine.createSpyObj('MatDialogRef', ['afterClose']);
   const matDialogData = jasmine.createSpyObj('MAT_DIALOG_DATA', ['']);
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         BrowserAnimationsModule,

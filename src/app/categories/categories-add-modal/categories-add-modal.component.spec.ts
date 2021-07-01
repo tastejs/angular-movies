@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { CategoriesAddModalComponent } from './categories-add-modal.component';
 import { FormsModule } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
@@ -23,7 +23,7 @@ describe('CategoriesAddModalComponent', () => {
   const matDialogRef = jasmine.createSpyObj('MatDialogRef', ['afterClose']);
   const matDialogData = jasmine.createSpyObj('MAT_DIALOG_DATA', ['']);
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         BrowserAnimationsModule,

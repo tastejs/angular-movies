@@ -40,7 +40,7 @@
                 display: none;
             }
         }
-        /deep/ .mat-list-text {
+        ::ng-deep .mat-list-text {
             h3 {
                 color: $primary-light;
                 text-align: left;

@@ -1,6 +1,6 @@
 import { CdkTableModule } from '@angular/cdk/table';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { NgModule } from '@angular/core';
+import { NgModule, Injectable } from '@angular/core';
 import { AngularFireModule } from '@angular/fire';
 import { BrowserModule, HammerGestureConfig, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
 import { BrowserAnimationsModule, NoopAnimationsModule } from '@angular/platform-browser/animations';
@@ -24,6 +24,7 @@ import { StorageService } from './shared/service/storage/storage.service';
 import { SharedModule } from './shared/shared.module';
 import { MovieTrailerComponent } from './movies/movie/movie-trailer/movie-trailer.component';
 
+@Injectable()
 export class MyHammerConfig extends HammerGestureConfig {
   overrides = {
     pinch: { enable: false},

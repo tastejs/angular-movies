@@ -22,7 +22,7 @@
             }
         }
     }
-    /deep/ .mat-select {
+    ::ng-deep .mat-select {
         width: 140px;
     
         &-arrow {
@@ -33,10 +33,10 @@
             color: white;
         }
     }
-    /deep/ .mat-slide-toggle-label {
+    ::ng-deep .mat-slide-toggle-label {
         color: white;
     }
-    /deep/ .mat-slide-toggle-bar {
+    ::ng-deep .mat-slide-toggle-bar {
         background: grey;
     }
 }

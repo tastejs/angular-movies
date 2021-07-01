@@ -22,7 +22,7 @@
     min-height: 100vh;
     background: $black;
 
-    /deep/ .mat-sidenav {
+    ::ng-deep .mat-sidenav {
         background: $background;
 
         @media only screen and (max-width: 731px) {
@@ -48,10 +48,10 @@
             padding: 0 20px;
             font-size: 13px;
         }
-        /deep/ .mat-form-field-outline {
+        ::ng-deep .mat-form-field-outline {
             color: $white;
         }
-        /deep/ .mat-form-field-label {
+        ::ng-deep .mat-form-field-label {
             color: $white;
         }
         .mat-icon {

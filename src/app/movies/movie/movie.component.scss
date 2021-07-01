@@ -202,7 +202,7 @@
                     width: 250px;
                 }
 
-                /deep/ .mat-button-wrapper {
+                ::ng-deep .mat-button-wrapper {
                     line-height: 21px;
                 }
             }
