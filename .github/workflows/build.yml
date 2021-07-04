@@ -44,7 +44,7 @@ jobs:
         with:
           name: dist--hub-movies
           path: |
-            dist
+            dist/hub-movies
       - name: Archive bundle report results
         uses: actions/upload-artifact@v2
         with:
