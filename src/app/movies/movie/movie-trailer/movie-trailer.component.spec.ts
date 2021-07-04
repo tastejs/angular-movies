@@ -1,10 +1,7 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { MAT_DIALOG_DATA, MatDialogRef, MatDialogModule } from '@angular/material/dialog';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
+import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
+import {MAT_DIALOG_DATA, MatDialogModule, MatDialogRef} from '@angular/material/dialog';
 
-import { MovieTrailerComponent } from './movie-trailer.component';
+import {MovieTrailerComponent} from './movie-trailer.component';
 
 describe('MovieTrailerComponent', () => {
   let component: MovieTrailerComponent;
@@ -25,13 +22,13 @@ describe('MovieTrailerComponent', () => {
       imports: [
         MatDialogModule,
       ],
-      declarations: [ MovieTrailerComponent ],
+      declarations: [MovieTrailerComponent],
       providers: [
-        { provide: MatDialogRef, useValue: matDialogRef },
-        { provide: MAT_DIALOG_DATA, useValue: matDialogData }
+        {provide: MatDialogRef, useValue: matDialogRef},
+        {provide: MAT_DIALOG_DATA, useValue: matDialogData}
       ]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
