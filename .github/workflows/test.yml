@@ -1,7 +1,7 @@
 # This workflow will do a clean install of node dependencies, build the source code and run tests across different versions of node
 # For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
 
-name: Build & Test
+name: Test
 
 on:
   workflow_run:
@@ -37,16 +37,6 @@ jobs:
             ~/.cache/Cypress
           key: ${{ runner.os }}-npm-${{ hashFiles('./package-lock.json') }}
           restore-keys: ${{ runner.os }}-npm
-      - name: Build Application
-        run: npm run ng build -- --prod
-      - name: Archive build artifacts
-        uses: actions/upload-artifact@v2
-        with:
-          name: dist
-          path: |
-            dist
-      - name: Archive code coverage results
-        uses: actions/upload-artifact@v2
-        with:
-          name: code-coverage-report
-          path: dist/**/code-coverage.*
+      - name: Test Application
+        run: npm run ng test -- --no-watch --no-progress --browsers=ChromeHeadlessCI
+
