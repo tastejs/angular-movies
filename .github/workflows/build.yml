@@ -49,4 +49,4 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: bundle-report--hub-movies
-          path: dist/hub-movies/stats.json
+          path: dist/hub-movies/stats.json*
