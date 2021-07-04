@@ -4,10 +4,10 @@
 name: Build & Test
 
 on:
-  push:
-    branches: [ master ]
-  pull_request:
-    branches: [ master ]
+  workflow_run:
+    workflows: [ "Install Dependencies" ]
+    types:
+      - completed
 
 jobs:
   build:
