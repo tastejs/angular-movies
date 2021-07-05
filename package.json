@@ -4,6 +4,7 @@
   "license": "MIT",
   "scripts": {
     "ng": "ng",
+    "lhci": "lhci",
     "start": "ng serve",
     "build": "ng build",
     "test": "ng test",
@@ -11,7 +12,9 @@
     "e2e": "ng e2e",
     "ngsw-config": "node_modules/.bin/ngsw-config dist ./src/ngsw-config.json",
     "serve:ngsw": "npm run ngsw-config && http-server dist -p 8080",
-    "bundle-report": "ng build --configuration production --stats-json && webpack-bundle-analyzer dist/hub-movies/stats.json"
+    "bundle-report": "npm build && webpack-bundle-analyzer dist/hub-movies/stats.json",
+    "lhci-server:start": "npm run lhci --  server --https --storage.storageMethod=sql --storage.sqlDialect=sqlite --storage.sqlDatabasePath=./.lighthouseci/db.sql",
+    "lhci-ci:autorun:local": "npm run lhci -- autorun --config=lighthouserc.local.js"
   },
   "private": true,
   "dependencies": {
@@ -43,6 +46,8 @@
     "@angular/cli": "12.1.0",
     "@angular/compiler-cli": "12.1.1",
     "@angular/language-service": "12.1.1",
+    "@lhci/cli": "^0.8.0",
+    "@lhci/server": "^0.8.0",
     "@types/jasmine": "~3.6.0",
     "@types/node": "^12.11.1",
     "codelyzer": "^6.0.0",
@@ -56,6 +61,7 @@
     "karma-jasmine": "~4.0.0",
     "karma-jasmine-html-reporter": "^1.5.0",
     "protractor": "~7.0.0",
+    "sqlite3": "^5.0.2",
     "ts-node": "~5.0.1",
     "tslint": "~6.1.0",
     "typescript": "4.3.5",

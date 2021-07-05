@@ -1,0 +1,42 @@
+# This workflow will do a clean install of node dependencies, build the source code and run tests across different versions of node
+# For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
+
+name: Test
+
+on:
+  workflow_run:
+    workflows: [ "Install Dependencies" ]
+    types:
+      - completed
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [14.x]
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          ref: ${{ github.event.pull_request.head.ref }}
+          repository: ${{ github.event.pull_request.head.repo.full_name }}
+          fetch-depth: 0
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - run: git fetch --no-tags --prune --depth=5 origin master
+
+      - uses: actions/cache@v2
+        id: npm-cache
+        with:
+          path: |
+            node_modules
+            ~/.cache/Cypress
+          key: ${{ runner.os }}-npm-${{ hashFiles('./package-lock.json') }}
+          restore-keys: ${{ runner.os }}-npm
+      - name: Test Application
+        run: npm run ng test -- --no-watch --no-progress --browsers=ChromeHeadlessCI
+
