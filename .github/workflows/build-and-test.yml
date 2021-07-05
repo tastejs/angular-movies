@@ -89,22 +89,3 @@ jobs:
           # This is necessary in order to push a commit to the repo
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Leave this line unchanged
 
-
-   #   - name: Audit build using Lighthouse
-   #     uses: treosh/lighthouse-ci-action@v7
-   #     env:
-   #       LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
-   #       # LHCI_TOKEN: ${{ secrets.LHCI_TOKEN }}
-   #     with:
-   #       configPath: './lighthouserc.js'
-   #       # budgetPath: ./budget.json # test performance budgets
-   #       uploadArtifacts: true # save results as an action artifacts
-
-
-      - uses: tzkhan/pr-update-action@v2
-        with:
-          repo-token: "${{ secrets.GITHUB_TOKEN }}"
-          head-branch-regex: '.+'
-          # http://localhost:9001/app/projects/angular-movies-perf/compare/163c990e52fe
-          body-template: "[LHCI Server](http://localhost:9001/app/projects/)"
-          body-update-action: 'suffix'
