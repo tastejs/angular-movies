@@ -1,14 +1,25 @@
-import { NgModule } from '@angular/core';
-import { SharedModule } from './../shared/shared.module';
-import { StarComponent } from './star.component';
-import { routing } from './star-routing.module';
-import { LazyLoadImageModule } from 'ng-lazyload-image';
+import {NgModule} from '@angular/core';
+import {StarComponent} from './star.component';
+import {routing} from './star-routing.module';
+import {LazyLoadImageModule} from 'ng-lazyload-image';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {MatTabsModule} from '@angular/material/tabs';
+import {TranslateModule} from '@ngx-translate/core';
+import {MatIconModule} from '@angular/material/icon';
 
 
 @NgModule({
   imports: [
-    SharedModule, routing, LazyLoadImageModule
+    routing,
+    LazyLoadImageModule,
+    MatProgressSpinnerModule,
+    MatTabsModule,
+    MatIconModule,
+    TranslateModule
   ],
-  declarations: [StarComponent]
+  declarations: [StarComponent],
+  exports: [
+    StarComponent
+  ]
 })
 export class StarModule { }

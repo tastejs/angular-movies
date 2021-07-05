@@ -6,17 +6,15 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { forkJoin, Subscription } from 'rxjs';
-import { AuthService } from '../../core/auth/auth.service';
+import { AuthService } from '../../auth/auth.service';
 import { ShareModalComponent } from '../../shared/component/share-modal/share-modal.component';
 import { MovieDatabaseModel } from '../../shared/model/movie-database.model';
 import { DatabaseService } from '../../shared/service/database/database.service';
 import { StorageService } from '../../shared/service/storage/storage.service';
 import { TmdbService } from '../../shared/service/tmdb/tmdb.service';
-import { MovieCastModel } from '../shared/movie-cast.model';
-import { MovieCrewModel } from '../shared/movie-crew.model';
-import { MovieDetailsModel } from '../shared/movie-details.model';
-import { MovieModel } from '../shared/movie.model';
-import { MovieTrailerComponent } from './movie-trailer/movie-trailer.component';
+import { MovieCastModel, MovieCrewModel, MovieDetailsModel,  MovieModel  } from '../model';
+import {MovieTrailerComponent} from './movie-trailer/movie-trailer.component';
+
 @Component({
   selector: 'app-movie',
   templateUrl: './movie.component.html',

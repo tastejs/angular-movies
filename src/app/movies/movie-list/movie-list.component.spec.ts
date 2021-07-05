@@ -11,7 +11,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { LazyLoadImageModule } from 'ng-lazyload-image';
 import { Observable, of } from 'rxjs';
-import { AuthService } from '../../core/auth/auth.service';
+import { AuthService } from '../../auth/auth.service';
 import { DatabaseService } from '../../shared/service/database/database.service';
 import { StorageService } from '../../shared/service/storage/storage.service';
 import { TmdbService } from '../../shared/service/tmdb/tmdb.service';

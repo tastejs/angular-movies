@@ -1,0 +1,22 @@
+<div
+  (swipeleft)="swipe(pager.currentPage - 1)"
+  (swiperight)="swipe(pager.currentPage + 1)"
+>
+  <div class="loading-shade" *ngIf="loading">
+    <mat-spinner *ngIf="loading"></mat-spinner>
+  </div>
+  <ng-template [ngIf]="movies">
+    <app-movie-list
+      [movies]="movies"
+      [lang]="lang"
+      [adult]="adult"
+      [title]="title"
+      [dataParam]="dataParam"
+    >
+    </app-movie-list>
+  </ng-template>
+  <ng-template [ngIf]="movies">
+    <app-pagination [pager]="pager" (currentPage)="setPage($event)">
+    </app-pagination>
+  </ng-template>
+</div>

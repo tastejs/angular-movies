@@ -1,17 +1,20 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
 
-import { AccountRoutingModule } from './account-routing.module';
-import { AccountComponent } from './account.component';
-import { AccountDeleteModalComponent } from './account-delete-modal/account-delete-modal.component';
-
-import { SharedModule } from './../shared/shared.module';
+import {AccountRoutingModule} from './account-routing.module';
+import {AccountComponent} from './account.component';
+import {AccountDeleteModalComponent} from './account-delete-modal/account-delete-modal.component';
+import {TranslateModule} from '@ngx-translate/core';
+import {MatDialogModule} from '@angular/material/dialog';
+import {MatButtonModule} from '@angular/material/button';
 
 @NgModule({
   imports: [
     CommonModule,
     AccountRoutingModule,
-    SharedModule
+    MatDialogModule,
+    MatButtonModule,
+    TranslateModule
   ],
   declarations: [
     AccountComponent,

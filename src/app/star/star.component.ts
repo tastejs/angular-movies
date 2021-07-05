@@ -1,14 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
+import { forkJoin } from 'rxjs';
 /* SERVICES */
 import { TmdbService } from '../shared/service/tmdb/tmdb.service';
-/* MODEL */
-import { MoviePersonModel } from '../movies/shared/movie-person.model';
-import { TvCastModel } from '../movies/shared/tv-cast.model';
-import { MovieCastModel } from '../movies/shared/movie-cast.model';
-import { forkJoin } from 'rxjs';
 import { StorageService } from '../shared/service/storage/storage.service';
+/* MODEL */
+import { MoviePersonModel, TvCastModel,  MovieCastModel  } from '../movies/model';
 
 @Component({
   selector: 'app-star',

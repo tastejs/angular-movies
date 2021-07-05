@@ -6,7 +6,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { Observable, of } from 'rxjs';
-import { AuthService } from '../core/auth/auth.service';
+import { AuthService } from '../auth/auth.service';
 import { SignInComponent } from './sign-in.component';
 
 const translations: any = {foo: 'bar'};

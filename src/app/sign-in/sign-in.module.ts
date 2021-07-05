@@ -1,11 +1,14 @@
 import { NgModule } from '@angular/core';
-import { SharedModule } from './../shared/shared.module';
 import { SignInComponent } from './sign-in.component';
 import { routing } from './sign-in.routing';
+import {MatButtonModule} from '@angular/material/button';
+import {TranslateModule} from '@ngx-translate/core';
 
 @NgModule({
     imports: [
-        SharedModule, routing
+      MatButtonModule,
+      TranslateModule,
+      routing
     ],
     declarations: [SignInComponent]
 })

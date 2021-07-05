@@ -10,7 +10,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { Observable, of } from 'rxjs';
-import { AuthService } from '../core/auth/auth.service';
+import { AuthService } from '../auth/auth.service';
 import { AccountComponent } from './account.component';
 
 const translations: any = {foo: 'bar'};

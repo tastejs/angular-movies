@@ -4,7 +4,21 @@ import {DomSanitizer, SafeResourceUrl} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-movie-trailer',
-  templateUrl: './movie-trailer.component.html',
+  template: `
+    <div class="embedresize">
+      <div>
+        <iframe
+          loading="lazy"
+          width="auto"
+          height="auto"
+          [src]="url"
+          frameborder="0"
+          allowfullscreen
+          include
+        ></iframe>
+      </div>
+    </div>
+  `,
   styleUrls: ['./movie-trailer.component.scss']
 })
 export class MovieTrailerComponent {

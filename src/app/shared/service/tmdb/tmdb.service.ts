@@ -1,15 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { StorageService } from '../../../shared/service/storage/storage.service';
-import { MovieDetailsModel } from '../../../movies/shared/movie-details.model';
-import { MovieCategoryModel } from '../../../movies/shared/movie-category.model';
-import { MovieCreditsModel } from '../../../movies/shared/movie-credits.model';
-import { MoviePersonModel } from '../../../movies/shared/movie-person.model';
-import { MovieVideosModel } from '../../../movies/shared/movie-videos.model';
-import { TvCreditsModel } from '../../../movies/shared/tv-credits.model';
+import { StorageService } from '../storage/storage.service';
+import { MovieDetailsModel, MovieCategoryModel, MoviePersonModel, MovieVideosModel, TvCreditsModel, MovieCreditsModel } from '../../../movies/model';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class TmdbService {
   private API_KEY = '431bc17da732dfb3be082e58f7a5cf27';
   private URL_DISCOVER = 'https://api.themoviedb.org/3/discover/movie';

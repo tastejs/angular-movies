@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { AuthService } from '../core/auth/auth.service';
+import { AuthService } from '../auth/auth.service';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({

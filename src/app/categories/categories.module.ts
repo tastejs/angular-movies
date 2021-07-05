@@ -1,18 +1,27 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
 
-import { CategoriesRoutingModule } from './categories-routing.module';
-import { CategoriesComponent } from './categories.component';
-import { CategoriesAddModalComponent } from './categories-add-modal/categories-add-modal.component';
-import { CategoriesDeleteModalComponent } from './categories-delete-modal/categories-delete-modal.component';
-
-import { SharedModule } from '../shared/shared.module';
+import {CategoriesRoutingModule} from './categories-routing.module';
+import {CategoriesComponent} from './categories.component';
+import {CategoriesAddModalComponent} from './categories-add-modal/categories-add-modal.component';
+import {CategoriesDeleteModalComponent} from './categories-delete-modal/categories-delete-modal.component';
+import {ShareModalModule} from '../shared/component/share-modal/share-modal.module';
+import {TranslateModule} from '@ngx-translate/core';
+import {FormsModule} from '@angular/forms';
+import {MatDialogModule} from '@angular/material/dialog';
+import {MatButtonModule} from '@angular/material/button';
+import {MatFormFieldModule} from '@angular/material/form-field';
 
 @NgModule({
   imports: [
     CommonModule,
     CategoriesRoutingModule,
-    SharedModule
+    ShareModalModule,
+    MatDialogModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    FormsModule,
+    TranslateModule
   ],
   declarations: [
     CategoriesComponent,
@@ -24,4 +33,5 @@ import { SharedModule } from '../shared/shared.module';
     CategoriesDeleteModalComponent
   ]
 })
-export class CategoriesModule { }
+export class CategoriesModule {
+}

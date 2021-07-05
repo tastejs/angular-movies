@@ -3,7 +3,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
-import { AuthService } from '../core/auth/auth.service';
+import { AuthService } from '../auth/auth.service';
 import { AccountDeleteModalComponent } from './account-delete-modal/account-delete-modal.component';
 import * as dayjs from 'dayjs';
 import { TranslateService } from '@ngx-translate/core';
