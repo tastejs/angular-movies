@@ -10,7 +10,7 @@ on:
     branches: [ master ]
 
 jobs:
-  install-dependencies:
+  checkout:
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -62,20 +62,49 @@ jobs:
           name: bundle-report--hub-movies
           path: dist/hub-movies/stats.json
 
-      - name: Audit build using Lighthouse
-        uses: treosh/lighthouse-ci-action@v7
-        env:
-          LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
-          # LHCI_TOKEN: ${{ secrets.LHCI_TOKEN }}
-        with:
-          configPath: './lighthouserc.js'
-          # budgetPath: ./budget.json # test performance budgets
-          uploadArtifacts: true # save results as an action artifacts
+      - name: Collect lhci report in github
+        run: npm run -s lhci:collect
 
-    # TODO add link to report
-    #  - uses: tzkhan/pr-update-action@v2
-    #    with:
-    #      repo-token: "${{ secrets.GITHUB_TOKEN }}"
-    #      head-branch-regex: '.+'
-    #      body-template: "[PR LHCI report](${{ steps.LHCIAction.outputs.links }}) | ${{ steps.LHCIAction.outputs.links }}"
-    #      body-update-action: 'suffix'
+      - name: Archive lhci report artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: lhci-report--hub-movies
+          path: |
+            .lighthouseci
+            !.lighthouseci/db.sql
+
+      - uses: EndBug/add-and-commit@v4 # You can change this to use a specific version
+        with:
+          add: '.lighthouseci/db.sql'
+          force: true
+          author_name: LHC Audit
+          message: 'perf: lighthouse-ci upload'
+          # Whether to use the --force option on `git add`, in order to bypass eventual gitignores
+          # Default: false
+          # force: true
+          # Name of the branch to use, if different from the one that triggered the workflow
+          # Default: the branch that triggered the workflow (from GITHUB_REF)
+          # ref: 'branch-name'
+        env:
+          # This is necessary in order to push a commit to the repo
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Leave this line unchanged
+
+
+   #   - name: Audit build using Lighthouse
+   #     uses: treosh/lighthouse-ci-action@v7
+   #     env:
+   #       LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
+   #       # LHCI_TOKEN: ${{ secrets.LHCI_TOKEN }}
+   #     with:
+   #       configPath: './lighthouserc.js'
+   #       # budgetPath: ./budget.json # test performance budgets
+   #       uploadArtifacts: true # save results as an action artifacts
+
+
+      - uses: tzkhan/pr-update-action@v2
+        with:
+          repo-token: "${{ secrets.GITHUB_TOKEN }}"
+          head-branch-regex: '.+'
+          # http://localhost:9001/app/projects/angular-movies-perf/compare/163c990e52fe
+          body-template: "[LHCI Server](http://localhost:9001/app/projects/)"
+          body-update-action: 'suffix'
