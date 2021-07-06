@@ -1,9 +1,9 @@
 import {ChangeDetectionStrategy, Component, Input} from '@angular/core';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { TranslateService } from '@ngx-translate/core';
-import { AuthService } from '../../auth/auth.service';
-import { DatabaseService } from '../../shared/service/database/database.service';
-import { MovieModel } from '../model';
+import {MatSnackBar} from '@angular/material/snack-bar';
+import {TranslateService} from '@ngx-translate/core';
+import {AuthService} from '../../auth/auth.service';
+import {DatabaseService} from '../../shared/service/database/database.service';
+import {MovieModel} from '../model';
 
 @Component({
   selector: 'app-movie-list',

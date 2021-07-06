@@ -1,4 +1,4 @@
-import { MovieModel } from './movie.model';
+import {MovieModel} from './movie.model';
 
 export interface MovieCategoryModel {
     page: number;

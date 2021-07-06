@@ -1,13 +1,13 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { AngularFireModule } from '@angular/fire';
-import { AngularFireAuthModule } from '@angular/fire/auth';
-import { AngularFirestoreModule } from '@angular/fire/firestore';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { RouterTestingModule } from '@angular/router/testing';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { Observable, of } from 'rxjs';
-import { AuthService } from '../auth/auth.service';
-import { SignInComponent } from './sign-in.component';
+import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
+import {AngularFireModule} from '@angular/fire';
+import {AngularFireAuthModule} from '@angular/fire/auth';
+import {AngularFirestoreModule} from '@angular/fire/firestore';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {RouterTestingModule} from '@angular/router/testing';
+import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
+import {Observable, of} from 'rxjs';
+import {AuthService} from '../auth/auth.service';
+import {SignInComponent} from './sign-in.component';
 
 const translations: any = {foo: 'bar'};
 

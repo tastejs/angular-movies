@@ -1,6 +1,6 @@
-import { ModuleWithProviders } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-import { StarComponent} from './star.component';
+import {ModuleWithProviders} from '@angular/core';
+import {RouterModule, Routes} from '@angular/router';
+import {StarComponent} from './star.component';
 
 const routes: Routes = [
   { path: '', component: StarComponent }

@@ -37,6 +37,7 @@
     "member-access": false,
     "prefer-on-push-component-change-detection": true,
     "template-use-track-by-function": true,
+    "no-unused-variable": true,
     "member-ordering": [
       true,
       {

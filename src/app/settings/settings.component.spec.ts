@@ -1,12 +1,12 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { SettingsComponent } from './settings.component';
-import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
-import { Observable , of } from 'rxjs';
-import { MatIconModule } from '@angular/material/icon';
-import { MatSelectModule } from '@angular/material/select';
-import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { FormsModule } from '@angular/forms';
-import { StorageService } from '../shared/service/storage/storage.service';
+import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
+import {SettingsComponent} from './settings.component';
+import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
+import {Observable, of} from 'rxjs';
+import {MatIconModule} from '@angular/material/icon';
+import {MatSelectModule} from '@angular/material/select';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import {FormsModule} from '@angular/forms';
+import {StorageService} from '../shared/service/storage/storage.service';
 
 const translations: any = {foo: 'bar'};
 

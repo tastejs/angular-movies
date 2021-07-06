@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/firestore';
-import {MovieCategoryModel, MovieGenreModel, MovieModel} from '../../../movies/model';
+import {MovieGenreModel, MovieModel} from '../../../movies/model';
 import {Observable} from 'rxjs';
 import {MovieDatabaseModel} from '../../model/movie-database.model';
 

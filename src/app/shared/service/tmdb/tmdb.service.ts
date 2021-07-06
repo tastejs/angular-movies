@@ -1,8 +1,14 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { StorageService } from '../storage/storage.service';
-import { MovieDetailsModel, MovieCategoryModel, MoviePersonModel, MovieVideosModel, TvCreditsModel, MovieCreditsModel } from '../../../movies/model';
+import {Injectable} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {Observable} from 'rxjs';
+import {
+  MovieCategoryModel,
+  MovieCreditsModel,
+  MovieDetailsModel,
+  MoviePersonModel,
+  MovieVideosModel,
+  TvCreditsModel
+} from '../../../movies/model';
 
 @Injectable({
   providedIn: 'root'
@@ -15,9 +21,7 @@ export class TmdbService {
   private URL_PERSON = 'https://api.themoviedb.org/3/person';
   private URL_GENRE = 'https://api.themoviedb.org/3/genre';
 
-  // private lang = this.storageService.read('language');
-
-  constructor(private http: HttpClient, private storageService: StorageService) {
+  constructor(private http: HttpClient) {
   }
 
   getMovie(category: string, page: number, lang: string, adult?: string) {

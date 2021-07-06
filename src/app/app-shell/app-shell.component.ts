@@ -1,10 +1,10 @@
-import {Component, HostListener, OnInit, ChangeDetectorRef, OnDestroy, ViewChild, ChangeDetectionStrategy} from '@angular/core';
-import { MediaMatcher } from '@angular/cdk/layout';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { Router } from '@angular/router';
-import { AuthService } from '../auth/auth.service';
-import { StorageService } from '../shared/service/storage/storage.service';
-import { TranslateService } from '@ngx-translate/core';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, HostListener, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {MediaMatcher} from '@angular/cdk/layout';
+import {MatSnackBar} from '@angular/material/snack-bar';
+import {Router} from '@angular/router';
+import {AuthService} from '../auth/auth.service';
+import {StorageService} from '../shared/service/storage/storage.service';
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
     selector: 'app-shell',

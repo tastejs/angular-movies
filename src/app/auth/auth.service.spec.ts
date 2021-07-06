@@ -1,9 +1,9 @@
-import { inject, TestBed } from '@angular/core/testing';
-import { AngularFireModule } from '@angular/fire';
-import { AngularFireAuthModule } from '@angular/fire/auth';
-import { AngularFirestoreModule } from '@angular/fire/firestore';
-import { RouterTestingModule } from '@angular/router/testing';
-import { AuthService } from './auth.service';
+import {inject, TestBed} from '@angular/core/testing';
+import {AngularFireModule} from '@angular/fire';
+import {AngularFireAuthModule} from '@angular/fire/auth';
+import {AngularFirestoreModule} from '@angular/fire/firestore';
+import {RouterTestingModule} from '@angular/router/testing';
+import {AuthService} from './auth.service';
 
 describe('AuthService', () => {
   const firebaseConfig = {

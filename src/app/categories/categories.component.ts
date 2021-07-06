@@ -9,7 +9,7 @@ import {ShareModalComponent} from '../shared/component/share-modal/share-modal.c
 import {CategoriesAddModalComponent} from './categories-add-modal/categories-add-modal.component';
 import {CategoriesDeleteModalComponent} from './categories-delete-modal/categories-delete-modal.component';
 import {TranslateService} from '@ngx-translate/core';
-import {MovieCategoryModel, MovieModel} from '../movies/model';
+import { MovieModel} from '../movies/model';
 
 @Component({
   selector: 'app-categories',

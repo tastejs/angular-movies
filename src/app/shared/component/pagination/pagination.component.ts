@@ -8,7 +8,7 @@ import {Pager} from '../../model/pager.model';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PaginationComponent {
-  @Input() pager: Pager = null;
+  @Input() pager: Pager = {} as Pager;
   @Output() currentPage = new EventEmitter<number>();
 
   setPage(page: number) {

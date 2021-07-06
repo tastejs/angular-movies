@@ -1,4 +1,4 @@
-import { MovieGenreModel } from './movie-genre.model';
+import {MovieGenreModel} from './movie-genre.model';
 
 export interface MovieModel {
     poster_path: string;

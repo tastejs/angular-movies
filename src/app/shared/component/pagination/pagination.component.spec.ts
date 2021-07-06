@@ -1,7 +1,7 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { PaginationComponent } from './pagination.component';
-import { MatIconModule } from '@angular/material/icon';
+import {PaginationComponent} from './pagination.component';
+import {MatIconModule} from '@angular/material/icon';
 
 describe('PaginationComponent', () => {
   let component: PaginationComponent;

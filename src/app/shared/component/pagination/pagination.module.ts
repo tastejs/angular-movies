@@ -1,8 +1,7 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
 import {MatIconModule} from '@angular/material/icon';
 import {PaginationComponent} from './pagination.component';
-
 
 
 @NgModule({

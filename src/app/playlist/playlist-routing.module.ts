@@ -1,6 +1,6 @@
-import { ModuleWithProviders } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-import { PlaylistComponent } from './playlist.component';
+import {ModuleWithProviders} from '@angular/core';
+import {RouterModule, Routes} from '@angular/router';
+import {PlaylistComponent} from './playlist.component';
 
 const routes: Routes = [
   { path: '', component: PlaylistComponent }

@@ -1,4 +1,4 @@
-import { MovieGenreModel } from './movie-genre.model';
+import {MovieGenreModel} from './movie-genre.model';
 
 export interface TvCastModel {
     credit_id: string;

@@ -1,12 +1,12 @@
-import {Component, OnInit, OnDestroy, ChangeDetectionStrategy} from '@angular/core';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { Router } from '@angular/router';
-import { MatDialog } from '@angular/material/dialog';
-import { Subscription } from 'rxjs';
-import { AuthService } from '../auth/auth.service';
-import { AccountDeleteModalComponent } from './account-delete-modal/account-delete-modal.component';
+import {ChangeDetectionStrategy, Component, OnDestroy, OnInit} from '@angular/core';
+import {MatSnackBar} from '@angular/material/snack-bar';
+import {Router} from '@angular/router';
+import {MatDialog} from '@angular/material/dialog';
+import {Subscription} from 'rxjs';
+import {AuthService} from '../auth/auth.service';
+import {AccountDeleteModalComponent} from './account-delete-modal/account-delete-modal.component';
 import * as dayjs from 'dayjs';
-import { TranslateService } from '@ngx-translate/core';
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-account',

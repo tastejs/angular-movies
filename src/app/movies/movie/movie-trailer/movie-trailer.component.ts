@@ -27,6 +27,7 @@ export class MovieTrailerComponent {
   url: SafeResourceUrl;
 
   constructor(
+    // tslint:disable-next-line: no-unused-variable
     public dialogRef: MatDialogRef<MovieTrailerComponent>,
     @Inject(MAT_DIALOG_DATA) private data: any,
     private dom: DomSanitizer ) {

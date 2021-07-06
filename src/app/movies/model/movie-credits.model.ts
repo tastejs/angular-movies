@@ -1,5 +1,5 @@
-import { MovieCastModel } from './movie-cast.model';
-import { MovieCrewModel } from './movie-crew.model';
+import {MovieCastModel} from './movie-cast.model';
+import {MovieCrewModel} from './movie-crew.model';
 
 export interface MovieCreditsModel {
     id: number;

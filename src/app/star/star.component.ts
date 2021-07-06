@@ -3,8 +3,8 @@ import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { forkJoin } from 'rxjs';
 /* SERVICES */
-import { TmdbService } from '../shared/service/tmdb/tmdb.service';
-import { StorageService } from '../shared/service/storage/storage.service';
+import {TmdbService} from '../shared/service/tmdb/tmdb.service';
+import {StorageService} from '../shared/service/storage/storage.service';
 /* MODEL */
 import {MoviePersonModel, TvCastModel, MovieCastModel, MovieModel, TvCreditsModel} from '../movies/model';
 

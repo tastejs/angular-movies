@@ -135,7 +135,7 @@ export class MovieComponent implements OnInit {
   }
 
   openDialogTrailer(url: any): void {
-    const dialogRef = this.dialog.open(MovieTrailerComponent, {
+    this.dialog.open(MovieTrailerComponent, {
       height: '400px',
       width: '600px',
       data: {url}

@@ -1,6 +1,6 @@
-import { NgModule } from '@angular/core';
-import { SignInComponent } from './sign-in.component';
-import { routing } from './sign-in.routing';
+import {NgModule} from '@angular/core';
+import {SignInComponent} from './sign-in.component';
+import {routing} from './sign-in.routing';
 import {MatButtonModule} from '@angular/material/button';
 import {TranslateModule} from '@ngx-translate/core';
 

@@ -6,8 +6,6 @@ import { Subscription } from 'rxjs';
 import { ShareModalComponent } from '../shared/component/share-modal/share-modal.component';
 import { MovieDatabaseModel } from '../shared/model/movie-database.model';
 import { DatabaseService } from '../shared/service/database/database.service';
-import {MovieCastModel, MovieGenreModel, MovieModel} from '../movies/model';
-import {SafeResourceUrl} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-playlist',

@@ -1,23 +1,23 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { AngularFireModule } from '@angular/fire';
-import { AngularFireAuthModule } from '@angular/fire/auth';
-import { AngularFirestoreModule } from '@angular/fire/firestore';
-import { MatIconModule } from '@angular/material/icon';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { MatTooltipModule } from '@angular/material/tooltip';
-import { RouterTestingModule } from '@angular/router/testing';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { AuthService } from 'app/auth/auth.service';
-import { DatabaseService } from 'app/shared/service/database/database.service';
-import { StorageService } from 'app/shared/service/storage/storage.service';
-import { TmdbService } from 'app/shared/service/tmdb/tmdb.service';
-import { LazyLoadImageModule } from 'ng-lazyload-image';
-import { Observable, of } from 'rxjs';
-import { MovieListComponent } from '../movie-list/movie-list.component';
-import { MoviesComponent } from './movies.component';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { PaginationComponent } from 'app/shared/component/pagination/pagination.component';
+import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
+import {AngularFireModule} from '@angular/fire';
+import {AngularFireAuthModule} from '@angular/fire/auth';
+import {AngularFirestoreModule} from '@angular/fire/firestore';
+import {MatIconModule} from '@angular/material/icon';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {MatTooltipModule} from '@angular/material/tooltip';
+import {RouterTestingModule} from '@angular/router/testing';
+import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
+import {AuthService} from 'app/auth/auth.service';
+import {DatabaseService} from 'app/shared/service/database/database.service';
+import {StorageService} from 'app/shared/service/storage/storage.service';
+import {TmdbService} from 'app/shared/service/tmdb/tmdb.service';
+import {LazyLoadImageModule} from 'ng-lazyload-image';
+import {Observable, of} from 'rxjs';
+import {MovieListComponent} from '../movie-list/movie-list.component';
+import {MoviesComponent} from './movies.component';
+import {HttpClientTestingModule} from '@angular/common/http/testing';
+import {PaginationComponent} from 'app/shared/component/pagination/pagination.component';
 
 const firebaseConfig = {
   apiKey: 'foo',
