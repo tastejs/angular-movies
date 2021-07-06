@@ -4,8 +4,8 @@
   <div class="item" *ngFor="let movie of movies trackBy: movieById">
     <a [routerLink]="['/movie', movie.id]">
       <img *ngIf="movie.poster_path" [defaultImage]="'assets/images/no_poster_available.jpg'" [lazyLoad]="'https://image.tmdb.org/t/p/w185/' + movie.poster_path"
-        alt="poster movie">
-      <img *ngIf="!movie.poster_path" src="/assets/images/no_poster_available.jpg" alt="No poster available">
+        alt="poster movie" width="200px" height="343px">
+      <img *ngIf="!movie.poster_path" width="200px" height="343px" src="/assets/images/no_poster_available.jpg" alt="No poster available">
     </a>
     <h3>{{movie.title}}</h3>
     <button *ngIf="authService.user | async" aria-hidden="true" mat-icon-button class="btn-add" color="primary" (click)="addMovie(movie)"
