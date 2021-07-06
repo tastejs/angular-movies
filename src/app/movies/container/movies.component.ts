@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {MovieCategoryModel} from '../model/movie-category.model';
 import {MovieModel} from '../model/movie.model';
 import {Observable, Subscription} from 'rxjs';
@@ -35,10 +35,11 @@ export class MoviesComponent implements OnInit {
     private tmdbService: TmdbService,
     private route: ActivatedRoute,
     private storageService: StorageService,
-    private router: Router
+    private router: Router,
+    private cdr: ChangeDetectorRef
   ) {
     this.navigationSubscription = this.router.events.subscribe((e: any) => {
-      // If it is a NavigationEnd event re-initalise the component
+      // If it is a NavigationEnd event re-initalize the component
       if (e instanceof NavigationEnd) {
         this.reloadPagination();
       }
@@ -100,7 +101,8 @@ export class MoviesComponent implements OnInit {
         this.title = this.parameter;
         this.totalPages = response.total_pages;
         this.pager = this.tmdbService.getPager(this.totalPages, currentPage);
-      }, error => {
+        this.cdr.markForCheck();
+        }, error => {
         this.loading = false;
       });
     }

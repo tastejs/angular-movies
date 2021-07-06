@@ -49,31 +49,41 @@ jobs:
       - name: Build Application
         run: npm run ng build -- --configuration production --stats-json
 
-      - name: Archive build artifacts
-        uses: actions/upload-artifact@v2
-        with:
-          name: dist--hub-movies
-          path: |
-            dist/hub-movies
+      # Archive build artefacts for further processing
+      # Note there are limits so you may want to do this only in specific situations
 
-      - name: Archive bundle-report artifacts
-        uses: actions/upload-artifact@v2
-        with:
-          name: bundle-report--hub-movies
-          path: dist/hub-movies/stats.json
+      #- name: Archive build artifacts
+      #  uses: actions/upload-artifact@v2
+      #  with:
+      #    name: dist--hub-movies
+      #    path: |
+      #      dist/hub-movies
+
+      # Archive bundle-report artefacts for further processing
+      # Note there are limits so you may want to do this only in specific situations
+
+      #- name: Archive bundle-report artifacts
+      #  uses: actions/upload-artifact@v2
+      #  with:
+      #    name: bundle-report--hub-movies
+      #    path: dist/hub-movies/stats.json
 
       - name: Collect lhci report in github
         run: npm run -s lhci:collect
 
-      - name: Archive lhci report artifacts
-        uses: actions/upload-artifact@v2
-        with:
-          name: lhci-report--hub-movies
-          path: |
-            .lighthouseci
-            !.lighthouseci/db.sql
+      # Archive lighthouse-ci artefacts for further processing
+      # Note there are limits so you may want to do this only in specific situations
 
-      - uses: EndBug/add-and-commit@v4 # You can change this to use a specific version
+      #- name: Archive lhci report artifacts
+      #  uses: actions/upload-artifact@v2
+      #  with:
+      #    name: lhci-report--hub-movies
+      #    path: |
+      #      .lighthouseci
+      #      !.lighthouseci/db.sql
+
+      # Add the lighthouse results contained in `db.sql` to the PR
+      - uses: EndBug/add-and-commit@v4
         with:
           add: '.lighthouseci/db.sql'
           force: true

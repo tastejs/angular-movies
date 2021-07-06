@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, OnDestroy, OnInit, TrackByFunction} from '@angular/core';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit, TrackByFunction} from '@angular/core';
 import {DatabaseService} from '../shared/service/database/database.service';
 import {MatDialog} from '@angular/material/dialog';
 import {MatSnackBar} from '@angular/material/snack-bar';
@@ -28,7 +28,8 @@ export class CategoriesComponent implements OnInit, OnDestroy {
     private databaseService: DatabaseService,
     public dialog: MatDialog,
     private snackBar: MatSnackBar,
-    private translateService: TranslateService
+    private translateService: TranslateService,
+    private cdr: ChangeDetectorRef
   ) {
   }
 
@@ -37,6 +38,7 @@ export class CategoriesComponent implements OnInit, OnDestroy {
     this.sub = this.databaseService.getMoviesCategoriesDefault('FavoriteMovie').subscribe(response => {
       this.movies = response;
       this.isLoadingResults = false;
+      this.cdr.markForCheck();
     });
 
     this.sub = this.databaseService.getAllCategoriesUser().subscribe(response => {

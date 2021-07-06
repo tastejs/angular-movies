@@ -1,8 +1,10 @@
 <div class="account">
     <div class="account--informations">
         <div class="account--informations-avatar">
+          notPhotoURL: {{notPhotoURL}}
             <ng-template [ngIf]="photoURL">
-                <img src="{{photoURL}}" alt="profile" width="50">
+                <img src="{{photoURL}}" alt="profile" width="50" height="50">
+              notPhotoURL
             </ng-template>
             <ng-template [ngIf]="!photoURL">
                 <div class="avatar">{{notPhotoURL}}</div>

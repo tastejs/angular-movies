@@ -3,14 +3,14 @@ import {CommonModule} from '@angular/common';
 
 import {CategoriesRoutingModule} from './categories-routing.module';
 import {CategoriesComponent} from './categories.component';
-import {CategoriesAddModalComponent} from './categories-add-modal/categories-add-modal.component';
-import {CategoriesDeleteModalComponent} from './categories-delete-modal/categories-delete-modal.component';
 import {ShareModalModule} from '../shared/component/share-modal/share-modal.module';
 import {TranslateModule} from '@ngx-translate/core';
 import {FormsModule} from '@angular/forms';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatButtonModule} from '@angular/material/button';
 import {MatFormFieldModule} from '@angular/material/form-field';
+import {CategoriesAddModalModule} from './categories-add-modal/categories-add-modal.module';
+import {CategoriesDeleteModalModule} from './categories-delete-modal/categories-delete-modal.module';
 
 @NgModule({
   imports: [
@@ -21,16 +21,15 @@ import {MatFormFieldModule} from '@angular/material/form-field';
     MatButtonModule,
     MatFormFieldModule,
     FormsModule,
+    CategoriesAddModalModule,
+    CategoriesDeleteModalModule,
     TranslateModule
   ],
   declarations: [
-    CategoriesComponent,
-    CategoriesAddModalComponent,
-    CategoriesDeleteModalComponent
+    CategoriesComponent
   ],
-  entryComponents: [
-    CategoriesAddModalComponent,
-    CategoriesDeleteModalComponent
+  exports: [
+    CategoriesComponent
   ]
 })
 export class CategoriesModule {
