@@ -35,6 +35,7 @@
       140
     ],
     "member-access": false,
+    "prefer-on-push-component-change-detection": true,
     "member-ordering": [
       true,
       {

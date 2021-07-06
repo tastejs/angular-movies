@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import {ChangeDetectionStrategy, Component, Inject} from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import {DomSanitizer, SafeResourceUrl} from '@angular/platform-browser';
 
@@ -19,7 +19,8 @@ import {DomSanitizer, SafeResourceUrl} from '@angular/platform-browser';
       </div>
     </div>
   `,
-  styleUrls: ['./movie-trailer.component.scss']
+  styleUrls: ['./movie-trailer.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MovieTrailerComponent {
 

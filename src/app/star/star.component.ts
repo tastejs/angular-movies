@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { forkJoin } from 'rxjs';
@@ -11,7 +11,8 @@ import { MoviePersonModel, TvCastModel,  MovieCastModel  } from '../movies/model
 @Component({
   selector: 'app-star',
   templateUrl: './star.component.html',
-  styleUrls: ['./star.component.scss']
+  styleUrls: ['./star.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class StarComponent implements OnInit {
   person: MoviePersonModel;

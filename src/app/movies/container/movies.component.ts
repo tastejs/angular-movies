@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import { MovieCategoryModel } from '../model/movie-category.model';
 import { MovieModel } from '../model/movie.model';
 import { Observable, Subscription } from 'rxjs';
@@ -11,7 +11,8 @@ import * as dayjs from 'dayjs';
 @Component({
   selector: 'app-movies',
   templateUrl: './movies.component.html',
-  styleUrls: ['./movies.component.scss']
+  styleUrls: ['./movies.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MoviesComponent implements OnInit {
   request: Observable<MovieCategoryModel>;

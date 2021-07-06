@@ -1,4 +1,4 @@
-import { Component, HostListener, OnInit, ChangeDetectorRef, OnDestroy, ViewChild } from '@angular/core';
+import {Component, HostListener, OnInit, ChangeDetectorRef, OnDestroy, ViewChild, ChangeDetectionStrategy} from '@angular/core';
 import { MediaMatcher } from '@angular/cdk/layout';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
@@ -9,7 +9,8 @@ import { TranslateService } from '@ngx-translate/core';
 @Component({
     selector: 'app-shell',
     templateUrl: './app-shell.component.html',
-    styleUrls: ['./app-shell.component.scss']
+    styleUrls: ['./app-shell.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppShellComponent implements OnInit, OnDestroy {
     mobileQuery: MediaQueryList;

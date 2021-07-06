@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import {ChangeDetectionStrategy, Component, Inject} from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslateService } from '@ngx-translate/core';
@@ -6,7 +6,8 @@ import { TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'app-share-modal',
   templateUrl: './share-modal.component.html',
-  styleUrls: ['./share-modal.component.scss']
+  styleUrls: ['./share-modal.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ShareModalComponent {
 
