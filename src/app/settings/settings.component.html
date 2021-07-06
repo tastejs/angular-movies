@@ -4,7 +4,7 @@
     <div class="setting">
         <mat-icon>language</mat-icon>
         <mat-select placeholder="{{'App.Language' | translate}}" [ngModel]="lang" (selectionChange)="languageChange($event)">
-          <mat-option *ngFor="let language of languages" [value]="language.value">
+          <mat-option *ngFor="let language of languages; trackBy: trackByLangulage" [value]="language.value">
             {{ language.viewValue }}
           </mat-option>
         </mat-select>

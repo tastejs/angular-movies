@@ -1,5 +1,5 @@
 import { Location } from '@angular/common';
-import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, OnInit, TrackByFunction} from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
@@ -12,7 +12,7 @@ import { MovieDatabaseModel } from '../../shared/model/movie-database.model';
 import { DatabaseService } from '../../shared/service/database/database.service';
 import { StorageService } from '../../shared/service/storage/storage.service';
 import { TmdbService } from '../../shared/service/tmdb/tmdb.service';
-import { MovieCastModel, MovieCrewModel, MovieDetailsModel,  MovieModel  } from '../model';
+import {MovieCastModel, MovieCrewModel, MovieDetailsModel, MovieGenreModel, MovieModel} from '../model';
 import {MovieTrailerComponent} from './movie-trailer/movie-trailer.component';
 
 @Component({
@@ -25,8 +25,8 @@ export class MovieComponent implements OnInit {
   id: number;
   url: string;
   movie: MovieDetailsModel;
-  moviesUrl: Array<SafeResourceUrl>;
-  videos: Array<any>;
+  moviesUrl: SafeResourceUrl[];
+  videos: any[];
   similarMovies: MovieModel[];
   cast: MovieCastModel[];
   crew: MovieCrewModel[];
@@ -34,10 +34,9 @@ export class MovieComponent implements OnInit {
   baseUrl = 'https://www.youtube.com/embed/';
   safeUrl: any;
   SWIPE_ACTION = { LEFT: 'swipeleft', RIGHT: 'swiperight' };
-  isLoadingResults: boolean;
+  isLoadingResults = false;
   sub: Subscription;
-  getCategories: Array<any>;
-  categories = [];
+  categories: string[] = [];
   lang: string;
 
   constructor(
@@ -81,8 +80,7 @@ export class MovieComponent implements OnInit {
 
   getAllCategories() {
     this.sub = this.databaseService.getAllCategoriesUser().subscribe(response => {
-      this.getCategories = response;
-      this.categories = this.getCategories.map(value => value.name);
+      this.categories = response.map(value => value.name);
     });
   }
 
@@ -143,5 +141,10 @@ export class MovieComponent implements OnInit {
       data: {url}
     });
   }
+
+  trackByGenre: TrackByFunction<MovieGenreModel> = (idx, genre) => genre.name;
+  trackByCategory: TrackByFunction<string> = (idx, category) => category;
+  trackByCast: TrackByFunction<MovieCastModel> = (idx, cast) => cast.cast_id;
+  trackByUrl: TrackByFunction<SafeResourceUrl> = (idx, url) => url;
 
 }

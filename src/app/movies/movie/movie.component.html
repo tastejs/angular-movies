@@ -43,7 +43,7 @@
       </div>
       <div class="movie--genre">
         <ul>
-          <li *ngFor="let genre of movie.genres">
+          <li *ngFor="let genre of movie.genres; trackBy: trackByGenre">
             <a [routerLink]="['/genre', { id: genre.id, name: genre.name }]">
               {{ genre.name }}</a>
           </li>
@@ -80,7 +80,7 @@
           <div *ngIf="categories.length > 0; else noData">
             <button
               mat-menu-item
-              *ngFor="let category of categories"
+              *ngFor="let category of categories; trackBy: trackByCategory"
               (click)="pushMovieCategory(movie, category)"
             >
               {{ category }}
@@ -100,7 +100,7 @@
   <mat-tab-group class="movie__tab">
     <mat-tab label="{{ 'Movie.Cast' | translate }}">
       <section class="movie--cast" *ngIf="cast.length > 0; else noCast">
-        <div class="cast" *ngFor="let person of cast">
+        <div class="cast" *ngFor="let person of cast; trackBy: trackByCast">
           <a [routerLink]="['/star', person.id]">
             <div
               class="icon-container avatar"
@@ -128,7 +128,7 @@
     </mat-tab>
     <mat-tab label="{{ 'Movie.Trailer' | translate }}">
       <section class="movie--trailers" *ngIf="videos.length > 0; else noTrailer">
-        <div class="btn-play" *ngFor="let url of moviesUrl">
+        <div class="btn-play" *ngFor="let url of moviesUrl; trackBy: trackByUrl">
             <button mat-mini-fab color="primary" (click)="openDialogTrailer(url.url)">
                 <mat-icon aria-label="Example icon-button with a heart icon">play_circle_filled_white
                 </mat-icon>

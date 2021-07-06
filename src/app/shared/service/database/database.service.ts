@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/firestore';
+import {MovieCategoryModel, MovieGenreModel, MovieModel} from '../../../movies/model';
+import {Observable} from 'rxjs';
+import {MovieDatabaseModel} from '../../model/movie-database.model';
 
 @Injectable({
   providedIn: 'root'
@@ -26,8 +29,9 @@ export class DatabaseService {
     .then(success => callback())
     .catch(err => callback(err));
   }
-  getAllCategoriesUser() {
-    return this.dbf.collection('Categories', ref => ref
+
+  getAllCategoriesUser(): Observable<MovieGenreModel[]> {
+    return this.dbf.collection<MovieGenreModel>('Categories', ref => ref
       .where('userId', '==', this.uid)
     ).valueChanges();
   }
@@ -89,13 +93,18 @@ export class DatabaseService {
       .then(success => callback())
       .catch(err => callback(err));
   }
-  getMoviesCategoriesDefault(category: string) {
-    return this.dbf.collection(`${category}`, ref => ref
+
+  getMoviesCategoriesDefault<T = MovieModel>(category: string): Observable<T[]> {
+    return this.dbf.collection<T>(`${category}`, ref => ref
       .where('userId', '==', this.uid)
       .orderBy('date', 'desc')
     ).valueChanges();
   }
-  updateMovieCategoriesDefault(movieId: number, watched: boolean, callback: any) {
+
+  getMoviesCategoriesMovieLater(): Observable<(MovieDatabaseModel)[]> {
+    return this.getMoviesCategoriesDefault<MovieDatabaseModel>('MovieLater');
+  }
+  updateMovieCategoriesDefault(movieId: number, watched: boolean, callback: any): void {
     this.dbf.doc(`MovieLater/${this.uid}_${movieId}`)
     .update({
       watched

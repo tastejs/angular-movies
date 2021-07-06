@@ -11,7 +11,7 @@
           <mat-icon>chevron_left</mat-icon>
         </a>
       </li>
-      <li *ngFor="let page of pager.pages" [ngClass]="{disabled:pager.currentPage === page}">
+      <li *ngFor="let page of pager.pages; trackBy: trackByPage" [ngClass]="{disabled:pager.currentPage === page}">
         <a (click)="setPage(page)">{{page}}</a>
       </li>
       <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">

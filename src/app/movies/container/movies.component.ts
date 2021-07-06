@@ -7,6 +7,7 @@ import { TmdbService } from 'app/shared/service/tmdb/tmdb.service';
 import { ActivatedRoute, Params, NavigationEnd, Router } from '@angular/router';
 import { StorageService } from 'app/shared/service/storage/storage.service';
 import * as dayjs from 'dayjs';
+import {Pager} from '../../shared/model/pager.model';
 
 @Component({
   selector: 'app-movies',
@@ -20,7 +21,7 @@ export class MoviesComponent implements OnInit {
   movies: MovieModel[];
   currentPage: number;
   parameter: string | number;
-  pager: { currentPage: number; totalPages: number; startPage: number; endPage: number; pages: number[]; };
+  pager: Pager;
   totalPages: number;
   title: string | number;
   loading: boolean;

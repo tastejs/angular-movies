@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, OnDestroy, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, OnDestroy, OnInit, TrackByFunction} from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslateService } from '@ngx-translate/core';
@@ -6,6 +6,8 @@ import { Subscription } from 'rxjs';
 import { ShareModalComponent } from '../shared/component/share-modal/share-modal.component';
 import { MovieDatabaseModel } from '../shared/model/movie-database.model';
 import { DatabaseService } from '../shared/service/database/database.service';
+import {MovieCastModel, MovieGenreModel, MovieModel} from '../movies/model';
+import {SafeResourceUrl} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-playlist',
@@ -14,9 +16,9 @@ import { DatabaseService } from '../shared/service/database/database.service';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PlaylistComponent implements OnInit, OnDestroy {
-  isLoadingResults: boolean;
-  moviesToWatch: Array<any> = [];
-  moviesWatched: Array<any> = [];
+  isLoadingResults = false;
+  moviesToWatch: MovieDatabaseModel[] = [];
+  moviesWatched: MovieDatabaseModel[] = [];
   sub: Subscription;
 
   constructor(
@@ -28,11 +30,9 @@ export class PlaylistComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.isLoadingResults = true;
-    this.sub = this.databaseService.getMoviesCategoriesDefault('MovieLater').subscribe(response => {
-      // tslint:disable-next-line: no-string-literal
-      this.moviesToWatch = response.filter(val => val['watched'] === false);
-      // tslint:disable-next-line: no-string-literal
-      this.moviesWatched = response.filter(val => val['watched'] === true);
+    this.sub = this.databaseService.getMoviesCategoriesMovieLater().subscribe((response) => {
+      this.moviesToWatch = response.filter(val => val.watched === false);
+      this.moviesWatched = response.filter(val => val.watched === true);
       this.isLoadingResults = false;
     });
   }
@@ -64,4 +64,8 @@ export class PlaylistComponent implements OnInit, OnDestroy {
         this.translateService.get('Error.List-updated').subscribe(results => this.snackBar.open(results, '', { duration: 2000 }));      }
     });
   }
+
+
+  trackByMovie: TrackByFunction<MovieDatabaseModel> = (idx, movie) => movie.id;
+
 }

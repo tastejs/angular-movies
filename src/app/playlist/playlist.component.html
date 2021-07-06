@@ -6,7 +6,7 @@
   <mat-tab-group class="playlist__tab">
     <mat-tab label="{{ 'Watch later.To watch' | translate }}">
       <div *ngIf="moviesToWatch.length > 0; else noData">
-        <mat-nav-list *ngFor="let movie of moviesToWatch">
+        <mat-nav-list *ngFor="let movie of moviesToWatch; trackBy: trackByMovie">
           <a mat-list-item [routerLink]="['/movie', movie.movieId]">
             <div
               matListAvatar
@@ -67,7 +67,7 @@
     </mat-tab>
     <mat-tab label="{{ 'Watch later.Watched' | translate }}">
       <div *ngIf="moviesWatched.length > 0; else noData">
-        <mat-nav-list *ngFor="let movie of moviesWatched">
+        <mat-nav-list *ngFor="let movie of moviesWatched; trackBy: trackByMovie">
           <a mat-list-item [routerLink]="['/movie', movie.movieId]">
             <div
               matListAvatar

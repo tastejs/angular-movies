@@ -1,8 +1,14 @@
-import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
-import { StorageService } from '../shared/service/storage/storage.service';
-import { TranslateService } from '@ngx-translate/core';
-import { MatSelectChange } from '@angular/material/select';
-import { MatSlideToggleChange } from '@angular/material/slide-toggle';
+import {ChangeDetectionStrategy, Component, OnInit, TrackByFunction} from '@angular/core';
+import {StorageService} from '../shared/service/storage/storage.service';
+import {TranslateService} from '@ngx-translate/core';
+import {MatSelectChange} from '@angular/material/select';
+import {MatSlideToggleChange} from '@angular/material/slide-toggle';
+
+
+interface Language {
+  value: string;
+  viewValue: string;
+}
 
 @Component({
   selector: 'app-settings',
@@ -12,8 +18,8 @@ import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 })
 export class SettingsComponent implements OnInit {
   languages = [
-    { value: 'en-US', viewValue: 'English' },
-    { value: 'fr-FR', viewValue: 'French' }
+    {value: 'en-US', viewValue: 'English'},
+    {value: 'fr-FR', viewValue: 'French'}
   ];
   lang: string;
   adult: string = this.storageService.read('adult');
@@ -21,7 +27,8 @@ export class SettingsComponent implements OnInit {
   constructor(
     private storageService: StorageService,
     private translateService: TranslateService
-  ) { }
+  ) {
+  }
 
   ngOnInit() {
     this.lang = this.storageService.read('language');
@@ -42,5 +49,7 @@ export class SettingsComponent implements OnInit {
       this.storageService.save('adult', false);
     }
   }
+
+  trackByLangulage: TrackByFunction<Language> = (ind, lang) => lang.value;
 
 }
