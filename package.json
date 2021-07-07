@@ -18,7 +18,16 @@
     "lhci-server:start": "npm run lhci --  server --https --storage.storageMethod=sql --storage.sqlDialect=sqlite --storage.sqlDatabasePath=./.lighthouseci/db.sql || true",
     "lhci-server:stop": "node tooling/stop-lhci-server.js",
     "lhci-cli:autorun": "npm run lhci -- autorun --config=lighthouserc.js && npm run lhci-server:stop",
-    "lhci:collect": "npm run concurrently \"npm:lhci-server:start\" \"npm:lhci-cli:autorun\""
+    "lhci:collect": "npm run concurrently \"npm:lhci-server:start\" \"npm:lhci-cli:autorun\"",
+    "prepare": "husky install",
+    "husky": "husky",
+    "format:all": "prettier --write .",
+    "commit": "git-cz"
+  },
+  "config": {
+    "commitizen": {
+      "path": "@commitlint/cz-commitlint"
+    }
   },
   "private": true,
   "dependencies": {
@@ -37,7 +46,6 @@
     "@ngx-translate/core": "11.0.1",
     "@ngx-translate/http-loader": "^4.0.0",
     "core-js": "^2.6.9",
-    "dayjs": "^1.8.14",
     "firebase": "^8.6.8",
     "ng-lazyload-image": "^5.1.2",
     "rxjs": "^6.6.7",
@@ -50,15 +58,20 @@
     "@angular/cli": "12.1.0",
     "@angular/compiler-cli": "12.1.1",
     "@angular/language-service": "12.1.1",
+    "@commitlint/cli": "^12.1.4",
+    "@commitlint/config-conventional": "^12.1.4",
+    "@commitlint/cz-commitlint": "^12.1.4",
     "@lhci/cli": "^0.8.0",
     "@lhci/server": "^0.8.0",
     "@types/jasmine": "~3.6.0",
     "@types/node": "^12.11.1",
     "cash-true": "0.0.2",
     "codelyzer": "^6.0.0",
+    "commitizen": "^4.2.4",
     "concurrently": "^6.2.0",
     "find-process": "^1.4.4",
     "http-server": "^0.11.1",
+    "husky": "^7.0.1",
     "jasmine-core": "~3.6.0",
     "jasmine-spec-reporter": "~5.0.0",
     "karma": "~5.0.0",
@@ -67,6 +80,8 @@
     "karma-coverage-istanbul-reporter": "~3.0.2",
     "karma-jasmine": "~4.0.0",
     "karma-jasmine-html-reporter": "^1.5.0",
+    "lint-staged": "^11.0.0",
+    "prettier": "^2.3.2",
     "protractor": "~7.0.0",
     "sqlite3": "^5.0.2",
     "terminate": "^2.2.1",
