@@ -2,7 +2,7 @@ module.exports = {
   ci: {
     collect: {
       // number of reports done to the configured url
-      numberOfRuns: 10,
+      numberOfRuns: 2,
       // needed as auto discovery is not able to find it
       staticDistDir: "dist/hub-movies",
     },
