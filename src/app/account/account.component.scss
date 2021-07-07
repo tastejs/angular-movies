@@ -1,5 +1,10 @@
 @import '../../assets/scss/palette';
 
+:root {
+  --avatarColor: #cccccc;
+}
+
+
 .account {
     display: flex;
     flex-direction: row;
@@ -54,7 +59,7 @@
 .avatar {
     width: 50px;
     height: 50px;
-    background: $white;
+    background-color: var(--avatarColor);
     border-radius: 50%;
     line-height: 3;
     text-transform: capitalize;

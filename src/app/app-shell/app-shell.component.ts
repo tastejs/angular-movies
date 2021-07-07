@@ -10,12 +10,14 @@ import {TranslateService} from '@ngx-translate/core';
     selector: 'app-shell',
     templateUrl: './app-shell.component.html',
     styleUrls: ['./app-shell.component.scss'],
+    // **🚀 Perf Tip:**
+    // Use ChangeDetectionStrategy.OnPush in all components to reduce change detection
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppShellComponent implements OnInit, OnDestroy {
     mobileQuery: MediaQueryList;
     lang: string;
-// tslint:disable-next-line: variable-name
+   // tslint:disable-next-line: variable-name
     private _mobileQueryListener: () => void;
     @ViewChild('snav', { static: true }) snav: any;
 

@@ -1,24 +1,19 @@
 <div class="account">
-    <div class="account--informations">
-        <div class="account--informations-avatar">
-          notPhotoURL: {{notPhotoURL}}
-            <ng-template [ngIf]="photoURL">
-                <img src="{{photoURL}}" alt="profile" width="50" height="50">
-              notPhotoURL
-            </ng-template>
-            <ng-template [ngIf]="!photoURL">
-                <div class="avatar">{{notPhotoURL}}</div>
-            </ng-template>
-        </div>
-        <div class="account--informations-details">
-            <p> {{displayName}}</p>
-            <small>{{email}}</small>
-        </div>
+  <div class="account--informations" *ngIf="userWithSideEffect$ | async as u">
+    <div class="avatar">
+      <img *ngIf="u.photoURL" src="{{u.photoURL}}" alt="profile" loading="lazy" width="50" height="50">
     </div>
-    <div class="account--actions">
-        <button mat-raised-button (click)="deleteAccountDialog()">{{'Account.Delete account' | translate}}</button>
+    <div class="account--informations-details">
+      <p> {{u.displayName}}</p>
+      <small>{{u.email}}</small>
     </div>
-</div>
-<div class="account__stat">
+  </div>
 
+  <div class="account--actions">
+    <button mat-raised-button (click)="deleteAccountDialog()">{{'Account.Delete account' | translate}}</button>
+  </div>
+</div>
+
+<div class="account__stat">
+  <p>Account stats coming soon.</p>
 </div>
