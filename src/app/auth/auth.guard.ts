@@ -10,7 +10,6 @@ import {
   RouterStateSnapshot
 } from '@angular/router';
 import {AuthService} from '../auth/auth.service';
-import {AngularFireAuth} from '@angular/fire/auth';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 
@@ -18,7 +17,7 @@ import {map} from 'rxjs/operators';
   providedIn: 'root'
 })
 export class AuthGuard implements CanActivate, CanActivateChild, CanLoad {
-  constructor(private authService: AuthService, private router: Router, private af: AngularFireAuth) {
+  constructor(private authService: AuthService, private router: Router) {
   }
 
   canActivate(
@@ -39,7 +38,7 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanLoad {
   }
 
   checkLogin(url: string): Observable<boolean> {
-    return this.af.authState.pipe(
+    return this.authService.readUser().pipe(
       map((auth) => {
         if (auth === null) {
           // Store the attempted URL for redirecting

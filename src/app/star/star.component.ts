@@ -1,18 +1,29 @@
-import {ChangeDetectionStrategy, Component, OnInit, TrackByFunction} from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  OnInit,
+  TrackByFunction,
+} from '@angular/core';
 import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { forkJoin } from 'rxjs';
 /* SERVICES */
-import {TmdbService} from '../shared/service/tmdb/tmdb.service';
-import {StorageService} from '../shared/service/storage/storage.service';
+import { TmdbService } from '../shared/service/tmdb/tmdb.service';
+import { StorageService } from '../shared/service/storage/storage.service';
 /* MODEL */
-import {MoviePersonModel, TvCastModel, MovieCastModel, MovieModel, TvCreditsModel} from '../movies/model';
+import {
+  MoviePersonModel,
+  TvCastModel,
+  MovieCastModel,
+  MovieModel,
+  TvCreditsModel,
+} from '../movies/model';
 
 @Component({
   selector: 'app-star',
   templateUrl: './star.component.html',
   styleUrls: ['./star.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class StarComponent implements OnInit {
   person: MoviePersonModel;
@@ -26,7 +37,7 @@ export class StarComponent implements OnInit {
     private route: ActivatedRoute,
     private tmdbService: TmdbService,
     private storageService: StorageService
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.isLoadingResults = true;
@@ -36,13 +47,14 @@ export class StarComponent implements OnInit {
     const getPersonMovies = this.tmdbService.getPersonMovies(+id, this.lang);
     const getPersonTv = this.tmdbService.getPersonTv(+id, this.lang);
 
-    forkJoin(getPerson, getPersonMovies, getPersonTv).subscribe(([person, movies, tvCredits]) => {
-      this.isLoadingResults = false;
-      this.person = person;
-      this.movies = movies.cast.slice(0, 10);
-      this.tvCredits = tvCredits.cast.slice(0, 10);
-    });
-
+    forkJoin([getPerson, getPersonMovies, getPersonTv]).subscribe(
+      ([person, movies, tvCredits]) => {
+        this.isLoadingResults = false;
+        this.person = person;
+        this.movies = movies.cast.slice(0, 10);
+        this.tvCredits = tvCredits.cast.slice(0, 10);
+      }
+    );
   }
 
   back() {
@@ -50,6 +62,6 @@ export class StarComponent implements OnInit {
   }
 
   trackByMovies: TrackByFunction<MovieModel> = (idx, movie) => movie.id;
-  trackByTvCredits: TrackByFunction<TvCreditsModel> = (idx, tvCredits) => tvCredits.id;
-
+  trackByTvCredits: TrackByFunction<TvCreditsModel> = (idx, tvCredits) =>
+    tvCredits.id
 }

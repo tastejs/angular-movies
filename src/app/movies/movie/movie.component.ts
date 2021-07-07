@@ -1,5 +1,10 @@
 import { Location } from '@angular/common';
-import {ChangeDetectionStrategy, Component, OnInit, TrackByFunction} from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  OnInit,
+  TrackByFunction,
+} from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
@@ -12,14 +17,20 @@ import { MovieDatabaseModel } from '../../shared/model/movie-database.model';
 import { DatabaseService } from '../../shared/service/database/database.service';
 import { StorageService } from '../../shared/service/storage/storage.service';
 import { TmdbService } from '../../shared/service/tmdb/tmdb.service';
-import {MovieCastModel, MovieCrewModel, MovieDetailsModel, MovieGenreModel, MovieModel} from '../model';
-import {MovieTrailerComponent} from './movie-trailer/movie-trailer.component';
+import {
+  MovieCastModel,
+  MovieCrewModel,
+  MovieDetailsModel,
+  MovieGenreModel,
+  MovieModel,
+} from '../model';
+import { MovieTrailerComponent } from './movie-trailer/movie-trailer.component';
 
 @Component({
   selector: 'app-movie',
   templateUrl: './movie.component.html',
   styleUrls: ['./movie.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MovieComponent implements OnInit {
   id: number;
@@ -50,7 +61,7 @@ export class MovieComponent implements OnInit {
     private tmdbService: TmdbService,
     private storageService: StorageService,
     private translateService: TranslateService
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.isLoadingResults = true;
@@ -61,16 +72,21 @@ export class MovieComponent implements OnInit {
       const dataMovie = this.tmdbService.getDetailsMovie(this.id, this.lang);
       const castMovie = this.tmdbService.getCastMovie(this.id);
       const videoMovie = this.tmdbService.getVideoMovie(this.id, this.lang);
-      const similarVideo = this.tmdbService.getSimilarMovies(this.id, this.lang);
+      const similarVideo = this.tmdbService.getSimilarMovies(
+        this.id,
+        this.lang
+      );
 
-      forkJoin(dataMovie, castMovie, videoMovie, similarVideo).subscribe(([movie, credits, video, similar]) => {
-        this.isLoadingResults = false;
-        this.movie = movie;
-        this.cast = credits.cast;
-        this.videos = video.results;
-        this.getUrlFromVideos(this.videos);
-        this.similarMovies = similar.results;
-      });
+      forkJoin([dataMovie, castMovie, videoMovie, similarVideo]).subscribe(
+        ([movie, credits, video, similar]) => {
+          this.isLoadingResults = false;
+          this.movie = movie;
+          this.cast = credits.cast;
+          this.videos = video.results;
+          this.getUrlFromVideos(this.videos);
+          this.similarMovies = similar.results;
+        }
+      );
     });
   }
 
@@ -79,13 +95,18 @@ export class MovieComponent implements OnInit {
   }
 
   getAllCategories() {
-    this.sub = this.databaseService.getAllCategoriesUser().subscribe(response => {
-      this.categories = response.map(value => value.name);
-    });
+    this.sub = this.databaseService
+      .getAllCategoriesUser()
+      .subscribe((response) => {
+        this.categories = response.map((value) => value.name);
+      });
   }
 
   swipe(action = this.SWIPE_ACTION.RIGHT) {
-    if (action === this.SWIPE_ACTION.RIGHT || action === this.SWIPE_ACTION.LEFT) {
+    if (
+      action === this.SWIPE_ACTION.RIGHT ||
+      action === this.SWIPE_ACTION.LEFT
+    ) {
       this.location.back();
     }
   }
@@ -95,7 +116,11 @@ export class MovieComponent implements OnInit {
       if (error) {
         this.snackBar.open(error, 'Hide', { duration: 5000 });
       } else {
-        this.translateService.get('Error.Movie-added').subscribe(results => this.snackBar.open(results, '', { duration: 2000 }));
+        this.translateService
+          .get('Error.Movie-added')
+          .subscribe((results) =>
+            this.snackBar.open(results, '', { duration: 2000 })
+          );
       }
     });
   }
@@ -109,13 +134,15 @@ export class MovieComponent implements OnInit {
       const url = this.createUrlFromVideo(video.key);
       this.moviesUrl.push({
         name: video.name,
-        url
+        url,
       });
     }
   }
 
   createUrlFromVideo(id: string) {
-    return this.safeUrl = this.sanitizer.bypassSecurityTrustResourceUrl(`${this.baseUrl}/${id}?rel=0;&autoplay=1&mute=1`);
+    return (this.safeUrl = this.sanitizer.bypassSecurityTrustResourceUrl(
+      `${this.baseUrl}/${id}?rel=0;&autoplay=1&mute=1`
+    ));
   }
 
   pushMovieCategory(movie: any, category: string) {
@@ -123,14 +150,18 @@ export class MovieComponent implements OnInit {
       if (error) {
         this.snackBar.open(error, 'Hide', { duration: 5000 });
       } else {
-        this.translateService.get('Error.Movie-added').subscribe(results => this.snackBar.open(results, '', { duration: 2000 }));
+        this.translateService
+          .get('Error.Movie-added')
+          .subscribe((results) =>
+            this.snackBar.open(results, '', { duration: 2000 })
+          );
       }
     });
   }
 
   shareDialog(movie: MovieDatabaseModel): void {
     this.dialog.open(ShareModalComponent, {
-      data: { id: movie.id, original_title: movie.original_title }
+      data: { id: movie.id, original_title: movie.original_title },
     });
   }
 
@@ -138,7 +169,7 @@ export class MovieComponent implements OnInit {
     this.dialog.open(MovieTrailerComponent, {
       height: '400px',
       width: '600px',
-      data: {url}
+      data: { url },
     });
   }
 
@@ -146,5 +177,4 @@ export class MovieComponent implements OnInit {
   trackByCategory: TrackByFunction<string> = (idx, category) => category;
   trackByCast: TrackByFunction<MovieCastModel> = (idx, cast) => cast.cast_id;
   trackByUrl: TrackByFunction<SafeResourceUrl> = (idx, url) => url;
-
 }
