@@ -5,6 +5,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatButtonModule } from '@angular/material/button';
 import { MovieListComponent } from './movie-list.component';
 import { LazyLoadImageModule } from 'ng-lazyload-image';
+import {StarRatingModule} from '../../shared/component/star-rating/star-rating.module';
 
 @NgModule({
   declarations: [MovieListComponent],
@@ -14,6 +15,7 @@ import { LazyLoadImageModule } from 'ng-lazyload-image';
     MatTooltipModule,
     MatButtonModule,
     LazyLoadImageModule,
+    StarRatingModule
   ],
   exports: [MovieListComponent],
 })

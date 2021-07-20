@@ -18,6 +18,7 @@ import { AppComponent } from './app.component';
 import { AppShellModule } from './app-shell/app-shell.module';
 import { MoviesRoutedModule } from './movies/container/movies.routed.module';
 import { httpInterceptorProviders } from './shared/service/tmdb/http-interceptor.providers';
+import {StarRatingModule} from './shared/component/star-rating/star-rating.module';
 
 @Injectable()
 export class MyHammerConfig extends HammerGestureConfig {
@@ -40,12 +41,14 @@ export class MyHammerConfig extends HammerGestureConfig {
     MoviesRoutedModule,
     AppShellModule,
     AppRoutingModule,
+    StarRatingModule
   ],
   providers: [
     httpInterceptorProviders,
-    { provide: HAMMER_GESTURE_CONFIG, useClass: MyHammerConfig },
+    {provide: HAMMER_GESTURE_CONFIG, useClass: MyHammerConfig},
     StorageService,
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule {
+}

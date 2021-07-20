@@ -20,18 +20,7 @@
       />
     </a>
     <h3>{{ movie.title }}</h3>
-    <button
-      *ngIf="authService?.user | async"
-      aria-hidden="true"
-      mat-icon-button
-      class="btn-add"
-      color="primary"
-      (click)="addMovie(movie)"
-      matTooltip="Watch later"
-    >
-      <mat-icon>visibility</mat-icon>
-    </button>
-    <p class="date">{{ movie.release_date | date }}</p>
+    <star-rating [rating]="movie.vote_average"></star-rating>
   </div>
 </div>
 <ng-template #noData>

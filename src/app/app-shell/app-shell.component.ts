@@ -21,8 +21,8 @@ import { MovieGenreModel } from '../movies/model';
   templateUrl: './app-shell.component.html',
   styleUrls: ['./app-shell.component.scss'],
   // **🚀 Perf Tip:**
-  // Use ChangeDetectionStrategy.OnPush in all components to reduce change detection
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  // Use ChangeDetectionStrategy.OnPush in all components to reduce change detection & template re-evaluation
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppShellComponent implements OnInit, OnDestroy {
   mobileQuery: MediaQueryList;
@@ -58,10 +58,6 @@ export class AppShellComponent implements OnInit, OnDestroy {
     const height = window.scrollY;
     const el = document.getElementById('btn-returnToTop');
     height >= 500 ? (el.className = 'show') : (el.className = 'hide');
-  }
-
-  scrollTop() {
-    window.scrollTo({ left: 0, top: 0, behavior: 'smooth' });
   }
 
   searchMovie(term: string) {
