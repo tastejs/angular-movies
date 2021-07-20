@@ -1,17 +1,32 @@
-<h1 mat-dialog-title>{{'Shared-dialog.Title' | translate}}</h1>
+<h1 mat-dialog-title>Shared-dialog</h1>
 <div mat-dialog-content>
   <div class="share-buttons">
-    <a href="https://www.facebook.com/sharer/sharer.php?u=https://hubmovies.fr/movie/{{data.id}}">Facebook</a>
-    <a href="https://twitter.com/intent/tweet?text={{data.original_title}}%20on%20&url=https://hubmovies.fr/movie/{{data.id}}&hashtags=hubmovies, {{data.original_title}}">Twitter</a>
+    <a
+      href="https://www.facebook.com/sharer/sharer.php?u=https://hubmovies.fr/movie/{{
+        data.id
+      }}"
+      >Facebook</a
+    >
+    <a
+      href="https://twitter.com/intent/tweet?text={{
+        data.original_title
+      }}%20on%20&url=https://hubmovies.fr/movie/{{
+        data.id
+      }}&hashtags=hubmovies, {{ data.original_title }}"
+      >Twitter</a
+    >
   </div>
   <div class="link">
     <mat-form-field>
-      <input id="inputId" matInput value="https://hubmovies.fr/movie/{{data.id}}">
+      <input
+        id="inputId"
+        matInput
+        value="https://hubmovies.fr/movie/{{ data.id }}"
+      />
     </mat-form-field>
   </div>
-
 </div>
 <div mat-dialog-actions>
-    <button mat-button (click)="copyLink(data.id)" cdkFocusInitial>{{'Shared-dialog.Btn-copy' | translate}}</button>
-    <button mat-button (click)="onNoClick()">OK</button>
-  </div>
+  <button mat-button (click)="copyLink(data.id)" cdkFocusInitial>Shared</button>
+  <button mat-button (click)="onNoClick()">OK</button>
+</div>

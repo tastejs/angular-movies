@@ -44,10 +44,10 @@ jobs:
         run: npm run ng lint
 
       - name: Test Application
-        run: npm run ng test -- --no-watch --no-progress --browsers=ChromeHeadlessCI
+        run: npm run test:ci
 
       - name: Build Application
-        run: npm run ng build -- --configuration production --stats-json
+        run: npm run build:prod:artefacts
 
       # Archive build artefacts for further processing
       # Note there are limits so you may want to do this only in specific situations

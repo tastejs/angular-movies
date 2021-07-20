@@ -1,16 +1,23 @@
 <div class="account">
-  <div class="account--informations" *ngIf="userWithSideEffect$ | async as u">
+  <div class="account--informations" *ngIf="accountId$ | async as u">
     <div class="avatar">
-      <img *ngIf="u.photoURL" src="{{u.photoURL}}" alt="profile" loading="lazy" width="50" height="50">
+      <img
+        *ngIf="u.photoURL"
+        src="{{ u }}"
+        alt="profile"
+        loading="lazy"
+        width="50"
+        height="50"
+      />
     </div>
     <div class="account--informations-details">
-      <p> {{u.displayName}}</p>
-      <small>{{u.email}}</small>
+      <p>{{ u }}</p>
+      <small>{{ u }}</small>
     </div>
   </div>
 
   <div class="account--actions">
-    <button mat-raised-button (click)="deleteAccountDialog()">{{'Account.Delete account' | translate}}</button>
+    <button mat-raised-button>Delete account</button>
   </div>
 </div>
 

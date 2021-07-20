@@ -1,23 +1,42 @@
-<h2 *ngIf="!dataParam">{{title}}</h2>
-<h2 *ngIf="dataParam">{{dataParam}}</h2>
+<h2 *ngIf="!dataParam">{{ title }}</h2>
+<h2 *ngIf="dataParam">{{ dataParam }}</h2>
 <div class="items" *ngIf="movies && movies.length > 0; else noData">
-  <div class="item" *ngFor="let movie of movies trackBy: movieById">
+  <div class="item" *ngFor="let movie of movies; trackBy: movieById">
     <a [routerLink]="['/movie', movie.id]">
-      <img *ngIf="movie.poster_path" [defaultImage]="'assets/images/no_poster_available.jpg'" [lazyLoad]="'https://image.tmdb.org/t/p/w185/' + movie.poster_path"
-        alt="poster movie" width="200px" height="343px">
-      <img *ngIf="!movie.poster_path" width="200px" height="343px" src="/assets/images/no_poster_available.jpg" alt="No poster available">
+      <img
+        *ngIf="movie.poster_path"
+        [defaultImage]="'assets/images/no_poster_available.jpg'"
+        [lazyLoad]="'https://image.tmdb.org/t/p/w185/' + movie.poster_path"
+        alt="poster movie"
+        width="200px"
+        height="343px"
+      />
+      <img
+        *ngIf="!movie.poster_path"
+        width="200px"
+        height="343px"
+        src="/assets/images/no_poster_available.jpg"
+        alt="No poster available"
+      />
     </a>
-    <h3>{{movie.title}}</h3>
-    <button *ngIf="authService.user | async" aria-hidden="true" mat-icon-button class="btn-add" color="primary" (click)="addMovie(movie)"
-      matTooltip="{{'Movie-list.Watch later' | translate}}">
+    <h3>{{ movie.title }}</h3>
+    <button
+      *ngIf="authService?.user | async"
+      aria-hidden="true"
+      mat-icon-button
+      class="btn-add"
+      color="primary"
+      (click)="addMovie(movie)"
+      matTooltip="Watch later"
+    >
       <mat-icon>visibility</mat-icon>
     </button>
-    <p class="date">{{movie.release_date | date}}</p>
+    <p class="date">{{ movie.release_date | date }}</p>
   </div>
 </div>
 <ng-template #noData>
   <h3>
-    {{'Movie-list.No results' | translate}}
+    No results
     <mat-icon>sentiment_very_dissatisfied</mat-icon>
   </h3>
 </ng-template>

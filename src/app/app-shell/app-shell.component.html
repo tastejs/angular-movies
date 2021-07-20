@@ -7,77 +7,121 @@
   </mat-toolbar>
 </div>
 <mat-sidenav-container class="app-sidenav">
-  <mat-sidenav [opened]="mobileQuery.matches ? 'false': 'true'" #snav [mode]="mobileQuery.matches ? 'over' : 'side'" [fixedInViewport]="mobileQuery.matches">
-
-    <nav  class="navigation">
+  <mat-sidenav
+    [opened]="mobileQuery.matches ? 'false' : 'true'"
+    #snav
+    [mode]="mobileQuery.matches ? 'over' : 'side'"
+    [fixedInViewport]="mobileQuery.matches"
+  >
+    <nav class="navigation">
       <div class="navigation--search">
         <mat-form-field appearance="outline">
-          <mat-label>{{'App.Search movies' | translate}}...</mat-label>
-          <input matInput #search (keyup.enter)="searchMovie(search.value); search.value=''"
-                 (keyup.enter)="closeSidenav()"
-                 tabindex="-1">
+          <mat-label>{{ 'App.Search movies' }}...</mat-label>
+          <input
+            matInput
+            #search
+            (keyup.enter)="searchMovie(search.value); search.value = ''"
+            (keyup.enter)="closeSidenav()"
+            tabindex="-1"
+          />
           <mat-icon matSuffix>search</mat-icon>
         </mat-form-field>
       </div>
       <ul class="navigation--links">
         <li>
-          <a [routerLink]="['/movies', 'now-playing']" routerLinkActive="active"
-             (click)="closeSidenav(); resetPagination()">
+          <a
+            [routerLink]="['/movies', 'popular']"
+            routerLinkActive="active"
+            (click)="closeSidenav(); resetPagination()"
+          >
             <mat-icon>local_movies</mat-icon>
-            {{'App.Now-playing' | translate}}</a>
+            Popular
+          </a>
         </li>
         <li>
-          <a [routerLink]="['/movies', 'upcoming']" routerLinkActive="active" (click)="closeSidenav(); resetPagination()">
+          <a
+            [routerLink]="['/movies', 'upcoming']"
+            routerLinkActive="active"
+            (click)="closeSidenav(); resetPagination()"
+          >
             <mat-icon>date_range</mat-icon>
-            {{'App.Coming soon' | translate}}</a>
+            Upcoming
+          </a>
         </li>
+
         <li>
-          <a [routerLink]="['/movies', 'discover']" routerLinkActive="active" (click)="closeSidenav(); resetPagination()">
+          <a
+            [routerLink]="['/movies', 'top_rated']"
+            routerLinkActive="active"
+            (click)="closeSidenav(); resetPagination()"
+          >
             <mat-icon>whatshot</mat-icon>
-            {{'App.Trending' | translate}}</a>
+            Top Rated</a
+          >
         </li>
-        <li *ngIf="authService.user | async">
-          <a [routerLink]="['/playlist']" routerLinkActive="active" (click)="closeSidenav()">
-            <mat-icon>watch_later</mat-icon>
-            {{'App.Watch later' | translate}}</a>
+
+        <li *ngFor="let gerne of genres$ | async; trackBy: trackByGenre">
+          <a
+            [routerLink]="['/movies', 'gerne']"
+            routerLinkActive="active"
+            (click)="closeSidenav(); resetPagination()"
+          >
+            {{ gerne.name }}</a
+          >
         </li>
-        <li *ngIf="authService.user | async">
-          <a [routerLink]="['/categories']" routerLinkActive="active" (click)="closeSidenav()">
-            <mat-icon>folder</mat-icon>
-            {{'App.Categories' | translate}}</a>
-        </li>
-        <li *ngIf="authService.user | async">
-          <a routerLink="/account" routerLinkActive="active" (click)="closeSidenav()">
+
+        <li *ngIf="authState.accountId$ | async">
+          <a
+            routerLink="/account"
+            routerLinkActive="active"
+            (click)="closeSidenav()"
+          >
             <mat-icon>account_box</mat-icon>
-            {{'App.Account' | translate}}</a>
+            Account
+          </a>
         </li>
-        <li [hidden]="authService.user | async">
-          <a routerLink="/sign-in" routerLinkActive="active" (click)="closeSidenav()">
+        <li [hidden]="authState.accountId$ | async">
+          <a
+            routerLink="/sign-in"
+            routerLinkActive="active"
+            (click)="closeSidenav()"
+          >
             <mat-icon>account_circle</mat-icon>
-            {{'App.Sign in' | translate}}</a>
+            Sign in
+          </a>
         </li>
-        <li *ngIf="authService.user | async">
+
+        <li *ngIf="authState.accountId$ | async">
           <a (click)="closeSidenav()" (click)="onSignOut()">
             <mat-icon>cancel</mat-icon>
-            {{'App.Sign out' | translate}}</a>
+            Sign out
+          </a>
         </li>
         <li>
-          <a routerLink="/settings" routerLinkActive="active" (click)="closeSidenav()">
+          <a
+            routerLink="/settings"
+            routerLinkActive="active"
+            (click)="closeSidenav()"
+          >
             <mat-icon>settings</mat-icon>
-            {{'App.Settings' | translate}}</a>
+            Settings
+          </a>
         </li>
         <li>
-          <a routerLink="/about" routerLinkActive="active" (click)="closeSidenav()">
+          <a
+            routerLink="/about"
+            routerLinkActive="active"
+            (click)="closeSidenav()"
+          >
             <mat-icon>info</mat-icon>
-            {{'App.About' | translate}}</a>
+            About
+          </a>
         </li>
       </ul>
-
     </nav>
-
   </mat-sidenav>
   <div id="hub-movies">
-   <ng-content></ng-content>
+    <ng-content></ng-content>
   </div>
 </mat-sidenav-container>
 <div id="btn-returnToTop">

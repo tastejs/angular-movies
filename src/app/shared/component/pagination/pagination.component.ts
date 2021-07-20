@@ -1,11 +1,18 @@
-import {Component, Output, EventEmitter, Input, ChangeDetectionStrategy, TrackByFunction} from '@angular/core';
-import {Pager} from '../../model/pager.model';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+  TrackByFunction,
+} from '@angular/core';
+import { Pager } from '../../model/pager.model';
 
 @Component({
   selector: 'app-pagination',
   templateUrl: './pagination.component.html',
   styleUrls: ['./pagination.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PaginationComponent {
   @Input() pager: Pager = {} as Pager;
@@ -16,5 +23,4 @@ export class PaginationComponent {
   }
 
   trackByPage: TrackByFunction<number> = (idx, page) => page;
-
 }

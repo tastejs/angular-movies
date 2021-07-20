@@ -1,33 +1,34 @@
-import {Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
 import {
   ActivatedRouteSnapshot,
   CanActivate,
   CanActivateChild,
   CanLoad,
-  NavigationExtras,
   Route,
-  Router,
-  RouterStateSnapshot
+  RouterStateSnapshot,
 } from '@angular/router';
-import {AuthService} from '../auth/auth.service';
-import {Observable} from 'rxjs';
-import {map} from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { AuthStateService } from './auth.state';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthGuard implements CanActivate, CanActivateChild, CanLoad {
-  constructor(private authService: AuthService, private router: Router) {
-  }
+  constructor(private authService: AuthStateService) {}
 
   canActivate(
     route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot): Observable<boolean> | boolean {
+    state: RouterStateSnapshot
+  ): Observable<boolean> | boolean {
     const url: string = state.url;
     return this.checkLogin(url);
   }
 
-  canActivateChild(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | Observable<boolean> {
+  canActivateChild(
+    route: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot
+  ): boolean | Observable<boolean> {
     return this.canActivate(route, state);
   }
 
@@ -38,28 +39,6 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanLoad {
   }
 
   checkLogin(url: string): Observable<boolean> {
-    return this.authService.readUser().pipe(
-      map((auth) => {
-        if (auth === null) {
-          // Store the attempted URL for redirecting
-          this.authService.redirectUrl = url;
-          // Create a dummy session id
-          const sessionId = 123456789;
-
-          // Set our navigation extras object
-          // that contains our global query params and fragment
-          const navigationExtras: NavigationExtras = {
-            queryParams: {session_id: sessionId},
-            fragment: 'anchor'
-          };
-
-          // Navigate to the login page with extras
-          this.router.navigate(['/sign-in'], navigationExtras);
-          return false;
-        } else {
-          return true;
-        }
-      })
-    );
+    return this.authService.accountId$.pipe(map((auth) => !!auth));
   }
 }

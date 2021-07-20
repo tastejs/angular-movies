@@ -5,14 +5,16 @@ import {
   HostListener,
   OnDestroy,
   OnInit,
+  TrackByFunction,
   ViewChild,
 } from '@angular/core';
 import { MediaMatcher } from '@angular/cdk/layout';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { AuthService } from '../auth/auth.service';
-import { StorageService } from '../shared/service/storage/storage.service';
-import { TranslateService } from '@ngx-translate/core';
+import { AuthStateService } from '../auth/auth.state';
+import { TmdbAuthEffects } from '../auth/tmdbAuth.effects';
+import { StateService } from '../shared/service/state.service';
+import { MovieGenreModel } from '../movies/model';
 
 @Component({
   selector: 'app-shell',
@@ -24,37 +26,28 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class AppShellComponent implements OnInit, OnDestroy {
   mobileQuery: MediaQueryList;
+  genres$ = this.tmdbState.genres$;
   lang: string;
   // tslint:disable-next-line: variable-name
   private _mobileQueryListener: () => void;
   @ViewChild('snav', { static: true }) snav: any;
 
   constructor(
-    public authService: AuthService,
+    public tmdbState: StateService,
+    public authState: AuthStateService,
+    public authEffects: TmdbAuthEffects,
     changeDetectorRef: ChangeDetectorRef,
     media: MediaMatcher,
     private router: Router,
-    private snackbar: MatSnackBar,
-    private storageService: StorageService,
-    public translateService: TranslateService
+    private snackbar: MatSnackBar
   ) {
     this.mobileQuery = media.matchMedia('(max-width: 731px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     // tslint:disable-next-line: deprecation
     this.mobileQuery.addListener(this._mobileQueryListener);
-    this.translateService.setDefaultLang('en-US');
   }
 
-  ngOnInit() {
-    this.lang = this.storageService.read('language');
-
-    if (!this.lang) {
-      this.storageService.save('language', 'en-US');
-      this.lang = 'en-US';
-    }
-
-    this.translateService.use(this.lang);
-  }
+  ngOnInit() {}
 
   ngOnDestroy(): void {
     // tslint:disable-next-line: deprecation
@@ -78,12 +71,10 @@ export class AppShellComponent implements OnInit, OnDestroy {
   }
 
   onSignOut() {
-    this.authService.signOut();
-    this.translateService
-      .get('Error.Goodbye')
-      .subscribe((results) =>
-        this.snackbar.open(results, '', { duration: 2000 })
-      );
+    this.authEffects.signOut();
+
+    this.snackbar.open('Goodbye', '', { duration: 2000 });
+
     this.router.navigate(['/movies/now-playing']);
   }
 
@@ -96,4 +87,9 @@ export class AppShellComponent implements OnInit, OnDestroy {
   resetPagination() {
     sessionStorage.setItem('hubmovies-current-page', '1');
   }
+
+  trackByGenre: TrackByFunction<MovieGenreModel> = (
+    idx: number,
+    genre: MovieGenreModel
+  ) => genre.name
 }
