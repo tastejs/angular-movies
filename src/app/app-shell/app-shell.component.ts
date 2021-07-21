@@ -2,7 +2,6 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
-  HostListener,
   OnDestroy,
   OnInit,
   TrackByFunction,
@@ -22,7 +21,7 @@ import { MovieGenreModel } from '../movies/model';
   styleUrls: ['./app-shell.component.scss'],
   // **🚀 Perf Tip:**
   // Use ChangeDetectionStrategy.OnPush in all components to reduce change detection & template re-evaluation
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppShellComponent implements OnInit, OnDestroy {
   mobileQuery: MediaQueryList;
@@ -41,7 +40,7 @@ export class AppShellComponent implements OnInit, OnDestroy {
     private router: Router,
     private snackbar: MatSnackBar
   ) {
-    this.mobileQuery = media.matchMedia('(max-width: 731px)');
+    this.mobileQuery = media.matchMedia('(max-width: 1299px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     // tslint:disable-next-line: deprecation
     this.mobileQuery.addListener(this._mobileQueryListener);
@@ -54,11 +53,11 @@ export class AppShellComponent implements OnInit, OnDestroy {
     this.mobileQuery.removeListener(this._mobileQueryListener);
   }
 
-  @HostListener('window:scroll', ['$event']) scrollHandler(event) {
+  /*@HostListener('window:scroll', ['$event']) scrollHandler(event) {
     const height = window.scrollY;
     const el = document.getElementById('btn-returnToTop');
     height >= 500 ? (el.className = 'show') : (el.className = 'hide');
-  }
+  }*/
 
   searchMovie(term: string) {
     term === ''

@@ -1,5 +1,7 @@
-<h2 *ngIf="!dataParam">{{ title }}</h2>
-<h2 *ngIf="dataParam">{{ dataParam }}</h2>
+<div class="header">
+  <h1 class="title" *ngIf="!dataParam">{{ title }}</h1>
+  <h2 class="subtitle" *ngIf="dataParam">{{ dataParam }}</h2>
+</div>
 <div class="items" *ngIf="movies && movies.length > 0; else noData">
   <div class="item" *ngFor="let movie of movies; trackBy: movieById">
     <a [routerLink]="['/movie', movie.id]">

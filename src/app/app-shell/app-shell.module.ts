@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { MatButtonModule } from '@angular/material/button';
+import { HamburgerButtonModule } from '../shared/component/hamburger-button/hamburger-button/hamburger-button.component';
 import { AppShellComponent } from './app-shell.component';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSidenavModule } from '@angular/material/sidenav';
@@ -24,6 +26,8 @@ import { MatInputModule } from '@angular/material/input';
     MatFormFieldModule,
     FormsModule,
     RouterModule,
+    MatButtonModule,
+    HamburgerButtonModule,
   ],
   exports: [AppShellComponent],
 })
