@@ -16,7 +16,7 @@ import { Tmdb2Service } from '../../shared/service/tmdb/tmdb2.service';
 @Component({
   selector: 'app-movies',
   templateUrl: './movies.component.html',
-  styleUrls: ['./movies.component.scss'],
+  styles: [``],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MoviesComponent implements OnInit {

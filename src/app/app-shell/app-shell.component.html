@@ -8,8 +8,15 @@
     <nav class="navigation">
       <a class="navigation--header" *ngIf="!mobileQuery.matches">
         <picture>
-          <img class="logo-img" src="/assets/svgs/logo.svg" title="HubMovies" alt="HubMovies" width="150" height="150"
-               loading="lazy">
+          <img
+            class="logo-img"
+            src="/assets/svgs/logo.svg"
+            title="HubMovies"
+            alt="HubMovies"
+            width="150"
+            height="150"
+            loading="lazy"
+          />
         </picture>
       </a>
       <h2 class="navigation--headline">Discover</h2>
@@ -55,28 +62,51 @@
         (click)="closeSidenav(); resetPagination()"
       >
         <div class="navigation--menu-item">
-          <mat-icon class="navigation--menu-item-icon">radio_button_checked</mat-icon>
+          <mat-icon class="navigation--menu-item-icon"
+            >radio_button_checked</mat-icon
+          >
           {{ genre.name }}
         </div>
       </a>
       <picture class="tmdb-mark">
-        <source srcset="/assets/svgs/tmdbgreen.svg" media="(prefers-color-scheme: dark)" class="jsx-172304178">
-        <source srcset="/assets/svgs/tmdb.svg" media="(prefers-color-scheme: light)" class="jsx-172304178">
-        <img width="300" height="118" alt="The Movie Database" src="" class="jsx-172304178">
+        <source
+          srcset="/assets/svgs/tmdbgreen.svg"
+          media="(prefers-color-scheme: dark)"
+          class="jsx-172304178"
+        />
+        <source
+          srcset="/assets/svgs/tmdb.svg"
+          media="(prefers-color-scheme: light)"
+          class="jsx-172304178"
+        />
+        <img
+          width="300"
+          height="118"
+          alt="The Movie Database"
+          src=""
+          class="jsx-172304178"
+        />
       </picture>
     </nav>
   </mat-sidenav>
   <mat-sidenav-content>
     <div class="app-toolbar">
-      <app-hamburger-button class="app-toolbar--action" (click)="snav.toggle()"
-              *ngIf="mobileQuery.matches">
+      <app-hamburger-button
+        class="app-toolbar--action"
+        (click)="snav.toggle()"
+        *ngIf="mobileQuery.matches"
+      >
       </app-hamburger-button>
       <div class="app-toolbar--widget-container">
-        <mat-form-field appearance="filled"
-                        [floatLabel]="'never'"
-                        class="app-toolbar--widget-container-search">
+        <mat-form-field
+          appearance="filled"
+          [floatLabel]="'never'"
+          class="app-toolbar--widget-container-search"
+        >
           <mat-label>{{ 'App.Search movies' }}</mat-label>
-          <mat-icon class="app-toolbar--widget-container-search-icon" matPrefix>search</mat-icon>
+          <mat-icon class="app-toolbar--widget-container-search-icon" matPrefix
+            >search</mat-icon
+          >
           <input
             matInput
             #search
@@ -93,19 +123,25 @@
         >
           <mat-icon>input</mat-icon>
         </a>
-        <a mat-icon-button
-           title="sign out"
-           *ngIf="authState.accountId$ | async"
-           (click)="onSignOut()">
+        <a
+          mat-icon-button
+          title="sign out"
+          *ngIf="authState.accountId$ | async"
+          (click)="onSignOut()"
+        >
           <mat-icon>logout</mat-icon>
         </a>
-        <a mat-icon-button
-           *ngIf="authState.accountId$ | async"
-           (click)="onSignOut()">
+        <a
+          mat-icon-button
+          *ngIf="authState.accountId$ | async"
+          (click)="onSignOut()"
+        >
           <mat-icon>logout</mat-icon>
         </a>
       </div>
     </div>
-    <ng-content></ng-content>
+    <div class="app-shell-container--content">
+      <ng-content></ng-content>
+    </div>
   </mat-sidenav-content>
 </mat-sidenav-container>

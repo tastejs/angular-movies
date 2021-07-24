@@ -14,7 +14,8 @@
     left: auto;
     right: 0;
     z-index: 1100;
-    box-shadow: rgb(0 0 0 / 20%) 0 2px 4px -1px, rgb(0 0 0 / 14%) 0 4px 5px 0, rgb(0 0 0 / 12%) 0 1px 10px 0;
+    box-shadow: rgb(0 0 0 / 20%) 0 2px 4px -1px, rgb(0 0 0 / 14%) 0 4px 5px 0,
+      rgb(0 0 0 / 12%) 0 1px 10px 0;
     background-color: var(--palette-background-paper);
     height: 64px;
   }
@@ -39,7 +40,9 @@
       font-size: 2rem;
     }
     ::ng-deep {
-      .mat-form-field, .mat-form-field-label, .mat-input-element {
+      .mat-form-field,
+      .mat-form-field-label,
+      .mat-input-element {
         color: var(--palette-secondary-contrast-text);
       }
       .mat-input-element {
@@ -67,6 +70,21 @@
   min-height: 100vh;
   background: var(--palette-background-default);
 
+  &--content {
+    width: 100%;
+    @media only screen and (max-width: 1300px) {
+      padding-right: 2rem;
+      padding-left: 2rem;
+    }
+
+    @media only screen and (max-width: 1462.5px) {
+      padding-right: 3rem;
+      padding-left: 3rem;
+    }
+
+    padding-right: 4rem;
+    padding-left: 4rem;
+  }
   ::ng-deep {
     .mat-sidenav {
       background: var(--palette-background-default);

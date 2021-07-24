@@ -10,7 +10,6 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 
 import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
-import { HamburgerButtonComponent } from './shared/component/hamburger-button/hamburger-button/hamburger-button.component';
 import { StorageService } from './shared/service/storage/storage.service';
 import { AppComponent } from './app.component';
 import { AppShellModule } from './app-shell/app-shell.module';

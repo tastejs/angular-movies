@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AuthGuard } from './auth/auth.guard';
 
 const routes: Routes = [
   {
@@ -12,12 +11,6 @@ const routes: Routes = [
     path: 'sign-in',
     loadChildren: () =>
       import('app/sign-in/sign-in.module').then((m) => m.SignInModule),
-  },
-  {
-    path: 'account',
-    loadChildren: () =>
-      import('app/account/account.module').then((m) => m.AccountModule),
-    canActivate: [AuthGuard],
   },
   { path: '**', redirectTo: 'movies/popular' },
 ];
