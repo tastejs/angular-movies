@@ -5,7 +5,6 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatButtonModule } from '@angular/material/button';
 import { RouterModule } from '@angular/router';
 import { MovieListComponent } from './movie-list.component';
-import { LazyLoadImageModule } from 'ng-lazyload-image';
 import { StarRatingModule } from '../../shared/component/star-rating/star-rating.module';
 
 @NgModule({
@@ -15,7 +14,6 @@ import { StarRatingModule } from '../../shared/component/star-rating/star-rating
     MatIconModule,
     MatTooltipModule,
     MatButtonModule,
-    LazyLoadImageModule,
     StarRatingModule,
     RouterModule,
   ],

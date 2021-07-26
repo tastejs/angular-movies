@@ -10,7 +10,7 @@ interface Movie extends MovieModel {
   selector: 'app-movie-list',
   template: `
     <div class="header">
-      <h1 class="title" *ngIf="title">{{ title }}</h1>
+      <h1 class="title">{{ title }}</h1>
       <h2 class="subtitle" *ngIf="dataParam">{{ dataParam }}</h2>
     </div>
     <div
@@ -20,12 +20,12 @@ interface Movie extends MovieModel {
       <a
         class="movies-list--grid-item"
         *ngFor="let movie of movies; trackBy: movieById"
-        [routerLink]="['/movie', movie.id]"
+        [href]="'/movie/' + movie.id"
       >
         <div class="movies-list--grid-item-image">
           <img
-            [defaultImage]="'assets/images/no_poster_available.jpg'"
-            [lazyLoad]="
+            loading="lazy"
+            [src]="
               'https://image.tmdb.org/t/p/w' +
               W342H513.WIDTH +
               '/' +
