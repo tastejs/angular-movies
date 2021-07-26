@@ -10,7 +10,7 @@ interface Movie extends MovieModel {
   selector: 'app-movie-list',
   template: `
     <div class="header">
-      <h1 class="title" *ngIf="!dataParam">{{ title }}</h1>
+      <h1 class="title" *ngIf="title">{{ title }}</h1>
       <h2 class="subtitle" *ngIf="dataParam">{{ dataParam }}</h2>
     </div>
     <div
@@ -44,7 +44,9 @@ interface Movie extends MovieModel {
           <star-rating [rating]="movie.vote_average"></star-rating>
         </div>
       </a>
+      <div cass="pagination"></div>
     </div>
+
     <ng-template #noData>
       <h3>
         No results

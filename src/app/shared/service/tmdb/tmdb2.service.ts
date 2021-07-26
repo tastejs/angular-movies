@@ -40,11 +40,15 @@ export class Tmdb2Service {
   ].join('/');
   private URL_CONFIGURATION = [this.baseUrl, 'configuration'].join('/');
   private URL_SEARCH = [this.baseUrl, 'search', 'movie'].join('/');
-  private URL_MOVIE = [this.baseUrl, 'movie'].join('/');
   private URL_PERSON = [this.baseUrl, 'person'].join('/');
   private URL_GENRE_MOVIE_LIST = [this.baseUrl, 'genre', 'movie', 'list'].join(
     '/'
   );
+  private URL_MOVIE = (id) => [this.baseUrl, 'movie', id].join('/');
+  private URL_MOVIE_RECOMMENDATIONS = (id) =>
+    [this.baseUrl, 'movie', id, 'recommendations'].join('/')
+  private URL_MOVIE_CREDITS = (id) =>
+    [this.baseUrl, 'movie', id, 'credits'].join('/')
   private URL_MOVIE_CATEGORY = (category: string) =>
     [this.baseUrl, 'movie', category].join('/')
 
@@ -66,10 +70,16 @@ export class Tmdb2Service {
     this.http.get<Configuration>(this.URL_CONFIGURATION)
 
   getMovie = (id: string): Observable<MovieModel> =>
-    this.http.get<MovieModel>(this.URL_MOVIE, { params: { id } })
+    this.http.get<MovieModel>(this.URL_MOVIE(id))
+
+  getCredits = (id: string): Observable<any> =>
+    this.http.get<any>(this.URL_MOVIE_CREDITS(id))
 
   getMovieCategory = (category: string): Observable<MovieModel> =>
     this.http.get<MovieModel>(this.URL_MOVIE_CATEGORY(category))
+
+  getMovieRecomendations = (id: string): Observable<MovieModel[]> =>
+    this.http.get<MovieModel[]>(this.URL_MOVIE_RECOMMENDATIONS(id))
 
   getGenres = (): Observable<MovieGenreModel[]> =>
     this.http
@@ -93,7 +103,7 @@ export class Tmdb2Service {
       params: { query, page, lang },
     })
 
-  getMoviesReccomendations = (
+  getMoviesRecommendations = (
     id: string,
     page: string
   ): Observable<MovieModel> =>

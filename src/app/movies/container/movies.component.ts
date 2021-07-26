@@ -75,7 +75,6 @@ export class MoviesComponent implements OnInit {
       this.parameter = params.term;
     } else if (params.category) {
       this.request = this.tmdb2Service.getMovieCategory(params.category);
-      console.log('this.request cat', this.request);
 
       this.parameter = params.category;
     } else if (params.id && params.name) {
@@ -87,13 +86,9 @@ export class MoviesComponent implements OnInit {
       this.loading = false;
     }
 
-    console.log('this.request', this.request);
-
     if (this.request) {
       this.request.subscribe(
         (response) => {
-          console.log('response', response);
-
           this.parameter === 'upcoming'
             ? (this.movies = response.results.filter((val) =>
                 dayjs(val.release_date).isAfter(dayjs().startOf('year'))

@@ -1,17 +1,18 @@
-import {NgModule} from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {MovieComponent} from './movie.component';
-import {MovieTrailerModule} from './movie-trailer/movie-trailer.module';
-import {MatButtonModule} from '@angular/material/button';
-import {MatIconModule} from '@angular/material/icon';
-import {MatMenuModule} from '@angular/material/menu';
-import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
-import {MatTabsModule} from '@angular/material/tabs';
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { MovieComponent } from './movie.component';
+import { MovieTrailerModule } from './movie-trailer/movie-trailer.module';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatTabsModule } from '@angular/material/tabs';
+import { StarRatingModule } from '../../shared/component/star-rating/star-rating.module';
+import { LazyLoadImageModule } from 'ng-lazyload-image';
+import { MovieListModule } from '../movie-list/movie-list.module';
 
 @NgModule({
-  declarations: [
-    MovieComponent
-  ],
+  declarations: [MovieComponent],
   imports: [
     CommonModule,
     MatProgressSpinnerModule,
@@ -19,10 +20,11 @@ import {MatTabsModule} from '@angular/material/tabs';
     MatButtonModule,
     MatMenuModule,
     MatTabsModule,
-    MovieTrailerModule
+    MovieTrailerModule,
+    StarRatingModule,
+    LazyLoadImageModule,
+    MovieListModule,
   ],
-  exports: [
-    MovieComponent
-  ],
+  exports: [MovieComponent],
 })
-export class MovieModule { }
+export class MovieModule {}

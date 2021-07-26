@@ -1,4 +1,10 @@
 // TODO: should get from TMDB API
+
+export const W44H44 = Object.freeze({
+  WIDTH: 44,
+  HEIGHT: 44,
+});
+
 export const W342H513 = Object.freeze({
   WIDTH: 342,
   HEIGHT: 513,

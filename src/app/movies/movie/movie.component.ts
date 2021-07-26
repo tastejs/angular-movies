@@ -1,20 +1,21 @@
 import { Location } from '@angular/common';
 import {
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   OnInit,
   TrackByFunction,
 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { SafeResourceUrl } from '@angular/platform-browser';
-import { Subscription } from 'rxjs';
 import {
   MovieCastModel,
-  MovieCrewModel,
   MovieDetailsModel,
   MovieGenreModel,
   MovieModel,
 } from '../model';
+import { Tmdb2Service } from '../../shared/service/tmdb/tmdb2.service';
+import { ActivatedRoute } from '@angular/router';
+import { W342H513 } from '../../shared/utils/image-sizes';
 
 @Component({
   selector: 'app-movie',
@@ -23,32 +24,55 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MovieComponent implements OnInit {
-  id: number;
-  url: string;
-  movie: MovieDetailsModel;
-  moviesUrl: SafeResourceUrl[];
-  videos: any[];
-  similarMovies: MovieModel[];
+  movie: MovieDetailsModel & { languages_runtime_release: string };
+  recommendations: MovieModel[];
   cast: MovieCastModel[];
-  crew: MovieCrewModel[];
   isConnected = false;
-  baseUrl = 'https://www.youtube.com/embed/';
-  safeUrl: any;
   isLoadingResults = false;
-  sub: Subscription;
   categories: string[] = [];
-  lang: string;
+  W342H513 = W342H513;
 
-  constructor(public dialog: MatDialog, private location: Location) {}
+  constructor(
+    public dialog: MatDialog,
+    private location: Location,
+    private tmdb: Tmdb2Service,
+    private route: ActivatedRoute,
+    private cdr: ChangeDetectorRef
+  ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.tmdb.getMovie(this.route.snapshot.params.id).subscribe((res: any) => {
+      if (res.spoken_languages.length !== 0) {
+        res.spoken_languages = res.spoken_languages[0].english_name;
+      } else {
+        res.spoken_languages = false;
+      }
+      this.movie = res;
+      this.movie.languages_runtime_release = `${
+        res.spoken_languages + ' / ' || ''
+      } ${this.movie.runtime} MIN. / ${new Date(
+        this.movie.release_date
+      ).getFullYear()}`;
+      this.cdr.detectChanges();
+    });
+    this.tmdb
+      .getMovieRecomendations(this.route.snapshot.params.id)
+      .subscribe((res: any) => {
+        this.recommendations = res.results;
+        this.cdr.detectChanges();
+      });
+    this.tmdb
+      .getCredits(this.route.snapshot.params.id)
+      .subscribe((res: any) => {
+        this.cast = res.cast;
+        this.cdr.detectChanges();
+      });
+  }
 
   back() {
     this.location.back();
   }
 
   trackByGenre: TrackByFunction<MovieGenreModel> = (idx, genre) => genre.name;
-  trackByCategory: TrackByFunction<string> = (idx, category) => category;
   trackByCast: TrackByFunction<MovieCastModel> = (idx, cast) => cast.cast_id;
-  trackByUrl: TrackByFunction<SafeResourceUrl> = (idx, url) => url;
 }

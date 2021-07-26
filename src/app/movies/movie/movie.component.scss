@@ -1,220 +1,355 @@
 @import '../../../assets/scss/palette';
 
-.movie {
-    display: flex;
-    flex-direction: column;
-    position: relative;
-    margin: 0;
-    padding: 20px;
-    height: auto;
-    background-position: top;
-    background-size: cover;
-    color: $white;
-    text-align: left;
-    @media only screen and (min-width: 731px) {
-        min-height: 500px;
-    }
+.movie-detail--grid {
+  display: grid;
+  grid-template-columns: 40% 60%;
 
-    &--background {
-        .image-rotator {
-            position: absolute;
-            top: 0;
-            left: 30%;
-            bottom: 0;
-            right: 0;
-            width: 70%;
-            overflow: hidden;
-            background-size: cover;
-            background-position: center;
-
-            @media only screen and (min-width: 731px) {
-                background-position: initial;
-            }
-        }
-        
-        .vignette {
-            position: absolute;
-            top: 0;
-            left: 0;
-            bottom: 0;
-            width: 30%;
-            background: $black;
-            z-index: 2;
-        
-            &::before {
-                content: '';
-                position: absolute;
-                top: 0;
-                left: 100%;
-                bottom: 0;
-                width: 100%;
-                background-image: linear-gradient(to right,$black,transparent);
-            }
-        }
-    }
-
-    &__head {
-        display: inherit;
-        z-index: 2;
-
-        .btn-back {
-            border: none;
-            background: transparent;
-            color: $white;
-            cursor: pointer;
-        }
-
-        h1 {
-            color: $white;
-            text-align: left !important;
-        }
-    }
-    &__body {
-        z-index: 2;
-        .mat {
-        &-green {
-            color: $green;
-        }
-        &-red {
-            color: $primary-light;
-        }
-        &-yellow {
-            color: $yellow;
-        }
-        &-teal {
-            color: $teal;
-        }
-        }
-        .movie {
-
-            &--infos {
-                display: flex;
-                align-items: center;
-
-                span {
-                    margin: 0 5px 0 0;
-                }
-                .mat-icon {
-                    width: 20px;
-                    font-size: 20px;
-                }
-            }
-        &--overview {
-            font-weight: normal;
-            text-align: justify;
-        }
-        &--genre {
-            ul {
-                padding: 0;
-
-                li {
-                    display: inline-block;
-                    padding: 0 5px 0 0;
-
-                    &::after {
-                        content: '•';
-                        color: $primary-light;
-                    }
-                    &:last-child:after {
-                        content: '';
-                    }
-                }
-            }
-        }
-        &--actions {
-            button {
-                padding: 0;
-            }
-        }
-        }
-    }
+  max-width: 110rem;
+  margin-bottom: 5rem;
 }
 
+.movie-detail--grid-item {
+  padding: 2rem;
+}
+
+.movie-detail--summary {
+  display: flex;
+  flex-direction: column;
+}
+
+.movie-detail--title {
+  width: 100%;
+  margin-bottom: 0.5rem;
+  color: var(--palette-text-primary);
+  font-size: 3.75rem;
+  font-weight: 300;
+  line-height: 1.2;
+  text-transform: uppercase;
+  letter-spacing: -0.5px;
+}
+
+.movie-detail--subtitle {
+  width: 100%;
+  color: var(--palette-text-secondary);
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1.5;
+  text-transform: uppercase;
+}
+
+.movie-detail--basic-infos {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.movie-detail--rating,
+.movie-detail--languages-runtime-release {
+  width: 50%;
+}
+
+.movie-detail--rating {
+  display: flex;
+  flex-direction: row;
+}
+
+.movie-detail--languages-runtime-release {
+  color: var(--palette-warning-main);
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1;
+  text-transform: uppercase;
+  text-align: right;
+}
+
+.movie-detail--section {
+  margin-bottom: 3rem;
+}
+.section-heading {
+  margin-bottom: 1rem;
+  color: var(--palette-text-primary);
+  font-size: 1.5rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.section-text {
+  color: var(--palette-text-secondary);
+  font-size: 1.5rem;
+  font-weight: 500;
+  line-height: 1.8;
+  text-align: justify;
+}
+
+.movie-detail--cast-list {
+  display: flex;
+  flex-direction: row;
+  overflow-x: scroll;
+  a {
+    margin: 0 15px;
+  }
+  img {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+  }
+}
+
+.genre-link {
+  align-items: center;
+  padding: 0.5rem 0rem;
+  color: var(--palette-secondary-main);
+  line-height: 1;
+  font-size: 1.25rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  outline: none;
+  padding: 6px 16px;
+  min-width: 96px;
+  min-height: 48px;
+  font-weight: 500;
+  font-size: 1.5rem;
+  color: var(--palette-primary-main);
+  border: 1px solid rgba(var(--palette-primary-main-rgb), 0.5);
+  border-radius: 4px;
+  box-shadow: none;
+  background-color: transparent;
+}
 
 .movie {
-    &__tab {
-        .movie {
-            &--cast {
-                display: flex;
-                flex-direction: row;
-                flex-wrap: wrap;
-                margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  margin: 0;
+  padding: 20px;
+  height: auto;
+  background-position: top;
+  background-size: cover;
+  color: $white;
+  text-align: left;
+  @media only screen and (min-width: 731px) {
+    min-height: 500px;
+  }
 
-                @media only screen and (max-width: 731px) {
-                    flex-direction: column;
-                }
+  &--background {
+    .image-rotator {
+      position: absolute;
+      top: 0;
+      left: 30%;
+      bottom: 0;
+      right: 0;
+      width: 70%;
+      overflow: hidden;
+      background-size: cover;
+      background-position: center;
 
-                .cast {
-                    display: flex;
-                    flex-direction: column;
-                    flex: 1;
-                    align-items: center;
-                    min-width: 200px;
-                    padding: 5px;
-                }
-
-                a {
-                    display: contents;
-
-                    &:hover {
-                        background: $background;
-                    }
-                }
-
-                .avatar {
-                    flex-shrink: 0;
-                    width: 60px;
-                    height: 60px;
-                    border-radius: 50%;
-                    object-fit: cover;
-                }
-            
-                h3 {
-                    color: $primary-light;
-                    margin: 20px 0 0;
-                }
-                
-                p {
-                    color: $grey;
-                    margin: 0 0 20px;
-                } 
-                .icon-person {
-                    margin-top: 15px;
-                } 
-            }
-            &--trailers {
-                display: flex;
-                flex-direction: row;
-                flex-wrap: wrap;
-                margin: 30px 0;
-
-                .btn-play {
-                    display: flex;
-                    flex-direction: column;
-                    flex: 1;
-                    align-items: center;
-                    width: 250px;
-                    margin: 5px;
-                }
-
-                p {
-                    color: #FFF;
-                    width: 250px;
-                }
-
-                ::ng-deep .mat-button-wrapper {
-                    line-height: 21px;
-                }
-            }
-            &--similar {
-                h3 {
-                    color: $primary-light;
-                }
-            }
-        }
+      @media only screen and (min-width: 731px) {
+        background-position: initial;
+      }
     }
+
+    .vignette {
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      width: 30%;
+      background: $black;
+      z-index: 2;
+
+      &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 100%;
+        bottom: 0;
+        width: 100%;
+        background-image: linear-gradient(to right, $black, transparent);
+      }
+    }
+  }
+
+  &__head {
+    display: inherit;
+    z-index: 2;
+
+    .btn-back {
+      border: none;
+      background: transparent;
+      color: $white;
+      cursor: pointer;
+    }
+
+    h1 {
+      color: $white;
+      text-align: left !important;
+    }
+  }
+
+  &__body {
+    z-index: 2;
+
+    .mat {
+      &-green {
+        color: $green;
+      }
+
+      &-red {
+        color: $primary-light;
+      }
+
+      &-yellow {
+        color: $yellow;
+      }
+
+      &-teal {
+        color: $teal;
+      }
+    }
+
+    .movie {
+      &--infos {
+        display: flex;
+        align-items: center;
+
+        span {
+          margin: 0 5px 0 0;
+        }
+
+        .mat-icon {
+          width: 20px;
+          font-size: 20px;
+        }
+      }
+
+      &--overview {
+        font-weight: normal;
+        text-align: justify;
+      }
+
+      &--genre {
+        ul {
+          padding: 0;
+
+          li {
+            display: inline-block;
+            padding: 0 5px 0 0;
+
+            &::after {
+              content: '•';
+              color: $primary-light;
+            }
+
+            &:last-child:after {
+              content: '';
+            }
+          }
+        }
+      }
+
+      &--actions {
+        button {
+          padding: 0;
+        }
+      }
+    }
+  }
+}
+
+.movie {
+  &__tab {
+    .movie {
+      &--cast {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        margin-top: 30px;
+
+        @media only screen and (max-width: 731px) {
+          flex-direction: column;
+        }
+
+        .cast {
+          display: flex;
+          flex-direction: column;
+          flex: 1;
+          align-items: center;
+          min-width: 200px;
+          padding: 5px;
+        }
+
+        a {
+          display: contents;
+
+          &:hover {
+            background: $background;
+          }
+        }
+
+        .avatar {
+          flex-shrink: 0;
+          width: 60px;
+          height: 60px;
+          border-radius: 50%;
+          object-fit: cover;
+        }
+
+        h3 {
+          color: $primary-light;
+          margin: 20px 0 0;
+        }
+
+        p {
+          color: $grey;
+          margin: 0 0 20px;
+        }
+
+        .icon-person {
+          margin-top: 15px;
+        }
+      }
+
+      &--trailers {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        margin: 30px 0;
+
+        .btn-play {
+          display: flex;
+          flex-direction: column;
+          flex: 1;
+          align-items: center;
+          width: 250px;
+          margin: 5px;
+        }
+
+        p {
+          color: #fff;
+          width: 250px;
+        }
+
+        ::ng-deep .mat-button-wrapper {
+          line-height: 21px;
+        }
+      }
+
+      &--similar {
+        h3 {
+          color: $primary-light;
+        }
+      }
+    }
+  }
 }
 
 small {
-    padding: 5px;
+  padding: 5px;
 }
