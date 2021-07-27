@@ -8,7 +8,6 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatTabsModule } from '@angular/material/tabs';
 import { StarRatingModule } from '../../shared/component/star-rating/star-rating.module';
-import { LazyLoadImageModule } from 'ng-lazyload-image';
 import { MovieListModule } from '../movie-list/movie-list.module';
 
 @NgModule({
@@ -22,7 +21,6 @@ import { MovieListModule } from '../movie-list/movie-list.module';
     MatTabsModule,
     MovieTrailerModule,
     StarRatingModule,
-    LazyLoadImageModule,
     MovieListModule,
   ],
   exports: [MovieComponent],

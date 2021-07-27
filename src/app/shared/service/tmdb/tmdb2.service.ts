@@ -75,8 +75,10 @@ export class Tmdb2Service {
   getCredits = (id: string): Observable<any> =>
     this.http.get<any>(this.URL_MOVIE_CREDITS(id))
 
-  getMovieCategory = (category: string): Observable<MovieModel> =>
-    this.http.get<MovieModel>(this.URL_MOVIE_CATEGORY(category))
+  getMovieCategory = (
+    category: string
+  ): Observable<{ results: MovieModel[] }> =>
+    this.http.get<{ results: MovieModel[] }>(this.URL_MOVIE_CATEGORY(category))
 
   getMovieRecomendations = (id: string): Observable<MovieModel[]> =>
     this.http.get<MovieModel[]>(this.URL_MOVIE_RECOMMENDATIONS(id))
