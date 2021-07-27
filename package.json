@@ -48,7 +48,10 @@
     "hammerjs": "^2.0.8",
     "rxjs": "^6.6.7",
     "tslib": "^2.0.0",
-    "zone.js": "~0.11.4"
+    "zone.js": "~0.11.4",
+    "@rx-angular/cdk": "^1.0.0-alpha.8",
+    "@rx-angular/state": "^1.4.3",
+    "@rx-angular/template": "^1.0.0-beta.25"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~12.1.0",
