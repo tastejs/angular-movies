@@ -23,17 +23,15 @@ export class MoviesComponent {
     title: string;
   }> = this.route.params.pipe(
     switchMap(({ category }) =>
-      this.tmdb2Service
-        .getMovieCategory(category)
-        .pipe(
-          map((data) => ({
-            loading: false,
-            movies: data.results,
-            title: category,
-          }))
-        )
+      this.tmdb2Service.getMovieCategory(category).pipe(
+        map((data) => ({
+          loading: false,
+          movies: data.results,
+          title: category,
+        }))
+      )
     ),
-    startWith({ loading: true, movies: undefined, title: undefined })
+    startWith({ loading: true, movies: null, title: null })
   );
 
   currentPage: number;
