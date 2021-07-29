@@ -45,13 +45,13 @@
     "@angular/platform-browser-dynamic": "12.1.1",
     "@angular/router": "12.1.1",
     "@angular/service-worker": "12.1.1",
+    "@rx-angular/cdk": "^1.0.0-alpha.8",
+    "@rx-angular/state": "^1.4.3",
+    "@rx-angular/template": "^1.0.0-beta.25",
     "core-js": "^2.6.9",
     "rxjs": "^6.6.7",
     "tslib": "^2.0.0",
-    "zone.js": "~0.11.4",
-    "@rx-angular/cdk": "^1.0.0-alpha.8",
-    "@rx-angular/state": "^1.4.3",
-    "@rx-angular/template": "^1.0.0-beta.25"
+    "zone.js": "~0.11.4"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~12.1.0",

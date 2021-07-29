@@ -1,5 +1,6 @@
 <mat-sidenav-container class="app-shell-container">
   <mat-sidenav
+    *rxLet="[]"
     [opened]="mobileQuery.matches ? 'false' : 'true'"
     #snav
     [mode]="mobileQuery.matches ? 'over' : 'side'"
@@ -22,7 +23,7 @@
       <h2 class="navigation--headline">Discover</h2>
       <a
         class="navigation--link"
-        [routerLink]="['/movies', 'popular']"
+        [href]="'/movies/popular'"
         routerLinkActive="active"
         (click)="closeSidenav(); resetPagination()"
       >
@@ -33,7 +34,7 @@
       </a>
       <a
         class="navigation--link"
-        [routerLink]="['/movies', 'top_rated']"
+        [href]="'/movies/top_rated'"
         routerLinkActive="active"
         (click)="closeSidenav(); resetPagination()"
       >
@@ -44,7 +45,7 @@
       </a>
       <a
         class="navigation--link"
-        [routerLink]="['/movies', 'upcoming']"
+        [href]="'/movies/upcoming'"
         routerLinkActive="active"
         (click)="closeSidenav(); resetPagination()"
       >
@@ -54,20 +55,22 @@
         </div>
       </a>
       <h2 class="navigation--headline">Genres</h2>
-      <a
-        *ngFor="let genre of genres$ | async; trackBy: trackByGenre"
-        class="navigation--link"
-        [routerLink]="['/movies', genre.name.toLowerCase()]"
-        routerLinkActive="active"
-        (click)="closeSidenav(); resetPagination()"
-      >
-        <div class="navigation--menu-item">
-          <mat-icon class="navigation--menu-item-icon"
-            >radio_button_checked</mat-icon
-          >
-          {{ genre.name }}
-        </div>
-      </a>
+      <ng-container *rxLet="[]">
+        <a
+          *ngFor="let genre of genres$ | async; trackBy: trackByGenre"
+          class="navigation--link"
+          [href]="'/movies' + genre.name.toLowerCase()"
+          routerLinkActive="active"
+          (click)="closeSidenav(); resetPagination()"
+        >
+          <div class="navigation--menu-item">
+            <mat-icon class="navigation--menu-item-icon"
+              >radio_button_checked
+            </mat-icon>
+            {{ genre.name }}
+          </div>
+        </a>
+      </ng-container>
       <picture class="tmdb-mark">
         <source
           srcset="/assets/svgs/tmdbgreen.svg"

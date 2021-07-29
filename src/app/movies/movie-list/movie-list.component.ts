@@ -25,12 +25,7 @@ interface Movie extends MovieModel {
         <div class="movies-list--grid-item-image">
           <img
             loading="lazy"
-            [src]="
-              'https://image.tmdb.org/t/p/w' +
-              W342H513.WIDTH +
-              '/' +
-              movie.poster_path
-            "
+            [src]="movie.url"
             [width]="W342H513.WIDTH"
             [height]="W342H513.HEIGHT"
             alt="poster movie"
@@ -66,7 +61,8 @@ export class MovieListComponent {
   @Input('movies')
   set _movies(movies: Movie[]) {
     this.movies = movies.map((m: Movie) => {
-      m.url = 'https://image.tmdb.org/t/p/w' + W342H513.WIDTH + m.poster_path;
+      m.url =
+        'https://image.tmdb.org/t/p/w' + W342H513.WIDTH + '/' + m.poster_path;
       return m;
     });
   }

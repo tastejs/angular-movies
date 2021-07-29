@@ -11,6 +11,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
+import { LetModule } from '@rx-angular/template';
 
 @NgModule({
   declarations: [AppShellComponent],
@@ -28,6 +29,7 @@ import { MatInputModule } from '@angular/material/input';
     RouterModule,
     MatButtonModule,
     HamburgerButtonModule,
+    LetModule,
   ],
   exports: [AppShellComponent],
 })

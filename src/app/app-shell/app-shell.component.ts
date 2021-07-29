@@ -14,8 +14,6 @@ import { AuthStateService } from '../auth/auth.state';
 import { TmdbAuthEffects } from '../auth/tmdbAuth.effects';
 import { StateService } from '../shared/service/state.service';
 import { MovieGenreModel } from '../movies/model';
-import { ignoreElements } from 'rxjs/operators';
-import { concat, timer } from 'rxjs';
 
 @Component({
   selector: 'app-shell',
@@ -27,7 +25,7 @@ import { concat, timer } from 'rxjs';
 })
 export class AppShellComponent implements OnInit, OnDestroy {
   mobileQuery: MediaQueryList;
-  genres$ = concat(timer(300).pipe(ignoreElements()), this.tmdbState.genres$);
+  genres$ = this.tmdbState.genres$;
   lang: string;
   // tslint:disable-next-line: variable-name
   private _mobileQueryListener: () => void;
