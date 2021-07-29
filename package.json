@@ -46,7 +46,6 @@
     "@angular/router": "12.1.1",
     "@angular/service-worker": "12.1.1",
     "core-js": "^2.6.9",
-    "hammerjs": "^2.0.8",
     "rxjs": "^6.6.7",
     "tslib": "^2.0.0",
     "zone.js": "~0.11.4",

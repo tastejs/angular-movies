@@ -1,10 +1,6 @@
 import { HttpClientModule } from '@angular/common/http';
 import { Injectable, NgModule } from '@angular/core';
-import {
-  BrowserModule,
-  HAMMER_GESTURE_CONFIG,
-  HammerGestureConfig,
-} from '@angular/platform-browser';
+import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ServiceWorkerModule } from '@angular/service-worker';
 
@@ -16,14 +12,6 @@ import { AppShellModule } from './app-shell/app-shell.module';
 import { MoviesRoutedModule } from './movies/container/movies.routed.module';
 import { httpInterceptorProviders } from './shared/service/tmdb/http-interceptor.providers';
 import { StarRatingModule } from './shared/component/star-rating/star-rating.module';
-
-@Injectable()
-export class MyHammerConfig extends HammerGestureConfig {
-  overrides = {
-    pinch: { enable: false },
-    rotate: { enable: false },
-  } as any;
-}
 
 @NgModule({
   declarations: [AppComponent],
@@ -39,11 +27,7 @@ export class MyHammerConfig extends HammerGestureConfig {
     AppRoutingModule,
     StarRatingModule,
   ],
-  providers: [
-    httpInterceptorProviders,
-    { provide: HAMMER_GESTURE_CONFIG, useClass: MyHammerConfig },
-    StorageService,
-  ],
+  providers: [httpInterceptorProviders, StorageService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
