@@ -33,9 +33,9 @@ interface Movie extends MovieModel {
           />
         </div>
         <div class="movies-list--grid-item__details">
-          <h3 class="movies-list--grid-item__details-title">
+          <h2 class="movies-list--grid-item__details-title">
             {{ movie.title }}
-          </h3>
+          </h2>
           <star-rating [rating]="movie.vote_average"></star-rating>
         </div>
       </a>
