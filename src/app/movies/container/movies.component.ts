@@ -1,11 +1,19 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { MovieModel } from '../model/movie.model';
-import { Observable } from 'rxjs';
 
 import { ActivatedRoute, Params } from '@angular/router';
+import { EMPTY, Observable } from 'rxjs';
+import {
+  filter,
+  map,
+  startWith,
+  switchMap,
+  tap,
+  withLatestFrom,
+} from 'rxjs/operators';
 import { Pager } from '../../shared/model/pager.model';
+import { StateService } from '../../shared/service/state.service';
 import { Tmdb2Service } from '../../shared/service/tmdb/tmdb2.service';
-import { map, startWith, switchMap } from 'rxjs/operators';
+import { MovieModel } from '../model/movie.model';
 
 @Component({
   selector: 'app-movies',
@@ -22,15 +30,32 @@ export class MoviesComponent {
     movies: MovieModel[];
     title: string;
   }> = this.route.params.pipe(
-    switchMap(({ category }) =>
-      this.tmdb2Service.getMovieCategory(category).pipe(
-        map((data) => ({
-          loading: false,
-          movies: data.results,
-          title: category,
-        }))
-      )
-    ),
+    switchMap(({ category, genre }) => {
+      if (category) {
+        return this.tmdb2Service.getMovieCategory(category).pipe(
+          map((data) => ({
+            loading: false,
+            movies: data.results,
+            title: category,
+          }))
+        );
+      }
+      if (genre) {
+        const genreId = parseInt(genre, 10);
+        return this.tmdb2Service.getMovieGenre(genre).pipe(
+          withLatestFrom(this.tmdbState.genres$.pipe(filter((g) => g != null))),
+          tap(([data, genres]) => {
+            console.log(data);
+          }),
+          map(([data, genres]) => ({
+            loading: false,
+            movies: data.results,
+            title: genres?.find((g) => g.id === genreId)?.name,
+          }))
+        );
+      }
+      return EMPTY;
+    }),
     startWith({ loading: true, movies: null, title: null })
   );
 
@@ -43,6 +68,7 @@ export class MoviesComponent {
 
   constructor(
     private tmdb2Service: Tmdb2Service,
+    private tmdbState: StateService,
     private route: ActivatedRoute
   ) {}
 }

@@ -1,13 +1,13 @@
 <mat-sidenav-container class="app-shell-container">
   <mat-sidenav
-    *rxLet="[]"
-    [opened]="mobileQuery.matches ? 'false' : 'true'"
+    *rxLet="viewState$; let vs"
+    [opened]="!vs.isMobile"
     #snav
-    [mode]="mobileQuery.matches ? 'over' : 'side'"
-    [fixedInViewport]="mobileQuery.matches"
+    [mode]="vs.isMobile ? 'over' : 'side'"
+    [fixedInViewport]="vs.isMobile"
   >
     <nav class="navigation">
-      <a class="navigation--header" *ngIf="!mobileQuery.matches">
+      <a class="navigation--header" *ngIf="!vs.isMobile">
         <picture>
           <img
             class="logo-img"
@@ -23,9 +23,8 @@
       <h2 class="navigation--headline">Discover</h2>
       <a
         class="navigation--link"
-        [routerLink]="['/movies/popular']"
-        routerLinkActive="active"
-        (click)="closeSidenav(); resetPagination()"
+        [class.active]="vs.activeRoute === '/movies/popular'"
+        (click)="navTo('/movies', 'popular')"
       >
         <div class="navigation--menu-item">
           <mat-icon class="navigation--menu-item-icon">favorite</mat-icon>
@@ -34,9 +33,8 @@
       </a>
       <a
         class="navigation--link"
-        [routerLink]="['/movies/top_rated']"
-        routerLinkActive="active"
-        (click)="closeSidenav(); resetPagination()"
+        [class.active]="vs.activeRoute === '/movies/top_rated'"
+        (click)="navTo('/movies', 'top_rated')"
       >
         <div class="navigation--menu-item">
           <mat-icon class="navigation--menu-item-icon">whatshot</mat-icon>
@@ -45,9 +43,8 @@
       </a>
       <a
         class="navigation--link"
-        [routerLink]="['/movies/upcoming']"
-        routerLinkActive="active"
-        (click)="closeSidenav(); resetPagination()"
+        [class.active]="vs.activeRoute === '/movies/upcoming'"
+        (click)="navTo('/movies', 'upcoming')"
       >
         <div class="navigation--menu-item">
           <mat-icon class="navigation--menu-item-icon">calendar_today</mat-icon>
@@ -59,9 +56,8 @@
         <a
           *ngFor="let genre of genres$ | async; trackBy: trackByGenre"
           class="navigation--link"
-          [routerLink]="['/movies/' + genre.name.toLowerCase()]"
-          routerLinkActive="active"
-          (click)="closeSidenav(); resetPagination()"
+          [class.active]="vs.activeRoute === '/genre/' + genre.id"
+          (click)="navTo('/genre', genre.id)"
         >
           <div class="navigation--menu-item">
             <mat-icon class="navigation--menu-item-icon"

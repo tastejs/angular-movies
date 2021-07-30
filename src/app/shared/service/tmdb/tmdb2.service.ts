@@ -44,6 +44,7 @@ export class Tmdb2Service {
   private URL_GENRE_MOVIE_LIST = [this.baseUrl, 'genre', 'movie', 'list'].join(
     '/'
   );
+  private URL_MOVIE_GENRE = `${this.baseUrl}/discover/movie`;
   private URL_MOVIE = (id) => [this.baseUrl, 'movie', id].join('/');
   private URL_MOVIE_RECOMMENDATIONS = (id) =>
     [this.baseUrl, 'movie', id, 'recommendations'].join('/')
@@ -87,6 +88,15 @@ export class Tmdb2Service {
     this.http
       .get<{ genres: MovieGenreModel[] }>(this.URL_GENRE_MOVIE_LIST)
       .pipe(map(({ genres }) => genres))
+
+  getMovieGenre = (
+    genreId: string,
+    page: string = '1',
+    sortBy: string = 'popularity.desc'
+  ): Observable<{ results: MovieModel[] }> =>
+    this.http.get<{ results: MovieModel[] }>(this.URL_MOVIE_GENRE, {
+      params: { with_genres: genreId, page, sort_by: sortBy },
+    })
 
   getPersonMovies = (page: string, sortBy: string): Observable<MovieModel> =>
     this.http.get<MovieModel>(this.URL_GENRE_MOVIE_LIST, {

@@ -5,5 +5,5 @@ import { MovieComponent } from '../movie/movie.component';
 export const ROUTES: Routes = [
   { path: 'movies/:category', component: MoviesComponent },
   { path: 'movie/:id', component: MovieComponent },
-  { path: 'genre', component: MoviesComponent },
+  { path: 'genre/:genre', component: MoviesComponent },
 ];
