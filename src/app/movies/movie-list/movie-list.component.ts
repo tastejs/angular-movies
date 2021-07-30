@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { Router } from '@angular/router';
 import { MovieModel } from '../model';
 import { W342H513 } from '../../shared/utils/image-sizes';
 
@@ -20,7 +21,7 @@ interface Movie extends MovieModel {
       <a
         class="movies-list--grid-item"
         *ngFor="let movie of movies; trackBy: movieById"
-        [href]="'/movie/' + movie.id"
+        (click)="toMovie(movie)"
       >
         <div class="movies-list--grid-item-image">
           <img
@@ -71,10 +72,14 @@ export class MovieListComponent {
   @Input() lang: string;
   @Input() dataParam: string;
 
-  constructor() {}
+  constructor(private router: Router) {}
 
   movieById(idx: number, movie: MovieModel) {
     return movie.id;
+  }
+
+  toMovie(movie: MovieModel) {
+    this.router.navigate(['movie', movie.id]);
   }
 
   addMovie(movie: any) {}
