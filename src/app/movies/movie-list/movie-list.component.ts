@@ -23,7 +23,7 @@ interface Movie extends MovieModel {
         *ngFor="let movie of movies; trackBy: movieById"
         (click)="toMovie(movie)"
       >
-        <div class="movies-list--grid-item-image">
+        <div class="movies-list--grid-item-image gradient">
           <img
             loading="lazy"
             [src]="movie.url"
@@ -79,7 +79,7 @@ export class MovieListComponent {
   }
 
   toMovie(movie: MovieModel) {
-    this.router.navigate(['movie', movie.id]);
+    this.router.navigate(['/movie', movie.id]);
   }
 
   addMovie(movie: any) {}

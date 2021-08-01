@@ -1,12 +1,14 @@
 <ng-container *ngIf="state$ | async as vm">
-  <app-movie-list
-    *ngIf="!vm.loading; else loading"
-    [movies]="vm.movies"
-    [title]="vm.title"
-    [dataParam]="vm.dataParam"
-  >
-  </app-movie-list>
-  <ng-template #loading>
-    <app-loader></app-loader>
-  </ng-template>
+  <div class="padding-wrapper">
+    <app-movie-list
+      *ngIf="!vm.loading; else loading"
+      [movies]="vm.movies"
+      [title]="vm.title"
+      [dataParam]="vm.dataParam"
+    >
+    </app-movie-list>
+    <ng-template #loading>
+      <app-loader></app-loader>
+    </ng-template>
+  </div>
 </ng-container>

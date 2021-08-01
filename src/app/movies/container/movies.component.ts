@@ -25,6 +25,13 @@ type MoviesState = {
 @Component({
   selector: 'app-movies',
   templateUrl: './movies.component.html',
+  styles: [
+    `
+      :host {
+        width: 100%;
+      }
+    `,
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MoviesComponent {

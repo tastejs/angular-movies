@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { LetModule } from '@rx-angular/template';
+import { LoaderComponentModule } from '../../shared/component/loader/loader.component';
 import { MovieComponent } from './movie.component';
 import { MovieTrailerModule } from './movie-trailer/movie-trailer.module';
 import { MatButtonModule } from '@angular/material/button';
@@ -20,6 +22,8 @@ import { MovieListModule } from '../movie-list/movie-list.module';
     MovieTrailerModule,
     StarRatingModule,
     MovieListModule,
+    LetModule,
+    LoaderComponentModule,
   ],
   exports: [MovieComponent],
 })
