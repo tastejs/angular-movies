@@ -24,14 +24,16 @@ interface Movie extends MovieModel {
         (click)="toMovie(movie)"
       >
         <div class="movies-list--grid-item-image gradient">
-          <img
-            loading="lazy"
-            [src]="movie.url"
-            [width]="W342H513.WIDTH"
-            [height]="W342H513.HEIGHT"
-            alt="poster movie"
-            [title]="movie.title"
-          />
+          <aspect-ratio-box [aspectRatio]="W342H513.WIDTH / W342H513.HEIGHT">
+            <img
+              loading="lazy"
+              [src]="movie.url"
+              [width]="W342H513.WIDTH"
+              [height]="W342H513.HEIGHT"
+              alt="poster movie"
+              [title]="movie.title"
+            />
+          </aspect-ratio-box>
         </div>
         <div class="movies-list--grid-item__details">
           <h2 class="movies-list--grid-item__details-title">

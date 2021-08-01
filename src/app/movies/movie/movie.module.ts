@@ -10,6 +10,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatTabsModule } from '@angular/material/tabs';
 import { StarRatingModule } from '../../shared/component/star-rating/star-rating.module';
 import { MovieListModule } from '../movie-list/movie-list.module';
+import { AspectRatioBoxModule } from '../../shared/component/aspect-ratio-box/aspect-ratio-box.module';
 
 @NgModule({
   declarations: [MovieComponent],
@@ -24,6 +25,7 @@ import { MovieListModule } from '../movie-list/movie-list.module';
     MovieListModule,
     LetModule,
     LoaderComponentModule,
+    AspectRatioBoxModule,
   ],
   exports: [MovieComponent],
 })
