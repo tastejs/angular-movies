@@ -6,6 +6,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { RouterModule } from '@angular/router';
 import { MovieListComponent } from './movie-list.component';
 import { StarRatingModule } from '../../shared/component/star-rating/star-rating.module';
+import { LetModule } from '@rx-angular/template';
 
 @NgModule({
   declarations: [MovieListComponent],
@@ -16,6 +17,7 @@ import { StarRatingModule } from '../../shared/component/star-rating/star-rating
     MatButtonModule,
     StarRatingModule,
     RouterModule,
+    LetModule,
   ],
   exports: [MovieListComponent],
 })

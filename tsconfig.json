@@ -9,15 +9,10 @@
     "module": "es2020",
     "moduleResolution": "node",
     "experimentalDecorators": true,
-    "target": "es6",
+    "target": "es2015",
     "allowSyntheticDefaultImports": true,
     "skipLibCheck": true,
-    "typeRoots": [
-      "node_modules/@types"
-    ],
-    "lib": [
-      "es2018",
-      "dom"
-    ]
+    "typeRoots": ["node_modules/@types"],
+    "lib": ["es2018", "dom"]
   }
 }

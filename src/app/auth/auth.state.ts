@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, ɵglobal } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { distinctUntilChanged, filter, map } from 'rxjs/operators';
 import { environment } from '../../environments/environment';

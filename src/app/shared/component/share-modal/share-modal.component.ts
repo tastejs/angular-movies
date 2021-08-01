@@ -19,12 +19,5 @@ export class ShareModalComponent {
     this.dialogRef.close();
   }
 
-  copyLink(movieId) {
-    const inputElement = document.getElementById('inputId');
-    (inputElement as any).select();
-    document.execCommand('copy');
-    inputElement.blur();
-    this.snackBar.open('ERROR', '', { duration: 2000 });
-    this.dialogRef.close();
-  }
+  copyLink(movieId) {}
 }

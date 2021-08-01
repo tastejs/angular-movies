@@ -7,7 +7,7 @@
   "newProjectRoot": "projects",
   "projects": {
     "hub-movies": {
-      "root": "",
+      "root": "src",
       "sourceRoot": "src",
       "projectType": "application",
       "prefix": "app",
@@ -21,19 +21,13 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/hub-movies",
+            "outputPath": "dist/hub-movies/browser",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "src/tsconfig.app.json",
-            "assets": [
-              "src/favicon.ico",
-              "src/assets",
-              "src/manifest.json"
-            ],
-            "styles": [
-              "src/styles.scss"
-            ],
+            "assets": ["src/favicon.ico", "src/assets", "src/manifest.json"],
+            "styles": ["src/styles.scss"],
             "scripts": [],
             "vendorChunk": true,
             "extractLicenses": false,
@@ -52,6 +46,35 @@
               ],
               "optimization": true,
               "outputHashing": "all",
+              "sourceMap": false,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb"
+                }
+              ],
+              "serviceWorker": true,
+              "ngswConfigPath": "src/ngsw-config.json"
+            },
+            "production-server": {
+              "polyfills": "src/polyfills.ts",
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": false,
               "sourceMap": false,
               "namedChunks": false,
               "extractLicenses": true,
@@ -98,28 +121,74 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "src/tsconfig.spec.json",
             "karmaConfig": "src/karma.conf.js",
-            "styles": [
-              "src/styles.scss"
-            ],
+            "styles": ["src/styles.scss"],
             "scripts": [],
-            "assets": [
-              "src/favicon.ico",
-              "src/assets",
-              "src/manifest.json"
-            ]
+            "assets": ["src/favicon.ico", "src/assets", "src/manifest.json"]
           }
         },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": [
-              "src/tsconfig.app.json",
-              "src/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "tsConfig": ["src/tsconfig.app.json", "src/tsconfig.spec.json"],
+            "exclude": ["**/node_modules/**"]
           }
+        },
+        "build-server": {
+          "builder": "@angular-devkit/build-angular:server",
+          "options": {
+            "outputPath": "dist/hub-movies/server",
+            "main": "server.ts",
+            "tsConfig": "src/tsconfig.server.json",
+            "optimization": false,
+            "sourceMap": true,
+            "extractLicenses": false
+          },
+          "configurations": {
+            "production": {
+              "outputHashing": "media",
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "sourceMap": false,
+              "extractLicenses": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve-ssr": {
+          "builder": "@nguniversal/builders:ssr-dev-server",
+          "configurations": {
+            "development": {
+              "browserTarget": "hub-movies:build:production",
+              "serverTarget": "hub-movies:build-server:production-server"
+            },
+            "production": {
+              "browserTarget": "hub-movies:build:production",
+              "serverTarget": "hub-movies:build-server:production"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "prerender": {
+          "builder": "@nguniversal/builders:prerender",
+          "options": {
+            "routes": ["/"]
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "hub-movies:build:production",
+              "serverTarget": "hub-movies:server:production-server"
+            },
+            "development": {
+              "browserTarget": "hub-movies:build:development",
+              "serverTarget": "hub-movies:server:development"
+            }
+          },
+          "defaultConfiguration": "production"
         }
       }
     },
@@ -143,9 +212,7 @@
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": "e2e/tsconfig.e2e.json",
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "exclude": ["**/node_modules/**"]
           }
         }
       }

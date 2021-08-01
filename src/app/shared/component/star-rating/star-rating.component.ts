@@ -13,7 +13,7 @@ import {
 const range = 10;
 const numStars = 5;
 const starsArray: number[] = new Array(numStars).fill(1);
-
+/*
 const starRating = document.createElement('DIV');
 starRating.setAttribute('class', 'star-rating');
 
@@ -35,6 +35,7 @@ starRating.appendChild(stars);
 const ratingValue = document.createElement('DIV');
 ratingValue.setAttribute('class', 'rating-value');
 ratingValue.innerHTML = '' + range;
+*/
 
 @Component({
   selector: 'star-rating',
@@ -78,7 +79,7 @@ export class StarRatingComponent {
       .concat(new Array(half).fill(0))
       .concat(new Array(empty).fill(-1));
 
-    this.elem.nativeElement.appendChild(starRating);
+    // this.elem.nativeElement.appendChild(starRating);
   }
 
   @Input('showRating')

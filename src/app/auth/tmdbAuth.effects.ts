@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, ɵglobal } from '@angular/core';
 import { Observable } from 'rxjs';
 import { exhaustMap, map, take } from 'rxjs/operators';
 import { Tmdb2Service } from '../shared/service/tmdb/tmdb2.service';
