@@ -110,24 +110,6 @@ li {
   }
 }
 
-/* spinner */
-.loading-shade {
-  position: fixed;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  background: rgba(34, 43, 49, 0.5);
-  z-index: 2;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  @media only screen and (min-width: 731px) {
-    left: 208px;
-  }
-}
-
 * {
   margin: 0;
   padding: 0;

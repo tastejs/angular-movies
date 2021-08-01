@@ -71,6 +71,7 @@
   background: var(--palette-background-default);
 
   &--content {
+    min-height: calc(100vh - 72px);
     width: 100%;
     @media only screen and (max-width: 1300px) {
       padding-right: 2rem;

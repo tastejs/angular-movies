@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { LoaderComponentModule } from '../../shared/component/loader/loader.component';
 import { MoviesComponent } from './movies.component';
 import { MovieListModule } from '../movie-list/movie-list.module';
 import { PaginationModule } from '../../shared/component/pagination/pagination.module';
@@ -11,11 +11,11 @@ import { LetModule } from '@rx-angular/template';
   declarations: [MoviesComponent],
   imports: [
     CommonModule,
-    MatProgressSpinnerModule,
     MovieListModule,
     PaginationModule,
     ShareModalModule,
     LetModule,
+    LoaderComponentModule,
   ],
   exports: [MoviesComponent],
 })

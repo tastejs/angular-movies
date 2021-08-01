@@ -1,15 +1,12 @@
 <ng-container *ngIf="state$ | async as vm">
   <app-movie-list
-    *ngIf="vm.movies; else loading"
+    *ngIf="!vm.loading; else loading"
     [movies]="vm.movies"
     [title]="vm.title"
     [dataParam]="vm.dataParam"
   >
   </app-movie-list>
-
   <ng-template #loading>
-    <div class="loading-shade">
-      <mat-spinner></mat-spinner>
-    </div>
+    <app-loader></app-loader>
   </ng-template>
 </ng-container>

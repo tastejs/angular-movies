@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { distinctUntilChanged, filter, map } from 'rxjs/operators';
+import { environment } from '../../environments/environment';
 
 interface AuthState {
   requestToken: string;
@@ -36,7 +37,7 @@ export function isAuthenticationInProgress({
   providedIn: 'root',
 })
 export class AuthStateService {
-  redirectUrl = 'http://localhost:4200/movies/now-playing';
+  redirectUrl = `${window.location.protocol}//${window.location.hostname}:${window.location.port}/movies/popular`;
   private localStorage = window.localStorage;
   state = new BehaviorSubject<Partial<AuthState>>({
     requestToken: this.localStorage.getItem('requestToken') || null,

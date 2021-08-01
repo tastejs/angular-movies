@@ -1,6 +1,5 @@
-<mat-sidenav-container class="app-shell-container">
+<mat-sidenav-container class="app-shell-container" *rxLet="viewState$; let vs">
   <mat-sidenav
-    *rxLet="viewState$; let vs"
     [opened]="!vs.isMobile"
     #snav
     [mode]="vs.isMobile ? 'over' : 'side'"
@@ -52,9 +51,9 @@
         </div>
       </a>
       <h2 class="navigation--headline">Genres</h2>
-      <ng-container *rxLet="[]">
+      <ng-container *rxLet="genres$; let genres">
         <a
-          *ngFor="let genre of genres$ | async; trackBy: trackByGenre"
+          *ngFor="let genre of genres; trackBy: trackByGenre"
           class="navigation--link"
           [class.active]="vs.activeRoute === '/genre/' + genre.id"
           (click)="navTo('/genre', genre.id)"
@@ -85,7 +84,7 @@
       <app-hamburger-button
         class="app-toolbar--action"
         (click)="snav.toggle()"
-        *ngIf="mobileQuery.matches"
+        *ngIf="vs.isMobile"
       >
       </app-hamburger-button>
       <div class="app-toolbar--widget-container">
@@ -107,28 +106,18 @@
           />
         </mat-form-field>
         <a
-          *ngIf="(authState.accountId$ | async) !== true"
+          *ngIf="!vs.loggedIn; else signOut"
           mat-icon-button
           title="sign in"
           (click)="authEffects.approveRequestToken()"
         >
           <mat-icon>login</mat-icon>
         </a>
-        <a
-          mat-icon-button
-          title="sign out"
-          *ngIf="authState.accountId$ | async"
-          (click)="onSignOut()"
-        >
-          <mat-icon>logout</mat-icon>
-        </a>
-        <a
-          mat-icon-button
-          *ngIf="authState.accountId$ | async"
-          (click)="onSignOut()"
-        >
-          <mat-icon>logout</mat-icon>
-        </a>
+        <ng-template #signOut>
+          <a mat-icon-button title="sign out" (click)="onSignOut()">
+            <mat-icon>logout</mat-icon>
+          </a>
+        </ng-template>
       </div>
     </div>
     <div class="app-shell-container--content">

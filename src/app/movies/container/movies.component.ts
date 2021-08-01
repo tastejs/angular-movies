@@ -1,8 +1,9 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 import { ActivatedRoute, Params } from '@angular/router';
-import { EMPTY, Observable } from 'rxjs';
+import { EMPTY, MonoTypeOperatorFunction, Observable, of } from 'rxjs';
 import {
+  catchError,
   filter,
   map,
   startWith,
@@ -15,10 +16,15 @@ import { StateService } from '../../shared/service/state.service';
 import { Tmdb2Service } from '../../shared/service/tmdb/tmdb2.service';
 import { MovieModel } from '../model/movie.model';
 
+type MoviesState = {
+  loading: boolean;
+  movies: MovieModel[] | null;
+  title: string | null;
+};
+
 @Component({
   selector: 'app-movies',
   templateUrl: './movies.component.html',
-  styles: [``],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MoviesComponent {
@@ -37,26 +43,24 @@ export class MoviesComponent {
             loading: false,
             movies: data.results,
             title: category,
-          }))
+          })),
+          moviesState()
         );
       }
       if (genre) {
         const genreId = parseInt(genre, 10);
         return this.tmdb2Service.getMovieGenre(genre).pipe(
           withLatestFrom(this.tmdbState.genres$.pipe(filter((g) => g != null))),
-          tap(([data, genres]) => {
-            console.log(data);
-          }),
           map(([data, genres]) => ({
             loading: false,
             movies: data.results,
             title: genres?.find((g) => g.id === genreId)?.name,
-          }))
+          })),
+          moviesState()
         );
       }
       return EMPTY;
-    }),
-    startWith({ loading: true, movies: null, title: null })
+    })
   );
 
   currentPage: number;
@@ -71,4 +75,15 @@ export class MoviesComponent {
     private tmdbState: StateService,
     private route: ActivatedRoute
   ) {}
+}
+
+function moviesState(): MonoTypeOperatorFunction<MoviesState> {
+  return (o$) =>
+    o$.pipe(
+      catchError((e) => {
+        console.error(e);
+        return of({ loading: false, movies: null, title: null });
+      }),
+      startWith({ loading: true, movies: null, title: null })
+    );
 }

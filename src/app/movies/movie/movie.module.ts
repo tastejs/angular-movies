@@ -5,7 +5,6 @@ import { MovieTrailerModule } from './movie-trailer/movie-trailer.module';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatTabsModule } from '@angular/material/tabs';
 import { StarRatingModule } from '../../shared/component/star-rating/star-rating.module';
 import { MovieListModule } from '../movie-list/movie-list.module';
@@ -14,7 +13,6 @@ import { MovieListModule } from '../movie-list/movie-list.module';
   declarations: [MovieComponent],
   imports: [
     CommonModule,
-    MatProgressSpinnerModule,
     MatIconModule,
     MatButtonModule,
     MatMenuModule,
