@@ -5,5 +5,5 @@ to = "/index.html"
 
 [[redirects]]
   from = "/*"
-  to = "/.netlify/functions/main"
+  to = "dist/hub-movies/server/main"
   status = 200
