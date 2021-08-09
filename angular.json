@@ -64,35 +64,6 @@
               ],
               "serviceWorker": true,
               "ngswConfigPath": "src/ngsw-config.json"
-            },
-            "production-server": {
-              "polyfills": "src/polyfills.ts",
-              "fileReplacements": [
-                {
-                  "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.prod.ts"
-                }
-              ],
-              "optimization": true,
-              "outputHashing": false,
-              "sourceMap": false,
-              "namedChunks": false,
-              "extractLicenses": true,
-              "vendorChunk": false,
-              "buildOptimizer": true,
-              "budgets": [
-                {
-                  "type": "initial",
-                  "maximumWarning": "2mb",
-                  "maximumError": "5mb"
-                },
-                {
-                  "type": "anyComponentStyle",
-                  "maximumWarning": "6kb"
-                }
-              ],
-              "serviceWorker": true,
-              "ngswConfigPath": "src/ngsw-config.json"
             }
           },
           "defaultConfiguration": ""
@@ -164,7 +135,7 @@
           "configurations": {
             "development": {
               "browserTarget": "hub-movies:build:production",
-              "serverTarget": "hub-movies:build-server:production-server"
+              "serverTarget": "hub-movies:build-server:production"
             },
             "production": {
               "browserTarget": "hub-movies:build:production",
@@ -181,7 +152,7 @@
           "configurations": {
             "production": {
               "browserTarget": "hub-movies:build:production",
-              "serverTarget": "hub-movies:server:production-server"
+              "serverTarget": "hub-movies:server:production"
             },
             "development": {
               "browserTarget": "hub-movies:build:development",

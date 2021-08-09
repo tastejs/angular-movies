@@ -15,7 +15,7 @@ const domino = require('domino');
 export function app(): express.Express {
   const server = express();
 
-  const distFolder = join(process.cwd(), 'dist/hub-movies');
+  const distFolder = join(process.cwd(), 'dist/hub-movies/browser');
   const indexHtml = existsSync(join(distFolder, 'index.original.html'))
     ? 'index.original.html'
     : 'index';
@@ -49,7 +49,7 @@ export function app(): express.Express {
 
   // All regular routes use the Universal engine
   server.get('*', (req, res) => {
-    // return rendered HTML uncluding Angular generated DOM
+    // return rendered HTML including Angular generated DOM
     console.log('GET SSR ROUTE');
     res.render(indexHtml, {
       req,
