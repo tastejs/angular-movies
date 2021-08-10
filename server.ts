@@ -16,7 +16,13 @@ const domino = require('domino');
 export function app(): express.Express {
   const server = express();
 
-  const distFolder = join(process.cwd(), 'dist/hub-movies/browser');
+  const localDistPath = join(process.cwd(), 'dist/hub-movies/browser');
+  const netlifyDistPath = join(process.cwd(), 'browser');
+  // SSR function on netlify operates in different file system context than local SSR serve
+  // netlify has whole dist folder manually configured to be exposed along side the SSR function file deployment
+  const distFolder = existsSync(localDistPath)
+    ? localDistPath
+    : netlifyDistPath;
   const indexHtml = existsSync(join(distFolder, 'index.original.html'))
     ? 'index.original.html'
     : 'index';

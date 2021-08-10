@@ -2,6 +2,7 @@
 
 [functions]
   directory = "dist/hub-movies/server"
+  included_files = ["dist/**"]
 
 [[redirects]]
   from = "/*"
