@@ -1,6 +1,12 @@
 # A basic redirects rule
 
+[functions]
+  directory = "dist/hub-movies/server"
+
 [[redirects]]
   from = "/*"
   to = "dist/hub-movies/server/main"
   status = 200
+
+[dev]
+ functionsPort = 2400
