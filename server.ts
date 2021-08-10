@@ -8,6 +8,7 @@ import * as compressionModule from 'compression';
 import { AppServerModule } from './src/main.server';
 import { APP_BASE_HREF } from '@angular/common';
 import { existsSync } from 'fs';
+import serverless from 'serverless-http';
 
 const domino = require('domino');
 
@@ -102,3 +103,5 @@ if (moduleFilename === __filename || moduleFilename.includes('iisnode')) {
 }
 
 export * from './src/main.server';
+
+export const handler = serverless(app);

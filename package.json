@@ -96,6 +96,7 @@
     "lint-staged": "^11.0.0",
     "prettier": "^2.3.2",
     "protractor": "~7.0.0",
+    "serverless-http": "^2.7.0",
     "sqlite3": "^5.0.2",
     "stylelint": "^13.13.1",
     "stylelint-prettier": "^1.2.0",
