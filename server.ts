@@ -104,4 +104,4 @@ if (moduleFilename === __filename || moduleFilename.includes('iisnode')) {
 
 export * from './src/main.server';
 
-export const handler = serverless(app);
+export const handler = serverless(app());
