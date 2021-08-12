@@ -7,6 +7,8 @@
     "lhci": "lhci",
     "concurrently": "concurrently",
     "start": "ng serve",
+    "start:ssr:dev": "ng run hub-movies:serve-ssr",
+    "start:ssr:prod": "ng run hub-movies:serve-ssr --configuration=production",
     "build": "ng build",
     "build:prod": "npm run ng build -- --configuration production",
     "build:prod:ssr": "ng build --configuration production && ng run hub-movies:build-server && npm run build:functions",
@@ -27,8 +29,6 @@
     "husky": "husky",
     "format:all": "prettier --write .",
     "commit": "git-cz",
-    "dev:ssr": "ng run hub-movies:serve-ssr",
-    "serve:ssr": "node dist/hub-movies/server/main.js",
     "prerender": "ng run hub-movies:prerender"
   },
   "config": {
