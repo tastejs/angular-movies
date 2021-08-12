@@ -25,7 +25,6 @@
     "lhci-server:stop": "node tooling/stop-lhci-server.js",
     "lhci-cli:autorun": "npm run lhci -- autorun --config=lighthouserc.js && npm run lhci-server:stop",
     "lhci:collect": "npm run concurrently \"npm:lhci-server:start\" \"npm:lhci-cli:autorun\"",
-    "prepare": "husky install",
     "husky": "husky",
     "format:all": "prettier --write .",
     "commit": "git-cz",
