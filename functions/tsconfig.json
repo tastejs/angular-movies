@@ -5,7 +5,7 @@
     "noImplicitReturns": true,
     "outDir": "../dist/hub-movies/server",
     "sourceMap": false,
-    "target": "es2017",
+    "target": "es2019",
     "allowJs": true,
     "noImplicitAny": false,
     "baseUrl": "..",
