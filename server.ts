@@ -8,7 +8,6 @@ import * as compressionModule from 'compression';
 import { AppServerModule } from './src/main.server';
 import { APP_BASE_HREF } from '@angular/common';
 import { existsSync } from 'fs';
-import serverless from 'serverless-http';
 
 const domino = require('domino');
 
@@ -16,13 +15,7 @@ const domino = require('domino');
 export function app(): express.Express {
   const server = express();
 
-  const localDistPath = join(process.cwd(), 'dist/hub-movies/browser');
-  const netlifyDistPath = join(process.cwd(), 'browser');
-  // SSR function on netlify operates in different file system context than local SSR serve
-  // netlify has whole dist folder manually configured to be exposed along side the SSR function file deployment
-  const distFolder = existsSync(localDistPath)
-    ? localDistPath
-    : netlifyDistPath;
+  const distFolder = join(process.cwd(), 'dist/hub-movies/browser');
   const indexHtml = existsSync(join(distFolder, 'index.original.html'))
     ? 'index.original.html'
     : 'index';
@@ -109,5 +102,3 @@ if (moduleFilename === __filename || moduleFilename.includes('iisnode')) {
 }
 
 export * from './src/main.server';
-
-export const handler = serverless(app());
