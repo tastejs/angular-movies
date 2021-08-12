@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "lib": ["es6", "dom", "es2015", "es2017"],
+    "module": "commonjs",
+    "noImplicitReturns": true,
+    "outDir": "../dist/hub-movies/server",
+    "sourceMap": false,
+    "target": "es2017",
+    "allowJs": true,
+    "noImplicitAny": false,
+    "baseUrl": "..",
+    "strict": true,
+    "esModuleInterop": true
+  },
+  "include": ["src"]
+}

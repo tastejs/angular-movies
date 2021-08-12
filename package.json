@@ -10,8 +10,9 @@
     "build": "ng build",
     "build:prod": "npm run ng build -- --configuration production",
     "build:netlify": "npm run ng build -- --configuration production --base-href ./",
-    "build:prod-ssr": "npm run ng run hub-movies:build-server -- --configuration production",
+    "build:prod:ssr": "ng build --configuration production && ng run hub-movies:build-server && npm run build:functions",
     "build:prod:artefacts": "npm run ng build -- --configuration production --stats-json",
+    "build:functions": "tsc --build functions/tsconfig.json",
     "test": "ng test",
     "test:ci": "ng test --no-watch --no-progress --browsers=ChromeHeadlessCI",
     "lint": "ng lint",
@@ -29,7 +30,6 @@
     "commit": "git-cz",
     "dev:ssr": "ng run hub-movies:serve-ssr",
     "serve:ssr": "node dist/hub-movies/server/main.js",
-    "build:ssr": "ng build --configuration production && ng run hub-movies:build-server",
     "prerender": "ng run hub-movies:prerender"
   },
   "config": {
@@ -37,6 +37,10 @@
       "path": "@commitlint/cz-commitlint"
     }
   },
+  "engines": {
+    "node": "14"
+  },
+  "main": "dist/hub-movies/server/index.js",
   "private": true,
   "dependencies": {
     "@angular/animations": "12.1.1",
@@ -59,6 +63,8 @@
     "angular2-universal-polyfills": "^2.1.0-rc.1",
     "core-js": "^2.6.9",
     "express": "^4.15.2",
+    "firebase-admin": "^9.11.0",
+    "firebase-functions": "^3.15.1",
     "rxjs": "^6.6.7",
     "tslib": "^2.0.0",
     "zone.js": "~0.11.4"
@@ -83,6 +89,8 @@
     "compression": "^1.7.4",
     "concurrently": "^6.2.0",
     "find-process": "^1.4.4",
+    "firebase-functions-test": "^0.3.1",
+    "firebase-tools": "^9.16.2",
     "http-server": "^0.11.1",
     "husky": "^7.0.1",
     "jasmine-core": "~3.6.0",
