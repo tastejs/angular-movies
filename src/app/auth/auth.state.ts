@@ -1,7 +1,6 @@
-import { Injectable, ɵglobal } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { distinctUntilChanged, filter, map } from 'rxjs/operators';
-import { environment } from '../../environments/environment';
 
 interface AuthState {
   requestToken: string;
@@ -40,25 +39,25 @@ export class AuthStateService {
   redirectUrl = `${window.location.protocol}//${window.location.hostname}:${window.location.port}/movies/popular`;
   private localStorage = window.localStorage;
   state = new BehaviorSubject<Partial<AuthState>>({
-    requestToken: this.localStorage.getItem('requestToken') || null,
-    accessToken: this.localStorage.getItem('accessToken') || null,
-    accountId: this.localStorage.getItem('accountId') || null,
+    requestToken: this.localStorage.getItem('requestToken') || undefined,
+    accessToken: this.localStorage.getItem('accessToken') || undefined,
+    accountId: this.localStorage.getItem('accountId') || undefined,
   });
 
   requestToken$ = this.state.pipe(
     map((s) => s.requestToken),
     distinctUntilChanged(),
-    filter((v) => v !== undefined)
+    filter(<T>(v: T): v is Exclude<T, null | undefined> => v !== undefined)
   );
   accessToken$ = this.state.pipe(
     map((s) => s.accessToken),
     distinctUntilChanged(),
-    filter((v) => v !== undefined)
+    filter(<T>(v: T): v is Exclude<T, null | undefined> => v !== undefined)
   );
   accountId$ = this.state.pipe(
     map((s) => s.accountId),
     distinctUntilChanged(),
-    filter((v) => v !== undefined)
+    filter(<T>(v: T): v is Exclude<T, null | undefined> => v !== undefined)
   );
   isAuthenticationInProgress$ = this.state.pipe(
     map(isAuthenticationInProgress)

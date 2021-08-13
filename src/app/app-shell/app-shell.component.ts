@@ -1,6 +1,5 @@
 import {
   ChangeDetectionStrategy,
-  ChangeDetectorRef,
   Component,
   OnDestroy,
   OnInit,
@@ -17,7 +16,6 @@ import { AuthStateService } from '../auth/auth.state';
 import { TmdbAuthEffects } from '../auth/tmdbAuth.effects';
 import { StateService } from '../shared/service/state.service';
 import { MovieGenreModel } from '../movies/model';
-import { Platform } from '@angular/cdk/platform';
 
 @Component({
   selector: 'app-shell',
@@ -47,7 +45,6 @@ export class AppShellComponent implements OnInit, OnDestroy {
     public tmdbState: StateService,
     public authState: AuthStateService,
     public authEffects: TmdbAuthEffects,
-    changeDetectorRef: ChangeDetectorRef,
     media: MediaMatcher,
     private router: Router,
     private snackbar: MatSnackBar
@@ -67,7 +64,7 @@ export class AppShellComponent implements OnInit, OnDestroy {
     this.state.connect(
       'activeRoute',
       this.router.events.pipe(
-        filter<NavigationEnd>((e) => e instanceof NavigationEnd),
+        filter((e): e is NavigationEnd => e instanceof NavigationEnd),
         map((e) => e.urlAfterRedirects.split('?')[0])
       )
     );
@@ -101,7 +98,7 @@ export class AppShellComponent implements OnInit, OnDestroy {
   }
 
   closeSidenav() {
-    if (this.mobileQuery.matches !== false) {
+    if (this.mobileQuery.matches) {
       this.snav.close();
     }
   }
@@ -111,7 +108,7 @@ export class AppShellComponent implements OnInit, OnDestroy {
   }
 
   trackByGenre: TrackByFunction<MovieGenreModel> = (
-    idx: number,
+    _: number,
     genre: MovieGenreModel
   ) => genre.name
 }

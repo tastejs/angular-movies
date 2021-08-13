@@ -1,14 +1,12 @@
 import { Location } from '@angular/common';
 import {
   ChangeDetectionStrategy,
-  ChangeDetectorRef,
   Component,
-  OnInit,
   TrackByFunction,
 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { RxState, selectSlice } from '@rx-angular/state';
-import { map, share, startWith, switchMap, tap } from 'rxjs/operators';
+import { map, startWith, switchMap } from 'rxjs/operators';
 import {
   MovieCastModel,
   MovieDetailsModel,
@@ -17,7 +15,7 @@ import {
 } from '../model';
 import { Tmdb2Service } from '../../shared/service/tmdb/tmdb2.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { W342H513, W780H1170 } from '../../shared/utils/image-sizes';
+import { W780H1170 } from '../../shared/utils/image-sizes';
 
 type MovieDetail = MovieDetailsModel & { languages_runtime_release: string };
 
@@ -48,8 +46,8 @@ export class MovieComponent {
     private state: RxState<{
       loading: boolean;
       movie: MovieDetail | null;
-      recommendations: MovieModel[] | [];
-      cast: MovieCastModel[] | [];
+      recommendations: MovieModel[];
+      cast: MovieCastModel[];
     }>
   ) {
     state.set({
@@ -123,6 +121,6 @@ export class MovieComponent {
     );
   }
 
-  trackByGenre: TrackByFunction<MovieGenreModel> = (idx, genre) => genre.name;
-  trackByCast: TrackByFunction<MovieCastModel> = (idx, cast) => cast.cast_id;
+  trackByGenre: TrackByFunction<MovieGenreModel> = (_, genre) => genre.name;
+  trackByCast: TrackByFunction<MovieCastModel> = (_, cast) => cast.cast_id;
 }

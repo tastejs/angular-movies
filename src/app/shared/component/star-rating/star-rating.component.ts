@@ -1,7 +1,6 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  ElementRef,
   Input,
   TrackByFunction,
 } from '@angular/core';
@@ -67,8 +66,8 @@ export class StarRatingComponent {
   html: string;
 
   @Input('rating')
-  set _rating(rating: number) {
-    this.rating = rating;
+  set _rating(rating: number | undefined) {
+    this.rating = rating || 0;
     const scaledRating =
       coerceNumberProperty(rating, 0) / (this.range / this.numStars);
     const full = Math.floor(scaledRating);
@@ -86,8 +85,6 @@ export class StarRatingComponent {
   set _showRating(show: boolean) {
     this.showRating = coerceBooleanProperty(show);
   }
-
-  constructor(private elem: ElementRef) {}
 
   trackByIndex: TrackByFunction<number> = (idx) => idx;
 }

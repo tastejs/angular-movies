@@ -11,7 +11,7 @@ interface Movie extends MovieModel {
   selector: 'app-movie-list',
   template: `
     <div class="header">
-      <h1 class="title">{{ title }}</h1>
+      <h1 class="title">{{ title || '' }}</h1>
       <h2 class="subtitle" *ngIf="dataParam">{{ dataParam }}</h2>
     </div>
     <div
@@ -58,7 +58,7 @@ interface Movie extends MovieModel {
 export class MovieListComponent {
   W342H513 = W342H513;
 
-  @Input() title: string | number;
+  @Input() title?: string | number;
   movies?: Movie[];
 
   @Input('movies')
@@ -75,13 +75,11 @@ export class MovieListComponent {
 
   constructor(private router: Router) {}
 
-  movieById(idx: number, movie: MovieModel) {
+  movieById(_: number, movie: MovieModel) {
     return movie.id;
   }
 
   toMovie(movie: MovieModel) {
     this.router.navigate(['/movie', movie.id]);
   }
-
-  addMovie(movie: any) {}
 }

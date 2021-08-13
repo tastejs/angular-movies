@@ -1,4 +1,4 @@
-import { Injectable, ɵglobal } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { exhaustMap, map, take } from 'rxjs/operators';
 import { Tmdb2Service } from '../shared/service/tmdb/tmdb2.service';
@@ -16,7 +16,7 @@ export class TmdbAuthEffects {
     if (isAuthenticationInProgress(this.authState.state.getValue())) {
       this.createAccessToken$().subscribe((accessTokenResult) => {
         // delete in local storage
-        window.localStorage.setItem('requestToken', null);
+        window.localStorage.removeItem('requestToken');
         // store in local storage for the next page load
         window.localStorage.setItem(
           'accessToken',
@@ -65,12 +65,12 @@ export class TmdbAuthEffects {
     window.localStorage.removeItem('accountId');
     window.localStorage.removeItem('requestToken');
     this.authState.state.next({
-      accessToken: null,
-      accountId: null,
-      requestToken: null,
+      accessToken: undefined,
+      accountId: undefined,
+      requestToken: undefined,
     });
-    this.tmdb.deleteAccessToken(accessToken).subscribe();
+    if (accessToken) {
+      this.tmdb.deleteAccessToken(accessToken).subscribe();
+    }
   }
-
-  readUser() {}
 }

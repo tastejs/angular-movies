@@ -8,7 +8,6 @@ import {
   map,
   startWith,
   switchMap,
-  tap,
   withLatestFrom,
 } from 'rxjs/operators';
 import { Pager } from '../../shared/model/pager.model';
@@ -18,8 +17,8 @@ import { MovieModel } from '../model/movie.model';
 
 type MoviesState = {
   loading: boolean;
-  movies: MovieModel[] | null;
-  title: string | null;
+  movies?: MovieModel[];
+  title?: string;
 };
 
 @Component({
@@ -38,11 +37,7 @@ export class MoviesComponent {
   request: Observable<any>;
   dataParam: string;
   movies: MovieModel[];
-  state$: Observable<{
-    loading: boolean;
-    movies: MovieModel[];
-    title: string;
-  }> = this.route.params.pipe(
+  state$: Observable<MoviesState> = this.route.params.pipe(
     switchMap(({ category, genre }) => {
       if (category) {
         return this.tmdb2Service.getMovieCategory(category).pipe(
@@ -89,8 +84,8 @@ function moviesState(): MonoTypeOperatorFunction<MoviesState> {
     o$.pipe(
       catchError((e) => {
         console.error(e);
-        return of({ loading: false, movies: null, title: null });
+        return of({ loading: false, movies: undefined, title: undefined });
       }),
-      startWith({ loading: true, movies: null, title: null })
+      startWith({ loading: true, movies: undefined, title: undefined })
     );
 }

@@ -112,7 +112,7 @@ export class Tmdb2Service {
     lang?: string
   ): Observable<MovieDatabaseModel[]> =>
     this.http.get<MovieDatabaseModel[]>(this.URL_SEARCH, {
-      params: { query, page, lang },
+      params: { query, page, ...(lang && { lang }) },
     })
 
   getMoviesRecommendations = (

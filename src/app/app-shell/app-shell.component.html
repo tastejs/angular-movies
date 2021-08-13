@@ -89,7 +89,7 @@
       </app-hamburger-button>
       <div class="app-toolbar--widget-container">
         <mat-form-field
-          appearance="filled"
+          appearance="fill"
           [floatLabel]="'never'"
           class="app-toolbar--widget-container-search"
         >
@@ -100,8 +100,9 @@
           <input
             matInput
             #search
-            (keyup.enter)="searchMovie(search.value); search.value = ''"
-            (keyup.enter)="closeSidenav()"
+            (keyup.enter)="
+              closeSidenav(); searchMovie(search.value); search.value = ''
+            "
             tabindex="-1"
           />
         </mat-form-field>

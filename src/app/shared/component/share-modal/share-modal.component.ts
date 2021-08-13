@@ -19,5 +19,5 @@ export class ShareModalComponent {
     this.dialogRef.close();
   }
 
-  copyLink(movieId) {}
+  copyLink(_: string) {}
 }

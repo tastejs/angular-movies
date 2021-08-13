@@ -84,8 +84,8 @@ function patchWindow(template: string): void {
   win.Math = Math;
 
   win.localStorage = {
-    getItem: (prop: string): undefined => undefined,
-    setItem: (prop: string, value: any) => void 0,
+    getItem: (): undefined => undefined,
+    setItem: () => void 0,
   };
 
   (global as any).window = win;

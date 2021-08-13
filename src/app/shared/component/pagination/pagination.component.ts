@@ -22,5 +22,5 @@ export class PaginationComponent {
     this.currentPage.emit(page);
   }
 
-  trackByPage: TrackByFunction<number> = (idx, page) => page;
+  trackByPage: TrackByFunction<number> = (_, page) => page;
 }

@@ -9,28 +9,28 @@
             'https://image.tmdb.org/t/p/w' +
             W342H513.WIDTH +
             '/' +
-            vs.movie.poster_path
+            vs.movie?.poster_path
           "
           [width]="W342H513.WIDTH"
           [height]="W342H513.HEIGHT"
           alt="poster movie"
-          [title]="vs.movie.title"
+          [title]="vs.movie?.title"
         />
       </aspect-ratio-box>
     </div>
     <div class="movie-detail--grid-item">
       <div class="movie-detail--summary">
         <div class="header">
-          <h1 class="title">{{ vs.movie.title }}</h1>
-          <h2 class="subtitle">{{ vs.movie.tagline }}</h2>
+          <h1 class="title">{{ vs.movie?.title }}</h1>
+          <h2 class="subtitle">{{ vs.movie?.tagline }}</h2>
         </div>
         <div class="movie-detail--basic-infos">
           <star-rating
-            [rating]="vs.movie.vote_average"
+            [rating]="vs.movie?.vote_average"
             [showRating]="true"
           ></star-rating>
           <div class="movie-detail--languages-runtime-release">
-            {{ vs.movie.languages_runtime_release }}
+            {{ vs.movie?.languages_runtime_release }}
           </div>
         </div>
         <div class="movie-detail--section">
@@ -38,7 +38,10 @@
           <div class="movie-detail--genres">
             <a
               class="movie-detail--genres-link"
-              *ngFor="let genre of vs.movie.genres; trackBy: trackByGenre"
+              *ngFor="
+                let genre of vs.movie?.genres || [];
+                trackBy: trackByGenre
+              "
               (click)="toGenre(genre)"
             >
               <mat-icon> radio_button_checked</mat-icon>
@@ -49,7 +52,7 @@
         <div class="movie-detail--section">
           <h3 class="section-heading">The Synopsis</h3>
           <p class="section-text">
-            {{ vs.movie.overview || 'There is no synopsis available...' }}
+            {{ vs.movie?.overview || 'There is no synopsis available...' }}
           </p>
         </div>
         <div class="movie-detail--cast">
@@ -74,16 +77,16 @@
         </div>
         <div class="movie-detail--ad-section">
           <div class="movie-detail--ad-section-links">
-            <a class="btn" target="_blank" [href]="vs.movie.homepage">
+            <a class="btn" target="_blank" [href]="vs.movie?.homepage">
               Website
               <mat-icon> link</mat-icon>
             </a>
-            <a class="btn" target="_blank" [href]="vs.movie.imdb_id">
+            <a class="btn" target="_blank" [href]="vs.movie?.imdb_id">
               IMDB
               <mat-icon> radio_button_checked</mat-icon>
             </a>
-            <button class="btn" type="button" *ngIf="vs.movie.video">
-              {{ vs.movie.video }}
+            <button class="btn" type="button" *ngIf="vs.movie?.video">
+              {{ vs.movie?.video }}
               <mat-icon> movie</mat-icon>
             </button>
           </div>
