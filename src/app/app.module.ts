@@ -11,7 +11,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { StorageService } from './shared/service/storage/storage.service';
 import { AppComponent } from './app.component';
 import { AppShellModule } from './app-shell/app-shell.module';
-import { MoviesRoutedModule } from './movies/container/movies.routed.module';
 import { httpInterceptorProviders } from './shared/service/tmdb/http-interceptor.providers';
 import { StarRatingModule } from './shared/component/star-rating/star-rating.module';
 
@@ -23,7 +22,6 @@ import { StarRatingModule } from './shared/component/star-rating/star-rating.mod
     TransferHttpCacheModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    MoviesRoutedModule,
     AppShellModule,
     AppRoutingModule,
     StarRatingModule,
