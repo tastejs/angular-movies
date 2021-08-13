@@ -44,6 +44,9 @@ export function app(): express.Express {
     '*.*',
     express.static(distFolder, {
       maxAge: '1y',
+
+      // missing assets results in 404 instead of continuing to next route handler (and rendering route)
+      fallthrough: false,
     })
   );
 
