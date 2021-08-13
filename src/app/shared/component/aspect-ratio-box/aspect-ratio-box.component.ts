@@ -42,5 +42,5 @@ export class AspectRatioBoxComponent {
   }
 
   @HostBinding('style.paddingTop.%')
-  paddingTop: number;
+  paddingTop?: number;
 }

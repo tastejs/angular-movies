@@ -8,8 +8,6 @@ import { TmdbAuthEffects } from '../auth/tmdbAuth.effects';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SignInComponent {
-  error: string;
-
   constructor(private tmdbService: TmdbAuthEffects) {}
 
   signIn() {

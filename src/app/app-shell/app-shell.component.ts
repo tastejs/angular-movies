@@ -29,12 +29,12 @@ import { MovieGenreModel } from '../movies/model';
 export class AppShellComponent implements OnInit, OnDestroy {
   mobileQuery: MediaQueryList;
   genres$ = this.tmdbState.genres$;
-  lang: string;
-  // tslint:disable-next-line: variable-name
-  private _mobileQueryListener: () => void;
   @ViewChild('snav') snav: any;
 
   readonly viewState$ = this.state.select();
+
+  // tslint:disable-next-line: variable-name
+  private _mobileQueryListener = () => {};
 
   constructor(
     private state: RxState<{

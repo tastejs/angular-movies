@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { EMPTY, MonoTypeOperatorFunction, Observable, of } from 'rxjs';
 import {
   catchError,
@@ -10,10 +10,9 @@ import {
   switchMap,
   withLatestFrom,
 } from 'rxjs/operators';
-import { Pager } from '../../shared/model/pager.model';
 import { StateService } from '../../shared/service/state.service';
 import { Tmdb2Service } from '../../shared/service/tmdb/tmdb2.service';
-import { MovieModel } from '../model/movie.model';
+import { MovieModel } from '../model';
 
 type MoviesState = {
   loading: boolean;
@@ -34,9 +33,7 @@ type MoviesState = {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MoviesComponent {
-  request: Observable<any>;
-  dataParam: string;
-  movies: MovieModel[];
+  movies: MovieModel[] = [];
   state$: Observable<MoviesState> = this.route.params.pipe(
     switchMap(({ category, genre }) => {
       if (category) {
@@ -64,13 +61,6 @@ export class MoviesComponent {
       return EMPTY;
     })
   );
-
-  currentPage: number;
-  pager: Pager;
-  totalPages: number;
-  title: string | number;
-  loading: boolean;
-  moviesType: Params;
 
   constructor(
     private tmdb2Service: Tmdb2Service,

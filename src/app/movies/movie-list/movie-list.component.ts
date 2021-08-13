@@ -63,15 +63,14 @@ export class MovieListComponent {
 
   @Input('movies')
   set _movies(movies: MovieModel[] | undefined) {
-    this.movies = (movies || []).map((m: Movie) => ({
+    this.movies = (movies || []).map((m) => ({
       ...m,
       url: `https://image.tmdb.org/t/p/w${W342H513.WIDTH}/${m.poster_path}`,
     }));
   }
 
-  @Input() adult: string;
-  @Input() lang: string;
-  @Input() dataParam: string;
+  @Input() adult?: string;
+  @Input() dataParam = 'Movies';
 
   constructor(private router: Router) {}
 

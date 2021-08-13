@@ -1,29 +1,22 @@
-import {Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class StorageService {
-
-  constructor() { }
-
-  save(key, data) {
-    // sessionStorage.setItem(key, this.getSettable(data));
+  save(key: string, data: string): void {
     sessionStorage.setItem(key, data);
   }
 
-  read(key) {
-    const value = sessionStorage.getItem(key);
-    // return this.getGettable(value);
-    return value;
+  read(key: string): string | null {
+    return sessionStorage.getItem(key);
   }
 
-  remove(key) {
+  remove(key: string) {
     sessionStorage.removeItem(key);
   }
 
-  clear() {
+  clear(): void {
     sessionStorage.clear();
   }
-
 }

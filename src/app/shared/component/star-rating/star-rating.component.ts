@@ -63,7 +63,6 @@ export class StarRatingComponent {
   stars: number[] = starsArray;
   rating = 5;
   showRating = false;
-  html: string;
 
   @Input('rating')
   set _rating(rating: number | undefined) {
