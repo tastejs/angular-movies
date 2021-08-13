@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { MatDialogModule } from '@angular/material/dialog';
 import { LetModule } from '@rx-angular/template';
 import { LoaderComponentModule } from '../../shared/component/loader/loader.component';
 import { MovieComponent } from './movie.component';
@@ -19,6 +20,7 @@ import { AspectRatioBoxModule } from '../../shared/component/aspect-ratio-box/as
     MatIconModule,
     MatButtonModule,
     MatMenuModule,
+    MatDialogModule,
     MatTabsModule,
     MovieTrailerModule,
     StarRatingModule,

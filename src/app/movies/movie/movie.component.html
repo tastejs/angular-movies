@@ -77,17 +77,33 @@
         </div>
         <div class="movie-detail--ad-section">
           <div class="movie-detail--ad-section-links">
-            <a class="btn" target="_blank" [href]="vs.movie?.homepage">
+            <a
+              class="btn"
+              target="_blank"
+              rel="noopener noreferrer"
+              [href]="vs.movie?.homepage"
+            >
               Website
-              <mat-icon> link</mat-icon>
+              <mat-icon>link</mat-icon>
             </a>
-            <a class="btn" target="_blank" [href]="vs.movie?.imdb_id">
+            <a
+              *ngIf="vs.movie?.imdb_id"
+              class="btn"
+              target="_blank"
+              rel="noopener noreferrer"
+              [href]="'https://www.imdb.com/title/' + vs.movie?.imdb_id"
+            >
               IMDB
-              <mat-icon> radio_button_checked</mat-icon>
+              <mat-icon>local_movies</mat-icon>
             </a>
-            <button class="btn" type="button" *ngIf="vs.movie?.video">
-              {{ vs.movie?.video }}
-              <mat-icon> movie</mat-icon>
+            <button
+              *ngIf="vs.movie?.videos?.results as videos"
+              class="btn"
+              type="button"
+              (click)="openTrailer(videos[0].key)"
+            >
+              Video
+              <mat-icon>movie</mat-icon>
             </button>
           </div>
         </div>

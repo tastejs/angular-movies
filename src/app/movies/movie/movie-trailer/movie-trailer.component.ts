@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 @Component({
@@ -8,13 +8,14 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
     <div class="embedresize">
       <div>
         <iframe
+          *ngIf="data.key && url"
+          class="iframe"
           loading="lazy"
-          width="auto"
-          height="auto"
-          [src]="url"
-          frameborder="0"
+          width="460"
+          height="230"
+          [attr.src]="url"
           allowfullscreen
-          include
+          tabindex="-1"
         ></iframe>
       </div>
     </div>
@@ -23,14 +24,14 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MovieTrailerComponent {
-  url: SafeResourceUrl;
+  url: string | null | SafeResourceUrl;
 
   constructor(
-    // tslint:disable-next-line: no-unused-variable
-    public dialogRef: MatDialogRef<MovieTrailerComponent>,
-    @Inject(MAT_DIALOG_DATA) private data: any,
-    private dom: DomSanitizer
+    @Inject(MAT_DIALOG_DATA) public data: { key: string },
+    private sanitizer: DomSanitizer
   ) {
-    this.url = this.dom.bypassSecurityTrustResourceUrl(this.data.url);
+    this.url = this.sanitizer.bypassSecurityTrustResourceUrl(
+      `https://youtube.com/embed/${data.key}?autoplay=1&cc_load_policy=1&controls=1&disablekb=0&enablejsapi=0&fs=1&iv_load_policy=1&loop=0&rel=0&showinfo=1&start=0&wmode=transparent&theme=dark`
+    );
   }
 }

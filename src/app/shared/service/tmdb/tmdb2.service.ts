@@ -45,7 +45,8 @@ export class Tmdb2Service {
     '/'
   );
   private URL_MOVIE_GENRE = `${this.baseUrl}/discover/movie`;
-  private URL_MOVIE = (id: string) => [this.baseUrl, 'movie', id].join('/');
+  private URL_MOVIE = (id: string) =>
+    `${[this.baseUrl, 'movie', id].join('/')}?append_to_response=videos`
   private URL_MOVIE_RECOMMENDATIONS = (id: string) =>
     [this.baseUrl, 'movie', id, 'recommendations'].join('/')
   private URL_MOVIE_CREDITS = (id: string) =>
