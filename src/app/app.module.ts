@@ -1,10 +1,12 @@
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import {
+  BrowserModule,
+  BrowserTransferStateModule,
+} from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ServiceWorkerModule } from '@angular/service-worker';
+import { TransferHttpCacheModule } from '@nguniversal/common';
 
-import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { StorageService } from './shared/service/storage/storage.service';
 import { AppComponent } from './app.component';
@@ -16,8 +18,9 @@ import { StarRatingModule } from './shared/component/star-rating/star-rating.mod
 @NgModule({
   declarations: [AppComponent],
   imports: [
-    // BrowserModule,
     BrowserModule.withServerTransition({ appId: 'hub-movies' }),
+    BrowserTransferStateModule,
+    TransferHttpCacheModule,
     BrowserAnimationsModule,
     HttpClientModule,
     MoviesRoutedModule,
