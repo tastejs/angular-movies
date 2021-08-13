@@ -59,15 +59,14 @@ export class MovieListComponent {
   W342H513 = W342H513;
 
   @Input() title: string | number;
-  movies: Movie[];
+  movies?: Movie[];
 
   @Input('movies')
-  set _movies(movies: Movie[]) {
-    this.movies = movies.map((m: Movie) => {
-      m.url =
-        'https://image.tmdb.org/t/p/w' + W342H513.WIDTH + '/' + m.poster_path;
-      return m;
-    });
+  set _movies(movies: MovieModel[] | undefined) {
+    this.movies = (movies || []).map((m: Movie) => ({
+      ...m,
+      url: `https://image.tmdb.org/t/p/w${W342H513.WIDTH}/${m.poster_path}`,
+    }));
   }
 
   @Input() adult: string;
