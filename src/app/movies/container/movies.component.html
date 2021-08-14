@@ -1,4 +1,4 @@
-<ng-container *ngIf="state$ | async as vm">
+<ng-container *rxLet="state$; let vm">
   <div class="padding-wrapper">
     <app-movie-list
       *ngIf="!vm.loading; else loading"
