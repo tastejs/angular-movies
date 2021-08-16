@@ -7,7 +7,6 @@ import { SideDrawerComponentModule } from '../shared/component/side-drawer/side-
 import { AppShellComponent } from './app-shell.component';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { MatFormFieldModule } from '@angular/material/form-field';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
@@ -20,7 +19,6 @@ import { DarkModeToggleModule } from '../shared/component/dark-mode-toggle/dark-
     CommonModule,
     MatIconModule,
     MatSnackBarModule,
-    MatFormFieldModule,
     FormsModule,
     MatInputModule,
     FormsModule,
