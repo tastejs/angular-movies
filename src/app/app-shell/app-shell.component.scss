@@ -65,44 +65,25 @@
     }
   }
 }
+app-side-drawer {
+  grid-area: sidenav;
+}
 
-.app-shell-container {
+.content-wrapper {
+  grid-area: content;
+}
+.content {
+  min-height: calc(100vh - 72px);
+  width: 100%;
+}
+:host {
   min-height: 100vh;
   background: var(--palette-background-default);
-
-  &--content {
-    min-height: calc(100vh - 72px);
-    width: 100%;
-  }
-  ::ng-deep {
-    .mat-sidenav {
-      background: var(--palette-background-default);
-      &-content {
-        background: inherit;
-      }
-    }
-    .mat-drawer-side {
-      width: 25rem;
-      padding: 2rem;
-      margin-top: 4rem;
-      border-color: var(--palette-divider);
-    }
-    .mat-drawer-over {
-      width: 250px;
-      max-width: 70%;
-      padding: 32px 16px;
-      background: var(--palette-background-paper);
-    }
-    .mat-drawer-content {
-      min-height: 100vh;
-      display: flex;
-      -webkit-box-align: center;
-      align-items: center;
-      flex-direction: column;
-      @include isMobile {
-        padding-top: 72px;
-      }
-    }
+  @include isDesktop {
+    display: grid;
+    grid:
+      'sidenav  content' 100vh /
+      25rem 1fr;
   }
 }
 .tmdb-mark {

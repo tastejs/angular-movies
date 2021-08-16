@@ -2,10 +2,9 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { HamburgerButtonModule } from '../shared/component/hamburger-button/hamburger-button/hamburger-button.component';
+import { SideDrawerComponentModule } from '../shared/component/side-drawer/side-drawer.component';
 import { AppShellComponent } from './app-shell.component';
 import { MatIconModule } from '@angular/material/icon';
-import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { RouterModule } from '@angular/router';
@@ -18,8 +17,6 @@ import { LetModule } from '@rx-angular/template';
   imports: [
     CommonModule,
     MatIconModule,
-    MatSidenavModule,
-    MatToolbarModule,
     MatSnackBarModule,
     MatFormFieldModule,
     FormsModule,
@@ -30,6 +27,7 @@ import { LetModule } from '@rx-angular/template';
     MatButtonModule,
     HamburgerButtonModule,
     LetModule,
+    SideDrawerComponentModule,
   ],
   exports: [AppShellComponent],
 })

@@ -10,7 +10,8 @@ import { MediaMatcher } from '@angular/cdk/layout';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { NavigationEnd, Router } from '@angular/router';
 import { fromEvent } from '@rx-angular/cdk';
-import { RxState } from '@rx-angular/state';
+import { distinctUntilSomeChanged, RxState } from '@rx-angular/state';
+import { Subject } from 'rxjs';
 import { filter, map, startWith } from 'rxjs/operators';
 import { AuthStateService } from '../auth/auth.state';
 import { TmdbAuthEffects } from '../auth/tmdbAuth.effects';
@@ -31,7 +32,15 @@ export class AppShellComponent implements OnInit, OnDestroy {
   genres$ = this.tmdbState.genres$;
   @ViewChild('snav') snav: any;
 
-  readonly viewState$ = this.state.select();
+  readonly viewState$ = this.state.select(
+    distinctUntilSomeChanged([
+      'sideDrawerOpen',
+      'isMobile',
+      'activeRoute',
+      'loggedIn',
+    ])
+  );
+  readonly sideDrawerOpenToggle$ = new Subject<boolean>();
 
   // tslint:disable-next-line: variable-name
   private _mobileQueryListener = () => {};
@@ -41,6 +50,7 @@ export class AppShellComponent implements OnInit, OnDestroy {
       activeRoute: string;
       isMobile: boolean;
       loggedIn: boolean;
+      sideDrawerOpen: boolean;
     }>,
     public tmdbState: StateService,
     public authState: AuthStateService,
@@ -50,6 +60,10 @@ export class AppShellComponent implements OnInit, OnDestroy {
     private snackbar: MatSnackBar
   ) {
     this.mobileQuery = media.matchMedia('(max-width: 1299px)');
+    this.state.connect(
+      'sideDrawerOpen',
+      this.sideDrawerOpenToggle$.pipe(startWith(false))
+    );
     this.state.connect(
       'loggedIn',
       this.authState.accountId$.pipe(map((id) => !!id))
@@ -99,7 +113,7 @@ export class AppShellComponent implements OnInit, OnDestroy {
 
   closeSidenav() {
     if (this.mobileQuery.matches) {
-      this.snav.close();
+      this.sideDrawerOpenToggle$.next(false);
     }
   }
 

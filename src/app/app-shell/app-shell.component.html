@@ -1,9 +1,8 @@
-<mat-sidenav-container class="app-shell-container" *rxLet="viewState$; let vs">
-  <mat-sidenav
-    [opened]="!vs.isMobile"
-    #snav
-    [mode]="vs.isMobile ? 'over' : 'side'"
-    [fixedInViewport]="vs.isMobile"
+<ng-container *rxLet="viewState$; let vs">
+  <app-side-drawer
+    [withBackdrop]="vs.isMobile"
+    [opened]="!vs.isMobile || vs.sideDrawerOpen"
+    (openedChange)="sideDrawerOpenToggle$.next(false)"
   >
     <nav class="navigation">
       <a class="navigation--header" *ngIf="!vs.isMobile">
@@ -78,12 +77,12 @@
         <img width="300" height="118" alt="The Movie Database" src="" />
       </picture>
     </nav>
-  </mat-sidenav>
-  <mat-sidenav-content>
+  </app-side-drawer>
+  <div class="content-wrapper">
     <div class="app-toolbar">
       <app-hamburger-button
         class="app-toolbar--action"
-        (click)="snav.toggle()"
+        (click)="sideDrawerOpenToggle$.next(!vs.sideDrawerOpen)"
         *ngIf="vs.isMobile"
       >
       </app-hamburger-button>
@@ -121,8 +120,8 @@
         </ng-template>
       </div>
     </div>
-    <div class="app-shell-container--content">
+    <div class="content">
       <ng-content></ng-content>
     </div>
-  </mat-sidenav-content>
-</mat-sidenav-container>
+  </div>
+</ng-container>
