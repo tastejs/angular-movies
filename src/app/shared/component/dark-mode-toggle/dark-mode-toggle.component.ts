@@ -3,34 +3,29 @@ import {
   Component,
   ViewEncapsulation,
 } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
 import { RxState } from '@rx-angular/state';
 
 @Component({
   selector: 'app-dark-mode-toggle',
   template: `
     <div class="dark-mode-toggle">
-      <button type="button" class="light" (click)="checked.next(true)">
-        ☀
-      </button>
+      <button type="button" class="light" (click)="setChecked(true)">☀</button>
 
       <span class="toggle">
         <input
-          *rxLet="checked; let c"
+          *rxLet="checked$; let checked"
           class="toggle-track"
           type="checkbox"
           id="dark-mode"
-          [checked]="c"
-          (change)="checked.next(!c)"
+          [checked]="checked"
+          (change)="setChecked(!checked)"
         />
         <label style="color: transparent" for="dark-mode">
           Toggle Switch
         </label>
       </span>
 
-      <button type="button" class="dark" (click)="checked.next(false)">
-        ☾
-      </button>
+      <button type="button" class="dark" (click)="setChecked(false)">☾</button>
     </div>
   `,
   styleUrls: ['dark-mode-toggle.component.scss'],
@@ -38,13 +33,19 @@ import { RxState } from '@rx-angular/state';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DarkModeToggleComponent extends RxState<any> {
-  checked = new BehaviorSubject(false);
+  checked$ = this.select('checked');
 
   constructor() {
     super();
-    this.hold(this.checked, () => {
-      window.document.body.classList.toggle('dark');
-      window.document.body.classList.toggle('light');
-    });
+    this.hold(this.checked$, this.toggleTheme);
+  }
+
+  toggleTheme = (): void => {
+    window.document.body.classList.toggle('dark');
+    window.document.body.classList.toggle('light');
+  }
+
+  setChecked(checked: boolean): void {
+    this.set({ checked });
   }
 }
