@@ -11,6 +11,7 @@ import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { LetModule } from '@rx-angular/template';
+import { DarkModeToggleModule } from '../shared/component/dark-mode-toggle/dark-mode-toggle.module';
 
 @NgModule({
   declarations: [AppShellComponent],
@@ -28,6 +29,7 @@ import { LetModule } from '@rx-angular/template';
     HamburgerButtonModule,
     LetModule,
     SideDrawerComponentModule,
+    DarkModeToggleModule,
   ],
   exports: [AppShellComponent],
 })
