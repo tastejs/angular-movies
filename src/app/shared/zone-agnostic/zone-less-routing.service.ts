@@ -1,8 +1,8 @@
-import { ApplicationRef, Injectable, NgZone } from '@angular/core';
+import { ApplicationRef, Injectable } from '@angular/core';
 import { RxState } from '@rx-angular/state';
 import { NavigationEnd, Router } from '@angular/router';
-import { isNoopZone } from '../utils/is-noop-zone';
 import { filter } from 'rxjs/operators';
+import { isZonePresent } from '../utils/is-zone-present';
 
 /**
  * A small service encapsulating the hacks needed for routing in zone-less applications
@@ -11,18 +11,14 @@ import { filter } from 'rxjs/operators';
   providedIn: 'root',
 })
 export class ZonelessRouting extends RxState<any> {
-  constructor(
-    private router: Router,
-    private appRef: ApplicationRef,
-    private ngZone: NgZone
-  ) {
+  constructor(private router: Router, private appRef: ApplicationRef) {
     super();
   }
 
   init() {
     // **🚀 Perf Tip:**
     // In zone-less applications we have to trigger CD on every `NavigationEnd` event that changes the view.
-    if (isNoopZone(this.ngZone)) {
+    if (!isZonePresent()) {
       this.hold(
         // Filter relevant navigation events for change detection
         this.router.events.pipe(filter((e) => e instanceof NavigationEnd)),

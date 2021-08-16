@@ -7,7 +7,7 @@ import { environment } from './environments/environment';
 if (environment.production) {
   enableProdMode();
 }
-
+console.log('bootstrap app with noopzone');
 platformBrowserDynamic()
   // **🚀 Perf Tip:**
   // Disable zone.js as change detection system.
