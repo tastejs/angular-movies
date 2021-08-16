@@ -32,11 +32,12 @@ import { RxState } from '@rx-angular/state';
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DarkModeToggleComponent extends RxState<any> {
+export class DarkModeToggleComponent extends RxState<{ checked: boolean }> {
   checked$ = this.select('checked');
 
   constructor() {
     super();
+    this.set({ checked: false });
     this.hold(this.checked$, this.toggleTheme);
   }
 
