@@ -6,7 +6,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { RouterModule } from '@angular/router';
 import { MovieListComponent } from './movie-list.component';
 import { StarRatingModule } from '../../shared/component/star-rating/star-rating.module';
-import { LetModule } from '@rx-angular/template';
+import { LetModule } from '@rx-angular/template/let';
 import { AspectRatioBoxModule } from '../../shared/component/aspect-ratio-box/aspect-ratio-box.module';
 
 @NgModule({

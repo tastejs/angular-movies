@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatDialogModule } from '@angular/material/dialog';
 import { RouterModule, Routes } from '@angular/router';
-import { LetModule } from '@rx-angular/template';
+import { LetModule } from '@rx-angular/template/let';
 import { LoaderComponentModule } from '../../shared/component/loader/loader.component';
 import { MovieComponent } from './movie.component';
 import { MovieTrailerModule } from './movie-trailer/movie-trailer.module';
