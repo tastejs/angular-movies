@@ -87,24 +87,7 @@
       >
       </app-hamburger-button>
       <div class="app-toolbar--widget-container">
-        <mat-form-field
-          appearance="fill"
-          [floatLabel]="'never'"
-          class="app-toolbar--widget-container-search"
-        >
-          <mat-label>{{ 'App.Search movies' }}</mat-label>
-          <mat-icon class="app-toolbar--widget-container-search-icon" matPrefix
-            >search</mat-icon
-          >
-          <input
-            matInput
-            #search
-            (keyup.enter)="
-              closeSidenav(); searchMovie(search.value); search.value = ''
-            "
-            tabindex="-1"
-          />
-        </mat-form-field>
+        <app-search-bar (search)="searchMovie($event)"></app-search-bar>
         <a
           *ngIf="!vs.loggedIn; else signOut"
           mat-icon-button

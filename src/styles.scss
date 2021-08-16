@@ -186,6 +186,11 @@ a {
   --theme-anim-easing-easeOut: cubic-bezier(0.4, 0, 0.2, 1);
   --theme-anim-easing-easeIn: cubic-bezier(0.4, 0, 0.2, 1);
   --theme-anim-easing-sharp: cubic-bezier(0.4, 0, 0.2, 1);
+  --theme-media-small: 600px;
+  --theme-media-medium: 900px;
+  --theme-media-large: 1300px;
+  --theme-shadow-1: 0px 2px 1px -1px rgba(0, 0, 0, 0.2),
+    0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
   --theme-shadow-16: 0px 8px 10px -5px rgba(0, 0, 0, 0.2),
     0px 16px 24px 2px rgba(0, 0, 0, 0.14), 0px 6px 30px 5px rgba(0, 0, 0, 0.12);
   --palette-background-backdrop: rgba(0, 0, 0, 0.5);

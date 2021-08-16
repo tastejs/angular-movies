@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { HamburgerButtonModule } from '../shared/component/hamburger-button/hamburger-button/hamburger-button.component';
+import { SearchBarComponentModule } from '../shared/component/search-bar/search-bar.component';
 import { SideDrawerComponentModule } from '../shared/component/side-drawer/side-drawer.component';
 import { AppShellComponent } from './app-shell.component';
 import { MatIconModule } from '@angular/material/icon';
@@ -22,13 +23,13 @@ import { DarkModeToggleModule } from '../shared/component/dark-mode-toggle/dark-
     MatFormFieldModule,
     FormsModule,
     MatInputModule,
-    MatFormFieldModule,
     FormsModule,
     RouterModule,
     MatButtonModule,
     HamburgerButtonModule,
     LetModule,
     SideDrawerComponentModule,
+    SearchBarComponentModule,
     DarkModeToggleModule,
   ],
   exports: [AppShellComponent],
