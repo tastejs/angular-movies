@@ -13,6 +13,8 @@ import { AppComponent } from './app.component';
 import { AppShellModule } from './app-shell/app-shell.module';
 import { httpInterceptorProviders } from './shared/service/tmdb/http-interceptor.providers';
 import { StarRatingModule } from './shared/component/star-rating/star-rating.module';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [AppComponent],
@@ -25,6 +27,12 @@ import { StarRatingModule } from './shared/component/star-rating/star-rating.mod
     AppShellModule,
     AppRoutingModule,
     StarRatingModule,
+    ServiceWorkerModule.register('ngsw-worker.js', {
+      enabled: environment.production,
+      // Register the ServiceWorker as soon as the app is stable
+      // or after 30 seconds (whichever comes first).
+      registrationStrategy: 'registerWhenStable:30000',
+    }),
   ],
   providers: [httpInterceptorProviders, StorageService],
   bootstrap: [AppComponent],
