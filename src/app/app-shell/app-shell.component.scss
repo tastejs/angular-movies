@@ -76,7 +76,7 @@ app-side-drawer {
 .content {
   min-height: calc(100vh - 72px);
   width: 100%;
-  contain: strict;
+  contain: layout;
 }
 :host {
   min-height: 100vh;
