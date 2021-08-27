@@ -16,7 +16,6 @@ import {
 import { Tmdb2Service } from '../../shared/service/tmdb/tmdb2.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { W780H1170 } from '../../shared/utils/image-sizes';
-import { MovieTrailerComponent } from './movie-trailer/movie-trailer.component';
 
 type MovieDetail = MovieDetailsModel & { languages_runtime_release: string };
 
@@ -89,10 +88,6 @@ export class MovieComponent {
 
   back() {
     this.location.back();
-  }
-
-  openTrailer(key: string): void {
-    this.dialog.open(MovieTrailerComponent, { data: { key } });
   }
 
   private connectMovie(): void {

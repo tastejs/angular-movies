@@ -1,27 +1,46 @@
 <footer class="pagination">
   <nav>
     <ul>
-      <li [ngClass]="{disabled:pager.currentPage === 1}">
+      <li [ngClass]="{ disabled: pager.currentPage === 1 }">
         <a (click)="setPage(1)">
-          <mat-icon>first_page</mat-icon>
+          <svg class="icon" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M24 0v24H0V0h24z" fill="none" opacity=".87" />
+            <path
+              d="M18.41 16.59L13.82 12l4.59-4.59L17 6l-6 6 6 6 1.41-1.41zM6 6h2v12H6V6z"
+            />
+          </svg>
         </a>
       </li>
-      <li [ngClass]="{disabled:pager.currentPage === 1}">
+      <li [ngClass]="{ disabled: pager.currentPage === 1 }">
         <a (click)="setPage(pager.currentPage - 1)">
-          <mat-icon>chevron_left</mat-icon>
+          <svg class="icon" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M0 0h24v24H0V0z" fill="none" />
+            <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12l4.58-4.59z" />
+          </svg>
         </a>
       </li>
-      <li *ngFor="let page of pager.pages; trackBy: trackByPage" [ngClass]="{disabled:pager.currentPage === page}">
-        <a (click)="setPage(page)">{{page}}</a>
+      <li
+        *ngFor="let page of pager.pages; trackBy: trackByPage"
+        [ngClass]="{ disabled: pager.currentPage === page }"
+      >
+        <a (click)="setPage(page)">{{ page }}</a>
       </li>
-      <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+      <li [ngClass]="{ disabled: pager.currentPage === pager.totalPages }">
         <a (click)="setPage(pager.currentPage + 1)">
-          <mat-icon>chevron_right</mat-icon>
+          <svg class="icon" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M0 0h24v24H0V0z" fill="none" />
+            <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6-6-6z" />
+          </svg>
         </a>
       </li>
-      <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+      <li [ngClass]="{ disabled: pager.currentPage === pager.totalPages }">
         <a (click)="setPage(pager.totalPages)">
-          <mat-icon>last_page</mat-icon>
+          <svg class="icon" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M0 0h24v24H0V0z" fill="none" opacity=".87" />
+            <path
+              d="M5.59 7.41L10.18 12l-4.59 4.59L7 18l6-6-6-6-1.41 1.41zM16 6h2v12h-2V6z"
+            />
+          </svg>
         </a>
       </li>
     </ul>

@@ -44,7 +44,13 @@
               "
               (click)="toGenre(genre)"
             >
-              <mat-icon> radio_button_checked</mat-icon>
+              <svg viewBox="0 0 24 24" fill="currentColor" class="icon">
+                <path d="M0 0h24v24H0V0z" fill="none" />
+                <path
+                  d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"
+                />
+                <circle cx="12" cy="12" r="5" />
+              </svg>
               {{ genre.name }}
             </a>
           </div>
@@ -84,7 +90,12 @@
               [href]="vs.movie?.homepage"
             >
               Website
-              <mat-icon>link</mat-icon>
+              <svg class="icon" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M0 0h24v24H0V0z" fill="none" />
+                <path
+                  d="M17 7h-4v2h4c1.65 0 3 1.35 3 3s-1.35 3-3 3h-4v2h4c2.76 0 5-2.24 5-5s-2.24-5-5-5zm-6 8H7c-1.65 0-3-1.35-3-3s1.35-3 3-3h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-2zm-3-4h8v2H8z"
+                />
+              </svg>
             </a>
             <a
               *ngIf="vs.movie?.imdb_id"
@@ -94,17 +105,13 @@
               [href]="'https://www.imdb.com/title/' + vs.movie?.imdb_id"
             >
               IMDB
-              <mat-icon>local_movies</mat-icon>
+              <svg class="icon" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M0 0h24v24H0z" fill="none" />
+                <path
+                  d="M18 3v2h-2V3H8v2H6V3H4v18h2v-2h2v2h8v-2h2v2h2V3h-2zM8 17H6v-2h2v2zm0-4H6v-2h2v2zm0-4H6V7h2v2zm10 8h-2v-2h2v2zm0-4h-2v-2h2v2zm0-4h-2V7h2v2z"
+                />
+              </svg>
             </a>
-            <button
-              *ngIf="vs.movie?.videos?.results as videos"
-              class="btn"
-              type="button"
-              (click)="openTrailer(videos[0].key)"
-            >
-              Video
-              <mat-icon>movie</mat-icon>
-            </button>
           </div>
         </div>
       </div>

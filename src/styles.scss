@@ -334,6 +334,11 @@ body.dark img:not([src*='.svg']) {
   }
 }
 
+.icon {
+  height: 30px;
+  width: 30px;
+}
+
 body.light .dark-mode-toggle > button.light {
   color: #ffb74d;
 }

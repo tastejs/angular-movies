@@ -73,12 +73,6 @@
       font-size: 1.25rem;
       font-weight: 700;
       text-transform: uppercase;
-      .mat-icon {
-        font-size: 1em;
-        width: 1.25em;
-        height: 1.25em;
-        margin-right: 4px;
-      }
     }
   }
   &--cast {
@@ -90,9 +84,6 @@
     &-links {
       display: flex;
       margin-right: auto;
-      .mat-icon {
-        margin-left: 8px;
-      }
       > :not(:last-child) {
         margin-right: 2rem;
         @media only screen and (max-width: 1300px) {
@@ -184,6 +175,12 @@
   border-radius: 4px;
   box-shadow: none;
   background-color: transparent;
+
+  .icon {
+    width: 24px;
+    height: 24px;
+    margin-left: 8px;
+  }
 }
 
 .movie {
@@ -284,11 +281,6 @@
 
         span {
           margin: 0 5px 0 0;
-        }
-
-        .mat-icon {
-          width: 20px;
-          font-size: 20px;
         }
       }
 
@@ -415,4 +407,10 @@
 
 small {
   padding: 5px;
+}
+
+.icon {
+  width: 1.25rem;
+  height: 1.25rem;
+  margin-right: 0.5rem;
 }

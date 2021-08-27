@@ -1,15 +1,10 @@
-import {NgModule} from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {MatIconModule} from '@angular/material/icon';
-import {PaginationComponent} from './pagination.component';
-
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { PaginationComponent } from './pagination.component';
 
 @NgModule({
   declarations: [PaginationComponent],
-  imports: [
-    CommonModule,
-    MatIconModule
-  ],
+  imports: [CommonModule],
   exports: [PaginationComponent],
 })
-export class PaginationModule { }
+export class PaginationModule {}
