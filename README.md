@@ -1,70 +1,61 @@
-# HubMovies
+# angular-movies
 
-<p align="center">
-    <a href="https://hubmovies-a26fc.firebaseapp.com"><img src="https://rawgit.com/clamarque/hub-movies/master/src/assets/icons/android-chrome-192x192.png" alt="logo" />
-    </a>
-</p>
+This is a Movies App built using Next.js and [The Movie Database (TMDB)](https://www.themoviedb.org/) API. 
 
-<p align="center">
-    A progressive web apps of movies built with Angular
-</p>
-<hr>
+## Demo
 
-- :globe_with_meridians: **Reliable** : Allows the app to display movie lists even when offline
+A [live deployment](https://angular-movies-a12d3.web.app/movies/popular) of this app is available to try it out.
 
-- :zap: **Fast**: built with Angular, the app does its best to answer you as soon as possible.
+## Contributing
 
-- :ok_hand: **Engaging** : Immersive experience in full screen ! At the launch of the app, it offers you to add it directly on your home screen as a true native app.
+Contributions are always welcome! 
 
-## Lighthouse score
+For large changes, please file an issue to discuss your proposed changes with us before working on a PR :)
 
-This app has been checked by the open source tool, [**lighthouse**](https://github.com/GoogleChrome/lighthouse) for improve the quality from the app. 
+## Installation 
 
-- :heart_eyes: **Progressive Web App**: 100 / 100
+Clone and install the dependencies for `angular-movies` locally:
 
-- :cry: **Performance**: 83 / 100
+```bash 
+  git clone https://github.com/tastejs/angular-movies.git
+  cd angular-movies 
+  npm install
+```
 
-- :ok_hand: **Accessibility**: 100 / 100
+## Quick setup
 
-- :thumbsup: **Best Practices**: 100 / 100
+1. Take a copy of `src/environments/environment.local.example.ts` and re-name to `src/environments/environment.prod.ts` 
+2. Get your TMDb API key
+3. Get your TMDB API read access token
+4. Enter the details into the `src/environments/environment.prod.ts` file
+    
+## Running locally
 
-- :grinning: **SEO**: 100/100
+* `npm run build:dev`: dev build
+* `npm run build:prod`: production build
+* `npm run build:prod:ssr`: production build for SSR
+* `npm run start`: serve the project locally for development
+* `npm run start:ssr:dev`: serve the project locally SSR for development
+* `npm run start:ssr:prod`: serve the project locally SSR for production
+* `npm run analyze:bundlesize`: bundle size analysis 
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.0.0.
+## Tech Stack
 
-## How to use it ?
+Built with:
 
-<p align="center">
-    <a href="https://hubmovies-a26fc.firebaseapp.com"><img src="https://github.com/clamarque/hub-movies/blob/master/src/assets/images/demo.jpg" alt="demo" />
-    </a>
-</p>
+* Angular
+* rx-angular
+  
+## Authors
 
-* User authentification (Google, Twitter and Facebook)
-* Get informations about a movie (description, cast, similar movies, etc.)
-* Save the movies you want to watch later or save your favorites movies
-* Share a movie with your community (Google +, Facebook, Twitter or by mail)
-* Firebase implementations for data in real time
-* Keep navigation when you are offline !
+- [Push-Based.io](https://push-based.io)
+  - [Michael Hladky](https://github.com/BioPhoton)
+  - [Kirill Karnaukhov](https://github.com/Karnaukhov-kh)
+  - [Julian Jandl](https://github.com/HoebbelsB)
 
-My purpose is to built a great application as allocine or tv show time, using the power of Angular.
 
-## Update font
+Based on the original `angular-movies` foundation by [@clamarque](https://github.com/clamarque/angular-movies).
+  
+## License
 
-Enter in navigator, this URL: https://fonts.googleapis.com/icon?family=Material+Icons
-
-Get the URL in code, like this: 
-
-<code>
-@font-face {
-  font-family: 'Material Icons';
-  font-style: normal;
-  font-weight: 400;
-  src: url(https://fonts.gstatic.com/s/materialicons/v47/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.woff2) format('woff2');
-}
-</code>
-
-Put the URL in the navigator for download the file.
-
-## Become a contributor ?
-
-Find a bug, contribute some code or suggest ideas ? don't hesitate ! Create a pull request or an issue :wink:
+[MIT](https://choosealicense.com/licenses/mit/)
