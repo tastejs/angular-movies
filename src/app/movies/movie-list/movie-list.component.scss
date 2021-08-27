@@ -5,6 +5,7 @@
   place-content: space-between space-evenly;
   align-items: start;
   margin: 4rem 0;
+  contain: layout;
 
   &-item {
     display: flex;

@@ -16,6 +16,7 @@
     var(--theme-anim-easing-easeOut);
   box-shadow: var(--theme-shadow-16);
   background-color: var(--palette-background-paper);
+  contain: strict;
 }
 .side-drawer {
   transform: translateX(-100%);
