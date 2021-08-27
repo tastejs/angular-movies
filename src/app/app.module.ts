@@ -4,7 +4,6 @@ import {
   BrowserModule,
   BrowserTransferStateModule,
 } from '@angular/platform-browser';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TransferHttpCacheModule } from '@nguniversal/common';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -22,7 +21,6 @@ import { environment } from '../environments/environment';
     BrowserModule.withServerTransition({ appId: 'hub-movies' }),
     BrowserTransferStateModule,
     TransferHttpCacheModule,
-    BrowserAnimationsModule,
     HttpClientModule,
     AppShellModule,
     AppRoutingModule,
