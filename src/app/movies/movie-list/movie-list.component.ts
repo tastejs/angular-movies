@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { MovieModel } from '../model';
-import { W342H513 } from '../../shared/utils/image-sizes';
+import { W300H450 } from '../../shared/utils/image-sizes';
 
 interface Movie extends MovieModel {
   url: string;
@@ -24,12 +24,12 @@ interface Movie extends MovieModel {
         (click)="toMovie(movie)"
       >
         <div class="movies-list--grid-item-image gradient">
-          <aspect-ratio-box [aspectRatio]="W342H513.WIDTH / W342H513.HEIGHT">
+          <aspect-ratio-box [aspectRatio]="W300H450.WIDTH / W300H450.HEIGHT">
             <img
               loading="lazy"
               [src]="movie.url"
-              [width]="W342H513.WIDTH"
-              [height]="W342H513.HEIGHT"
+              [width]="W300H450.WIDTH"
+              [height]="W300H450.HEIGHT"
               alt="poster movie"
               [title]="movie.title"
             />
@@ -63,7 +63,7 @@ interface Movie extends MovieModel {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MovieListComponent {
-  W342H513 = W342H513;
+  W300H450 = W300H450;
 
   @Input() title?: string | number;
   movies?: Movie[];
@@ -72,7 +72,7 @@ export class MovieListComponent {
   set _movies(movies: MovieModel[] | undefined) {
     this.movies = (movies || []).map((m) => ({
       ...m,
-      url: `https://image.tmdb.org/t/p/w${W342H513.WIDTH}/${m.poster_path}`,
+      url: `https://image.tmdb.org/t/p/w${W300H450.WIDTH}/${m.poster_path}`,
     }));
   }
 

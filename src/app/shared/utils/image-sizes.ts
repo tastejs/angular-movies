@@ -5,6 +5,11 @@ export const W44H44 = Object.freeze({
   HEIGHT: 44,
 });
 
+export const W300H450 = Object.freeze({
+  WIDTH: 300,
+  HEIGHT: 450,
+});
+
 export const W342H513 = Object.freeze({
   WIDTH: 342,
   HEIGHT: 513,
