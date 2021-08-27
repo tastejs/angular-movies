@@ -41,14 +41,14 @@ Clone and install the dependencies for `angular-movies` locally:
 
 ## Tech Stack
 
-Built with:
+Built with: 
 
 * Angular
 * rx-angular
   
 ## Authors
 
-- [Push-Based.io](https://push-based.io)
+- [push-based.io](https://push-based.io)
   - [Michael Hladky](https://github.com/BioPhoton)
   - [Kirill Karnaukhov](https://github.com/Karnaukhov-kh)
   - [Julian Jandl](https://github.com/HoebbelsB)

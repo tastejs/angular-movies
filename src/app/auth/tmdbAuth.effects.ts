@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { exhaustMap, map, take } from 'rxjs/operators';
+import { Observable, exhaustMap, map, take } from 'rxjs';
 import { Tmdb2Service } from '../shared/service/tmdb/tmdb2.service';
 import { AuthStateService, isAuthenticationInProgress } from './auth.state';
 

@@ -1,15 +1,19 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 import { ActivatedRoute } from '@angular/router';
-import { EMPTY, MonoTypeOperatorFunction, Observable, of } from 'rxjs';
 import {
+  EMPTY,
+  MonoTypeOperatorFunction,
+  Observable,
   catchError,
   filter,
   map,
   startWith,
   switchMap,
   withLatestFrom,
-} from 'rxjs/operators';
+  of,
+} from 'rxjs';
+
 import { StateService } from '../../shared/service/state.service';
 import { Tmdb2Service } from '../../shared/service/tmdb/tmdb2.service';
 import { MovieModel } from '../model';

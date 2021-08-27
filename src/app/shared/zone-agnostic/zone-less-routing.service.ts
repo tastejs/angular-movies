@@ -1,7 +1,7 @@
 import { ApplicationRef, Injectable } from '@angular/core';
 import { RxState } from '@rx-angular/state';
 import { NavigationEnd, Router } from '@angular/router';
-import { filter } from 'rxjs/operators';
+import { filter } from 'rxjs';
 import { isZonePresent } from '../utils/is-zone-present';
 
 /**

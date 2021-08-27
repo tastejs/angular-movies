@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, map } from 'rxjs';
 import {
   MovieGenreModel,
   MovieModel,
@@ -9,7 +9,6 @@ import {
 import { environment } from '../../../../environments/environment';
 import { Configuration } from './configuration.interface';
 import { MovieDatabaseModel } from '../../model/movie-database.model';
-import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',

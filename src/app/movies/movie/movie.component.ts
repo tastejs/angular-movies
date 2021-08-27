@@ -5,8 +5,8 @@ import {
   TrackByFunction,
 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { map, startWith, switchMap } from 'rxjs';
 import { RxState, selectSlice } from '@rx-angular/state';
-import { map, startWith, switchMap } from 'rxjs/operators';
 import {
   MovieCastModel,
   MovieDetailsModel,

@@ -10,8 +10,8 @@ import {
   Output,
   ViewChild,
 } from '@angular/core';
-import { fromEvent, Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { fromEvent, Subject, takeUntil } from 'rxjs';
+
 import { SearchIconComponentModule } from '../icons/search/search-icon.component';
 
 @Component({
@@ -147,7 +147,7 @@ export class SearchBarComponent implements OnInit, OnDestroy {
   private searchTerm = '';
 
   private readonly nativeElement: HTMLElement = this.elementRef.nativeElement;
-  private readonly destroy$ = new Subject<never>();
+  private readonly destroy$ = new Subject<void>();
   constructor(
     @Inject(ElementRef) private elementRef: ElementRef,
     @Inject(DOCUMENT) private document: Document

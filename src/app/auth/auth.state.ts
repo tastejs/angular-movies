@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
-import { distinctUntilChanged, filter, map } from 'rxjs/operators';
+import { BehaviorSubject, distinctUntilChanged, filter, map } from 'rxjs';
 
 interface AuthState {
   requestToken: string;

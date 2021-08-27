@@ -7,8 +7,7 @@ import {
   Route,
   RouterStateSnapshot,
 } from '@angular/router';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Observable, map } from 'rxjs';
 import { AuthStateService } from './auth.state';
 
 @Injectable({
@@ -21,8 +20,7 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanLoad {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<boolean> | boolean {
-    const url: string = state.url;
-    return this.checkLogin(url);
+    return this.checkLogin();
   }
 
   canActivateChild(
@@ -32,13 +30,11 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanLoad {
     return this.canActivate(route, state);
   }
 
-  canLoad(route: Route): boolean | Observable<boolean> {
-    const url = `/${route.path}`;
-
-    return this.checkLogin(url);
+  canLoad(): boolean | Observable<boolean> {
+    return this.checkLogin();
   }
 
-  checkLogin(url: string): Observable<boolean> {
+  checkLogin(): Observable<boolean> {
     return this.authService.accountId$.pipe(map((auth) => !!auth));
   }
 }
