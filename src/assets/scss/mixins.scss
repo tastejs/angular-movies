@@ -1,3 +1,15 @@
+@mixin isXSmall {
+  @media screen and (max-width: 500px) {
+    @content;
+  }
+}
+
+@mixin isSmall {
+  @media screen and (max-width: 600px) {
+    @content;
+  }
+}
+
 @mixin isMobile {
   @media screen and (max-width: 1299px) {
     @content;

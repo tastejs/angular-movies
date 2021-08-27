@@ -121,6 +121,7 @@
       </app-hamburger-button>
       <div class="app-toolbar--widget-container">
         <app-search-bar (search)="searchMovie($event)"></app-search-bar>
+        <app-dark-mode-toggle> </app-dark-mode-toggle>
         <a
           *ngIf="!vs.loggedIn; else signOut"
           title="sign in"
@@ -143,7 +144,6 @@
             </g>
           </svg>
         </a>
-        <app-dark-mode-toggle> </app-dark-mode-toggle>
         <ng-template #signOut>
           <a title="sign out" (click)="onSignOut()">
             <svg

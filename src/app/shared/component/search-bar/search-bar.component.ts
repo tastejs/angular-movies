@@ -110,7 +110,7 @@ import { SearchIconComponentModule } from '../icons/search/search-icon.component
         cursor: pointer;
       }
 
-      @media only screen and (max-width: var(--theme-media-large)) {
+      @media only screen and (max-width: 1300px) {
         .magnifier-button {
           font-size: 1rem;
         }
@@ -118,17 +118,28 @@ import { SearchIconComponentModule } from '../icons/search/search-icon.component
         .input {
           font-size: 1.25rem;
         }
+        .form {
+          padding: 1.5rem;
+          border: 1px solid hsl(0deg 0% 0% / 0%);
+          background-color: var(--palette-secondary-main);
+        }
       }
 
-      @media only screen and (max-width: var(--theme-media-medium)) {
+      @media only screen and (max-width: 900px) {
         .input {
           font-size: 1rem;
         }
       }
 
-      @media only screen and (max-width: var(--theme-media-small)) {
+      @media only screen and (max-width: 600px) {
         .input {
           font-size: 0.875rem;
+        }
+      }
+
+      @media only screen and (max-width: 500px) {
+        .form {
+          max-width: 16rem;
         }
       }
     `,

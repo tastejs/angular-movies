@@ -50,14 +50,14 @@ li {
 }
 
 .padding-wrapper {
-  @media only screen and (max-width: 1300px) {
-    padding-right: 2rem;
-    padding-left: 2rem;
-  }
-
   @media only screen and (max-width: 1462.5px) {
     padding-right: 3rem;
     padding-left: 3rem;
+  }
+
+  @media only screen and (max-width: 1300px) {
+    padding-right: 2rem;
+    padding-left: 2rem;
   }
 
   padding-right: 4rem;
@@ -182,6 +182,7 @@ a {
   --theme-anim-easing-easeOut: cubic-bezier(0.4, 0, 0.2, 1);
   --theme-anim-easing-easeIn: cubic-bezier(0.4, 0, 0.2, 1);
   --theme-anim-easing-sharp: cubic-bezier(0.4, 0, 0.2, 1);
+  --theme-media-xsmall: 500px;
   --theme-media-small: 600px;
   --theme-media-medium: 900px;
   --theme-media-large: 1300px;

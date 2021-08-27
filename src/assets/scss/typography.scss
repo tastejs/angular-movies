@@ -49,3 +49,18 @@ h4 {
   line-height: 1;
   text-transform: uppercase;
 }
+
+@media only screen and (max-width: 900px) {
+  .title {
+    font-size: 2.125rem;
+  }
+  .subtitle {
+    font-size: 1rem;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .title {
+    font-size: 1.5rem;
+  }
+}

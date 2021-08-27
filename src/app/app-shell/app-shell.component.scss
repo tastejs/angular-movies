@@ -26,6 +26,17 @@
     height: 64px;
   }
 
+  @include isSmall {
+    height: 56px;
+    padding: 0 16px;
+  }
+
+  @include isXSmall {
+    height: 56px;
+    padding: 0 16px;
+    background-color: hsl(0deg 0% 0% / 0%);
+  }
+
   &--action {
     color: var(--palette-secondary-main);
   }
@@ -35,11 +46,17 @@
     display: flex;
     align-items: center;
     margin-left: auto;
+    > :not(:first-child) {
+      margin-left: 12px;
+      margin-right: 12px;
+    }
     a {
       color: var(--palette-secondary-main);
-      &:not(:first-child) {
-        margin-left: 12px;
-        margin-right: 12px;
+    }
+    @include isMobile {
+      padding: 0;
+      > :not(:first-child) {
+        margin: 0 0 0 8px;
       }
     }
   }
