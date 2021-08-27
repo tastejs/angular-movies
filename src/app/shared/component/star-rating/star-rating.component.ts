@@ -40,6 +40,9 @@ ratingValue.innerHTML = '' + range;
   selector: 'star-rating',
   template: `
     <div class="star-rating">
+      <span class="tooltip">
+        {{ tooltipText }}
+      </span>
       <div class="stars">
         <span
           *ngFor="let fill of stars; trackBy: trackByIndex"
@@ -64,9 +67,14 @@ export class StarRatingComponent {
   rating = 5;
   showRating = false;
 
+  tooltipText = `0 average rating`;
+
   @Input('rating')
   set _rating(rating: number | undefined) {
     this.rating = rating || 0;
+
+    this.setToolTopText(this.rating);
+
     const scaledRating =
       coerceNumberProperty(rating, 0) / (this.range / this.numStars);
     const full = Math.floor(scaledRating);
@@ -79,6 +87,12 @@ export class StarRatingComponent {
 
     // this.elem.nativeElement.appendChild(starRating);
   }
+
+  setToolTopText(rating: number) {
+    this.tooltipText = `${rating} average rating`;
+  }
+
+  toggleToolTip() {}
 
   @Input('showRating')
   set _showRating(show: boolean) {

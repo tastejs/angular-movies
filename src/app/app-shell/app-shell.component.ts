@@ -12,6 +12,7 @@ import { AuthStateService } from '../auth/auth.state';
 import { TmdbAuthEffects } from '../auth/tmdbAuth.effects';
 import { StateService } from '../shared/service/state.service';
 import { MovieGenreModel } from '../movies/model';
+import { trackByProp } from '../shared/utils/track-by';
 
 @Component({
   selector: 'app-shell',
@@ -23,14 +24,6 @@ import { MovieGenreModel } from '../movies/model';
   providers: [RxState],
 })
 export class AppShellComponent {
-  genres$ = this.tmdbState.genres$;
-  @ViewChild('snav') snav: any;
-
-  readonly viewState$ = this.state.select(
-    distinctUntilSomeChanged(['sideDrawerOpen', 'activeRoute', 'loggedIn'])
-  );
-  readonly sideDrawerOpenToggle$ = new Subject<boolean>();
-
   constructor(
     private state: RxState<{
       activeRoute: string;
@@ -59,6 +52,16 @@ export class AppShellComponent {
       )
     );
   }
+  genres$ = this.tmdbState.genres$;
+  @ViewChild('snav') snav: any;
+
+  readonly viewState$ = this.state.select(
+    distinctUntilSomeChanged(['sideDrawerOpen', 'activeRoute', 'loggedIn'])
+  );
+  readonly sideDrawerOpenToggle$ = new Subject<boolean>();
+
+  trackByGenre: TrackByFunction<MovieGenreModel> =
+    trackByProp<MovieGenreModel>('name');
 
   searchMovie(term: string) {
     term === ''
@@ -87,9 +90,4 @@ export class AppShellComponent {
   resetPagination() {
     sessionStorage.setItem('hubmovies-current-page', '1');
   }
-
-  trackByGenre: TrackByFunction<MovieGenreModel> = (
-    _: number,
-    genre: MovieGenreModel
-  ) => genre.name
 }

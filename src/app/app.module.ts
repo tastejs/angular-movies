@@ -1,5 +1,5 @@
 import { HttpClientModule } from '@angular/common/http';
-import { NgModule } from '@angular/core';
+import { APP_INITIALIZER, NgModule } from '@angular/core';
 import {
   BrowserModule,
   BrowserTransferStateModule,
@@ -14,6 +14,13 @@ import { httpInterceptorProviders } from './shared/service/tmdb/http-interceptor
 import { StarRatingModule } from './shared/component/star-rating/star-rating.module';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
+import { StateService } from './shared/service/state.service';
+
+export function initializeState(state: StateService) {
+  return (): Promise<void> => {
+    return state.init();
+  };
+}
 
 @NgModule({
   declarations: [AppComponent],
@@ -32,7 +39,16 @@ import { environment } from '../environments/environment';
       registrationStrategy: 'registerWhenStable:30000',
     }),
   ],
-  providers: [httpInterceptorProviders, StorageService],
+  providers: [
+    httpInterceptorProviders,
+    StorageService,
+    {
+      provide: APP_INITIALIZER,
+      useFactory: initializeState,
+      deps: [StateService],
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
