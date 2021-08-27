@@ -1,11 +1,10 @@
 <ng-container *rxLet="viewState$; let vs">
   <app-side-drawer
-    [withBackdrop]="vs.isMobile"
-    [opened]="!vs.isMobile || vs.sideDrawerOpen"
+    [opened]="vs.sideDrawerOpen"
     (openedChange)="sideDrawerOpenToggle$.next(false)"
   >
     <nav class="navigation">
-      <a class="navigation--header" *ngIf="!vs.isMobile">
+      <a class="navigation--header">
         <picture>
           <img
             class="logo-img"
@@ -118,7 +117,6 @@
       <app-hamburger-button
         class="app-toolbar--action"
         (click)="sideDrawerOpenToggle$.next(!vs.sideDrawerOpen)"
-        *ngIf="vs.isMobile"
       >
       </app-hamburger-button>
       <div class="app-toolbar--widget-container">
