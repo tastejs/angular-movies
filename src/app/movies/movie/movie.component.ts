@@ -4,7 +4,6 @@ import {
   Component,
   TrackByFunction,
 } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
 import { map, startWith, switchMap } from 'rxjs';
 import { RxState, selectSlice } from '@rx-angular/state';
 import {
@@ -38,7 +37,6 @@ export class MovieComponent {
   private readonly id$ = this.route.params.pipe(map(({ id }) => id));
 
   constructor(
-    public dialog: MatDialog,
     private location: Location,
     private tmdb: Tmdb2Service,
     private route: ActivatedRoute,

@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatDialogModule } from '@angular/material/dialog';
 import { RouterModule, Routes } from '@angular/router';
 import { LetModule } from '@rx-angular/template/let';
 import { LoaderComponentModule } from '../../shared/component/loader/loader.component';
@@ -23,7 +22,6 @@ const ROUTES: Routes = [
     CommonModule,
     RouterModule.forChild(ROUTES),
     MatMenuModule,
-    MatDialogModule,
     StarRatingModule,
     MovieListModule,
     LetModule,
