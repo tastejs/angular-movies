@@ -3,7 +3,7 @@
     [opened]="vs.sideDrawerOpen"
     (openedChange)="sideDrawerOpenToggle$.next(false)"
   >
-    <nav class="navigation">
+    <nav class="navigation" *rxLet="[]">
       <a class="navigation--header" href="/">
         <picture>
           <img
@@ -76,7 +76,11 @@
       </a>
       <h2 class="navigation--headline">Genres</h2>
       <a
-        *rxFor="let genre of genres$; trackBy: trackByGenre"
+        *rxFor="
+          let genre of genres$;
+          trackBy: trackByGenre;
+          strategy: 'background'
+        "
         class="navigation--link"
         [class.active]="vs.activeRoute === '/genre/' + genre.id"
         (click)="navTo('/genre', genre.id)"
@@ -96,6 +100,8 @@
           {{ genre.name }}
         </div>
       </a>
+    </nav>
+    <footer>
       <picture class="tmdb-mark">
         <source
           srcset="/assets/svgs/tmdbgreen.svg"
@@ -107,7 +113,7 @@
         />
         <img width="300" height="118" alt="The Movie Database" src="" />
       </picture>
-    </nav>
+    </footer>
   </app-side-drawer>
   <div class="content-wrapper">
     <div class="app-toolbar">

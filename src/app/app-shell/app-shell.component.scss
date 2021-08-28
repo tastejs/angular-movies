@@ -65,6 +65,15 @@ app-side-drawer {
   grid-area: sidenav;
 }
 
+footer {
+  width: 220px;
+  height: 50px;
+  position: fixed;
+  bottom: 0px;
+  z-index: var(--theme-tooptip-zIndex);
+  background-color: white;
+}
+
 .content-wrapper {
   grid-area: content;
 }
