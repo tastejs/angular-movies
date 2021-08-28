@@ -9,6 +9,7 @@ import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { LetModule } from '@rx-angular/template/let';
 import { DarkModeToggleModule } from '../shared/component/dark-mode-toggle/dark-mode-toggle.module';
+import { RxForModule } from '../shared/directives/rx-for.directive';
 
 @NgModule({
   declarations: [AppShellComponent],
@@ -22,6 +23,7 @@ import { DarkModeToggleModule } from '../shared/component/dark-mode-toggle/dark-
     SideDrawerComponentModule,
     SearchBarComponentModule,
     DarkModeToggleModule,
+    RxForModule,
   ],
   exports: [AppShellComponent],
 })

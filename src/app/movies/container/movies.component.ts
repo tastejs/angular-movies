@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 import { ActivatedRoute } from '@angular/router';
+import { select } from '@rx-angular/state';
 import {
   EMPTY,
   MonoTypeOperatorFunction,
@@ -12,6 +13,7 @@ import {
   switchMap,
   withLatestFrom,
   of,
+  shareReplay,
 } from 'rxjs';
 
 import { StateService } from '../../shared/service/state.service';
@@ -63,8 +65,15 @@ export class MoviesComponent {
         );
       }
       return EMPTY;
-    })
+    }),
+    shareReplay({ refCount: true, bufferSize: 1 })
   );
+
+  readonly movies$ = this.state$.pipe(select('movies')) as Observable<
+    MovieModel[]
+  >;
+  readonly loading$ = this.state$.pipe(select('loading'));
+  readonly title$ = this.state$.pipe(select('title'));
 
   constructor(
     private tmdb2Service: Tmdb2Service,
@@ -78,8 +87,8 @@ function moviesState(): MonoTypeOperatorFunction<MoviesState> {
     o$.pipe(
       catchError((e) => {
         console.error(e);
-        return of({ loading: false, movies: undefined, title: undefined });
+        return of({ loading: false, movies: [], title: undefined });
       }),
-      startWith({ loading: true, movies: undefined, title: undefined })
+      startWith({ loading: true, movies: [], title: undefined })
     );
 }

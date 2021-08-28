@@ -123,13 +123,12 @@
 </div>
 <div
   class="padding-wrapper movie-detail--recommended"
-  *rxLet="recommendedState$; let vs"
+  *rxLet="recommendedLoading$; let loading"
 >
-  <app-movie-list
-    *ngIf="!vs.loading"
-    [movies]="vs.recommendations"
-    [title]="'Recommended'"
-    [dataParam]="'Movies'"
-  >
+  <app-movie-list *ngIf="!loading" [movies]="recommendations$">
+    <div class="header">
+      <h1 class="title">Recommended</h1>
+      <h2 class="subtitle">Movies</h2>
+    </div>
   </app-movie-list>
 </div>

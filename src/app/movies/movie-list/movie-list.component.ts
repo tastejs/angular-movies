@@ -1,5 +1,7 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
+import { RxState } from '@rx-angular/state';
+import { map, Observable } from 'rxjs';
 import { MovieModel } from '../model';
 import { W300H450 } from '../../shared/utils/image-sizes';
 
@@ -10,40 +12,38 @@ interface Movie extends MovieModel {
 @Component({
   selector: 'app-movie-list',
   template: `
-    <div class="header">
-      <h1 class="title">{{ title || '' }}</h1>
-      <h2 class="subtitle" *ngIf="dataParam">{{ dataParam }}</h2>
-    </div>
-    <div
-      class="movies-list--grid"
-      *ngIf="movies && movies.length > 0; else noData"
+    <ng-content select=".header"></ng-content>
+    <ng-container
+      *rxLet="hasMovies$; let hasMovies; strategy: 'instantUserBlocking'"
     >
-      <a
-        class="movies-list--grid-item"
-        *ngFor="let movie of movies; trackBy: movieById"
-        (click)="toMovie(movie)"
-      >
-        <div class="movies-list--grid-item-image gradient">
-          <aspect-ratio-box [aspectRatio]="W300H450.WIDTH / W300H450.HEIGHT">
-            <img
-              loading="lazy"
-              [src]="movie.url"
-              [width]="W300H450.WIDTH"
-              [height]="W300H450.HEIGHT"
-              alt="poster movie"
-              [title]="movie.title"
-            />
-          </aspect-ratio-box>
-        </div>
-        <div class="movies-list--grid-item__details">
-          <h2 class="movies-list--grid-item__details-title">
-            {{ movie.title }}
-          </h2>
-          <star-rating [rating]="movie.vote_average"></star-rating>
-        </div>
-      </a>
-      <div cass="pagination"></div>
-    </div>
+      <div class="movies-list--grid" *ngIf="hasMovies; else noData">
+        <a
+          class="movies-list--grid-item"
+          *rxFor="let movie of movies$; trackBy: movieById"
+          (click)="toMovie(movie)"
+        >
+          <div class="movies-list--grid-item-image gradient">
+            <aspect-ratio-box [aspectRatio]="W300H450.WIDTH / W300H450.HEIGHT">
+              <img
+                loading="lazy"
+                [src]="movie.url"
+                [width]="W300H450.WIDTH"
+                [height]="W300H450.HEIGHT"
+                alt="poster movie"
+                [title]="movie.title"
+              />
+            </aspect-ratio-box>
+          </div>
+          <div class="movies-list--grid-item__details">
+            <h2 class="movies-list--grid-item__details-title">
+              {{ movie.title }}
+            </h2>
+            <star-rating [rating]="movie.vote_average"></star-rating>
+          </div>
+        </a>
+        <div class="pagination"></div>
+      </div>
+    </ng-container>
 
     <ng-template #noData>
       <h3>
@@ -60,32 +60,45 @@ interface Movie extends MovieModel {
     </ng-template>
   `,
   styleUrls: ['./movie-list.component.scss'],
+  providers: [RxState],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MovieListComponent {
   W300H450 = W300H450;
 
-  @Input() title?: string | number;
-  movies?: Movie[];
+  movies$ = this.state.select('movies').pipe(
+    map(
+      (movies) =>
+        (movies || []).map((m) => ({
+          ...m,
+          url: `https://image.tmdb.org/t/p/w${W300H450.WIDTH}/${m.poster_path}`,
+        })) as Movie[]
+    )
+  );
+
+  hasMovies$ = this.state
+    .select('movies')
+    .pipe(map((movies) => !!movies && movies.length > 0));
 
   @Input('movies')
-  set _movies(movies: MovieModel[] | undefined) {
-    this.movies = (movies || []).map((m) => ({
-      ...m,
-      url: `https://image.tmdb.org/t/p/w${W300H450.WIDTH}/${m.poster_path}`,
-    }));
+  set movies(movies$: Observable<MovieModel[]>) {
+    this.state.connect('movies', movies$);
   }
 
   @Input() adult?: string;
-  @Input() dataParam = 'Movies';
 
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router,
+    private state: RxState<{
+      movies: MovieModel[];
+    }>
+  ) {}
 
-  movieById(_: number, movie: MovieModel) {
+  movieById(_: number, movie: Movie) {
     return movie.id;
   }
 
-  toMovie(movie: MovieModel) {
+  toMovie(movie: Movie) {
     this.router.navigate(['/movie', movie.id]);
   }
 }

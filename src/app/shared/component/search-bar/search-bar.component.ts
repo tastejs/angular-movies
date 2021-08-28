@@ -168,8 +168,6 @@ export class SearchBarComponent implements OnInit, OnDestroy {
     fromEvent(this.document, 'click')
       .pipe(takeUntil(this.destroy$))
       .subscribe((e) => {
-        console.log('e', e);
-        console.log('this.formRef', this.formRef);
         if (!this.formRef.nativeElement.contains(e.target as any)) {
           this.setOpened(false);
         }

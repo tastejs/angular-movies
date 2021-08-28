@@ -30,9 +30,9 @@ export class MovieComponent {
   readonly detailState$ = this.state.select(
     selectSlice(['loading', 'movie', 'cast'])
   );
-  readonly recommendedState$ = this.state.select(
-    selectSlice(['loading', 'recommendations'])
-  );
+
+  readonly recommendedLoading$ = this.state.select('loading');
+  readonly recommendations$ = this.state.select('recommendations');
 
   private readonly id$ = this.route.params.pipe(map(({ id }) => id));
 
@@ -54,7 +54,6 @@ export class MovieComponent {
       cast: [],
       loading: true,
     });
-    state.hold(this.state.select(), console.log);
     this.connectMovie();
     this.state.connect(
       'recommendations',
