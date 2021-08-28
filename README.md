@@ -49,9 +49,10 @@ Built with:
 ## Authors
 
 - [push-based.io](https://push-based.io)
-  - [Michael Hladky](https://github.com/BioPhoton)
-  - [Kirill Karnaukhov](https://github.com/Karnaukhov-kh)
-  - [Julian Jandl](https://github.com/HoebbelsB)
+- [Michael Hladky](https://github.com/BioPhoton)
+- [Kirill Karnaukhov](https://github.com/Karnaukhov-kh)
+- [Julian Jandl](https://github.com/HoebbelsB)
+- [Vojtech Mašek](https://github.com/vmasek)
 
 
 Based on the original `angular-movies` foundation by [@clamarque](https://github.com/clamarque/angular-movies).
