@@ -8,8 +8,8 @@ A [live deployment](https://angular-movies-a12d3.web.app/movies/popular) of this
 
 ## Comparison to next app
 
-https://lighthouse-metrics.com/one-time-tests/61299c3173820a000836ac3b
-https://lighthouse-metrics.com/one-time-tests/61299973401f0d0009349b33
+- [next](https://lighthouse-metrics.com/one-time-tests/61299c3173820a000836ac3b)
+- [angular](https://lighthouse-metrics.com/one-time-tests/61299973401f0d0009349b33)
 
 ## Contributing
 
@@ -60,7 +60,7 @@ Built with:
 - [Vojtech Mašek](https://github.com/vmasek)
 
 
-Based on the original `angular-movies` foundation by [@clamarque](https://github.com/clamarque/angular-movies).
+Based on the original `angular-movies` foundation by [@clamarque](https://g9ithub.com/clamarque/angular-movies).
   
 ## License
 
