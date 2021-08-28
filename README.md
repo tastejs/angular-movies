@@ -6,6 +6,11 @@ This is a Movies App built using Next.js and [The Movie Database (TMDB)](https:/
 
 A [live deployment](https://angular-movies-a12d3.web.app/movies/popular) of this app is available to try it out.
 
+## Comparison to next app
+
+https://lighthouse-metrics.com/one-time-tests/61299c3173820a000836ac3b
+https://lighthouse-metrics.com/one-time-tests/61299973401f0d0009349b33
+
 ## Contributing
 
 Contributions are always welcome! 
