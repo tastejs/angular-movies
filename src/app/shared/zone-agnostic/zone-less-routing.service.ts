@@ -5,7 +5,7 @@ import { filter } from 'rxjs';
 import { isZonePresent } from '../utils/is-zone-present';
 
 /**
- * A small service encapsulating the hacks needed for routing in zone-less applications
+ * A small service encapsulating the hacks needed for routing (and bootstrapping) in zone-less applications
  */
 @Injectable({
   providedIn: 'root',

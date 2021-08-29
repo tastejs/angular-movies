@@ -71,7 +71,7 @@ footer {
   position: fixed;
   bottom: 0px;
   z-index: var(--theme-tooptip-zIndex);
-  background-color: white;
+  background-color: var(--palette-background-paper);
 }
 
 .content-wrapper {
