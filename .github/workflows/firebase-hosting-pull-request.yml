@@ -23,7 +23,7 @@ jobs:
       - name: Production build with SSR
         run: npm run build
 
-      - name: Deploy to firebase production hosting
+      - name: Deploy to firebase preview channel hosting
         id: previewDeployStep
         uses: FirebaseExtended/action-hosting-deploy@v0
         with:
@@ -31,10 +31,4 @@ jobs:
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_ANGULAR_MOVIES_A12D3 }}'
           projectId: angular-movies-a12d3
           channelId: ${{ github.head_ref }}
-          expires: 14d
-
-      - name: Comment a PR with the preview URL
-        uses: mb2dev/github-action-comment-pull-request@1.0.0
-        with:
-          message: You can see the changes made by this PR in the preview branch on ${{ steps.previewDeployStep.outputs.details_url }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          expires: 21d
