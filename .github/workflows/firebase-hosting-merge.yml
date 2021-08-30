@@ -23,7 +23,7 @@ jobs:
         run: npm ci
 
       - name: Production build with SSR
-        run: npm run build:ssr
+        run: npm run build:prod:ssr
 
       - name: Deploy to firebase production hosting
         uses: FirebaseExtended/action-hosting-deploy@v0
