@@ -19,7 +19,6 @@ import { BackdropComponentModule } from '../backdrop/backdrop.component';
     <div class="side-drawer" [class.opened]="opened">
       <ng-content></ng-content>
     </div>
-    <ng-content select="footer"> </ng-content>
   `,
   styleUrls: ['./side-drawer.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

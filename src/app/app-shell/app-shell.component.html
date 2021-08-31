@@ -3,19 +3,19 @@
     [opened]="vs.sideDrawerOpen"
     (openedChange)="sideDrawerOpenToggle$.next(false)"
   >
+    <a class="navigation-header" href="/">
+      <picture>
+        <img
+          class="logo-img"
+          src="/assets/svgs/logo.svg"
+          title="HubMovies"
+          alt="HubMovies"
+          width="150"
+          height="150"
+        />
+      </picture>
+    </a>
     <nav class="navigation" *rxLet="[]">
-      <a class="navigation--header" href="/">
-        <picture>
-          <img
-            class="logo-img"
-            src="/assets/svgs/logo.svg"
-            title="HubMovies"
-            alt="HubMovies"
-            width="150"
-            height="150"
-          />
-        </picture>
-      </a>
       <h2 class="navigation--headline">Discover</h2>
       <a
         class="navigation--link"
@@ -101,19 +101,25 @@
         </div>
       </a>
     </nav>
-    <footer>
-      <picture class="tmdb-mark">
-        <source
-          srcset="/assets/svgs/tmdbgreen.svg"
-          media="(prefers-color-scheme: dark)"
-        />
-        <source
-          srcset="/assets/svgs/tmdb.svg"
-          media="(prefers-color-scheme: light)"
-        />
-        <img width="300" height="118" alt="The Movie Database" src="" />
-      </picture>
-    </footer>
+    <div class="menu-footer">
+      <a
+        href="https://www.themoviedb.org/"
+        target="_blank"
+        rel="noreferrer noopener"
+      >
+        <picture class="tmdb-mark">
+          <source
+            srcset="/assets/svgs/tmdbgreen.svg"
+            media="(prefers-color-scheme: dark)"
+          />
+          <source
+            srcset="/assets/svgs/tmdb.svg"
+            media="(prefers-color-scheme: light)"
+          />
+          <img width="300" height="118" alt="The Movie Database" src="" />
+        </picture>
+      </a>
+    </div>
   </app-side-drawer>
   <div class="content-wrapper">
     <div class="app-toolbar">

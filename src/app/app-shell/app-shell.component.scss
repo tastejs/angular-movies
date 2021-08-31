@@ -65,13 +65,8 @@ app-side-drawer {
   grid-area: sidenav;
 }
 
-footer {
-  width: 220px;
-  height: 50px;
-  position: fixed;
-  bottom: 0px;
-  z-index: var(--theme-tooptip-zIndex);
-  background-color: var(--palette-background-paper);
+.menu-footer {
+  margin-top: 16px;
 }
 
 .content-wrapper {
@@ -100,30 +95,37 @@ footer {
 .tmdb-mark {
   display: flex;
   justify-content: center;
-  margin: 16px 8px;
+
   > img {
-    max-width: 100%;
-    height: 3rem;
+    height: 4rem;
   }
 }
+
+.navigation,
+.navigation-header {
+  @include isDesktop {
+    border-right: 1px solid var(--palette-action-disabled-background);
+  }
+}
+
+.navigation-header {
+  display: none;
+  width: 100%;
+  height: 15rem;
+  margin-top: 3rem;
+  place-items: center;
+
+  @include isDesktop {
+    display: grid;
+  }
+}
+
 .navigation {
   display: flex;
   flex-direction: column;
+  flex: 1;
+  overflow: auto;
 
-  &--header {
-    display: none;
-    width: 100%;
-    height: 18rem;
-    place-items: center;
-    margin-bottom: 2rem;
-
-    @include isDesktop {
-      display: grid;
-    }
-
-    .logo-img {
-    }
-  }
   &--search {
     min-height: 3rem;
     line-height: 3;
@@ -143,9 +145,14 @@ footer {
     font-size: 1.25rem;
     font-weight: 700;
     line-height: 1;
-    color: var(--palette-primary-main);
-    &.active {
+    color: var(--palette-primary-dark);
+
+    &.active,
+    &:active {
       color: var(--palette-secondary-main);
+    }
+    &:hover {
+      text-decoration: underline;
     }
   }
   &--menu-item {
@@ -161,15 +168,15 @@ footer {
     font-size: 1.5em;
   }
   &--headline {
-    &:not(:first-child) {
-      margin-top: 4rem;
+    &:not(:first-of-type) {
+      margin-top: 3rem;
     }
     font-weight: 700;
     font-size: 1.25rem;
     color: var(--palette-text-primary);
     text-transform: uppercase;
     letter-spacing: -0.5px;
-    margin: 0px 0px 1rem 1rem;
+    margin: 0 0 1rem 1rem;
   }
 }
 

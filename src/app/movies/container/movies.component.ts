@@ -73,7 +73,10 @@ export class MoviesComponent {
     MovieModel[]
   >;
   readonly loading$ = this.state$.pipe(select('loading'));
-  readonly title$ = this.state$.pipe(select('title'));
+  readonly title$ = this.state$.pipe(
+    select('title'),
+    map((title) => title?.replace(/[-_]/, ' '))
+  );
 
   constructor(
     private tmdb2Service: Tmdb2Service,

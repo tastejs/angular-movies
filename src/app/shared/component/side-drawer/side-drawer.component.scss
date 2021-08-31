@@ -1,15 +1,20 @@
+@import '../../../../assets/scss/mixins';
+
 :host {
   display: contents;
 }
 .side-drawer {
   position: fixed;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   width: 250px;
   max-width: 70%;
   height: 100%;
   left: 0;
   top: 0;
   z-index: var(--theme-drawer-zIndex);
-  padding: 32px 16px 50px;
+  padding: 32px 16px 16px;
   overflow-y: auto;
   box-sizing: border-box;
   transition: transform var(--theme-anim-duration-short)
@@ -18,6 +23,11 @@
   background-color: var(--palette-background-paper);
   contain: strict;
   transform: translateX(-100%);
+
+  @include isDesktop {
+    box-shadow: unset;
+    background-color: transparent;
+  }
 }
 
 @media screen and (min-width: 1298px) {
