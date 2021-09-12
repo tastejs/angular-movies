@@ -1,6 +1,6 @@
 # angular-movies
 
-This is a Movies App built using Next.js and [The Movie Database (TMDB)](https://www.themoviedb.org/) API. 
+This is a Movies App built using Angular and [The Movie Database (TMDB)](https://www.themoviedb.org/) API. 
 
 ## Demo
 
