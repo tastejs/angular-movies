@@ -60,7 +60,7 @@ Built with:
 - [Vojtech Mašek](https://github.com/vmasek)
 
 
-Based on the original `angular-movies` foundation by [@clamarque](https://g9ithub.com/clamarque/angular-movies).
+Based on the original `angular-movies` foundation by [@clamarque](https://github.com/clamarque/angular-movies).
   
 ## License
 
