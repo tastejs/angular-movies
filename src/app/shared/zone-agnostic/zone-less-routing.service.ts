@@ -15,7 +15,7 @@ export class ZonelessRouting extends RxState<any> {
     super();
   }
 
-  init() {
+  initIfZonePresent() {
     // **🚀 Perf Tip:**
     // In zone-less applications we have to trigger CD on every `NavigationEnd` event that changes the view.
     if (!isZonePresent()) {

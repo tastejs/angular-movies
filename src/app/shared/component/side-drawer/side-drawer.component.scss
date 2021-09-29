@@ -21,7 +21,11 @@
     var(--theme-anim-easing-easeOut);
   box-shadow: var(--theme-shadow-16);
   background-color: var(--palette-background-paper);
-  contain: strict;
+  /*
+    **🚀 Perf Tip:**
+    Use contain property to avoid layout and style recalc when changing content of this element
+    contain: strict;
+  */
   transform: translateX(-100%);
 
   @include isDesktop {

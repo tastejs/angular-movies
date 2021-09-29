@@ -80,7 +80,12 @@ app-side-drawer {
 .content {
   min-height: calc(100vh - 72px);
   width: 100%;
+  /*
+   **🚀 Perf Tip:**
+     Use contain property to avoid layout when changing content of this element
+
   contain: layout;
+  */
 }
 :host {
   min-height: 100vh;

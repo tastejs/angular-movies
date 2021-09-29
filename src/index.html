@@ -9,28 +9,32 @@
       content="A movies manager - no idea which movie to watch ? find it here"
     />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!--
+      **🚀 Perf Tip:**
+      preconnect important urls
 
-    <link
-      rel="preconnect"
-      href="https://image.themoviedb.org/"
-      crossorigin=""
-    />
-    <link rel="preconnect" href="https://api.tmdb.org/" crossorigin="" />
-    <link rel="manifest" href="manifest.webmanifest" />
-    <meta name="theme-color" content="#1976d2" />
-  </head>
+        <link
+          rel="preconnect"
+          href="https://image.themoviedb.org/"
+          crossorigin=""
+        />
+        <link rel="preconnect" href="https://api.tmdb.org/" crossorigin="" />
+        -->
+        <link rel="manifest" href="manifest.webmanifest" />
+        <meta name="theme-color" content="#1976d2" />
+      </head>
 
-  <!--
-  **🚀 Perf Tip:**
-  Preload important images visible in the viewport
-  -->
+      <!--
+      **🚀 Perf Tip:**
+      Preload important images visible in the viewport
+
   <link
     rel="preload"
     as="image"
     href="assets/icons/android-chrome-192x192.png"
   />
   <link rel="preload" as="image" href="/assets/svgs/logo.svg" />
-
+  -->
   <body class="light">
     <app-root>
       <div class="launcher">

@@ -1,4 +1,4 @@
-<ng-container *rxLet="viewState$; let vs">
+<ng-container *ngIf="viewState$ | async as vs">
   <app-side-drawer
     [opened]="vs.sideDrawerOpen"
     (openedChange)="sideDrawerOpenToggle$.next(false)"
@@ -15,7 +15,7 @@
         />
       </picture>
     </a>
-    <nav class="navigation" *rxLet="[]">
+    <nav class="navigation">
       <h2 class="navigation--headline">Discover</h2>
       <a
         class="navigation--link"
@@ -76,10 +76,9 @@
       </a>
       <h2 class="navigation--headline">Genres</h2>
       <a
-        *rxFor="
-          let genre of genres$;
+        *ngFor="
+          let genre of genres$| async;
           trackBy: trackByGenre;
-          strategy: 'background'
         "
         class="navigation--link"
         [class.active]="vs.activeRoute === '/genre/' + genre.id"

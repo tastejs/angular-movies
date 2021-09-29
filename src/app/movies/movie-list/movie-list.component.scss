@@ -6,8 +6,11 @@
   align-items: start;
   margin: 4rem 0;
   position: relative;
+  /*
+   **🚀 Perf Tip:**
+     Use contain property to avoid layout when changing content of this element
+*/
   contain: layout;
-
   @media only screen and (max-width: 600px) {
     grid-template-columns: repeat(auto-fit, minmax(10rem, 23rem));
     justify-content: space-around;

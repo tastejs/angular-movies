@@ -13,19 +13,25 @@ interface Movie extends MovieModel {
   selector: 'app-movie-list',
   template: `
     <ng-content select=".header"></ng-content>
+    <!--
+     strategy: 'instantUserBlocking'
+    -->
     <ng-container
-      *rxLet="hasMovies$; let hasMovies; strategy: 'instantUserBlocking'"
+      *ngIf="hasMovies$ | async as hasMovies;"
     >
       <div class="movies-list--grid" *ngIf="hasMovies; else noData">
         <a
           class="movies-list--grid-item"
-          *rxFor="let movie of movies$; trackBy: movieById"
+          *ngFor="let movie of movies$ | async; trackBy: movieById"
           (click)="toMovie(movie)"
         >
           <div class="movies-list--grid-item-image gradient">
             <aspect-ratio-box [aspectRatio]="W300H450.WIDTH / W300H450.HEIGHT">
+              <!--
+               **🚀 Perf Tip:**
+               Use loading="lazy" to only load images visible in the viewport
+              -->
               <img
-                loading="lazy"
                 [src]="movie.url"
                 [width]="W300H450.WIDTH"
                 [height]="W300H450.HEIGHT"
