@@ -24,6 +24,12 @@
   contain: strict;
   transform: translateX(-100%);
 
+  & + footer{
+    transition: transform var(--theme-anim-duration-short)
+      var(--theme-anim-easing-easeOut);
+    transform: translateX(-100%);
+  }
+
   @include isDesktop {
     box-shadow: unset;
     background-color: transparent;
@@ -40,4 +46,8 @@
 }
 .side-drawer.opened {
   transform: translateX(0);
+
+  & + footer{
+    transform: translateX(0);
+  }
 }
