@@ -4,7 +4,7 @@ import { BrowserModule, BrowserTransferStateModule } from '@angular/platform-bro
 import { TransferHttpCacheModule } from '@nguniversal/common';
 import { RX_ANGULAR_CONFIG } from '@rx-angular/cdk';
 
-import { AppRoutingModule } from './app-routing.module';
+import { ROUTING_IMPORTS } from './app.routing';
 import { AppComponent } from './app.component';
 import { AppShellModule } from './app-shell/app-shell.module';
 import { ServiceWorkerModule } from '@angular/service-worker';
@@ -12,7 +12,6 @@ import { environment } from '../environments/environment';
 import { customStrategyCredentials } from './shared/utils/custom-strategies';
 import { httpInterceptorProviders } from './data-access/auth/http-interceptor.providers';
 import { StateAppInitializerProvider } from './shared/state/state.app-initializer.provider';
-import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [AppComponent],
@@ -22,8 +21,7 @@ import { RouterModule } from '@angular/router';
     TransferHttpCacheModule,
     HttpClientModule,
     AppShellModule,
-    RouterModule,
-    AppRoutingModule,
+    ROUTING_IMPORTS,
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,
       // Register the ServiceWorker as soon as the app is stable
