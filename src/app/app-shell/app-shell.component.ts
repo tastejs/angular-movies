@@ -48,7 +48,7 @@ export class AppShellComponent {
     );
   }
 
-  genres$ = this.tmdbState.genres$;
+  genres$ = this.tmdbState.genresNames$;
   @ViewChild('snav') snav: any;
 
   readonly viewState$ = this.state.select(

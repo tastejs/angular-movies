@@ -19,8 +19,8 @@
       <h2 class="navigation--headline">Discover</h2>
       <a
         class="navigation--link"
-        [class.active]="vs.activeRoute === '/movies/popular'"
-        (click)="navTo('/movies', 'popular')"
+        [class.active]="vs.activeRoute === '/category/popular'"
+        (click)="navTo('/category', 'popular')"
       >
         <div class="navigation--menu-item">
           <svg
@@ -38,8 +38,8 @@
       </a>
       <a
         class="navigation--link"
-        [class.active]="vs.activeRoute === '/movies/top_rated'"
-        (click)="navTo('/movies', 'top_rated')"
+        [class.active]="vs.activeRoute === '/category/top_rated'"
+        (click)="navTo('/category', 'top_rated')"
       >
         <div class="navigation--menu-item">
           <svg
@@ -57,8 +57,8 @@
       </a>
       <a
         class="navigation--link"
-        [class.active]="vs.activeRoute === '/movies/upcoming'"
-        (click)="navTo('/movies', 'upcoming')"
+        [class.active]="vs.activeRoute === '/category/upcoming'"
+        (click)="navTo('/category', 'upcoming')"
       >
         <div class="navigation--menu-item">
           <svg

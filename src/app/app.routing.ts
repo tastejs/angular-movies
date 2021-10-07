@@ -7,7 +7,7 @@ const ROUTES: Routes = [
       import('app/pages/movie-detail-page/movie-detail-page.module').then((m) => m.MovieDetailPageModule)
   },
   {
-    path: 'movies/:category',
+    path: 'category/:category',
     loadChildren: () =>
       import('app/pages/movie-list-page/movie-list-page.module').then((m) => m.MovieListPageModule)
   },
