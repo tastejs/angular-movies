@@ -1,29 +1,20 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 import { ActivatedRoute } from '@angular/router';
-import { select } from '@rx-angular/state';
-import {
-  EMPTY,
-  MonoTypeOperatorFunction,
-  Observable,
-  catchError,
-  filter,
-  map,
-  startWith,
-  switchMap,
-  withLatestFrom,
-  of,
-  shareReplay,
-} from 'rxjs';
+import { RxState, select } from '@rx-angular/state';
+import { catchError, map, Observable, of, startWith, switchMap } from 'rxjs';
 import { MovieModel } from '../../data-access/model';
-import { Tmdb2Service } from '../../data-access/api/tmdb2.service';
-import { StateService } from '../../shared/state/state.service';
+import { MovieList, StateService } from '../../shared/state/state.service';
 
 
 type MoviesState = {
   loading: boolean;
-  movies?: MovieModel[];
-  title?: string;
+  movies: MovieModel[];
+  title: string;
+};
+type RouteParams = {
+  category?: string;
+  genre?: string;
 };
 
 @Component({
@@ -36,62 +27,53 @@ type MoviesState = {
       }
     `,
   ],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class MovieListPageComponent {
+export class MovieListPageComponent extends RxState<MoviesState> {
   movies: MovieModel[] = [];
-  state$: Observable<MoviesState> = this.route.params.pipe(
-    switchMap(({ category, genre }) => {
-      if (category) {
-        return this.tmdb2Service.getMovieCategory(category).pipe(
-          map((data) => ({
-            loading: false,
-            movies: data.results,
-            title: category,
-          })),
-          moviesState()
-        );
-      }
-      if (genre) {
-        const genreId = parseInt(genre, 10);
-        return this.tmdb2Service.getMovieGenre(genre).pipe(
-          withLatestFrom(this.tmdbState.genres$.pipe(filter((g) => g != null))),
-          map(([data, genres]) => ({
-            loading: false,
-            movies: data.results,
-            title: genres?.find((g) => g.id === genreId)?.name,
-          })),
-          moviesState()
-        );
-      }
-      return EMPTY;
-    }),
-    shareReplay({ refCount: true, bufferSize: 1 })
-  );
 
-  readonly movies$ = this.state$.pipe(select('movies')) as Observable<
-    MovieModel[]
-  >;
-  readonly loading$ = this.state$.pipe(select('loading'));
-  readonly title$ = this.state$.pipe(
-    select('title'),
-    map((title) => title?.replace(/[-_]/, ' '))
-  );
+  readonly movies$ = this.select('movies');
+  readonly loading$ = this.select('loading');
+  readonly title$ = this.select('title');
 
   constructor(
-    private tmdb2Service: Tmdb2Service,
     private tmdbState: StateService,
     private route: ActivatedRoute
-  ) {}
-}
+  ) {
+    super();
+    this.connect(this.loadListByParam('category', category => this.tmdbState.moviesList$(category)));
+    this.connect(this.loadListByParam('genre', genre => this.tmdbState.genresList$(genre)));
 
-function moviesState(): MonoTypeOperatorFunction<MoviesState> {
-  return (o$) =>
-    o$.pipe(
-      catchError((e) => {
-        console.error(e);
+    this.hold(this.route.params.pipe(
+      map(({ category, genre }: Record<string, string>) => {
+        if (category) {
+          this.tmdbState.fetchCategoryMovies(category);
+        } else if (genre) {
+          this.tmdbState.fetchGenreMovies(genre);
+        }
+      }))
+    );
+  }
+
+  loadListByParam = (paramName: keyof RouteParams, fetch: (paramValue: string) => Observable<MovieList>): Observable<Partial<MoviesState>> => {
+    return this.route.params.pipe(
+      select(paramName),
+      switchMap(paramValue => fetch(paramValue)
+        .pipe(
+          map(({ movies, title }) => ({
+            loading: false,
+            movies,
+            title
+          }))
+        )
+      ),
+
+      catchError((_: any) => {
         return of({ loading: false, movies: [], title: undefined });
       }),
-      startWith({ loading: true, movies: [], title: undefined })
+      startWith({ loading: true })
     );
+  }
+
 }
+
