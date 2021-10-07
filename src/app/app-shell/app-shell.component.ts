@@ -1,18 +1,13 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  TrackByFunction,
-  ViewChild,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, TrackByFunction, ViewChild } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { NavigationEnd, Router } from '@angular/router';
 import { distinctUntilSomeChanged, RxState } from '@rx-angular/state';
-import { Subject, filter, map, startWith } from 'rxjs';
-import { AuthStateService } from '../auth/auth.state';
-import { TmdbAuthEffects } from '../auth/tmdbAuth.effects';
-import { StateService } from '../shared/service/state.service';
-import { MovieGenreModel } from '../movies/model';
+import { filter, map, startWith, Subject } from 'rxjs';
+import { AuthStateService } from '../data-access/auth/auth.state';
+import { TmdbAuthEffects } from '../data-access/auth/tmdbAuth.effects';
+import { MovieGenreModel } from '../data-access/model';
 import { trackByProp } from '../shared/utils/track-by';
+import { StateService } from '../shared/state/state.service';
 
 @Component({
   selector: 'app-shell',
@@ -21,7 +16,7 @@ import { trackByProp } from '../shared/utils/track-by';
   // **🚀 Perf Tip:**
   // Use ChangeDetectionStrategy.OnPush in all components to reduce change detection & template re-evaluation
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [RxState],
+  providers: [RxState]
 })
 export class AppShellComponent {
   constructor(
@@ -52,6 +47,7 @@ export class AppShellComponent {
       )
     );
   }
+
   genres$ = this.tmdbState.genres$;
   @ViewChild('snav') snav: any;
 

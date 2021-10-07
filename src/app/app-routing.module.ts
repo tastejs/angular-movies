@@ -3,24 +3,19 @@ import { RouterModule, Routes } from '@angular/router';
 
 const ROUTES: Routes = [
   {
-    path: 'sign-in',
-    loadChildren: () =>
-      import('app/sign-in/sign-in.module').then((m) => m.SignInModule),
-  },
-  {
     path: 'movie/:id',
     loadChildren: () =>
-      import('app/movies/movie/movie.module').then((m) => m.MovieModule),
+      import('app/pages/movie-detail-page/movie-detail-page.module').then((m) => m.MovieDetailPageModule),
   },
   {
     path: 'movies/:category',
     loadChildren: () =>
-      import('app/movies/container/movies.module').then((m) => m.MoviesModule),
+      import('app/pages/movie-list-page/movie-list-page.module').then((m) => m.MovieListPageModule),
   },
   {
     path: 'genre/:genre',
     loadChildren: () =>
-      import('app/movies/container/movies.module').then((m) => m.MoviesModule),
+      import('app/pages/movie-list-page/movie-list-page.module').then((m) => m.MovieListPageModule),
   },
   { path: '**', redirectTo: 'movies/popular' },
 ];
