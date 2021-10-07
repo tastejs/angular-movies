@@ -3,14 +3,17 @@ import { StateService } from './state.service';
 
 function initializeState(state: StateService) {
   return (): Promise<void> => {
-    return state.init();
+    state.init();
+    return Promise.resolve();
   };
 }
 
 // @TODO add perf tip here
-export const StateAppInitializerProvider = {
-  provide: APP_INITIALIZER,
-  useFactory: initializeState,
-  deps: [StateService],
-  multi: true,
-};
+export const StateAppInitializerProvider = [
+  {
+    provide: APP_INITIALIZER,
+    useFactory: initializeState,
+    deps: [StateService],
+    multi: true
+  }/**/
+];
