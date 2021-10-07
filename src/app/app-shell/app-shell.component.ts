@@ -73,10 +73,10 @@ export class AppShellComponent {
     this.router.navigate(['/movies/popular']);
   }
 
-  navTo(path: string, args: any) {
+  navTo(path: string, args: (string | number)[], queryParams?: Record<string, any>) {
     this.closeSidenav();
     this.resetPagination();
-    this.router.navigate([path, args]);
+    this.router.navigate([path, ...args], {queryParams});
   }
 
   closeSidenav() {

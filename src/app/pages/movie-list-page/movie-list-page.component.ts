@@ -1,10 +1,10 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 import { ActivatedRoute } from '@angular/router';
-import { RxState, select } from '@rx-angular/state';
-import { catchError, map, Observable, of, startWith, switchMap } from 'rxjs';
+import { RxState } from '@rx-angular/state';
+import { catchError, EMPTY, map, Observable, of, startWith, switchMap } from 'rxjs';
 import { MovieModel } from '../../data-access/model';
-import { MovieList, StateService } from '../../shared/state/state.service';
+import { StateService } from '../../shared/state/state.service';
 
 
 type MoviesState = {
@@ -12,20 +12,21 @@ type MoviesState = {
   movies: MovieModel[];
   title: string;
 };
-type RouteParams = {
-  category?: string;
-  genre?: string;
+
+type RouterParams = {
+  type: string;
+  identifier: string;
 };
 
 @Component({
   selector: 'app-movies',
   templateUrl: './movie-list-page.component.html',
   styles: [
-    `
+      `
       :host {
         width: 100%;
       }
-    `,
+    `
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
@@ -36,44 +37,47 @@ export class MovieListPageComponent extends RxState<MoviesState> {
   readonly loading$ = this.select('loading');
   readonly title$ = this.select('title');
 
+  private routerParams$: Observable<RouterParams> = this.route.params as unknown as Observable<RouterParams>;
+
   constructor(
     private tmdbState: StateService,
     private route: ActivatedRoute
   ) {
     super();
-    this.connect(this.loadListByParam('category', category => this.tmdbState.moviesList$(category)));
-    this.connect(this.loadListByParam('genre', genre => this.tmdbState.genresList$(genre)));
 
-    this.hold(this.route.params.pipe(
-      map(({ category, genre }: Record<string, string>) => {
-        if (category) {
-          this.tmdbState.fetchCategoryMovies(category);
-        } else if (genre) {
-          this.tmdbState.fetchGenreMovies(genre);
+    this.connect(this.getListByRouterParams());
+
+    this.hold(this.routerParams$,
+      ({ type, identifier }) => {
+        if (type === 'category') {
+          this.tmdbState.fetchCategoryMovies(identifier);
+        } else if (type === 'genre') {
+          this.tmdbState.fetchGenreMovies(identifier);
         }
-      }))
+      }
     );
   }
 
-  loadListByParam = (paramName: keyof RouteParams, fetch: (paramValue: string) => Observable<MovieList>): Observable<Partial<MoviesState>> => {
-    return this.route.params.pipe(
-      select(paramName),
-      switchMap(paramValue => fetch(paramValue)
-        .pipe(
-          map(({ movies, title }) => ({
-            loading: false,
-            movies,
-            title
-          }))
-        )
-      ),
-
+  getListByRouterParams = (): Observable<Partial<MoviesState>> => {
+    return this.routerParams$.pipe(
+      switchMap(({ identifier, type }) => {
+        if (type === 'category') {
+          return this.tmdbState.categoryMovieList$(identifier);
+        } else if (type === 'genre') {
+          return this.tmdbState.genreMovieList$(identifier);
+        }
+        return EMPTY;
+      }),
+      map(({ movies, title }) => ({
+        loading: false,
+        movies,
+        title
+      })),
       catchError((_: any) => {
         return of({ loading: false, movies: [], title: undefined });
       }),
       startWith({ loading: true })
     );
-  }
+  };
 
 }
-

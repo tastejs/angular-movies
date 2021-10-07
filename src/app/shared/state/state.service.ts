@@ -5,14 +5,15 @@ import { exhaustMap, filter } from 'rxjs/operators';
 import { Tmdb2Service } from '../../data-access/api/tmdb2.service';
 import { MovieGenreModel, MovieModel } from '../../data-access/model';
 import { patch, RxState, selectSlice } from '@rx-angular/state';
+import { optimizedFetch } from '../utils/optimized-fetch';
 
 interface State {
   genres: MovieGenreModel[];
-  listMovies: Record<string, MovieModel[]>;
   genreMovies: Record<string, MovieModel[]>;
+  categoryMovies: Record<string, MovieModel[]>;
 }
 
-interface Command<T extends commandNames, P = unknown> {
+interface Command<T extends commandNames, P = any> {
   type: T;
   payload?: P;
 }
@@ -38,22 +39,23 @@ export class StateService extends RxState<State> {
   private commands = new Subject<commands>();
 
   genresNames$ = this.select('genres');
-  genresList$ = (genreParam: number | string): Observable<MovieList> => this.select(
+  genreMovieList$ = (genreParam: number | string): Observable<MovieList> => this.select(
     selectSlice(['genres', 'genreMovies']),
     map(({ genres, genreMovies }) => {
-      const genreId = parseInt(genreParam as string, 10);
+      const genreIdStr = genreParam as string;
+      const genreId = parseInt(genreIdStr, 10);
       const genreName = genres.find((g: MovieGenreModel) => g.id === genreId)?.name || 'unknown genre';
       return {
         title: parseTitle(genreName),
-        movies: genreMovies[genreId]
+        movies: genreMovies && genreMovies[genreIdStr] || []
       };
     })
   );
 
-  moviesList$ = (listName: string): Observable<MovieList> => this.select(
-    map(({ listMovies }) => ({
+  categoryMovieList$ = (listName: string): Observable<MovieList> => this.select(
+    map(({ categoryMovies }) => ({
       title: parseTitle(listName),
-      movies: listMovies[listName] || []
+      movies: categoryMovies && categoryMovies[listName] || []
     }))
   );
 
@@ -62,18 +64,22 @@ export class StateService extends RxState<State> {
     super();
     this.connect('genres', this.commands.pipe(
       filter(({ type }) => type === 'refreshGenres'),
+      // @TODO add perf tip for exhaust
       exhaustMap(() => this.tmdb2Service.getGenres()))
     );
 
     this.connect(
-      'listMovies',
+      'categoryMovies',
       this.commands.pipe(
         filter(({ type }) => type === 'fetchCategoryMovies'),
-        exhaustMap(({ payload }) => this.tmdb2Service.getMovieCategory(payload as string)
-          .pipe(map(({ results }) => ({ [payload as string]: results }))))
+        // @TODO add perf tip
+        optimizedFetch(
+          ({ payload: category }) => 'category' + '-' + category,
+          ({ payload: category }) => this.tmdb2Service.getMovieCategory(category)
+            .pipe(map(({ results }) => ({ [category]: results }))))
       ),
-      ({ listMovies }, newPartial) => {
-        return patch(listMovies, newPartial);
+      ({ categoryMovies }, newPartial) => {
+        return patch(categoryMovies, newPartial);
       }
     );
 
@@ -81,9 +87,12 @@ export class StateService extends RxState<State> {
       'genreMovies',
       this.commands.pipe(
         filter(({ type }) => type === 'fetchGenreMovies'),
-        exhaustMap(({ payload }) => this.tmdb2Service.getMovieGenre(payload as string)
-          .pipe(map(({ results }) => ({ [payload as string]: results }))))),
-      ({ listMovies }, newValue) => patch(listMovies, newValue)
+        optimizedFetch(
+          ({ payload: genre }) => 'genre' + '-' + genre,
+          ({ payload: genre }) => this.tmdb2Service.getMovieGenre(genre)
+            .pipe(map(({ results }) => ({ [genre]: results }))))
+      ),
+      ({ genreMovies }, newPartial) => patch(genreMovies, newPartial)
     );
   }
 
