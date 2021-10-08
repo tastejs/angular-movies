@@ -9,7 +9,7 @@ function initializeState(state: StateService) {
 }
 
 // @TODO add perf tip here
-export const StateAppInitializerProvider = [
+export const stateAppInitializerProvider = [
   {
     provide: APP_INITIALIZER,
     useFactory: initializeState,

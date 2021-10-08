@@ -11,7 +11,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { customStrategyCredentials } from './shared/utils/custom-strategies';
 import { httpInterceptorProviders } from './data-access/auth/http-interceptor.providers';
-import { StateAppInitializerProvider } from './shared/state/state.app-initializer.provider';
+import { stateAppInitializerProvider } from './shared/state/state-app-initializer.provider';
 
 @NgModule({
   declarations: [AppComponent],
@@ -31,7 +31,7 @@ import { StateAppInitializerProvider } from './shared/state/state.app-initialize
   ],
   providers: [
     httpInterceptorProviders,
-    StateAppInitializerProvider,
+    stateAppInitializerProvider,
     {
       provide: RX_ANGULAR_CONFIG,
       useValue: {
