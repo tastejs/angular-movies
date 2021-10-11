@@ -11,6 +11,10 @@ A [live deployment](https://angular-movies-a12d3.web.app/movies/popular) of this
 - [next](https://lighthouse-metrics.com/one-time-tests/61299c3173820a000836ac3b)
 - [angular](https://lighthouse-metrics.com/one-time-tests/61299973401f0d0009349b33)
 
+## Performance Improvements
+
+For now you can search the codebase for "Perf Tip" later on there will be propper documentation here.
+
 ## Contributing
 
 Contributions are always welcome! 
