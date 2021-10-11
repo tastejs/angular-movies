@@ -1,28 +1,17 @@
 import { HttpClientModule } from '@angular/common/http';
-import { APP_INITIALIZER, NgModule } from '@angular/core';
-import {
-  BrowserModule,
-  BrowserTransferStateModule,
-} from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+import { BrowserModule, BrowserTransferStateModule } from '@angular/platform-browser';
 import { TransferHttpCacheModule } from '@nguniversal/common';
 import { RX_ANGULAR_CONFIG } from '@rx-angular/cdk';
 
-import { AppRoutingModule } from './app-routing.module';
-import { StorageService } from './shared/service/storage/storage.service';
+import { ROUTING_IMPORTS } from './app.routing';
 import { AppComponent } from './app.component';
 import { AppShellModule } from './app-shell/app-shell.module';
-import { httpInterceptorProviders } from './shared/service/tmdb/http-interceptor.providers';
-import { StarRatingModule } from './shared/component/star-rating/star-rating.module';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { customStrategyCredentials } from './shared/utils/custom-strategies';
-import { StateService } from './shared/service/state.service';
-
-export function initializeState(state: StateService) {
-  return (): Promise<void> => {
-    return state.init();
-  };
-}
+import { httpInterceptorProviders } from './data-access/auth/http-interceptor.providers';
+import { stateAppInitializerProvider } from './shared/state/state-app-initializer.provider';
 
 @NgModule({
   declarations: [AppComponent],
@@ -32,32 +21,26 @@ export function initializeState(state: StateService) {
     TransferHttpCacheModule,
     HttpClientModule,
     AppShellModule,
-    AppRoutingModule,
-    StarRatingModule,
+    ROUTING_IMPORTS,
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,
       // Register the ServiceWorker as soon as the app is stable
       // or after 30 seconds (whichever comes first).
-      registrationStrategy: 'registerWhenStable:30000',
-    }),
+      registrationStrategy: 'registerWhenStable:30000'
+    })
   ],
   providers: [
     httpInterceptorProviders,
-    StorageService,
-    {
-      provide: APP_INITIALIZER,
-      useFactory: initializeState,
-      deps: [StateService],
-      multi: true,
-    },
+    stateAppInitializerProvider,
     {
       provide: RX_ANGULAR_CONFIG,
       useValue: {
         customStrategies: customStrategyCredentials,
-        patchZone: false,
-      },
-    },
+        patchZone: false
+      }
+    }
   ],
-  bootstrap: [AppComponent],
+  bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule {
+}

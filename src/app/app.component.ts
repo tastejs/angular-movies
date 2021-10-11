@@ -3,8 +3,11 @@ import { ZonelessRouting } from './shared/zone-agnostic/zone-less-routing.servic
 
 @Component({
   selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss'],
+  template: `
+    <app-shell>
+      <router-outlet></router-outlet>
+    </app-shell>
+  `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent {
