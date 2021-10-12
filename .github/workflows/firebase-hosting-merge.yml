@@ -22,13 +22,8 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Production build with SSR
-        run: npm run build:prod:ssr
-
-      - name: Deploy to firebase production hosting
-        uses: FirebaseExtended/action-hosting-deploy@v0
-        with:
-          repoToken: '${{ secrets.GITHUB_TOKEN }}'
-          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_ANGULAR_MOVIES_A12D3 }}'
-          projectId: angular-movies-a12d3
-          channelId: live
+      - name: Deploy to Firebase hosting and functions production (live)
+        run: |
+          npx firebase deploy
+        env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
