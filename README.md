@@ -15,6 +15,16 @@ A [live deployment](https://angular-movies-a12d3.web.app/movies/popular) of this
 
 For now you can search the codebase for "Perf Tip" later on there will be propper documentation here.
 
+
+
+[Measures before optimization](https://lighthouse-metrics.com/one-time-tests/616db7e91cff420008f70364)
+![angular-movies-before_michael-hladky](https://user-images.githubusercontent.com/10064416/137785051-1cf9f63a-e803-4d92-a952-c327b7628530.PNG)
+
+
+[Measures after optimization](https://lighthouse-metrics.com/one-time-tests/61299973401f0d0009349b33)
+![angular-movies-after_michael-hladky](https://user-images.githubusercontent.com/10064416/137785134-7fe3f7a5-d305-48c6-b75b-296402334afd.PNG)
+
+
 ## Contributing
 
 Contributions are always welcome! 
