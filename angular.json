@@ -51,7 +51,7 @@
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "2.89kb"
+                  "maximumWarning": "2.9kb"
                 },
                 {
                   "type": "bundle",
@@ -64,6 +64,12 @@
                   "name": "styles",
                   "maximumWarning": "5kb",
                   "maximumError": "5.74kb"
+                },
+                {
+                  "type": "bundle",
+                  "name": "polyfills",
+                  "maximumWarning": "118b",
+                  "maximumError": "118b"
                 }
               ],
               "fileReplacements": [
