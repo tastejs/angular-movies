@@ -1,5 +1,6 @@
 {
   "compileOnSave": false,
+  "**Perf Tip:**": "Use es2020 as compilerOptions.target to reduce the bundle size slightly",
   "compilerOptions": {
     "importHelpers": true,
     "rootDir": ".",
@@ -10,11 +11,11 @@
     "module": "esnext",
     "moduleResolution": "node",
     "experimentalDecorators": true,
-    "target": "es2015",
+    "target": "es2020",
     "allowSyntheticDefaultImports": true,
     "skipLibCheck": true,
     "typeRoots": ["node_modules/@types"],
-    "lib": ["es2018", "dom"],
+    "lib": ["es2020", "dom"],
     "forceConsistentCasingInFileNames": true,
     "noImplicitReturns": true,
     "noUnusedLocals": true,
