@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, map } from 'rxjs';
+import { environment } from '../../../environments/environment';
 import {
   MovieGenreModel,
   MovieModel,
   MoviePersonModel,
 } from '../model/index';
-import { environment } from '../../../../../../src/environments/environment';
 import { Configuration } from './configuration.interface';
 import { MovieDatabaseModel } from '../model/movie-database.model';
 

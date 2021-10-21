@@ -3,12 +3,12 @@ import { NgModule } from '@angular/core';
 import { BrowserModule, BrowserTransferStateModule } from '@angular/platform-browser';
 import { TransferHttpCacheModule } from '@nguniversal/common';
 import { RX_ANGULAR_CONFIG } from '@rx-angular/cdk';
+import { environment } from '../environments/environment';
 
 import { ROUTING_IMPORTS } from './app.routing';
 import { AppComponent } from './app.component';
 import { AppShellModule } from './app-shell/app-shell.module';
 import { ServiceWorkerModule } from '@angular/service-worker';
-import { environment } from '../../../../src/environments/environment';
 import { customStrategyCredentials } from './shared/utils/custom-strategies';
 import { httpInterceptorProviders } from './data-access/auth/http-interceptor.providers';
 import { stateAppInitializerProvider } from './shared/state/state-app-initializer.provider';
