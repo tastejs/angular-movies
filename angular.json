@@ -6,57 +6,43 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "hub-movies": {
-      "root": "src",
-      "sourceRoot": "src",
+    "movies": {
       "projectType": "application",
-      "prefix": "app",
       "schematics": {
         "@schematics/angular:component": {
           "style": "scss",
           "changeDetection": "OnPush"
+        },
+        "@schematics/angular:application": {
+          "strict": true
         }
       },
+      "root": "projects/movies",
+      "sourceRoot": "projects/movies/src",
+      "prefix": "mv",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/hub-movies/browser",
-            "index": "src/index.html",
-            "main": "src/main.ts",
-            "tsConfig": "src/tsconfig.app.json",
+            "outputPath": "dist/movies/browser",
+            "index": "projects/movies/src/index.html",
+            "main": "projects/movies/src/main.ts",
+            "polyfills": "projects/movies/src/polyfills.ts",
+            "tsConfig": "projects/movies/tsconfig.app.json",
+            "inlineStyleLanguage": "scss",
             "assets": [
-              "src/favicon.ico",
-              "src/assets",
-              "src/manifest.json",
-              "src/manifest.webmanifest"
+              "projects/movies/src/favicon.ico",
+              "projects/movies/src/manifest.json",
+              "projects/movies/src/manifest.webmanifest",
+              "projects/movies/src/assets"
             ],
-            "styles": ["src/styles.scss"],
-            "scripts": [],
-            "vendorChunk": true,
-            "extractLicenses": false,
-            "buildOptimizer": false,
-            "sourceMap": true,
-            "optimization": false,
-            "namedChunks": true,
-            "serviceWorker": true,
-            "ngswConfigPath": "src/ngsw-config.json"
+            "styles": [
+              "projects/movies/src/styles.scss"
+            ],
+            "scripts": []
           },
           "configurations": {
             "production": {
-              "fileReplacements": [
-                {
-                  "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.prod.ts"
-                }
-              ],
-              "optimization": true,
-              "outputHashing": "all",
-              "sourceMap": false,
-              "namedChunks": true,
-              "extractLicenses": true,
-              "vendorChunk": false,
-              "buildOptimizer": true,
               "budgets": [
                 {
                   "type": "initial",
@@ -73,57 +59,79 @@
                   "maximumWarning": "300kb",
                   "maximumError": "322kb"
                 }
-              ]
+              ],
+              "fileReplacements": [
+                {
+                  "replace": "projects/movies/src/environments/environment.ts",
+                  "with": "projects/movies/src/environments/environment.prod.ts"
+                }
+              ],
+              "serviceWorker": true,
+              "ngswConfigPath": "projects/movies/src/ngsw-config.json",
+              "outputHashing": "all"
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
             }
           },
-          "defaultConfiguration": ""
+          "defaultConfiguration": "production"
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
-          "options": {
-            "browserTarget": "hub-movies:build"
-          },
           "configurations": {
             "production": {
-              "browserTarget": "hub-movies:build:production"
+              "browserTarget": "movies:build:production"
+            },
+            "development": {
+              "browserTarget": "movies:build:development"
             }
-          }
+          },
+          "defaultConfiguration": "development"
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "hub-movies:build"
+            "browserTarget": "movies:build"
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "projects/movies/src/**/*.ts",
+              "projects/movies/src/**/*.html"
+            ]
           }
         },
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "main": "src/test.ts",
-            "tsConfig": "src/tsconfig.spec.json",
-            "karmaConfig": "src/karma.conf.js",
-            "styles": ["src/styles.scss"],
-            "scripts": [],
+            "main": "projects/movies/src/test.ts",
+            "polyfills": "projects/movies/src/polyfills.ts",
+            "tsConfig": "projects/movies/tsconfig.spec.json",
+            "karmaConfig": "projects/movies/karma.conf.js",
+            "inlineStyleLanguage": "scss",
             "assets": [
-              "src/favicon.ico",
-              "src/assets",
-              "src/manifest.json",
-              "src/manifest.webmanifest"
-            ]
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": ["src/tsconfig.app.json", "src/tsconfig.spec.json"],
-            "exclude": ["**/node_modules/**"]
+              "projects/movies/src/favicon.ico",
+              "projects/movies/src/assets"
+            ],
+            "styles": [
+              "projects/movies/src/styles.scss"
+            ],
+            "scripts": []
           }
         },
         "build-server": {
           "builder": "@angular-devkit/build-angular:server",
           "options": {
-            "outputPath": "dist/hub-movies/server",
+            "outputPath": "dist/movies/server",
             "main": "server.ts",
-            "tsConfig": "src/tsconfig.server.json",
+            "tsConfig": "projects/movies/tsconfig.server.json",
             "optimization": false,
             "sourceMap": true,
             "extractLicenses": false
@@ -133,8 +141,8 @@
               "outputHashing": "media",
               "fileReplacements": [
                 {
-                  "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.prod.ts"
+                  "replace": "projects/movies/src/environments/environment.ts",
+                  "with": "projects/movies/src/environments/environment.prod.ts"
                 }
               ],
               "optimization": true,
@@ -148,12 +156,12 @@
           "builder": "@nguniversal/builders:ssr-dev-server",
           "configurations": {
             "development": {
-              "browserTarget": "hub-movies:build:production",
-              "serverTarget": "hub-movies:build-server:production"
+              "browserTarget": "movies:build:production",
+              "serverTarget": "movies:build-server:production"
             },
             "production": {
-              "browserTarget": "hub-movies:build:production",
-              "serverTarget": "hub-movies:build-server:production"
+              "browserTarget": "movies:build:production",
+              "serverTarget": "movies:build-server:production"
             }
           },
           "defaultConfiguration": "development"
@@ -161,47 +169,24 @@
         "prerender": {
           "builder": "@nguniversal/builders:prerender",
           "options": {
-            "routes": ["/"]
+            "routes": [
+              "/"
+            ]
           },
           "configurations": {
             "production": {
-              "browserTarget": "hub-movies:build:production",
-              "serverTarget": "hub-movies:server:production"
+              "browserTarget": "movies:build:production",
+              "serverTarget": "movies:server:production"
             },
             "development": {
-              "browserTarget": "hub-movies:build:development",
-              "serverTarget": "hub-movies:server:development"
+              "browserTarget": "movies:build:development",
+              "serverTarget": "movies:server:development"
             }
           },
           "defaultConfiguration": "production"
         }
       }
-    },
-    "hub-movies-e2e": {
-      "root": "e2e/",
-      "projectType": "application",
-      "architect": {
-        "e2e": {
-          "builder": "@angular-devkit/build-angular:protractor",
-          "options": {
-            "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "hub-movies:serve"
-          },
-          "configurations": {
-            "production": {
-              "devServerTarget": "hub-movies:serve:production"
-            }
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": "e2e/tsconfig.e2e.json",
-            "exclude": ["**/node_modules/**"]
-          }
-        }
-      }
     }
   },
-  "defaultProject": "hub-movies"
+  "defaultProject": "movies"
 }

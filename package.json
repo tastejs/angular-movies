@@ -7,11 +7,11 @@
     "lhci": "lhci",
     "concurrently": "concurrently",
     "start": "ng serve",
-    "start:ssr:dev": "ng run hub-movies:serve-ssr",
-    "start:ssr:prod": "ng run hub-movies:serve-ssr --configuration=production",
+    "start:ssr:dev": "ng run movies:serve-ssr",
+    "start:ssr:prod": "ng run movies:serve-ssr --configuration=production",
     "build": "ng build",
     "build:prod": "npm run ng build -- --configuration production",
-    "build:prod:ssr": "ng build --configuration production && ng run hub-movies:build-server && npm run build:functions",
+    "build:prod:ssr": "ng build --configuration production && ng run movies:build-server && npm run build:functions",
     "build:prod:artefacts": "npm run ng build -- --configuration production --stats-json",
     "build:artefacts": "npm run ng build -- --stats-json",
     "build:functions": "tsc --build functions/tsconfig.json",
@@ -21,16 +21,16 @@
     "e2e": "ng e2e",
     "ngsw-config": "node_modules/.bin/ngsw-config dist ./src/ngsw-config.json",
     "serve:ngsw": "npm run ngsw-config && http-server dist -p 8080",
-    "analyze:bundlesize": "npm run build:prod:artefacts && webpack-bundle-analyzer dist/hub-movies/browser/stats.json",
+    "analyze:bundlesize": "npm run build:prod:artefacts && webpack-bundle-analyzer dist/movies/browser/stats.json",
     "lhci-server:start": "npm run lhci --  server --https --storage.storageMethod=sql --storage.sqlDialect=sqlite --storage.sqlDatabasePath=./.lighthouseci/db.sql || true",
     "lhci-server:stop": "node tooling/stop-lhci-server.js",
     "lhci-cli:autorun": "npm run lhci -- autorun --config=lighthouserc.js && npm run lhci-server:stop",
     "lhci:collect": "npm run concurrently \"npm:lhci-server:start\" \"npm:lhci-cli:autorun\"",
     "husky": "husky",
-    "serve:pwa": "npx http-server -p 8080 -c-1 dist/hub-movies/browser",
+    "serve:pwa": "npx http-server -p 8080 -c-1 dist/movies/browser",
     "format:all": "prettier --write .",
     "commit": "git-cz",
-    "prerender": "ng run hub-movies:prerender"
+    "prerender": "ng run movies:prerender"
   },
   "config": {
     "commitizen": {
@@ -40,7 +40,7 @@
   "engines": {
     "node": "14"
   },
-  "main": "dist/hub-movies/server/index.js",
+  "main": "dist/movies/server/index.js",
   "private": true,
   "dependencies": {
     "@angular/animations": "12.2.11",
@@ -70,6 +70,11 @@
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~12.2.11",
+    "@angular-eslint/builder": "12.5.0",
+    "@angular-eslint/eslint-plugin": "12.5.0",
+    "@angular-eslint/eslint-plugin-template": "12.5.0",
+    "@angular-eslint/schematics": "12.5.0",
+    "@angular-eslint/template-parser": "12.5.0",
     "@angular/cli": "12.2.11",
     "@angular/compiler-cli": "12.2.11",
     "@angular/language-service": "12.2.11",
@@ -83,11 +88,16 @@
     "@types/express": "^4.17.0",
     "@types/jasmine": "~3.6.0",
     "@types/node": "^12.11.1",
+    "@typescript-eslint/eslint-plugin": "4.28.2",
+    "@typescript-eslint/parser": "4.28.2",
     "cash-true": "0.0.2",
-    "codelyzer": "^6.0.0",
     "commitizen": "^4.2.4",
     "compression": "^1.7.4",
     "concurrently": "^6.2.0",
+    "eslint-plugin-import": "^2.24.0",
+    "eslint-plugin-simple-import-sort": "^7.0.0",
+    "eslint-plugin-unused-imports": "^1.1.4",
+    "eslint": "^7.26.0",
     "find-process": "^1.4.4",
     "firebase-functions-test": "^0.3.1",
     "firebase-tools": "^9.16.2",
@@ -109,7 +119,6 @@
     "stylelint-prettier": "^1.2.0",
     "terminate": "^2.2.1",
     "ts-node": "~10.3.1",
-    "tslint": "~6.1.0",
     "typescript": "4.3.5",
     "webpack-bundle-analyzer": "^3.3.2"
   }
