@@ -1,0 +1,134 @@
+<div class="movie-detail--grid" *rxLet="detailState$; let vs">
+  <ng-container *ngIf="!vs.loading; else loading">
+    <div class="movie-detail--grid-item gradient">
+      <app-aspect-ratio-box [aspectRatio]="W342H513.WIDTH / W342H513.HEIGHT">
+        <img
+          class="movie-poster"
+          loading="lazy"
+          [src]="
+            'https://image.tmdb.org/t/p/w' +
+            W342H513.WIDTH +
+            '/' +
+            vs.movie?.poster_path
+          "
+          [width]="W342H513.WIDTH"
+          [height]="W342H513.HEIGHT"
+          alt="poster movie"
+          [title]="vs.movie?.title"
+        />
+      </app-aspect-ratio-box>
+    </div>
+    <div class="movie-detail--grid-item">
+      <div class="movie-detail--summary">
+        <div class="header">
+          <h1 class="title">{{ vs.movie?.title }}</h1>
+          <h2 class="subtitle">{{ vs.movie?.tagline }}</h2>
+        </div>
+        <div class="movie-detail--basic-infos">
+          <app-star-rating
+            [rating]="vs.movie?.vote_average"
+            [showRating]="true"
+          ></app-star-rating>
+          <div class="movie-detail--languages-runtime-release">
+            {{ vs.movie?.languages_runtime_release }}
+          </div>
+        </div>
+        <div class="movie-detail--section">
+          <h3 class="section-heading">The Genres</h3>
+          <div class="movie-detail--genres">
+            <a
+              class="movie-detail--genres-link"
+              *ngFor="
+                let genre of vs.movie?.genres || [];
+                trackBy: trackByGenre
+              "
+              (click)="toGenre(genre)"
+            >
+              <svg viewBox="0 0 24 24" fill="currentColor" class="icon">
+                <path d="M0 0h24v24H0V0z" fill="none" />
+                <path
+                  d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"
+                />
+                <circle cx="12" cy="12" r="5" />
+              </svg>
+              {{ genre.name }}
+            </a>
+          </div>
+        </div>
+        <div class="movie-detail--section">
+          <h3 class="section-heading">The Synopsis</h3>
+          <p class="section-text">
+            {{ vs.movie?.overview || 'There is no synopsis available...' }}
+          </p>
+        </div>
+        <div class="movie-detail--cast">
+          <h3 class="section-heading">The Cast</h3>
+          <div class="movie-detail--cast-list">
+            <a
+              *ngFor="let c of vs.cast; trackBy: trackByCast"
+              class="movie-detail--cast-actor"
+            >
+              <img
+                loading="lazy"
+                [src]="
+                  c?.profile_path
+                    ? 'https://image.tmdb.org/t/p/w185' + c?.profile_path
+                    : 'assets/images/no_poster_available.jpg'
+                "
+                [alt]="c.name"
+                [title]="c.name"
+              />
+            </a>
+          </div>
+        </div>
+        <div class="movie-detail--ad-section">
+          <div class="movie-detail--ad-section-links">
+            <a
+              class="btn"
+              target="_blank"
+              rel="noopener noreferrer"
+              [href]="vs.movie?.homepage"
+            >
+              Website
+              <svg class="icon" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M0 0h24v24H0V0z" fill="none" />
+                <path
+                  d="M17 7h-4v2h4c1.65 0 3 1.35 3 3s-1.35 3-3 3h-4v2h4c2.76 0 5-2.24 5-5s-2.24-5-5-5zm-6 8H7c-1.65 0-3-1.35-3-3s1.35-3 3-3h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-2zm-3-4h8v2H8z"
+                />
+              </svg>
+            </a>
+            <a
+              *ngIf="vs.movie?.imdb_id"
+              class="btn"
+              target="_blank"
+              rel="noopener noreferrer"
+              [href]="'https://www.imdb.com/title/' + vs.movie?.imdb_id"
+            >
+              IMDB
+              <svg class="icon" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M0 0h24v24H0z" fill="none" />
+                <path
+                  d="M18 3v2h-2V3H8v2H6V3H4v18h2v-2h2v2h8v-2h2v2h2V3h-2zM8 17H6v-2h2v2zm0-4H6v-2h2v2zm0-4H6V7h2v2zm10 8h-2v-2h2v2zm0-4h-2v-2h2v2zm0-4h-2V7h2v2z"
+                />
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+  <ng-template #loading>
+    <app-loader></app-loader>
+  </ng-template>
+</div>
+<div
+  class="padding-wrapper movie-detail--recommended"
+  *rxLet="recommendedLoading$; let loading"
+>
+  <app-movie-list *ngIf="!loading" [movies]="recommendations$">
+    <div class="header">
+      <h1 class="title">Recommended</h1>
+      <h2 class="subtitle">Movies</h2>
+    </div>
+  </app-movie-list>
+</div>

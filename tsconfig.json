@@ -2,11 +2,12 @@
   "compileOnSave": false,
   "compilerOptions": {
     "importHelpers": true,
+    "rootDir": ".",
     "outDir": "./dist/out-tsc",
-    "baseUrl": "src",
+    "baseUrl": ".",
     "sourceMap": true,
     "declaration": false,
-    "module": "es2020",
+    "module": "esnext",
     "moduleResolution": "node",
     "experimentalDecorators": true,
     "target": "es2015",
@@ -21,6 +22,7 @@
     "strict": true,
     "strictNullChecks": true
   },
+  "exclude": ["node_modules", "tmp"],
   "angularCompilerOptions": {
     "strictTemplates": true,
     "fullTemplateTypeCheck": true,
