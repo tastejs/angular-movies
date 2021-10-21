@@ -3,7 +3,7 @@
     "lib": ["es6", "dom", "es2015", "es2017"],
     "module": "commonjs",
     "noImplicitReturns": true,
-    "outDir": "../dist/hub-movies/server",
+    "outDir": "../dist/movies/server",
     "sourceMap": false,
     "target": "es2019",
     "allowJs": true,
