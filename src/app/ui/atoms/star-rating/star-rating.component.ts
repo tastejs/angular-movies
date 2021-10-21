@@ -54,7 +54,7 @@ export class StarRatingComponent {
 
   private _rating = 5;
   @Input()
-  set rating(rating: number) {
+  set rating(rating: number | undefined) {
     this._rating = coerceNumberProperty(rating);
 
     this.setToolTopText(this.rating);
