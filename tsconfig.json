@@ -10,7 +10,7 @@
     "module": "esnext",
     "moduleResolution": "node",
     "experimentalDecorators": true,
-    "target": "es2015",
+    "target": "es2020",
     "allowSyntheticDefaultImports": true,
     "skipLibCheck": true,
     "typeRoots": ["node_modules/@types"],
