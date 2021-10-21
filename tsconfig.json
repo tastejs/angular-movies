@@ -10,6 +10,7 @@
     "module": "esnext",
     "moduleResolution": "node",
     "experimentalDecorators": true,
+    "**\uD83D\uDE80 Perf Tip:**": "Use es2020 as build target to reduce the bundle size slightly",
     "target": "es2020",
     "allowSyntheticDefaultImports": true,
     "skipLibCheck": true,
