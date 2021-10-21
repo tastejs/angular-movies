@@ -61,9 +61,9 @@ export class TmdbAuthEffects {
     window.localStorage.removeItem('accountId');
     window.localStorage.removeItem('requestToken');
     this.authState.state.next({
-      accessToken: undefined,
-      accountId: undefined,
-      requestToken: undefined,
+      accessToken: null,
+      accountId: null,
+      requestToken: null,
     });
     if (accessToken) {
       this.tmdb.deleteAccessToken(accessToken).subscribe();

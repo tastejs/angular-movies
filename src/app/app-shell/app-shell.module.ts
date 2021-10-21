@@ -4,7 +4,6 @@ import { HamburgerButtonModule } from '../ui/atoms/hamburger-button/hamburger-bu
 import { SearchBarComponentModule } from '../ui/atoms/search-bar/search-bar.component';
 import { SideDrawerComponentModule } from '../ui/atoms/side-drawer/side-drawer.component';
 import { AppShellComponent } from './app-shell.component';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { LetModule } from '@rx-angular/template/let';
@@ -15,7 +14,6 @@ import { RxForModule } from '../ui/atoms/rx-for/rx-for.module';
   declarations: [AppShellComponent],
   imports: [
     CommonModule,
-    MatSnackBarModule,
     FormsModule,
     RouterModule,
     HamburgerButtonModule,

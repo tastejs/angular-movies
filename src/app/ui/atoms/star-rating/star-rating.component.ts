@@ -17,11 +17,10 @@ const starsArray: number[] = new Array(numStars).fill(1);
 @Component({
   selector: 'star-rating',
   template: `
-    <div class="star-rating">
-      <span class="tooltip">
+    <span class="tooltip">
         {{ tooltipText }}
       </span>
-      <div class="stars">
+    <div class="stars">
         <span
           *ngFor="let fill of stars; trackBy: trackByIndex"
           class="star"
@@ -30,12 +29,12 @@ const starsArray: number[] = new Array(numStars).fill(1);
             'star-empty': fill === -1
           }"
           style
-          >★</span
+        >★</span
         >
-      </div>
-      <div class="rating-value" *ngIf="showRating">{{ rating }}</div>
     </div>
+    <div class="rating-value" *ngIf="showRating">{{ rating }}</div>
   `,
+  styleUrls: ['star-rating.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class StarRatingComponent {
