@@ -192,7 +192,7 @@
   height: auto;
   background-position: top;
   background-size: cover;
-  color: $white;
+  color: var(--palette-secondary-contrast-text);
   text-align: left;
   @media only screen and (min-width: 731px) {
     min-height: 500px;
@@ -221,7 +221,7 @@
       left: 0;
       bottom: 0;
       width: 30%;
-      background: $black;
+      background: var(--palette-common-black);
       z-index: 2;
 
       &::before {
@@ -231,7 +231,7 @@
         left: 100%;
         bottom: 0;
         width: 100%;
-        background-image: linear-gradient(to right, $black, transparent);
+        background-image: linear-gradient(to right, var(--palette-common-black), transparent);
       }
     }
   }
@@ -243,36 +243,18 @@
     .btn-back {
       border: none;
       background: transparent;
-      color: $white;
+      color: var(--palette-secondary-contrast-text);
       cursor: pointer;
     }
 
     h1 {
-      color: $white;
+      color: var(--palette-secondary-contrast-text);
       text-align: left !important;
     }
   }
 
   &__body {
     z-index: 2;
-
-    .mat {
-      &-green {
-        color: $green;
-      }
-
-      &-red {
-        color: $primary-light;
-      }
-
-      &-yellow {
-        color: $yellow;
-      }
-
-      &-teal {
-        color: $teal;
-      }
-    }
 
     .movie {
       &--infos {
@@ -299,7 +281,7 @@
 
             &::after {
               content: '•';
-              color: $primary-light;
+              color: var(--palette-primary-light);
             }
 
             &:last-child:after {
@@ -344,7 +326,7 @@
           display: contents;
 
           &:hover {
-            background: $background;
+            background: var(--palette-action-hover);
           }
         }
 
@@ -357,12 +339,12 @@
         }
 
         h3 {
-          color: $primary-light;
+          color: var(--palette-primary-light);
           margin: 20px 0 0;
         }
 
         p {
-          color: $grey;
+          color: var(--palette-text-secondary);
           margin: 0 0 20px;
         }
 
@@ -398,7 +380,7 @@
 
       &--similar {
         h3 {
-          color: $primary-light;
+          color: var(--palette-primary-light);
         }
       }
     }

@@ -48,7 +48,6 @@
     "@angular/compiler": "12.2.11",
     "@angular/core": "12.2.11",
     "@angular/forms": "12.2.11",
-    "@angular/material": "^12.2.11",
     "@angular/platform-browser": "12.2.11",
     "@angular/platform-browser-dynamic": "12.2.11",
     "@angular/platform-server": "12.2.11",

@@ -16,6 +16,20 @@
 .dark-mode-toggle > button:focus {
   outline: none;
 }
+button.light {
+  color: #999;
+}
+button.dark {
+  color: lightblue;
+}
+:host-context(.light) {
+  button.light {
+    color: #ffb74d;
+  }
+  button.dark {
+    color: #666;
+  }
+}
 
 .toggle {
   position: relative;
