@@ -4,7 +4,7 @@ module.exports = {
       // number of reports done to the configured url
       numberOfRuns: 2,
       // needed as auto discovery is not able to find it
-      staticDistDir: 'dist/hub-movies',
+      staticDistDir: 'dist/movies',
     },
     upload: {
       // save target is a custom lhci server

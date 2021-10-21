@@ -16,7 +16,7 @@ import { stateAppInitializerProvider } from './shared/state/state-app-initialize
 @NgModule({
   declarations: [AppComponent],
   imports: [
-    BrowserModule.withServerTransition({ appId: 'hub-movies' }),
+    BrowserModule.withServerTransition({ appId: 'movies' }),
     BrowserTransferStateModule,
     TransferHttpCacheModule,
     HttpClientModule,
