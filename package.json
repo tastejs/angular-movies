@@ -13,6 +13,7 @@
     "build:prod": "npm run ng build -- --configuration production",
     "build:prod:ssr": "ng build --configuration production && ng run movies:build-server && npm run build:functions",
     "build:prod:artefacts": "npm run ng build -- --configuration production --stats-json",
+    "build:artefacts": "npm run ng build -- --stats-json",
     "build:functions": "tsc --build functions/tsconfig.json",
     "test": "ng test",
     "test:ci": "ng test --no-watch --no-progress --browsers=ChromeHeadlessCI",
