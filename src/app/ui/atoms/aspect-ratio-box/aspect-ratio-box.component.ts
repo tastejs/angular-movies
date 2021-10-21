@@ -6,7 +6,7 @@ import {
 } from '@angular/core';
 
 @Component({
-  selector: 'aspect-ratio-box',
+  selector: 'app-aspect-ratio-box',
   template: `
     <div class="aspect-ratio-box-inside">
       <ng-content></ng-content>

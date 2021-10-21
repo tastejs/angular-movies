@@ -15,7 +15,7 @@ const numStars = 5;
 const starsArray: number[] = new Array(numStars).fill(1);
 
 @Component({
-  selector: 'star-rating',
+  selector: 'app-star-rating',
   template: `
     <span class="tooltip">
         {{ tooltipText }}
@@ -41,14 +41,21 @@ export class StarRatingComponent {
   range = range;
   numStars = numStars;
   stars: number[] = starsArray;
-  rating = 5;
-  showRating = false;
+  private _showRating = false;
+  @Input()
+  set showRating(show: boolean) {
+    this._showRating = coerceBooleanProperty(show);
+  }
+  get showRating(): boolean {
+    return this._showRating;
+  }
   tooltipText = `0 average rating`;
   trackByIndex: TrackByFunction<number> = trackByIndex();
 
-  @Input('rating')
-  set _rating(rating: number | undefined) {
-    this.rating = rating || 0;
+  private _rating = 5;
+  @Input()
+  set rating(rating: number) {
+    this._rating = coerceNumberProperty(rating);
 
     this.setToolTopText(this.rating);
 
@@ -62,13 +69,11 @@ export class StarRatingComponent {
       .concat(new Array(half).fill(0))
       .concat(new Array(empty).fill(-1));
   }
+  get rating(): number {
+    return this._rating;
+  }
 
   setToolTopText(rating: number) {
     this.tooltipText = `${rating} average rating`;
-  }
-
-  @Input('showRating')
-  set _showRating(show: boolean) {
-    this.showRating = coerceBooleanProperty(show);
   }
 }

@@ -1,7 +1,7 @@
 <div class="movie-detail--grid" *rxLet="detailState$; let vs">
   <ng-container *ngIf="!vs.loading; else loading">
     <div class="movie-detail--grid-item gradient">
-      <aspect-ratio-box [aspectRatio]="W342H513.WIDTH / W342H513.HEIGHT">
+      <app-aspect-ratio-box [aspectRatio]="W342H513.WIDTH / W342H513.HEIGHT">
         <img
           class="movie-poster"
           loading="lazy"
@@ -16,7 +16,7 @@
           alt="poster movie"
           [title]="vs.movie?.title"
         />
-      </aspect-ratio-box>
+      </app-aspect-ratio-box>
     </div>
     <div class="movie-detail--grid-item">
       <div class="movie-detail--summary">
@@ -25,10 +25,10 @@
           <h2 class="subtitle">{{ vs.movie?.tagline }}</h2>
         </div>
         <div class="movie-detail--basic-infos">
-          <star-rating
+          <app-star-rating
             [rating]="vs.movie?.vote_average"
             [showRating]="true"
-          ></star-rating>
+          ></app-star-rating>
           <div class="movie-detail--languages-runtime-release">
             {{ vs.movie?.languages_runtime_release }}
           </div>

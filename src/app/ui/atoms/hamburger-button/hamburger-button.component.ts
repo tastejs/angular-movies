@@ -5,7 +5,7 @@ import { Component, ChangeDetectionStrategy, NgModule } from '@angular/core';
   templateUrl: './hamburger-button.component.html',
   styleUrls: ['./hamburger-button.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  // tslint:disable-next-line:no-host-metadata-property
+  // eslint-disable-next-line @angular-eslint/no-host-metadata-property
   host: {
     class: 'hamburger-button',
   },

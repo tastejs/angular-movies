@@ -8,6 +8,7 @@ declare const ngDevMode: boolean;
  * To get out the best performance use the native HTML attribute. This avoids bootstrap and template evaluation time.
  */
 @Directive({
+  /* eslint-disable-next-line @angular-eslint/directive-selector */
   selector: 'img'
 })
 export class LazyImgDirective {

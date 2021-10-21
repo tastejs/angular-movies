@@ -4,6 +4,6 @@
  * If no string is passed it returns a random hex color
  */
 export function stringColor(val?: string): string {
-  // tslint:disable-next-line: no-bitwise
+  // eslint-disable-next-line no-bitwise
   return '#' + ('00000' + (val ? val.charCodeAt(0) : Math.random() / 100 * (1 << 24) | 0).toString(16)).slice(-6);
 }

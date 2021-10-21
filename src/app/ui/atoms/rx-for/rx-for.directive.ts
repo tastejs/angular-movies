@@ -1,4 +1,4 @@
-/* tslint:disable */
+/* eslint-disable */
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import {
   ChangeDetectorRef,
@@ -280,7 +280,7 @@ import { Observable, ReplaySubject, Subject, Subscription } from 'rxjs';
  * @publicApi
  */
 @Directive({
-  // tslint:disable-next-line:directive-selector
+  // eslint-disable-next-line @angular-eslint/directive-selector
   selector: '[rxFor]'
 })
 export class RxForDirective<T, U extends NgIterable<T> = NgIterable<T>>
@@ -390,7 +390,7 @@ export class RxForDirective<T, U extends NgIterable<T> = NgIterable<T>>
    *
    * @param renderParent
    */
-    // tslint:disable-next-line:no-input-rename
+    // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input('rxForParent') renderParent = true;
 
   /**
@@ -423,7 +423,7 @@ export class RxForDirective<T, U extends NgIterable<T> = NgIterable<T>>
    *
    * @param patchZone
    */
-    // tslint:disable-next-line:no-input-rename
+    // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input('rxForPatchZone') patchZone = this.strategyProvider.config.patchZone;
 
   /**
