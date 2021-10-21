@@ -126,18 +126,6 @@ app-side-drawer {
   flex: 1;
   overflow: auto;
 
-  &--search {
-    min-height: 3rem;
-    line-height: 3;
-    padding: 16px 0 0 20px;
-
-    .mat-form-field {
-      width: 180px;
-      padding: 0 20px;
-      font-size: 13px;
-    }
-  }
-
   &--link {
     outline: none;
     display: block;
@@ -178,33 +166,4 @@ app-side-drawer {
     letter-spacing: -0.5px;
     margin: 0 0 1rem 1rem;
   }
-}
-
-.btn-menu {
-  position: fixed;
-  top: 0;
-  left: 0;
-  margin: 20px;
-  cursor: pointer;
-  border: none;
-  outline: none;
-  background-color: transparent;
-  z-index: 3;
-}
-
-/* button return top*/
-[id='btn-returnToTop'] {
-  position: fixed;
-  bottom: 40px;
-  right: 12px;
-  display: none;
-  z-index: 1;
-}
-
-.show {
-  display: block;
-}
-
-.hide {
-  display: none;
 }

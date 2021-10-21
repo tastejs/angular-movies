@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, distinctUntilChanged, filter, map } from 'rxjs';
 
 interface AuthState {
-  requestToken: string;
-  accessToken: string;
-  accountId: string;
+  requestToken: string | null;
+  accessToken: string | null;
+  accountId: string | null;
 }
 
 export function isAuthenticationInProgress({

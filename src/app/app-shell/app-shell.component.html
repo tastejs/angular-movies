@@ -19,7 +19,7 @@
       <h2 class="navigation--headline">Discover</h2>
       <a
         class="navigation--link"
-        [class.active]="vs.activeRoute === 'list/category/popular'"
+        [class.active]="vs.activeRoute === '/list/category/popular'"
         (click)="navTo('/list', ['category', 'popular'])"
       >
         <div class="navigation--menu-item">
@@ -38,7 +38,7 @@
       </a>
       <a
         class="navigation--link"
-        [class.active]="vs.activeRoute === '/category/top_rated'"
+        [class.active]="vs.activeRoute === '/list/category/top_rated'"
         (click)="navTo('/list', ['category', 'top_rated'])"
       >
         <div class="navigation--menu-item">
@@ -57,7 +57,7 @@
       </a>
       <a
         class="navigation--link"
-        [class.active]="vs.activeRoute === 'list/category/upcoming'"
+        [class.active]="vs.activeRoute === '/list/category/upcoming'"
         (click)="navTo('/list', ['category', 'upcoming'])"
       >
         <div class="navigation--menu-item">
@@ -82,7 +82,7 @@
           strategy: 'background'
         "
         class="navigation--link"
-        [class.active]="vs.activeRoute === '/genre/' + genre.id"
+        [class.active]="vs.activeRoute === '/list/genre/' + genre.id"
         (click)="navTo('/list', ['genre', genre.id])"
       >
         <div class="navigation--menu-item">

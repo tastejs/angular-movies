@@ -1,5 +1,4 @@
 import { ChangeDetectionStrategy, Component, TrackByFunction, ViewChild } from '@angular/core';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { NavigationEnd, Router } from '@angular/router';
 import { distinctUntilSomeChanged, RxState } from '@rx-angular/state';
 import { filter, map, startWith, Subject } from 'rxjs';
@@ -28,8 +27,7 @@ export class AppShellComponent {
     public tmdbState: StateService,
     public authState: AuthStateService,
     public authEffects: TmdbAuthEffects,
-    private router: Router,
-    private snackbar: MatSnackBar
+    private router: Router
   ) {
     this.state.connect(
       'sideDrawerOpen',
@@ -67,9 +65,6 @@ export class AppShellComponent {
 
   onSignOut() {
     this.authEffects.signOut();
-
-    this.snackbar.open('Goodbye', '', { duration: 2000 });
-
     this.router.navigate(['/movies/popular']);
   }
 

@@ -1,6 +1,7 @@
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule, BrowserTransferStateModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TransferHttpCacheModule } from '@nguniversal/common';
 import { RX_ANGULAR_CONFIG } from '@rx-angular/cdk';
 
@@ -18,6 +19,7 @@ import { stateAppInitializerProvider } from './shared/state/state-app-initialize
   imports: [
     BrowserModule.withServerTransition({ appId: 'hub-movies' }),
     BrowserTransferStateModule,
+    BrowserAnimationsModule,
     TransferHttpCacheModule,
     HttpClientModule,
     AppShellModule,
