@@ -7,11 +7,11 @@
     "lhci": "lhci",
     "concurrently": "concurrently",
     "start": "ng serve",
-    "start:ssr:dev": "ng run hub-movies:serve-ssr",
-    "start:ssr:prod": "ng run hub-movies:serve-ssr --configuration=production",
+    "start:ssr:dev": "ng run movies:serve-ssr",
+    "start:ssr:prod": "ng run movies:serve-ssr --configuration=production",
     "build": "ng build",
     "build:prod": "npm run ng build -- --configuration production",
-    "build:prod:ssr": "ng build --configuration production && ng run hub-movies:build-server && npm run build:functions",
+    "build:prod:ssr": "ng build --configuration production && ng run movies:build-server && npm run build:functions",
     "build:prod:artefacts": "npm run ng build -- --configuration production --stats-json",
     "build:functions": "tsc --build functions/tsconfig.json",
     "test": "ng test",
@@ -20,16 +20,16 @@
     "e2e": "ng e2e",
     "ngsw-config": "node_modules/.bin/ngsw-config dist ./src/ngsw-config.json",
     "serve:ngsw": "npm run ngsw-config && http-server dist -p 8080",
-    "analyze:bundlesize": "npm run build:prod:artefacts && webpack-bundle-analyzer dist/hub-movies/browser/stats.json",
+    "analyze:bundlesize": "npm run build:prod:artefacts && webpack-bundle-analyzer dist/movies/browser/stats.json",
     "lhci-server:start": "npm run lhci --  server --https --storage.storageMethod=sql --storage.sqlDialect=sqlite --storage.sqlDatabasePath=./.lighthouseci/db.sql || true",
     "lhci-server:stop": "node tooling/stop-lhci-server.js",
     "lhci-cli:autorun": "npm run lhci -- autorun --config=lighthouserc.js && npm run lhci-server:stop",
     "lhci:collect": "npm run concurrently \"npm:lhci-server:start\" \"npm:lhci-cli:autorun\"",
     "husky": "husky",
-    "serve:pwa": "npx http-server -p 8080 -c-1 dist/hub-movies/browser",
+    "serve:pwa": "npx http-server -p 8080 -c-1 dist/movies/browser",
     "format:all": "prettier --write .",
     "commit": "git-cz",
-    "prerender": "ng run hub-movies:prerender"
+    "prerender": "ng run movies:prerender"
   },
   "config": {
     "commitizen": {
@@ -39,7 +39,7 @@
   "engines": {
     "node": "14"
   },
-  "main": "dist/hub-movies/server/index.js",
+  "main": "dist/movies/server/index.js",
   "private": true,
   "dependencies": {
     "@angular/animations": "12.2.11",

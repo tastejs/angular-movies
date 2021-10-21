@@ -1,6 +1,6 @@
 {
   "root": true,
-  "ignorePatterns": ["!**/*"],
+  "ignorePatterns": ["**/*"],
   "overrides": [
     {
       "files": [
@@ -11,6 +11,8 @@
         "project": ["tsconfig.json"]
       },
       "plugins": [
+        "@typescript-eslint",
+        "@angular-eslint",
         "unused-imports",
         "import",
         "simple-import-sort"

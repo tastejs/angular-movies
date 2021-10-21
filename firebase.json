@@ -4,7 +4,7 @@
     "source": "."
   },
   "hosting": {
-    "public": "dist/hub-movies/browser",
+    "public": "dist/movies/browser",
     "cleanUrls": true,
     "trailingSlash": false,
     "ignore": ["!dist", "*", "**/**"],
