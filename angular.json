@@ -62,7 +62,7 @@
                 }
               ],
               "serviceWorker": true,
-              "ngswConfigPath": "src/ngsw-config.json",
+              "ngswConfigPath": "projects/movies/src/ngsw-config.json",
               "outputHashing": "all"
             },
             "development": {
