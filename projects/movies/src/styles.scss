@@ -1,0 +1,30 @@
+@import 'assets/scss/palette';
+@import 'assets/scss/typography';
+@import 'assets/scss/palette';
+
+@import 'assets/scss/normalize';
+@import 'assets/scss/components/gradient';
+@import 'assets/scss/components/icon';
+@import 'assets/scss/components/launcher';
+@import 'assets/scss/components/padding-wrapper';
+@import 'assets/scss/components/tooltip';
+
+body {
+  color: var(--palette-text-primary);
+  background-color: var(--palette-background-default);
+  -webkit-transition: color var(--duration) var(--timing),
+    background-color var(--duration) var(--timing);
+  transition: color var(--duration) var(--timing),
+    background-color var(--duration) var(--timing);
+}
+
+body.dark img:not([src*='.svg']) {
+  -webkit-filter: var(--image-filter);
+  filter: var(--image-filter);
+}
+
+a {
+  cursor: pointer;
+  text-decoration: none;
+  color: var(--palette-secondary-main);
+}

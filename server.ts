@@ -15,7 +15,7 @@ const domino = require('domino');
 export function app(): express.Express {
   const server = express();
 
-  const distFolder = join(process.cwd(), 'dist/hub-movies/browser');
+  const distFolder = join(process.cwd(), 'dist/movies/browser');
   const indexHtml = existsSync(join(distFolder, 'index.original.html'))
     ? 'index.original.html'
     : 'index';

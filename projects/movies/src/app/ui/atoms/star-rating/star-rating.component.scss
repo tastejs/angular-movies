@@ -1,0 +1,60 @@
+:host {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &:hover .tooltip {
+    visibility: visible;
+  }
+}
+
+.tooltip {
+  top: -28px;
+}
+
+.rating-value {
+  overflow: hidden;
+  color: #b5b800;
+  font-size: 16px;
+  padding: 5px 0 0 5px;
+}
+
+.stars {
+  overflow: hidden;
+  position: relative;
+}
+
+.star {
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  display: block;
+  float: left;
+  font-size: 24px;
+  color: #b5b800;
+}
+
+.star-full {
+  color: #b5b800;
+}
+
+.star-half {
+  color: gray;
+
+  &:before {
+    position: absolute;
+    overflow: hidden;
+    display: block;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    width: 50%;
+    content: '★';
+    color: #b5b800;
+  }
+}
+
+.star-empty {
+  color: gray;
+}
