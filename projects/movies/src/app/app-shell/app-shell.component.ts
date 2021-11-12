@@ -7,13 +7,16 @@ import { TmdbAuthEffects } from '../data-access/auth/tmdbAuth.effects';
 import { MovieGenreModel } from '../data-access/model/index';
 import { trackByProp } from '../shared/utils/track-by';
 import { StateService } from '../shared/state/state.service';
+import { SessionStorageService } from '../shared/session-storage/session-storage.service';
 
 @Component({
   selector: 'app-shell',
   templateUrl: './app-shell.component.html',
+  /**
+   **🚀 Perf Tip:**
+   Use ChangeDetectionStrategy.OnPush in all components to reduce change detection & template re-evaluation
+   */
   styleUrls: ['./app-shell.component.scss'],
-  // **🚀 Perf Tip:**
-  // Use ChangeDetectionStrategy.OnPush in all components to reduce change detection & template re-evaluation
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [RxState]
 })
@@ -27,6 +30,7 @@ export class AppShellComponent {
     public tmdbState: StateService,
     public authState: AuthStateService,
     public authEffects: TmdbAuthEffects,
+    private sessionStorage: SessionStorageService,
     private router: Router
   ) {
     this.state.connect(
@@ -79,6 +83,6 @@ export class AppShellComponent {
   }
 
   resetPagination() {
-    sessionStorage.setItem('hubmovies-current-page', '1');
+    this.sessionStorage.setItem('hubmovies-current-page', '1');
   }
 }

@@ -1,22 +1,42 @@
 import { Injectable } from '@angular/core';
+import { RxStrategyProvider } from '@rx-angular/cdk';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class SessionStorageService {
-  save(key: string, data: string): void {
-    sessionStorage.setItem(key, data);
+
+  constructor(
+    private strategyProvider: RxStrategyProvider
+  ) {
   }
 
-  read(key: string): string | null {
-    return sessionStorage.getItem(key);
+  /**
+   **🚀 Perf Tip:**
+   Use low priority scheduling for work that is not directly related to visual user feedback.
+   You can use requestIdleCallback or a more advanced technique that in addition to using a low prio also ensures that no frame drop occurs.
+   */
+  executeWithLowPrio<T>(work: () => T): Observable<T> {
+    return this.strategyProvider.schedule(
+      work,
+      {strategy: 'idle'}
+    );
   }
 
-  remove(key: string) {
-    sessionStorage.removeItem(key);
+  setItem(key: string, data: string): Observable<void> {
+    return this.executeWithLowPrio(() => sessionStorage.setItem(key, data));
   }
 
-  clear(): void {
-    sessionStorage.clear();
+  getItem(key: string): Observable<string | null> {
+    return this.executeWithLowPrio(() => sessionStorage.getItem(key));
+  }
+
+  removeItem(key: string): Observable<void> {
+    return this.executeWithLowPrio(() => sessionStorage.removeItem(key));
+  }
+
+  clear(): Observable<void> {
+    return  this.executeWithLowPrio(() => sessionStorage.clear());
   }
 }
