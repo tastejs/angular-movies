@@ -83,6 +83,8 @@ export class AppShellComponent {
   }
 
   resetPagination() {
-    this.sessionStorage.setItem('hubmovies-current-page', '1');
+    this.state.hold(
+      this.sessionStorage.setItem('hubmovies-current-page', '1')
+    );
   }
 }
