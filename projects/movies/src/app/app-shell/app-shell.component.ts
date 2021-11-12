@@ -7,6 +7,7 @@ import { TmdbAuthEffects } from '../data-access/auth/tmdbAuth.effects';
 import { MovieGenreModel } from '../data-access/model/index';
 import { trackByProp } from '../shared/utils/track-by';
 import { StateService } from '../shared/state/state.service';
+import { RxStrategyProvider } from '@rx-angular/cdk';
 
 @Component({
   selector: 'app-shell',
@@ -27,7 +28,8 @@ export class AppShellComponent {
     public tmdbState: StateService,
     public authState: AuthStateService,
     public authEffects: TmdbAuthEffects,
-    private router: Router
+    private router: Router,
+    private strategyProvider: RxStrategyProvider,
   ) {
     this.state.connect(
       'sideDrawerOpen',
@@ -71,7 +73,14 @@ export class AppShellComponent {
   navTo(path: string, args: (string | number)[], queryParams?: Record<string, any>) {
     this.closeSidenav();
     this.resetPagination();
-    this.router.navigate([path, ...args], {queryParams});
+
+    this.state.hold(
+      /**
+       **🚀 Perf Tip:**
+       Use scheduling for navigation work to move it out from the click event and give the browser time to provide visible user feedback as fast as possible.
+       */
+      this.strategyProvider.schedule(() => this.router.navigate([path, ...args], { queryParams }))
+    );
   }
 
   closeSidenav() {
