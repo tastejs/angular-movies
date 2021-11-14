@@ -12,11 +12,12 @@ import { SessionStorageService } from '../shared/session-storage/session-storage
 @Component({
   selector: 'app-shell',
   templateUrl: './app-shell.component.html',
-  /**
-   **🚀 Perf Tip:**
-   Use ChangeDetectionStrategy.OnPush in all components to reduce change detection & template re-evaluation
-   */
   styleUrls: ['./app-shell.component.scss'],
+  /**
+   * **🚀 Perf Tip for TBT:**
+   *
+   * Use ChangeDetectionStrategy.OnPush in all components to reduce change detection & template re-evaluation
+   */
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [RxState]
 })

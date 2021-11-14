@@ -14,7 +14,7 @@ import {
 } from '../../data-access/model/index';
 import { Tmdb2Service } from '../../data-access/api/tmdb2.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { W780H1170 } from '../../shared/utils/image-sizes';
+import { W780H1170 } from '../../data-access/configurations/image-sizes';
 
 type MovieDetail = MovieDetailsModel & { languages_runtime_release: string };
 

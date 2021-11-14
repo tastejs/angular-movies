@@ -46,24 +46,25 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "330kb",
-                  "maximumError": "350kb"
+                  "maximumWarning": "300000b",
+                  "maximumError": "337364b"
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "2.9kb"
+                  "maximumWarning": "2900b",
+                  "maximumError": "2960b"
                 },
                 {
                   "type": "bundle",
                   "name": "main",
-                  "maximumWarning": "300kb",
-                  "maximumError": "320.90kb"
+                  "maximumWarning": "300000b",
+                  "maximumError": "328593b"
                 },
                 {
                   "type": "bundle",
                   "name": "styles",
-                  "maximumWarning": "5kb",
-                  "maximumError": "5.74kb"
+                  "maximumWarning": "5000b",
+                  "maximumError": "5874b"
                 },
                 {
                   "type": "bundle",
