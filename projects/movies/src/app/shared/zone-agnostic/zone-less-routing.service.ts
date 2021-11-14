@@ -23,7 +23,7 @@ export class ZonelessRouting extends RxState<any> {
         // Filter relevant navigation events for change detection
         this.router.events.pipe(filter((e) => e instanceof NavigationEnd)),
         // In a service we have to use `ApplicationRef#tick` to trigger change detection.
-        // In a component we use `ChangeDetectorRef#detectChanges()` as it is less work compared to `ApplicationRef#tick` as it's less work.
+        // In a component we use `ChangeDetectorRef#detectChanges()` as it is less work compared to `ApplicationRef#tick`.
         () => this.appRef.tick()
       );
     }
