@@ -55,8 +55,12 @@
 /***************************************************************************************************
  * Zone JS is required by default for Angular itself.
  */
-// **🚀 Perf Tip:**
-// Remove `zone.js` import to save significant bundle size and bootstrap time
+
+/*
+ **🚀 Perf Tip for LCP, TTI, TBT:**
+ *
+ * Remove `zone.js` import to save significant bundle size and bootstrap time
+ */
 // import 'zone.js'; // Included with Angular CLI.
 
 /***************************************************************************************************

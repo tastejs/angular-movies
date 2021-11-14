@@ -633,7 +633,7 @@ export class RxForDirective<T, U extends NgIterable<T> = NgIterable<T>>
       renderSettings: {
         cdRef: this.cdRef,
         eRef: this.eRef,
-        strategies: this.strategyProvider.strategies as any, // TODO: move strategyProvider
+        strategies: this.strategyProvider.strategies as any,
         defaultStrategyName: this.strategyProvider.primaryStrategy,
         parent: coerceBooleanProperty(this.renderParent),
         patchZone: this.patchZone ? this.ngZone : false,

@@ -3,7 +3,8 @@ import { map, Observable, Subject } from 'rxjs';
 
 import { exhaustMap, filter } from 'rxjs/operators';
 import { Tmdb2Service } from '../../data-access/api/tmdb2.service';
-import { MovieGenreModel, MovieModel } from '../../data-access/model/index';
+import { MovieGenreModel } from '../../data-access/model/movie-genre.model';
+import { MovieModel } from '../../data-access/model/movie.model';
 import { patch, RxState, selectSlice } from '@rx-angular/state';
 import { optimizedFetch } from '../utils/optimized-fetch';
 
@@ -64,7 +65,12 @@ export class StateService extends RxState<State> {
     super();
     this.connect('genres', this.commands.pipe(
       filter(({ type }) => type === 'refreshGenres'),
-      // @TODO add perf tip for exhaust
+      /**
+       * **🚀 Perf Tip for TTI, TBT:**
+       *
+       * Avoid over fetching for HTTP get requests to URLs that will not change result quickly.
+       * E.G.: URLs with the same params
+       */
       exhaustMap(() => this.tmdb2Service.getGenres()))
     );
 
@@ -72,7 +78,11 @@ export class StateService extends RxState<State> {
       'categoryMovies',
       this.commands.pipe(
         filter(({ type }) => type === 'fetchCategoryMovies'),
-        // @TODO add perf tip
+        /**
+         * **🚀 Perf Tip for TTI, TBT:**
+         *
+         * Avoid over fetching for HTTP get requests to URLs that will not change result quickly.
+         */
         optimizedFetch(
           ({ payload: category }) => 'category' + '-' + category,
           ({ payload: category }) => this.tmdb2Service.getMovieCategory(category)
@@ -87,6 +97,11 @@ export class StateService extends RxState<State> {
       'genreMovies',
       this.commands.pipe(
         filter(({ type }) => type === 'fetchGenreMovies'),
+        /**
+         * **🚀 Perf Tip for TTI, TBT:**
+         *
+         * Avoid over fetching for HTTP get requests to URLs that will not change result quickly.
+         */
         optimizedFetch(
           ({ payload: genre }) => 'genre' + '-' + genre,
           ({ payload: genre }) => this.tmdb2Service.getMovieGenre(genre)
