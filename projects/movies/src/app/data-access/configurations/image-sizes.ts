@@ -1,4 +1,4 @@
-// TODO: should get from TMDB API
+// @TODO: This information should get fetched from the TMDB API
 
 export const W44H44 = Object.freeze({
   WIDTH: 44,

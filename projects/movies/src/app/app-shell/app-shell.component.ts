@@ -12,8 +12,11 @@ import { StateService } from '../shared/state/state.service';
   selector: 'app-shell',
   templateUrl: './app-shell.component.html',
   styleUrls: ['./app-shell.component.scss'],
-  // **🚀 Perf Tip:**
-  // Use ChangeDetectionStrategy.OnPush in all components to reduce change detection & template re-evaluation
+  /**
+   * **🚀 Perf Tip for TBT:**
+   *
+   * Use ChangeDetectionStrategy.OnPush in all components to reduce change detection & template re-evaluation
+   */
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [RxState]
 })

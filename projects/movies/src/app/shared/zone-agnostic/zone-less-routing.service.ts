@@ -16,8 +16,12 @@ export class ZonelessRouting extends RxState<any> {
   }
 
   init() {
-    // **🚀 Perf Tip:**
-    // In zone-less applications we have to trigger CD on every `NavigationEnd` event that changes the view.
+    /**
+     * **🚀 Perf Tip:**
+     *
+     * In zone-less applications we have to trigger CD on every `NavigationEnd` event that changes the view.
+     * This is a necessity to make it work zone-less, but does not make the app faster.
+     */
     if (!isZonePresent()) {
       this.hold(
         // Filter relevant navigation events for change detection

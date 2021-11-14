@@ -2,9 +2,8 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { RxState } from '@rx-angular/state';
 import { map, Observable } from 'rxjs';
-import { MovieModel } from '../../../data-access/model/index';
-// @Todo: move const into data-access folder as related to API
-import { W300H450 } from '../../../shared/utils/image-sizes';
+import { MovieModel } from '../../../data-access/model/movie.model';
+import { W300H450 } from '../../../data-access/configurations/image-sizes';
 
 interface Movie extends MovieModel {
   url: string;
@@ -25,6 +24,11 @@ interface Movie extends MovieModel {
         >
           <div class='movies-list--grid-item-image gradient'>
             <app-aspect-ratio-box [aspectRatio]='W300H450.WIDTH / W300H450.HEIGHT'>
+              <!--
+              **🚀 Perf Tip for LCP:**
+              To get out the best performance use the native HTML attribute loading="lazy" instead of a directive.
+              This avoids bootstrap and template evaluation time and reduces scripting time in general.
+              -->
               <img
                 loading='lazy'
                 [src]='movie.url'
@@ -62,7 +66,7 @@ interface Movie extends MovieModel {
   `,
   styleUrls: ['./movie-list.component.scss'],
   providers: [RxState],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MovieListComponent {
   W300H450 = W300H450;
@@ -72,7 +76,7 @@ export class MovieListComponent {
       (movies) =>
         (movies || []).map((m) => ({
           ...m,
-          url: `https://image.tmdb.org/t/p/w${W300H450.WIDTH}/${m.poster_path}`,
+          url: `https://image.tmdb.org/t/p/w${W300H450.WIDTH}/${m.poster_path}`
         })) as Movie[]
     )
   );
@@ -86,14 +90,13 @@ export class MovieListComponent {
     this.state.connect('movies', movies$);
   }
 
-  @Input() adult?: string;
-
   constructor(
     private router: Router,
     private state: RxState<{
       movies: MovieModel[];
     }>
-  ) {}
+  ) {
+  }
 
   movieById(_: number, movie: Movie) {
     return movie.id;
