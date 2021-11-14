@@ -7,6 +7,8 @@ import { W300H450 } from '../../../data-access/configurations/image-sizes';
 
 interface Movie extends MovieModel {
   url: string;
+  imgWidth: number;
+  imgHeight: number;
 }
 
 @Component({
@@ -19,11 +21,11 @@ interface Movie extends MovieModel {
       <div class='movies-list--grid' *ngIf='hasMovies; else noData'>
         <a
           class='movies-list--grid-item'
-          *rxFor='let movie of movies$; trackBy: movieById'
-          (click)='toMovie(movie)'
+          *rxFor='let movie of movies$; trackBy: trackByMovieId'
+          (click)='navigateToMovie(movie)'
         >
           <div class='movies-list--grid-item-image gradient'>
-            <app-aspect-ratio-box [aspectRatio]='W300H450.WIDTH / W300H450.HEIGHT'>
+            <app-aspect-ratio-box [aspectRatio]='movie.imgWidth / movie.imgHeight'>
               <!--
               **🚀 Perf Tip for LCP:**
               To get out the best performance use the native HTML attribute loading="lazy" instead of a directive.
@@ -32,8 +34,8 @@ interface Movie extends MovieModel {
               <img
                 loading='lazy'
                 [src]='movie.url'
-                [width]='W300H450.WIDTH'
-                [height]='W300H450.HEIGHT'
+                [width]='movie.imgWidth'
+                [height]='movie.imgHeight'
                 alt='poster movie'
                 [title]='movie.title'
               />
@@ -69,14 +71,19 @@ interface Movie extends MovieModel {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MovieListComponent {
-  W300H450 = W300H450;
 
   movies$ = this.state.select('movies').pipe(
     map(
+      /**
+       *
+       * @TODO remove spread and use for loop
+       */
       (movies) =>
         (movies || []).map((m) => ({
           ...m,
-          url: `https://image.tmdb.org/t/p/w${W300H450.WIDTH}/${m.poster_path}`
+          url: `https://image.tmdb.org/t/p/w${W300H450.WIDTH}/${m.poster_path}`,
+          imgWidth: W300H450.WIDTH,
+          imgHeight: W300H450.HEIGHT
         })) as Movie[]
     )
   );
@@ -98,11 +105,11 @@ export class MovieListComponent {
   ) {
   }
 
-  movieById(_: number, movie: Movie) {
+  trackByMovieId(_: number, movie: Movie) {
     return movie.id;
   }
 
-  toMovie(movie: Movie) {
+  navigateToMovie(movie: Movie) {
     this.router.navigate(['/movie', movie.id]);
   }
 }
