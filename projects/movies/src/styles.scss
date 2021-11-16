@@ -1,13 +1,12 @@
-@import 'assets/scss/palette';
-@import 'assets/scss/typography';
-@import 'assets/scss/palette';
+@import 'styles/normalize';
+@import 'styles/palette';
+@import 'styles/typography';
 
-@import 'assets/scss/normalize';
-@import 'assets/scss/components/gradient';
-@import 'assets/scss/components/icon';
-@import 'assets/scss/components/launcher';
-@import 'assets/scss/components/padding-wrapper';
-@import 'assets/scss/components/tooltip';
+@import 'styles/components/gradient';
+@import 'styles/components/icon';
+@import 'styles/components/launcher';
+@import 'styles/components/padding-wrapper';
+@import 'styles/components/tooltip';
 
 body {
   color: var(--palette-text-primary);
