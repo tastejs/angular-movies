@@ -63,8 +63,8 @@
                 {
                   "type": "bundle",
                   "name": "styles",
-                  "maximumWarning": "5000b",
-                  "maximumError": "5874b"
+                  "maximumWarning": "6000b",
+                  "maximumError": "6169b"
                 },
                 {
                   "type": "bundle",
