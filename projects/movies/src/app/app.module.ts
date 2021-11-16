@@ -12,6 +12,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { customStrategyCredentials } from './shared/utils/custom-strategies';
 import { httpInterceptorProviders } from './data-access/auth/http-interceptor.providers';
 import { stateAppInitializerProvider } from './shared/state/state-app-initializer.provider';
+import { MovieListPageModule } from './pages/movie-list-page/movie-list-page.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -21,6 +22,7 @@ import { stateAppInitializerProvider } from './shared/state/state-app-initialize
     TransferHttpCacheModule,
     HttpClientModule,
     AppShellModule,
+    MovieListPageModule,
     ROUTING_IMPORTS,
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,

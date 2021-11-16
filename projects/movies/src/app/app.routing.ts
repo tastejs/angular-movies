@@ -1,4 +1,5 @@
 import { RouterModule, Routes } from '@angular/router';
+import { MovieListPageComponent } from './pages/movie-list-page/movie-list-page.component';
 
 const ROUTES: Routes = [
   /**
@@ -12,25 +13,30 @@ const ROUTES: Routes = [
    * _Bad_
    *  {
    *  path: 'list-category/:category',
-   *  loadChildren: import('list.module').then((m) => m.ListModule)
+   *  component: ListModuleComponent
    *  },
    *  {
    *  path: 'list-genre/:genre',
-   *  loadChildren: import('list.module').then((m) => m.ListModule)
+   *  component: ListModuleComponent
    *  }
    *
    * _Good_
    * {
    *  path: 'list/:type/:identifier',
-   *  loadChildren: import('list.module').then((m) => m.ListModule)
+   *  component: ListModuleComponent
    *  }
    *
    */
   {
     path: 'list/:type/:identifier',
-    loadChildren: () =>
-      import('projects/movies/src/app/pages/movie-list-page/movie-list-page.module').then((m) => m.MovieListPageModule)
+    component: MovieListPageComponent
   },
+  /*
+{
+  path: 'list/:type/:identifier',
+  loadChildren: () =>
+    import('projects/movies/src/app/pages/movie-list-page/movie-list-page.module').then((m) => m.MovieListPageModule)
+}, */
   {
     path: 'movie/:id',
     loadChildren: () =>
