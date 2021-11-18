@@ -1,29 +1,28 @@
 import { Location } from '@angular/common';
-import {
-  ChangeDetectionStrategy,
-  Component,
-  TrackByFunction,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, TrackByFunction } from '@angular/core';
 import { map, startWith, switchMap } from 'rxjs';
 import { RxState, selectSlice } from '@rx-angular/state';
-import {
-  MovieCastModel,
-  MovieDetailsModel,
-  MovieGenreModel,
-  MovieModel,
-} from '../../data-access/model/index';
+import { MovieCastModel, MovieDetailsModel, MovieGenreModel, MovieModel } from '../../data-access/model/index';
 import { Tmdb2Service } from '../../data-access/api/tmdb2.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { W780H1170 } from '../../data-access/configurations/image-sizes';
+import { ImageTag } from '../../shared/utils/image-object';
 
-type MovieDetail = MovieDetailsModel & { languages_runtime_release: string };
+type MovieDetail = MovieDetailsModel & ImageTag & { languages_runtime_release: string };
+
+interface MovieDetailPageModel {
+  loading: boolean;
+  movie: MovieDetail;
+  recommendations: MovieModel[];
+  cast: MovieCastModel[];
+}
 
 @Component({
   selector: 'app-movie',
   templateUrl: './movie-detail-page.component.html',
   styleUrls: ['./movie-detail-page.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [RxState],
+  providers: [RxState]
 })
 export class MovieDetailPageComponent {
   W780H1170 = W780H1170;
@@ -37,54 +36,49 @@ export class MovieDetailPageComponent {
   private readonly id$ = this.route.params.pipe(map(({ id }) => id));
 
   private movieById$ = this.id$.pipe(
-    switchMap((id) =>
+    switchMap((id: string) =>
       this.tmdb.getMovie(id).pipe(
         map((res: any) => {
           return {
             movie: transformToMovieDetail(res),
-            loading: false,
+            loading: false
           };
         }),
         startWith({
           loading: true,
-          movie: null,
+          movie: { } as MovieDetail
         })
       )
     )
   );
-  private movieRecomendationsById$ =  this.id$.pipe(
+  private movieRecomendationsById$ = this.id$.pipe(
     switchMap((id) =>
       this.tmdb.getMovieRecomendations(id).pipe(
         map((res: any) => res.results),
         startWith([])
       )
     )
-  )
-  private movieCastById$ =  this.id$.pipe(
+  );
+  private movieCastById$ = this.id$.pipe(
     switchMap((id) =>
       this.tmdb.getCredits(id).pipe(
         map((res: any) => res.cast || []),
         startWith([])
       )
     )
-  )
+  );
+
   constructor(
     private location: Location,
     private tmdb: Tmdb2Service,
     private route: ActivatedRoute,
     private router: Router,
-    private state: RxState<{
-      loading: boolean;
-      movie: MovieDetail | null;
-      recommendations: MovieModel[];
-      cast: MovieCastModel[];
-    }>
+    private state: RxState<MovieDetailPageModel>
   ) {
     state.set({
-      movie: null,
       recommendations: [],
       cast: [],
-      loading: true,
+      loading: true
     });
     this.state.connect(this.movieById$);
     this.state.connect('recommendations', this.movieRecomendationsById$);
@@ -103,7 +97,7 @@ export class MovieDetailPageComponent {
   trackByCast: TrackByFunction<MovieCastModel> = (_, cast) => cast.cast_id;
 }
 
-function transformToMovieDetail(res: any) : MovieDetail {
+function transformToMovieDetail(res: any): MovieDetail {
   if (res.spoken_languages.length !== 0) {
     res.spoken_languages = res.spoken_languages[0].english_name;
   } else {
@@ -114,5 +108,10 @@ function transformToMovieDetail(res: any) : MovieDetail {
   } ${res.runtime} MIN. / ${new Date(
     res.release_date
   ).getFullYear()}`;
-  return res;
+
+  res.url = `https://image.tmdb.org/t/p/w${W780H1170.WIDTH}/${res.poster_path}`;
+  res.imgWidth = W780H1170.WIDTH;
+  res.imgHeight = W780H1170.HEIGHT;
+
+  return res as MovieDetail;
 }

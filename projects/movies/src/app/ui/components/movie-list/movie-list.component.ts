@@ -69,14 +69,14 @@ type Movie = MovieModel & ImageTag;
 })
 export class MovieListComponent {
 
-  movies$ = this.state.select('movies').pipe(
+  movies$ = this.state.select(
     map(
       /**
        *
        * @TODO remove spread and use for loop
        */
-      (movies) =>
-        (movies || []).map((m) => ({
+      (state) =>
+        (state.movies || []).map((m) => ({
           ...m,
           url: `https://image.tmdb.org/t/p/w${W300H450.WIDTH}/${m.poster_path}`,
           imgWidth: W300H450.WIDTH,
@@ -86,8 +86,7 @@ export class MovieListComponent {
   );
 
   hasMovies$ = this.state
-    .select('movies')
-    .pipe(map((movies) => !!movies && movies.length > 0));
+    .select(map((state) => !!state.movies && state.movies.length > 0));
 
   @Input()
   set movies(movies$: Observable<MovieModel[]>) {
