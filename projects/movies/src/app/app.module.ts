@@ -18,6 +18,11 @@ import { stateAppInitializerProvider } from './shared/state/state-app-initialize
   imports: [
     BrowserModule.withServerTransition({ appId: 'movies' }),
     BrowserTransferStateModule,
+    /**
+     * **🚀 Perf Tip for LCP, CLS:**
+     *
+     * Fetch data on while SSR and reuse this data directly in the app to avoid overfetchung.
+     */
     TransferHttpCacheModule,
     HttpClientModule,
     AppShellModule,
@@ -31,11 +36,22 @@ import { stateAppInitializerProvider } from './shared/state/state-app-initialize
   ],
   providers: [
     httpInterceptorProviders,
+    /**
+     * **🚀 Perf Tip for LCP, TTI:**
+     *
+     * Fetch data visible in viewport on app bootstrap instead of component initialization.
+     */
     stateAppInitializerProvider,
     {
       provide: RX_ANGULAR_CONFIG,
       useValue: {
         customStrategies: customStrategyCredentials,
+        /**
+         * **🚀 Perf Tip for TTI:**
+         *
+         * Configure RxAngular's default behaviour to avoid any additional zone-logic to run.
+         * This could en up in missing view updates for template projection, but can be applied by directive to fix it granulary.
+         */
         patchZone: false
       }
     }
