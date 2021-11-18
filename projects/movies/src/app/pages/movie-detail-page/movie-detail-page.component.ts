@@ -36,6 +36,38 @@ export class MovieDetailPageComponent {
 
   private readonly id$ = this.route.params.pipe(map(({ id }) => id));
 
+  private movieById$ = this.id$.pipe(
+    switchMap((id) =>
+      this.tmdb.getMovie(id).pipe(
+        map((res: any) => {
+          return {
+            movie: transformToMovieDetail(res),
+            loading: false,
+          };
+        }),
+        startWith({
+          loading: true,
+          movie: null,
+        })
+      )
+    )
+  );
+  private movieRecomendationsById$ =  this.id$.pipe(
+    switchMap((id) =>
+      this.tmdb.getMovieRecomendations(id).pipe(
+        map((res: any) => res.results),
+        startWith([])
+      )
+    )
+  )
+  private movieCastById$ =  this.id$.pipe(
+    switchMap((id) =>
+      this.tmdb.getCredits(id).pipe(
+        map((res: any) => res.cast || []),
+        startWith([])
+      )
+    )
+  )
   constructor(
     private location: Location,
     private tmdb: Tmdb2Service,
@@ -54,29 +86,9 @@ export class MovieDetailPageComponent {
       cast: [],
       loading: true,
     });
-    this.connectMovie();
-    this.state.connect(
-      'recommendations',
-      this.id$.pipe(
-        switchMap((id) =>
-          this.tmdb.getMovieRecomendations(id).pipe(
-            map((res: any) => res.results),
-            startWith([])
-          )
-        )
-      )
-    );
-    this.state.connect(
-      'cast',
-      this.id$.pipe(
-        switchMap((id) =>
-          this.tmdb.getCredits(id).pipe(
-            map((res: any) => res.cast || []),
-            startWith([])
-          )
-        )
-      )
-    );
+    this.state.connect(this.movieById$);
+    this.state.connect('recommendations', this.movieRecomendationsById$);
+    this.state.connect('cast', this.movieCastById$);
   }
 
   toGenre(genre: MovieGenreModel) {
@@ -87,37 +99,20 @@ export class MovieDetailPageComponent {
     this.location.back();
   }
 
-  private connectMovie(): void {
-    this.state.connect(
-      this.id$.pipe(
-        switchMap((id) =>
-          this.tmdb.getMovie(id).pipe(
-            map((res: any) => {
-              if (res.spoken_languages.length !== 0) {
-                res.spoken_languages = res.spoken_languages[0].english_name;
-              } else {
-                res.spoken_languages = false;
-              }
-              res.languages_runtime_release = `${
-                res.spoken_languages + ' / ' || ''
-              } ${res.runtime} MIN. / ${new Date(
-                res.release_date
-              ).getFullYear()}`;
-              return {
-                movie: res as MovieDetail,
-                loading: false,
-              };
-            }),
-            startWith({
-              loading: true,
-              movie: null,
-            })
-          )
-        )
-      )
-    );
-  }
-
   trackByGenre: TrackByFunction<MovieGenreModel> = (_, genre) => genre.name;
   trackByCast: TrackByFunction<MovieCastModel> = (_, cast) => cast.cast_id;
+}
+
+function transformToMovieDetail(res: any) : MovieDetail {
+  if (res.spoken_languages.length !== 0) {
+    res.spoken_languages = res.spoken_languages[0].english_name;
+  } else {
+    res.spoken_languages = false;
+  }
+  res.languages_runtime_release = `${
+    res.spoken_languages + ' / ' || ''
+  } ${res.runtime} MIN. / ${new Date(
+    res.release_date
+  ).getFullYear()}`;
+  return res;
 }
