@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, TrackByFunction, ViewChild } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
-import { distinctUntilSomeChanged, RxState } from '@rx-angular/state';
+import { RxState } from '@rx-angular/state';
 import { filter, map, startWith, Subject } from 'rxjs';
 import { AuthStateService } from '../data-access/auth/auth.state';
 import { TmdbAuthEffects } from '../data-access/auth/tmdbAuth.effects';
@@ -12,12 +12,7 @@ import { StateService } from '../shared/state/state.service';
   selector: 'app-shell',
   templateUrl: './app-shell.component.html',
   styleUrls: ['./app-shell.component.scss'],
-  /**
-   * **🚀 Perf Tip for TBT:**
-   *
-   * Use ChangeDetectionStrategy.OnPush in all components to reduce change detection & template re-evaluation
-   */
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.Default,
   providers: [RxState]
 })
 export class AppShellComponent {
@@ -52,9 +47,7 @@ export class AppShellComponent {
   genres$ = this.tmdbState.genresNames$;
   @ViewChild('snav') snav: any;
 
-  readonly viewState$ = this.state.select(
-    distinctUntilSomeChanged(['sideDrawerOpen', 'activeRoute', 'loggedIn'])
-  );
+  readonly viewState$ = this.state.select();
   readonly sideDrawerOpenToggle$ = new Subject<boolean>();
 
   trackByGenre: TrackByFunction<MovieGenreModel> =
