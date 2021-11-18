@@ -4,12 +4,9 @@ import { RxState } from '@rx-angular/state';
 import { map, Observable } from 'rxjs';
 import { MovieModel } from '../../../data-access/model/movie.model';
 import { W300H450 } from '../../../data-access/configurations/image-sizes';
+import { ImageTag } from '../../../shared/utils/image-object';
 
-interface Movie extends MovieModel {
-  url: string;
-  imgWidth: number;
-  imgHeight: number;
-}
+type Movie = MovieModel & ImageTag;
 
 @Component({
   selector: 'app-movie-list',
