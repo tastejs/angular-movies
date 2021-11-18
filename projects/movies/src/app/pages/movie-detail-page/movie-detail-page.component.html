@@ -1,18 +1,18 @@
 <div class="movie-detail--grid" *rxLet="detailState$; let vs">
   <ng-container *ngIf="!vs.loading; else loading">
     <div class="movie-detail--grid-item gradient">
-      <app-aspect-ratio-box [aspectRatio]="W342H513.WIDTH / W342H513.HEIGHT">
+      <app-aspect-ratio-box [aspectRatio]="W780H1170.WIDTH / W780H1170.HEIGHT">
         <img
           class="movie-poster"
           loading="lazy"
           [src]="
             'https://image.tmdb.org/t/p/w' +
-            W342H513.WIDTH +
+            W780H1170.WIDTH +
             '/' +
             vs.movie?.poster_path
           "
-          [width]="W342H513.WIDTH"
-          [height]="W342H513.HEIGHT"
+          [width]="W780H1170.WIDTH"
+          [height]="W780H1170.HEIGHT"
           alt="poster movie"
           [title]="vs.movie?.title"
         />

@@ -26,7 +26,7 @@ type MovieDetail = MovieDetailsModel & { languages_runtime_release: string };
   providers: [RxState],
 })
 export class MovieDetailPageComponent {
-  W342H513 = W780H1170;
+  W780H1170 = W780H1170;
   readonly detailState$ = this.state.select(
     selectSlice(['loading', 'movie', 'cast'])
   );
