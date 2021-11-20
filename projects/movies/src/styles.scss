@@ -2,7 +2,14 @@
 @import 'styles/palette';
 @import 'styles/typography';
 
-// initial loading image for non SSR pages
+/**
+ * **🚀 Perf Tip for TBT:**
+ *
+ * Only include styles visible in the main bundle and move other imports directly into the respective component. e.g. button style
+ * This reduces bundle-size of your styles.
+ */
+
+// initial loading image for none SSR pages
 @import 'styles/components/launcher';
 
 body {
