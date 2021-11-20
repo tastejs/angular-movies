@@ -2,8 +2,8 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 import { ActivatedRoute } from '@angular/router';
 import { RxState } from '@rx-angular/state';
-import { catchError, EMPTY, map, Observable, of, startWith, switchMap } from 'rxjs';
-import { MovieModel } from '../../data-access/model/index';
+import { catchError, EMPTY, map, Observable, of, switchMap } from 'rxjs';
+import { MovieModel } from '../../data-access/model/movie.model';
 import { StateService } from '../../shared/state/state.service';
 
 
@@ -39,6 +39,7 @@ export class MovieListPageComponent extends RxState<MoviesState> {
   ) {
     super();
 
+    this.set({ loading: true });
     this.connect(this.getListByRouterParams());
 
     this.hold(this.routerParams$,
@@ -69,8 +70,7 @@ export class MovieListPageComponent extends RxState<MoviesState> {
       })),
       catchError((_: any) => {
         return of({ loading: false, movies: [], title: undefined });
-      }),
-      startWith({ loading: true })
+      })
     );
   };
 

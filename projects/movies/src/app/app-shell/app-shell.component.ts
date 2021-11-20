@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, TrackByFunction, ViewChild } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { RxState } from '@rx-angular/state';
-import { filter, map, startWith, Subject } from 'rxjs';
+import { filter, map, Subject } from 'rxjs';
 import { AuthStateService } from '../data-access/auth/auth.state';
 import { TmdbAuthEffects } from '../data-access/auth/tmdbAuth.effects';
 import { MovieGenreModel } from '../data-access/model/index';
@@ -27,9 +27,10 @@ export class AppShellComponent {
     public authEffects: TmdbAuthEffects,
     private router: Router
   ) {
+    this.state.set({sideDrawerOpen: false});
     this.state.connect(
       'sideDrawerOpen',
-      this.sideDrawerOpenToggle$.pipe(startWith(false))
+      this.sideDrawerOpenToggle$
     );
     this.state.connect(
       'loggedIn',
