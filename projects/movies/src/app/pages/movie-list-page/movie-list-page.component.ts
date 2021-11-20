@@ -21,13 +21,7 @@ type RouterParams = {
 @Component({
   selector: 'app-movies',
   templateUrl: './movie-list-page.component.html',
-  styles: [
-      `
-      :host {
-        width: 100%;
-      }
-    `
-  ],
+  styleUrls: ['./movie-list-page.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MovieListPageComponent extends RxState<MoviesState> {

@@ -47,24 +47,24 @@
                 {
                   "type": "initial",
                   "maximumWarning": "300000b",
-                  "maximumError": "337364b"
+                  "maximumError": "332277b"
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "2900b",
-                  "maximumError": "2960b"
+                  "maximumWarning": "2000b",
+                  "maximumError": "3846b"
                 },
                 {
                   "type": "bundle",
                   "name": "main",
                   "maximumWarning": "300000b",
-                  "maximumError": "328593b"
+                  "maximumError": "324250b"
                 },
                 {
                   "type": "bundle",
                   "name": "styles",
-                  "maximumWarning": "6000b",
-                  "maximumError": "6169b"
+                  "maximumWarning": "5000b",
+                  "maximumError": "5120b"
                 },
                 {
                   "type": "bundle",

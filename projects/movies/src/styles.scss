@@ -2,11 +2,8 @@
 @import 'styles/palette';
 @import 'styles/typography';
 
-@import 'styles/components/gradient';
-@import 'styles/components/icon';
+// initial loading image for non SSR pages
 @import 'styles/components/launcher';
-@import 'styles/components/padding-wrapper';
-@import 'styles/components/tooltip';
 
 body {
   color: var(--palette-text-primary);
