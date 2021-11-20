@@ -16,7 +16,6 @@ A [live deployment](https://angular-movies-a12d3.web.app/movies/popular) of this
 For now you can search the codebase for "Perf Tip" later on there will be propper documentation here.
 
 
-
 [Measures before optimization](https://lighthouse-metrics.com/one-time-tests/616db7e91cff420008f70364)
 ![angular-movies-before_michael-hladky](https://user-images.githubusercontent.com/10064416/137785051-1cf9f63a-e803-4d92-a952-c327b7628530.PNG)
 
@@ -24,6 +23,17 @@ For now you can search the codebase for "Perf Tip" later on there will be proppe
 [Measures after optimization](https://lighthouse-metrics.com/one-time-tests/6171cc3ac759010008e78ee6)
 ![angular-movies-after_michael-hladky](https://user-images.githubusercontent.com/10064416/138353891-97ea6278-a604-4ffe-9b87-a9ac1bbf0747.PNG)
 
+
+| Initial Chunk Files           | Names         |      Size |
+| ---                           | ---           | ---       |
+| main.0537ac5709d0b1e2.js      | main          | **316.55 kB** |
+| styles.13c939b5c2369df2.css   | styles        |   5.00 kB |
+| runtime.793b54f5d026691d.js   | runtime       |   2.73 kB |
+|                               | **Initial Total** | **324.39 kB** |
+| Lazy Chunk Files              | Names         |      Size |
+| 849.c98331a772ee31b8.js       | -             |  12.18 kB |
+| common.80ee1cdf1082c3de.js    | common        |  10.10 kB |
+| 614.4143cf052f9e5361.js       | -             |   3.36 kB |
 
 ## Contributing
 
