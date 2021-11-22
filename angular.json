@@ -47,7 +47,7 @@
                 {
                   "type": "initial",
                   "maximumWarning": "300kb",
-                  "maximumError": "324.39kb"
+                  "maximumError": "324.4kb"
                 },
                 {
                   "type": "anyComponentStyle",
@@ -64,7 +64,7 @@
                   "type": "bundle",
                   "name": "styles",
                   "maximumWarning": "5000b",
-                  "maximumError": "5120b"
+                  "maximumError": "5135b"
                 },
                 {
                   "type": "bundle",
@@ -81,7 +81,10 @@
               ],
               "serviceWorker": true,
               "ngswConfigPath": "projects/movies/src/ngsw-config.json",
-              "outputHashing": "all"
+              "outputHashing": "all",
+              "customWebpackConfig": {
+                "path": "./webpack.config.js"
+              }
             },
             "development": {
               "buildOptimizer": false,
