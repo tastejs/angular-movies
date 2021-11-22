@@ -71,7 +71,6 @@
     "zone.js": "~0.11.4"
   },
   "devDependencies": {
-    "@angular-builders/custom-webpack": "^13.0.0",
     "@angular-devkit/build-angular": "~13.0.2",
     "@angular-eslint/builder": "12.5.0",
     "@angular-eslint/eslint-plugin": "12.5.0",
@@ -97,10 +96,10 @@
     "commitizen": "^4.2.4",
     "compression": "^1.7.4",
     "concurrently": "^6.2.0",
-    "eslint": "^7.26.0",
     "eslint-plugin-import": "^2.24.0",
     "eslint-plugin-simple-import-sort": "^7.0.0",
     "eslint-plugin-unused-imports": "^1.1.4",
+    "eslint": "^7.26.0",
     "find-process": "^1.4.4",
     "firebase-functions-test": "^0.3.1",
     "firebase-tools": "^9.16.2",
@@ -117,7 +116,6 @@
     "lighthouse": "^9.0.0",
     "lint-staged": "^11.2.3",
     "open": "^8.4.0",
-    "postcss-csso": "^5.0.1",
     "prettier": "^2.4.1",
     "protractor": "~7.0.0",
     "puppeteer": "^11.0.0",
