@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
-import { RxState } from '@rx-angular/state';
+import { RxState } from '@rx-angular/state/state';
 import { map, Observable } from 'rxjs';
 import { MovieModel } from '../../../data-access/model/movie.model';
 import { W300H450 } from '../../../data-access/configurations/image-sizes';

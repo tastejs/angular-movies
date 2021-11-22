@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 import { ActivatedRoute } from '@angular/router';
-import { RxState } from '@rx-angular/state';
+import { RxState } from '@rx-angular/state/state';
 import { catchError, EMPTY, map, Observable, of, switchMap } from 'rxjs';
 import { MovieModel } from '../../data-access/model/movie.model';
 import { StateService } from '../../shared/state/state.service';

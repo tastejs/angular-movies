@@ -1,7 +1,8 @@
 import { Location } from '@angular/common';
 import { ChangeDetectionStrategy, Component, TrackByFunction } from '@angular/core';
 import { map, startWith, switchMap } from 'rxjs';
-import { RxState, selectSlice } from '@rx-angular/state';
+import { RxState } from '@rx-angular/state/state';
+import { selectSlice } from '@rx-angular/cdk/state';
 import { MovieCastModel, MovieDetailsModel, MovieGenreModel, MovieModel } from '../../data-access/model/index';
 import { Tmdb2Service } from '../../data-access/api/tmdb2.service';
 import { ActivatedRoute, Router } from '@angular/router';

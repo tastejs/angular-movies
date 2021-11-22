@@ -1,5 +1,5 @@
 import { ApplicationRef, Injectable } from '@angular/core';
-import { RxState } from '@rx-angular/state';
+import { RxState } from '@rx-angular/state/state';
 import { NavigationEnd, Router } from '@angular/router';
 import { isZonePresent } from '../utils/is-zone-present';
 

@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { RxState } from '@rx-angular/state';
+import { RxState } from '@rx-angular/state/state';
 
 @Component({
   selector: 'app-dark-mode-toggle',

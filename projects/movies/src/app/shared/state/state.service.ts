@@ -5,7 +5,9 @@ import { exhaustMap, filter } from 'rxjs/operators';
 import { Tmdb2Service } from '../../data-access/api/tmdb2.service';
 import { MovieGenreModel } from '../../data-access/model/movie-genre.model';
 import { MovieModel } from '../../data-access/model/movie.model';
-import { patch, RxState, selectSlice } from '@rx-angular/state';
+import { RxState } from '@rx-angular/state/state';
+import { selectSlice } from '@rx-angular/cdk/state';
+import { patch } from '@rx-angular/cdk/transformations';
 import { optimizedFetch } from '../utils/optimized-fetch';
 
 interface State {

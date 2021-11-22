@@ -17,13 +17,15 @@ import {
   ViewContainerRef
 } from '@angular/core';
 import {
+  RxStrategyProvider
+} from '@rx-angular/cdk/render-strategies';
+import {
   createListTemplateManager,
   RxDefaultListViewContext,
   RxListManager,
   RxListViewComputedContext,
-  RxListViewContext,
-  RxStrategyProvider
-} from '@rx-angular/cdk';
+  RxListViewContext
+} from '@rx-angular/cdk/template';
 import { coerceDistinctWith } from '@rx-angular/cdk/coercing';
 
 import { Observable, ReplaySubject, Subject, Subscription } from 'rxjs';

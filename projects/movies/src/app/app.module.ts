@@ -2,7 +2,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule, BrowserTransferStateModule } from '@angular/platform-browser';
 import { TransferHttpCacheModule } from '@nguniversal/common';
-import { RX_ANGULAR_CONFIG } from '@rx-angular/cdk';
+import { RX_RENDER_STRATEGIES_CONFIG } from '@rx-angular/cdk/render-strategies';
 import { environment } from '../environments/environment';
 
 import { ROUTING_IMPORTS } from './app.routing';
@@ -43,7 +43,7 @@ import { stateAppInitializerProvider } from './shared/state/state-app-initialize
      */
     stateAppInitializerProvider,
     {
-      provide: RX_ANGULAR_CONFIG,
+      provide: RX_RENDER_STRATEGIES_CONFIG,
       useValue: {
         customStrategies: customStrategyCredentials,
         /**

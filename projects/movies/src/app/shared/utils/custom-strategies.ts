@@ -1,8 +1,10 @@
 import {
-  coalesceWith,
   RxStrategyCredentials,
   RX_CONCURRENT_STRATEGIES,
-} from '@rx-angular/cdk';
+} from '@rx-angular/cdk/render-strategies';
+import {
+  coalesceWith
+} from '@rx-angular/cdk/coalescing';
 import { from, merge } from 'rxjs';
 import { skip, take, tap } from 'rxjs/operators';
 

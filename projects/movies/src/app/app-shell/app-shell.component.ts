@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, TrackByFunction, ViewChild } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
-import { RxState } from '@rx-angular/state';
+import { RxState } from '@rx-angular/state/state';
 import { filter, map, Subject } from 'rxjs';
 import { AuthStateService } from '../data-access/auth/auth.state';
 import { TmdbAuthEffects } from '../data-access/auth/tmdbAuth.effects';

@@ -26,14 +26,14 @@ For now you can search the codebase for "Perf Tip" later on there will be proppe
 
 | Initial Chunk Files           | Names         |      Size |
 | ---                           | ---           | ---       |
-| main.0537ac5709d0b1e2.js      | main          | **316.55 kB** |
-| styles.13c939b5c2369df2.css   | styles        |   5.00 kB |
-| runtime.793b54f5d026691d.js   | runtime       |   2.73 kB |
-|                               | **Initial Total** | **324.39 kB** |
+| main.js      | main          | **312.17 kB**
+| styles.css   | styles        |   5.01 kB
+| runtime.js   | runtime       |   2.73 kB
+|                               | **Initial Total** | **320.02 kB** |
 | Lazy Chunk Files              | Names         |      Size |
-| 849.c98331a772ee31b8.js       | -             |  12.18 kB |
-| common.80ee1cdf1082c3de.js    | common        |  10.10 kB |
-| 614.4143cf052f9e5361.js       | -             |   3.36 kB |
+| 849.js       | -             |  12.20 kB |
+| common.js    | common        |  10.86 kB |
+| 614.js       | -             |   3.46 kB |
 
 ## Contributing
 

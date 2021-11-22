@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { map } from 'rxjs';
-import { RxState } from '@rx-angular/state';
+import { RxState } from '@rx-angular/state/state';
 
 interface AuthState {
   requestToken: string | null;
