@@ -46,19 +46,18 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "300kb",
-                  "maximumError": "324.4kb"
+                  "maximumWarning": "300kb"
                 },
                 {
                   "type": "anyComponentStyle",
                   "maximumWarning": "3000b",
-                  "maximumError": "3846b"
+                  "maximumError": "400kb"
                 },
                 {
                   "type": "bundle",
                   "name": "main",
                   "maximumWarning": "300000b",
-                  "maximumError": "324149b"
+                  "maximumError": "500kb"
                 },
                 {
                   "type": "bundle",
@@ -81,10 +80,7 @@
               ],
               "serviceWorker": true,
               "ngswConfigPath": "projects/movies/src/ngsw-config.json",
-              "outputHashing": "all",
-              "customWebpackConfig": {
-                "path": "./webpack.config.js"
-              }
+              "outputHashing": "all"
             },
             "development": {
               "buildOptimizer": false,

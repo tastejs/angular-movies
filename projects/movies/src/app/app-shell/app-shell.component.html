@@ -18,6 +18,7 @@
     <nav class="navigation" *rxLet="[]">
       <h2 class="navigation--headline">Discover</h2>
       <a
+        data-test="link-category-popular"
         class="navigation--link"
         [class.active]="vs.activeRoute === '/list/category/popular'"
         (click)="navTo('/list', ['category', 'popular'])"
@@ -37,6 +38,7 @@
         </div>
       </a>
       <a
+        data-test="sidebar-nav-link-category-top_rated"
         class="navigation--link"
         [class.active]="vs.activeRoute === '/list/category/top_rated'"
         (click)="navTo('/list', ['category', 'top_rated'])"
@@ -56,6 +58,7 @@
         </div>
       </a>
       <a
+        data-test="sidebar-nav-link-category-upcoming"
         class="navigation--link"
         [class.active]="vs.activeRoute === '/list/category/upcoming'"
         (click)="navTo('/list', ['category', 'upcoming'])"
@@ -124,6 +127,7 @@
   <div class="content-wrapper">
     <div class="app-toolbar">
       <app-hamburger-button
+        data-test="main-side-drawer-hamburger-button"
         class="app-toolbar--action"
         (click)="sideDrawerOpenToggle$.next(!vs.sideDrawerOpen)"
       >
