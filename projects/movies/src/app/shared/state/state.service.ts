@@ -9,6 +9,7 @@ import { RxState } from '@rx-angular/state/state';
 import { selectSlice } from '@rx-angular/cdk/state';
 import { patch } from '@rx-angular/cdk/transformations';
 import { optimizedFetch } from '../utils/optimized-fetch';
+import { parseTitle } from '../utils/parse-movie-list-title';
 
 interface State {
   genres: MovieGenreModel[];
@@ -32,8 +33,6 @@ type fetchCategoryMovies = Command<'fetchCategoryMovies', string>;
 type fetchGenreMovies = Command<'fetchGenreMovies', string | number>;
 
 type commands = refreshGenres | fetchCategoryMovies | fetchGenreMovies;
-
-const parseTitle = (title: string) => title?.replace(/[-_]/, ' ');
 
 @Injectable({
   providedIn: 'root'

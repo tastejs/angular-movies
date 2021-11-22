@@ -4,7 +4,6 @@
       <app-aspect-ratio-box [aspectRatio]="W780H1170.WIDTH / W780H1170.HEIGHT">
         <img
           class="movie-poster"
-          loading="lazy"
           [src]="
             'https://image.tmdb.org/t/p/w' +
             W780H1170.WIDTH +
@@ -15,6 +14,7 @@
           [height]="W780H1170.HEIGHT"
           alt="poster movie"
           [title]="vs.movie?.title"
+          data-test="detail-item-img"
         />
       </app-aspect-ratio-box>
     </div>

@@ -15,11 +15,12 @@ type Movie = MovieModel & ImageTag;
     <ng-container
       *rxLet="hasMovies$; let hasMovies; strategy: 'instantUserBlocking'"
     >
-      <div class='movies-list--grid' *ngIf='hasMovies; else noData'>
+      <div class='movies-list--grid' *ngIf='hasMovies; else noData' data-test="list-container">
         <a
           class='movies-list--grid-item'
-          *rxFor='let movie of movies$; trackBy: trackByMovieId'
+          *rxFor='let movie of (movies$); index as idx; trackBy: trackByMovieId; '
           (click)='navigateToMovie(movie)'
+          [attr.data-test]="'list-item-idx-'+idx"
         >
           <div class='movies-list--grid-item-image gradient'>
             <app-aspect-ratio-box [aspectRatio]='movie.imgWidth / movie.imgHeight'>
@@ -29,7 +30,7 @@ type Movie = MovieModel & ImageTag;
               This avoids bootstrap and template evaluation time and reduces scripting time in general.
               -->
               <img
-                loading='lazy'
+                [attr.loading]="idx === 0 ? '' : 'lazy'"
                 [src]='movie.url'
                 [width]='movie.imgWidth'
                 [height]='movie.imgHeight'
@@ -50,7 +51,7 @@ type Movie = MovieModel & ImageTag;
     </ng-container>
 
     <ng-template #noData>
-      <h3>
+      <h3 data-test="list-empty">
         No results
         <svg class='icon' viewBox='0 0 24 24' fill='currentColor'>
           <path d='M0 0h24v24H0V0z' fill='none' />
