@@ -1,10 +1,3 @@
-import {report as coldWarmNavigationMainList} from "./cold-warm-navigation--main-list";
-import {report as coldWarmNavigationMovieDetail} from "./cold-warm-navigation--movie-detail";
-import {report as categoryNavigation} from "./category-to-category-cold-navigation";
-
-// const baseUrl = 'http://localhost:4200/';
-const baseUrl = 'https://angular-movies-a12d3.web.app/';
-
 import { Options } from 'yargs';
 import { YargsCommandObject } from './cli/model';
 import { runCommand } from './commands/run-report';
