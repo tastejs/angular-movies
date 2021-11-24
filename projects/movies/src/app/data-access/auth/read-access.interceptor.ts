@@ -1,10 +1,8 @@
 import {
-  HttpEvent,
   HttpHandler,
   HttpInterceptor,
   HttpRequest,
 } from '@angular/common/http';
-import { Observable } from 'rxjs';
 
 import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
@@ -19,8 +17,8 @@ export class ReadAccessInterceptor implements HttpInterceptor {
   intercept(
     req: HttpRequest<any>,
     next: HttpHandler
-  ): Observable<HttpEvent<any>> {
-    const token = this.authService.state.getValue().accessToken;
+  ) {
+    const token = this.authService.get().accessToken;
 
     return next.handle(
       req.clone({

@@ -5,7 +5,7 @@ import * as express from 'express';
 import { join } from 'path';
 import * as compressionModule from 'compression';
 
-import { AppServerModule } from './src/main.server';
+import { AppServerModule } from './projects/movies/src/main.server';
 import { APP_BASE_HREF } from '@angular/common';
 import { existsSync } from 'fs';
 
@@ -104,4 +104,4 @@ if (moduleFilename === __filename || moduleFilename.includes('iisnode')) {
   run();
 }
 
-export * from './src/main.server';
+export * from './projects/movies/src/main.server';

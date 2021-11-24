@@ -1,13 +1,16 @@
-@import 'assets/scss/palette';
-@import 'assets/scss/typography';
-@import 'assets/scss/palette';
+@import 'styles/normalize';
+@import 'styles/palette';
+@import 'styles/typography';
 
-@import 'assets/scss/normalize';
-@import 'assets/scss/components/gradient';
-@import 'assets/scss/components/icon';
-@import 'assets/scss/components/launcher';
-@import 'assets/scss/components/padding-wrapper';
-@import 'assets/scss/components/tooltip';
+/**
+ * **🚀 Perf Tip for TBT:**
+ *
+ * Only include styles visible in the main bundle and move other imports directly into the respective component. e.g. button style
+ * This reduces bundle-size of your styles.
+ */
+
+// initial loading image for none SSR pages
+@import 'styles/components/launcher';
 
 body {
   color: var(--palette-text-primary);

@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, TrackByFunction, ViewChild } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
-import { distinctUntilSomeChanged, RxState } from '@rx-angular/state';
-import { filter, map, startWith, Subject } from 'rxjs';
+import { RxState } from '@rx-angular/state';
+import { filter, map, Subject } from 'rxjs';
 import { AuthStateService } from '../data-access/auth/auth.state';
 import { TmdbAuthEffects } from '../data-access/auth/tmdbAuth.effects';
 import { MovieGenreModel } from '../data-access/model/index';
@@ -12,12 +12,7 @@ import { StateService } from '../shared/state/state.service';
   selector: 'app-shell',
   templateUrl: './app-shell.component.html',
   styleUrls: ['./app-shell.component.scss'],
-  /**
-   * **🚀 Perf Tip for TBT:**
-   *
-   * Use ChangeDetectionStrategy.OnPush in all components to reduce change detection & template re-evaluation
-   */
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.Default,
   providers: [RxState]
 })
 export class AppShellComponent {
@@ -32,9 +27,10 @@ export class AppShellComponent {
     public authEffects: TmdbAuthEffects,
     private router: Router
   ) {
+    this.state.set({sideDrawerOpen: false});
     this.state.connect(
       'sideDrawerOpen',
-      this.sideDrawerOpenToggle$.pipe(startWith(false))
+      this.sideDrawerOpenToggle$
     );
     this.state.connect(
       'loggedIn',
@@ -52,9 +48,7 @@ export class AppShellComponent {
   genres$ = this.tmdbState.genresNames$;
   @ViewChild('snav') snav: any;
 
-  readonly viewState$ = this.state.select(
-    distinctUntilSomeChanged(['sideDrawerOpen', 'activeRoute', 'loggedIn'])
-  );
+  readonly viewState$ = this.state.select();
   readonly sideDrawerOpenToggle$ = new Subject<boolean>();
 
   trackByGenre: TrackByFunction<MovieGenreModel> =
@@ -74,7 +68,7 @@ export class AppShellComponent {
   navTo(path: string, args: (string | number)[], queryParams?: Record<string, any>) {
     this.closeSidenav();
     this.resetPagination();
-    this.router.navigate([path, ...args], {queryParams});
+    this.router.navigate([path, ...args], { queryParams });
   }
 
   closeSidenav() {

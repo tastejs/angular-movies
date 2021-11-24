@@ -4,12 +4,9 @@ import { RxState } from '@rx-angular/state';
 import { map, Observable } from 'rxjs';
 import { MovieModel } from '../../../data-access/model/movie.model';
 import { W300H450 } from '../../../data-access/configurations/image-sizes';
+import { ImageTag } from '../../../shared/utils/image-object';
 
-interface Movie extends MovieModel {
-  url: string;
-  imgWidth: number;
-  imgHeight: number;
-}
+type Movie = MovieModel & ImageTag;
 
 @Component({
   selector: 'app-movie-list',
@@ -18,11 +15,12 @@ interface Movie extends MovieModel {
     <ng-container
       *rxLet="hasMovies$; let hasMovies; strategy: 'instantUserBlocking'"
     >
-      <div class='movies-list--grid' *ngIf='hasMovies; else noData'>
+      <div class='movies-list--grid' *ngIf='hasMovies; else noData' data-test="list-container">
         <a
           class='movies-list--grid-item'
-          *rxFor='let movie of movies$; trackBy: trackByMovieId'
+          *rxFor='let movie of (movies$); index as idx; trackBy: trackByMovieId; '
           (click)='navigateToMovie(movie)'
+          [attr.data-test]="'list-item-idx-'+idx"
         >
           <div class='movies-list--grid-item-image gradient'>
             <app-aspect-ratio-box [aspectRatio]='movie.imgWidth / movie.imgHeight'>
@@ -32,7 +30,7 @@ interface Movie extends MovieModel {
               This avoids bootstrap and template evaluation time and reduces scripting time in general.
               -->
               <img
-                loading='lazy'
+                [attr.loading]="idx === 0 ? '' : 'lazy'"
                 [src]='movie.url'
                 [width]='movie.imgWidth'
                 [height]='movie.imgHeight'
@@ -53,7 +51,7 @@ interface Movie extends MovieModel {
     </ng-container>
 
     <ng-template #noData>
-      <h3>
+      <h3 data-test="list-empty">
         No results
         <svg class='icon' viewBox='0 0 24 24' fill='currentColor'>
           <path d='M0 0h24v24H0V0z' fill='none' />
@@ -72,14 +70,14 @@ interface Movie extends MovieModel {
 })
 export class MovieListComponent {
 
-  movies$ = this.state.select('movies').pipe(
+  movies$ = this.state.select(
     map(
       /**
        *
        * @TODO remove spread and use for loop
        */
-      (movies) =>
-        (movies || []).map((m) => ({
+      (state) =>
+        (state.movies || []).map((m) => ({
           ...m,
           url: `https://image.tmdb.org/t/p/w${W300H450.WIDTH}/${m.poster_path}`,
           imgWidth: W300H450.WIDTH,
@@ -89,8 +87,7 @@ export class MovieListComponent {
   );
 
   hasMovies$ = this.state
-    .select('movies')
-    .pipe(map((movies) => !!movies && movies.length > 0));
+    .select(map((state) => !!state.movies && state.movies.length > 0));
 
   @Input()
   set movies(movies$: Observable<MovieModel[]>) {

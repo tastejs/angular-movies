@@ -8,16 +8,28 @@ import { ZonelessRouting } from './shared/zone-agnostic/zone-less-routing.servic
       <router-outlet></router-outlet>
     </app-shell>
   `,
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  /**
+   * **🚀 Perf Tip for TBT:**
+   *
+   * Use ChangeDetectionStrategy.OnPush in all components to reduce change detection & template re-evaluation
+   */
+  changeDetection: ChangeDetectionStrategy.Default,
 })
 export class AppComponent {
+  /**
+   *  **🚀 Perf Tip:**
+   *
+   *  In zone-less applications we have to handle routing manually.
+   *  This is a necessity to make it work zone-less but does not make the app faster.
+
+     import { ZonelessRouting } from './shared/zone-agnostic/zone-less-routing.service';
+
+     constructor(private zonelessRouting: ZonelessRouting) {
+       this.zonelessRouting.init();
+     }
+   *
+   */
   constructor(private zonelessRouting: ZonelessRouting) {
-    /**
-     *  **🚀 Perf Tip:**
-     *
-     *  In zone-less applications we have to handle routing manually.
-     *  This is a necessity to make it work zone-less but does not make the app faster.
-     */
     this.zonelessRouting.init();
   }
 }

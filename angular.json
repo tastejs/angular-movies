@@ -48,11 +48,10 @@
                   "type": "initial",
                   "maximumWarning": "300kb",
                   "maximumError": "350kb"
-                },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "2900b",
-                  "maximumError": "2960b"
+                  "maximumWarning": "3000b",
+                  "maximumError": "3846b"
                 },
                 {
                   "type": "bundle",
@@ -63,8 +62,8 @@
                 {
                   "type": "bundle",
                   "name": "styles",
-                  "maximumWarning": "6000b",
-                  "maximumError": "6169b"
+                  "maximumWarning": "5000b",
+                  "maximumError": "5135b"
                 },
                 {
                   "type": "bundle",

@@ -12,7 +12,7 @@ export class TmdbAuthEffects {
   }
 
   restoreLogin(): void {
-    if (isAuthenticationInProgress(this.authState.state.getValue())) {
+    if (isAuthenticationInProgress(this.authState.get())) {
       this.createAccessToken$().subscribe((accessTokenResult) => {
         // delete in local storage
         window.localStorage.removeItem('requestToken');
@@ -22,8 +22,8 @@ export class TmdbAuthEffects {
           accessTokenResult.accessToken
         );
         window.localStorage.setItem('accountId', accessTokenResult.accountId);
-        this.authState.state.next({
-          ...this.authState.state.getValue(),
+        this.authState.set({
+          ...this.authState.get(),
           ...accessTokenResult,
         });
       });
@@ -33,7 +33,7 @@ export class TmdbAuthEffects {
   createAccessToken$(): Observable<{ accessToken: string; accountId: string }> {
     return this.authState.requestToken$.pipe(
       take(1),
-      exhaustMap((requestToken) => this.tmdb.createAccessToken(requestToken)),
+      exhaustMap((requestToken) => this.tmdb.createAccessToken(requestToken || '')),
       map(({ access_token, account_id }) => ({
         accessToken: access_token,
         accountId: account_id,
@@ -54,13 +54,13 @@ export class TmdbAuthEffects {
   }
 
   signOut() {
-    const accessToken = this.authState.state.getValue().accessToken;
+    const accessToken = this.authState.get().accessToken;
 
     // store in local storage for the next page load
     window.localStorage.removeItem('accessToken');
     window.localStorage.removeItem('accountId');
     window.localStorage.removeItem('requestToken');
-    this.authState.state.next({
+    this.authState.set({
       accessToken: null,
       accountId: null,
       requestToken: null,
