@@ -13,30 +13,27 @@ const ROUTES: Routes = [
    * _Bad_
    *  {
    *  path: 'list-category/:category',
-   *  component: ListModuleComponent
+   *  loadChildren: import('list.module').then((m) => m.ListModule)
    *  },
    *  {
    *  path: 'list-genre/:genre',
-   *  component: ListModuleComponent
+   *  loadChildren: import('list.module').then((m) => m.ListModule)
    *  }
    *
    * _Good_
    * {
    *  path: 'list/:type/:identifier',
-   *  component: ListModuleComponent
+   *  loadChildren: import('list.module').then((m) => m.ListModule)
    *  }
    *
    */
   {
     path: 'list/:type/:identifier',
-    component: MovieListPageComponent
+    component: MovieListPageComponent,
+   /* loadChildren: () =>
+      import('projects/movies/src/app/pages/movie-list-page/movie-list-page.module').then((m) => m.MovieListPageModule)
+ */
   },
-  /*
-{
-  path: 'list/:type/:identifier',
-  loadChildren: () =>
-    import('projects/movies/src/app/pages/movie-list-page/movie-list-page.module').then((m) => m.MovieListPageModule)
-}, */
   {
     path: 'movie/:id',
     loadChildren: () =>
