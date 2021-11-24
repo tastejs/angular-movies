@@ -19,5 +19,6 @@ jobs:
         with:
           repo-token: "${{ secrets.GITHUB_TOKEN }}"
           head-branch-regex: '.+'
-          body-template: "chore: [LH-UserFlow] basic-flows"
+          body-template: "chore: [LH-UserFlow] basic-flows \
+                          [PR user-flow report](https://github.com/tastejs/angular-movies/${{ github.head_ref }}/assets/bundle-report.html) | [Compare to staging](https://github.com/tastejs/angular-movies/assets/bundle-report.html)"
           body-update-action: 'suffix'
