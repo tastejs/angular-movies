@@ -22,7 +22,7 @@
     "ngsw-config": "node_modules/.bin/ngsw-config dist ./src/ngsw-config.json",
     "serve:ngsw": "npm run ngsw-config && http-server dist -p 8080",
     "analyze:bundlesize": "npm run build:prod:artefacts && webpack-bundle-analyzer dist/movies/browser/stats.json",
-    "analyze:user-flows": "npm run ng build --configuration production && ng run movies:build-server && http-server dist/movies -p 4200 && npm run measure-basic-user-flows",
+    "analyze:user-flows": "npm run ng build --configuration production && ng run movies:build-server && http-server dist/movies/browser -p 4200 && npm run measure-basic-user-flows",
     "measure-basic-user-flows": "npx ts-node -P ./tooling/tsconfig.json  ./tooling/user-flows/index.ts run --targetUrl=test",
     "lhci-server:start": "npm run lhci --  server --https --storage.storageMethod=sql --storage.sqlDialect=sqlite --storage.sqlDatabasePath=./.lighthouseci/db.sql || true",
     "lhci-server:stop": "node tooling/stop-lhci-server.js",
