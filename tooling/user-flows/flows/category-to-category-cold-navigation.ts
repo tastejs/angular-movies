@@ -1,5 +1,4 @@
-import { captureReport, FlowActions, FlowOptions, PPTOptions } from './utils';
-import { parseTitle } from '../../projects/movies/src/app/shared/utils/parse-movie-list-title';
+import { captureReport, FlowActions, FlowOptions, PPTOptions } from '../utils';
 
 const pptOptions: PPTOptions = { headless: false };
 const flowOptions: FlowOptions = { name: 'Category Navigations' };

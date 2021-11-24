@@ -1,4 +1,4 @@
-import { captureReport, FlowOptions, PPTOptions } from './utils';
+import { captureReport, FlowOptions, PPTOptions } from '../utils';
 
 const pptOptions: PPTOptions = { headless: false };
 const flowOptions: FlowOptions = { name: 'Main movie-list cold-warm navigations' };
