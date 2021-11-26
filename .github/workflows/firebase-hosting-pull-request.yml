@@ -23,7 +23,7 @@ jobs:
       - name: Production build (without SSR)
         run: npm run build:prod
 
-       name: Deploy to firebase preview channel hosting
+      - name: Deploy to firebase preview channel hosting
         id: previewDeployStep
         uses: FirebaseExtended/action-hosting-deploy@v0
         with:
