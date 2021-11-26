@@ -14,7 +14,7 @@ jobs:
       matrix:
         node-version: [14.x]
     steps:
-      - run: npm run build:ssr:prod && npm run measure-basic-user-flows
+      - run: npm run measure-basic-user-flows
       - uses: tzkhan/pr-update-action@v2
         with:
           repo-token: "${{ secrets.GITHUB_TOKEN }}"

@@ -23,7 +23,7 @@ jobs:
       - name: Production build (without SSR)
         run: npm run build:prod
 
-      - name: Deploy to firebase preview channel hosting
+       name: Deploy to firebase preview channel hosting
         id: previewDeployStep
         uses: FirebaseExtended/action-hosting-deploy@v0
         with:
@@ -32,3 +32,9 @@ jobs:
           projectId: angular-movies-a12d3
           channelId: ${{ github.head_ref }}
           expires: 21d
+
+      - name: Run-user-flows
+      - run: npm run analyze:user-flows -- --baseUrl https://angular-movies-a12d3
+      - uses: gr2m/create-or-update-pull-request-action@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
