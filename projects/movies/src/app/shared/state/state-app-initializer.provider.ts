@@ -4,7 +4,9 @@ import { StateService } from './state.service';
 function initializeState(state: StateService) {
   return (): Promise<void> => {
     state.init();
-    return Promise.resolve();
+    return new Promise<void>((resolve) => {
+      setTimeout(resolve);
+    });
   };
 }
 

@@ -42,7 +42,7 @@ const ROUTES: Routes = [
 
 export const ROUTING_IMPORTS = [
   RouterModule.forRoot(ROUTES, {
-    initialNavigation: 'enabled',
+    initialNavigation: 'disabled',
     onSameUrlNavigation: 'reload',
     relativeLinkResolution: 'legacy'
   })
