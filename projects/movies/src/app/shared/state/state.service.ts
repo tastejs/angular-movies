@@ -1,7 +1,5 @@
 import { Injectable } from '@angular/core';
-import { map, Observable, Subject } from 'rxjs';
-
-import { exhaustMap, filter } from 'rxjs/operators';
+import { exhaustMap, filter, map, Observable, Subject } from 'rxjs';
 import { Tmdb2Service } from '../../data-access/api/tmdb2.service';
 import { MovieGenreModel } from '../../data-access/model/movie-genre.model';
 import { MovieModel } from '../../data-access/model/movie.model';
