@@ -1,17 +1,7 @@
 import { APP_INITIALIZER } from '@angular/core';
 
-function scheduleOnTimeout() {
-  return (): Promise<void> => {
-    return new Promise<void>((resolve) => {
-      setTimeout(() =>
-        resolve()
-      );
-    });
-  };
-}
-
 /**
- * **🚀 Perf Tip for LCP, TTI:**
+ * **🚀 Perf Tip for TBT:**
  *
  * Use `APP_INITIALIZER` and an init method in data services to run data fetching
  * on app bootstrap instead of component initialization.
@@ -19,7 +9,13 @@ function scheduleOnTimeout() {
 export const scheduledAppInitializerProvider = [
   {
     provide: APP_INITIALIZER,
-    useFactory: scheduleOnTimeout,
+    useFactory: () =>
+      (): Promise<void> =>
+        new Promise<void>((resolve) => {
+          setTimeout(() =>
+            resolve()
+          );
+        }),
     deps: [],
     multi: true
   }
