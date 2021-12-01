@@ -7,8 +7,10 @@ import { AppShellModule } from './app-shell/app-shell.module';
 import { httpInterceptorProviders } from './data-access/auth/http-interceptor.providers';
 import { ROUTING_IMPORTS } from './app.routing';
 import { stateAppInitializerProvider } from './shared/state/state-app-initializer.provider';
+import { scheduledAppInitializerProvider } from './shared/utils/chunk-initializer-taks.provider';
 import { SERVICE_WORKER_IMPORTS } from './service-worker.imports';
 import { SSR_IMPORTS } from './ssr.imports';
+import { rxaConfigProviders } from './shared/utils/rxa-config.provider';
 
 @NgModule({
   declarations: [AppComponent],
@@ -38,8 +40,19 @@ import { SSR_IMPORTS } from './ssr.imports';
      *
      * Fetch data visible in viewport on app bootstrap instead of component initialization.
      */
-    stateAppInitializerProvider
-
+    stateAppInitializerProvider,
+    /**
+     * **🚀 Perf Tip for TBT:**
+     *
+     * Chunk app bootstrap over APP_INITIALIZER.
+     */
+    scheduledAppInitializerProvider,
+    /**
+     * **🚀 Perf Tip for TBT, LCP, CLS:**
+     *
+     * Configure RxAngular to get maximum performance.
+     */
+    rxaConfigProviders
   ],
   bootstrap: [AppComponent]
 })

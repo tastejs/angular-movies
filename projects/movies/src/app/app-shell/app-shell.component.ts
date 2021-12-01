@@ -4,7 +4,7 @@ import { RxState } from '@rx-angular/state';
 import { filter, map, Subject } from 'rxjs';
 import { AuthStateService } from '../data-access/auth/auth.state';
 import { TmdbAuthEffects } from '../data-access/auth/tmdbAuth.effects';
-import { MovieGenreModel } from '../data-access/model/index';
+import { MovieGenreModel } from '../data-access/model/movie-genre.model';
 import { trackByProp } from '../shared/utils/track-by';
 import { StateService } from '../shared/state/state.service';
 
@@ -43,6 +43,12 @@ export class AppShellComponent {
         map((e) => e.urlAfterRedirects.split('?')[0])
       )
     );
+    /**
+     * **🚀 Perf Tip for TBT:**
+     *
+     * Disable initial sync navigation in router config and schedule it in router-outlet container component
+     */
+    setTimeout(() => this.router.navigate([]));
   }
 
   genres$ = this.tmdbState.genresNames$;

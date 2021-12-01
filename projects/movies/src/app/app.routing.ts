@@ -42,7 +42,12 @@ const ROUTES: Routes = [
 
 export const ROUTING_IMPORTS = [
   RouterModule.forRoot(ROUTES, {
-    initialNavigation: 'enabled',
+    /**
+     * **🚀 Perf Tip for TBT:**
+     *
+     * Disable initial sync navigation in router config and schedule it in router-outlet container component
+     */
+    initialNavigation: 'disabled',
     onSameUrlNavigation: 'reload',
     relativeLinkResolution: 'legacy'
   })

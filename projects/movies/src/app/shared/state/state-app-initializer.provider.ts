@@ -2,9 +2,8 @@ import { APP_INITIALIZER } from '@angular/core';
 import { StateService } from './state.service';
 
 function initializeState(state: StateService) {
-  return (): Promise<void> => {
+  return (): void => {
     state.init();
-    return Promise.resolve();
   };
 }
 
@@ -20,5 +19,5 @@ export const stateAppInitializerProvider = [
     useFactory: initializeState,
     deps: [StateService],
     multi: true
-  }/**/
+  }
 ];
