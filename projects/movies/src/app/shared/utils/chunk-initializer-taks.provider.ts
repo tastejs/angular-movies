@@ -1,9 +1,12 @@
 import { APP_INITIALIZER } from '@angular/core';
-import { StateService } from './state.service';
 
-function initializeState(state: StateService) {
-  return (): void => {
-    state.init();
+function scheduleOnTimeout() {
+  return (): Promise<void> => {
+    return new Promise<void>((resolve) => {
+      setTimeout(() =>
+        resolve()
+      );
+    });
   };
 }
 
@@ -13,11 +16,11 @@ function initializeState(state: StateService) {
  * Use `APP_INITIALIZER` and an init method in data services to run data fetching
  * on app bootstrap instead of component initialization.
  */
-export const stateAppInitializerProvider = [
+export const scheduledAppInitializerProvider = [
   {
     provide: APP_INITIALIZER,
-    useFactory: initializeState,
-    deps: [StateService],
+    useFactory: scheduleOnTimeout,
+    deps: [],
     multi: true
   }
 ];

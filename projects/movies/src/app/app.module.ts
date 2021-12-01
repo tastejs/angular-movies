@@ -12,6 +12,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { customStrategyCredentials } from './shared/utils/custom-strategies';
 import { httpInterceptorProviders } from './data-access/auth/http-interceptor.providers';
 import { stateAppInitializerProvider } from './shared/state/state-app-initializer.provider';
+import { scheduledAppInitializerProvider } from './shared/utils/chunk-initializer-taks.provider';
 
 @NgModule({
   declarations: [AppComponent],
@@ -42,6 +43,12 @@ import { stateAppInitializerProvider } from './shared/state/state-app-initialize
      * Fetch data visible in viewport on app bootstrap instead of component initialization.
      */
     stateAppInitializerProvider,
+    /**
+     * **🚀 Perf Tip for TBT:**
+     *
+     * Chunk app bootstrap over APP_INITIALIZER.
+     */
+    scheduledAppInitializerProvider,
     {
       provide: RX_ANGULAR_CONFIG,
       useValue: {
