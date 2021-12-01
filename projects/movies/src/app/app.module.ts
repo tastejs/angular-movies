@@ -10,6 +10,7 @@ import { stateAppInitializerProvider } from './shared/state/state-app-initialize
 import { scheduledAppInitializerProvider } from './shared/utils/chunk-initializer-taks.provider';
 import { SERVICE_WORKER_IMPORTS } from './service-worker.imports';
 import { SSR_IMPORTS } from './ssr.imports';
+import { rxaConfigProviders } from './shared/utils/rxa-config.provider';
 
 @NgModule({
   declarations: [AppComponent],
@@ -46,19 +47,12 @@ import { SSR_IMPORTS } from './ssr.imports';
      * Chunk app bootstrap over APP_INITIALIZER.
      */
     scheduledAppInitializerProvider,
-    {
-      provide: RX_ANGULAR_CONFIG,
-      useValue: {
-        customStrategies: customStrategyCredentials,
-        /**
-         * **🚀 Perf Tip for TTI:**
-         *
-         * Configure RxAngular's default behaviour to avoid any additional zone-logic to run.
-         * This could en up in missing view updates for template projection, but can be applied by directive to fix it granulary.
-         */
-        patchZone: false
-      }
-    }
+    /**
+     * **🚀 Perf Tip for TBT, LCP, CLS:**
+     *
+     * Configure RxAngular to get maximum performance.
+     */
+    rxaConfigProviders
   ],
   bootstrap: [AppComponent]
 })
