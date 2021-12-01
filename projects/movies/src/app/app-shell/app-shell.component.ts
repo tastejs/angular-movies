@@ -43,7 +43,12 @@ export class AppShellComponent {
         map((e) => e.urlAfterRedirects.split('?')[0])
       )
     );
-    setTimeout(() => this.router.navigate([]), 0);
+    /**
+     * **🚀 Perf Tip for TBT:**
+     *
+     * Disable initial sync navigation in router config and schedule it in router-outlet container component
+     */
+    setTimeout(() => this.router.navigate([]));
   }
 
   genres$ = this.tmdbState.genresNames$;
