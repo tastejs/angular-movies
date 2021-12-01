@@ -13,7 +13,7 @@ import { ZonelessRouting } from './shared/zone-agnostic/zone-less-routing.servic
    *
    * Use ChangeDetectionStrategy.OnPush in all components to reduce change detection & template re-evaluation
    */
-  changeDetection: ChangeDetectionStrategy.Default,
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent {
   /**
