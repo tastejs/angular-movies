@@ -3,8 +3,7 @@ import {
   RxStrategyCredentials,
   RX_CONCURRENT_STRATEGIES,
 } from '@rx-angular/cdk';
-import { from, merge } from 'rxjs';
-import { skip, take, tap } from 'rxjs/operators';
+import { from, merge, skip, take, tap } from 'rxjs';
 
 const instantUserBlocking: RxStrategyCredentials = {
   name: 'instantUserBlocking',
