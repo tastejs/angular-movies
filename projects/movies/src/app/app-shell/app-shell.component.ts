@@ -12,7 +12,7 @@ import { StateService } from '../shared/state/state.service';
   selector: 'app-shell',
   templateUrl: './app-shell.component.html',
   styleUrls: ['./app-shell.component.scss'],
-  changeDetection: ChangeDetectionStrategy.Default,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [RxState]
 })
 export class AppShellComponent {
