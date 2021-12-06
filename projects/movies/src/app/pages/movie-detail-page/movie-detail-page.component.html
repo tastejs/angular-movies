@@ -42,7 +42,8 @@
                 let genre of vs.movie?.genres || [];
                 trackBy: trackByGenre
               "
-              (click)="toGenre(genre)"
+              [href]="'/list/genre/' + genre.id"
+              (click)="$event.preventDefault(); toGenre(genre)"
             >
               <svg viewBox="0 0 24 24" fill="currentColor" class="icon">
                 <path d="M0 0h24v24H0V0z" fill="none" />
@@ -66,6 +67,8 @@
           <div class="movie-detail--cast-list">
             <a
               *ngFor="let c of vs.cast; trackBy: trackByCast"
+              href="#"
+              (click)="$event.preventDefault()"
               class="movie-detail--cast-actor"
             >
               <img

@@ -19,7 +19,8 @@ type Movie = MovieModel & ImageTag;
         <a
           class='movies-list--grid-item'
           *rxFor='let movie of (movies$); index as idx; trackBy: trackByMovieId; '
-          (click)='navigateToMovie(movie)'
+          [href]="'/movie/' + movie.id"
+          (click)='$event.preventDefault(); navigateToMovie(movie)'
           [attr.data-test]="'list-item-idx-'+idx"
         >
           <div class='movies-list--grid-item-image gradient'>

@@ -89,7 +89,7 @@ export class MovieDetailPageComponent {
   }
 
   toGenre(genre: MovieGenreModel) {
-    this.router.navigate(['/genre', genre.id]);
+    this.router.navigate(['/list', 'genre', genre.id]);
   }
 
   back() {

@@ -76,7 +76,9 @@ export class AppShellComponent {
     this.router.navigate(['/movies/popular']);
   }
 
-  navTo(path: string, args: (string | number)[], queryParams?: Record<string, any>) {
+  navTo(event: Event, path: string, args: (string | number)[], queryParams?: Record<string, any>) {
+    event.preventDefault();
+    event.stopPropagation();
     this.closeSidenav();
     this.resetPagination();
     this.router.navigate([path, ...args], { queryParams });
