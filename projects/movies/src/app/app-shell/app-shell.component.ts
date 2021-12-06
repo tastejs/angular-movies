@@ -16,7 +16,6 @@ import { StateService } from '../shared/state/state.service';
   providers: [RxState]
 })
 export class AppShellComponent {
-
   constructor(
     private state: RxState<{
       activeRoute: string;
