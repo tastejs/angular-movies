@@ -16,13 +16,14 @@ import { StateService } from '../shared/state/state.service';
   providers: [RxState]
 })
 export class AppShellComponent {
+
   constructor(
     private state: RxState<{
       activeRoute: string;
       loggedIn: boolean;
       sideDrawerOpen: boolean;
     }>,
-    public tmdbState: StateService,
+    public globalState: StateService,
     public authState: AuthStateService,
     public authEffects: TmdbAuthEffects,
     private router: Router
@@ -43,6 +44,7 @@ export class AppShellComponent {
         map((e) => e.urlAfterRedirects.split('?')[0])
       )
     );
+    this.init();
     /**
      * **🚀 Perf Tip for TBT:**
      *
@@ -51,7 +53,11 @@ export class AppShellComponent {
     setTimeout(() => this.router.navigate([]));
   }
 
-  genres$ = this.tmdbState.genresNames$;
+  init() {
+    this.globalState.refreshGenres();
+  }
+
+  genres$ = this.globalState.genresNames$;
   @ViewChild('snav') snav: any;
 
   readonly viewState$ = this.state.select();

@@ -1,8 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-
-import { ActivatedRoute } from '@angular/router';
 import { RxState } from '@rx-angular/state';
-import { catchError, EMPTY, map, Observable, of, switchMap } from 'rxjs';
 import { MovieModel } from '../../data-access/model/movie.model';
 import { StateService } from '../../shared/state/state.service';
 
@@ -11,11 +8,6 @@ type MoviesState = {
   loading: boolean;
   movies: MovieModel[];
   title: string;
-};
-
-type RouterParams = {
-  type: string;
-  identifier: string;
 };
 
 @Component({
@@ -31,47 +23,12 @@ export class MovieListPageComponent extends RxState<MoviesState> {
   readonly loading$ = this.select('loading');
   readonly title$ = this.select('title');
 
-  private routerParams$: Observable<RouterParams> = this.route.params as unknown as Observable<RouterParams>;
-
   constructor(
-    private tmdbState: StateService,
-    private route: ActivatedRoute
+    private state: StateService,
   ) {
     super();
-
     this.set({ loading: true });
-    this.connect(this.getListByRouterParams());
-
-    this.hold(this.routerParams$,
-      ({ type, identifier }) => {
-        if (type === 'category') {
-          this.tmdbState.fetchCategoryMovies(identifier);
-        } else if (type === 'genre') {
-          this.tmdbState.fetchGenreMovies(identifier);
-        }
-      }
-    );
+    this.connect(this.state.routedMovieList$);
   }
-
-  getListByRouterParams = (): Observable<Partial<MoviesState>> => {
-    return this.routerParams$.pipe(
-      switchMap(({ identifier, type }) => {
-        if (type === 'category') {
-          return this.tmdbState.categoryMovieList$(identifier);
-        } else if (type === 'genre') {
-          return this.tmdbState.genreMovieList$(identifier);
-        }
-        return EMPTY;
-      }),
-      map(({ movies, title }) => ({
-        loading: false,
-        movies,
-        title
-      })),
-      catchError((_: any) => {
-        return of({ loading: false, movies: [], title: undefined });
-      })
-    );
-  };
 
 }
