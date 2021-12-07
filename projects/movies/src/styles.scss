@@ -5,12 +5,15 @@
 /**
  * **🚀 Perf Tip for TBT:**
  *
- * Only include styles visible in the main bundle and move other imports directly into the respective component. e.g. button style
+ * Only include styles visible in the main bundle (or shared across multiple components) and move other imports directly into the respective component. e.g. button style
  * This reduces bundle-size of your styles.
  */
 
 // initial loading image for none SSR pages
 @import 'styles/components/launcher';
+@import 'styles/components/icon';
+@import 'styles/components/padding-wrapper';
+@import 'styles/components/tooltip';
 
 body {
   color: var(--palette-text-primary);

@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { RxState } from '@rx-angular/state';
+import { RxState, selectSlice } from '@rx-angular/state';
+import { map } from 'rxjs';
 import { MovieModel } from '../../data-access/model/movie.model';
 import { StateService } from '../../shared/state/state.service';
 
@@ -17,10 +18,14 @@ type MoviesState = {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MovieListPageComponent extends RxState<MoviesState> {
-  movies: MovieModel[] = [];
 
   readonly movies$ = this.select('movies');
-  readonly loading$ = this.select('loading');
+  readonly loading$ = this.select(
+    selectSlice(['loading', 'movies'], {
+      movies: (a, b) => a?.length !== b?.length
+    }),
+    map(({ loading, movies }) => loading || movies === null)
+  );
   readonly title$ = this.select('title');
 
   constructor(

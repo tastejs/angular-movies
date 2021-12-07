@@ -13,7 +13,7 @@ type Movie = MovieModel & ImageTag;
   template: `
     <ng-content select='.header'></ng-content>
     <ng-container
-      *rxLet="hasMovies$; let hasMovies; strategy: 'instantUserBlocking'"
+      *rxLet="hasMovies$; let hasMovies;"
     >
       <div class='movies-list--grid' *ngIf='hasMovies; else noData' data-test="list-container">
         <a
@@ -101,6 +101,10 @@ export class MovieListComponent {
       movies: MovieModel[];
     }>
   ) {
+    this.state.hold(
+      this.state.select('movies'),
+      movies => console.log('movies', movies)
+    )
   }
 
   trackByMovieId(_: number, movie: Movie) {
