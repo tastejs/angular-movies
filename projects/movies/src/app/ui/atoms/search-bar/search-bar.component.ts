@@ -10,9 +10,10 @@ import {
   Output,
   ViewChild,
 } from '@angular/core';
-import { fromEvent, Subject, takeUntil } from 'rxjs';
+import { fromEvent, takeUntil } from 'rxjs';
 
 import { SearchIconComponentModule } from '../icons/search/search-icon.component';
+import { getActions } from '../../../shared/rxa-custom/actions';
 
 @Component({
   selector: 'app-search-bar',
@@ -153,12 +154,13 @@ export class SearchBarComponent implements OnInit, OnDestroy {
     return this.inputRef.nativeElement;
   }
 
-  @Output() search = new Subject<string>();
+  ui = getActions<{search: string, destroy: void}>({search: (value) => value || ''})
+
+  @Output() search = this.ui.search$;
 
   private searchTerm = '';
 
   private readonly nativeElement: HTMLElement = this.elementRef.nativeElement;
-  private readonly destroy$ = new Subject<void>();
   constructor(
     @Inject(ElementRef) private elementRef: ElementRef,
     @Inject(DOCUMENT) private document: Document
@@ -166,7 +168,7 @@ export class SearchBarComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     fromEvent(this.document, 'click')
-      .pipe(takeUntil(this.destroy$))
+      .pipe(takeUntil(this.ui.destroy$))
       .subscribe((e) => {
         if (!this.formRef.nativeElement.contains(e.target as any)) {
           this.setOpened(false);
@@ -175,7 +177,7 @@ export class SearchBarComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.destroy$.next();
+    this.ui.destroy();
   }
 
   setOpened(opened: boolean) {
@@ -195,12 +197,12 @@ export class SearchBarComponent implements OnInit, OnDestroy {
       return;
     }
     this.setOpened(false);
-    this.search.next(this.searchTerm);
+    this.ui.search(this.searchTerm);
     this.input.value = '';
   }
 
   onInputChange(value: string) {
-    this.searchTerm = value || '';
+    this.searchTerm = value;
   }
 }
 

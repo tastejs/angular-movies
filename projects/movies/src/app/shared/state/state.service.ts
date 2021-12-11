@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { catchError, exhaustMap, filter, map, Observable, startWith, Subject, switchMap, withLatestFrom } from 'rxjs';
+import { catchError, exhaustMap, filter, map, Observable, startWith, switchMap, withLatestFrom } from 'rxjs';
 import { Tmdb2Service } from '../../data-access/api/tmdb2.service';
 import { MovieGenreModel } from '../../data-access/model/movie-genre.model';
 import { MovieModel } from '../../data-access/model/movie.model';
@@ -7,6 +7,7 @@ import { patch, RxState, select, selectSlice } from '@rx-angular/state';
 import { optimizedFetch } from '../utils/optimized-fetch';
 import { parseTitle } from '../utils/parse-movie-list-title';
 import { NavigationEnd, Router } from '@angular/router';
+import { getActions } from '../rxa-custom/actions';
 
 type RouterParams = {
   type: 'genre' | 'category';
@@ -21,29 +22,23 @@ interface State {
   categoryMoviesContext: boolean;
 }
 
-interface Command<T extends commandNames, P = any> {
-  type: T;
-  payload?: P;
-}
-
 export interface MovieList {
   loading: boolean;
   title: string;
   movies: MovieModel[];
 }
 
-type commandNames = 'refreshGenres' | 'fetchCategoryMovies' | 'fetchGenreMovies';
-type refreshGenres = Command<'refreshGenres'>;
-type fetchCategoryMovies = Command<'fetchCategoryMovies', string>;
-type fetchGenreMovies = Command<'fetchGenreMovies', string | number>;
-
-type commands = refreshGenres | fetchCategoryMovies | fetchGenreMovies;
+interface Actions {
+  refreshGenres: void;
+  fetchCategoryMovies: string;
+  fetchGenreMovies: string | number;
+}
 
 @Injectable({
   providedIn: 'root'
 })
 export class StateService extends RxState<State> {
-  private commands = new Subject<commands>();
+  actions = getActions<Actions>();
 
   private routerParams$: Observable<RouterParams> = this.router.events
     .pipe(
@@ -94,8 +89,7 @@ export class StateService extends RxState<State> {
 
   constructor(private tmdb2Service: Tmdb2Service, private router: Router) {
     super();
-    this.connect('genres', this.commands.pipe(
-      filter(({ type }) => type === 'refreshGenres'),
+    this.connect('genres', this.actions.refreshGenres$.pipe(
       /**
        * **🚀 Perf Tip for TTI, TBT:**
        *
@@ -106,16 +100,15 @@ export class StateService extends RxState<State> {
     );
 
     this.connect(
-      this.commands.pipe(
-        filter(({ type }) => type === 'fetchCategoryMovies'),
+      this.actions.fetchCategoryMovies$.pipe(
         /**
          * **🚀 Perf Tip for TTI, TBT:**
          *
          * Avoid over fetching for HTTP get requests to URLs that will not change result quickly.
          */
         optimizedFetch(
-          ({ payload: category }) => 'category' + '-' + category,
-          ({ payload: category }) => this.tmdb2Service.getMovieCategory(category)
+          (category) => 'category' + '-' + category,
+          (category) => this.tmdb2Service.getMovieCategory(category)
             .pipe(
               map(({ results }) => ({ categoryMoviesContext: false, categoryMovies: { [category]: results } })),
               startWith({ categoryMoviesContext: true }),
@@ -132,16 +125,15 @@ export class StateService extends RxState<State> {
     );
 
     this.connect(
-      this.commands.pipe(
-        filter(({ type }) => type === 'fetchGenreMovies'),
+      this.actions.fetchGenreMovies$.pipe(
         /**
          * **🚀 Perf Tip for TTI, TBT:**
          *
          * Avoid over fetching for HTTP get requests to URLs that will not change result quickly.
          */
         optimizedFetch(
-          ({ payload: genre }) => 'genre' + '-' + genre,
-          ({ payload: genre }) => this.tmdb2Service.getMovieGenre(genre)
+          (genre) => 'genre' + '-' + genre,
+          (genre) => this.tmdb2Service.getMovieGenre(genre + '')
             .pipe(
               map(({ results }) => ({ genreMoviesContext: false, genreMovies: { [genre]: results } })),
               startWith({ genreMoviesContext: true }),
@@ -165,17 +157,11 @@ export class StateService extends RxState<State> {
     this.fetchCategoryMovies('popular');
   }
 
-  refreshGenres(): void {
-    this.commands.next({ type: 'refreshGenres', payload: null });
-  }
+  refreshGenres = this.actions.refreshGenres;
 
-  fetchCategoryMovies(category: string): void {
-    this.commands.next({ type: 'fetchCategoryMovies', payload: category });
-  }
+  fetchCategoryMovies = this.actions.fetchCategoryMovies
 
-  fetchGenreMovies(genre: string | number): void {
-    this.commands.next({ type: 'fetchGenreMovies', payload: genre });
-  }
+  fetchGenreMovies = this.actions.fetchGenreMovies
 
   private routerFetchEffect = ({ type, identifier }: RouterParams) => {
     if (type === 'category') {
