@@ -1,7 +1,7 @@
 import { ApplicationRef, Injectable } from '@angular/core';
 import { RxState } from '@rx-angular/state';
 import { NavigationEnd, Router } from '@angular/router';
-import { isZonePresent } from '../utils/is-zone-present';
+import { isZonePresent } from './is-zone-present';
 
 /**
  * A small service encapsulating the hacks needed for routing (and bootstrapping) in zone-less applications

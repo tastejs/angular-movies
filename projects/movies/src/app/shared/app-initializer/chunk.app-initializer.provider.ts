@@ -6,7 +6,7 @@ import { APP_INITIALIZER } from '@angular/core';
  * Use `APP_INITIALIZER` and an init method in data services to run data fetching
  * on app bootstrap instead of component initialization.
  */
-export const scheduledAppInitializerProvider = [
+export const SCHEDULED_APP_INITIALIZER_PROVIDER = [
   {
     provide: APP_INITIALIZER,
     useFactory: () =>

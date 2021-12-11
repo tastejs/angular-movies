@@ -1,7 +1,8 @@
 import { RX_ANGULAR_CONFIG } from '@rx-angular/cdk';
 import { customStrategyCredentials } from './custom-strategies';
+import { ModuleWithProviders, Type } from '@angular/core';
 
-export const rxaConfigProviders = [
+export const RXA_PROVIDER: Array<Type<any> | ModuleWithProviders<{}> | any[] | any > = [
   {
     provide: RX_ANGULAR_CONFIG,
     useValue: {
@@ -15,4 +16,4 @@ export const rxaConfigProviders = [
       patchZone: false
     }
   }
-];
+]
