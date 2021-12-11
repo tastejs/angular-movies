@@ -13,7 +13,7 @@ function initializeState(state: StateService) {
  * Use `APP_INITIALIZER` and an init method in data services to run data fetching
  * on app bootstrap instead of component initialization.
  */
-export const stateAppInitializerProvider = [
+export const GLOBAL_STATE_APP_INITIALIZER_PROVIDER = [
   {
     provide: APP_INITIALIZER,
     useFactory: initializeState,

@@ -1,35 +1,27 @@
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
-import { BrowserModule, BrowserTransferStateModule } from '@angular/platform-browser';
+import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
 import { AppShellModule } from './app-shell/app-shell.module';
 import { httpInterceptorProviders } from './data-access/auth/http-interceptor.providers';
 import { ROUTING_IMPORTS } from './app.routing';
-import { stateAppInitializerProvider } from './shared/state/state-app-initializer.provider';
-import { scheduledAppInitializerProvider } from './shared/utils/chunk-initializer-taks.provider';
-import { SERVICE_WORKER_IMPORTS } from './service-worker.imports';
-import { SSR_IMPORTS } from './ssr.imports';
-import { rxaConfigProviders } from './shared/utils/rxa-config.provider';
+import { GLOBAL_STATE_APP_INITIALIZER_PROVIDER } from './shared/state/state.app-initializer.provider';
+import { SCHEDULED_APP_INITIALIZER_PROVIDER } from './shared/app-initializer/chunk.app-initializer.provider';
+import { SERVICE_WORKER_IMPORTS } from './shared/pwa/service-worker.imports';
+import { RXA_PROVIDER } from './shared/rxa-custom/rxa.provider';
 
 @NgModule({
   declarations: [AppComponent],
   imports: [
-    BrowserModule.withServerTransition({ appId: 'movies' }),
-    BrowserTransferStateModule,
-    /**
-     * **🚀 Perf Tip for LCP, CLS:**
-     *
-     * Setup SSR to increase LCP by shipping rendered HTML on first load.
-     */
-    SSR_IMPORTS,
+    BrowserModule,
+    HttpClientModule,
     /**
      * **🚀 Perf Tip for UX:**
      *
      * Setup serviceworker to get caching for HTTP requests and assets as well as better offline experience.
      */
     SERVICE_WORKER_IMPORTS,
-    HttpClientModule,
     AppShellModule,
     ROUTING_IMPORTS
   ],
@@ -40,19 +32,19 @@ import { rxaConfigProviders } from './shared/utils/rxa-config.provider';
      *
      * Fetch data visible in viewport on app bootstrap instead of component initialization.
      */
-    stateAppInitializerProvider,
+    GLOBAL_STATE_APP_INITIALIZER_PROVIDER,
     /**
      * **🚀 Perf Tip for TBT:**
      *
      * Chunk app bootstrap over APP_INITIALIZER.
      */
-    scheduledAppInitializerProvider,
+    SCHEDULED_APP_INITIALIZER_PROVIDER,
     /**
      * **🚀 Perf Tip for TBT, LCP, CLS:**
      *
      * Configure RxAngular to get maximum performance.
      */
-    rxaConfigProviders
+    RXA_PROVIDER
   ],
   bootstrap: [AppComponent]
 })

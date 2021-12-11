@@ -1,5 +1,5 @@
 import { ServiceWorkerModule } from '@angular/service-worker';
-import { environment } from '../environments/environment';
+import { environment } from '../../../environments/environment';
 import { ModuleWithProviders, Type } from '@angular/core';
 
 
