@@ -70,7 +70,7 @@ export class StateService extends RxState<State> {
       return {
         loading: genreMoviesContext,
         title: parseTitle(genreName),
-        movies: genreMovies && genreMovies[genreIdStr] || []
+        movies: genreMovies && genreMovies[genreIdStr] || null
       };
     })
   );
@@ -82,7 +82,7 @@ export class StateService extends RxState<State> {
         return ({
           loading: categoryMoviesContext,
           title: parseTitle(listName),
-          movies: categoryMovies && categoryMovies[listName] || []
+          movies: categoryMovies && categoryMovies[listName] || null
         });
       }
     )
