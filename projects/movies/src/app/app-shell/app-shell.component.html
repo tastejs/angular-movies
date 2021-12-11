@@ -1,7 +1,7 @@
 <ng-container *rxLet="viewState$; let vs">
   <app-side-drawer
     [opened]="vs.sideDrawerOpen"
-    (openedChange)="sideDrawerOpenToggle$.next(false)"
+    (openedChange)="ui.sideDrawerOpenToggle(false)"
   >
     <a class="navigation-header" href='/'>
       <picture>
@@ -133,7 +133,7 @@
       <app-hamburger-button
         data-test="main-side-drawer-hamburger-button"
         class="app-toolbar--action"
-        (click)="sideDrawerOpenToggle$.next(!vs.sideDrawerOpen)"
+        (click)="ui.sideDrawerOpenToggle(!vs.sideDrawerOpen)"
       >
       </app-hamburger-button>
       <div class="app-toolbar--widget-container">

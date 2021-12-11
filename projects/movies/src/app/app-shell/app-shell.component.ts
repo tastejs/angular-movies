@@ -1,12 +1,13 @@
 import { ChangeDetectionStrategy, Component, TrackByFunction, ViewChild } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { RxState } from '@rx-angular/state';
-import { filter, map, Subject } from 'rxjs';
+import { filter, map } from 'rxjs';
 import { AuthStateService } from '../data-access/auth/auth.state';
 import { TmdbAuthEffects } from '../data-access/auth/tmdbAuth.effects';
 import { MovieGenreModel } from '../data-access/model/movie-genre.model';
 import { trackByProp } from '../shared/utils/track-by';
 import { StateService } from '../shared/state/state.service';
+import { getActions } from '../shared/rxa-custom/actions';
 
 @Component({
   selector: 'app-shell',
@@ -30,7 +31,7 @@ export class AppShellComponent {
     this.state.set({sideDrawerOpen: false});
     this.state.connect(
       'sideDrawerOpen',
-      this.sideDrawerOpenToggle$
+      this.ui.sideDrawerOpenToggle$
     );
     this.state.connect(
       'loggedIn',
@@ -60,7 +61,7 @@ export class AppShellComponent {
   @ViewChild('snav') snav: any;
 
   readonly viewState$ = this.state.select();
-  readonly sideDrawerOpenToggle$ = new Subject<boolean>();
+  readonly ui = getActions<{sideDrawerOpenToggle: boolean}>();
 
   trackByGenre: TrackByFunction<MovieGenreModel> =
     trackByProp<MovieGenreModel>('name');
@@ -85,7 +86,7 @@ export class AppShellComponent {
   }
 
   closeSidenav() {
-    this.sideDrawerOpenToggle$.next(false);
+    this.ui.sideDrawerOpenToggle(false);
   }
 
   resetPagination() {
