@@ -4,8 +4,9 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
 import { AppShellModule } from './app-shell/app-shell.module';
-import { HTTP_INTERSEPTERS_PROVIDERS } from './data-access/auth/http-interceptor.providers';
+import { MovieListPageModule } from './pages/movie-list-page/movie-list-page.module';
 import { ROUTING_IMPORTS } from './app.routing';
+import { HTTP_INTERCEPTORS_PROVIDER } from './data-access/auth/http-interceptor.providers';
 import { GLOBAL_STATE_APP_INITIALIZER_PROVIDER } from './shared/state/state.app-initializer.provider';
 import { SCHEDULED_APP_INITIALIZER_PROVIDER } from './shared/app-initializer/chunk.app-initializer.provider';
 import { SERVICE_WORKER_IMPORTS } from './shared/pwa/service-worker.imports';
@@ -23,10 +24,11 @@ import { RXA_PROVIDER } from './shared/rxa-custom/rxa.provider';
      */
     SERVICE_WORKER_IMPORTS,
     AppShellModule,
+    MovieListPageModule,
     ROUTING_IMPORTS
   ],
   providers: [
-    HTTP_INTERSEPTERS_PROVIDERS,
+    HTTP_INTERCEPTORS_PROVIDER,
     /**
      * **🚀 Perf Tip for LCP, TTI:**
      *

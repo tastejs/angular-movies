@@ -5,7 +5,7 @@ type InstanceOrType<T> = T extends abstract new (...args: unknown[]) => infer R 
 export type ActionAccess<T extends { [x: string]: any }> = {
   [K in keyof T]: (arg: InstanceOrType<T[K]>) => void;
 } & {
-  [K in Extract<keyof T, string> as `${K}$`]: Observable<T[K]>;
+  [K in Extract<keyof T, string> as `${K}$`]: Observable<InstanceOrType<T[K]>>;
 };
 
 /**

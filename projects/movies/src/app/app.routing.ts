@@ -1,4 +1,5 @@
 import { RouterModule, Routes } from '@angular/router';
+import { MovieListPageComponent } from './pages/movie-list-page/movie-list-page.component';
 
 const ROUTES: Routes = [
   /**
@@ -28,8 +29,10 @@ const ROUTES: Routes = [
    */
   {
     path: 'list/:type/:identifier',
-    loadChildren: () =>
+    component: MovieListPageComponent,
+   /* loadChildren: () =>
       import('projects/movies/src/app/pages/movie-list-page/movie-list-page.module').then((m) => m.MovieListPageModule)
+ */
   },
   {
     path: 'movie/:id',

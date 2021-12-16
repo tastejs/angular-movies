@@ -46,7 +46,7 @@
                 {
                   "type": "initial",
                   "maximumWarning": "300kb",
-                  "maximumError": "330kb"
+                  "maximumError": "350kb"
                 },
                 {
                   "type": "anyComponentStyle",
@@ -57,7 +57,7 @@
                   "type": "bundle",
                   "name": "main",
                   "maximumWarning": "300kb",
-                  "maximumError": "320kb"
+                  "maximumError": "340kb"
                 },
                 {
                   "type": "bundle",
