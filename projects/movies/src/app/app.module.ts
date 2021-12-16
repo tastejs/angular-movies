@@ -4,7 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
 import { AppShellModule } from './app-shell/app-shell.module';
-import { httpInterceptorProviders } from './data-access/auth/http-interceptor.providers';
+import { HTTP_INTERSEPTERS_PROVIDERS } from './data-access/auth/http-interceptor.providers';
 import { ROUTING_IMPORTS } from './app.routing';
 import { GLOBAL_STATE_APP_INITIALIZER_PROVIDER } from './shared/state/state.app-initializer.provider';
 import { SCHEDULED_APP_INITIALIZER_PROVIDER } from './shared/app-initializer/chunk.app-initializer.provider';
@@ -26,7 +26,7 @@ import { RXA_PROVIDER } from './shared/rxa-custom/rxa.provider';
     ROUTING_IMPORTS
   ],
   providers: [
-    httpInterceptorProviders,
+    HTTP_INTERSEPTERS_PROVIDERS,
     /**
      * **🚀 Perf Tip for LCP, TTI:**
      *
