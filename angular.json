@@ -27,7 +27,6 @@
             "outputPath": "dist/movies/browser",
             "index": "projects/movies/src/index.original.html",
             "main": "projects/movies/src/main.ts",
-            "polyfills": "projects/movies/src/polyfills.ts",
             "tsConfig": "projects/movies/tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": [
