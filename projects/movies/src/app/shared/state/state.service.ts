@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { catchError, exhaustMap, filter, map, Observable, startWith, switchMap, withLatestFrom } from 'rxjs';
+import { catchError, exhaustMap, filter, map, Observable, OperatorFunction, pipe, startWith, switchMap, withLatestFrom } from 'rxjs';
 import { Tmdb2Service } from '../../data-access/api/tmdb2.service';
 import { MovieGenreModel } from '../../data-access/model/movie-genre.model';
 import { MovieModel } from '../../data-access/model/movie.model';
@@ -13,6 +13,12 @@ type RouterParams = {
   type: 'genre' | 'category';
   identifier: string;
 };
+
+const getIdentifierOfType = (filterType: string): OperatorFunction<RouterParams, string> => {
+  return pipe(
+    filter(({ type }: RouterParams) => type === filterType), map(({ identifier }) => identifier)
+  )
+}
 
 interface State {
   genres: MovieGenreModel[];
@@ -51,8 +57,8 @@ export class StateService extends RxState<State> {
         selectSlice(['identifier', 'type'])
       )
     ) as unknown as Observable<RouterParams>;
-  routerGenre$ = this.routerParams$.pipe(filter(({ type }) => type === 'genre'), map(({ identifier }) => identifier));
-  routerCategory$ = this.routerParams$.pipe(filter(({ type }) => type === 'category'), map(({ identifier }) => identifier));
+  routerGenre$ = this.routerParams$.pipe(getIdentifierOfType('genre'));
+  routerCategory$ = this.routerParams$.pipe(getIdentifierOfType('category'));
 
   genresNames$ = this.select('genres');
   genreMovieList$ = this.select(
