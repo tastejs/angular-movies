@@ -50,7 +50,7 @@ export class AppShellComponent {
      *
      * Disable initial sync navigation in router config and schedule it in router-outlet container component
      */
-    setTimeout(() => this.router.navigate([]));
+    setTimeout(() => this.router.navigate(['list/category/popular']));
   }
 
   init() {
