@@ -5,7 +5,7 @@ import { MovieListComponent } from './movie-list.component';
 import { StarRatingModule } from '../../atoms/star-rating/star-rating.module';
 import { LetModule } from '@rx-angular/template/let';
 import { AspectRatioBoxModule } from '../../atoms/aspect-ratio-box/aspect-ratio-box.module';
-import { RxForModule } from '../../atoms/rx-for/rx-for.module';
+import { RxForModule } from '../../../shared/rxa-custom/rx-for/rx-for.module';
 
 @NgModule({
   declarations: [MovieListComponent],

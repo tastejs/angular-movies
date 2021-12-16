@@ -1,7 +1,7 @@
 <ng-container *rxLet="viewState$; let vs">
   <app-side-drawer
     [opened]="vs.sideDrawerOpen"
-    (openedChange)="sideDrawerOpenToggle$.next(false)"
+    (openedChange)="ui.sideDrawerOpenToggle(false)"
   >
     <a class="navigation-header" href='/'>
       <picture>
@@ -20,8 +20,9 @@
       <a
         data-test="link-category-popular"
         class="navigation--link"
+        href="/list"
         [class.active]="vs.activeRoute === '/list/category/popular'"
-        (click)="navTo('/list', ['category', 'popular'])"
+        (click)="navTo($event, '/list', ['category', 'popular'])"
       >
         <div class="navigation--menu-item">
           <svg
@@ -41,7 +42,8 @@
         data-test="sidebar-nav-link-category-top_rated"
         class="navigation--link"
         [class.active]="vs.activeRoute === '/list/category/top_rated'"
-        (click)="navTo('/list', ['category', 'top_rated'])"
+        href="/list"
+        (click)="navTo($event, '/list', ['category', 'top_rated'])"
       >
         <div class="navigation--menu-item">
           <svg
@@ -61,7 +63,8 @@
         data-test="sidebar-nav-link-category-upcoming"
         class="navigation--link"
         [class.active]="vs.activeRoute === '/list/category/upcoming'"
-        (click)="navTo('/list', ['category', 'upcoming'])"
+        href="/list"
+        (click)="navTo($event,'/list', ['category', 'upcoming'])"
       >
         <div class="navigation--menu-item">
           <svg
@@ -82,11 +85,12 @@
         *rxFor="
           let genre of genres$;
           trackBy: trackByGenre;
-          strategy: 'background'
+          strategy: 'idle'
         "
         class="navigation--link"
         [class.active]="vs.activeRoute === '/list/genre/' + genre.id"
-        (click)="navTo('/list', ['genre', genre.id])"
+        [href]="'/list/genre/' + genre.id"
+        (click)="navTo($event, '/list', ['genre', genre.id])"
       >
         <div class="navigation--menu-item">
           <svg
@@ -129,7 +133,7 @@
       <app-hamburger-button
         data-test="main-side-drawer-hamburger-button"
         class="app-toolbar--action"
-        (click)="sideDrawerOpenToggle$.next(!vs.sideDrawerOpen)"
+        (click)="ui.sideDrawerOpenToggle(!vs.sideDrawerOpen)"
       >
       </app-hamburger-button>
       <div class="app-toolbar--widget-container">
@@ -138,7 +142,9 @@
         <a
           *ngIf="!vs.loggedIn; else signOut"
           title="sign in"
-          (click)="authEffects.approveRequestToken()"
+          rel="nofollow"
+          href="https://www.themoviedb.org/auth/access"
+          (click)="$event.preventDefault(); authEffects.approveRequestToken()"
         >
           <svg
             class="icon"
@@ -160,7 +166,10 @@
           </svg>
         </a>
         <ng-template #signOut>
-          <a title="sign out" (click)="onSignOut()">
+          <a
+            title="sign out"
+            href="/movies/popular"
+            (click)="$event.stopPropagation(); onSignOut()">
             <svg
               class="icon"
               enable-background="new 0 0 24 24"

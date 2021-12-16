@@ -25,7 +25,7 @@
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
             "outputPath": "dist/movies/browser",
-            "index": "projects/movies/src/index.html",
+            "index": "projects/movies/src/index.original.html",
             "main": "projects/movies/src/main.ts",
             "polyfills": "projects/movies/src/polyfills.ts",
             "tsConfig": "projects/movies/tsconfig.app.json",
@@ -48,6 +48,8 @@
                   "type": "initial",
                   "maximumWarning": "300kb",
                   "maximumError": "350kb"
+                  "maximumError": "330kb"
+                },
                 {
                   "type": "anyComponentStyle",
                   "maximumWarning": "3000b",
@@ -58,6 +60,7 @@
                   "name": "main",
                   "maximumWarning": "300kb",
                   "maximumError": "328.59kb"
+                  "maximumError": "320kb"
                 },
                 {
                   "type": "bundle",

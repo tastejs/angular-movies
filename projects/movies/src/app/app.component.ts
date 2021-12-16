@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { ZonelessRouting } from './shared/zone-agnostic/zone-less-routing.service';
+import { ZonelessRouting } from './shared/zone-less/zone-less-routing.service';
 
 @Component({
   selector: 'app-root',
@@ -13,7 +13,7 @@ import { ZonelessRouting } from './shared/zone-agnostic/zone-less-routing.servic
    *
    * Use ChangeDetectionStrategy.OnPush in all components to reduce change detection & template re-evaluation
    */
-  changeDetection: ChangeDetectionStrategy.Default,
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent {
   /**
