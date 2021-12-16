@@ -160,7 +160,8 @@ export class StateService extends RxState<State> {
 
   init(): void {
     this.refreshGenres();
-    this.fetchCategoryMovies('popular');
+    // movie lists are initialized over the route
+    // this.fetchCategoryMovies('popular');
   }
 
   refreshGenres = this.actions.refreshGenres;

@@ -44,17 +44,13 @@ export class AppShellComponent {
         map((e) => e.urlAfterRedirects.split('?')[0])
       )
     );
-    this.init();
+
     /**
      * **🚀 Perf Tip for TBT:**
      *
      * Disable initial sync navigation in router config and schedule it in router-outlet container component
      */
     setTimeout(() => this.router.navigate(['list/category/popular']));
-  }
-
-  init() {
-    this.globalState.refreshGenres();
   }
 
   genres$ = this.globalState.genresNames$;
