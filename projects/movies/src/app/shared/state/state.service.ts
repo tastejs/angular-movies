@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { exhaustMap, filter, map, Observable, OperatorFunction, pipe, switchMap, withLatestFrom } from 'rxjs';
+import { exhaustMap, filter, map, Observable, OperatorFunction, pipe, startWith, switchMap, withLatestFrom } from 'rxjs';
 import { Tmdb2Service } from '../../data-access/api/tmdb2.service';
 import { MovieGenreModel } from '../../data-access/model/movie-genre.model';
 import { MovieModel } from '../../data-access/model/movie.model';
@@ -51,9 +51,12 @@ export class StateService extends RxState<State> {
     .pipe(
       select(
         filter(event => event instanceof NavigationEnd),
+        startWith('anyValue'),
         map(_ => {
-          const [__, page, type, identifier] = this.router.routerState.snapshot.url.split('/');
-          return { page, type, identifier };
+          // This is a naive way to reduce scripting of router service :)
+          // Obviously the params ane not properly managed
+          const [type, identifier] = window.location.href.split('/').slice(-2);
+          return { type, identifier };
         }),
         selectSlice(['identifier', 'type'])
       )
