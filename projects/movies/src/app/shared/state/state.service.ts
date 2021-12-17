@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { catchError, exhaustMap, filter, map, Observable, OperatorFunction, pipe, startWith, switchMap, withLatestFrom } from 'rxjs';
+import { exhaustMap, filter, map, Observable, OperatorFunction, pipe, switchMap, withLatestFrom } from 'rxjs';
 import { Tmdb2Service } from '../../data-access/api/tmdb2.service';
 import { MovieGenreModel } from '../../data-access/model/movie-genre.model';
 import { MovieModel } from '../../data-access/model/movie.model';
@@ -8,6 +8,7 @@ import { optimizedFetch } from '../utils/optimized-fetch';
 import { parseTitle } from '../utils/parse-movie-list-title';
 import { NavigationEnd, Router } from '@angular/router';
 import { getActions } from '../rxa-custom/actions';
+import { withLoadingEmission } from '../utils/withLoadingEmissions';
 
 type RouterParams = {
   type: 'genre' | 'category';
@@ -116,9 +117,8 @@ export class StateService extends RxState<State> {
           (category) => 'category' + '-' + category,
           (category) => this.tmdb2Service.getMovieCategory(category)
             .pipe(
-              map(({ results }) => ({ categoryMoviesContext: false, categoryMovies: { [category]: results } })),
-              startWith({ categoryMoviesContext: true }),
-              catchError(_ => ([{ categoryMoviesContext: true }]))
+              map(({ results }) => ({ categoryMovies: { [category]: results } } as State)),
+              withLoadingEmission('categoryMoviesContext', true, false)
             )
         )
       ),
@@ -141,9 +141,8 @@ export class StateService extends RxState<State> {
           (genre) => 'genre' + '-' + genre,
           (genre) => this.tmdb2Service.getMovieGenre(genre + '')
             .pipe(
-              map(({ results }) => ({ genreMoviesContext: false, genreMovies: { [genre]: results } })),
-              startWith({ genreMoviesContext: true }),
-              catchError(_ => ([{ genreMoviesContext: true }]))
+              map(({ results }) => ({ genreMovies: { [genre]: results } } as State)),
+              withLoadingEmission('genreMoviesContext', true, false)
             )
         )
       ),
