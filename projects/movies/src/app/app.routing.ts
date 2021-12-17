@@ -1,5 +1,6 @@
 import { RouterModule, Routes } from '@angular/router';
 import { MovieListPageComponent } from './pages/movie-list-page/movie-list-page.component';
+import { MovieListPageModule } from './pages/movie-list-page/movie-list-page.module';
 
 const ROUTES: Routes = [
   /**
@@ -44,6 +45,7 @@ const ROUTES: Routes = [
 ];
 
 export const ROUTING_IMPORTS = [
+  MovieListPageModule,
   RouterModule.forRoot(ROUTES, {
     /**
      * **🚀 Perf Tip for TBT:**

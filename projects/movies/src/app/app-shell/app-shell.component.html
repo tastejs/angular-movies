@@ -1,5 +1,6 @@
 <ng-container *rxLet="viewState$; let vs">
   <app-side-drawer
+    *rxLet="[]"
     [opened]="vs.sideDrawerOpen"
     (openedChange)="ui.sideDrawerOpenToggle(false)"
   >
@@ -129,7 +130,7 @@
     </div>
   </app-side-drawer>
   <div class="content-wrapper">
-    <div class="app-toolbar">
+    <div *rxLet="[]" class="app-toolbar">
       <app-hamburger-button
         data-test="main-side-drawer-hamburger-button"
         class="app-toolbar--action"
@@ -189,7 +190,7 @@
         </ng-template>
       </div>
     </div>
-    <div class="content">
+    <div *rxLet="[]" class="content">
       <ng-content></ng-content>
     </div>
   </div>
