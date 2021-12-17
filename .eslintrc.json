@@ -37,7 +37,8 @@
             "style": "camelCase",
             "type": "attribute"
           }
-        ]
+        ],
+        "import-blacklist": [2, "rxjs/operators"]
       }
     },
     {
