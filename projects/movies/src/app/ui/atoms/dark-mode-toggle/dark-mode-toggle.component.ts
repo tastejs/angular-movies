@@ -9,7 +9,7 @@ import { RxState } from '@rx-angular/state';
 
       <span class="toggle">
         <input
-          *rxLet="isLightTheme$; let checked"
+          *rxLet="isLightTheme$; let checked; strategy:'immediate'"
           class="toggle-track"
           type="checkbox"
           id="dark-mode"
