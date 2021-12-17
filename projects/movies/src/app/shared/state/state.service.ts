@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { exhaustMap, filter, map, Observable, OperatorFunction, pipe, switchMap, withLatestFrom } from 'rxjs';
+import { exhaustMap, filter, map, Observable, OperatorFunction, pipe, startWith, switchMap, withLatestFrom } from 'rxjs';
 import { Tmdb2Service } from '../../data-access/api/tmdb2.service';
 import { MovieGenreModel } from '../../data-access/model/movie-genre.model';
 import { MovieModel } from '../../data-access/model/movie.model';
@@ -51,9 +51,12 @@ export class StateService extends RxState<State> {
     .pipe(
       select(
         filter(event => event instanceof NavigationEnd),
+        startWith('anyValue'),
         map(_ => {
-          const [__, page, type, identifier] = this.router.routerState.snapshot.url.split('/');
-          return { page, type, identifier };
+          // This is a naive way to reduce scripting of router service :)
+          // Obviously the params ane not properly managed
+          const [type, identifier] = window.location.href.split('/').slice(-2);
+          return { type, identifier };
         }),
         selectSlice(['identifier', 'type'])
       )
@@ -96,72 +99,77 @@ export class StateService extends RxState<State> {
 
   constructor(private tmdb2Service: Tmdb2Service, private router: Router) {
     super();
-    this.connect('genres', this.actions.refreshGenres$.pipe(
-      /**
-       * **🚀 Perf Tip for TTI, TBT:**
-       *
-       * Avoid over fetching for HTTP get requests to URLs that will not change result quickly.
-       * E.G.: URLs with the same params
-       */
-      exhaustMap(() => this.tmdb2Service.getGenres()))
-    );
+  }
 
-    this.connect(
-      this.actions.fetchCategoryMovies$.pipe(
+  /**
+   * @TODO Add comment regards chunking
+   */
+  init = () => setTimeout(() => {
+      this.connect('genres', this.actions.refreshGenres$.pipe(
         /**
          * **🚀 Perf Tip for TTI, TBT:**
          *
          * Avoid over fetching for HTTP get requests to URLs that will not change result quickly.
+         * E.G.: URLs with the same params
          */
-        optimizedFetch(
-          (category) => 'category' + '-' + category,
-          (category) => this.tmdb2Service.getMovieCategory(category)
-            .pipe(
-              map(({ results }) => ({ categoryMovies: { [category]: results } } as State)),
-              withLoadingEmission('categoryMoviesContext', true, false)
-            )
-        )
-      ),
-      (oldState, newPartial) => {
-        let s = newPartial as unknown as State;
-        let resultState = patch(oldState, s);
-        resultState.categoryMovies = patch(oldState?.categoryMovies, resultState.categoryMovies);
-        return resultState;
-      }
-    );
+        exhaustMap(() => this.tmdb2Service.getGenres()))
+      );
 
-    this.connect(
-      this.actions.fetchGenreMovies$.pipe(
-        /**
-         * **🚀 Perf Tip for TTI, TBT:**
-         *
-         * Avoid over fetching for HTTP get requests to URLs that will not change result quickly.
-         */
-        optimizedFetch(
-          (genre) => 'genre' + '-' + genre,
-          (genre) => this.tmdb2Service.getMovieGenre(genre + '')
-            .pipe(
-              map(({ results }) => ({ genreMovies: { [genre]: results } } as State)),
-              withLoadingEmission('genreMoviesContext', true, false)
-            )
-        )
-      ),
-      (oldState, newPartial) => {
-        let s = newPartial as unknown as State;
-        let resultState = patch(oldState, s);
-        resultState.genreMovies = patch(oldState.genreMovies, resultState.genreMovies);
-        return resultState;
-      }
-    );
+      this.connect(
+        this.actions.fetchCategoryMovies$.pipe(
+          /**
+           * **🚀 Perf Tip for TTI, TBT:**
+           *
+           * Avoid over fetching for HTTP get requests to URLs that will not change result quickly.
+           */
+          optimizedFetch(
+            (category) => 'category' + '-' + category,
+            (category) => this.tmdb2Service.getMovieCategory(category)
+              .pipe(
+                map(({ results }) => ({ categoryMovies: { [category]: results } } as State)),
+                withLoadingEmission('categoryMoviesContext', true, false)
+              )
+          )
+        ),
+        (oldState, newPartial) => {
+          let s = newPartial as unknown as State;
+          let resultState = patch(oldState, s);
+          resultState.categoryMovies = patch(oldState?.categoryMovies, resultState.categoryMovies);
+          return resultState;
+        }
+      );
 
-    this.hold(this.routerParams$, this.routerFetchEffect);
-  }
+      this.connect(
+        this.actions.fetchGenreMovies$.pipe(
+          /**
+           * **🚀 Perf Tip for TTI, TBT:**
+           *
+           * Avoid over fetching for HTTP get requests to URLs that will not change result quickly.
+           */
+          optimizedFetch(
+            (genre) => 'genre' + '-' + genre,
+            (genre) => this.tmdb2Service.getMovieGenre(genre + '')
+              .pipe(
+                map(({ results }) => ({ genreMovies: { [genre]: results } } as State)),
+                withLoadingEmission('genreMoviesContext', true, false)
+              )
+          )
+        ),
+        (oldState, newPartial) => {
+          let s = newPartial as unknown as State;
+          let resultState = patch(oldState, s);
+          resultState.genreMovies = patch(oldState.genreMovies, resultState.genreMovies);
+          return resultState;
+        }
+      );
 
-  init(): void {
-    this.refreshGenres();
-    // movie lists are initialized over the route
-    // this.fetchCategoryMovies('popular');
-  }
+      this.hold(this.routerParams$, this.routerFetchEffect);
+
+      this.refreshGenres();
+      // movie lists are initialized over the route
+      // this.fetchCategoryMovies('popular');
+    })
+
 
   refreshGenres = this.actions.refreshGenres;
 

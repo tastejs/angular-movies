@@ -28,6 +28,17 @@ export class AppShellComponent {
     public authEffects: TmdbAuthEffects,
     private router: Router
   ) {
+
+    this.init();
+    /**
+     * **🚀 Perf Tip for TBT:**
+     *
+     * Disable initial sync navigation in router config and schedule it in router-outlet container component
+     */
+    setTimeout(() => this.router.navigate(['list/category/popular']));
+  }
+
+  init() {
     this.state.set({sideDrawerOpen: false});
     this.state.connect(
       'sideDrawerOpen',
@@ -44,13 +55,6 @@ export class AppShellComponent {
         map((e) => e.urlAfterRedirects.split('?')[0])
       )
     );
-
-    /**
-     * **🚀 Perf Tip for TBT:**
-     *
-     * Disable initial sync navigation in router config and schedule it in router-outlet container component
-     */
-    setTimeout(() => this.router.navigate(['list/category/popular']));
   }
 
   genres$ = this.globalState.genresNames$;

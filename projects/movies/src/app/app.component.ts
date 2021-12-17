@@ -4,7 +4,7 @@ import { ZonelessRouting } from './shared/zone-less/zone-less-routing.service';
 @Component({
   selector: 'app-root',
   template: `
-    <app-shell>
+    <app-shell *rxLet="[]">
       <router-outlet></router-outlet>
     </app-shell>
   `,
