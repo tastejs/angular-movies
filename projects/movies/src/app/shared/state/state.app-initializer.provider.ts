@@ -1,9 +1,11 @@
 import { APP_INITIALIZER } from '@angular/core';
 import { StateService } from './state.service';
+import { RouterEffectsService } from './router-effects.service';
 
-function initializeState(state: StateService) {
+function initializeState(state: StateService, effects: RouterEffectsService) {
   return (): void => {
     state.init();
+    effects.init();
   };
 }
 
@@ -17,7 +19,7 @@ export const GLOBAL_STATE_APP_INITIALIZER_PROVIDER = [
   {
     provide: APP_INITIALIZER,
     useFactory: initializeState,
-    deps: [StateService],
+    deps: [StateService, RouterEffectsService],
     multi: true
   }
 ];

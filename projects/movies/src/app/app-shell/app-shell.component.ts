@@ -8,6 +8,7 @@ import { MovieGenreModel } from '../data-access/model/movie-genre.model';
 import { trackByProp } from '../shared/utils/track-by';
 import { StateService } from '../shared/state/state.service';
 import { getActions } from '../shared/rxa-custom/actions';
+import { RouterStateService } from '../shared/state/router-state.service';
 
 @Component({
   selector: 'app-shell',
@@ -17,12 +18,15 @@ import { getActions } from '../shared/rxa-custom/actions';
   providers: [RxState]
 })
 export class AppShellComponent {
+
+  search$ = this.routerState.routerSearch$;
   constructor(
     private state: RxState<{
       activeRoute: string;
       loggedIn: boolean;
       sideDrawerOpen: boolean;
     }>,
+    public routerState: RouterStateService,
     public globalState: StateService,
     public authState: AuthStateService,
     public authEffects: TmdbAuthEffects,
@@ -68,8 +72,8 @@ export class AppShellComponent {
 
   searchMovie(term: string) {
     term === ''
-      ? this.router.navigate(['/movies/popular'])
-      : this.router.navigate(['/movies/search', { term }]);
+      ? this.router.navigate(['list/category/popular'])
+      : this.router.navigate([`list/search/${ term }`]);
   }
 
   onSignOut() {
@@ -81,7 +85,6 @@ export class AppShellComponent {
     event.preventDefault();
     event.stopPropagation();
     this.closeSidenav();
-    this.resetPagination();
     this.router.navigate([path, ...args], { queryParams });
   }
 
@@ -89,7 +92,4 @@ export class AppShellComponent {
     this.ui.sideDrawerOpenToggle(false);
   }
 
-  resetPagination() {
-    sessionStorage.setItem('hubmovies-current-page', '1');
-  }
 }

@@ -19,4 +19,4 @@ export class SearchIconComponent {}
   declarations: [SearchIconComponent],
   exports: [SearchIconComponent],
 })
-export class SearchIconComponentModule {}
+export class SearchIconModule {}

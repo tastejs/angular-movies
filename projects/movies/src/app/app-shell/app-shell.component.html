@@ -138,7 +138,7 @@
       >
       </app-hamburger-button>
       <div class="app-toolbar--widget-container">
-        <app-search-bar (search)="searchMovie($event)"></app-search-bar>
+        <app-search-bar [query]="search$" (searchSubmit)="searchMovie($event)"></app-search-bar>
         <app-dark-mode-toggle></app-dark-mode-toggle>
         <a
           *ngIf="!vs.loggedIn; else signOut"

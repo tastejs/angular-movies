@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HamburgerButtonModule } from '../ui/atoms/hamburger-button/hamburger-button.component';
-import { SearchBarComponentModule } from '../ui/atoms/search-bar/search-bar.component';
+import { SearchBarModule } from '../ui/atoms/search-bar/search-bar.module';
 import { SideDrawerComponentModule } from '../ui/atoms/side-drawer/side-drawer.component';
 import { AppShellComponent } from './app-shell.component';
 import { RouterModule } from '@angular/router';
@@ -17,7 +17,7 @@ import { RxForModule } from '../shared/rxa-custom/rx-for/rx-for.module';
     HamburgerButtonModule,
     LetModule,
     SideDrawerComponentModule,
-    SearchBarComponentModule,
+    SearchBarModule,
     DarkModeToggleModule,
     RxForModule,
   ],
