@@ -162,7 +162,7 @@ export class SearchBarComponent implements OnInit {
 
   @Input()
   set query(v: string | Observable<string>) {
-    this.state.connect('search', coerceObservable(v));
+    this.state.connect('search', coerceObservable(v) as Observable<string>);
   };
 
   search$ = this.state.select('search');
