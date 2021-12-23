@@ -22,7 +22,7 @@
           <ng-container title>{{ vs.movie.title }}</ng-container>
           <ng-container subtitle>{{ vs.movie.tagline }}</ng-container>
         </ds-header>
-        <ds-section>
+        <section ds-section>
           <div class="movie-detail--basic-infos" sectionContent>
             <app-star-rating
               [rating]="vs.movie?.vote_average"
@@ -32,8 +32,8 @@
               {{ vs.movie?.languages_runtime_release }}
             </div>
           </div>
-        </ds-section>
-        <ds-section>
+        </section>
+        <section ds-section>
           <ng-container sectionTitle>The Genres</ng-container>
           <div class="movie-detail--genres" sectionContent>
             <a
@@ -55,14 +55,14 @@
               {{ genre.name }}
             </a>
           </div>
-        </ds-section>
-        <ds-section>
+        </section>
+        <section ds-section>
           <ng-container sectionTitle>The Synopsis</ng-container>
           <p sectionContent>
             {{ vs.movie?.overview || 'There is no synopsis available...' }}
           </p>
-        </ds-section>
-        <ds-section>
+        </section>
+        <section ds-section>
           <ng-container sectionTitle>The Cast</ng-container>
           <div class="movie-detail--cast-list" sectionContent>
             <a
@@ -83,8 +83,8 @@
               />
             </a>
           </div>
-        </ds-section>
-        <ds-section>
+        </section>
+        <section ds-section>
           <div class="movie-detail--ad-section-links" sectionContent>
             <a
               class="btn"
@@ -116,7 +116,7 @@
               </svg>
             </a>
           </div>
-        </ds-section>
+        </section>
       </div>
     </ds-detail-grid>
   </ng-container>

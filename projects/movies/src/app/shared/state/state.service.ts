@@ -99,6 +99,10 @@ export class StateService extends RxState<State> {
 
   constructor(private tmdb2Service: Tmdb2Service, private router: Router) {
     super();
+    this.set({
+      categoryMovies: {},
+      genreMovies: {}
+    })
   }
 
   /**

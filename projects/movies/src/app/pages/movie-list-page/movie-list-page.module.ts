@@ -6,9 +6,7 @@ import { MovieListModule } from '../../ui/components/movie-list/movie-list.modul
 import { LetModule } from '@rx-angular/template/let';
 import { LoaderComponentModule } from '../../ui/atoms/loader/loader.component';
 import { ContainerModule } from '../../ui/atoms/container/container.module';
-import { HeaderModule } from '../../ui/components/header/header.module';
-import { TitleModule } from '../../ui/atoms/title/title.module';
-import { SubtitleModule } from '../../ui/atoms/subtitle/subtitle.module';
+import { HeaderModule } from '../../ui/atoms/header/header.module';
 
 const ROUTES: Routes = [
   {
@@ -27,8 +25,6 @@ const ROUTES: Routes = [
     LoaderComponentModule,
     ContainerModule,
     HeaderModule,
-    TitleModule,
-    SubtitleModule
   ],
   exports: [MovieListPageComponent]
 })

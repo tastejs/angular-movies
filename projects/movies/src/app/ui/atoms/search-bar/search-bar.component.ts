@@ -8,7 +8,7 @@ import {
   Output,
   ViewChild
 } from '@angular/core';
-import { fromEvent, map, Observable, withLatestFrom } from 'rxjs';
+import { filter, fromEvent, map, mapTo, merge, Observable, startWith, switchMap, tap, withLatestFrom } from 'rxjs';
 import { getActions } from '../../../shared/rxa-custom/actions';
 import { RxState } from '@rx-angular/state';
 import { coerceObservable } from '@rx-angular/cdk';
@@ -106,7 +106,7 @@ import { coerceObservable } from '@rx-angular/cdk';
 
       :host.opened .input {
         margin-left: 1rem;
-        cursor: pointer;
+        //cursor: pointer;
       }
 
       @media only screen and (max-width: 1300px) {
@@ -162,7 +162,7 @@ export class SearchBarComponent implements OnInit {
 
   @Input()
   set query(v: string | Observable<string>) {
-    this.state.connect('search', coerceObservable(v));
+    this.state.connect('search', coerceObservable(v) as Observable<string>);
   };
 
   search$ = this.state.select('search');
@@ -171,42 +171,54 @@ export class SearchBarComponent implements OnInit {
     map(([_, search]) => search)
   );
 
+  private get outsideClick() {
+    return fromEvent(this.document, 'click').pipe(
+      filter(e => !this.formRef.nativeElement.contains(e.target as any))
+    )
+  }
+
 
   private readonly nativeElement: HTMLElement = this.elementRef.nativeElement;
   constructor(
-    private state: RxState<{search: string}>,
+    private state: RxState<{search: string, open: boolean}>,
     @Inject(ElementRef) private elementRef: ElementRef,
     @Inject(DOCUMENT) private document: Document
   ) {
-    this.state.connect('search', this.ui.searchChange$)
+    this.state.connect('search', this.ui.searchChange$.pipe(
+      startWith('')
+    ))
   }
 
   ngOnInit() {
-    this.state.hold(fromEvent(this.document, 'click'), this.onOutsideFormClick);
-    this.state.hold(this.ui.formClick$, this.onFormClick);
-    this.state.hold(this.ui.formSubmit$, this.onFormSubmit);
+    let opened = false;
+    this.state.hold(
+      merge(
+        this.ui.formClick$.pipe(
+          filter(() => !opened),
+          switchMap(() => this.outsideClick.pipe(
+            mapTo(false),
+            startWith(true)
+          ))
+        ),
+        this.ui.formSubmit$.pipe(
+          tap(e => e.preventDefault()),
+          mapTo(false)
+        )
+      ),
+      open => {
+        if (open) {
+          this.input.focus();
+        }
+        this.setOpened(open);
+        opened = open;
+      }
+    )
   }
 
-  setOpened(opened: boolean) {
+  private setOpened(opened: boolean) {
     opened
       ? this.nativeElement.classList.add('opened')
       : this.nativeElement.classList.remove('opened');
-  }
-
-  onFormClick() {
-    this.setOpened(true);
-    this.input.focus();
-  }
-
-  onOutsideFormClick(e: Event) {
-    if (!this.formRef.nativeElement.contains(e.target as any)) {
-      this.setOpened(false);
-    }
-  }
-
-  onFormSubmit(event: Event) {
-    event.preventDefault();
-    this.setOpened(false);
   }
 
 }

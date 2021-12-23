@@ -3,20 +3,15 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 @Component({
   selector: 'ds-header',
   template: `
-    <div class="header">
-      <h1 class="title"><ng-content select="[title]"></ng-content></h1>
-      <h2 class="subtitle">
-        <ng-content select="[subtitle]"></ng-content>
-      </h2>
-    </div>
+    <h1 class="title"><ng-content select="[title]"></ng-content></h1>
+    <h2 class="subtitle">
+      <ng-content select="[subtitle]"></ng-content>
+    </h2>
   `,
   styles: [
       `
       :host {
-        display: contents;
-      }
-
-      .header {
+        display: block;
         margin-bottom: 2rem;
       }
 
