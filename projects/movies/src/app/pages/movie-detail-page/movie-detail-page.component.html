@@ -22,8 +22,8 @@
           <ng-container title>{{ vs.movie.title }}</ng-container>
           <ng-container subtitle>{{ vs.movie.tagline }}</ng-container>
         </ds-header>
-        <section ds-section>
-          <div class="movie-detail--basic-infos" sectionContent>
+        <section ds-section class="movie-detail--basic-infos">
+          <ng-container sectionContent>
             <app-star-rating
               [rating]="vs.movie?.vote_average"
               [showRating]="true"
@@ -31,11 +31,11 @@
             <div class="movie-detail--languages-runtime-release">
               {{ vs.movie?.languages_runtime_release }}
             </div>
-          </div>
+          </ng-container>
         </section>
-        <section ds-section>
+        <section ds-section class="movie-detail--genres">
           <ng-container sectionTitle>The Genres</ng-container>
-          <div class="movie-detail--genres" sectionContent>
+          <ng-container sectionContent>
             <a
               class="movie-detail--genres-link"
               *ngFor="
@@ -54,7 +54,7 @@
               </svg>
               {{ genre.name }}
             </a>
-          </div>
+          </ng-container>
         </section>
         <section ds-section>
           <ng-container sectionTitle>The Synopsis</ng-container>
@@ -62,9 +62,9 @@
             {{ vs.movie?.overview || 'There is no synopsis available...' }}
           </p>
         </section>
-        <section ds-section>
+        <section ds-section class="movie-detail--cast-list">
           <ng-container sectionTitle>The Cast</ng-container>
-          <div class="movie-detail--cast-list" sectionContent>
+          <ng-container sectionContent>
             <a
               *ngFor="let c of vs.cast; trackBy: trackByCast"
               href="#"
@@ -82,10 +82,10 @@
                 [title]="c.name"
               />
             </a>
-          </div>
+          </ng-container>
         </section>
-        <section ds-section>
-          <div class="movie-detail--ad-section-links" sectionContent>
+        <section ds-section class="movie-detail--ad-section-links">
+          <ng-container sectionContent>
             <a
               class="btn"
               target="_blank"
@@ -115,7 +115,7 @@
                 />
               </svg>
             </a>
-          </div>
+          </ng-container>
         </section>
       </div>
     </ds-detail-grid>

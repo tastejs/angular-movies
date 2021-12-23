@@ -22,10 +22,11 @@
   }
 
   &--genres {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-
+    ::ng-deep .section--content {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+    }
     &-link {
       &:not(:last-child) {
         margin-right: 2rem;
@@ -42,8 +43,10 @@
   }
 
   &--ad-section-links {
-    display: flex;
-    margin-right: auto;
+    ::ng-deep .section--content {
+      display: flex;
+      margin-right: auto;
+    }
 
     > :not(:last-child) {
       margin-right: 2rem;
@@ -52,12 +55,22 @@
       }
     }
   }
-}
 
-.movie-detail--basic-infos {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  &--basic-infos {
+    ::ng-deep .section--content {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+  }
+  &--cast-list {
+    ::ng-deep .section--content {
+      display: flex;
+      flex-direction: row;
+      overflow-x: scroll;
+      margin: 0 20px;
+    }
+  }
 }
 
 .movie-detail--languages-runtime-release {
@@ -70,13 +83,6 @@
 
 .movie-detail--section {
   margin-bottom: 3rem;
-}
-
-.movie-detail--cast-list {
-  display: flex;
-  flex-direction: row;
-  overflow-x: scroll;
-  margin: 0 20px;
 }
 
 .movie-detail--cast-actor {
