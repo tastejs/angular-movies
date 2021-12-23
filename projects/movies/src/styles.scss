@@ -5,8 +5,13 @@
  * This reduces bundle-size of your styles.
  */
 @import 'styles/normalize';
-@import 'styles/palette';
-@import 'styles/typography';
+@import "app/ui/tokens/colors";
+@import "app/ui/tokens/zIndex";
+@import "app/ui/tokens/animations";
+@import "app/ui/tokens/media";
+@import "app/ui/tokens/borderRadius";
+@import "app/ui/tokens/shadow";
+@import 'app/ui/tokens/typography';
 
 body {
   color: var(--palette-text-primary);
@@ -22,8 +27,4 @@ body.dark img:not([src*='.svg']) {
   filter: var(--image-filter);
 }
 
-a {
-  cursor: pointer;
-  text-decoration: none;
-  color: var(--palette-secondary-main);
-}
+

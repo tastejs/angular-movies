@@ -1,14 +1,11 @@
-@import '../../../styles/components/padding-wrapper';
-@import '../../../styles/components/gradient';
-@import '../../../styles/components/button';
-@import '../../../styles/components/icon';
-@import '../../../styles/components/tooltip';
-
+@import '../../ui/atoms/button/button';
+@import '../../ui/atoms/icons/icon';
 
 :host {
   width: 100%;
   display: block;
 }
+
 .movie-poster {
   object-fit: cover;
   display: block;
@@ -17,89 +14,41 @@
 }
 
 .movie-detail {
-  &--title {
-    font-size: 3.75rem;
-  }
 
-  &--subtitle {
-    font-size: 1.5rem;
-    line-height: 1.5;
-  }
-
-  &--grid-item {
-    padding: 4rem;
-  }
   @media only screen and (max-width: 1500px) {
     &--grid-item {
       padding: 3rem;
     }
   }
 
-  &--grid {
-    display: grid;
-    grid-template-columns: 40% 60%;
-
-    @media only screen and (max-width: 900px) {
-      display: block;
-      grid-template-columns: unset;
-      margin-bottom: 5rem;
-    }
-    @media only screen and (max-width: 1500px) {
-      max-width: 105rem;
-    }
-
-    @media only screen and (max-width: 1462.5px) {
-      max-width: 110rem;
-      margin-bottom: 6rem;
-    }
-
-    @media only screen and (max-width: 1300px) {
-      max-width: 110rem;
-      margin-bottom: 5rem;
-      &--grid-item {
-        padding: 2rem;
-      }
-    }
-
-    max-width: 120rem;
-    margin: 0 auto 7rem;
-  }
-  &--summary {
-    display: flex;
-    flex-direction: column;
-  }
   &--genres {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
+
     &-link {
       &:not(:last-child) {
         margin-right: 2rem;
       }
+
       display: flex;
       align-items: center;
       padding: 0.5rem 0;
-      color: var(--palette-secondary-main);
       line-height: 1;
       font-size: 1.25rem;
       font-weight: 700;
       text-transform: uppercase;
     }
   }
-  &--cast {
-    margin-bottom: 5rem;
-  }
-  &--ad-section {
+
+  &--ad-section-links {
     display: flex;
-    align-items: center;
-    &-links {
-      display: flex;
-      margin-right: auto;
-      > :not(:last-child) {
-        margin-right: 2rem;
-        @media only screen and (max-width: 1300px) {
-          margin-right: 1rem;
-        }
+    margin-right: auto;
+
+    > :not(:last-child) {
+      margin-right: 2rem;
+      @media only screen and (max-width: 1300px) {
+        margin-right: 1rem;
       }
     }
   }
@@ -109,7 +58,6 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 5rem;
 }
 
 .movie-detail--languages-runtime-release {
@@ -122,21 +70,6 @@
 
 .movie-detail--section {
   margin-bottom: 3rem;
-}
-.section-heading {
-  margin-bottom: 1rem;
-  color: var(--palette-text-primary);
-  font-size: 1.5rem;
-  font-weight: 700;
-  text-transform: uppercase;
-}
-
-.section-text {
-  color: var(--palette-text-secondary);
-  font-size: 1.5rem;
-  font-weight: 500;
-  line-height: 1.8;
-  text-align: justify;
 }
 
 .movie-detail--cast-list {
@@ -151,6 +84,7 @@
   width: 70px;
   display: block;
   flex-shrink: 0;
+
   img {
     width: 44px;
     height: 44px;

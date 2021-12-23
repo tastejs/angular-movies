@@ -1,13 +1,11 @@
-<div class="padding-wrapper">
-  <ng-container *rxLet="loading$; let loading; strategy: 'instantUserBlocking'">
-    <app-movie-list *ngIf="!loading; else loadingTpl" [movies]="movies$" data-test="list-wrapper">
-      <div class="header" *rxLet="title$; let title">
-        <h1 class="title" data-test="header-list">{{ title || '' }}</h1>
-        <p class="subtitle">movies</p>
-      </div>
-    </app-movie-list>
-  </ng-container>
+<ds-container *rxLet="loading$; let loading; strategy: 'instantUserBlocking'">
+  <ds-header *rxLet="title$; let title">
+    <ng-container title>{{ title }}</ng-container>
+    <ng-container subtitle>Movies</ng-container>
+  </ds-header>
+  <app-movie-list *ngIf="!loading; else loadingTpl" [movies]="movies$" data-test="list-wrapper">
+  </app-movie-list>
   <ng-template #loadingTpl>
     <app-loader data-test="list-loader"></app-loader>
   </ng-template>
-</div>
+</ds-container>

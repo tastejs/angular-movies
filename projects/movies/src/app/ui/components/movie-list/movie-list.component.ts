@@ -11,7 +11,6 @@ type Movie = MovieModel & ImageTag;
 @Component({
   selector: 'app-movie-list',
   template: `
-    <ng-content select='.header'></ng-content>
     <ng-container
       *rxLet="hasMovies$; let hasMovies;"
     >

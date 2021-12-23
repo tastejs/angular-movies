@@ -1,7 +1,7 @@
-<div class="movie-detail--grid" *rxLet="detailState$; let vs">
+<ng-container *rxLet="detailState$; let vs">
   <ng-container *ngIf="!vs.loading; else loading">
-    <div class="movie-detail--grid-item gradient">
-      <app-aspect-ratio-box [aspectRatio]="W780H1170.WIDTH / W780H1170.HEIGHT">
+    <ds-detail-grid>
+      <app-aspect-ratio-box detailGridMedia [aspectRatio]="W780H1170.WIDTH / W780H1170.HEIGHT">
         <img
           class="movie-poster"
           [src]="
@@ -17,25 +17,25 @@
           data-test="detail-item-img"
         />
       </app-aspect-ratio-box>
-    </div>
-    <div class="movie-detail--grid-item">
-      <div class="movie-detail--summary">
-        <div class="header">
-          <h1 class="movie-detail--title">{{ vs.movie?.title }}</h1>
-          <h2 class="movie-detail--subtitle">{{ vs.movie?.tagline }}</h2>
-        </div>
-        <div class="movie-detail--basic-infos">
-          <app-star-rating
-            [rating]="vs.movie?.vote_average"
-            [showRating]="true"
-          ></app-star-rating>
-          <div class="movie-detail--languages-runtime-release">
-            {{ vs.movie?.languages_runtime_release }}
+      <div detailGridDescription class="movie-detail--summary">
+        <ds-header>
+          <ng-container title>{{ vs.movie.title }}</ng-container>
+          <ng-container subtitle>{{ vs.movie.tagline }}</ng-container>
+        </ds-header>
+        <ds-section>
+          <div class="movie-detail--basic-infos" sectionContent>
+            <app-star-rating
+              [rating]="vs.movie?.vote_average"
+              [showRating]="true"
+            ></app-star-rating>
+            <div class="movie-detail--languages-runtime-release">
+              {{ vs.movie?.languages_runtime_release }}
+            </div>
           </div>
-        </div>
-        <div class="movie-detail--section">
-          <h3 class="section-heading">The Genres</h3>
-          <div class="movie-detail--genres">
+        </ds-section>
+        <ds-section>
+          <ng-container sectionTitle>The Genres</ng-container>
+          <div class="movie-detail--genres" sectionContent>
             <a
               class="movie-detail--genres-link"
               *ngFor="
@@ -55,16 +55,16 @@
               {{ genre.name }}
             </a>
           </div>
-        </div>
-        <div class="movie-detail--section">
-          <h3 class="section-heading">The Synopsis</h3>
-          <p class="section-text">
+        </ds-section>
+        <ds-section>
+          <ng-container sectionTitle>The Synopsis</ng-container>
+          <p sectionContent>
             {{ vs.movie?.overview || 'There is no synopsis available...' }}
           </p>
-        </div>
-        <div class="movie-detail--cast">
-          <h3 class="section-heading">The Cast</h3>
-          <div class="movie-detail--cast-list">
+        </ds-section>
+        <ds-section>
+          <ng-container sectionTitle>The Cast</ng-container>
+          <div class="movie-detail--cast-list" sectionContent>
             <a
               *ngFor="let c of vs.cast; trackBy: trackByCast"
               href="#"
@@ -83,9 +83,9 @@
               />
             </a>
           </div>
-        </div>
-        <div class="movie-detail--ad-section">
-          <div class="movie-detail--ad-section-links">
+        </ds-section>
+        <ds-section>
+          <div class="movie-detail--ad-section-links" sectionContent>
             <a
               class="btn"
               target="_blank"
@@ -116,22 +116,19 @@
               </svg>
             </a>
           </div>
-        </div>
+        </ds-section>
       </div>
-    </div>
+    </ds-detail-grid>
   </ng-container>
   <ng-template #loading>
     <app-loader></app-loader>
   </ng-template>
-</div>
-<div
-  class="padding-wrapper movie-detail--recommended"
-  *rxLet="recommendedLoading$; let loading"
->
+</ng-container>
+<ds-container *rxLet="recommendedLoading$; let loading">
+  <ds-header>
+    <ng-container title>Recommended</ng-container>
+    <ng-container subtitle>Movies</ng-container>
+  </ds-header>
   <app-movie-list *ngIf="!loading" [movies]="recommendations$">
-    <div class="header">
-      <h1 class="title">Recommended</h1>
-      <h2 class="subtitle">Movies</h2>
-    </div>
   </app-movie-list>
-</div>
+</ds-container>

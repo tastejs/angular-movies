@@ -1,0 +1,48 @@
+@import '../../tokens/gradient';
+
+:host {
+  display: contents;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 40% 60%;
+
+  &--item {
+    padding: 4rem;
+  }
+
+  .media {
+    img {
+      object-fit: cover;
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  @media only screen and (max-width: 900px) {
+    display: block;
+    grid-template-columns: unset;
+    margin-bottom: 5rem;
+  }
+  @media only screen and (max-width: 1500px) {
+    max-width: 105rem;
+  }
+
+  @media only screen and (max-width: 1462.5px) {
+    max-width: 110rem;
+    margin-bottom: 6rem;
+  }
+
+  @media only screen and (max-width: 1300px) {
+    max-width: 110rem;
+    margin-bottom: 5rem;
+    &--item {
+      padding: 2rem;
+    }
+  }
+
+  max-width: 120rem;
+  margin: 0 auto 7rem;
+}

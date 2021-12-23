@@ -3,26 +3,24 @@ import {
   ChangeDetectionStrategy,
   Component,
   ElementRef,
-  Inject,
-  NgModule,
-  OnDestroy,
+  Inject, Input,
   OnInit,
   Output,
-  ViewChild,
+  ViewChild
 } from '@angular/core';
-import { fromEvent, takeUntil } from 'rxjs';
-
-import { SearchIconComponentModule } from '../icons/search/search-icon.component';
+import { fromEvent, map, Observable, withLatestFrom } from 'rxjs';
 import { getActions } from '../../../shared/rxa-custom/actions';
+import { RxState } from '@rx-angular/state';
+import { coerceObservable } from '@rx-angular/cdk';
 
 @Component({
   selector: 'app-search-bar',
   template: `
     <form
-      (submit)="onFormSubmit($event)"
+      (submit)="ui.formSubmit($event)"
       #form
       class="form"
-      (click)="onFormClick()"
+      (click)="ui.formClick($event)"
     >
       <button
         type="submit"
@@ -31,10 +29,10 @@ import { getActions } from '../../../shared/rxa-custom/actions';
       >
         <app-search-icon></app-search-icon>
       </button>
-      <input
+      <input *rxLet="search$; let search"
         aria-label="Search Input"
-        #searchInput
-        (change)="onInputChange(searchInput.value)"
+        #searchInput [value]="search"
+        (change)="ui.searchChange(searchInput.value)"
         placeholder="Search for a movie..."
         class="input"
       />
@@ -146,38 +144,47 @@ import { getActions } from '../../../shared/rxa-custom/actions';
     `,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [RxState]
 })
-export class SearchBarComponent implements OnInit, OnDestroy {
+export class SearchBarComponent implements OnInit {
   @ViewChild('searchInput') inputRef!: ElementRef<HTMLInputElement>;
   @ViewChild('form') formRef!: ElementRef<HTMLFormElement>;
   get input() {
     return this.inputRef.nativeElement;
   }
 
-  ui = getActions<{search: string, destroy: void}>({search: (value) => value || ''})
+  ui = getActions<{
+    searchChange: string,
+    formClick: any,
+    outsideFormClick: any,
+    formSubmit: any
+  }>({searchChange: (value) => value || ''})
 
-  @Output() search = this.ui.search$;
+  @Input()
+  set query(v: string | Observable<string>) {
+    this.state.connect('search', coerceObservable(v));
+  };
 
-  private searchTerm = '';
+  search$ = this.state.select('search');
+  @Output() searchSubmit = this.ui.formSubmit$.pipe(
+    withLatestFrom(this.state.select('search')),
+    map(([_, search]) => search)
+  );
+
 
   private readonly nativeElement: HTMLElement = this.elementRef.nativeElement;
   constructor(
+    private state: RxState<{search: string}>,
     @Inject(ElementRef) private elementRef: ElementRef,
     @Inject(DOCUMENT) private document: Document
-  ) {}
-
-  ngOnInit() {
-    fromEvent(this.document, 'click')
-      .pipe(takeUntil(this.ui.destroy$))
-      .subscribe((e) => {
-        if (!this.formRef.nativeElement.contains(e.target as any)) {
-          this.setOpened(false);
-        }
-      });
+  ) {
+    this.state.connect('search', this.ui.searchChange$)
   }
 
-  ngOnDestroy() {
-    this.ui.destroy();
+  ngOnInit() {
+    this.state.hold(fromEvent(this.document, 'click'), this.onOutsideFormClick);
+    this.state.hold(this.ui.formClick$, this.onFormClick);
+    this.state.hold(this.ui.formSubmit$, this.onFormSubmit);
   }
 
   setOpened(opened: boolean) {
@@ -191,24 +198,15 @@ export class SearchBarComponent implements OnInit, OnDestroy {
     this.input.focus();
   }
 
+  onOutsideFormClick(e: Event) {
+    if (!this.formRef.nativeElement.contains(e.target as any)) {
+      this.setOpened(false);
+    }
+  }
+
   onFormSubmit(event: Event) {
     event.preventDefault();
-    if (this.searchTerm.length === 0) {
-      return;
-    }
     this.setOpened(false);
-    this.ui.search(this.searchTerm);
-    this.input.value = '';
   }
 
-  onInputChange(value: string) {
-    this.searchTerm = value;
-  }
 }
-
-@NgModule({
-  declarations: [SearchBarComponent],
-  exports: [SearchBarComponent],
-  imports: [SearchIconComponentModule],
-})
-export class SearchBarComponentModule {}

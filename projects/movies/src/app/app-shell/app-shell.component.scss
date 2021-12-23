@@ -1,5 +1,5 @@
-@import '../../styles/mixins';
-@import '../../styles/components/icon';
+@import '../ui/tokens/mixins';
+@import '../ui/atoms/icons/icon';
 
 .app-toolbar {
   height: 72px;
@@ -126,16 +126,15 @@ app-side-drawer {
   flex-direction: column;
   flex: 1;
   overflow: auto;
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1;
 
-  &--link {
+  a {
     outline: none;
     display: block;
     margin-bottom: 0.5rem;
-    font-size: 1.5rem;
-    font-weight: 700;
-    line-height: 1;
     color: var(--palette-primary-dark);
-
     &.active,
     &:active {
       color: var(--palette-secondary-main);
@@ -144,12 +143,14 @@ app-side-drawer {
       text-decoration: underline;
     }
   }
+
   &--menu-item {
     display: flex;
     -webkit-box-align: center;
     align-items: center;
     padding: 1rem 2rem;
   }
+
   &--menu-item-icon {
     margin-right: 5px;
     width: 0.875em;
