@@ -45,9 +45,9 @@ interface Actions {
   providedIn: 'root'
 })
 export class StateService extends RxState<State> {
-  actions = getActions<Actions>();
+  readonly actions = getActions<Actions>();
 
-  private routerParams$: Observable<RouterParams> = this.router.events
+  private readonly routerParams$: Observable<RouterParams> = this.router.events
     .pipe(
       select(
         filter(event => event instanceof NavigationEnd),
@@ -61,11 +61,11 @@ export class StateService extends RxState<State> {
         selectSlice(['identifier', 'type'])
       )
     ) as unknown as Observable<RouterParams>;
-  routerGenre$ = this.routerParams$.pipe(getIdentifierOfType('genre'));
-  routerCategory$ = this.routerParams$.pipe(getIdentifierOfType('category'));
+  readonly routerGenre$ = this.routerParams$.pipe(getIdentifierOfType('genre'));
+  readonly routerCategory$ = this.routerParams$.pipe(getIdentifierOfType('category'));
 
-  genresNames$ = this.select('genres');
-  genreMovieList$ = this.select(
+  readonly genresNames$ = this.select('genres');
+  readonly genreMovieList$ = this.select(
     selectSlice(['genres', 'genreMovies', 'genreMoviesContext']),
     withLatestFrom(this.routerGenre$),
     map(([{ genres, genreMovies, genreMoviesContext }, genreParam]) => {
@@ -80,7 +80,7 @@ export class StateService extends RxState<State> {
     })
   );
 
-  categoryMovieList$: Observable<MovieList> = this.select(
+  readonly categoryMovieList$: Observable<MovieList> = this.select(
     selectSlice(['categoryMovies', 'categoryMoviesContext']),
     withLatestFrom(this.routerCategory$),
     map(([{ categoryMovies, categoryMoviesContext }, listName]) => {

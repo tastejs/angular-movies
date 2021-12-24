@@ -55,12 +55,11 @@ export class StarRatingComponent {
   private _rating = 5;
   @Input()
   set rating(rating: number | undefined) {
-    this._rating = coerceNumberProperty(rating);
+    this._rating = coerceNumberProperty(rating, 0);
 
     this.setToolTopText(this.rating);
 
-    const scaledRating =
-      coerceNumberProperty(rating, 0) / (this.range / this.numStars);
+    const scaledRating =  this._rating / (this.range / this.numStars);
     const full = Math.floor(scaledRating);
     const half = scaledRating % 1 > 0 ? 1 : 0;
     const empty = this.numStars - full - half;
@@ -73,7 +72,7 @@ export class StarRatingComponent {
     return this._rating;
   }
 
-  setToolTopText(rating: number) {
+  private setToolTopText(rating: number) {
     this.tooltipText = `${rating} average rating`;
   }
 }

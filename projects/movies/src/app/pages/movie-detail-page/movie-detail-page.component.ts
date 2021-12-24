@@ -28,7 +28,7 @@ interface MovieDetailPageModel {
   providers: [RxState]
 })
 export class MovieDetailPageComponent {
-  W780H1170 = W780H1170;
+  readonly W780H1170 = W780H1170;
   readonly detailState$ = this.state.select(
     selectSlice(['loading', 'movie', 'cast'])
   );

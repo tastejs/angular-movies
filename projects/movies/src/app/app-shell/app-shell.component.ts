@@ -18,7 +18,7 @@ import { getActions } from '../shared/rxa-custom/actions';
 })
 export class AppShellComponent {
   constructor(
-    private state: RxState<{
+    private readonly state: RxState<{
       activeRoute: string;
       loggedIn: boolean;
       sideDrawerOpen: boolean;
@@ -57,13 +57,13 @@ export class AppShellComponent {
     );
   }
 
-  genres$ = this.globalState.genresNames$;
+  readonly genres$ = this.globalState.genresNames$;
   @ViewChild('snav') snav: any;
 
   readonly viewState$ = this.state.select();
   readonly ui = getActions<{sideDrawerOpenToggle: boolean}>();
 
-  trackByGenre: TrackByFunction<MovieGenreModel> =
+  readonly trackByGenre: TrackByFunction<MovieGenreModel> =
     trackByProp<MovieGenreModel>('name');
 
   searchMovie(term: string) {

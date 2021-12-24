@@ -15,41 +15,41 @@ export class Tmdb2Service {
   constructor(private http: HttpClient) {
   }
 
-  private apiVersion = environment.tmdbApiVersion;
-  private apiNewVersion = environment.tmdbApiNewVersion;
-  private baseUrl = [environment.tmdbBaseUrl, this.apiVersion].join('/');
+  private readonly apiVersion = environment.tmdbApiVersion;
+  private readonly apiNewVersion = environment.tmdbApiNewVersion;
+  private readonly baseUrl = [environment.tmdbBaseUrl, this.apiVersion].join('/');
 
-  private URL_REQUEST_TOKEN = [
+  private readonly URL_REQUEST_TOKEN = [
     environment.tmdbBaseUrl,
     this.apiNewVersion,
     'auth',
     'request_token'
   ].join('/');
-  private URL_ACCESS_TOKEN = [
+  private readonly URL_ACCESS_TOKEN = [
     environment.tmdbBaseUrl,
     this.apiNewVersion,
     'auth',
     'access_token'
   ].join('/');
-  private URL_LISTS = [
+  private readonly URL_LISTS = [
     environment.tmdbBaseUrl,
     this.apiNewVersion,
     'list'
   ].join('/');
-  private URL_CONFIGURATION = [this.baseUrl, 'configuration'].join('/');
-  private URL_SEARCH = [this.baseUrl, 'search', 'movie'].join('/');
-  private URL_PERSON = [this.baseUrl, 'person'].join('/');
-  private URL_GENRE_MOVIE_LIST = [this.baseUrl, 'genre', 'movie', 'list'].join(
+  private readonly URL_CONFIGURATION = [this.baseUrl, 'configuration'].join('/');
+  private readonly URL_SEARCH = [this.baseUrl, 'search', 'movie'].join('/');
+  private readonly URL_PERSON = [this.baseUrl, 'person'].join('/');
+  private readonly URL_GENRE_MOVIE_LIST = [this.baseUrl, 'genre', 'movie', 'list'].join(
     '/'
   );
-  private URL_MOVIE_GENRE = `${this.baseUrl}/discover/movie`;
-  private URL_MOVIE = (id: string) =>
+  private readonly URL_MOVIE_GENRE = `${this.baseUrl}/discover/movie`;
+  private readonly URL_MOVIE = (id: string) =>
     `${[this.baseUrl, 'movie', id].join('/')}?append_to_response=videos`;
-  private URL_MOVIE_RECOMMENDATIONS = (id: string) =>
+  private readonly URL_MOVIE_RECOMMENDATIONS = (id: string) =>
     [this.baseUrl, 'movie', id, 'recommendations'].join('/');
-  private URL_MOVIE_CREDITS = (id: string) =>
+  private readonly URL_MOVIE_CREDITS = (id: string) =>
     [this.baseUrl, 'movie', id, 'credits'].join('/');
-  private URL_MOVIE_CATEGORY = (category: string) =>
+  private readonly URL_MOVIE_CATEGORY = (category: string) =>
     [this.baseUrl, 'movie', category].join('/');
 
   createRequestToken(redirectTo: string): Observable<any> {
