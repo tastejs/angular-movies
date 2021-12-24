@@ -22,8 +22,8 @@ type Movie = MovieModel & ImageTag;
           (click)='$event.preventDefault(); navigateToMovie(movie)'
           [attr.data-test]="'list-item-idx-'+idx"
         >
-          <div class='movies-list--grid-item-image gradient'>
-            <app-aspect-ratio-box [aspectRatio]='movie.imgWidth / movie.imgHeight'>
+          <div class='gradient'>
+            <app-aspect-ratio-box [aspectRatio]='movie.imgRatio'>
               <!--
               **🚀 Perf Tip for LCP:**
               To get out the best performance use the native HTML attribute loading="lazy" instead of a directive.
@@ -81,7 +81,8 @@ export class MovieListComponent {
           ...m,
           url: `https://image.tmdb.org/t/p/w${W300H450.WIDTH}/${m.poster_path}`,
           imgWidth: W300H450.WIDTH,
-          imgHeight: W300H450.HEIGHT
+          imgHeight: W300H450.HEIGHT,
+          imgRatio: W300H450.WIDTH/W300H450.HEIGHT,
         })) as Movie[]
     )
   );

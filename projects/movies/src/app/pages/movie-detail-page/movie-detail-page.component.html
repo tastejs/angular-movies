@@ -1,17 +1,17 @@
 <article *rxLet="detailState$; let vs">
   <ng-container *ngIf="!vs.loading; else loading">
     <ds-detail-grid>
-      <app-aspect-ratio-box detailGridMedia [aspectRatio]="W780H1170.WIDTH / W780H1170.HEIGHT">
+      <app-aspect-ratio-box detailGridMedia [aspectRatio]="vs.movie.imgRatio">
         <img
-          class="cover"
+          class="fit-cover"
           [src]="
             'https://image.tmdb.org/t/p/w' +
-            W780H1170.WIDTH +
+            vs.movie.imgWidth +
             '/' +
             vs.movie?.poster_path
           "
-          [width]="W780H1170.WIDTH"
-          [height]="W780H1170.HEIGHT"
+          [width]="vs.movie.imgWidth"
+          [height]="vs.movie.imgHeight"
           alt="poster movie"
           [title]="vs.movie?.title"
           data-test="detail-item-img"

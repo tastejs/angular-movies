@@ -115,6 +115,7 @@ function transformToMovieDetail(res: any): MovieDetail {
   res.url = `https://image.tmdb.org/t/p/w${W780H1170.WIDTH}/${res.poster_path}`;
   res.imgWidth = W780H1170.WIDTH;
   res.imgHeight = W780H1170.HEIGHT;
+  res.imgRatio = res.imgWidth / res.imgHeight;
 
   return res as MovieDetail;
 }

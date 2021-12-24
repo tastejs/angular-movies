@@ -21,40 +21,7 @@ function calcPaddingTop(ratio: number): number {
       <ng-content></ng-content>
     </div>
   `,
-  styles: [
-      `
-      /*
-    host is replacement for .aspect-ratio-box
-    */
-      :host {
-        display: block;
-        height: 0;
-        overflow: hidden;
-        position: relative;
-      }
-
-      .aspect-ratio-box-inside {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-
-      img {
-        width: 100%;
-        height: auto;
-      }
-
-      img.cover {
-        object-fit: cover;
-        display: block;
-        width: 100%;
-        height: 100%;
-      }
-
-      }
-    `
-  ],
+  styleUrls: ['./aspect-ratio-box.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AspectRatioBoxComponent {
