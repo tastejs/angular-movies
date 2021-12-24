@@ -40,9 +40,9 @@ type Movie = MovieModel & ImageTag;
             </app-aspect-ratio-box>
           </div>
           <div class='movies-list--grid-item__details'>
-            <h2 class='movies-list--grid-item__details-title'>
+            <h3 class='movies-list--grid-item__details-title'>
               {{ movie.title }}
-            </h2>
+            </h3>
             <app-star-rating [rating]='movie.vote_average'></app-star-rating>
           </div>
         </a>

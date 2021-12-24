@@ -3,22 +3,14 @@
 }
 
 h3 {
-  margin-bottom: 1rem;
   color: var(--palette-text-primary);
-  font-size: 1.5rem;
-  font-weight: 700;
-  text-transform: uppercase;
 }
 
 .section--content {
   display: block;
-  p {
-    color: var(--palette-text-secondary);
-    font-size: 1.5rem;
-    font-weight: 500;
-    line-height: 1.8;
-    text-align: justify;
-  }
+  font-size: 1.5rem;
+  line-height: 1.8;
+  color: var(--palette-text-secondary);
   a {
     color: var(--palette-secondary-main);
   }

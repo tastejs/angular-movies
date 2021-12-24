@@ -3,7 +3,7 @@
 
   visibility: hidden;
   width: max-content;
-  font-size: 1.25rem;
+  font-size: var(--text-sm);
   background-color: var(--palette-primary-light);
   color: var(--palette-primary-contrast-text);
   text-align: center;

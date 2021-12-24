@@ -126,7 +126,7 @@ app-side-drawer {
   flex-direction: column;
   flex: 1;
   overflow: auto;
-  font-size: 1.5rem;
+  font-size: var(--text-md);
   font-weight: 700;
   line-height: 1;
 
@@ -161,11 +161,7 @@ app-side-drawer {
     &:not(:first-of-type) {
       margin-top: 3rem;
     }
-    font-weight: 700;
-    font-size: 1.25rem;
     color: var(--palette-text-primary);
-    text-transform: uppercase;
-    letter-spacing: -0.5px;
     margin: 0 0 1rem 1rem;
   }
 }

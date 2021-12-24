@@ -36,7 +36,6 @@
       align-items: center;
       padding: 0.5rem 0;
       line-height: 1;
-      font-size: 1.25rem;
       font-weight: 700;
       text-transform: uppercase;
     }
@@ -75,8 +74,6 @@
 
 .movie-detail--languages-runtime-release {
   color: var(--palette-warning-main);
-  font-size: 1.5rem;
-  font-weight: 700;
   line-height: 1;
   text-transform: uppercase;
 }

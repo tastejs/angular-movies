@@ -26,12 +26,33 @@ h2,
 h3,
 h4 {
   font-weight: normal;
+  color: var(--palette-text-secondary);
+  text-transform: uppercase;
+  line-height: 1;
+  margin-bottom: 0.5rem;
+}
+
+h1 {
   color: var(--palette-text-primary);
+  font-size: 3rem;
+  font-weight: 300;
+  letter-spacing: -0.5px;
+}
+
+h2 {
+  font-size: 1.75rem;
+  font-weight: 700;
+}
+
+h3 {
+  font-size: 1.5rem;
+  font-weight: 700;
 }
 
 a {
   cursor: pointer;
   text-decoration: none;
+  font-size: 1.25rem;
   color: var(--palette-secondary-main);
 }
 
@@ -39,4 +60,11 @@ a {
   .title {
     font-size: 2.125rem;
   }
+}
+
+:root {
+  --text-sm: 1.25rem;
+  --text-md: 1.5rem;
+  --text-lg: 1.75rem;
+  --text-xl: 2rem;
 }
