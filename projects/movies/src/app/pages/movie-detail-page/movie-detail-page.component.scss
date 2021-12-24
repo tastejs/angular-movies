@@ -35,7 +35,6 @@
       display: flex;
       align-items: center;
       padding: 0.5rem 0;
-      line-height: 1;
       font-weight: bold;
       text-transform: uppercase;
     }
@@ -47,11 +46,15 @@
       margin-right: auto;
     }
 
-    > :not(:last-child) {
+    .btn {
       margin-right: 2rem;
       @media only screen and (max-width: 1300px) {
         margin-right: 1rem;
       }
+    }
+
+    > .btn:not(:last-child) {
+      margin-right: 0rem;
     }
   }
 
@@ -74,7 +77,6 @@
 
 .movie-detail--languages-runtime-release {
   color: var(--palette-warning-main);
-  line-height: 1;
   text-transform: uppercase;
 }
 

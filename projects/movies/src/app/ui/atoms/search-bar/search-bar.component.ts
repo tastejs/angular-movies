@@ -73,8 +73,7 @@ import { coerceObservable } from '@rx-angular/cdk';
       }
 
       .input {
-        font-size: 1.5rem;
-        line-height: 1;
+        font-size: var(--text-md);
         font-weight: 300;
         background-color: transparent;
         width: 100%;
