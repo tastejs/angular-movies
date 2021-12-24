@@ -1,4 +1,4 @@
-<ng-container *rxLet="detailState$; let vs">
+<article *rxLet="detailState$; let vs">
   <ng-container *ngIf="!vs.loading; else loading">
     <ds-detail-grid>
       <app-aspect-ratio-box detailGridMedia [aspectRatio]="W780H1170.WIDTH / W780H1170.HEIGHT">
@@ -113,7 +113,7 @@
   <ng-template #loading>
     <app-loader></app-loader>
   </ng-template>
-</ng-container>
+</article>
 <article *rxLet="recommendedLoading$; let loading">
   <header>
     <h1>Recommended</h1>

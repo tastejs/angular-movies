@@ -5,13 +5,13 @@
  * This reduces bundle-size of your styles.
  */
 @import 'styles/normalize';
-@import "app/ui/tokens/colors";
-@import "app/ui/tokens/zIndex";
-@import "app/ui/tokens/animations";
-@import "app/ui/tokens/media";
-@import "app/ui/tokens/borderRadius";
-@import "app/ui/tokens/shadow";
-@import 'app/ui/tokens/typography';
+@import "app/ui/token/colors";
+@import "app/ui/token/zIndex";
+@import "app/ui/token/animations";
+@import "app/ui/token/media";
+@import "app/ui/token/borderRadius";
+@import "app/ui/token/shadow";
+@import 'app/ui/token/typography';
 
 body {
   color: var(--palette-text-primary);
