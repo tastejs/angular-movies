@@ -3,7 +3,7 @@
     <ds-detail-grid>
       <app-aspect-ratio-box detailGridMedia [aspectRatio]="W780H1170.WIDTH / W780H1170.HEIGHT">
         <img
-          class="movie-poster"
+          class="cover"
           [src]="
             'https://image.tmdb.org/t/p/w' +
             W780H1170.WIDTH +
@@ -17,7 +17,7 @@
           data-test="detail-item-img"
         />
       </app-aspect-ratio-box>
-      <div detailGridDescription class="movie-detail--summary">
+      <div detailGridDescription>
         <header>
           <h1>{{ vs.movie.title }}</h1>
           <h2>{{ vs.movie.tagline }}</h2>

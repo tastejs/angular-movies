@@ -6,6 +6,7 @@ import { ChangeDetectionStrategy, Component, HostBinding, Input } from '@angular
  * Reduce scripting time by caching results of pure calculations.
  */
 const paddingTopMap = new Map<number, number>();
+
 function calcPaddingTop(ratio: number): number {
   if (paddingTopMap.get(ratio) === undefined) {
     paddingTopMap.set(ratio, (1 / ratio) * 100);
@@ -38,6 +39,19 @@ function calcPaddingTop(ratio: number): number {
         left: 0;
         width: 100%;
         height: 100%;
+
+      img {
+        width: 100%;
+        height: auto;
+      }
+
+      img.cover {
+        object-fit: cover;
+        display: block;
+        width: 100%;
+        height: 100%;
+      }
+
       }
     `
   ],
