@@ -58,23 +58,25 @@
         </section>
         <section class="movie-detail--cast-list">
           <h3>The Cast</h3>
-          <a
-            *ngFor="let c of vs.cast; trackBy: trackByCast"
-            href="#"
-            (click)="$event.preventDefault()"
-            class="movie-detail--cast-actor"
-          >
-            <img
-              loading="lazy"
-              [src]="
+          <div class="section--content">
+            <a
+              *ngFor="let c of vs.cast; trackBy: trackByCast"
+              href="#"
+              (click)="$event.preventDefault()"
+              class="movie-detail--cast-actor"
+            >
+              <img
+                loading="lazy"
+                [src]="
                   c?.profile_path
                     ? 'https://image.tmdb.org/t/p/w185' + c?.profile_path
                     : 'assets/images/no_poster_available.jpg'
                 "
-              [alt]="c.name"
-              [title]="c.name"
-            />
-          </a>
+                [alt]="c.name"
+                [title]="c.name"
+              />
+            </a>
+          </div>
         </section>
         <section class="movie-detail--ad-section-links">
           <a
