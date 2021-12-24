@@ -22,7 +22,7 @@ type Movie = MovieModel & ImageTag;
           (click)='$event.preventDefault(); navigateToMovie(movie)'
           [attr.data-test]="'list-item-idx-'+idx"
         >
-          <div class='movies-list--grid-item-image gradient'>
+          <div class='gradient'>
             <app-aspect-ratio-box [aspectRatio]='movie.imgWidth / movie.imgHeight'>
               <!--
               **🚀 Perf Tip for LCP:**
@@ -39,8 +39,8 @@ type Movie = MovieModel & ImageTag;
               />
             </app-aspect-ratio-box>
           </div>
-          <div class='movies-list--grid-item__details'>
-            <h3 class='movies-list--grid-item__details-title'>
+          <div class='movies-list--details'>
+            <h3 class='movies-list--details-title'>
               {{ movie.title }}
             </h3>
             <app-star-rating [rating]='movie.vote_average'></app-star-rating>
