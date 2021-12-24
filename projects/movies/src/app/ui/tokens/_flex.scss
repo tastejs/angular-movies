@@ -1,0 +1,23 @@
+@mixin d-flex {
+  display: flex;
+}
+@mixin d-inline-flex {
+  display: inline-flex;
+}
+
+@mixin d-flex-v {
+  display: flex;
+  align-items: center;
+}
+
+@mixin d-flex-h {
+  display: flex;
+  justify-content: center;
+}
+
+@mixin d-flex-vh {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+

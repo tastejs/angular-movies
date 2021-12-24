@@ -1,11 +1,12 @@
 @import '../ui/tokens/mixins';
+@import '../ui/tokens/flex';
 @import '../ui/atoms/icons/icon';
+
 
 .app-toolbar {
   height: 72px;
-  display: flex;
+  @include d-flex-v;
   justify-content: space-between;
-  align-items: center;
   width: 100%;
   padding: 0 24px;
 
@@ -22,7 +23,7 @@
     right: 0;
     z-index: 1100;
     box-shadow: rgb(0 0 0 / 20%) 0 2px 4px -1px, rgb(0 0 0 / 14%) 0 4px 5px 0,
-      rgb(0 0 0 / 12%) 0 1px 10px 0;
+    rgb(0 0 0 / 12%) 0 1px 10px 0;
     background-color: var(--palette-background-paper);
     height: 64px;
   }
@@ -43,17 +44,20 @@
   }
 
   &--widget-container {
+    @include d-flex-h;
     padding: 2rem;
-    display: flex;
-    align-items: center;
     margin-left: auto;
+
     > :not(:first-child) {
       margin-left: 12px;
       margin-right: 12px;
     }
+
     a {
+      @include d-flex-v;
       color: var(--palette-secondary-main);
     }
+
     @include isMobile {
       padding: 0;
       > :not(:first-child) {
@@ -62,6 +66,7 @@
     }
   }
 }
+
 app-side-drawer {
   grid-area: sidenav;
 }
@@ -73,16 +78,19 @@ app-side-drawer {
 .content-wrapper {
   grid-area: content;
 }
+
 @include isMobile {
   .content-wrapper {
     padding-top: 72px;
   }
 }
+
 .content {
   min-height: calc(100vh - 72px);
   width: 100%;
   contain: layout;
 }
+
 :host {
   min-height: 100vh;
   background: var(--palette-background-default);
@@ -93,9 +101,9 @@ app-side-drawer {
       25rem 1fr;
   }
 }
+
 .tmdb-mark {
-  display: flex;
-  justify-content: center;
+  @include d-flex-h;
 
   > img {
     height: 4rem;
@@ -122,7 +130,7 @@ app-side-drawer {
 }
 
 .navigation {
-  display: flex;
+  @include d-flex;
   flex-direction: column;
   flex: 1;
   overflow: auto;
@@ -134,19 +142,18 @@ app-side-drawer {
     display: block;
     margin-bottom: 0.5rem;
     color: var(--palette-primary-dark);
+
     &.active,
     &:active {
       color: var(--palette-secondary-main);
     }
+
     &:hover {
       text-decoration: underline;
     }
   }
 
   &--menu-item {
-    display: flex;
-    -webkit-box-align: center;
-    align-items: center;
     padding: 1rem 2rem;
   }
 
@@ -154,12 +161,14 @@ app-side-drawer {
     margin-right: 5px;
     width: 0.875em;
     height: auto;
-    font-size: 1.5em;
+    font-size: var(--text-md);
   }
+
   &--headline {
     &:not(:first-of-type) {
       margin-top: 3rem;
     }
+
     color: var(--palette-text-primary);
     margin: 0 0 1rem 1rem;
   }

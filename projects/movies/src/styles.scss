@@ -16,14 +16,11 @@
 body {
   color: var(--palette-text-primary);
   background-color: var(--palette-background-default);
-  -webkit-transition: color var(--duration) var(--timing),
-    background-color var(--duration) var(--timing);
   transition: color var(--duration) var(--timing),
     background-color var(--duration) var(--timing);
 }
 
 body.dark img:not([src*='.svg']) {
-  -webkit-filter: var(--image-filter);
   filter: var(--image-filter);
 }
 

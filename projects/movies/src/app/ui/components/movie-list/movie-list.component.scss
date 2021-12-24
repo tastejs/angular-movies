@@ -1,3 +1,5 @@
+@import "../../tokens/flex";
+
 .movies-list--grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(10rem, 25rem));
@@ -20,7 +22,7 @@
   }
 
   &-item {
-    display: flex;
+    @include d-flex;
     align-items: stretch;
     flex-direction: column;
     transition: transform 150ms cubic-bezier(0.4, 0, 0.2, 1) 0s;
@@ -49,10 +51,9 @@
     }
 
     &__details {
-      display: flex;
+      @include d-flex-v;
       flex-direction: column;
       justify-content: space-between;
-      align-items: center;
       padding: 1.5rem 3rem;
       @media only screen and (max-width: 500px) {
         padding: 1.5rem;

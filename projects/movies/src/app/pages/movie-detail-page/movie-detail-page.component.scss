@@ -1,5 +1,6 @@
 @import '../../ui/atoms/button/button';
 @import '../../ui/atoms/icons/icon';
+@import "../../ui/tokens/flex";
 
 :host {
   width: 100%;
@@ -23,17 +24,15 @@
 
   &--genres {
     ::ng-deep .section--content {
-      display: flex;
+      @include d-flex-v;
       flex-wrap: wrap;
-      align-items: center;
     }
     &-link {
       &:not(:last-child) {
         margin-right: 2rem;
       }
 
-      display: flex;
-      align-items: center;
+      @include d-flex-v;
       padding: 0.5rem 0;
       font-weight: bold;
       text-transform: uppercase;
@@ -42,7 +41,7 @@
 
   &--ad-section-links {
     ::ng-deep .section--content {
-      display: flex;
+      @include d-flex;
       margin-right: auto;
     }
 
@@ -60,14 +59,13 @@
 
   &--basic-infos {
     ::ng-deep .section--content {
-      display: flex;
-      align-items: center;
+      @include d-flex-v;
       justify-content: space-between;
     }
   }
   &--cast-list {
     ::ng-deep .section--content {
-      display: flex;
+      @include d-flex;
       flex-direction: row;
       overflow-x: scroll;
       margin: 0 20px;
@@ -85,17 +83,17 @@
 }
 
 .movie-detail--cast-actor {
+  display: block;
   height: auto;
   width: 70px;
-  display: block;
   flex-shrink: 0;
 
   img {
+    display: block;
     width: 44px;
     height: 44px;
     border-radius: 50%;
     object-fit: cover;
     margin: 0 auto;
-    display: block;
   }
 }

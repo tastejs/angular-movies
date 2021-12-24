@@ -1,11 +1,12 @@
 @import '../../tokens/mixins';
+@import "../../tokens/flex";
 
 :host {
   display: contents;
 }
 .side-drawer {
   position: fixed;
-  display: flex;
+  @include d-flex;
   flex-direction: column;
   justify-content: space-between;
   width: 250px;

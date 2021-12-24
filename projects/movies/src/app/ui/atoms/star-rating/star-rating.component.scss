@@ -1,10 +1,10 @@
 @import './tooltip';
+@import "../../tokens/flex";
+@import "../../tokens/colors";
 
 :host {
   position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  @include d-flex-vh;
 
   &:hover .tooltip {
     visibility: visible;
@@ -17,7 +17,7 @@
 
 .rating-value {
   overflow: hidden;
-  color: #b5b800;
+  color: var(--palette-warning-main);
   font-size: var(--text-sm);
   padding: 5px 0 0 5px;
 }
@@ -34,15 +34,15 @@
   display: block;
   float: left;
   font-size: 24px;
-  color: #b5b800;
+  color: var(--palette-warning-main);
 }
 
 .star-full {
-  color: #b5b800;
+  color: var(--palette-warning-main);
 }
 
 .star-half {
-  color: gray;
+  color: var(--palette-text-secondary);
 
   &:before {
     position: absolute;
@@ -53,10 +53,10 @@
     left: 0;
     width: 50%;
     content: '★';
-    color: #b5b800;
+    color: var(--palette-warning-main);
   }
 }
 
 .star-empty {
-  color: gray;
+  color: var(--palette-text-secondary);
 }

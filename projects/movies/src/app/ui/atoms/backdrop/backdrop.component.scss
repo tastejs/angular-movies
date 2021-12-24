@@ -1,19 +1,17 @@
 @import "../../tokens/zIndex";
+@import "../../tokens/flex";
 
 :host {
   visibility: hidden;
   opacity: 0;
   position: fixed;
   z-index: var(--theme-backdrop-zIndex);
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  @include d-flex-vh;
   right: 0;
   bottom: 0;
   top: 0;
   left: 0;
   background-color: var(--palette-background-backdrop);
-  -webkit-tap-highlight-color: transparent;
   transition: opacity var(--theme-anim-duration-leavingScreen) var(--theme-anim-easing-easeInOut) 0ms;
 }
 

@@ -1,5 +1,7 @@
+@import "../../tokens/flex";
+
 :host {
-  display: flex;
+  @include d-flex;
   flex-direction: column;
   align-self: center;
   justify-content: space-around;

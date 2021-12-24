@@ -1,5 +1,12 @@
+@import "../../tokens/flex";
+@import "../../tokens/colors";
+
+:host {
+  @include d-flex;
+}
+
 .dark-mode-toggle {
-  display: flex;
+  @include d-flex;
 }
 
 .dark-mode-toggle > button {
@@ -8,34 +15,36 @@
   border: none;
   line-height: 0;
   cursor: pointer;
-  color: #666;
-  transition: color var(--theme-anim-duration-standard)
-    var(--theme-anim-easing-easeInOut);
+  color: var(--palette-text-primary);
+  transition: color var(--theme-anim-duration-standard) var(--theme-anim-easing-easeInOut);
 }
 
 .dark-mode-toggle > button:focus {
   outline: none;
 }
+
 button.light {
-  color: #999;
+  color: var(--palette-text-disabled);
 }
+
 button.dark {
-  color: lightblue;
+  color: var(--palette-custom-tmdbLightBlue)
 }
+
 :host-context(.light) {
   button.light {
-    color: #ffb74d;
+    color: var(--palette-toggle-light-light);
   }
+
   button.dark {
-    color: #666;
+    color: var(--palette-text-primary);
   }
 }
 
 .toggle {
   position: relative;
   padding: 0 6px;
-  display: flex;
-  align-items: center;
+  @include d-flex-v;
   width: 45px;
 }
 
@@ -65,8 +74,7 @@ input[type='checkbox'].toggle-track + label {
   width: 20px;
   height: 20px;
   border-radius: 50%;
-  transition: left var(--theme-anim-duration-standard)
-    var(--theme-anim-easing-easeInOut);
+  transition: left var(--theme-anim-duration-standard) var(--theme-anim-easing-easeInOut);
   cursor: pointer;
   position: absolute;
   left: 2px;

@@ -1,8 +1,7 @@
-
+@import "../../tokens/flex";
 .btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
+  @include d-flex-vh;
+  @include d-inline-flex;
   outline: none;
   padding: 6px 16px;
   min-width: 96px;
