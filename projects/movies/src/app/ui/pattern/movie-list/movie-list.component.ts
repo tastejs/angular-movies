@@ -22,7 +22,7 @@ type Movie = MovieModel & ImageTag;
           (click)='$event.preventDefault(); navigateToMovie(movie)'
           [attr.data-test]="'list-item-idx-'+idx"
         >
-          <div class='gradient'>
+          <div class='movies-list--grid-item-image gradient'>
             <app-aspect-ratio-box [aspectRatio]='movie.imgWidth / movie.imgHeight'>
               <!--
               **🚀 Perf Tip for LCP:**
