@@ -18,104 +18,94 @@
         />
       </app-aspect-ratio-box>
       <div detailGridDescription class="movie-detail--summary">
-        <ds-header>
-          <ng-container title>{{ vs.movie.title }}</ng-container>
-          <ng-container subtitle>{{ vs.movie.tagline }}</ng-container>
-        </ds-header>
-        <section ds-section class="movie-detail--basic-infos">
-          <ng-container sectionContent>
-            <app-star-rating
-              [rating]="vs.movie?.vote_average"
-              [showRating]="true"
-            ></app-star-rating>
-            <div class="movie-detail--languages-runtime-release">
-              <strong>{{ vs.movie?.languages_runtime_release }}</strong>
-            </div>
-          </ng-container>
+        <header>
+          <h1>{{ vs.movie.title }}</h1>
+          <h2>{{ vs.movie.tagline }}</h2>
+        </header>
+        <section class="movie-detail--basic-infos">
+          <app-star-rating
+            [rating]="vs.movie?.vote_average"
+            [showRating]="true"
+          ></app-star-rating>
+          <div class="movie-detail--languages-runtime-release">
+            <strong>{{ vs.movie?.languages_runtime_release }}</strong>
+          </div>
         </section>
-        <section ds-section class="movie-detail--genres">
-          <ng-container sectionTitle>The Genres</ng-container>
-          <ng-container sectionContent>
-            <a
-              class="movie-detail--genres-link"
-              *ngFor="
+        <section class="movie-detail--genres">
+          <h3>The Genres</h3>
+          <a
+            class="movie-detail--genres-link"
+            *ngFor="
                 let genre of vs.movie?.genres || [];
                 trackBy: trackByGenre
               "
-              [href]="'/list/genre/' + genre.id"
-              (click)="$event.preventDefault(); toGenre(genre)"
-            >
-              <svg viewBox="0 0 24 24" fill="currentColor" class="icon">
-                <path d="M0 0h24v24H0V0z" fill="none" />
-                <path
-                  d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"
-                />
-                <circle cx="12" cy="12" r="5" />
-              </svg>
-              {{ genre.name }}
-            </a>
-          </ng-container>
+            [href]="'/list/genre/' + genre.id"
+            (click)="$event.preventDefault(); toGenre(genre)"
+          >
+            <svg viewBox="0 0 24 24" fill="currentColor" class="icon">
+              <path d="M0 0h24v24H0V0z" fill="none" />
+              <path
+                d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"
+              />
+              <circle cx="12" cy="12" r="5" />
+            </svg>
+            {{ genre.name }}
+          </a>
         </section>
-        <section ds-section>
-          <ng-container sectionTitle>The Synopsis</ng-container>
-          <ng-container sectionContent>
-            {{ vs.movie?.overview || 'There is no synopsis available...' }}
-          </ng-container>
+        <section>
+          <h3>The Synopsis</h3>
+          <p>  {{ vs.movie?.overview || 'There is no synopsis available...' }}</p>
         </section>
-        <section ds-section class="movie-detail--cast-list">
-          <ng-container sectionTitle>The Cast</ng-container>
-          <ng-container sectionContent>
-            <a
-              *ngFor="let c of vs.cast; trackBy: trackByCast"
-              href="#"
-              (click)="$event.preventDefault()"
-              class="movie-detail--cast-actor"
-            >
-              <img
-                loading="lazy"
-                [src]="
+        <section class="movie-detail--cast-list">
+          <h3>The Cast</h3>
+          <a
+            *ngFor="let c of vs.cast; trackBy: trackByCast"
+            href="#"
+            (click)="$event.preventDefault()"
+            class="movie-detail--cast-actor"
+          >
+            <img
+              loading="lazy"
+              [src]="
                   c?.profile_path
                     ? 'https://image.tmdb.org/t/p/w185' + c?.profile_path
                     : 'assets/images/no_poster_available.jpg'
                 "
-                [alt]="c.name"
-                [title]="c.name"
-              />
-            </a>
-          </ng-container>
+              [alt]="c.name"
+              [title]="c.name"
+            />
+          </a>
         </section>
-        <section ds-section class="movie-detail--ad-section-links">
-          <ng-container sectionContent>
-            <a
-              class="btn"
-              target="_blank"
-              rel="noopener noreferrer"
-              [href]="vs.movie?.homepage"
-            >
-              Website
-              <svg class="btn__icon" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M0 0h24v24H0V0z" fill="none" />
-                <path
-                  d="M17 7h-4v2h4c1.65 0 3 1.35 3 3s-1.35 3-3 3h-4v2h4c2.76 0 5-2.24 5-5s-2.24-5-5-5zm-6 8H7c-1.65 0-3-1.35-3-3s1.35-3 3-3h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-2zm-3-4h8v2H8z"
-                />
-              </svg>
-            </a>
-            <a
-              *ngIf="vs.movie?.imdb_id"
-              class="btn"
-              target="_blank"
-              rel="noopener noreferrer"
-              [href]="'https://www.imdb.com/title/' + vs.movie?.imdb_id"
-            >
-              IMDB
-              <svg class="btn__icon" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M0 0h24v24H0z" fill="none" />
-                <path
-                  d="M18 3v2h-2V3H8v2H6V3H4v18h2v-2h2v2h8v-2h2v2h2V3h-2zM8 17H6v-2h2v2zm0-4H6v-2h2v2zm0-4H6V7h2v2zm10 8h-2v-2h2v2zm0-4h-2v-2h2v2zm0-4h-2V7h2v2z"
-                />
-              </svg>
-            </a>
-          </ng-container>
+        <section class="movie-detail--ad-section-links">
+          <a
+            class="btn"
+            target="_blank"
+            rel="noopener noreferrer"
+            [href]="vs.movie?.homepage"
+          >
+            Website
+            <svg class="btn__icon" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M0 0h24v24H0V0z" fill="none" />
+              <path
+                d="M17 7h-4v2h4c1.65 0 3 1.35 3 3s-1.35 3-3 3h-4v2h4c2.76 0 5-2.24 5-5s-2.24-5-5-5zm-6 8H7c-1.65 0-3-1.35-3-3s1.35-3 3-3h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-2zm-3-4h8v2H8z"
+              />
+            </svg>
+          </a>
+          <a
+            *ngIf="vs.movie?.imdb_id"
+            class="btn"
+            target="_blank"
+            rel="noopener noreferrer"
+            [href]="'https://www.imdb.com/title/' + vs.movie?.imdb_id"
+          >
+            IMDB
+            <svg class="btn__icon" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M0 0h24v24H0z" fill="none" />
+              <path
+                d="M18 3v2h-2V3H8v2H6V3H4v18h2v-2h2v2h8v-2h2v2h2V3h-2zM8 17H6v-2h2v2zm0-4H6v-2h2v2zm0-4H6V7h2v2zm10 8h-2v-2h2v2zm0-4h-2v-2h2v2zm0-4h-2V7h2v2z"
+              />
+            </svg>
+          </a>
         </section>
       </div>
     </ds-detail-grid>
@@ -124,11 +114,11 @@
     <app-loader></app-loader>
   </ng-template>
 </ng-container>
-<ds-container *rxLet="recommendedLoading$; let loading">
-  <ds-header>
-    <ng-container title>Recommended</ng-container>
-    <ng-container subtitle>Movies</ng-container>
-  </ds-header>
+<article *rxLet="recommendedLoading$; let loading">
+  <header>
+    <h1>Recommended</h1>
+    <h2>Movies</h2>
+  </header>
   <app-movie-list *ngIf="!loading" [movies]="recommendations$">
   </app-movie-list>
-</ds-container>
+</article>

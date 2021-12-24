@@ -5,8 +5,6 @@ import { RouterModule, Routes } from '@angular/router';
 import { MovieListModule } from '../../ui/components/movie-list/movie-list.module';
 import { LetModule } from '@rx-angular/template/let';
 import { LoaderComponentModule } from '../../ui/atoms/loader/loader.component';
-import { ContainerModule } from '../../ui/atoms/container/container.module';
-import { HeaderModule } from '../../ui/atoms/header/header.module';
 
 const ROUTES: Routes = [
   {
@@ -22,9 +20,7 @@ const ROUTES: Routes = [
     RouterModule.forChild(ROUTES),
     MovieListModule,
     LetModule,
-    LoaderComponentModule,
-    ContainerModule,
-    HeaderModule,
+    LoaderComponentModule
   ],
   exports: [MovieListPageComponent]
 })

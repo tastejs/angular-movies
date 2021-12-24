@@ -7,16 +7,13 @@ import { MovieDetailPageComponent } from './movie-detail-page.component';
 import { StarRatingModule } from '../../ui/atoms/star-rating/star-rating.module';
 import { AspectRatioBoxModule } from '../../ui/atoms/aspect-ratio-box/aspect-ratio-box.module';
 import { MovieListModule } from '../../ui/components/movie-list/movie-list.module';
-import { HeaderModule } from '../../ui/atoms/header/header.module';
-import { ContainerModule } from '../../ui/atoms/container/container.module';
 import { DetailGridComponent } from '../../ui/atoms/detail-grid/detail-grid.component';
-import { SectionModule } from '../../ui/atoms/section/section.module';
 
 const ROUTES: Routes = [
   {
     path: '',
-    component: MovieDetailPageComponent,
-  },
+    component: MovieDetailPageComponent
+  }
 ];
 
 @NgModule({
@@ -28,11 +25,9 @@ const ROUTES: Routes = [
     MovieListModule,
     LetModule,
     LoaderComponentModule,
-    AspectRatioBoxModule,
-    HeaderModule,
-    ContainerModule,
-    SectionModule
+    AspectRatioBoxModule
   ],
-  exports: [MovieDetailPageComponent],
+  exports: [MovieDetailPageComponent]
 })
-export class MovieDetailPageModule {}
+export class MovieDetailPageModule {
+}

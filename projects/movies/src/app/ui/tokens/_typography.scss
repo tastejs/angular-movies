@@ -56,6 +56,45 @@ a {
   color: var(--palette-secondary-main);
 }
 
+header {
+  margin-bottom: 2rem;
+}
+
+article {
+  @media only screen and (max-width: 1462.5px) {
+    padding-right: 3rem;
+    padding-left: 3rem;
+    margin-top: 3rem;
+  }
+
+  @media only screen and (max-width: 1300px) {
+    padding-right: 2rem;
+    padding-left: 2rem;
+    margin-top: 2rem;
+  }
+
+  padding-right: 4rem;
+  padding-left: 4rem;
+  margin-top: 4rem;
+}
+
+section {
+  display: block;
+  font-size: var(--text-md);
+  line-height: 1.8;
+  color: var(--palette-text-secondary);
+  margin-bottom: 3rem;
+
+  a {
+    color: var(--palette-secondary-main);
+  }
+
+  h3 {
+    color: var(--palette-text-primary);
+  }
+}
+
+
 @media only screen and (max-width: 900px) {
   .title {
     font-size: 2.125rem;
