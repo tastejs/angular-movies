@@ -21,7 +21,15 @@ jobs:
         run: npm ci
 
       - name: Production build (without SSR)
-        run: npm run build:prod
+        run: npm run build:prod:artefacts
+
+      - name: Commit measures
+        uses: EndBug/add-and-commit@v7
+        with:
+          author_name: push-based.io
+          author_email: opensource@push-based.io
+          message: 'Persist stats.json and bundle-size report'
+          add: './measures/**/*'
 
       - name: Deploy to firebase preview channel hosting
         id: previewDeployStep
