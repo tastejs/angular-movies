@@ -37,10 +37,27 @@
   />
   <link rel="preload" as="image" href="/assets/svgs/logo.svg" />
 
+  <!--
+  **🚀 Perf Tip for CLS and LCP:**
+  Inline the styles for the app loading spinner to avoid flickering.
+  -->
+  <style>
+    .launcher {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+    }
+  </style>
   <body class="light">
     <app-root>
       <div class="launcher">
-        <img src="assets/icons/android-chrome-192x192.png" alt="logo" />
+        <!--
+        **🚀 Perf Tip for CLS:**
+        Always use fixed with and height fot images to avoid flickering and CLS
+        -->
+        <img width="192px" height="192px" src="assets/icons/android-chrome-192x192.png" alt="logo" />
         <p>HubMovies</p>
       </div>
     </app-root>

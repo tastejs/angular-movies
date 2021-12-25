@@ -1,19 +1,13 @@
 import { CommonModule } from '@angular/common';
-import {
-  ChangeDetectionStrategy,
-  Component,
-  Input,
-  NgModule,
-  Output,
-} from '@angular/core';
-import { Subject } from 'rxjs';
+import { ChangeDetectionStrategy, Component, Input, NgModule, Output } from '@angular/core';
 import { BackdropComponentModule } from '../backdrop/backdrop.component';
+import { getActions } from '../../../shared/rxa-custom/actions';
 
 @Component({
   selector: 'app-side-drawer',
   template: `
     <app-backdrop
-      (click)="openedChange.next(false)"
+      (click)="ui.openedChange(false)"
       [opened]="opened"
     ></app-backdrop>
     <div class="side-drawer" [class.opened]="opened">
@@ -21,16 +15,18 @@ import { BackdropComponentModule } from '../backdrop/backdrop.component';
     </div>
   `,
   styleUrls: ['./side-drawer.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SideDrawerComponent {
+  ui = getActions<{ openedChange: boolean }>();
   @Input() opened = false;
-  @Output() openedChange = new Subject<boolean>();
+  @Output() openedChange = this.ui.openedChange$;
 }
 
 @NgModule({
   imports: [BackdropComponentModule, CommonModule],
   exports: [SideDrawerComponent],
-  declarations: [SideDrawerComponent],
+  declarations: [SideDrawerComponent]
 })
-export class SideDrawerComponentModule {}
+export class SideDrawerComponentModule {
+}

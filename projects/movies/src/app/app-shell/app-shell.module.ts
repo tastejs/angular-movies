@@ -7,7 +7,7 @@ import { AppShellComponent } from './app-shell.component';
 import { RouterModule } from '@angular/router';
 import { LetModule } from '@rx-angular/template/let';
 import { DarkModeToggleModule } from '../ui/atoms/dark-mode-toggle/dark-mode-toggle.module';
-import { RxForModule } from '../ui/atoms/rx-for/rx-for.module';
+import { RxForModule } from '../shared/rxa-custom/rx-for/rx-for.module';
 
 @NgModule({
   declarations: [AppShellComponent],

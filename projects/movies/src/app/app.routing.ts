@@ -1,4 +1,6 @@
 import { RouterModule, Routes } from '@angular/router';
+import { MovieListPageComponent } from './pages/movie-list-page/movie-list-page.component';
+import { MovieListPageModule } from './pages/movie-list-page/movie-list-page.module';
 
 const ROUTES: Routes = [
   /**
@@ -28,8 +30,10 @@ const ROUTES: Routes = [
    */
   {
     path: 'list/:type/:identifier',
-    loadChildren: () =>
+    component: MovieListPageComponent,
+   /* loadChildren: () =>
       import('projects/movies/src/app/pages/movie-list-page/movie-list-page.module').then((m) => m.MovieListPageModule)
+ */
   },
   {
     path: 'movie/:id',
@@ -41,8 +45,14 @@ const ROUTES: Routes = [
 ];
 
 export const ROUTING_IMPORTS = [
+  MovieListPageModule,
   RouterModule.forRoot(ROUTES, {
-    initialNavigation: 'enabled',
+    /**
+     * **🚀 Perf Tip for TBT:**
+     *
+     * Disable initial sync navigation in router config and schedule it in router-outlet container component
+     */
+    initialNavigation: 'disabled',
     onSameUrlNavigation: 'reload',
     relativeLinkResolution: 'legacy'
   })
