@@ -85,7 +85,7 @@
     display: block;
     width: 44px;
     height: 44px;
-    border-radius: 50%;
+    border-radius: var(--theme-borderRadius-circle);
     object-fit: cover;
     margin: 0 auto;
   }

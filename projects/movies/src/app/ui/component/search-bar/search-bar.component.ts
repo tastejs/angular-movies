@@ -6,7 +6,7 @@ import {
   Inject, Input,
   OnInit,
   Output,
-  ViewChild
+  ViewChild, ViewEncapsulation
 } from '@angular/core';
 import { filter, fromEvent, map, mapTo, merge, Observable, startWith, switchMap, tap, withLatestFrom } from 'rxjs';
 import { getActions } from '../../../shared/rxa-custom/actions';
@@ -40,6 +40,7 @@ import { coerceObservable } from '@rx-angular/cdk';
   `,
   styleUrls: ['search-bar.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.Emulated,
   providers: [RxState]
 })
 export class SearchBarComponent implements OnInit {

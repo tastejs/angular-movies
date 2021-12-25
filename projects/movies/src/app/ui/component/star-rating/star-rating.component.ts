@@ -2,7 +2,7 @@ import {
   ChangeDetectionStrategy,
   Component,
   Input,
-  TrackByFunction,
+  TrackByFunction, ViewEncapsulation
 } from '@angular/core';
 import {
   coerceBooleanProperty,
@@ -36,6 +36,7 @@ const starsArray: number[] = new Array(numStars).fill(1);
   `,
   styleUrls: ['star-rating.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.Emulated
 })
 export class StarRatingComponent {
   range = range;

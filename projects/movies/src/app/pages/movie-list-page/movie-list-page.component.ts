@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/core';
 import { RxState, selectSlice } from '@rx-angular/state';
 import { map } from 'rxjs';
 import { MovieModel } from '../../data-access/model/movie.model';
@@ -15,6 +15,7 @@ type MoviesState = {
   selector: 'app-movies',
   templateUrl: './movie-list-page.component.html',
   styleUrls: ['./movie-list-page.component.scss'],
+  encapsulation: ViewEncapsulation.Emulated,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MovieListPageComponent extends RxState<MoviesState> {

@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import { LetModule } from '@rx-angular/template/let';
-import { LoaderComponentModule } from '../../ui/component/loader/loader.component';
+import { LoaderModule } from '../../ui/component/loader/loader.module';
 import { MovieDetailPageComponent } from './movie-detail-page.component';
 import { StarRatingModule } from '../../ui/component/star-rating/star-rating.module';
 import { AspectRatioBoxModule } from '../../ui/component/aspect-ratio-box/aspect-ratio-box.module';
@@ -24,7 +24,7 @@ const ROUTES: Routes = [
     StarRatingModule,
     MovieListModule,
     LetModule,
-    LoaderComponentModule,
+    LoaderModule,
     AspectRatioBoxModule
   ],
   exports: [MovieDetailPageComponent]

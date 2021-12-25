@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, TrackByFunction, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, TrackByFunction, ViewChild, ViewEncapsulation } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { RxState } from '@rx-angular/state';
 import { filter, map } from 'rxjs';
@@ -14,6 +14,7 @@ import { getActions } from '../shared/rxa-custom/actions';
   templateUrl: './app-shell.component.html',
   styleUrls: ['./app-shell.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.Emulated,
   providers: [RxState]
 })
 export class AppShellComponent {

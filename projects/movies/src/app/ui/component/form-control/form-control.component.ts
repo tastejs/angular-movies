@@ -1,15 +1,12 @@
-import { ChangeDetectionStrategy, Component, NgModule } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/core';
 
 @Component({
   selector: 'app-form-control',
-  template: `<ng-content></ng-content>`,
+  template: `
+    <ng-content></ng-content>`,
   styles: ['./form-control.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.Emulated
 })
-export class FormControlComponent {}
-
-@NgModule({
-  declarations: [FormControlComponent],
-  exports: [FormControlComponent],
-})
-export class FormControlComponentModule {}
+export class FormControlComponent {
+}

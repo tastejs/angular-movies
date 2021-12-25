@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/core';
 
 @Component({
   selector: 'ds-detail-grid',
@@ -11,7 +11,8 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
     </div>
   `,
   styleUrls: ['./detail-grid.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.Emulated
 })
 export class DetailGridComponent {
 

@@ -3,7 +3,7 @@ import {
   Component,
   HostBinding,
   Input,
-  NgModule,
+  ViewEncapsulation
 } from '@angular/core';
 
 @Component({
@@ -29,7 +29,7 @@ import {
       .loading {
         width: 3rem;
         height: 3rem;
-        border-radius: 50%;
+        border-radius: var(--theme-borderRadius-circle);
         background-color: var(--palette-primary-dark);
         box-shadow: -5rem 0 0 var(--palette-primary-main);
         animation: circle-classic 1s ease-in-out infinite alternate;
@@ -47,6 +47,7 @@ import {
     `,
   ],
   template: `<div class="loading"></div>`,
+  encapsulation: ViewEncapsulation.Emulated
 })
 export class LoaderComponent {
   @HostBinding('class.center-viewport')
@@ -56,10 +57,3 @@ export class LoaderComponent {
   @Input()
   centerRow = false;
 }
-
-@NgModule({
-  imports: [],
-  exports: [LoaderComponent],
-  declarations: [LoaderComponent],
-})
-export class LoaderComponentModule {}

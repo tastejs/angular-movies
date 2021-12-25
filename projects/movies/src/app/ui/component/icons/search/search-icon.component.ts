@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, NgModule } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/core';
 
 @Component({
   selector: 'app-search-icon',
@@ -12,11 +12,6 @@ import { ChangeDetectionStrategy, Component, NgModule } from '@angular/core';
     `,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.Emulated
 })
 export class SearchIconComponent {}
-
-@NgModule({
-  declarations: [SearchIconComponent],
-  exports: [SearchIconComponent],
-})
-export class SearchIconModule {}

@@ -10,7 +10,7 @@
   font-size: var(--text-md);
   color: var(--palette-primary-main);
   border: 1px solid rgba(var(--palette-primary-main-rgb), 0.5);
-  border-radius: 4px;
+  border-radius: var(--theme-borderRadius-m);
   box-shadow: none;
   background-color: transparent;
 }

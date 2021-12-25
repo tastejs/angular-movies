@@ -1,5 +1,5 @@
 import { Location } from '@angular/common';
-import { ChangeDetectionStrategy, Component, TrackByFunction } from '@angular/core';
+import { ChangeDetectionStrategy, Component, TrackByFunction, ViewEncapsulation } from '@angular/core';
 import { map, startWith, switchMap } from 'rxjs';
 import { RxState, selectSlice } from '@rx-angular/state';
 import { MovieCastModel } from '../../data-access/model/movie-cast.model';
@@ -25,6 +25,7 @@ interface MovieDetailPageModel {
   templateUrl: './movie-detail-page.component.html',
   styleUrls: ['./movie-detail-page.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.Emulated,
   providers: [RxState]
 })
 export class MovieDetailPageComponent {

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, HostBinding, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, HostBinding, Input, ViewEncapsulation } from '@angular/core';
 
 /**
  * **🚀 Perf Tip for TBT:**
@@ -22,7 +22,8 @@ function calcPaddingTop(ratio: number): number {
     </div>
   `,
   styleUrls: ['./aspect-ratio-box.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.Emulated
 })
 export class AspectRatioBoxComponent {
   @Input()

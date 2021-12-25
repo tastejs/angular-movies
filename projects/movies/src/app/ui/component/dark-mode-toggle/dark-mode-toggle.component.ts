@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/core';
 import { RxState } from '@rx-angular/state';
 
 @Component({
@@ -26,6 +26,7 @@ import { RxState } from '@rx-angular/state';
   `,
   styleUrls: ['dark-mode-toggle.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.Emulated
 })
 export class DarkModeToggleComponent extends RxState<{
   isLightTheme: boolean;

@@ -73,7 +73,7 @@ input[type='checkbox'].toggle-track + label {
   display: inline-block;
   width: 20px;
   height: 20px;
-  border-radius: 50%;
+  border-radius: var(--theme-borderRadius-circle);
   transition: left var(--theme-anim-duration-standard) var(--theme-anim-easing-easeInOut);
   cursor: pointer;
   position: absolute;
