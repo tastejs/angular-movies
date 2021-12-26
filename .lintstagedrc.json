@@ -2,5 +2,7 @@
   "*.ts": ["prettier --write"],
   "*.scss": ["prettier --write", "stylelint --fix"],
   "*.{html,js,json}": ["prettier --write"],
-  "*.{jpg,jpeg}": ["ts-node -P ./tooling/tsconfig.json  ./tooling/squoosh/index.ts -p / -g=wp2"]
+  "*.{jpg,jpeg}": ["npx @squoosh/cli --wp2 auto "],
+  "*.png": ["npx @squoosh/cli  --oxipng '{\"level\":2,\"interlace\":false}' "],
+  "*.svg": ["npx svgo -i "]
 }
