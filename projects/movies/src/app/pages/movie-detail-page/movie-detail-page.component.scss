@@ -16,10 +16,9 @@
   }
 
   &--genres {
-    .section--content {
-      @include d-flex-v;
-      flex-wrap: wrap;
-    }
+    @include d-flex-v;
+    flex-wrap: wrap;
+
     &-link {
       &:not(:last-child) {
         margin-right: 2rem;
@@ -45,24 +44,21 @@
       }
     }
 
-    > .btn:not(:last-child) {
+    > .btn:last-child {
       margin-right: 0rem;
     }
   }
 
   &--basic-infos {
-    .section--content {
-      @include d-flex-v;
-      justify-content: space-between;
-    }
+    @include d-flex-v;
+    justify-content: space-between;
   }
+
   &--cast-list {
-    .section--content {
-      @include d-flex;
-      flex-direction: row;
-      overflow-x: scroll;
-      margin: 0 20px;
-    }
+    @include d-flex;
+    flex-direction: row;
+    overflow-x: scroll;
+    margin: 0 20px;
   }
 }
 

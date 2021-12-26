@@ -31,9 +31,9 @@
             <strong>{{ vs.movie?.languages_runtime_release }}</strong>
           </div>
         </section>
-        <section class="movie-detail--genres">
+        <section>
           <h3>The Genres</h3>
-          <div class="section--content">
+          <div class="movie-detail--genres">
             <a
               class="movie-detail--genres-link"
               *ngFor="
@@ -58,9 +58,9 @@
           <h3>The Synopsis</h3>
           <p>  {{ vs.movie?.overview || 'There is no synopsis available...' }}</p>
         </section>
-        <section class="movie-detail--cast-list">
+        <section>
           <h3>The Cast</h3>
-          <div class="section--content">
+          <div class="movie-detail--cast-list">
             <a
               *ngFor="let c of vs.cast; trackBy: trackByCast"
               href="#"
