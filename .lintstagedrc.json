@@ -1,6 +1,6 @@
 {
-  "*.ts": ["prettier --write", "tslint --fix"],
+  "*.ts": ["prettier --write"],
   "*.scss": ["prettier --write", "stylelint --fix"],
   "*.{html,js,json}": ["prettier --write"],
-  "*.{jpg,jpeg}": ["ts-node -P ./tooling/tsconfig.json  ./tooling/squoosh/index.ts -p / -g=wp2", "git add"]
+  "*.{jpg,jpeg}": ["ts-node -P ./tooling/tsconfig.json  ./tooling/squoosh/index.ts -p / -g=wp2"]
 }
