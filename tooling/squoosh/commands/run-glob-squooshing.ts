@@ -2,6 +2,7 @@ import { YargsCommandObject } from '../../cli/model';
 import { getCliParam } from '../../cli/utils';
 import { writeFileSync } from 'fs';
 import { ImagePool } from '@squoosh/lib';
+import { Promise } from '@rx-angular/cdk';
 
 export const runCommand: YargsCommandObject = {
   command: 'squoosh',
@@ -37,7 +38,6 @@ const generators: Generators = {
 };
 
 export async function squoosh(argv: any): Promise<void> {
-  console.log('argv', argv);
   const path = getCliParam(['path', 'p']);
   if (!path) {
     throw new Error(`The path argument can't be empty.`);
@@ -47,15 +47,18 @@ export async function squoosh(argv: any): Promise<void> {
   if (!(generator in generators)) {
     throw new Error(`The passed generator: "${generator}" does not exist.`);
   }
-  return;
-  const imagePool = new ImagePool();
-  const [img] = process.argv.slice(2);
 
-  const image = imagePool.ingestImage(img);
+  if(getCliParam(['verbose', 'v'])) {
+    console.log(`Start optimization of ${path} with ${generator} generator`);
+  }
+  const imagePool = new ImagePool();
+  const image = imagePool.ingestImage(path);
+
   await image.encode({
     [generator]: generators[generator],
   });
-  const { binary } = await image.encodedWith.mozjpeg;
-  await writeFileSync(img, binary);
+  const { binary } = await image.encodedWith[generator];
+  await writeFileSync(path, binary);
   await imagePool.close();
+
 }
