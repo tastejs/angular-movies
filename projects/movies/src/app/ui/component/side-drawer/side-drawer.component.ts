@@ -2,12 +2,12 @@ import { ChangeDetectionStrategy, Component, Input, Output, ViewEncapsulation } 
 import { getActions } from '../../../shared/rxa-custom/actions';
 
 @Component({
-  selector: 'app-side-drawer',
+  selector: 'ui-side-drawer',
   template: `
-    <app-backdrop
+    <ui-backdrop
       (click)="ui.openedChange(false)"
       [opened]="opened"
-    ></app-backdrop>
+    ></ui-backdrop>
     <div class="side-drawer" [class.opened]="opened">
       <ng-content></ng-content>
     </div>

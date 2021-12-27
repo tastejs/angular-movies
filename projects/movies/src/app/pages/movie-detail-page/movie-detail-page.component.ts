@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
 import { MovieDetailAdapter, MovieDetailPageModel } from './movie-detail-page.adapter';
 
 @Component({
-  selector: 'app-movie',
+  selector: 'ct-movie',
   templateUrl: './movie-detail-page.component.html',
   styleUrls: ['./movie-detail-page.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

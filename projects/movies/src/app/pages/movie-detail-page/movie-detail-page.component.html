@@ -1,7 +1,7 @@
 <article *rxLet="detailState$; let vs">
   <ng-container *ngIf="!vs.loading; else loading">
-    <ds-detail-grid>
-      <app-aspect-ratio-box detailGridMedia [aspectRatio]="vs.movie.imgRatio">
+    <ui-detail-grid>
+      <ui-aspect-ratio-box detailGridMedia [aspectRatio]="vs.movie.imgRatio">
         <img
           class="fit-cover"
           [src]="
@@ -16,17 +16,17 @@
           [title]="vs.movie?.title"
           data-test="detail-item-img"
         />
-      </app-aspect-ratio-box>
+      </ui-aspect-ratio-box>
       <div detailGridDescription>
         <header>
           <h1>{{ vs.movie.title }}</h1>
           <h2>{{ vs.movie.tagline }}</h2>
         </header>
         <section class="movie-detail--basic-infos">
-          <app-star-rating
+          <ui-star-rating
             [rating]="vs.movie?.vote_average"
             [showRating]="true"
-          ></app-star-rating>
+          ></ui-star-rating>
           <div class="movie-detail--languages-runtime-release">
             <strong>{{ vs.movie?.languages_runtime_release }}</strong>
           </div>
@@ -112,10 +112,10 @@
           </a>
         </section>
       </div>
-    </ds-detail-grid>
+    </ui-detail-grid>
   </ng-container>
   <ng-template #loading>
-    <app-loader></app-loader>
+    <ui-loader></ui-loader>
   </ng-template>
 </article>
 <article *rxLet="recommendedLoading$; let loading">
@@ -123,6 +123,6 @@
     <h1>Recommended</h1>
     <h2>Movies</h2>
   </header>
-  <app-movie-list *ngIf="!loading" [movies]="recommendations$">
-  </app-movie-list>
+  <ui-movie-list *ngIf="!loading" [movies]="recommendations$">
+  </ui-movie-list>
 </article>

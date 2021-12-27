@@ -1,6 +1,8 @@
 {
   "root": true,
-  "ignorePatterns": ["**/*"],
+  "ignorePatterns": [
+    "**/*"
+  ],
   "overrides": [
     {
       "files": [
@@ -22,23 +24,17 @@
         "plugin:@angular-eslint/template/process-inline-templates"
       ],
       "rules": {
-        "@angular-eslint/component-selector": [
+        "no-restricted-imports": [
           "error",
           {
-            "prefix": "app",
-            "style": "kebab-case",
-            "type": "element"
+            "paths": [
+              {
+                "name": "rxjs/operators",
+                "message": "Please use 'rxjs' instead."
+              }
+            ]
           }
-        ],
-        "@angular-eslint/directive-selector": [
-          "error",
-          {
-            "prefix": "app",
-            "style": "camelCase",
-            "type": "attribute"
-          }
-        ],
-        "no-restricted-imports": ["error", "rxjs/operators"]
+        ]
       }
     },
     {

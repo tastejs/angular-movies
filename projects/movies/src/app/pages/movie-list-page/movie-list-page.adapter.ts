@@ -4,6 +4,7 @@ import { RxState, selectSlice } from '@rx-angular/state';
 import { StateService } from '../../shared/state/state.service';
 import { RouterStateService } from '../../shared/state/router-state.service';
 import { map, Observable, switchMap, withLatestFrom } from 'rxjs';
+
 import { parseTitle } from '../../shared/utils/parse-movie-list-title';
 import { MovieGenreModel } from '../../data-access/model/movie-genre.model';
 import { getIdentifierOfTypeAndLayout } from '../../shared/state/utils';

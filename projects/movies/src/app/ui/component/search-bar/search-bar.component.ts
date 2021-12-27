@@ -6,7 +6,7 @@ import { RxState } from '@rx-angular/state';
 import { coerceObservable } from '@rx-angular/cdk';
 
 @Component({
-  selector: 'app-search-bar',
+  selector: 'ui-search-bar',
   template: `
     <form
       (submit)="ui.formSubmit($event)"
@@ -19,7 +19,7 @@ import { coerceObservable } from '@rx-angular/cdk';
         class="magnifier-button"
         aria-label="Search for a movie"
       >
-        <app-search-icon></app-search-icon>
+        <ui-search-icon></ui-search-icon>
       </button>
       <input *rxLet="search$; let search"
              aria-label="Search Input"

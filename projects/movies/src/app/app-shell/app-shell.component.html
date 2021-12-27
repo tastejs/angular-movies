@@ -1,5 +1,5 @@
 <ng-container *rxLet="viewState$; let vs">
-  <app-side-drawer
+  <ui-side-drawer
     *rxLet="[]"
     [opened]="vs.sideDrawerOpen"
     (openedChange)="ui.sideDrawerOpenToggle(false)"
@@ -128,18 +128,18 @@
         </picture>
       </a>
     </div>
-  </app-side-drawer>
+  </ui-side-drawer>
   <div class="content-wrapper">
-    <div *rxLet="[]" class="app-toolbar">
-      <app-hamburger-button
+    <div *rxLet="[]" class="ui-toolbar">
+      <ui-hamburger-button
         data-test="main-side-drawer-hamburger-button"
-        class="app-toolbar--action"
+        class="ui-toolbar--action"
         (click)="ui.sideDrawerOpenToggle(!vs.sideDrawerOpen)"
       >
-      </app-hamburger-button>
-      <div class="app-toolbar--widget-container">
-        <app-search-bar [query]="search$" (searchSubmit)="searchMovie($event)"></app-search-bar>
-        <app-dark-mode-toggle></app-dark-mode-toggle>
+      </ui-hamburger-button>
+      <div class="ui-toolbar--widget-container">
+        <ui-search-bar [query]="search$" (searchSubmit)="searchMovie($event)"></ui-search-bar>
+        <ui-dark-mode-toggle></ui-dark-mode-toggle>
         <a
           *ngIf="!vs.loggedIn; else signOut"
           title="sign in"

@@ -2,16 +2,16 @@ import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/
 import { selectSlice } from '@rx-angular/state';
 import { map } from 'rxjs';
 import { MovieListPageAdapter } from './movie-list-page.adapter';
-
+import { getIdentifierOfTypeAndLayout } from '../../shared/state/utils';
 @Component({
-  selector: 'app-movies',
+  selector: 'ct-movies-list',
   templateUrl: './movie-list-page.component.html',
   styleUrls: ['./movie-list-page.component.scss'],
   encapsulation: ViewEncapsulation.Emulated,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MovieListPageComponent {
-
+  t = getIdentifierOfTypeAndLayout;
   readonly movies$ = this.adapter.select('movies');
   readonly loading$ = this.adapter.select(
     selectSlice(['loading', 'movies'], {

@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, HostBinding, Input, ViewEncapsulation } from '@angular/core';
 
 @Component({
-  selector: 'app-backdrop',
+  selector: 'ui-backdrop',
   template: ``,
   styleUrls: ['./backdrop.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

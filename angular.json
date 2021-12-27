@@ -19,7 +19,6 @@
       },
       "root": "projects/movies",
       "sourceRoot": "projects/movies/src",
-      "prefix": "mv",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",

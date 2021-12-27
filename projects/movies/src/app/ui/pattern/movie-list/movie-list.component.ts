@@ -9,7 +9,7 @@ import { ImageTag } from '../../../shared/utils/image-object';
 type Movie = MovieModel & ImageTag;
 
 @Component({
-  selector: 'app-movie-list',
+  selector: 'ui-movie-list',
   template: `
     <ng-container
       *rxLet="hasMovies$; let hasMovies;"
@@ -22,7 +22,7 @@ type Movie = MovieModel & ImageTag;
           [attr.data-test]="'list-item-idx-'+idx"
         >
           <div class='gradient'>
-            <app-aspect-ratio-box [aspectRatio]='movie.imgRatio'>
+            <ui-aspect-ratio-box [aspectRatio]='movie.imgRatio'>
               <!--
               **🚀 Perf Tip for LCP:**
               To get out the best performance use the native HTML attribute loading="lazy" instead of a directive.
@@ -36,13 +36,13 @@ type Movie = MovieModel & ImageTag;
                 alt='poster movie'
                 [title]='movie.title'
               />
-            </app-aspect-ratio-box>
+            </ui-aspect-ratio-box>
           </div>
           <div class='movies-list--details'>
             <h3 class='movies-list--details-title'>
               {{ movie.title }}
             </h3>
-            <app-star-rating [rating]='movie.vote_average'></app-star-rating>
+            <ui-star-rating [rating]='movie.vote_average'></ui-star-rating>
           </div>
         </a>
         <div class='pagination'></div>
