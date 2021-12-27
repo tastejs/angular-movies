@@ -1,28 +1,18 @@
 import { DOCUMENT } from '@angular/common';
-import {
-  ChangeDetectionStrategy,
-  Component,
-  ElementRef,
-  Inject,
-  NgModule,
-  OnDestroy,
-  OnInit,
-  Output,
-  ViewChild,
-} from '@angular/core';
-import { fromEvent, takeUntil } from 'rxjs';
-
-import { SearchIconComponentModule } from '../icons/search/search-icon.component';
+import { ChangeDetectionStrategy, Component, ElementRef, Inject, Input, OnInit, Output, ViewChild, ViewEncapsulation } from '@angular/core';
+import { filter, fromEvent, map, merge, Observable, startWith, switchMap, take, withLatestFrom } from 'rxjs';
 import { getActions } from '../../../shared/rxa-custom/actions';
+import { RxState } from '@rx-angular/state';
+import { coerceObservable } from '@rx-angular/cdk';
 
 @Component({
   selector: 'app-search-bar',
   template: `
     <form
-      (submit)="onFormSubmit($event)"
+      (submit)="ui.formSubmit($event)"
       #form
       class="form"
-      (click)="onFormClick()"
+      (click)="ui.formClick($event)"
     >
       <button
         type="submit"
@@ -31,17 +21,17 @@ import { getActions } from '../../../shared/rxa-custom/actions';
       >
         <app-search-icon></app-search-icon>
       </button>
-      <input
-        aria-label="Search Input"
-        #searchInput
-        (change)="onInputChange(searchInput.value)"
-        placeholder="Search for a movie..."
-        class="input"
+      <input *rxLet="search$; let search"
+             aria-label="Search Input"
+             #searchInput [value]="search"
+             (change)="ui.searchChange(searchInput.value)"
+             placeholder="Search for a movie..."
+             class="input"
       />
     </form>
   `,
   styles: [
-    `
+      `
       :host {
         display: contents;
       }
@@ -60,8 +50,7 @@ import { getActions } from '../../../shared/rxa-custom/actions';
         height: 2rem;
         outline: none;
         border-radius: 100px;
-        transition: width var(--theme-anim-duration-standard)
-          var(--theme-anim-easing-easeInOut);
+        transition: width var(--theme-anim-duration-standard) var(--theme-anim-easing-easeInOut);
       }
 
       .magnifier-button {
@@ -83,8 +72,7 @@ import { getActions } from '../../../shared/rxa-custom/actions';
         margin-left: 0;
         color: var(--palette-secondary-contrast-text);
         border: none;
-        transition: margin-left var(--theme-anim-duration-standard)
-          var(--theme-anim-easing-easeInOut);
+        transition: margin-left var(--theme-anim-duration-standard) var(--theme-anim-easing-easeInOut);
       }
 
       input:focus,
@@ -119,6 +107,7 @@ import { getActions } from '../../../shared/rxa-custom/actions';
         .input {
           font-size: 1.25rem;
         }
+
         .form {
           padding: 1.5rem;
           border: 1px solid hsl(0deg 0% 0% / 0%);
@@ -143,72 +132,97 @@ import { getActions } from '../../../shared/rxa-custom/actions';
           max-width: 16rem;
         }
       }
-    `,
+    `
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.Emulated,
+  providers: [RxState]
 })
-export class SearchBarComponent implements OnInit, OnDestroy {
+export class SearchBarComponent implements OnInit {
   @ViewChild('searchInput') inputRef!: ElementRef<HTMLInputElement>;
   @ViewChild('form') formRef!: ElementRef<HTMLFormElement>;
-  get input() {
-    return this.inputRef.nativeElement;
+
+  ui = getActions<{
+    searchChange: string,
+    formClick: Event,
+    outsideFormClick: Event,
+    formSubmit: Event
+  }>({
+    searchChange: s => s + '',
+    formSubmit: e => {
+      e.preventDefault();
+      return e;
+    }
+  });
+
+  @Input()
+  set query(v: string | Observable<string>) {
+    this.state.connect('search', coerceObservable(v) as Observable<string>);
+  };
+
+  search$ = this.state.select('search');
+  @Output() searchSubmit = this.ui.formSubmit$.pipe(
+    withLatestFrom(this.state.select('search')),
+    map(([_, search]) => search)
+  );
+
+  private readonly closedFormClick$ = this.ui.formClick$.pipe(
+    withLatestFrom(this.state.select('open')),
+    filter(([_, opened]) => !opened)
+  );
+
+  private outsideClick(): Observable<Event> {
+    // any click on the page (we can't use the option `once:true` as we might get multiple false trigger)
+    return fromEvent(this.document, 'click').pipe(
+      // forward if the current element is NOT the element that triggered the click
+      // means we clicked somewhere else in the page but the form
+      filter(e => !this.formRef.nativeElement.contains(e.target as any))
+    );
   }
 
-  ui = getActions<{search: string, destroy: void}>({search: (value) => value || ''})
+  /**
+   * **🚀 Perf Tip for TBT, TTI:**
+   *
+   * We avoid `@HostListener('document')` as it would add an event listener on component bootstrap no matter if we need it or not.
+   * This obviously will not scale.
+   *
+   * To avoid this we only listen to document click events after we clicked on the closed form.
+   * If the needed event to close the form is received we stop listening to the document.
+   *
+   * This way we reduce the active event listeners to a minimum.
+   */
+  private readonly outsideOpenFormClick$ = this.closedFormClick$.pipe(
+    switchMap(() => this.outsideClick().pipe(take(1)))
+  );
 
-  @Output() search = this.ui.search$;
+  private readonly classList = this.elementRef.nativeElement.classList;
 
-  private searchTerm = '';
-
-  private readonly nativeElement: HTMLElement = this.elementRef.nativeElement;
   constructor(
+    private state: RxState<{ search: string, open: boolean }>,
     @Inject(ElementRef) private elementRef: ElementRef,
     @Inject(DOCUMENT) private document: Document
-  ) {}
+  ) {
+    this.state.set({ open: false });
+  }
 
   ngOnInit() {
-    fromEvent(this.document, 'click')
-      .pipe(takeUntil(this.ui.destroy$))
-      .subscribe((e) => {
-        if (!this.formRef.nativeElement.contains(e.target as any)) {
-          this.setOpened(false);
-        }
-      });
+    this.state.hold(this.state.select('open'), this.setOpenedStyling);
+    this.state.hold(this.closedFormClick$, this.focusInput);
+
+    this.state.connect('search', this.ui.searchChange$.pipe(startWith('')));
+    this.state.connect('open', merge(this.ui.formSubmit$, this.outsideOpenFormClick$), () => false);
+    this.state.connect('open', this.closedFormClick$, () => true);
   }
 
-  ngOnDestroy() {
-    this.ui.destroy();
-  }
+  private focusInput = () => {
+    return this.inputRef.nativeElement.focus();
+  };
 
-  setOpened(opened: boolean) {
+  private setOpenedStyling = (opened: boolean) => {
     opened
-      ? this.nativeElement.classList.add('opened')
-      : this.nativeElement.classList.remove('opened');
-  }
+      ? this.classList.add('opened')
+      : this.classList.remove('opened');
+  };
 
-  onFormClick() {
-    this.setOpened(true);
-    this.input.focus();
-  }
-
-  onFormSubmit(event: Event) {
-    event.preventDefault();
-    if (this.searchTerm.length === 0) {
-      return;
-    }
-    this.setOpened(false);
-    this.ui.search(this.searchTerm);
-    this.input.value = '';
-  }
-
-  onInputChange(value: string) {
-    this.searchTerm = value;
-  }
 }
 
-@NgModule({
-  declarations: [SearchBarComponent],
-  exports: [SearchBarComponent],
-  imports: [SearchIconComponentModule],
-})
-export class SearchBarComponentModule {}
