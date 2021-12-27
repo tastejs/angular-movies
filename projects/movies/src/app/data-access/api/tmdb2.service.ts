@@ -38,19 +38,22 @@ export class Tmdb2Service {
   ].join('/');
   private readonly URL_CONFIGURATION = [this.baseUrl, 'configuration'].join('/');
   private readonly URL_SEARCH = [this.baseUrl, 'search', 'movie'].join('/');
-  private readonly URL_PERSON = [this.baseUrl, 'person'].join('/');
   private readonly URL_GENRE_MOVIE_LIST = [this.baseUrl, 'genre', 'movie', 'list'].join(
     '/'
   );
   private readonly URL_MOVIE_GENRE = `${this.baseUrl}/discover/movie`;
   private readonly URL_MOVIE = (id: string) =>
     `${[this.baseUrl, 'movie', id].join('/')}?append_to_response=videos`;
+  private readonly URL_PERSON = (id: string) =>
+    `${[this.baseUrl, 'person', id].join('/')}?append_to_response=videos`;
   private readonly URL_MOVIE_RECOMMENDATIONS = (id: string) =>
     [this.baseUrl, 'movie', id, 'recommendations'].join('/');
   private readonly URL_MOVIE_CREDITS = (id: string) =>
     [this.baseUrl, 'movie', id, 'credits'].join('/');
   private readonly URL_MOVIE_CATEGORY = (category: string) =>
     [this.baseUrl, 'movie', category].join('/');
+  private readonly URL_DISCOVER = () =>
+    [this.baseUrl, 'discover', 'movie'].join('/');
 
   createRequestToken(redirectTo: string): Observable<any> {
     return this.http.post<any>(this.URL_REQUEST_TOKEN, {
@@ -97,13 +100,13 @@ export class Tmdb2Service {
       params: { with_genres: genreId, page, sort_by: sortBy }
     });
 
-  getPersonMovies = (page: string, sortBy: string): Observable<MovieModel> =>
-    this.http.get<MovieModel>(this.URL_GENRE_MOVIE_LIST, {
-      params: { page, sort_by: sortBy }
+  getPersonMovies = (id: string, page: string = '1', sortBy: string = ''): Observable<{ results: MovieModel[] }> =>
+    this.http.get<{ results: MovieModel[] }>(this.URL_DISCOVER(), {
+      params: { page, sort_by: sortBy, with_case:id }
     });
 
   getPerson = (id: string): Observable<MoviePersonModel> =>
-    this.http.get<MoviePersonModel>(this.URL_PERSON, { params: { id } });
+    this.http.get<MoviePersonModel>(this.URL_PERSON(id), { params: {  } });
 
   getMovies = (
     query: string,

@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { RxState, selectSlice } from '@rx-angular/state';
 import { StateService } from '../../shared/state/state.service';
 import { RouterStateService } from '../../shared/state/router-state.service';
-import { map, startWith, switchMap, withLatestFrom } from 'rxjs';
+import { combineLatest, map, startWith, switchMap, tap } from 'rxjs';
 import { W780H1170 } from '../../data-access/configurations/image-sizes';
 import { MovieCastModel } from '../../data-access/model/movie-cast.model';
 import { MovieDetailsModel } from '../../data-access/model/movie-details.model';
@@ -21,7 +21,7 @@ export interface MovieDetailPageModel {
 }
 
 function transformToMovieDetail(res: any): MovieDetail {
-  if (res.spoken_languages.length !== 0) {
+  if (res?.spoken_languages.length !== 0) {
     res.spoken_languages = res.spoken_languages[0].english_name;
   } else {
     res.spoken_languages = false;
@@ -45,11 +45,10 @@ function transformToMovieDetail(res: any): MovieDetail {
 })
 export class MovieDetailAdapter extends RxState<MovieDetailPageModel> {
 
-  routedMovieSlice$ = this.select(selectSlice(['movie', 'loading']))
-  routerMovie$ = this.routerState.select(getIdentifierOfTypeAndLayout('movie', 'detail'));
+  routedMovieSlice$ = this.select(selectSlice(['movie', 'loading']));
+  routerMovieId$ = this.routerState.select(getIdentifierOfTypeAndLayout('movie', 'detail'), tap(v => console.log('router detail', v)));
 
-
-  movieRecomendationsById$ = this.routerMovie$.pipe(
+  movieRecomendationsById$ = this.routerMovieId$.pipe(
     switchMap((identifier) =>
       this.tmdb.getMovieRecomendations(identifier).pipe(
         map((res: any) => res.results),
@@ -58,7 +57,7 @@ export class MovieDetailAdapter extends RxState<MovieDetailPageModel> {
     )
   );
 
-  movieCastById$ = this.routerMovie$.pipe(
+  movieCastById$ = this.routerMovieId$.pipe(
     switchMap((identifier) =>
       this.tmdb.getCredits(identifier).pipe(
         map((res: any) => res.cast || []),
@@ -69,17 +68,16 @@ export class MovieDetailAdapter extends RxState<MovieDetailPageModel> {
 
   constructor(private globalState: StateService, private routerState: RouterStateService, private tmdb: Tmdb2Service) {
     super();
-    this.connect(this.globalState.select(
-      selectSlice(['movies', 'moviesContext']),
-      withLatestFrom(this.routerMovie$),
-      map(([{ movies, moviesContext }, identifier]) => {
-        return ({
-            loading: moviesContext,
-            movie: transformToMovieDetail(movies[identifier]) || null
-          }
-        ) as MovieDetailPageModel;
-      })
-    ));
+    this.connect(
+      combineLatest({ id: this.routerMovieId$, globalSlice: this.globalState.select(selectSlice(['movies', 'moviesContext'])) }).pipe(
+        map(({ id, globalSlice }) => {
+          const { movies, moviesContext: loading } = globalSlice;
+          return ({
+            loading,
+            movie: movies[id] ? transformToMovieDetail(movies[id]) : null
+          }) as MovieDetailPageModel;
+        }))
+    );
   }
 
 }

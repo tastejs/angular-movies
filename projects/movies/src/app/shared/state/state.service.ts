@@ -57,7 +57,7 @@ export class StateService extends RxState<State> {
        * E.G.: URLs with the same params
        */
       optimizedFetch(
-        (id) => 'movie' + '-' + id,
+        (id) => id,
         (id) => {
           return this.tmdb2Service.getMovie(id)
             .pipe(
@@ -66,7 +66,13 @@ export class StateService extends RxState<State> {
             );
         }
       )
-      )
+      ),
+      (oldState, newPartial) => {
+        let s = newPartial as unknown as State;
+        let resultState = patch(oldState, s);
+        resultState.movies = patch(oldState?.movies, resultState.movies);
+        return resultState;
+      }
     );
     this.connect('genres', this.actions.refreshGenres$.pipe(
       /**
