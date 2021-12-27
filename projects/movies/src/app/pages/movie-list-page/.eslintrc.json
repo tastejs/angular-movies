@@ -1,0 +1,30 @@
+{
+  "extends": "../../../../.eslintrc.json",
+  "overrides": [
+    {
+      "files": ["*.ts"],
+      "rules": {
+        "no-restricted-imports": [
+          "error",
+          {
+            "paths": [
+              "../"
+            ]
+          }
+        ],
+        "import/no-restricted-paths": [
+          "error",
+          {
+            "zones": [
+              {
+                "target": "../**/*",
+                "from": "./**/*.ts",
+                "except": "./**/*.adapter.ts"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}
