@@ -1,18 +1,26 @@
 {
   "extends": "../../.eslintrc.json",
-  "ignorePatterns": ["!**/*"],
-  "parserOptions": {
-    "createDefaultProgram": true
-  },
+  "ignorePatterns": [
+    "!**/*"
+  ],
   "overrides": [
     {
-      "files": ["*.ts"],
+      "files": [
+        "*.ts"
+      ],
+      "parserOptions": {
+        "project": [
+          "projects/movies/tsconfig.app.json",
+          "projects/movies/tsconfig.spec.json"
+        ],
+        "createDefaultProgram": true
+      },
       "rules": {
         "@angular-eslint/directive-selector": [
           "error",
           {
             "type": "attribute",
-            "prefix": ["mv", "app"],
+            "prefix": "mv",
             "style": "camelCase"
           }
         ],
@@ -20,11 +28,17 @@
           "error",
           {
             "type": "element",
-            "prefix": ["mv", "app"],
+            "prefix": "mv",
             "style": "kebab-case"
           }
         ]
       }
+    },
+    {
+      "files": [
+        "*.html"
+      ],
+      "rules": {}
     }
   ]
 }
