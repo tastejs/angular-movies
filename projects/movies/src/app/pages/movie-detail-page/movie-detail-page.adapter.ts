@@ -21,7 +21,7 @@ export interface MovieDetailPageModel {
 }
 
 function transformToMovieDetail(res: any): MovieDetail {
-  if (res?.spoken_languages.length !== 0) {
+  if (Array.isArray(res?.spoken_languages) && res?.spoken_languages.length !== 0) {
     res.spoken_languages = res.spoken_languages[0].english_name;
   } else {
     res.spoken_languages = false;
@@ -74,7 +74,7 @@ export class MovieDetailAdapter extends RxState<MovieDetailPageModel> {
           const { movies, moviesContext: loading } = globalSlice;
           return ({
             loading,
-            movie: movies[id] ? transformToMovieDetail(movies[id]) : null
+            movie: movies[id] !== undefined ? transformToMovieDetail(movies[id]) : null
           }) as MovieDetailPageModel;
         }))
     );
