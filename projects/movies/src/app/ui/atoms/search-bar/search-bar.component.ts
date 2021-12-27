@@ -1,14 +1,6 @@
 import { DOCUMENT } from '@angular/common';
-import {
-  ChangeDetectionStrategy,
-  Component,
-  ElementRef,
-  Inject, Input,
-  OnInit,
-  Output,
-  ViewChild
-} from '@angular/core';
-import { fromEvent, map, Observable, withLatestFrom } from 'rxjs';
+import { ChangeDetectionStrategy, Component, ElementRef, Inject, Input, OnInit, Output, ViewChild, ViewEncapsulation } from '@angular/core';
+import { filter, fromEvent, map, merge, Observable, startWith, switchMap, take, withLatestFrom } from 'rxjs';
 import { getActions } from '../../../shared/rxa-custom/actions';
 import { RxState } from '@rx-angular/state';
 import { coerceObservable } from '@rx-angular/cdk';
@@ -30,16 +22,16 @@ import { coerceObservable } from '@rx-angular/cdk';
         <app-search-icon></app-search-icon>
       </button>
       <input *rxLet="search$; let search"
-        aria-label="Search Input"
-        #searchInput [value]="search"
-        (change)="ui.searchChange(searchInput.value)"
-        placeholder="Search for a movie..."
-        class="input"
+             aria-label="Search Input"
+             #searchInput [value]="search"
+             (change)="ui.searchChange(searchInput.value)"
+             placeholder="Search for a movie..."
+             class="input"
       />
     </form>
   `,
   styles: [
-    `
+      `
       :host {
         display: contents;
       }
@@ -58,8 +50,7 @@ import { coerceObservable } from '@rx-angular/cdk';
         height: 2rem;
         outline: none;
         border-radius: 100px;
-        transition: width var(--theme-anim-duration-standard)
-          var(--theme-anim-easing-easeInOut);
+        transition: width var(--theme-anim-duration-standard) var(--theme-anim-easing-easeInOut);
       }
 
       .magnifier-button {
@@ -81,8 +72,7 @@ import { coerceObservable } from '@rx-angular/cdk';
         margin-left: 0;
         color: var(--palette-secondary-contrast-text);
         border: none;
-        transition: margin-left var(--theme-anim-duration-standard)
-          var(--theme-anim-easing-easeInOut);
+        transition: margin-left var(--theme-anim-duration-standard) var(--theme-anim-easing-easeInOut);
       }
 
       input:focus,
@@ -117,6 +107,7 @@ import { coerceObservable } from '@rx-angular/cdk';
         .input {
           font-size: 1.25rem;
         }
+
         .form {
           padding: 1.5rem;
           border: 1px solid hsl(0deg 0% 0% / 0%);
@@ -141,24 +132,28 @@ import { coerceObservable } from '@rx-angular/cdk';
           max-width: 16rem;
         }
       }
-    `,
+    `
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.Emulated,
   providers: [RxState]
 })
 export class SearchBarComponent implements OnInit {
   @ViewChild('searchInput') inputRef!: ElementRef<HTMLInputElement>;
   @ViewChild('form') formRef!: ElementRef<HTMLFormElement>;
-  get input() {
-    return this.inputRef.nativeElement;
-  }
 
   ui = getActions<{
     searchChange: string,
-    formClick: any,
-    outsideFormClick: any,
-    formSubmit: any
-  }>({searchChange: (value) => value || ''})
+    formClick: Event,
+    outsideFormClick: Event,
+    formSubmit: Event
+  }>({
+    searchChange: s => s + '',
+    formSubmit: e => {
+      e.preventDefault();
+      return e;
+    }
+  });
 
   @Input()
   set query(v: string | Observable<string>) {
@@ -171,42 +166,63 @@ export class SearchBarComponent implements OnInit {
     map(([_, search]) => search)
   );
 
+  private readonly closedFormClick$ = this.ui.formClick$.pipe(
+    withLatestFrom(this.state.select('open')),
+    filter(([_, opened]) => !opened)
+  );
 
-  private readonly nativeElement: HTMLElement = this.elementRef.nativeElement;
+  private outsideClick(): Observable<Event> {
+    // any click on the page (we can't use the option `once:true` as we might get multiple false trigger)
+    return fromEvent(this.document, 'click').pipe(
+      // forward if the current element is NOT the element that triggered the click
+      // means we clicked somewhere else in the page but the form
+      filter(e => !this.formRef.nativeElement.contains(e.target as any))
+    );
+  }
+
+  /**
+   * **🚀 Perf Tip for TBT, TTI:**
+   *
+   * We avoid `@HostListener('document')` as it would add an event listener on component bootstrap no matter if we need it or not.
+   * This obviously will not scale.
+   *
+   * To avoid this we only listen to document click events after we clicked on the closed form.
+   * If the needed event to close the form is received we stop listening to the document.
+   *
+   * This way we reduce the active event listeners to a minimum.
+   */
+  private readonly outsideOpenFormClick$ = this.closedFormClick$.pipe(
+    switchMap(() => this.outsideClick().pipe(take(1)))
+  );
+
+  private readonly classList = this.elementRef.nativeElement.classList;
+
   constructor(
-    private state: RxState<{search: string}>,
+    private state: RxState<{ search: string, open: boolean }>,
     @Inject(ElementRef) private elementRef: ElementRef,
     @Inject(DOCUMENT) private document: Document
   ) {
-    this.state.connect('search', this.ui.searchChange$)
+    this.state.set({ open: false });
   }
 
   ngOnInit() {
-    this.state.hold(fromEvent(this.document, 'click'), this.onOutsideFormClick);
-    this.state.hold(this.ui.formClick$, this.onFormClick);
-    this.state.hold(this.ui.formSubmit$, this.onFormSubmit);
+    this.state.hold(this.state.select('open'), this.setOpenedStyling);
+    this.state.hold(this.closedFormClick$, this.focusInput);
+
+    this.state.connect('search', this.ui.searchChange$.pipe(startWith('')));
+    this.state.connect('open', merge(this.ui.formSubmit$, this.outsideOpenFormClick$), () => false);
+    this.state.connect('open', this.closedFormClick$, () => true);
   }
 
-  setOpened(opened: boolean) {
+  private focusInput = () => {
+    return this.inputRef.nativeElement.focus();
+  };
+
+  private setOpenedStyling = (opened: boolean) => {
     opened
-      ? this.nativeElement.classList.add('opened')
-      : this.nativeElement.classList.remove('opened');
-  }
-
-  onFormClick() {
-    this.setOpened(true);
-    this.input.focus();
-  }
-
-  onOutsideFormClick(e: Event) {
-    if (!this.formRef.nativeElement.contains(e.target as any)) {
-      this.setOpened(false);
-    }
-  }
-
-  onFormSubmit(event: Event) {
-    event.preventDefault();
-    this.setOpened(false);
-  }
+      ? this.classList.add('opened')
+      : this.classList.remove('opened');
+  };
 
 }
+
