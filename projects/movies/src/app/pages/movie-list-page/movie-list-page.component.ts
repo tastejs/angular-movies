@@ -9,6 +9,7 @@ type MoviesState = {
   loading: boolean;
   movies: MovieModel[];
   title: string;
+  type: string;
 };
 
 @Component({
@@ -27,7 +28,7 @@ export class MovieListPageComponent extends RxState<MoviesState> {
     }),
     map(({ loading, movies }) => loading || movies === null)
   );
-  readonly title$ = this.select('title');
+  readonly headings$ = this.select(selectSlice(['title', 'type']));
 
   constructor(
     private state: StateService,

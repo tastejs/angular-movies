@@ -107,10 +107,10 @@ export class Tmdb2Service {
 
   getMovies = (
     query: string,
-    page: string | number,
+    page: string | number = 1,
     lang?: string
-  ): Observable<MovieDatabaseModel[]> =>
-    this.http.get<MovieDatabaseModel[]>(this.URL_SEARCH, {
+  ): Observable<{ results: MovieModel[] }> =>
+    this.http.get<{ results: MovieModel[] }>(this.URL_SEARCH, {
       params: { query, page, ...(lang && { lang }) }
     });
 
