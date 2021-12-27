@@ -115,8 +115,8 @@
           "builder": "@angular-eslint/builder:lint",
           "options": {
             "lintFilePatterns": [
-              "projects/movies/**/*.ts",
-              "projects/movies/**/*.html"
+              "projects/movies/src/app/**/*.ts",
+              "projects/movies/src/app/**/*.html"
             ]
           }
         },

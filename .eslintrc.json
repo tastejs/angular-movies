@@ -38,7 +38,7 @@
             "type": "attribute"
           }
         ],
-        "import-blacklist": [2, "rxjs/operators"]
+        "no-restricted-imports": ["error", "rxjs/operators"]
       }
     },
     {

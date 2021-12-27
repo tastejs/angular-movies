@@ -19,7 +19,7 @@
               {
                 "target": "../**/*",
                 "from": "./**/*.ts",
-                "except": "./**/*.adapter.ts"
+                "except": ["./**/*.adapter.ts"]
               }
             ]
           }
