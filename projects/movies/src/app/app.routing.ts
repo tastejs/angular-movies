@@ -36,7 +36,7 @@ const ROUTES: Routes = [
  */
   },
   {
-    path: 'movie/:id',
+    path: 'detail/movie/:identifier',
     loadChildren: () =>
       import('projects/movies/src/app/pages/movie-detail-page/movie-detail-page.module').then((m) => m.MovieDetailPageModule)
   },

@@ -1,15 +1,12 @@
 import { Injectable } from '@angular/core';
-import { exhaustMap, map, Observable, switchMap, withLatestFrom } from 'rxjs';
+import { exhaustMap, map, switchMap } from 'rxjs';
 import { Tmdb2Service } from '../../data-access/api/tmdb2.service';
 import { MovieGenreModel } from '../../data-access/model/movie-genre.model';
 import { MovieModel } from '../../data-access/model/movie.model';
-import { patch, RxState, selectSlice } from '@rx-angular/state';
+import { patch, RxState, toDictionary } from '@rx-angular/state';
 import { optimizedFetch } from '../utils/optimized-fetch';
-import { parseTitle } from '../utils/parse-movie-list-title';
 import { getActions } from '../rxa-custom/actions';
 import { withLoadingEmission } from '../utils/withLoadingEmissions';
-import { RouterStateService } from './router-state.service';
-
 
 export interface State {
   genres: MovieGenreModel[];
@@ -19,16 +16,12 @@ export interface State {
   categoryMoviesContext: boolean;
   search: MovieModel[];
   searchContext: boolean;
-}
-
-export interface MovieList {
-  loading: boolean;
-  title: string;
-  type: string;
-  movies: MovieModel[];
+  movies: Record<string, MovieModel>;
+  moviesContext: boolean;
 }
 
 interface Actions {
+  fetchMovie: string;
   refreshGenres: void;
   fetchCategoryMovies: string;
   fetchGenreMovies: string;
@@ -42,66 +35,39 @@ export class StateService extends RxState<State> {
   private actions = getActions<Actions>({ fetchGenreMovies: (e: string | number) => e + '' });
 
   readonly genresNames$ = this.select('genres');
-  readonly genreMovieList$ = this.select(
-    selectSlice(['genres', 'genreMovies', 'genreMoviesContext']),
-    withLatestFrom(this.routerState.routerGenre$),
-    map(([{ genres, genreMovies, genreMoviesContext }, genreParam]) => {
-      const genreIdStr = genreParam as unknown as string;
-      const genreId = parseInt(genreIdStr, 10);
-      const genreName = genres.find((g: MovieGenreModel) => g.id === genreId)?.name || 'unknown genre';
-      return {
-        loading: genreMoviesContext,
-        title: parseTitle(genreName),
-        type: 'genre',
-        movies: genreMovies && genreMovies[genreIdStr] || null
-      };
-    })
-  );
 
-  readonly categoryMovieList$: Observable<MovieList> = this.select(
-    selectSlice(['categoryMovies', 'categoryMoviesContext']),
-    withLatestFrom(this.routerState.routerCategory$),
-    map(([{ categoryMovies, categoryMoviesContext }, listName]) => {
-        return ({
-          loading: categoryMoviesContext,
-          title: parseTitle(listName),
-          type: 'category',
-          movies: categoryMovies && categoryMovies[listName] || null
-        });
-      }
-    )
-  );
-
-  searchMovieList$: Observable<MovieList> = this.select(
-    selectSlice(['search', 'searchContext']),
-    withLatestFrom(this.routerState.routerSearch$),
-    map(([{ search, searchContext }, listName]) => {
-        return ({
-          loading: searchContext,
-          title: parseTitle(listName),
-          type: 'search',
-          movies: search && search || null
-        });
-      }
-    )
-  );
-
-  routedMovieList$ = this.routerState.routerParams$.pipe(
-    switchMap(({ type }) => type === 'genre' ? this.genreMovieList$ : type === 'category' ? this.categoryMovieList$ : this.searchMovieList$)
-  );
-
-  constructor(private tmdb2Service: Tmdb2Service, private routerState: RouterStateService) {
+  constructor(private tmdb2Service: Tmdb2Service) {
     super();
+
     this.set({
       categoryMovies: {},
       genreMovies: {}
-    })
+    });
   }
 
   /**
    * @TODO Add comment regards chunking
    */
   init = () => setTimeout(() => {
+    this.connect(this.actions.fetchMovie$.pipe(
+      /**
+       * **🚀 Perf Tip for TTI, TBT:**
+       *
+       * Avoid over fetching for HTTP get requests to URLs that will not change result quickly.
+       * E.G.: URLs with the same params
+       */
+      optimizedFetch(
+        (id) => 'movie' + '-' + id,
+        (id) => {
+          return this.tmdb2Service.getMovie(id)
+            .pipe(
+              map(result => ({ movies: toDictionary([result], 'id') } as State)),
+              withLoadingEmission('moviesContext', true, false)
+            );
+        }
+      )
+      )
+    );
     this.connect('genres', this.actions.refreshGenres$.pipe(
       /**
        * **🚀 Perf Tip for TTI, TBT:**
@@ -159,6 +125,7 @@ export class StateService extends RxState<State> {
         return resultState;
       }
     );
+
     this.connect(
       this.actions.fetchSearchMovies$.pipe(
         switchMap((query) => this.tmdb2Service.getMovies(query)
@@ -173,6 +140,8 @@ export class StateService extends RxState<State> {
     // initially fetch genres
     this.refreshGenres();
   });
+
+  fetchMovie = this.actions.fetchMovie;
 
   refreshGenres = this.actions.refreshGenres;
 

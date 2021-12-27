@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
-import { GridComponent } from './subtitle.component';
+import { DetailGridComponent } from './detail-grid.component';
 
 @NgModule({
-  declarations: [GridComponent],
+  declarations: [DetailGridComponent],
   imports: [],
-  exports: [GridComponent]
+  exports: [DetailGridComponent]
 })
 export class DetailGridModule {
 }

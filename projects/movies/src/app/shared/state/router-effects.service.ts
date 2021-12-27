@@ -17,13 +17,17 @@ export class RouterEffectsService extends RxState<any> {
 
   init = () => this.hold(this.routerState.routerParams$, this.routerFetchEffect);
 
-  private routerFetchEffect = ({ type, identifier }: RouterParams) => {
+  private routerFetchEffect = ({ layout, type, identifier }: RouterParams) => {
     if (type === 'category') {
       this.state.fetchCategoryMovies(identifier);
     } else if (type === 'genre') {
       this.state.fetchGenreMovies(identifier);
     } else if (type === 'search') {
       this.state.fetchSearchMovies(identifier);
+    }
+
+    if(layout === 'detail' && type === 'movie') {
+      this.state.fetchMovie(identifier)
     }
   };
 

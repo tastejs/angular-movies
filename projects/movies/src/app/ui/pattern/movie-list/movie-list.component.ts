@@ -18,7 +18,6 @@ type Movie = MovieModel & ImageTag;
         <a
           class='movies-list--grid-item'
           *rxFor='let movie of (movies$); index as idx; trackBy: trackByMovieId; '
-          [href]="'/movie/' + movie.id"
           (click)='$event.preventDefault(); navigateToMovie(movie)'
           [attr.data-test]="'list-item-idx-'+idx"
         >
@@ -108,6 +107,6 @@ export class MovieListComponent {
   }
 
   navigateToMovie(movie: Movie) {
-    this.router.navigate(['/movie', movie.id]);
+    this.router.navigate(['/detail/movie', movie.id]);
   }
 }
