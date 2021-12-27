@@ -5,25 +5,23 @@
  * This reduces bundle-size of your styles.
  */
 @import 'styles/normalize';
-@import 'styles/palette';
-@import 'styles/typography';
+@import "app/ui/token/colors";
+@import "app/ui/token/zIndex";
+@import "app/ui/token/animations";
+@import "app/ui/token/media";
+@import "app/ui/token/borderRadius";
+@import "app/ui/token/shadow";
+@import 'app/ui/token/typography';
 
 body {
   color: var(--palette-text-primary);
   background-color: var(--palette-background-default);
-  -webkit-transition: color var(--duration) var(--timing),
-    background-color var(--duration) var(--timing);
   transition: color var(--duration) var(--timing),
     background-color var(--duration) var(--timing);
 }
 
 body.dark img:not([src*='.svg']) {
-  -webkit-filter: var(--image-filter);
   filter: var(--image-filter);
 }
 
-a {
-  cursor: pointer;
-  text-decoration: none;
-  color: var(--palette-secondary-main);
-}
+

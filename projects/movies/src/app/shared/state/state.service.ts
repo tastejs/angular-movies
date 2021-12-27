@@ -41,8 +41,8 @@ interface Actions {
 export class StateService extends RxState<State> {
   private actions = getActions<Actions>({ fetchGenreMovies: (e: string | number) => e + '' });
 
-  genresNames$ = this.select('genres');
-  genreMovieList$ = this.select(
+  readonly genresNames$ = this.select('genres');
+  readonly genreMovieList$ = this.select(
     selectSlice(['genres', 'genreMovies', 'genreMoviesContext']),
     withLatestFrom(this.routerState.routerGenre$),
     map(([{ genres, genreMovies, genreMoviesContext }, genreParam]) => {
@@ -58,7 +58,7 @@ export class StateService extends RxState<State> {
     })
   );
 
-  categoryMovieList$: Observable<MovieList> = this.select(
+  readonly categoryMovieList$: Observable<MovieList> = this.select(
     selectSlice(['categoryMovies', 'categoryMoviesContext']),
     withLatestFrom(this.routerState.routerCategory$),
     map(([{ categoryMovies, categoryMoviesContext }, listName]) => {
@@ -92,6 +92,10 @@ export class StateService extends RxState<State> {
 
   constructor(private tmdb2Service: Tmdb2Service, private routerState: RouterStateService) {
     super();
+    this.set({
+      categoryMovies: {},
+      genreMovies: {}
+    })
   }
 
   /**

@@ -36,13 +36,13 @@ export function isAuthenticationInProgress({
   providedIn: 'root',
 })
 export class AuthStateService extends RxState<AuthState>{
-  redirectUrl = `${window.location.protocol}//${window.location.hostname}:${window.location.port}/movies/popular`;
+  readonly redirectUrl = `${window.location.protocol}//${window.location.hostname}:${window.location.port}/movies/popular`;
   private localStorage = window.localStorage;
 
-  requestToken$ = this.select('requestToken');
-  accessToken$ = this.select('accessToken');
-  accountId$ = this.select('accountId');
-  isAuthenticationInProgress$ = this.select(
+  readonly requestToken$ = this.select('requestToken');
+  readonly accessToken$ = this.select('accessToken');
+  readonly accountId$ = this.select('accountId');
+  readonly isAuthenticationInProgress$ = this.select(
     map(isAuthenticationInProgress)
   );
 

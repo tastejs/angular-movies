@@ -2,15 +2,14 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MovieListPageComponent } from './movie-list-page.component';
 import { RouterModule, Routes } from '@angular/router';
-import { MovieListModule } from '../../ui/components/movie-list/movie-list.module';
+import { MovieListModule } from '../../ui/pattern/movie-list/movie-list.module';
 import { LetModule } from '@rx-angular/template/let';
-import { LoaderComponentModule } from '../../ui/atoms/loader/loader.component';
-
+import { LoaderModule } from '../../ui/component/loader/loader.module';
 
 const ROUTES: Routes = [
   {
     path: '',
-    component: MovieListPageComponent,
+    component: MovieListPageComponent
   }
 ];
 
@@ -21,8 +20,9 @@ const ROUTES: Routes = [
     RouterModule.forChild(ROUTES),
     MovieListModule,
     LetModule,
-    LoaderComponentModule,
+    LoaderModule
   ],
-  exports: [MovieListPageComponent],
+  exports: [MovieListPageComponent]
 })
-export class MovieListPageModule { }
+export class MovieListPageModule {
+}

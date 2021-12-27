@@ -1,0 +1,11 @@
+:root {
+  --duration: 0.5s;
+  --timing: ease;
+  --theme-anim-duration-short: 250ms;
+  --theme-anim-duration-standard: 300ms;
+  --theme-anim-duration-leavingScreen: 195ms;
+  --theme-anim-easing-easeInOut: cubic-bezier(0.4, 0, 0.2, 1);
+  --theme-anim-easing-easeOut: cubic-bezier(0.4, 0, 0.2, 1);
+  --theme-anim-easing-easeIn: cubic-bezier(0.4, 0, 0.2, 1);
+  --theme-anim-easing-sharp: cubic-bezier(0.4, 0, 0.2, 1);
+}

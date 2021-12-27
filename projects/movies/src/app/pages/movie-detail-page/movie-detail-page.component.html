@@ -1,40 +1,38 @@
-<div class="movie-detail--grid" *rxLet="detailState$; let vs">
+<article *rxLet="detailState$; let vs">
   <ng-container *ngIf="!vs.loading; else loading">
-    <div class="movie-detail--grid-item gradient">
-      <app-aspect-ratio-box [aspectRatio]="W780H1170.WIDTH / W780H1170.HEIGHT">
+    <ds-detail-grid>
+      <app-aspect-ratio-box detailGridMedia [aspectRatio]="vs.movie.imgRatio">
         <img
-          class="movie-poster"
+          class="fit-cover"
           [src]="
             'https://image.tmdb.org/t/p/w' +
-            W780H1170.WIDTH +
+            vs.movie.imgWidth +
             '/' +
             vs.movie?.poster_path
           "
-          [width]="W780H1170.WIDTH"
-          [height]="W780H1170.HEIGHT"
+          [width]="vs.movie.imgWidth"
+          [height]="vs.movie.imgHeight"
           alt="poster movie"
           [title]="vs.movie?.title"
           data-test="detail-item-img"
         />
       </app-aspect-ratio-box>
-    </div>
-    <div class="movie-detail--grid-item">
-      <div class="movie-detail--summary">
-        <div class="header">
-          <h1 class="movie-detail--title">{{ vs.movie?.title }}</h1>
-          <h2 class="movie-detail--subtitle">{{ vs.movie?.tagline }}</h2>
-        </div>
-        <div class="movie-detail--basic-infos">
+      <div detailGridDescription>
+        <header>
+          <h1>{{ vs.movie.title }}</h1>
+          <h2>{{ vs.movie.tagline }}</h2>
+        </header>
+        <section class="movie-detail--basic-infos">
           <app-star-rating
             [rating]="vs.movie?.vote_average"
             [showRating]="true"
           ></app-star-rating>
           <div class="movie-detail--languages-runtime-release">
-            {{ vs.movie?.languages_runtime_release }}
+            <strong>{{ vs.movie?.languages_runtime_release }}</strong>
           </div>
-        </div>
-        <div class="movie-detail--section">
-          <h3 class="section-heading">The Genres</h3>
+        </section>
+        <section>
+          <h3>The Genres</h3>
           <div class="movie-detail--genres">
             <a
               class="movie-detail--genres-link"
@@ -55,15 +53,13 @@
               {{ genre.name }}
             </a>
           </div>
-        </div>
-        <div class="movie-detail--section">
-          <h3 class="section-heading">The Synopsis</h3>
-          <p class="section-text">
-            {{ vs.movie?.overview || 'There is no synopsis available...' }}
-          </p>
-        </div>
-        <div class="movie-detail--cast">
-          <h3 class="section-heading">The Cast</h3>
+        </section>
+        <section>
+          <h3>The Synopsis</h3>
+          <p>  {{ vs.movie?.overview || 'There is no synopsis available...' }}</p>
+        </section>
+        <section>
+          <h3>The Cast</h3>
           <div class="movie-detail--cast-list">
             <a
               *ngFor="let c of vs.cast; trackBy: trackByCast"
@@ -83,55 +79,50 @@
               />
             </a>
           </div>
-        </div>
-        <div class="movie-detail--ad-section">
-          <div class="movie-detail--ad-section-links">
-            <a
-              class="btn"
-              target="_blank"
-              rel="noopener noreferrer"
-              [href]="vs.movie?.homepage"
-            >
-              Website
-              <svg class="btn__icon" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M0 0h24v24H0V0z" fill="none" />
-                <path
-                  d="M17 7h-4v2h4c1.65 0 3 1.35 3 3s-1.35 3-3 3h-4v2h4c2.76 0 5-2.24 5-5s-2.24-5-5-5zm-6 8H7c-1.65 0-3-1.35-3-3s1.35-3 3-3h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-2zm-3-4h8v2H8z"
-                />
-              </svg>
-            </a>
-            <a
-              *ngIf="vs.movie?.imdb_id"
-              class="btn"
-              target="_blank"
-              rel="noopener noreferrer"
-              [href]="'https://www.imdb.com/title/' + vs.movie?.imdb_id"
-            >
-              IMDB
-              <svg class="btn__icon" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M0 0h24v24H0z" fill="none" />
-                <path
-                  d="M18 3v2h-2V3H8v2H6V3H4v18h2v-2h2v2h8v-2h2v2h2V3h-2zM8 17H6v-2h2v2zm0-4H6v-2h2v2zm0-4H6V7h2v2zm10 8h-2v-2h2v2zm0-4h-2v-2h2v2zm0-4h-2V7h2v2z"
-                />
-              </svg>
-            </a>
-          </div>
-        </div>
+        </section>
+        <section class="movie-detail--ad-section-links">
+          <a
+            class="btn"
+            target="_blank"
+            rel="noopener noreferrer"
+            [href]="vs.movie?.homepage"
+          >
+            Website
+            <svg class="btn__icon" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M0 0h24v24H0V0z" fill="none" />
+              <path
+                d="M17 7h-4v2h4c1.65 0 3 1.35 3 3s-1.35 3-3 3h-4v2h4c2.76 0 5-2.24 5-5s-2.24-5-5-5zm-6 8H7c-1.65 0-3-1.35-3-3s1.35-3 3-3h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-2zm-3-4h8v2H8z"
+              />
+            </svg>
+          </a>
+          <a
+            *ngIf="vs.movie?.imdb_id"
+            class="btn"
+            target="_blank"
+            rel="noopener noreferrer"
+            [href]="'https://www.imdb.com/title/' + vs.movie?.imdb_id"
+          >
+            IMDB
+            <svg class="btn__icon" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M0 0h24v24H0z" fill="none" />
+              <path
+                d="M18 3v2h-2V3H8v2H6V3H4v18h2v-2h2v2h8v-2h2v2h2V3h-2zM8 17H6v-2h2v2zm0-4H6v-2h2v2zm0-4H6V7h2v2zm10 8h-2v-2h2v2zm0-4h-2v-2h2v2zm0-4h-2V7h2v2z"
+              />
+            </svg>
+          </a>
+        </section>
       </div>
-    </div>
+    </ds-detail-grid>
   </ng-container>
   <ng-template #loading>
     <app-loader></app-loader>
   </ng-template>
-</div>
-<div
-  class="padding-wrapper movie-detail--recommended"
-  *rxLet="recommendedLoading$; let loading"
->
+</article>
+<article *rxLet="recommendedLoading$; let loading">
+  <header>
+    <h1>Recommended</h1>
+    <h2>Movies</h2>
+  </header>
   <app-movie-list *ngIf="!loading" [movies]="recommendations$">
-    <div class="header">
-      <h1 class="title">Recommended</h1>
-      <h2 class="subtitle">Movies</h2>
-    </div>
   </app-movie-list>
-</div>
+</article>

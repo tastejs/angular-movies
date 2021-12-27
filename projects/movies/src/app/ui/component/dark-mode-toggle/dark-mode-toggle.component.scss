@@ -1,0 +1,82 @@
+@import "../../token/flex";
+@import "../../token/colors";
+
+:host {
+  @include d-flex;
+}
+
+.dark-mode-toggle {
+  @include d-flex;
+}
+
+.dark-mode-toggle > button {
+  font-size: 2.125rem;
+  background: none;
+  border: none;
+  line-height: 0;
+  cursor: pointer;
+  color: var(--palette-text-primary);
+  transition: color var(--theme-anim-duration-standard) var(--theme-anim-easing-easeInOut);
+}
+
+.dark-mode-toggle > button:focus {
+  outline: none;
+}
+
+button.light {
+  color: var(--palette-text-disabled);
+}
+
+button.dark {
+  color: var(--palette-custom-tmdbLightBlue)
+}
+
+:host-context(.light) {
+  button.light {
+    color: var(--palette-toggle-light-light);
+  }
+
+  button.dark {
+    color: var(--palette-text-primary);
+  }
+}
+
+.toggle {
+  position: relative;
+  padding: 0 6px;
+  @include d-flex-v;
+  width: 45px;
+}
+
+input[type='checkbox'].toggle-track {
+  width: 34px;
+  height: 14px;
+  opacity: 0.5;
+  background-color: var(--palette-secondary-main);
+  position: relative;
+  border-radius: 7px;
+  appearance: none;
+  cursor: pointer;
+  vertical-align: 2px;
+  outline: none;
+}
+
+input[type='checkbox'].toggle-track:checked + label {
+  left: 20px;
+}
+
+input[type='checkbox'].toggle-track:focus-visible {
+  outline: solid 2px white;
+}
+
+input[type='checkbox'].toggle-track + label {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border-radius: var(--theme-borderRadius-circle);
+  transition: left var(--theme-anim-duration-standard) var(--theme-anim-easing-easeInOut);
+  cursor: pointer;
+  position: absolute;
+  left: 2px;
+  background-color: var(--palette-secondary-main);
+}

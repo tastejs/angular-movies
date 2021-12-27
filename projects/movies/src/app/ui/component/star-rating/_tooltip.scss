@@ -1,0 +1,25 @@
+.tooltip {
+  position: absolute;
+
+  visibility: hidden;
+  width: max-content;
+  font-size: var(--text-sm);
+  background-color: var(--palette-primary-light);
+  color: var(--palette-primary-contrast-text);
+  text-align: center;
+  border-radius: var(--theme-borderRadius-sm);
+  padding: 1rem;
+  z-index: var(--theme-tooptip-zIndex);
+  transition: visibility var(--theme-anim-duration-short) var(--theme-anim-easing-easeOut);
+}
+
+.tooltip::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: var(--palette-primary-light) transparent transparent transparent;
+}

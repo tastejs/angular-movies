@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, TrackByFunction, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, TrackByFunction, ViewChild, ViewEncapsulation } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { RxState } from '@rx-angular/state';
 import { filter, map } from 'rxjs';
@@ -15,13 +15,14 @@ import { RouterStateService } from '../shared/state/router-state.service';
   templateUrl: './app-shell.component.html',
   styleUrls: ['./app-shell.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.Emulated,
   providers: [RxState]
 })
 export class AppShellComponent {
 
   search$ = this.routerState.routerSearch$;
   constructor(
-    private state: RxState<{
+    private readonly state: RxState<{
       activeRoute: string;
       loggedIn: boolean;
       sideDrawerOpen: boolean;
@@ -61,13 +62,13 @@ export class AppShellComponent {
     );
   }
 
-  genres$ = this.globalState.genresNames$;
+  readonly genres$ = this.globalState.genresNames$;
   @ViewChild('snav') snav: any;
 
   readonly viewState$ = this.state.select();
   readonly ui = getActions<{sideDrawerOpenToggle: boolean}>();
 
-  trackByGenre: TrackByFunction<MovieGenreModel> =
+  readonly trackByGenre: TrackByFunction<MovieGenreModel> =
     trackByProp<MovieGenreModel>('name');
 
   searchMovie(term: string) {
