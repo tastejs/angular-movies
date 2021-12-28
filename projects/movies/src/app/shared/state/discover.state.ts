@@ -13,7 +13,6 @@ export interface State {
 }
 
 interface Actions {
-  refreshGenres: void;
   fetchGenreMovies: string;
 }
 
@@ -23,7 +22,6 @@ interface Actions {
 export class DiscoverState extends RxState<State> {
   private actions = getActions<Actions>({ fetchGenreMovies: (e: string | number) => e + '' });
 
-  readonly refreshGenres = this.actions.refreshGenres;
   readonly fetchGenreMovies = this.actions.fetchGenreMovies;
 
   constructor(private discoverResource: DiscoverResource) {
@@ -57,10 +55,5 @@ export class DiscoverState extends RxState<State> {
       }
     );
   }
-
-  initialFetch = () => {
-    // initially fetch genres
-    this.refreshGenres();
-  };
 
 }

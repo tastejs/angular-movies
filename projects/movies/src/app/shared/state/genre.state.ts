@@ -11,19 +11,17 @@ export interface State {
 
 interface Actions {
   refreshGenres: void;
-  fetchGenreMovies: string;
 }
 
 @Injectable({
   providedIn: 'root'
 })
 export class GenreState extends RxState<State> {
-  private actions = getActions<Actions>({ fetchGenreMovies: (e: string | number) => e + '' });
+  private actions = getActions<Actions>();
 
   readonly genresNames$ = this.select('genres');
 
   readonly refreshGenres = this.actions.refreshGenres;
-  readonly fetchGenreMovies = this.actions.fetchGenreMovies;
 
   constructor(private genreResource: GenreResource) {
     super();
