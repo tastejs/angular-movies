@@ -1,14 +1,15 @@
 import { MovieModel } from '../../data-access/model/movie.model';
 import { Injectable } from '@angular/core';
 import { RxState, selectSlice } from '@rx-angular/state';
-import { StateService } from '../../shared/state/state.service';
-import { RouterStateService } from '../../shared/state/router-state.service';
+import { RouterState } from '../../shared/state/router.state';
 import { combineLatest, map, startWith, switchMap } from 'rxjs';
 import { W780H1170 } from '../../data-access/configurations/image-sizes';
 import { ImageTag } from '../../shared/utils/image-object';
-import { Tmdb2Service } from '../../data-access/api/tmdb2.service';
 import { getIdentifierOfTypeAndLayout } from '../../shared/state/utils';
 import { MoviePersonModel } from '../../data-access/model/movie-person.model';
+import { PersonState } from '../../shared/state/person.state';
+import { MovieResource } from '../../data-access/api/movie.resource';
+import { DiscoverResource } from '../../data-access/api/discover.resource';
 
 export type MoviePerson = MoviePersonModel & ImageTag;
 
@@ -38,7 +39,7 @@ export class PersonDetailAdapter extends RxState<PersonDetailPageAdapterState> {
 
   readonly movieRecomendationsById$ = this.routerPersonId$.pipe(
     switchMap((identifier) =>
-      this.tmdb.getPersonMovies(identifier).pipe(
+      this.personResource.getDiscoverMovies(identifier).pipe(
         map((res: any) => res.results),
         startWith([])
       )
@@ -47,17 +48,20 @@ export class PersonDetailAdapter extends RxState<PersonDetailPageAdapterState> {
 
   readonly movieCastById$ = this.routerPersonId$.pipe(
     switchMap((identifier) =>
-      this.tmdb.getCredits(identifier).pipe(
+      this.movieResource.getCredits(identifier).pipe(
         map((res: any) => res.cast || []),
         startWith([])
       )
     )
   );
 
-  constructor(private globalState: StateService, private routerState: RouterStateService, private tmdb: Tmdb2Service) {
+  constructor(private routerState: RouterState,
+              private personResource: DiscoverResource,
+              private movieResource: MovieResource,
+              private personState: PersonState) {
     super();
     this.connect(
-      combineLatest({ id: this.routerPersonId$, globalSlice: this.globalState.select(selectSlice(['person', 'personContext'])) }).pipe(
+      combineLatest({ id: this.routerPersonId$, globalSlice: this.personState.select(selectSlice(['person', 'personContext'])) }).pipe(
         map(({ id, globalSlice }) => {
           const { person, personContext: loading } = globalSlice;
           return ({
