@@ -30,7 +30,7 @@ const starsArray: number[] = new Array(numStars).fill(1);
     </div>
     <div class="rating-value" *ngIf="showRating">{{ rating }}</div>
   `,
-  styleUrls: ['star-rating.component.scss', './_tooltip.scss'],
+  styleUrls: ['star-rating.component.scss', '../../component/tooltip/_tooltip.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.Emulated,
 })

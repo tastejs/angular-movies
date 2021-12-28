@@ -1,6 +1,7 @@
-@import '../../ui/component/button/button';
+@import "../../ui/token/mixins/flex";
+@import "../../ui/token/aspectRatio";
 @import '../../ui/component/icons/icon';
-@import "../../ui/token/flex";
+@import '../../ui/component/button/button';
 
 :host {
   width: 100%;
