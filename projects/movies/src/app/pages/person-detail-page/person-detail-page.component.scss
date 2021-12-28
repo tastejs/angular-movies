@@ -1,0 +1,41 @@
+@import '../../ui/component/button/button';
+@import "../../ui/token/flex";
+
+:host {
+  width: 100%;
+  display: block;
+}
+
+.movie-detail {
+
+  @media only screen and (max-width: 1500px) {
+    &--grid-item {
+      padding: 3rem;
+    }
+  }
+
+  &--ad-section-links {
+    .section--content {
+      @include d-flex;
+      margin-right: auto;
+    }
+
+    .btn {
+      margin-right: 2rem;
+      @media only screen and (max-width: 1300px) {
+        margin-right: 1rem;
+      }
+    }
+
+    > .btn:last-child {
+      margin-right: 0rem;
+    }
+  }
+
+}
+
+.movie-detail--section {
+  margin-bottom: 3rem;
+}
+
+
