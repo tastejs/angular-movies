@@ -1,9 +1,9 @@
 <article *rxLet="detailState$; let vs">
   <ng-container *ngIf="!vs.loading; else loading">
     <ui-detail-grid>
-      <ui-aspect-ratio-box detailGridMedia [aspectRatio]="vs.person.imgRatio">
+      <div detailGridMedia>
         <img
-          class="fit-cover"
+          class="aspectRatio-2-3 fit-cover"
           [src]="
             'https://image.tmdb.org/t/p/w' +
             vs.person.imgWidth +
@@ -16,7 +16,7 @@
           [title]="vs.person?.name"
           data-test="detail-item-img"
         />
-      </ui-aspect-ratio-box>
+      </div>
       <div detailGridDescription>
         <header>
           <h1>{{ vs.person.name }}</h1>
@@ -47,7 +47,7 @@
     </ui-detail-grid>
   </ng-container>
   <ng-template #loading>
-    <ui-loader></ui-loader>
+    <div class="loader"></div>
   </ng-template>
 </article>
 <article *rxLet="recommendedLoading$; let loading">
