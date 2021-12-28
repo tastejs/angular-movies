@@ -33,7 +33,7 @@ export class RouterEffectsService extends RxState<any> {
     } else if (type === 'genre') {
       this.genreState.fetchGenreMovies(identifier);
     } else if (type === 'search') {
-      this.state.fetchSearchMovies(identifier);
+      this.searchState.fetchSearchMovies(identifier);
     } else if (layout === 'detail' && type === 'movie') {
       this.movieState.fetchMovie(identifier);
     } else if (layout === 'detail' && type === 'person') {
