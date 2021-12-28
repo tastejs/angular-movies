@@ -2,12 +2,7 @@ import { Injectable } from '@angular/core';
 import { filter, map, Observable, startWith } from 'rxjs';
 import { RxState, select, selectSlice } from '@rx-angular/state';
 import { NavigationEnd, Router } from '@angular/router';
-
-export type RouterParams = {
-  layout: 'list' | 'detail',
-  type: 'person' | 'movie' | 'genre' | 'category' | 'search';
-  identifier: string;
-};
+import { RouterParams } from './router-state.interface';
 
 /**
  * This service maintains the router state and repopulates it to it's subscriber.
@@ -15,7 +10,7 @@ export type RouterParams = {
 @Injectable({
   providedIn: 'root'
 })
-export class RouterStateService extends RxState<RouterParams> {
+export class RouterState extends RxState<RouterParams> {
 
   private _routerParams$: Observable<RouterParams> = this.router.events
     .pipe(

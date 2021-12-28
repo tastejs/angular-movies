@@ -7,7 +7,7 @@ import { AuthEffects } from '../data-access/auth/auth.effects';
 import { MovieGenreModel } from '../data-access/model/movie-genre.model';
 import { trackByProp } from '../shared/utils/track-by';
 import { getActions } from '../shared/rxa-custom/actions';
-import { RouterStateService } from '../shared/state/router-state.service';
+import { RouterState } from '../shared/state/router.state';
 import { getIdentifierOfTypeAndLayout } from '../shared/state/utils';
 import { GenreState } from '../shared/state/genre.state';
 
@@ -29,7 +29,7 @@ export class AppShellComponent {
       loggedIn: boolean;
       sideDrawerOpen: boolean;
     }>,
-    public routerState: RouterStateService,
+    public routerState: RouterState,
     public genreState: GenreState,
     public authState: AuthStateService,
     public authEffects: AuthEffects,

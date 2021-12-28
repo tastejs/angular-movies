@@ -1,7 +1,7 @@
 import { MovieModel } from '../../data-access/model/movie.model';
 import { Injectable } from '@angular/core';
 import { RxState, selectSlice } from '@rx-angular/state';
-import { RouterStateService } from '../../shared/state/router-state.service';
+import { RouterState } from '../../shared/state/router.state';
 import { combineLatest, map, startWith, switchMap } from 'rxjs';
 import { W780H1170 } from '../../data-access/configurations/image-sizes';
 import { ImageTag } from '../../shared/utils/image-object';
@@ -55,7 +55,7 @@ export class PersonDetailAdapter extends RxState<PersonDetailPageAdapterState> {
     )
   );
 
-  constructor(private routerState: RouterStateService,
+  constructor(private routerState: RouterState,
               private personResource: DiscoverResource,
               private movieResource: MovieResource,
               private personState: PersonState) {

@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import { RxState } from '@rx-angular/state';
-import { RouterParams, RouterStateService } from './router-state.service';
 import { GenreState } from './genre.state';
 import { PersonState } from './person.state';
 import { SearchState } from './search.state';
 import { MovieState } from './movie.state';
+import { RouterState } from './router.state';
+import { RouterParams } from './router-state.interface';
 
 /**
  * This service manages data fetching based on router params
@@ -12,9 +13,9 @@ import { MovieState } from './movie.state';
 @Injectable({
   providedIn: 'root'
 })
-export class RouterEffectsService extends RxState<any> {
+export class RouterEffects extends RxState<any> {
 
-  constructor(private routerState: RouterStateService,
+  constructor(private routerState: RouterState,
               private genreState: GenreState,
               private personState: PersonState,
               private searchState: SearchState,

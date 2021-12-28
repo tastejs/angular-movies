@@ -1,4 +1,4 @@
-import { AuthState } from './auth.state.interface';
+import { AuthState } from './auth-state.interface';
 
 export function isAuthenticationInProgress({
                                              requestToken,

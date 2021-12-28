@@ -1,15 +1,14 @@
-import { MovieModel } from '../../data-access/model/movie.model';
-import { Injectable } from '@angular/core';
-import { RxState, selectSlice } from '@rx-angular/state';
-import { RouterStateService } from '../../shared/state/router-state.service';
 import { map, Observable, switchMap, withLatestFrom } from 'rxjs';
-
-import { parseTitle } from '../../shared/utils/parse-movie-list-title';
+import { Injectable } from '@angular/core';
+import { MovieModel } from '../../data-access/model/movie.model';
 import { MovieGenreModel } from '../../data-access/model/movie-genre.model';
+import { RxState, selectSlice } from '@rx-angular/state';
 import { getIdentifierOfTypeAndLayout } from '../../shared/state/utils';
+import { RouterState } from '../../shared/state/router.state';
 import { SearchState } from '../../shared/state/search.state';
 import { GenreState } from '../../shared/state/genre.state';
 import { MovieState } from '../../shared/state/movie.state';
+import { parseTitle } from '../../shared/utils/parse-movie-list-title';
 
 type MovieListPageModel = {
   loading: boolean;
@@ -60,14 +59,12 @@ export class MovieListPageAdapter extends RxState<MovieListPageModel> {
   private readonly searchMovieList$: Observable<MovieListPageModel> = this.searchState.select(
     selectSlice(['search', 'searchContext']),
     withLatestFrom(this.routerSearch$),
-    map(([{ search, searchContext }, listName]) => {
-        return ({
-          loading: searchContext,
-          title: parseTitle(listName),
-          type: 'search',
-          movies: search && search || null
-        });
-      }
+    map(([{ search, searchContext }, listName]) => ({
+        loading: searchContext,
+        title: parseTitle(listName),
+        type: 'search',
+        movies: search && search || null
+      })
     )
   );
 
@@ -79,7 +76,7 @@ export class MovieListPageAdapter extends RxState<MovieListPageModel> {
     private searchState: SearchState,
     private genreState: GenreState,
     private movieState: MovieState,
-    private routerState: RouterStateService) {
+    private routerState: RouterState) {
     super();
     this.connect(this.routedMovieList$);
 

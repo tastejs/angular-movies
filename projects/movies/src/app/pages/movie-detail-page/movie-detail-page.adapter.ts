@@ -1,7 +1,7 @@
 import { MovieModel } from '../../data-access/model/movie.model';
 import { Injectable } from '@angular/core';
 import { RxState, selectSlice } from '@rx-angular/state';
-import { RouterStateService } from '../../shared/state/router-state.service';
+import { RouterState } from '../../shared/state/router.state';
 import { combineLatest, map, startWith, switchMap, tap } from 'rxjs';
 import { W780H1170 } from '../../data-access/configurations/image-sizes';
 import { MovieCastModel } from '../../data-access/model/movie-cast.model';
@@ -66,7 +66,7 @@ export class MovieDetailAdapter extends RxState<MovieDetailPageModel> {
     )
   );
 
-  constructor(private movieState: MovieState, private routerState: RouterStateService, private movieResource: MovieResource) {
+  constructor(private movieState: MovieState, private routerState: RouterState, private movieResource: MovieResource) {
     super();
     this.connect(
       combineLatest({ id: this.routerMovieId$, globalSlice: this.movieState.select(selectSlice(['movies', 'moviesContext'])) }).pipe(

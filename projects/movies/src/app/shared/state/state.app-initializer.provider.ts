@@ -1,8 +1,8 @@
 import { APP_INITIALIZER } from '@angular/core';
-import { RouterEffectsService } from './router-effects.service';
+import { RouterEffects } from './router.effects';
 import { GenreState } from './genre.state';
 
-function initializeState(genreState: GenreState, effects: RouterEffectsService) {
+function initializeState(genreState: GenreState, effects: RouterEffects) {
   return (): void => {
     genreState.initialFetch();
     effects.init();
@@ -19,7 +19,7 @@ export const GLOBAL_STATE_APP_INITIALIZER_PROVIDER = [
   {
     provide: APP_INITIALIZER,
     useFactory: initializeState,
-    deps: [GenreState, RouterEffectsService],
+    deps: [GenreState, RouterEffects],
     multi: true
   }
 ];
