@@ -1,4 +1,4 @@
-@import "../../token/flex";
+@import "../../token/mixins/flex";
 .btn {
   @include d-flex-vh;
   @include d-inline-flex;

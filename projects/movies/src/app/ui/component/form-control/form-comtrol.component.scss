@@ -1,4 +1,4 @@
-@import "../../token/flex";
+@import "../../token/mixins/flex";
 :host {
   margin: 8px 0;
   @include d-flex;

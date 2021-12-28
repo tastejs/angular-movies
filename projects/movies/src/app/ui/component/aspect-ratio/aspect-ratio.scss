@@ -1,0 +1,13 @@
+.aspectRatio-2-3 {
+  width: 100%;
+  display: block;
+  height: auto;
+  aspect-ratio: var(--theme-aspectRatio-2-3);
+}
+
+.fit-cover {
+  width: 100%;
+  display: block;
+  object-fit: cover;
+  height: 100%;
+}

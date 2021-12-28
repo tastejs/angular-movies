@@ -21,23 +21,20 @@ type Movie = MovieModel & ImageTag;
           (click)='$event.preventDefault(); navigateToMovie(movie)'
           [attr.data-test]="'list-item-idx-'+idx"
         >
-          <div class='gradient'>
-            <ui-aspect-ratio-box [aspectRatio]='movie.imgRatio'>
-              <!--
-              **🚀 Perf Tip for LCP:**
-              To get out the best performance use the native HTML attribute loading="lazy" instead of a directive.
-              This avoids bootstrap and template evaluation time and reduces scripting time in general.
-              -->
-              <img
-                [attr.loading]="idx === 0 ? '' : 'lazy'"
-                [src]='movie.url'
-                [width]='movie.imgWidth'
-                [height]='movie.imgHeight'
-                alt='poster movie'
-                [title]='movie.title'
-              />
-            </ui-aspect-ratio-box>
-          </div>
+          <!--
+          **🚀 Perf Tip for LCP:**
+          To get out the best performance use the native HTML attribute loading="lazy" instead of a directive.
+          This avoids bootstrap and template evaluation time and reduces scripting time in general.
+          -->
+          <img
+            class="aspectRatio-2-3 gradient"
+            [attr.loading]="idx === 0 ? '' : 'lazy'"
+            [src]='movie.url'
+            [width]='movie.imgWidth'
+            [height]='movie.imgHeight'
+            alt='poster movie'
+            [title]='movie.title'
+          />
           <div class='movies-list--details'>
             <h3 class='movies-list--details-title'>
               {{ movie.title }}
@@ -82,7 +79,7 @@ export class MovieListComponent {
           url: `https://image.tmdb.org/t/p/w${W300H450.WIDTH}/${m.poster_path}`,
           imgWidth: W300H450.WIDTH,
           imgHeight: W300H450.HEIGHT,
-          imgRatio: W300H450.WIDTH/W300H450.HEIGHT,
+          imgRatio: W300H450.WIDTH / W300H450.HEIGHT
         })) as Movie[]
     )
   );
@@ -100,7 +97,8 @@ export class MovieListComponent {
     private state: RxState<{
       movies: MovieModel[];
     }>
-  ) {}
+  ) {
+  }
 
   trackByMovieId(_: number, movie: Movie) {
     return movie.id;

@@ -6,6 +6,6 @@
   <ui-movie-list *ngIf="!loading; else loadingTpl" [movies]="movies$" data-test="list-wrapper">
   </ui-movie-list>
   <ng-template #loadingTpl>
-    <ui-loader data-test="list-loader"></ui-loader>
+    <div class="loader" data-test="list-loader"></div>
   </ng-template>
 </article>
