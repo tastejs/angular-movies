@@ -1,17 +1,12 @@
 import { Injectable } from '@angular/core';
-import { exhaustMap, map } from 'rxjs';
+import { exhaustMap } from 'rxjs';
 import { MovieGenreModel } from '../../data-access/model/movie-genre.model';
-import { MovieModel } from '../../data-access/model/movie.model';
-import { patch, RxState } from '@rx-angular/state';
-import { optimizedFetch } from '../utils/optimized-fetch';
+import { RxState } from '@rx-angular/state';
 import { getActions } from '../rxa-custom/actions';
-import { withLoadingEmission } from '../utils/withLoadingEmissions';
 import { GenreResource } from '../../data-access/api/genre.resource';
 
 export interface State {
   genres: MovieGenreModel[];
-  genreMovies: Record<string, MovieModel[]>;
-  genreMoviesContext: boolean;
 }
 
 interface Actions {
@@ -33,10 +28,6 @@ export class GenreState extends RxState<State> {
   constructor(private genreResource: GenreResource) {
     super();
 
-    this.set({
-      genreMovies: {}
-    });
-
     this.connect('genres', this.actions.refreshGenres$.pipe(
       /**
        * **🚀 Perf Tip for TTI, TBT:**
@@ -47,29 +38,6 @@ export class GenreState extends RxState<State> {
       exhaustMap(() => this.genreResource.getGenres()))
     );
 
-    this.connect(
-      this.actions.fetchGenreMovies$.pipe(
-        /**
-         * **🚀 Perf Tip for TTI, TBT:**
-         *
-         * Avoid over fetching for HTTP get requests to URLs that will not change result quickly.
-         */
-        optimizedFetch(
-          (genre) => 'genre' + '-' + genre,
-          (genre) => this.genreResource.getMovieGenre(genre)
-            .pipe(
-              map(({ results }) => ({ genreMovies: { [genre]: results } } as State)),
-              withLoadingEmission('genreMoviesContext', true, false)
-            )
-        )
-      ),
-      (oldState, newPartial) => {
-        let s = newPartial as unknown as State;
-        let resultState = patch(oldState, s);
-        resultState.genreMovies = patch(oldState.genreMovies, resultState.genreMovies);
-        return resultState;
-      }
-    );
   }
 
   initialFetch = () => {

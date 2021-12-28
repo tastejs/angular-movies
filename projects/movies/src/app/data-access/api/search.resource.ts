@@ -1,20 +1,18 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { environment } from '../../../environments/environment';
 import { MovieModel } from '../model/movie.model';
+import { baseUrlApiV3 } from './utils';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SearchResource {
+  private readonly baseUrl = baseUrlApiV3;
+  private readonly URL_SEARCH = [this.baseUrl, 'search', 'movie'].join('/');
+
   constructor(private http: HttpClient) {
   }
-
-  private readonly apiVersion = environment.tmdbApiVersion;
-  private readonly baseUrl = [environment.tmdbBaseUrl, this.apiVersion].join('/');
-
-  private readonly URL_SEARCH = [this.baseUrl, 'search', 'movie'].join('/');
 
   getMovies = (
     query: string,

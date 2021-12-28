@@ -1,4 +1,4 @@
-import { map, Observable, switchMap, withLatestFrom } from 'rxjs';
+import { combineLatest, map, Observable, switchMap, withLatestFrom } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { MovieModel } from '../../data-access/model/movie.model';
 import { MovieGenreModel } from '../../data-access/model/movie-genre.model';
@@ -9,6 +9,7 @@ import { SearchState } from '../../shared/state/search.state';
 import { GenreState } from '../../shared/state/genre.state';
 import { MovieState } from '../../shared/state/movie.state';
 import { parseTitle } from '../../shared/utils/parse-movie-list-title';
+import { DiscoverState } from '../../shared/state/discover.state';
 
 type MovieListPageModel = {
   loading: boolean;
@@ -40,8 +41,16 @@ export class MovieListPageAdapter extends RxState<MovieListPageModel> {
     )
   );
 
-  private readonly genreMovieList$ = this.genreState.select(
-    selectSlice(['genres', 'genreMovies', 'genreMoviesContext']),
+  _slice$ = combineLatest({
+      genres: this.genreState.select('genres'),
+      discoverSlice: this.discoverState.select(selectSlice(['genreMovies', 'genreMoviesContext']))
+    }
+  ).pipe(
+    map(({ genres, discoverSlice }) => ({ genres, ...discoverSlice })),
+    selectSlice(['genres', 'genreMovies', 'genreMoviesContext'])
+  );
+
+  private readonly genreMovieList$ = this._slice$.pipe(
     withLatestFrom(this.routerGenre$),
     map(([{ genres, genreMovies, genreMoviesContext }, genreParam]) => {
       const genreIdStr = genreParam as unknown as string;
@@ -74,6 +83,7 @@ export class MovieListPageAdapter extends RxState<MovieListPageModel> {
 
   constructor(
     private searchState: SearchState,
+    private discoverState: DiscoverState,
     private genreState: GenreState,
     private movieState: MovieState,
     private routerState: RouterState) {
