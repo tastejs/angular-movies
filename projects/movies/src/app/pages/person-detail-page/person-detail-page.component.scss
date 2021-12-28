@@ -1,5 +1,4 @@
 @import '../../ui/component/button/button';
-@import '../../ui/component/icons/icon';
 @import "../../ui/token/flex";
 
 :host {
@@ -12,22 +11,6 @@
   @media only screen and (max-width: 1500px) {
     &--grid-item {
       padding: 3rem;
-    }
-  }
-
-  &--genres {
-    @include d-flex-v;
-    flex-wrap: wrap;
-
-    &-link {
-      &:not(:last-child) {
-        margin-right: 2rem;
-      }
-
-      @include d-flex-v;
-      padding: 0.5rem 0;
-      font-weight: bold;
-      text-transform: uppercase;
     }
   }
 
@@ -49,40 +32,10 @@
     }
   }
 
-  &--basic-infos {
-    @include d-flex-v;
-    justify-content: space-between;
-  }
-
-  &--cast-list {
-    @include d-flex;
-    flex-direction: row;
-    overflow-x: scroll;
-    margin: 0 20px;
-  }
-}
-
-.movie-detail--languages-runtime-release {
-  color: var(--palette-warning-main);
-  text-transform: uppercase;
 }
 
 .movie-detail--section {
   margin-bottom: 3rem;
 }
 
-.movie-detail--cast-actor {
-  display: block;
-  height: auto;
-  width: 70px;
-  flex-shrink: 0;
 
-  img {
-    display: block;
-    width: 44px;
-    height: 44px;
-    border-radius: var(--theme-borderRadius-circle);
-    object-fit: cover;
-    margin: 0 auto;
-  }
-}
