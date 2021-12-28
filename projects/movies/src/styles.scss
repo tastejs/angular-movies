@@ -5,19 +5,18 @@
  * This reduces bundle-size of your styles.
  */
 @import 'styles/normalize';
-@import "app/ui/token/colors";
-@import "app/ui/token/zIndex";
-@import "app/ui/token/animations";
-@import "app/ui/token/media";
-@import "app/ui/token/borderRadius";
-@import "app/ui/token/shadow";
+@import "app/ui/token/mixins/media";
+@import "app/ui/token/variables/borderRadius";
+@import "app/ui/token/variables/zIndex";
+@import "app/ui/token/variables/animations";
+@import "app/ui/token/variables/shadow";
+@import "app/ui/token/dark-light-mode";
 @import 'app/ui/token/typography';
 
 body {
   color: var(--palette-text-primary);
   background-color: var(--palette-background-default);
-  transition: color var(--duration) var(--timing),
-    background-color var(--duration) var(--timing);
+  transition: color var(--duration) var(--timing), background-color var(--duration) var(--timing);
 }
 
 body.dark img:not([src*='.svg']) {

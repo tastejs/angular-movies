@@ -1,6 +1,4 @@
-@import './tooltip';
-@import "../../token/flex";
-@import "../../token/colors";
+@import "../../token/mixins/flex";
 
 :host {
   position: relative;

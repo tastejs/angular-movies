@@ -1,5 +1,4 @@
-@import "../../token/flex";
-@import "../../token/colors";
+@import "../../token/mixins/flex";
 
 :host {
   @include d-flex;
