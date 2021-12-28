@@ -7,7 +7,7 @@ import { isAuthenticationInProgress } from './utils';
 @Injectable({
   providedIn: 'root'
 })
-export class TmdbAuthEffects {
+export class AuthEffects {
   constructor(private authState: AuthStateService, private authResource: AuthResource) {
     this.restoreLogin();
   }

@@ -3,7 +3,7 @@ import { NavigationEnd, Router } from '@angular/router';
 import { RxState } from '@rx-angular/state';
 import { filter, map } from 'rxjs';
 import { AuthStateService } from '../data-access/auth/auth.state';
-import { TmdbAuthEffects } from '../data-access/auth/tmdbAuth.effects';
+import { AuthEffects } from '../data-access/auth/auth.effects';
 import { MovieGenreModel } from '../data-access/model/movie-genre.model';
 import { trackByProp } from '../shared/utils/track-by';
 import { getActions } from '../shared/rxa-custom/actions';
@@ -32,7 +32,7 @@ export class AppShellComponent {
     public routerState: RouterStateService,
     public genreState: GenreState,
     public authState: AuthStateService,
-    public authEffects: TmdbAuthEffects,
+    public authEffects: AuthEffects,
     private router: Router
   ) {
 
