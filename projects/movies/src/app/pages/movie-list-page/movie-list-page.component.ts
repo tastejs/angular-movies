@@ -1,41 +1,30 @@
 import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/core';
-import { RxState, selectSlice } from '@rx-angular/state';
+import { selectSlice } from '@rx-angular/state';
 import { map } from 'rxjs';
-import { MovieModel } from '../../data-access/model/movie.model';
-import { StateService } from '../../shared/state/state.service';
-
-
-type MoviesState = {
-  loading: boolean;
-  movies: MovieModel[];
-  title: string;
-  type: string;
-};
-
+import { MovieListPageAdapter } from './movie-list-page.adapter';
+import { getIdentifierOfTypeAndLayout } from '../../shared/state/utils';
 @Component({
-  selector: 'app-movies',
+  selector: 'ct-movies-list',
   templateUrl: './movie-list-page.component.html',
   styleUrls: ['./movie-list-page.component.scss'],
   encapsulation: ViewEncapsulation.Emulated,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class MovieListPageComponent extends RxState<MoviesState> {
-
-  readonly movies$ = this.select('movies');
-  readonly loading$ = this.select(
+export class MovieListPageComponent {
+  t = getIdentifierOfTypeAndLayout;
+  readonly movies$ = this.adapter.select('movies');
+  readonly loading$ = this.adapter.select(
     selectSlice(['loading', 'movies'], {
       movies: (a, b) => a?.length !== b?.length
     }),
     map(({ loading, movies }) => loading || movies === null)
   );
-  readonly headings$ = this.select(selectSlice(['title', 'type']));
+  readonly headings$ = this.adapter.select(selectSlice(['title', 'type']));
 
   constructor(
-    private state: StateService,
+    private adapter: MovieListPageAdapter
   ) {
-    super();
-    this.set({ loading: true });
-    this.connect(this.state.routedMovieList$);
+    this.adapter.set({ loading: true });
   }
 
 }

@@ -7,7 +7,7 @@ import { MovieDetailPageComponent } from './movie-detail-page.component';
 import { StarRatingModule } from '../../ui/component/star-rating/star-rating.module';
 import { AspectRatioBoxModule } from '../../ui/component/aspect-ratio-box/aspect-ratio-box.module';
 import { MovieListModule } from '../../ui/pattern/movie-list/movie-list.module';
-import { DetailGridComponent } from '../../ui/component/detail-grid/detail-grid.component';
+import { DetailGridModule } from '../../ui/component/detail-grid/detail-grid.module';
 
 const ROUTES: Routes = [
   {
@@ -17,9 +17,10 @@ const ROUTES: Routes = [
 ];
 
 @NgModule({
-  declarations: [MovieDetailPageComponent, DetailGridComponent],
+  declarations: [MovieDetailPageComponent],
   imports: [
     CommonModule,
+    DetailGridModule,
     RouterModule.forChild(ROUTES),
     StarRatingModule,
     MovieListModule,

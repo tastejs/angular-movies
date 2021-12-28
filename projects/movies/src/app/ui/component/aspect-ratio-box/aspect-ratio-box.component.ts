@@ -15,7 +15,7 @@ function calcPaddingTop(ratio: number): number {
 }
 
 @Component({
-  selector: 'app-aspect-ratio-box',
+  selector: 'ui-aspect-ratio-box',
   template: `
     <div class="aspect-ratio-box-inside">
       <ng-content></ng-content>

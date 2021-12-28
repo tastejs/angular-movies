@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/
 import { RxState } from '@rx-angular/state';
 
 @Component({
-  selector: 'app-dark-mode-toggle',
+  selector: 'ui-dark-mode-toggle',
   template: `
     <div class="dark-mode-toggle">
       <button type="button" class="light" (click)="setChecked(true)">☀</button>

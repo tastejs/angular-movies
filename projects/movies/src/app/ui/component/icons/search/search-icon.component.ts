@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/core';
 
 @Component({
-  selector: 'app-search-icon',
+  selector: 'ui-search-icon',
   templateUrl: './search-icon.component.svg',
   styles: [
     `

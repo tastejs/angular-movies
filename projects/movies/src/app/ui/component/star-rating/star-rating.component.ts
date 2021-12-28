@@ -15,7 +15,7 @@ const numStars = 5;
 const starsArray: number[] = new Array(numStars).fill(1);
 
 @Component({
-  selector: 'app-star-rating',
+  selector: 'ui-star-rating',
   template: `
     <span class="tooltip">
         {{ tooltipText }}

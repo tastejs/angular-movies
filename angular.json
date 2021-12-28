@@ -19,7 +19,6 @@
       },
       "root": "projects/movies",
       "sourceRoot": "projects/movies/src",
-      "prefix": "mv",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
@@ -57,7 +56,7 @@
                   "type": "bundle",
                   "name": "main",
                   "maximumWarning": "300kb",
-                  "maximumError": "340kb"
+                  "maximumError": "341kb"
                 },
                 {
                   "type": "bundle",
@@ -115,8 +114,8 @@
           "builder": "@angular-eslint/builder:lint",
           "options": {
             "lintFilePatterns": [
-              "projects/movies/src/**/*.ts",
-              "projects/movies/src/**/*.html"
+              "projects/movies/src/app/**/*.ts",
+              "projects/movies/src/app/**/*.html"
             ]
           }
         },

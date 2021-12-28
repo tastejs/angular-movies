@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/core';
 
 @Component({
-  selector: 'app-hamburger-button',
+  selector: 'ui-hamburger-button',
   templateUrl: './hamburger-button.component.html',
   styleUrls: ['./hamburger-button.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

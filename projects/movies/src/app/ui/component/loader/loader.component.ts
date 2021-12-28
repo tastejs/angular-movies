@@ -7,7 +7,7 @@ import {
 } from '@angular/core';
 
 @Component({
-  selector: 'app-loader',
+  selector: 'ui-loader',
   changeDetection: ChangeDetectionStrategy.OnPush,
   styles: [
     `

@@ -9,7 +9,7 @@ import { ImageTag } from '../../../shared/utils/image-object';
 type Movie = MovieModel & ImageTag;
 
 @Component({
-  selector: 'app-movie-list',
+  selector: 'ui-movie-list',
   template: `
     <ng-container
       *rxLet="hasMovies$; let hasMovies;"
@@ -18,12 +18,11 @@ type Movie = MovieModel & ImageTag;
         <a
           class='movies-list--grid-item'
           *rxFor='let movie of (movies$); index as idx; trackBy: trackByMovieId; '
-          [href]="'/movie/' + movie.id"
           (click)='$event.preventDefault(); navigateToMovie(movie)'
           [attr.data-test]="'list-item-idx-'+idx"
         >
           <div class='gradient'>
-            <app-aspect-ratio-box [aspectRatio]='movie.imgRatio'>
+            <ui-aspect-ratio-box [aspectRatio]='movie.imgRatio'>
               <!--
               **🚀 Perf Tip for LCP:**
               To get out the best performance use the native HTML attribute loading="lazy" instead of a directive.
@@ -37,13 +36,13 @@ type Movie = MovieModel & ImageTag;
                 alt='poster movie'
                 [title]='movie.title'
               />
-            </app-aspect-ratio-box>
+            </ui-aspect-ratio-box>
           </div>
           <div class='movies-list--details'>
             <h3 class='movies-list--details-title'>
               {{ movie.title }}
             </h3>
-            <app-star-rating [rating]='movie.vote_average'></app-star-rating>
+            <ui-star-rating [rating]='movie.vote_average'></ui-star-rating>
           </div>
         </a>
         <div class='pagination'></div>
@@ -108,6 +107,6 @@ export class MovieListComponent {
   }
 
   navigateToMovie(movie: Movie) {
-    this.router.navigate(['/movie', movie.id]);
+    this.router.navigate(['/detail/movie', movie.id]);
   }
 }

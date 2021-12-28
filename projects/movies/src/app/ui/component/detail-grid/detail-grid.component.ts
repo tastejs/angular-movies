@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/core';
 
 @Component({
-  selector: 'ds-detail-grid',
+  selector: 'ui-detail-grid',
   template: `
     <div class="grid--item gradient">
       <ng-content select="[detailGridMedia]"></ng-content>
