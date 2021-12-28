@@ -1,0 +1,60 @@
+<article *rxLet="detailState$; let vs">
+  <ng-container *ngIf="!vs.loading; else loading">
+    <ui-detail-grid>
+      <ui-aspect-ratio-box detailGridMedia [aspectRatio]="vs.person.imgRatio">
+        <img
+          class="fit-cover"
+          [src]="
+            'https://image.tmdb.org/t/p/w' +
+            vs.person.imgWidth +
+            '/' +
+            vs.person?.profile_path
+          "
+          [width]="vs.person.imgWidth"
+          [height]="vs.person.imgHeight"
+          alt="poster movie"
+          [title]="vs.person?.name"
+          data-test="detail-item-img"
+        />
+      </ui-aspect-ratio-box>
+      <div detailGridDescription>
+        <header>
+          <h1>{{ vs.person.name }}</h1>
+          <h2>{{ vs.person.birthday }}</h2>
+        </header>
+        <section>
+          <h3>The Biography</h3>
+          <p>  {{ vs.person?.biography || 'There is no synopsis available...' }}</p>
+        </section>
+        <section class="movie-detail--ad-section-links">
+          <a
+            *ngIf="vs.person?.imdb_id"
+            class="btn"
+            target="_blank"
+            rel="noopener noreferrer"
+            [href]="'https://www.imdb.com/person/' + vs.person?.imdb_id"
+          >
+            IMDB
+            <svg class="btn__icon" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M0 0h24v24H0z" fill="none" />
+              <path
+                d="M18 3v2h-2V3H8v2H6V3H4v18h2v-2h2v2h8v-2h2v2h2V3h-2zM8 17H6v-2h2v2zm0-4H6v-2h2v2zm0-4H6V7h2v2zm10 8h-2v-2h2v2zm0-4h-2v-2h2v2zm0-4h-2V7h2v2z"
+              />
+            </svg>
+          </a>
+        </section>
+      </div>
+    </ui-detail-grid>
+  </ng-container>
+  <ng-template #loading>
+    <ui-loader></ui-loader>
+  </ng-template>
+</article>
+<article *rxLet="recommendedLoading$; let loading">
+  <header *rxLet="detailState$; let d">
+    <h1>{{d.person.name}} in</h1>
+    <h2>Movies</h2>
+  </header>
+  <ui-movie-list *ngIf="!loading" [movies]="recommendations$">
+  </ui-movie-list>
+</article>

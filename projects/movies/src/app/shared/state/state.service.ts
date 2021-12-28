@@ -7,11 +7,14 @@ import { patch, RxState, toDictionary } from '@rx-angular/state';
 import { optimizedFetch } from '../utils/optimized-fetch';
 import { getActions } from '../rxa-custom/actions';
 import { withLoadingEmission } from '../utils/withLoadingEmissions';
+import { MoviePersonModel } from '../../data-access/model/movie-person.model';
 
 export interface State {
   genres: MovieGenreModel[];
   genreMovies: Record<string, MovieModel[]>;
   genreMoviesContext: boolean;
+  person: Record<string, MoviePersonModel>;
+  personContext: boolean;
   categoryMovies: Record<string, MovieModel[]>;
   categoryMoviesContext: boolean;
   search: MovieModel[];
@@ -21,6 +24,7 @@ export interface State {
 }
 
 interface Actions {
+  fetchPerson: string;
   fetchMovie: string;
   refreshGenres: void;
   fetchCategoryMovies: string;
@@ -49,6 +53,32 @@ export class StateService extends RxState<State> {
    * @TODO Add comment regards chunking
    */
   init = () => setTimeout(() => {
+    this.connect(this.actions.fetchPerson$.pipe(
+      /**
+       * **🚀 Perf Tip for TTI, TBT:**
+       *
+       * Avoid over fetching for HTTP get requests to URLs that will not change result quickly.
+       * E.G.: URLs with the same params
+       */
+      optimizedFetch(
+        (id) => id,
+        (id) => {
+          return this.tmdb2Service.getPerson(id)
+            .pipe(
+              map(result => ({ person: toDictionary([result], 'id') } as State)),
+              withLoadingEmission('personContext', true, false)
+            );
+        }
+      )
+      ),
+      (oldState, newPartial) => {
+        let s = newPartial as unknown as State;
+        let resultState = patch(oldState, s);
+        resultState.person = patch(oldState.person, resultState.person);
+        return resultState;
+      }
+    );
+
     this.connect(this.actions.fetchMovie$.pipe(
       /**
        * **🚀 Perf Tip for TTI, TBT:**
@@ -146,6 +176,8 @@ export class StateService extends RxState<State> {
     // initially fetch genres
     this.refreshGenres();
   });
+
+  fetchPerson = this.actions.fetchPerson;
 
   fetchMovie = this.actions.fetchMovie;
 

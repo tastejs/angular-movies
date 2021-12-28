@@ -28,6 +28,8 @@ export class RouterEffectsService extends RxState<any> {
 
     if(layout === 'detail' && type === 'movie') {
       this.state.fetchMovie(identifier)
+    } else if(layout === 'detail' && type === 'person') {
+      this.state.fetchPerson(identifier)
     }
   };
 

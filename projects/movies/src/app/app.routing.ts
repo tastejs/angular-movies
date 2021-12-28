@@ -40,6 +40,11 @@ const ROUTES: Routes = [
     loadChildren: () =>
       import('projects/movies/src/app/pages/movie-detail-page/movie-detail-page.module').then((m) => m.MovieDetailPageModule)
   },
+  {
+    path: 'detail/person/:identifier',
+    loadChildren: () =>
+      import('projects/movies/src/app/pages/person-detail-page/person-detail-page.module').then((m) => m.PersonDetailPageModule)
+  },
   //      static params for 'list/:type/:identifier'
   { path: '**', redirectTo: 'list/category/popular' }
 ];

@@ -63,7 +63,7 @@
           <div class="movie-detail--cast-list">
             <a
               *ngFor="let c of vs.cast; trackBy: trackByCast"
-              [routerLink]="['/person/'+c.id]"
+              [routerLink]="['/detail/person/',c.id]"
               (click)="$event.preventDefault()"
               class="movie-detail--cast-actor"
             >
