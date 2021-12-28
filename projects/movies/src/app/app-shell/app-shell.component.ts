@@ -6,10 +6,10 @@ import { AuthStateService } from '../data-access/auth/auth.state';
 import { TmdbAuthEffects } from '../data-access/auth/tmdbAuth.effects';
 import { MovieGenreModel } from '../data-access/model/movie-genre.model';
 import { trackByProp } from '../shared/utils/track-by';
-import { StateService } from '../shared/state/state.service';
 import { getActions } from '../shared/rxa-custom/actions';
 import { RouterStateService } from '../shared/state/router-state.service';
 import { getIdentifierOfTypeAndLayout } from '../shared/state/utils';
+import { GenreState } from '../shared/state/genre.state';
 
 @Component({
   selector: 'app-shell',
@@ -30,7 +30,7 @@ export class AppShellComponent {
       sideDrawerOpen: boolean;
     }>,
     public routerState: RouterStateService,
-    public globalState: StateService,
+    public genreState: GenreState,
     public authState: AuthStateService,
     public authEffects: TmdbAuthEffects,
     private router: Router
@@ -42,6 +42,7 @@ export class AppShellComponent {
      *
      * Disable initial sync navigation in router config and schedule it in router-outlet container component
      */
+    // @TODO use current URL
     setTimeout(() => this.router.navigate(['list/category/popular']));
   }
 
@@ -64,7 +65,7 @@ export class AppShellComponent {
     );
   }
 
-  readonly genres$ = this.globalState.genresNames$;
+  readonly genres$ = this.genreState.genresNames$;
   @ViewChild('snav') snav: any;
 
   readonly viewState$ = this.state.select();

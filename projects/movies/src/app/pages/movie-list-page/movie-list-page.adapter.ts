@@ -1,13 +1,15 @@
 import { MovieModel } from '../../data-access/model/movie.model';
 import { Injectable } from '@angular/core';
 import { RxState, selectSlice } from '@rx-angular/state';
-import { StateService } from '../../shared/state/state.service';
 import { RouterStateService } from '../../shared/state/router-state.service';
 import { map, Observable, switchMap, withLatestFrom } from 'rxjs';
 
 import { parseTitle } from '../../shared/utils/parse-movie-list-title';
 import { MovieGenreModel } from '../../data-access/model/movie-genre.model';
 import { getIdentifierOfTypeAndLayout } from '../../shared/state/utils';
+import { SearchState } from '../../shared/state/search.state';
+import { GenreState } from '../../shared/state/genre.state';
+import { MovieState } from '../../shared/state/movie.state';
 
 type MovieListPageModel = {
   loading: boolean;
@@ -25,7 +27,7 @@ export class MovieListPageAdapter extends RxState<MovieListPageModel> {
   routerGenre$ = this.routerState.select(getIdentifierOfTypeAndLayout('genre', 'list'));
   routerCategory$ = this.routerState.select(getIdentifierOfTypeAndLayout('category', 'list'));
 
-  private readonly categoryMovieList$: Observable<MovieListPageModel> = this.globalState.select(
+  private readonly categoryMovieList$: Observable<MovieListPageModel> = this.movieState.select(
     selectSlice(['categoryMovies', 'categoryMoviesContext']),
     withLatestFrom(this.routerCategory$),
     map(([{ categoryMovies, categoryMoviesContext }, listName]) => {
@@ -39,7 +41,7 @@ export class MovieListPageAdapter extends RxState<MovieListPageModel> {
     )
   );
 
-  private readonly genreMovieList$ = this.globalState.select(
+  private readonly genreMovieList$ = this.genreState.select(
     selectSlice(['genres', 'genreMovies', 'genreMoviesContext']),
     withLatestFrom(this.routerGenre$),
     map(([{ genres, genreMovies, genreMoviesContext }, genreParam]) => {
@@ -55,7 +57,7 @@ export class MovieListPageAdapter extends RxState<MovieListPageModel> {
     })
   );
 
-  private readonly searchMovieList$: Observable<MovieListPageModel> = this.globalState.select(
+  private readonly searchMovieList$: Observable<MovieListPageModel> = this.searchState.select(
     selectSlice(['search', 'searchContext']),
     withLatestFrom(this.routerSearch$),
     map(([{ search, searchContext }, listName]) => {
@@ -73,7 +75,11 @@ export class MovieListPageAdapter extends RxState<MovieListPageModel> {
     switchMap(({ type }) => type === 'genre' ? this.genreMovieList$ : type === 'category' ? this.categoryMovieList$ : this.searchMovieList$)
   );
 
-  constructor(private globalState: StateService, private routerState: RouterStateService) {
+  constructor(
+    private searchState: SearchState,
+    private genreState: GenreState,
+    private movieState: MovieState,
+    private routerState: RouterStateService) {
     super();
     this.connect(this.routedMovieList$);
 

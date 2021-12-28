@@ -1,7 +1,10 @@
 import { Injectable } from '@angular/core';
 import { RxState } from '@rx-angular/state';
-import { StateService } from './state.service';
 import { RouterParams, RouterStateService } from './router-state.service';
+import { GenreState } from './genre.state';
+import { PersonState } from './person.state';
+import { SearchState } from './search.state';
+import { MovieState } from './movie.state';
 
 /**
  * This service manages data fetching based on router params
@@ -11,7 +14,12 @@ import { RouterParams, RouterStateService } from './router-state.service';
 })
 export class RouterEffectsService extends RxState<any> {
 
-  constructor(private routerState: RouterStateService, private state: StateService) {
+  constructor(private routerState: RouterStateService,
+              private genreState: GenreState,
+              private personState: PersonState,
+              private searchState: SearchState,
+              private movieState: MovieState
+  ) {
     super();
   }
 
@@ -19,17 +27,17 @@ export class RouterEffectsService extends RxState<any> {
 
   private routerFetchEffect = ({ layout, type, identifier }: RouterParams) => {
     if (type === 'category') {
-      this.state.fetchCategoryMovies(identifier);
+      this.movieState.fetchCategoryMovies(identifier);
     } else if (type === 'genre') {
-      this.state.fetchGenreMovies(identifier);
+      this.genreState.fetchGenreMovies(identifier);
     } else if (type === 'search') {
-      this.state.fetchSearchMovies(identifier);
+      this.searchState.fetchSearchMovies(identifier);
     }
 
-    if(layout === 'detail' && type === 'movie') {
-      this.state.fetchMovie(identifier)
-    } else if(layout === 'detail' && type === 'person') {
-      this.state.fetchPerson(identifier)
+    if (layout === 'detail' && type === 'movie') {
+      this.movieState.fetchMovie(identifier);
+    } else if (layout === 'detail' && type === 'person') {
+      this.personState.fetchPerson(identifier);
     }
   };
 

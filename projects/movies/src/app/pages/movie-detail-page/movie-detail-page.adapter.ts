@@ -1,15 +1,15 @@
 import { MovieModel } from '../../data-access/model/movie.model';
 import { Injectable } from '@angular/core';
 import { RxState, selectSlice } from '@rx-angular/state';
-import { StateService } from '../../shared/state/state.service';
 import { RouterStateService } from '../../shared/state/router-state.service';
 import { combineLatest, map, startWith, switchMap, tap } from 'rxjs';
 import { W780H1170 } from '../../data-access/configurations/image-sizes';
 import { MovieCastModel } from '../../data-access/model/movie-cast.model';
 import { MovieDetailsModel } from '../../data-access/model/movie-details.model';
 import { ImageTag } from '../../shared/utils/image-object';
-import { Tmdb2Service } from '../../data-access/api/tmdb2.service';
 import { getIdentifierOfTypeAndLayout } from '../../shared/state/utils';
+import { MovieState } from '../../shared/state/movie.state';
+import { MovieResource } from '../../data-access/api/movie.resource';
 
 export type MovieDetail = MovieDetailsModel & ImageTag & { languages_runtime_release: string };
 
@@ -50,7 +50,7 @@ export class MovieDetailAdapter extends RxState<MovieDetailPageModel> {
 
   movieRecomendationsById$ = this.routerMovieId$.pipe(
     switchMap((identifier) =>
-      this.tmdb.getMovieRecomendations(identifier).pipe(
+      this.movieResource.getMovieRecomendations(identifier).pipe(
         map((res: any) => res.results),
         startWith([])
       )
@@ -59,17 +59,17 @@ export class MovieDetailAdapter extends RxState<MovieDetailPageModel> {
 
   movieCastById$ = this.routerMovieId$.pipe(
     switchMap((identifier) =>
-      this.tmdb.getCredits(identifier).pipe(
+      this.movieResource.getCredits(identifier).pipe(
         map((res: any) => res.cast || []),
         startWith([])
       )
     )
   );
 
-  constructor(private globalState: StateService, private routerState: RouterStateService, private tmdb: Tmdb2Service) {
+  constructor(private movieState: MovieState, private routerState: RouterStateService, private movieResource: MovieResource) {
     super();
     this.connect(
-      combineLatest({ id: this.routerMovieId$, globalSlice: this.globalState.select(selectSlice(['movies', 'moviesContext'])) }).pipe(
+      combineLatest({ id: this.routerMovieId$, globalSlice: this.movieState.select(selectSlice(['movies', 'moviesContext'])) }).pipe(
         map(({ id, globalSlice }) => {
           const { movies, moviesContext: loading } = globalSlice;
           return ({

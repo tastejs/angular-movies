@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
-import { Observable, exhaustMap, map, take } from 'rxjs';
-import { Tmdb2Service } from '../api/tmdb2.service';
-import { AuthStateService, isAuthenticationInProgress } from './auth.state';
+import { exhaustMap, map, Observable, take } from 'rxjs';
+import { AuthStateService } from './auth.state';
+import { AuthResource } from '../api/auth.resource';
+import { isAuthenticationInProgress } from './utils';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class TmdbAuthEffects {
-  constructor(private authState: AuthStateService, private tmdb: Tmdb2Service) {
+  constructor(private authState: AuthStateService, private authResource: AuthResource) {
     this.restoreLogin();
   }
 
@@ -24,7 +25,7 @@ export class TmdbAuthEffects {
         window.localStorage.setItem('accountId', accessTokenResult.accountId);
         this.authState.set({
           ...this.authState.get(),
-          ...accessTokenResult,
+          ...accessTokenResult
         });
       });
     }
@@ -33,16 +34,16 @@ export class TmdbAuthEffects {
   createAccessToken$(): Observable<{ accessToken: string; accountId: string }> {
     return this.authState.requestToken$.pipe(
       take(1),
-      exhaustMap((requestToken) => this.tmdb.createAccessToken(requestToken || '')),
+      exhaustMap((requestToken) => this.authResource.createAccessToken(requestToken || '')),
       map(({ access_token, account_id }) => ({
         accessToken: access_token,
-        accountId: account_id,
+        accountId: account_id
       }))
     );
   }
 
   approveRequestToken(): void {
-    this.tmdb
+    this.authResource
       .createRequestToken(this.authState.redirectUrl)
       .subscribe((res) => {
         // store in local storage for the next page load
@@ -63,10 +64,10 @@ export class TmdbAuthEffects {
     this.authState.set({
       accessToken: null,
       accountId: null,
-      requestToken: null,
+      requestToken: null
     });
     if (accessToken) {
-      this.tmdb.deleteAccessToken(accessToken).subscribe();
+      this.authResource.deleteAccessToken(accessToken).subscribe();
     }
   }
 }
