@@ -10,7 +10,7 @@ import { ImageTag } from '../../shared/utils/image-tag.interface';
 import { getIdentifierOfTypeAndLayout } from '../../shared/state/utils';
 import { MovieState } from '../../shared/state/movie.state';
 import { addImageTag } from '../../shared/utils/image-object.transform';
-import { getCredits, getMovieRecomendations } from '../../data-access/api/movie.resource';
+import { getCredits, getMoviesRecommendations } from '../../data-access/api/movie.resource';
 
 export type MovieDetail = MovieDetailsModel & ImageTag & { languages_runtime_release: string };
 
@@ -47,7 +47,7 @@ export class MovieDetailAdapter extends RxState<MovieDetailPageModel> {
 
   movieRecomendationsById$ = this.routerMovieId$.pipe(
     switchMap((identifier) =>
-      getMovieRecomendations(identifier).pipe(
+      getMoviesRecommendations(identifier).pipe(
         map((res: any) => res.results),
         startWith([])
       )

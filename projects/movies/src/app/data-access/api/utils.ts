@@ -6,7 +6,6 @@ export const baseUrlApiV3 = [environment.tmdbBaseUrl, environment.apiV3].join('/
 export const baseUrlApiV4 = [environment.tmdbBaseUrl, environment.apiV4].join('/');
 
 let _http: HttpClient;
-
 export function getHTTP() {
   return _http || (_http = getInjector().get(HttpClient));
 }

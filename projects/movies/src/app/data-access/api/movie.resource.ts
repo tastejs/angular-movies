@@ -3,14 +3,12 @@ import { MovieModel } from '../model/movie.model';
 import { baseUrlApiV3, getHTTP } from './utils';
 
 const resource = 'movie';
-const URL_MOVIE = (id: string) =>
-  `${[baseUrlApiV3, resource, id].join('/')}?append_to_response=videos`;
-const URL_MOVIE_RECOMMENDATIONS = (id: string) =>
-  [baseUrlApiV3, resource, id, 'recommendations'].join('/');
-const URL_MOVIE_CREDITS = (id: string) =>
-  [baseUrlApiV3, resource, id, 'credits'].join('/');
-const URL_MOVIE_CATEGORY = (category: string) =>
-  [baseUrlApiV3, resource, category].join('/');
+const base = [baseUrlApiV3, resource].join('/');
+
+const URL_MOVIE = (id: string) => `${[base, id].join('/')}?append_to_response=videos`;
+const URL_MOVIE_RECOMMENDATIONS = (id: string) => [URL_MOVIE(id), 'recommendations'].join('/');
+const URL_MOVIE_CREDITS = (id: string) => [base, id, 'credits'].join('/');
+const URL_MOVIE_CATEGORY = (category: string) => [base, category].join('/');
 
 export const getMovie = (id: string): Observable<MovieModel> =>
   getHTTP().get<MovieModel>(URL_MOVIE(id));
@@ -23,14 +21,8 @@ export const getMovieCategory = (
 ): Observable<{ results: MovieModel[] }> =>
   getHTTP().get<{ results: MovieModel[] }>(URL_MOVIE_CATEGORY(category));
 
-export const getMovieRecomendations = (id: string): Observable<MovieModel[]> =>
-  getHTTP().get<MovieModel[]>(URL_MOVIE_RECOMMENDATIONS(id));
-
 export const getMoviesRecommendations = (
   id: string,
-  page: string
+  page: string = '1'
 ): Observable<MovieModel> =>
-  getHTTP().get<MovieModel>(
-    [URL_MOVIE, id, 'recommendations'].join('/'),
-    { params: { page } }
-  );
+  getHTTP().get<MovieModel>(URL_MOVIE_RECOMMENDATIONS(id), { params: { page } });
