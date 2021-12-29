@@ -9,8 +9,8 @@ import { MovieDetailsModel } from '../../data-access/model/movie-details.model';
 import { ImageTag } from '../../shared/utils/image-tag.interface';
 import { getIdentifierOfTypeAndLayout } from '../../shared/state/utils';
 import { MovieState } from '../../shared/state/movie.state';
-import { MovieResource } from '../../data-access/api/movie.resource';
 import { addImageTag } from '../../shared/utils/image-object.transform';
+import { getCredits, getMovieRecomendations } from '../../data-access/api/movie.resource';
 
 export type MovieDetail = MovieDetailsModel & ImageTag & { languages_runtime_release: string };
 
@@ -47,7 +47,7 @@ export class MovieDetailAdapter extends RxState<MovieDetailPageModel> {
 
   movieRecomendationsById$ = this.routerMovieId$.pipe(
     switchMap((identifier) =>
-      this.movieResource.getMovieRecomendations(identifier).pipe(
+      getMovieRecomendations(identifier).pipe(
         map((res: any) => res.results),
         startWith([])
       )
@@ -56,14 +56,14 @@ export class MovieDetailAdapter extends RxState<MovieDetailPageModel> {
 
   movieCastById$ = this.routerMovieId$.pipe(
     switchMap((identifier) =>
-      this.movieResource.getCredits(identifier).pipe(
+      getCredits(identifier).pipe(
         map((res: any) => res.cast || []),
         startWith([])
       )
     )
   );
 
-  constructor(private movieState: MovieState, private routerState: RouterState, private movieResource: MovieResource) {
+  constructor(private movieState: MovieState, private routerState: RouterState) {
     super();
     this.connect(
       combineLatest({ id: this.routerMovieId$, globalSlice: this.movieState.select(selectSlice(['movies', 'moviesContext'])) }).pipe(

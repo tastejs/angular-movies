@@ -1,48 +1,36 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { MovieModel } from '../model/movie.model';
-import { baseUrlApiV3 } from './utils';
+import { baseUrlApiV3, getHTTP } from './utils';
 
-@Injectable({
-  providedIn: 'root'
-})
-export class MovieResource {
-  constructor(private http: HttpClient) {
-  }
+const resource = 'movie';
+const URL_MOVIE = (id: string) =>
+  `${[baseUrlApiV3, resource, id].join('/')}?append_to_response=videos`;
+const URL_MOVIE_RECOMMENDATIONS = (id: string) =>
+  [baseUrlApiV3, resource, id, 'recommendations'].join('/');
+const URL_MOVIE_CREDITS = (id: string) =>
+  [baseUrlApiV3, resource, id, 'credits'].join('/');
+const URL_MOVIE_CATEGORY = (category: string) =>
+  [baseUrlApiV3, resource, category].join('/');
 
-  private readonly baseUrl = baseUrlApiV3;
+export const getMovie = (id: string): Observable<MovieModel> =>
+  getHTTP().get<MovieModel>(URL_MOVIE(id));
 
-  private readonly URL_MOVIE = (id: string) =>
-    `${[this.baseUrl, 'movie', id].join('/')}?append_to_response=videos`;
-  private readonly URL_MOVIE_RECOMMENDATIONS = (id: string) =>
-    [this.baseUrl, 'movie', id, 'recommendations'].join('/');
-  private readonly URL_MOVIE_CREDITS = (id: string) =>
-    [this.baseUrl, 'movie', id, 'credits'].join('/');
-  private readonly URL_MOVIE_CATEGORY = (category: string) =>
-    [this.baseUrl, 'movie', category].join('/');
+export const getCredits = (id: string): Observable<any> =>
+  getHTTP().get<any>(URL_MOVIE_CREDITS(id));
 
-  getMovie = (id: string): Observable<MovieModel> =>
-    this.http.get<MovieModel>(this.URL_MOVIE(id));
+export const getMovieCategory = (
+  category: string
+): Observable<{ results: MovieModel[] }> =>
+  getHTTP().get<{ results: MovieModel[] }>(URL_MOVIE_CATEGORY(category));
 
-  getCredits = (id: string): Observable<any> =>
-    this.http.get<any>(this.URL_MOVIE_CREDITS(id));
+export const getMovieRecomendations = (id: string): Observable<MovieModel[]> =>
+  getHTTP().get<MovieModel[]>(URL_MOVIE_RECOMMENDATIONS(id));
 
-  getMovieCategory = (
-    category: string
-  ): Observable<{ results: MovieModel[] }> =>
-    this.http.get<{ results: MovieModel[] }>(this.URL_MOVIE_CATEGORY(category));
-
-  getMovieRecomendations = (id: string): Observable<MovieModel[]> =>
-    this.http.get<MovieModel[]>(this.URL_MOVIE_RECOMMENDATIONS(id));
-
-  getMoviesRecommendations = (
-    id: string,
-    page: string
-  ): Observable<MovieModel> =>
-    this.http.get<MovieModel>(
-      [this.URL_MOVIE, id, 'recommendations'].join('/'),
-      { params: { page } }
-    );
-
-}
+export const getMoviesRecommendations = (
+  id: string,
+  page: string
+): Observable<MovieModel> =>
+  getHTTP().get<MovieModel>(
+    [URL_MOVIE, id, 'recommendations'].join('/'),
+    { params: { page } }
+  );

@@ -26,9 +26,9 @@ export class RouterEffects extends RxState<any> {
 
   // The routerState will initially emit the current params
   // Initially only resources present in the current URL are loaded, not all the listed once
-  init = () => this.hold(this.routerState.routerParams$, this.routerFetchEffect);
+  init = (): void => this.hold(this.routerState.routerParams$, this.routerFetchEffect);
 
-  private routerFetchEffect = ({ layout, type, identifier }: RouterParams) => {
+  private routerFetchEffect = ({ layout, type, identifier }: RouterParams): void => {
     if (type === 'category') {
       this.movieState.fetchCategoryMovies(identifier);
     } else if (type === 'genre') {
