@@ -1,11 +1,5 @@
 // @TODO: This information should get fetched from the TMDB API
 
-interface ImageDimensions {
-  FULL?: string;
-  WIDTH: number,
-  HEIGHT: number
-}
-
 export const W44H44: ImageDimensions = {
   WIDTH: 44,
   HEIGHT: 44,

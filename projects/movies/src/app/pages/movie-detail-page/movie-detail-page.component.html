@@ -5,10 +5,10 @@
         <img
           class="aspectRatio-2-3 fit-cover"
           [src]="
-            'https://image.tmdb.org/t/p/w' +
+            vs.movie?.poster_path ? 'https://image.tmdb.org/t/p/w' +
             vs.movie.imgWidth +
             '/' +
-            vs.movie?.poster_path
+            vs.movie?.poster_path : 'assets/images/no_poster_available.jpg'
           "
           [width]="vs.movie.imgWidth"
           [height]="vs.movie.imgHeight"

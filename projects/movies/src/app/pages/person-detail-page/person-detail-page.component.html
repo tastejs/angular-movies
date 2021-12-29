@@ -5,10 +5,11 @@
         <img
           class="aspectRatio-2-3 fit-cover"
           [src]="
+          vs.person?.profile_path ? 
             'https://image.tmdb.org/t/p/w' +
             vs.person.imgWidth +
             '/' +
-            vs.person?.profile_path
+            vs.person?.profile_path : 'assets/images/no_poster_available.jpg'
           "
           [width]="vs.person.imgWidth"
           [height]="vs.person.imgHeight"

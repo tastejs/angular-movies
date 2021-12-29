@@ -5,6 +5,7 @@ import { map, Observable } from 'rxjs';
 import { MovieModel } from '../../../data-access/model/movie.model';
 import { W300H450 } from '../../../data-access/configurations/image-sizes';
 import { ImageTag } from '../../../shared/utils/image-object';
+import { addImageTag } from '../../../shared/utils/image-object.transform';
 
 type Movie = MovieModel & ImageTag;
 
@@ -29,7 +30,7 @@ type Movie = MovieModel & ImageTag;
           <img
             class="aspectRatio-2-3 gradient"
             [attr.loading]="idx === 0 ? '' : 'lazy'"
-            [src]='movie.url'
+            [src]="movie?.url || 'assets/images/no_poster_available.jpg'"
             [width]='movie.imgWidth'
             [height]='movie.imgHeight'
             alt='poster movie'
@@ -69,18 +70,8 @@ export class MovieListComponent {
 
   movies$ = this.state.select(
     map(
-      /**
-       *
-       * @TODO remove spread and use for loop
-       */
       (state) =>
-        (state.movies || []).map((m) => ({
-          ...m,
-          url: `https://image.tmdb.org/t/p/w${W300H450.WIDTH}/${m.poster_path}`,
-          imgWidth: W300H450.WIDTH,
-          imgHeight: W300H450.HEIGHT,
-          imgRatio: W300H450.WIDTH / W300H450.HEIGHT
-        })) as Movie[]
+        (state.movies || []).map((m: MovieModel) => addImageTag(m, {pathProp: 'poster_path', dims: W300H450}))
     )
   );
 
