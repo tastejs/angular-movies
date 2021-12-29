@@ -12,7 +12,7 @@ import { MovieState } from '../../shared/state/movie.state';
 import { MovieResource } from '../../data-access/api/movie.resource';
 import { addImageTag } from '../../shared/utils/image-object.transform';
 
-export type MovieDetail = MovieDetailsModel & ImageTag & { languages_runtime_release: string };
+export type MovieDetail = MovieDetailsModel & ImageTag & { languages_runtime_release: string, videoUrl: string | false };
 
 export interface MovieDetailPageModel {
   loading: boolean;
@@ -32,6 +32,8 @@ function transformToMovieDetail(res: any): MovieDetail {
   } ${res.runtime} MIN. / ${new Date(
     res.release_date
   ).getFullYear()}`;
+
+  res.videoUrl = res?.videos?.results[0] || false;
 
   addImageTag(res, { pathProp: 'poster_path', dims: W780H1170 });
   return res as MovieDetail;

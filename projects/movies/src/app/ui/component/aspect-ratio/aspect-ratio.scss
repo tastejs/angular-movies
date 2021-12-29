@@ -4,6 +4,12 @@
   height: auto;
   aspect-ratio: var(--theme-aspectRatio-2-3);
 }
+.aspectRatio-16-9 {
+  width: 100%;
+  display: block;
+  height: auto;
+  aspect-ratio: var(--theme-aspectRatio-16-9);
+}
 
 .fit-cover {
   width: 100%;

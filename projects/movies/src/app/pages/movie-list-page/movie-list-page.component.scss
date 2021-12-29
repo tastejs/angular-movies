@@ -1,6 +1,30 @@
 @import '../../ui/component/loader/loader';
-@import "../../ui/component/aspect-ratio/aspect-ratio";
+@import '../../ui/token/mixins/flex';
+@import "../../ui/token/variables/aspectRatio";
 
 :host {
   width: 100%;
+}
+
+.overlay {
+  margin: auto;
+  max-width: 940px;
+  height: 100%;
+  position: fixed;
+  z-index: var(--theme-backdrop-zIndex);
+  @include d-flex-vh;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  left: 0;
+  background-color: var(--palette-background-backdrop);
+  transition: opacity var(--theme-anim-duration-leavingScreen) var(--theme-anim-easing-easeInOut) 0ms;
+
+  iframe {
+    width: 100%;
+
+    &.video {
+      aspect-ratio: var(--theme-aspectRatio-16-9);
+    }
+  }
 }

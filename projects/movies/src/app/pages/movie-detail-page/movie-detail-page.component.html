@@ -110,6 +110,16 @@
               />
             </svg>
           </a>
+          <a
+            *ngIf="vs.movie.videoUrl"
+            class="btn"
+            [href]="vs.movie.videoUrl"
+          >
+            Trailer
+            <svg class="btn__icon" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M0 0h24v24H0z" fill="none" />
+            </svg>
+          </a>
           <button class="btn" (click)="back()">
             Back
           </button>
