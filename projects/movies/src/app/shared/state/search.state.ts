@@ -4,7 +4,7 @@ import { MovieModel } from '../../data-access/model/movie.model';
 import { RxState } from '@rx-angular/state';
 import { getActions } from '../rxa-custom/actions';
 import { withLoadingEmission } from '../utils/withLoadingEmissions';
-import { SearchResource } from '../../data-access/api/search.resource';
+import { getMoviesSearch } from '../../data-access/api/search.resource';
 
 export interface State {
   search: MovieModel[];
@@ -21,12 +21,12 @@ interface Actions {
 export class SearchState extends RxState<State> {
   private actions = getActions<Actions>();
 
-  constructor(private searchResource: SearchResource) {
+  constructor() {
     super();
 
     this.connect(
       this.actions.fetchSearchMovies$.pipe(
-        switchMap((query) => this.searchResource.getMovies(query)
+        switchMap((query) => getMoviesSearch(query)
           .pipe(
             map(({ results }) => ({ search: results } as State)),
             withLoadingEmission('searchContext', true, false)

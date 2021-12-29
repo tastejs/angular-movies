@@ -8,9 +8,9 @@ import { ImageTag } from '../../shared/utils/image-tag.interface';
 import { getIdentifierOfTypeAndLayout } from '../../shared/state/utils';
 import { MoviePersonModel } from '../../data-access/model/movie-person.model';
 import { PersonState } from '../../shared/state/person.state';
-import { MovieResource } from '../../data-access/api/movie.resource';
-import { DiscoverResource } from '../../data-access/api/discover.resource';
 import { addImageTag } from '../../shared/utils/image-object.transform';
+import { getCredits } from '../../data-access/api/movie.resource';
+import { getDiscoverMovies } from '../../data-access/api/discover.resource';
 
 export type MoviePerson = MoviePersonModel & ImageTag;
 
@@ -32,9 +32,9 @@ export class PersonDetailAdapter extends RxState<PersonDetailPageAdapterState> {
   readonly routedPersonSlice$ = this.select(selectSlice(['person', 'loading']));
   readonly routerPersonId$ = this.routerState.select(getIdentifierOfTypeAndLayout('person', 'detail'));
 
-  readonly movieRecomendationsById$ = this.routerPersonId$.pipe(
+  readonly movieRecommendationsById$ = this.routerPersonId$.pipe(
     switchMap((identifier) =>
-      this.personResource.getDiscoverMovies(identifier).pipe(
+      getDiscoverMovies(identifier).pipe(
         map((res: any) => res.results),
         startWith([])
       )
@@ -43,7 +43,7 @@ export class PersonDetailAdapter extends RxState<PersonDetailPageAdapterState> {
 
   readonly movieCastById$ = this.routerPersonId$.pipe(
     switchMap((identifier) =>
-      this.movieResource.getCredits(identifier).pipe(
+      getCredits(identifier).pipe(
         map((res: any) => res.cast || []),
         startWith([])
       )
@@ -51,8 +51,6 @@ export class PersonDetailAdapter extends RxState<PersonDetailPageAdapterState> {
   );
 
   constructor(private routerState: RouterState,
-              private personResource: DiscoverResource,
-              private movieResource: MovieResource,
               private personState: PersonState) {
     super();
     this.connect(

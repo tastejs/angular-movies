@@ -5,7 +5,7 @@ import { patch, RxState, toDictionary } from '@rx-angular/state';
 import { optimizedFetch } from '../utils/optimized-fetch';
 import { getActions } from '../rxa-custom/actions';
 import { withLoadingEmission } from '../utils/withLoadingEmissions';
-import { MovieResource } from '../../data-access/api/movie.resource';
+import { getMovie, getMovieCategory } from '../../data-access/api/movie.resource';
 
 export interface State {
   movies: Record<string, MovieModel>;
@@ -28,7 +28,7 @@ export class MovieState extends RxState<State> {
   fetchMovie = this.actions.fetchMovie;
   fetchCategoryMovies = this.actions.fetchCategoryMovies;
 
-  constructor(private movieResource: MovieResource) {
+  constructor() {
     super();
     this.connect(this.actions.fetchMovie$.pipe(
       /**
@@ -40,7 +40,7 @@ export class MovieState extends RxState<State> {
       optimizedFetch(
         (id) => id,
         (id) => {
-          return this.movieResource.getMovie(id)
+          return getMovie(id)
             .pipe(
               map(result => ({ movies: toDictionary([result], 'id') } as State)),
               withLoadingEmission('moviesContext', true, false)
@@ -65,7 +65,7 @@ export class MovieState extends RxState<State> {
          */
         optimizedFetch(
           (category) => 'category' + '-' + category,
-          (category) => this.movieResource.getMovieCategory(category)
+          (category) => getMovieCategory(category)
             .pipe(
               map(({ results }) => ({ categoryMovies: { [category]: results } } as State)),
               withLoadingEmission('categoryMoviesContext', true, false)

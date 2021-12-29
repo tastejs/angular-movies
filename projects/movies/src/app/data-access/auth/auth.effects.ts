@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 import { exhaustMap, map, Observable, take } from 'rxjs';
 import { AuthStateService } from './auth.state';
-import { AuthResource } from '../api/auth.resource';
 import { isAuthenticationInProgress } from './utils';
+import { createAccessToken, createRequestToken, deleteAccessToken } from '../api/auth.resource';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthEffects {
-  constructor(private authState: AuthStateService, private authResource: AuthResource) {
+  constructor(private authState: AuthStateService) {
     this.restoreLogin();
   }
 
@@ -34,7 +34,7 @@ export class AuthEffects {
   createAccessToken$(): Observable<{ accessToken: string; accountId: string }> {
     return this.authState.requestToken$.pipe(
       take(1),
-      exhaustMap((requestToken) => this.authResource.createAccessToken(requestToken || '')),
+      exhaustMap((requestToken) => createAccessToken(requestToken || '')),
       map(({ access_token, account_id }) => ({
         accessToken: access_token,
         accountId: account_id
@@ -43,8 +43,7 @@ export class AuthEffects {
   }
 
   approveRequestToken(): void {
-    this.authResource
-      .createRequestToken(this.authState.redirectUrl)
+     createRequestToken(this.authState.redirectUrl)
       .subscribe((res) => {
         // store in local storage for the next page load
         window.localStorage.setItem('requestToken', res.request_token);
@@ -67,7 +66,7 @@ export class AuthEffects {
       requestToken: null
     });
     if (accessToken) {
-      this.authResource.deleteAccessToken(accessToken).subscribe();
+      deleteAccessToken(accessToken).subscribe();
     }
   }
 }
