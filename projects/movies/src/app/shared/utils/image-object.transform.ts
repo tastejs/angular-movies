@@ -1,4 +1,4 @@
-import { ImageTag } from './image-object';
+import { ImageTag } from './image-tag.interface';
 import { ImageDimensions } from '../../data-access/configurations/image-dimensions.interface';
 
 export function addImageTag<T extends Object>(_res: T, options: { pathProp: keyof T, dims: ImageDimensions, fallback?: string, baseUrl?: string }): T & ImageTag {

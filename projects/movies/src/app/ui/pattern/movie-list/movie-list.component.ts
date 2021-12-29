@@ -4,7 +4,7 @@ import { RxState } from '@rx-angular/state';
 import { map, Observable } from 'rxjs';
 import { MovieModel } from '../../../data-access/model/movie.model';
 import { W300H450 } from '../../../data-access/configurations/image-sizes';
-import { ImageTag } from '../../../shared/utils/image-object';
+import { ImageTag } from '../../../shared/utils/image-tag.interface';
 import { addImageTag } from '../../../shared/utils/image-object.transform';
 
 type Movie = MovieModel & ImageTag;

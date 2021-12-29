@@ -6,7 +6,7 @@ import { combineLatest, map, startWith, switchMap, tap } from 'rxjs';
 import { W780H1170 } from '../../data-access/configurations/image-sizes';
 import { MovieCastModel } from '../../data-access/model/movie-cast.model';
 import { MovieDetailsModel } from '../../data-access/model/movie-details.model';
-import { ImageTag } from '../../shared/utils/image-object';
+import { ImageTag } from '../../shared/utils/image-tag.interface';
 import { getIdentifierOfTypeAndLayout } from '../../shared/state/utils';
 import { MovieState } from '../../shared/state/movie.state';
 import { MovieResource } from '../../data-access/api/movie.resource';

@@ -47,7 +47,7 @@ export class PersonState extends RxState<State> {
       (oldState, newPartial) => {
         let s = newPartial as unknown as State;
         let resultState = patch(oldState, s);
-        resultState.person = patch(oldState.person, resultState.person);
+        resultState.person = patch(oldState?.person, resultState.person);
         return resultState;
       }
     );

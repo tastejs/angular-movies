@@ -4,7 +4,7 @@ import { RxState, selectSlice } from '@rx-angular/state';
 import { RouterState } from '../../shared/state/router.state';
 import { combineLatest, map, startWith, switchMap } from 'rxjs';
 import { W780H1170 } from '../../data-access/configurations/image-sizes';
-import { ImageTag } from '../../shared/utils/image-object';
+import { ImageTag } from '../../shared/utils/image-tag.interface';
 import { getIdentifierOfTypeAndLayout } from '../../shared/state/utils';
 import { MoviePersonModel } from '../../data-access/model/movie-person.model';
 import { PersonState } from '../../shared/state/person.state';
