@@ -4,12 +4,13 @@ import { RxState, selectSlice } from '@rx-angular/state';
 import { RouterState } from '../../shared/state/router.state';
 import { combineLatest, map, startWith, switchMap } from 'rxjs';
 import { W780H1170 } from '../../data-access/configurations/image-sizes';
-import { ImageTag } from '../../shared/utils/image-object';
+import { ImageTag } from '../../shared/utils/image-tag.interface';
 import { getIdentifierOfTypeAndLayout } from '../../shared/state/utils';
 import { MoviePersonModel } from '../../data-access/model/movie-person.model';
 import { PersonState } from '../../shared/state/person.state';
 import { MovieResource } from '../../data-access/api/movie.resource';
 import { DiscoverResource } from '../../data-access/api/discover.resource';
+import { addImageTag } from '../../shared/utils/image-object.transform';
 
 export type MoviePerson = MoviePersonModel & ImageTag;
 
@@ -19,14 +20,8 @@ export interface PersonDetailPageAdapterState {
   recommendations: MovieModel[];
 }
 
-function transformToMovieDetail(_res: MoviePersonModel): MoviePerson {
-  const res = _res as MoviePerson;
-  res.url = `https://image.tmdb.org/t/p/w${W780H1170.WIDTH}/${res.profile_path}`;
-  res.imgWidth = W780H1170.WIDTH;
-  res.imgHeight = W780H1170.HEIGHT;
-  res.imgRatio = res.imgWidth / res.imgHeight;
-
-  return res as MoviePerson;
+function transformToPersonDetail(_res: MoviePersonModel): MoviePerson {
+  return addImageTag(_res, { pathProp: 'profile_path', dims: W780H1170 });
 }
 
 @Injectable({
@@ -66,7 +61,7 @@ export class PersonDetailAdapter extends RxState<PersonDetailPageAdapterState> {
           const { person, personContext: loading } = globalSlice;
           return ({
             loading,
-            person: person[id] !== undefined ? transformToMovieDetail(person[id]) : null
+            person: person[id] !== undefined ? transformToPersonDetail(person[id]) : null
           }) as PersonDetailPageAdapterState;
         }))
     );

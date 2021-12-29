@@ -6,10 +6,11 @@ import { combineLatest, map, startWith, switchMap, tap } from 'rxjs';
 import { W780H1170 } from '../../data-access/configurations/image-sizes';
 import { MovieCastModel } from '../../data-access/model/movie-cast.model';
 import { MovieDetailsModel } from '../../data-access/model/movie-details.model';
-import { ImageTag } from '../../shared/utils/image-object';
+import { ImageTag } from '../../shared/utils/image-tag.interface';
 import { getIdentifierOfTypeAndLayout } from '../../shared/state/utils';
 import { MovieState } from '../../shared/state/movie.state';
 import { MovieResource } from '../../data-access/api/movie.resource';
+import { addImageTag } from '../../shared/utils/image-object.transform';
 
 export type MovieDetail = MovieDetailsModel & ImageTag & { languages_runtime_release: string };
 
@@ -32,11 +33,7 @@ function transformToMovieDetail(res: any): MovieDetail {
     res.release_date
   ).getFullYear()}`;
 
-  res.url = `https://image.tmdb.org/t/p/w${W780H1170.WIDTH}/${res.poster_path}`;
-  res.imgWidth = W780H1170.WIDTH;
-  res.imgHeight = W780H1170.HEIGHT;
-  res.imgRatio = res.imgWidth / res.imgHeight;
-
+  addImageTag(res, { pathProp: 'poster_path', dims: W780H1170 });
   return res as MovieDetail;
 }
 
