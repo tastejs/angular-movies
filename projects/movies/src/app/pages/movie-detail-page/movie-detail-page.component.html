@@ -4,12 +4,7 @@
       <div detailGridMedia>
         <img
           class="aspectRatio-2-3 fit-cover"
-          [src]="
-            vs.movie?.poster_path ? 'https://image.tmdb.org/t/p/w' +
-            vs.movie.imgWidth +
-            '/' +
-            vs.movie?.poster_path : 'assets/images/no_poster_available.jpg'
-          "
+          [src]="vs.movie.imgUrl"
           [width]="vs.movie.imgWidth"
           [height]="vs.movie.imgHeight"
           alt="poster movie"
@@ -123,8 +118,7 @@
           </a>
           <dialog class="video" #trailerDialog id="trailer-dialog">
             <span aria-controls="trailer-dialog" class="close" (click)="$any(trailerDialog).close()"></span>
-            <iframe loading="lazy"
-                    [src]="vs.movie.videoUrl"
+            <iframe [bypassSrc]="vs.movie.videoUrl" loading="lazy"
                     width="460" height="230"></iframe>
           </dialog>
           <button class="btn" (click)="back()">
