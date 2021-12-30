@@ -5,13 +5,13 @@ import { baseUrlApiV3, getHTTP } from './utils';
 const resource = 'movie';
 const base = [baseUrlApiV3, resource].join('/');
 
-const URL_MOVIE = (id: string) => `${[base, id].join('/')}?append_to_response=videos`;
+const URL_MOVIE = (id: string) => `${[base, id].join('/')}`;
 const URL_MOVIE_RECOMMENDATIONS = (id: string) => [URL_MOVIE(id), 'recommendations'].join('/');
 const URL_MOVIE_CREDITS = (id: string) => [base, id, 'credits'].join('/');
 const URL_MOVIE_CATEGORY = (category: string) => [base, category].join('/');
 
-export const getMovie = (id: string): Observable<MovieModel> =>
-  getHTTP().get<MovieModel>(URL_MOVIE(id));
+export const getMovie = (id: string, options = { params: { append_to_response:'videos' } }): Observable<MovieModel> =>
+  getHTTP().get<MovieModel>(URL_MOVIE(id), options );
 
 export const getCredits = (id: string): Observable<any> =>
   getHTTP().get<any>(URL_MOVIE_CREDITS(id));

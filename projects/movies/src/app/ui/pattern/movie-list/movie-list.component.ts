@@ -30,7 +30,7 @@ type Movie = MovieModel & ImageTag;
           <img
             class="aspectRatio-2-3 gradient"
             [attr.loading]="idx === 0 ? '' : 'lazy'"
-            [src]="movie?.url || 'assets/images/no_poster_available.jpg'"
+            [src]="movie?.imgUrl || 'assets/images/no_poster_available.jpg'"
             [width]='movie.imgWidth'
             [height]='movie.imgHeight'
             alt='poster movie'
