@@ -7,6 +7,7 @@
 @import 'styles/normalize';
 @import "app/ui/token/mixins/media";
 @import "app/ui/token/variables/borderRadius";
+@import "app/ui/token/variables/aspectRatio";
 @import "app/ui/token/variables/zIndex";
 @import "app/ui/token/variables/animations";
 @import "app/ui/token/variables/shadow";
@@ -22,5 +23,7 @@ body {
 body.dark img:not([src*='.svg']) {
   filter: var(--image-filter);
 }
+
+
 
 
