@@ -5,11 +5,12 @@ import { MovieGenreModel } from '../../data-access/model/movie-genre.model';
 import { RxState, selectSlice } from '@rx-angular/state';
 import { getIdentifierOfTypeAndLayout } from '../../shared/state/utils';
 import { RouterState } from '../../shared/state/router.state';
-import { SearchState } from '../../shared/state/search.state';
 import { GenreState } from '../../shared/state/genre.state';
 import { MovieState } from '../../shared/state/movie.state';
 import { parseTitle } from '../../shared/utils/parse-movie-list-title';
 import { DiscoverState } from '../../shared/state/discover.state';
+import { getMoviesSearch } from '../../data-access/api/search.resource';
+import { withLoadingEmission } from '../../shared/utils/withLoadingEmissions';
 
 type MovieListPageModel = {
   loading: boolean;
@@ -65,15 +66,13 @@ export class MovieListPageAdapter extends RxState<MovieListPageModel> {
     })
   );
 
-  private readonly searchMovieList$: Observable<MovieListPageModel> = this.searchState.select(
-    selectSlice(['search', 'searchContext']),
-    withLatestFrom(this.routerSearch$),
-    map(([{ search, searchContext }, listName]) => ({
-        loading: searchContext,
-        title: parseTitle(listName),
-        type: 'search',
-        movies: search && search || null
-      })
+  private readonly searchMovieList$: Observable<MovieListPageModel> = this.routerSearch$.pipe(
+    // cancel previous requests
+    switchMap((query) => getMoviesSearch(query)
+      .pipe(
+        map(({ results }) => ({ movies: results || null, title: parseTitle(query) }) as MovieListPageModel),
+        withLoadingEmission('loading', true, false)
+      )
     )
   );
 
@@ -82,14 +81,12 @@ export class MovieListPageAdapter extends RxState<MovieListPageModel> {
   );
 
   constructor(
-    private searchState: SearchState,
     private discoverState: DiscoverState,
     private genreState: GenreState,
     private movieState: MovieState,
     private routerState: RouterState) {
     super();
     this.connect(this.routedMovieList$);
-
   }
 
 }
