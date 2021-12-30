@@ -7,6 +7,9 @@
                  (paginate)="paginate()"
                  [movies]="movies$" data-test="list-wrapper">
   </ui-movie-list>
+  <ng-container *rxLet="paging$; let paging">
+    <ng-container *ngIf="!paging; else: loadingTpl"></ng-container>
+  </ng-container>
   <ng-template #loadingTpl>
     <div class="loader" data-test="list-loader"></div>
   </ng-template>

@@ -19,6 +19,7 @@ import { DiscoverState } from '../../shared/state/discover.state';
 
 type MovieListPageModel = {
   loading: boolean;
+  paging?: boolean;
   movies: MovieModel[];
   title: string;
   type: string;
@@ -40,16 +41,26 @@ export class MovieListPageAdapter extends RxState<MovieListPageModel> {
 
   private readonly categoryMovieList$: Observable<MovieListPageModel> =
     this.movieState.select(
-      selectSlice(['categoryMovies', 'categoryMoviesContext']),
+      selectSlice([
+        'categoryMovies',
+        'categoryMoviesContext',
+        'categoryMoviesPaging',
+      ]),
       withLatestFrom(this.routerCategory$),
-      map(([{ categoryMovies, categoryMoviesContext }, listName]) => {
-        return {
-          loading: categoryMoviesContext,
-          title: parseTitle(listName),
-          type: 'category',
-          movies: (categoryMovies && categoryMovies[listName]) || null,
-        };
-      })
+      map(
+        ([
+          { categoryMovies, categoryMoviesContext, categoryMoviesPaging },
+          listName,
+        ]) => {
+          return {
+            loading: categoryMoviesContext,
+            paging: categoryMoviesPaging,
+            title: parseTitle(listName),
+            type: 'category',
+            movies: (categoryMovies && categoryMovies[listName]) || null,
+          };
+        }
+      )
     );
 
   _slice$ = combineLatest({
@@ -109,6 +120,7 @@ export class MovieListPageAdapter extends RxState<MovieListPageModel> {
     private routerState: RouterState
   ) {
     super();
+    this.set({ paging: false });
     this.connect(this.routedMovieList$);
   }
 
