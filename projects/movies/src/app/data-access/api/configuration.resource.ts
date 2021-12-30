@@ -1,6 +1,7 @@
 import { Observable } from 'rxjs';
 import { Configuration } from './configuration.interface';
-import { baseUrlApiV3, getHTTP } from './utils';
+import { baseUrlApiV3 } from './utils';
+import { getHTTP } from '../../shared/injector/get-http-client';
 
 const URL_CONFIGURATION = [baseUrlApiV3, 'configuration'].join('/');
 

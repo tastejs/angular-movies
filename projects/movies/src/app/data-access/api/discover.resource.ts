@@ -1,6 +1,7 @@
 import { Observable } from 'rxjs';
 import { MovieModel } from '../model/movie.model';
-import { baseUrlApiV3, getHTTP } from './utils';
+import { baseUrlApiV3 } from './utils';
+import { getHTTP } from '../../shared/injector/get-http-client';
 
 const URL_DISCOVER_MOVIE = [baseUrlApiV3, 'discover', 'movie'].join('/');
 
