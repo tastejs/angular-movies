@@ -6,25 +6,23 @@ import { optimizedFetch } from '../utils/optimized-fetch';
 import { getActions } from '../rxa-custom/actions';
 import { withLoadingEmission } from '../utils/withLoadingEmissions';
 import { getMovie, getMovieCategory } from '../../data-access/api/movie.resource';
+import { PaginationState } from '../utils/paginate/paginate-state.interface';
 
-export interface State {
+export interface State extends PaginationState {
   movies: Record<string, MovieModel>;
   moviesContext: boolean;
   categoryMovies: Record<string, MovieModel[]>;
+  categoryMoviesTotalPages: Record<string, number>;
   categoryMoviesContext: boolean;
-  categoryMoviesPaging: boolean;
-  activeCategory: string;
-  activePage: number;
-  totalPages: number;
 }
 
 interface Actions {
   fetchMovie: string;
-  fetchCategoryMovies: { category: string; page?: number };
+  fetchCategoryMovies: { category: string };
 }
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class MovieState extends RxState<State> {
   private actions = getActions<Actions>();
@@ -34,29 +32,24 @@ export class MovieState extends RxState<State> {
 
   constructor() {
     super();
-    this.set({
-      totalPages: 0,
-      activeCategory: '',
-      activePage: 0,
-      categoryMoviesPaging: false,
-    });
+
     this.connect(this.actions.fetchMovie$.pipe(
-        /**
-         * **🚀 Perf Tip for TTI, TBT:**
-         *
-         * Avoid over fetching for HTTP get requests to URLs that will not change result quickly.
-         * E.G.: URLs with the same params
-         */
-        optimizedFetch(
-          (id) => id,
-          (id) => {
-            return getMovie(id)
-              .pipe(
-                map((result) => ({ movies: toDictionary([result], 'id') } as State)),
+      /**
+       * **🚀 Perf Tip for TTI, TBT:**
+       *
+       * Avoid over fetching for HTTP get requests to URLs that will not change result quickly.
+       * E.G.: URLs with the same params
+       */
+      optimizedFetch(
+        (id) => id,
+        (id) => {
+          return getMovie(id)
+            .pipe(
+              map((result) => ({ movies: toDictionary([result], 'id') } as State)),
               withLoadingEmission('moviesContext', true, false)
             );
-          }
-        )
+        }
+      )
       ),
       (oldState, newPartial) => {
         let s = newPartial as unknown as State;
@@ -65,19 +58,7 @@ export class MovieState extends RxState<State> {
         return resultState;
       }
     );
-    /*this.connect(
-      this.actions.fetchCategoryMovies$.pipe(
-        map(({ category, page }) => {
-          const newState = {
-            activeCategory: category,
-            activePage: page == null ? 1 : page,
-          };
-          console.log(newState, 'newState');
-          return newState;
-        })
-      )
-    );*/
-    this.hold(this.select(), console.log);
+
     this.connect(
       this.actions.fetchCategoryMovies$.pipe(
         /**
@@ -85,25 +66,22 @@ export class MovieState extends RxState<State> {
          *
          * Avoid over fetching for HTTP get requests to URLs that will not change result quickly.
          */
-        map(({ category, page }) => ({
-          category,
-          page: page || 1,
+        map(({ category }) => ({
+          category
         })),
         optimizedFetch(
-          ({ category, page }) => `category-${category}-${page}`,
-          ({ category, page }) =>
-            getMovieCategory(category, page).pipe(
+          ({ category }) => `category-${category}`,
+          ({ category }) =>
+            getMovieCategory(category).pipe(
               map(
                 ({ results, total_pages }) =>
                   ({
                     categoryMovies: { [category]: results },
-                    activeCategory: category,
-                    totalPages: total_pages,
-                    activePage: page,
+                    categoryMoviesTotalPages: { [category]: total_pages }
                   } as State)
               ),
               withLoadingEmission(
-                page === 1 ? 'categoryMoviesContext' : 'categoryMoviesPaging',
+                'categoryMoviesContext',
                 true,
                 false
               )
@@ -112,23 +90,14 @@ export class MovieState extends RxState<State> {
       ),
       (oldState, newPartial) => {
         let s = newPartial as unknown as State;
-        const { activePage, activeCategory, categoryMovies } = newPartial;
-        if (activePage > 1) {
-          return {
-            ...patch(oldState, s),
-            categoryMovies: {
-              ...oldState.categoryMovies,
-              [activeCategory]: [
-                ...oldState.categoryMovies[activeCategory],
-                ...categoryMovies[activeCategory],
-              ],
-            },
-          };
-        }
         let resultState = patch(oldState, s);
         resultState.categoryMovies = patch(
           oldState?.categoryMovies,
           resultState.categoryMovies
+        );
+        resultState.categoryMoviesTotalPages = patch(
+          oldState?.categoryMoviesTotalPages,
+          resultState.categoryMoviesTotalPages
         );
         return resultState;
       }

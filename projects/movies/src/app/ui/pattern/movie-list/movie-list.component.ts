@@ -1,13 +1,4 @@
-import {
-  AfterViewInit,
-  ChangeDetectionStrategy,
-  Component,
-  ElementRef,
-  Input,
-  Output,
-  ViewChild,
-  ViewEncapsulation,
-} from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, Input, Output, ViewChild, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
 import { RxState } from '@rx-angular/state';
 import { EMPTY, map, Observable, Subject, switchMap } from 'rxjs';
@@ -22,7 +13,7 @@ type Movie = MovieModel & ImageTag;
   selector: 'ui-movie-list',
   template: `
     <ng-container
-      *rxLet="hasMovies$; let hasMovies; renderCallback: moviesRendered$"
+      *rxLet="moviesListVisible$; let hasMovies; renderCallback: moviesRendered$"
     >
       <div
         class="movies-list--grid"
@@ -77,12 +68,12 @@ type Movie = MovieModel & ImageTag;
   styleUrls: ['./movie-list.component.scss'],
   providers: [RxState],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  encapsulation: ViewEncapsulation.Emulated,
+  encapsulation: ViewEncapsulation.Emulated
 })
 export class MovieListComponent implements AfterViewInit {
   @ViewChild('paginate') paginateEl?: ElementRef<HTMLElement>;
 
-  readonly moviesRendered$ = new Subject<unknown>();
+  readonly moviesRendered$ = new Subject<boolean>();
 
   readonly movies$ = this.state.select(
     map((state) =>
@@ -92,7 +83,7 @@ export class MovieListComponent implements AfterViewInit {
     )
   );
 
-  readonly hasMovies$ = this.state.select(
+  readonly moviesListVisible$ = this.state.select(
     map((state) => !!state.movies && state.movies.length > 0)
   );
 
@@ -119,27 +110,17 @@ export class MovieListComponent implements AfterViewInit {
   }
 
   ngAfterViewInit(): void {
+
     this.state.hold(
-      this.hasMovies$.pipe(
-        switchMap((hasMovies) => {
-          if (!hasMovies) {
-            return EMPTY;
-          }
-          return this.moviesRendered$.pipe(
-            switchMap(() => {
-              return this.observeElementVisibility(
-                (this.paginateEl as ElementRef).nativeElement
-              );
-            })
-          );
-        })
+      this.moviesListVisible$.pipe(
+        switchMap((hasMovies) => !hasMovies ? EMPTY : this.moviesRendered$.pipe(
+          switchMap(() => this.observeElementVisibility((this.paginateEl as ElementRef).nativeElement))
+          )
+        )
       ),
-      (intersecting) => {
-        if (intersecting) {
-          this.paginate.next();
-        }
-      }
+      (intersecting) => intersecting && this.paginate.next()
     );
+
   }
 
   observeElementVisibility(element: HTMLElement): Observable<boolean> {
@@ -150,8 +131,8 @@ export class MovieListComponent implements AfterViewInit {
         },
         {
           root: null,
-          rootMargin: '200px',
-          threshold: 0.5,
+          rootMargin: '500px',
+          threshold: 0.5
         }
       );
       observer.observe(element);

@@ -23,7 +23,6 @@ export class MovieListPageComponent {
     }),
     map(({ loading, movies }) => loading || movies === null)
   );
-  readonly paging$ = this.adapter.select('paging');
   readonly headings$ = this.adapter.select(selectSlice(['title', 'type']));
 
   constructor(private adapter: MovieListPageAdapter) {

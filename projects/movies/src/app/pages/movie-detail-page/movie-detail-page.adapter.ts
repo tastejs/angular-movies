@@ -2,7 +2,7 @@ import { MovieModel } from '../../data-access/model/movie.model';
 import { Injectable } from '@angular/core';
 import { RxState, selectSlice } from '@rx-angular/state';
 import { RouterState } from '../../shared/state/router.state';
-import { combineLatest, map, startWith, switchMap, tap } from 'rxjs';
+import { combineLatest, map, startWith, switchMap } from 'rxjs';
 import { W780H1170 } from '../../data-access/configurations/image-sizes';
 import { MovieCastModel } from '../../data-access/model/movie-cast.model';
 import { MovieDetailsModel } from '../../data-access/model/movie-details.model';
@@ -46,8 +46,7 @@ function transformToMovieDetail(_res: MovieModel): MovieDetail {
 export class MovieDetailAdapter extends RxState<MovieDetailPageModel> {
   routedMovieSlice$ = this.select(selectSlice(['movie', 'loading']));
   routerMovieId$ = this.routerState.select(
-    getIdentifierOfTypeAndLayout('movie', 'detail'),
-    tap((v) => console.log('router detail', v))
+    getIdentifierOfTypeAndLayout('movie', 'detail')
   );
 
   movieRecomendationsById$ = this.routerMovieId$.pipe(

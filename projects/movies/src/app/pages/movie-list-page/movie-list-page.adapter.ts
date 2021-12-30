@@ -1,10 +1,4 @@
-import {
-  combineLatest,
-  map,
-  Observable,
-  switchMap,
-  withLatestFrom,
-} from 'rxjs';
+import { combineLatest, concatMap, map, Observable, Subject, switchMap, withLatestFrom } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { MovieModel } from '../../data-access/model/movie.model';
 import { MovieGenreModel } from '../../data-access/model/movie-genre.model';
@@ -17,6 +11,7 @@ import { parseTitle } from '../../shared/utils/parse-movie-list-title';
 import { DiscoverState } from '../../shared/state/discover.state';
 import { getMoviesSearch } from '../../data-access/api/search.resource';
 import { withLoadingEmission } from '../../shared/utils/withLoadingEmissions';
+import { getMovieCategory } from '../../data-access/api/movie.resource';
 
 type MovieListPageModel = {
   loading: boolean;
@@ -24,12 +19,17 @@ type MovieListPageModel = {
   movies: MovieModel[];
   title: string;
   type: string;
+  activeCategory: string;
+  activePage: number;
 };
 
+
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class MovieListPageAdapter extends RxState<MovieListPageModel> {
+
+  paginate$ = new Subject<void>();
 
   routerSearch$ = this.routerState.select(getIdentifierOfTypeAndLayout('search', 'list'));
   routerGenre$ = this.routerState.select(getIdentifierOfTypeAndLayout('genre', 'list'));
@@ -39,21 +39,21 @@ export class MovieListPageAdapter extends RxState<MovieListPageModel> {
     this.movieState.select(
       selectSlice([
         'categoryMovies',
-        'categoryMoviesContext',
-        'categoryMoviesPaging',
+        'categoryMoviesContext'
       ]),
       withLatestFrom(this.routerCategory$),
       map(
         ([
-          { categoryMovies, categoryMoviesContext, categoryMoviesPaging },
-          listName,
-        ]) => {
+           { categoryMovies, categoryMoviesContext },
+           listName
+         ]) => {
           return {
+            activePage: 1,
             loading: categoryMoviesContext,
-            paging: categoryMoviesPaging,
             title: parseTitle(listName),
+            activeCategory: listName,
             type: 'category',
-            movies: (categoryMovies && categoryMovies[listName]) || null,
+            movies: (categoryMovies && categoryMovies[listName]) || null
           };
         }
       )
@@ -80,7 +80,7 @@ export class MovieListPageAdapter extends RxState<MovieListPageModel> {
         loading: genreMoviesContext,
         title: parseTitle(genreName),
         type: 'genre',
-        movies: (genreMovies && genreMovies[genreIdStr]) || null,
+        movies: (genreMovies && genreMovies[genreIdStr]) || null
       };
     })
   );
@@ -108,12 +108,30 @@ export class MovieListPageAdapter extends RxState<MovieListPageModel> {
     super();
     this.set({ paging: false });
     this.connect(this.routedMovieList$);
+
+    this.connect(
+      this.paginate$.pipe(
+        withLatestFrom(this.routerCategory$),
+        concatMap(([_, cat]) => getMovieCategory(cat, this.get('activePage') + 1).pipe(
+          map(({ results }) => ({ movies: results }) as Partial<MovieListPageModel>),
+          withLoadingEmission(
+            'loading',
+            true,
+            false
+          )
+          )
+        )
+      ),
+      (oldState, newSlice) => {
+        if (newSlice.movies) {
+          return { movies: oldState.movies.concat(newSlice.movies) };
+        }
+        return newSlice;
+      }
+    );
   }
 
   paginate() {
-    this.movieState.fetchCategoryMovies({
-      category: this.movieState.get('activeCategory'),
-      page: this.movieState.get('activePage') + 1,
-    });
+    this.paginate$.next();
   }
 }

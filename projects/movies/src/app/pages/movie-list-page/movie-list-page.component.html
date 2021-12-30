@@ -1,16 +1,12 @@
-<article *rxLet="loading$; let loading; strategy: 'instantUserBlocking'">
+<article>
   <header *rxLet="headings$; let headings">
     <h1>{{ headings.title }}</h1>
     <h2>{{ headings.type }}</h2>
   </header>
-  <ui-movie-list *ngIf="!loading; else loadingTpl"
-                 (paginate)="paginate()"
+  <ui-movie-list (paginate)="paginate()"
                  [movies]="movies$" data-test="list-wrapper">
   </ui-movie-list>
-  <ng-container *rxLet="paging$; let paging">
-    <ng-container *ngIf="!paging; else: loadingTpl"></ng-container>
+  <ng-container *rxLet="loading$; let paging">
+    <div *ngIf="paging" class="loader" data-test="list-loader"></div>
   </ng-container>
-  <ng-template #loadingTpl>
-    <div class="loader" data-test="list-loader"></div>
-  </ng-template>
 </article>
