@@ -1,13 +1,4 @@
-import {
-  combineLatest,
-  concatMap,
-  filter,
-  map,
-  Observable,
-  Subject,
-  switchMap,
-  withLatestFrom,
-} from 'rxjs';
+import { combineLatest, concatMap, filter, map, Observable, Subject, switchMap, switchMapTo, withLatestFrom } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { MovieModel } from '../../data-access/model/movie.model';
 import { MovieGenreModel } from '../../data-access/model/movie-genre.model';
@@ -31,8 +22,34 @@ type MovieListPageModel = PaginationState & {
   activeCategory: string;
 };
 
+/*
+  (options) => getMovieCategory(cat, options.activePage + 1).pipe(
+    map(
+      ({ results, total_pages }) =>
+        ({
+          movies: results,
+          totalPages: total_pages
+        } as Partial<MovieListPageModel>)
+    )
+  )
+  */
+
+type PaginationOptions = { page: number };
+
+function infiniteScrolled<T, I>(fn: (param: I, paginationOptions: PaginationOptions) => Observable<Partial<T & {totalPages: number}>>) {
+  let activePage = 1;
+  return (o$: Observable<I>): Observable<Partial<T | PaginationState>> => o$.pipe(
+    concatMap((trigger: I) => {
+      return (fn(trigger, { page: ++activePage }) as Observable<PaginationState & T>).pipe(
+        withLoadingEmission('loading', true, false),
+        map(a => a)
+      );
+    })
+  );
+};
+
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class MovieListPageAdapter extends RxState<MovieListPageModel> {
   routerSearch$ = this.routerState.select(
@@ -48,19 +65,19 @@ export class MovieListPageAdapter extends RxState<MovieListPageModel> {
 
   private readonly paginate$ = new Subject<void>();
 
-  private readonly categoryMovieList$: Observable<MovieListPageModel> =
+  private readonly initialCategoryMovieList$: Observable<MovieListPageModel> =
     this.movieState.select(
       selectSlice([
         'categoryMovies',
         'categoryMoviesContext',
-        'categoryMoviesTotalPages',
+        'categoryMoviesTotalPages'
       ]),
       withLatestFrom(this.routerCategory$),
       map(
         ([
-          { categoryMovies, categoryMoviesContext, categoryMoviesTotalPages },
-          listName,
-        ]) => {
+           { categoryMovies, categoryMoviesContext, categoryMoviesTotalPages },
+           listName
+         ]) => {
           return {
             activePage: 1,
             totalPages: categoryMoviesTotalPages[listName],
@@ -68,7 +85,7 @@ export class MovieListPageAdapter extends RxState<MovieListPageModel> {
             title: parseTitle(listName),
             activeCategory: listName,
             type: 'category',
-            movies: (categoryMovies && categoryMovies[listName]) || null,
+            movies: (categoryMovies && categoryMovies[listName]) || null
           };
         }
       )
@@ -78,7 +95,7 @@ export class MovieListPageAdapter extends RxState<MovieListPageModel> {
     genres: this.genreState.select('genres'),
     discoverSlice: this.discoverState.select(
       selectSlice(['genreMovies', 'genreMoviesContext'])
-    ),
+    )
   }).pipe(
     map(({ genres, discoverSlice }) => ({ genres, ...discoverSlice })),
     selectSlice(['genres', 'genreMovies', 'genreMoviesContext'])
@@ -96,7 +113,7 @@ export class MovieListPageAdapter extends RxState<MovieListPageModel> {
         loading: genreMoviesContext,
         title: parseTitle(genreName),
         type: 'genre',
-        movies: (genreMovies && genreMovies[genreIdStr]) || null,
+        movies: (genreMovies && genreMovies[genreIdStr]) || null
       };
     })
   );
@@ -110,7 +127,7 @@ export class MovieListPageAdapter extends RxState<MovieListPageModel> {
             ({ results }) =>
               ({
                 movies: results || null,
-                title: parseTitle(query),
+                title: parseTitle(query)
               } as MovieListPageModel)
           ),
           withLoadingEmission('loading', true, false)
@@ -123,7 +140,7 @@ export class MovieListPageAdapter extends RxState<MovieListPageModel> {
       type === 'genre'
         ? this.genreMovieList$
         : type === 'category'
-        ? this.categoryMovieList$
+        ? this.initialCategoryMovieList$
         : this.searchMovieList$
     )
   );
@@ -150,7 +167,7 @@ export class MovieListPageAdapter extends RxState<MovieListPageModel> {
                 ({
                   movies: results,
                   totalPages: total_pages,
-                  activePage: this.get('activePage') + 1,
+                  activePage: this.get('activePage') + 1
                 } as Partial<MovieListPageModel>)
             ),
             withLoadingEmission('loading', true, false)
