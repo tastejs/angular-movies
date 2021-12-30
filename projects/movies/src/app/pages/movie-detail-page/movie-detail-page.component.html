@@ -113,13 +113,20 @@
           <a
             *ngIf="vs.movie.videoUrl"
             class="btn"
-            [href]="vs.movie.videoUrl"
+            (click)="$event.preventDefault(); $any(trailerDialog).showModal()"
+            href="#trainer"
           >
             Trailer
             <svg class="btn__icon" viewBox="0 0 24 24" fill="currentColor">
               <path d="M0 0h24v24H0z" fill="none" />
             </svg>
           </a>
+          <dialog class="video" #trailerDialog id="trailer-dialog">
+            <span aria-controls="trailer-dialog" class="close" (click)="$any(trailerDialog).close()"></span>
+            <iframe loading="lazy"
+                    [src]="vs.movie.videoUrl"
+                    width="460" height="230"></iframe>
+          </dialog>
           <button class="btn" (click)="back()">
             Back
           </button>

@@ -6,11 +6,12 @@ import { combineLatest, map, startWith, switchMap, tap } from 'rxjs';
 import { W780H1170 } from '../../data-access/configurations/image-sizes';
 import { MovieCastModel } from '../../data-access/model/movie-cast.model';
 import { MovieDetailsModel } from '../../data-access/model/movie-details.model';
-import { ImageTag } from '../../shared/utils/image-tag.interface';
+import { ImageTag } from '../../shared/utils/image/image-tag.interface';
 import { getIdentifierOfTypeAndLayout } from '../../shared/state/utils';
 import { MovieState } from '../../shared/state/movie.state';
-import { addImageTag } from '../../shared/utils/image-object.transform';
+import { addImageTag } from '../../shared/utils/image/image-tag.transform';
 import { getCredits, getMoviesRecommendations } from '../../data-access/api/movie.resource';
+import { addVideoTag } from '../../shared/utils/video/video-tag.transform';
 
 export type MovieDetail = MovieDetailsModel & ImageTag & { languages_runtime_release: string, videoUrl: string | false };
 
@@ -21,20 +22,19 @@ export interface MovieDetailPageModel {
   cast: MovieCastModel[];
 }
 
-function transformToMovieDetail(res: any): MovieDetail {
+function transformToMovieDetail(_res: MovieModel): MovieDetail {
+  const res = _res as unknown as MovieDetail;
+  let language: string | boolean = false;
   if (Array.isArray(res?.spoken_languages) && res?.spoken_languages.length !== 0) {
-    res.spoken_languages = res.spoken_languages[0].english_name;
-  } else {
-    res.spoken_languages = false;
+    language = res.spoken_languages[0].english_name;
   }
   res.languages_runtime_release = `${
-    res.spoken_languages + ' / ' || ''
+    language + ' / ' || ''
   } ${res.runtime} MIN. / ${new Date(
     res.release_date
   ).getFullYear()}`;
 
-  res.videoUrl = res?.videos?.results[0] || false;
-
+  addVideoTag(res, { pathPropFn: (r: any) => r?.videos?.results[0]?.key + '' });
   addImageTag(res, { pathProp: 'poster_path', dims: W780H1170 });
   return res as MovieDetail;
 }
@@ -65,7 +65,9 @@ export class MovieDetailAdapter extends RxState<MovieDetailPageModel> {
     )
   );
 
-  constructor(private movieState: MovieState, private routerState: RouterState) {
+  constructor(
+    private movieState: MovieState,
+    private routerState: RouterState) {
     super();
     this.connect(
       combineLatest({ id: this.routerMovieId$, globalSlice: this.movieState.select(selectSlice(['movies', 'moviesContext'])) }).pipe(
