@@ -1,7 +1,16 @@
-import { ChangeDetectionStrategy, Component, Input, ViewEncapsulation } from '@angular/core';
+import {
+  AfterViewInit,
+  ChangeDetectionStrategy,
+  Component,
+  ElementRef,
+  Input,
+  Output,
+  ViewChild,
+  ViewEncapsulation,
+} from '@angular/core';
 import { Router } from '@angular/router';
 import { RxState } from '@rx-angular/state';
-import { map, Observable } from 'rxjs';
+import { EMPTY, map, Observable, Subject, switchMap } from 'rxjs';
 import { MovieModel } from '../../../data-access/model/movie.model';
 import { W300H450 } from '../../../data-access/configurations/image-sizes';
 import { ImageTag } from '../../../shared/utils/image-tag.interface';
@@ -13,14 +22,18 @@ type Movie = MovieModel & ImageTag;
   selector: 'ui-movie-list',
   template: `
     <ng-container
-      *rxLet="hasMovies$; let hasMovies;"
+      *rxLet="hasMovies$; let hasMovies; renderCallback: moviesRendered$"
     >
-      <div class='movies-list--grid' *ngIf='hasMovies; else noData' data-test="list-container">
+      <div
+        class="movies-list--grid"
+        *ngIf="hasMovies; else noData"
+        data-test="list-container"
+      >
         <a
-          class='movies-list--grid-item'
-          *rxFor='let movie of (movies$); index as idx; trackBy: trackByMovieId; '
-          (click)='$event.preventDefault(); navigateToMovie(movie)'
-          [attr.data-test]="'list-item-idx-'+idx"
+          class="movies-list--grid-item"
+          *rxFor="let movie of movies$; index as idx; trackBy: trackByMovieId"
+          (click)="$event.preventDefault(); navigateToMovie(movie)"
+          [attr.data-test]="'list-item-idx-' + idx"
         >
           <!--
           **🚀 Perf Tip for LCP:**
@@ -31,31 +44,31 @@ type Movie = MovieModel & ImageTag;
             class="aspectRatio-2-3 gradient"
             [attr.loading]="idx === 0 ? '' : 'lazy'"
             [src]="movie?.url || 'assets/images/no_poster_available.jpg'"
-            [width]='movie.imgWidth'
-            [height]='movie.imgHeight'
-            alt='poster movie'
-            [title]='movie.title'
+            [width]="movie.imgWidth"
+            [height]="movie.imgHeight"
+            alt="poster movie"
+            [title]="movie.title"
           />
-          <div class='movies-list--details'>
-            <h3 class='movies-list--details-title'>
+          <div class="movies-list--details">
+            <h3 class="movies-list--details-title">
               {{ movie.title }}
             </h3>
-            <ui-star-rating [rating]='movie.vote_average'></ui-star-rating>
+            <ui-star-rating [rating]="movie.vote_average"></ui-star-rating>
           </div>
         </a>
-        <div class='pagination'></div>
+        <div #paginate class="pagination"></div>
       </div>
     </ng-container>
 
     <ng-template #noData>
       <div style="display: flex; align-items: center;">
         <span style="font-size: 1.5rem">No results</span>
-        <svg height='24' width='24' viewBox='0 0 24 24' fill='currentColor'>
-          <path d='M0 0h24v24H0V0z' fill='none' />
-          <circle cx='15.5' cy='9.5' r='1.5' />
-          <circle cx='8.5' cy='9.5' r='1.5' />
+        <svg height="24" width="24" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M0 0h24v24H0V0z" fill="none" />
+          <circle cx="15.5" cy="9.5" r="1.5" />
+          <circle cx="8.5" cy="9.5" r="1.5" />
           <path
-            d='M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm0-6c-2.33 0-4.32 1.45-5.12 3.5h1.67c.69-1.19 1.97-2 3.45-2s2.75.81 3.45 2h1.67c-.8-2.05-2.79-3.5-5.12-3.5z'
+            d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm0-6c-2.33 0-4.32 1.45-5.12 3.5h1.67c.69-1.19 1.97-2 3.45-2s2.75.81 3.45 2h1.67c-.8-2.05-2.79-3.5-5.12-3.5z"
           />
         </svg>
       </div>
@@ -64,31 +77,86 @@ type Movie = MovieModel & ImageTag;
   styleUrls: ['./movie-list.component.scss'],
   providers: [RxState],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  encapsulation: ViewEncapsulation.Emulated
+  encapsulation: ViewEncapsulation.Emulated,
 })
-export class MovieListComponent {
+export class MovieListComponent implements AfterViewInit {
+  @ViewChild('paginate') paginateEl?: ElementRef<HTMLElement>;
 
-  movies$ = this.state.select(
-    map(
-      (state) =>
-        (state.movies || []).map((m: MovieModel) => addImageTag(m, {pathProp: 'poster_path', dims: W300H450}))
+  readonly moviesRendered$ = new Subject<unknown>();
+
+  readonly movies$ = this.state.select(
+    map((state) =>
+      (state.movies || []).map((m: MovieModel) =>
+        addImageTag(m, { pathProp: 'poster_path', dims: W300H450 })
+      )
     )
   );
 
-  hasMovies$ = this.state
-    .select(map((state) => !!state.movies && state.movies.length > 0));
+  readonly hasMovies$ = this.state.select(
+    map((state) => !!state.movies && state.movies.length > 0)
+  );
 
   @Input()
   set movies(movies$: Observable<MovieModel[]>) {
     this.state.connect('movies', movies$);
   }
 
+  @Input()
+  set totalPages(totalPages: Observable<number>) {
+    this.state.connect('totalPages', totalPages);
+  }
+
+  @Output() readonly paginate = new Subject<void>();
+
   constructor(
     private router: Router,
     private state: RxState<{
       movies: MovieModel[];
+      totalPages: number;
     }>
   ) {
+    this.state.set({ totalPages: 1 });
+  }
+
+  ngAfterViewInit(): void {
+    this.state.hold(
+      this.hasMovies$.pipe(
+        switchMap((hasMovies) => {
+          if (!hasMovies) {
+            return EMPTY;
+          }
+          return this.moviesRendered$.pipe(
+            switchMap(() => {
+              return this.observeElementVisibility(
+                (this.paginateEl as ElementRef).nativeElement
+              );
+            })
+          );
+        })
+      ),
+      (intersecting) => {
+        if (intersecting) {
+          this.paginate.next();
+        }
+      }
+    );
+  }
+
+  observeElementVisibility(element: HTMLElement): Observable<boolean> {
+    return new Observable<boolean>((subscriber) => {
+      const observer = new IntersectionObserver(
+        (entries: IntersectionObserverEntry[]) => {
+          subscriber.next(entries[0].isIntersecting);
+        },
+        {
+          root: null,
+          rootMargin: '200px',
+          threshold: 0.5,
+        }
+      );
+      observer.observe(element);
+      return () => observer.disconnect();
+    });
   }
 
   trackByMovieId(_: number, movie: Movie) {

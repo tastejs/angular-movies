@@ -11,26 +11,27 @@ import { DiscoverState } from './discover.state';
  * This service manages data fetching based on router params
  */
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class RouterEffects extends RxState<any> {
-
-  constructor(private routerState: RouterState,
-              private discoverState: DiscoverState,
-              private personState: PersonState,
-              private searchState: SearchState,
-              private movieState: MovieState
+  constructor(
+    private routerState: RouterState,
+    private discoverState: DiscoverState,
+    private personState: PersonState,
+    private searchState: SearchState,
+    private movieState: MovieState
   ) {
     super();
   }
 
   // The routerState will initially emit the current params
   // Initially only resources present in the current URL are loaded, not all the listed once
-  init = () => this.hold(this.routerState.routerParams$, this.routerFetchEffect);
+  init = () =>
+    this.hold(this.routerState.routerParams$, this.routerFetchEffect);
 
   private routerFetchEffect = ({ layout, type, identifier }: RouterParams) => {
     if (type === 'category') {
-      this.movieState.fetchCategoryMovies(identifier);
+      this.movieState.fetchCategoryMovies({ category: identifier });
     } else if (type === 'genre') {
       this.discoverState.fetchGenreMovies(identifier);
     } else if (type === 'search') {
@@ -41,5 +42,4 @@ export class RouterEffects extends RxState<any> {
       this.personState.fetchPerson(identifier);
     }
   };
-
 }

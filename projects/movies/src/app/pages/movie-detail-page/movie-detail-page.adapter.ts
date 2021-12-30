@@ -12,7 +12,8 @@ import { MovieState } from '../../shared/state/movie.state';
 import { MovieResource } from '../../data-access/api/movie.resource';
 import { addImageTag } from '../../shared/utils/image-object.transform';
 
-export type MovieDetail = MovieDetailsModel & ImageTag & { languages_runtime_release: string };
+export type MovieDetail = MovieDetailsModel &
+  ImageTag & { languages_runtime_release: string };
 
 export interface MovieDetailPageModel {
   loading: boolean;
@@ -22,28 +23,31 @@ export interface MovieDetailPageModel {
 }
 
 function transformToMovieDetail(res: any): MovieDetail {
-  if (Array.isArray(res?.spoken_languages) && res?.spoken_languages.length !== 0) {
+  if (
+    Array.isArray(res?.spoken_languages) &&
+    res?.spoken_languages.length !== 0
+  ) {
     res.spoken_languages = res.spoken_languages[0].english_name;
   } else {
     res.spoken_languages = false;
   }
-  res.languages_runtime_release = `${
-    res.spoken_languages + ' / ' || ''
-  } ${res.runtime} MIN. / ${new Date(
-    res.release_date
-  ).getFullYear()}`;
+  res.languages_runtime_release = `${res.spoken_languages + ' / ' || ''} ${
+    res.runtime
+  } MIN. / ${new Date(res.release_date).getFullYear()}`;
 
   addImageTag(res, { pathProp: 'poster_path', dims: W780H1170 });
   return res as MovieDetail;
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class MovieDetailAdapter extends RxState<MovieDetailPageModel> {
-
   routedMovieSlice$ = this.select(selectSlice(['movie', 'loading']));
-  routerMovieId$ = this.routerState.select(getIdentifierOfTypeAndLayout('movie', 'detail'), tap(v => console.log('router detail', v)));
+  routerMovieId$ = this.routerState.select(
+    getIdentifierOfTypeAndLayout('movie', 'detail'),
+    tap((v) => console.log('router detail', v))
+  );
 
   movieRecomendationsById$ = this.routerMovieId$.pipe(
     switchMap((identifier) =>
@@ -63,18 +67,30 @@ export class MovieDetailAdapter extends RxState<MovieDetailPageModel> {
     )
   );
 
-  constructor(private movieState: MovieState, private routerState: RouterState, private movieResource: MovieResource) {
+  constructor(
+    private movieState: MovieState,
+    private routerState: RouterState,
+    private movieResource: MovieResource
+  ) {
     super();
     this.connect(
-      combineLatest({ id: this.routerMovieId$, globalSlice: this.movieState.select(selectSlice(['movies', 'moviesContext'])) }).pipe(
+      combineLatest({
+        id: this.routerMovieId$,
+        globalSlice: this.movieState.select(
+          selectSlice(['movies', 'moviesContext'])
+        ),
+      }).pipe(
         map(({ id, globalSlice }) => {
           const { movies, moviesContext: loading } = globalSlice;
-          return ({
+          return {
             loading,
-            movie: movies[id] !== undefined ? transformToMovieDetail(movies[id]) : null
-          }) as MovieDetailPageModel;
-        }))
+            movie:
+              movies[id] !== undefined
+                ? transformToMovieDetail(movies[id])
+                : null,
+          } as MovieDetailPageModel;
+        })
+      )
     );
   }
-
 }

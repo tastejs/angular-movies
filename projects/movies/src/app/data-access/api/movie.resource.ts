@@ -5,11 +5,10 @@ import { MovieModel } from '../model/movie.model';
 import { baseUrlApiV3 } from './utils';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class MovieResource {
-  constructor(private http: HttpClient) {
-  }
+  constructor(private http: HttpClient) {}
 
   private readonly baseUrl = baseUrlApiV3;
 
@@ -29,9 +28,12 @@ export class MovieResource {
     this.http.get<any>(this.URL_MOVIE_CREDITS(id));
 
   getMovieCategory = (
-    category: string
-  ): Observable<{ results: MovieModel[] }> =>
-    this.http.get<{ results: MovieModel[] }>(this.URL_MOVIE_CATEGORY(category));
+    category: string,
+    page: number = 1
+  ): Observable<{ results: MovieModel[]; total_pages: number }> =>
+    this.http.get<{ results: MovieModel[]; total_pages: number }>(
+      this.URL_MOVIE_CATEGORY(category) + `?page=${page}`
+    );
 
   getMovieRecomendations = (id: string): Observable<MovieModel[]> =>
     this.http.get<MovieModel[]>(this.URL_MOVIE_RECOMMENDATIONS(id));
@@ -44,5 +46,4 @@ export class MovieResource {
       [this.URL_MOVIE, id, 'recommendations'].join('/'),
       { params: { page } }
     );
-
 }
