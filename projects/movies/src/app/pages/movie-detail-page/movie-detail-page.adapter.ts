@@ -12,8 +12,9 @@ import { MovieState } from '../../shared/state/movie.state';
 import { addImageTag } from '../../shared/utils/image/image-tag.transform';
 import { getCredits, getMoviesRecommendations } from '../../data-access/api/movie.resource';
 import { addVideoTag } from '../../shared/utils/video/video-tag.transform';
+import { VideoTag } from '../../shared/utils/video/video.interface';
 
-export type MovieDetail = MovieDetailsModel & ImageTag & { languages_runtime_release: string, videoUrl: string | false };
+export type MovieDetail = MovieDetailsModel & ImageTag & VideoTag & { languages_runtime_release: string };
 
 export interface MovieDetailPageModel {
   loading: boolean;

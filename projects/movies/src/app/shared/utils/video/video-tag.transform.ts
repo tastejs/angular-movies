@@ -1,5 +1,4 @@
 import { VideoTag } from './video.interface';
-import { getSanatizer } from '../get-sanatizer';
 
 export function addVideoTag<T extends Object>(_res: T, options: { pathPropFn: (o: T) => string, baseUrl?: string }): T & VideoTag {
   let { pathPropFn, baseUrl } = options;
@@ -7,7 +6,7 @@ export function addVideoTag<T extends Object>(_res: T, options: { pathPropFn: (o
 
   const res = _res as T & VideoTag;
   const path = pathPropFn(res);
-  res.videoUrl = path ? getSanatizer().bypassSecurityTrustResourceUrl(`${baseUrl}/${path}`) : false;
+  res.videoUrl = path ? `${baseUrl}/${path}` : false;
 
   return res;
 }

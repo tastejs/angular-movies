@@ -5,6 +5,8 @@ import { MovieCastModel } from '../../data-access/model/movie-cast.model';
 import { MovieGenreModel } from '../../data-access/model/movie-genre.model';
 import { Router } from '@angular/router';
 import { MovieDetailAdapter, MovieDetailPageModel } from './movie-detail-page.adapter';
+import { map } from 'rxjs';
+import { bypassResourceUrl } from '../../shared/utils/get-sanatizer';
 
 @Component({
   selector: 'ct-movie',
@@ -32,7 +34,10 @@ export class MovieDetailPageComponent {
       cast: [],
       loading: true
     });
-    this.state.connect(this.adapter.routedMovieSlice$);
+    this.state.connect(this.adapter.routedMovieSlice$.pipe(map(s => {
+      s.movie.videoUrl && (s.movie.videoUrl = bypassResourceUrl(s.movie.videoUrl) as string);
+      return s;
+    })));
     this.state.connect('recommendations', this.adapter.movieRecomendationsById$);
     this.state.connect('cast', this.adapter.movieCastById$);
   }
