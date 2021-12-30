@@ -3,7 +3,7 @@ import { exhaustMap } from 'rxjs';
 import { MovieGenreModel } from '../../data-access/model/movie-genre.model';
 import { RxState } from '@rx-angular/state';
 import { getActions } from '../rxa-custom/actions';
-import { GenreResource } from '../../data-access/api/genre.resource';
+import { getGenres } from '../../data-access/api/genre.resource';
 
 export interface State {
   genres: MovieGenreModel[];
@@ -23,7 +23,7 @@ export class GenreState extends RxState<State> {
 
   readonly refreshGenres = this.actions.refreshGenres;
 
-  constructor(private genreResource: GenreResource) {
+  constructor() {
     super();
 
     this.connect('genres', this.actions.refreshGenres$.pipe(
@@ -33,7 +33,7 @@ export class GenreState extends RxState<State> {
        * Avoid over fetching for HTTP get requests to URLs that will not change result quickly.
        * E.G.: URLs with the same params
        */
-      exhaustMap(() => this.genreResource.getGenres()))
+      exhaustMap(() => getGenres()))
     );
 
   }

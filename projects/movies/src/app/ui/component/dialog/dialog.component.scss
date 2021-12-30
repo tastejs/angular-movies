@@ -1,0 +1,45 @@
+dialog {
+  &::backdrop {
+    background: rgba(0, 0, 0, 0.5);
+    transition: opacity var(--theme-anim-duration-leavingScreen) var(--theme-anim-easing-easeInOut) 0ms;
+  }
+
+  .close {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    top: -30px;
+    right: -30px;
+
+    &::after,
+    &::before {
+      content: "";
+      position: absolute;
+      height: 2px;
+      width: 100%;
+      top: 50%;
+      left: 0px;
+      background: rgb(255, 255, 255);
+      transform: rotate(45deg);
+      border-radius: var(--theme-borderRadius-m);
+      margin-top: -6px;
+    }
+
+    &::after {
+      transform: rotate(-45deg);
+    }
+  }
+
+  &.video {
+    aspect-ratio: var(--theme-aspectRatio-16-9);
+    width: 90%;
+  }
+
+  iframe, video {
+    width: 100%;
+    display: block;
+    object-fit: cover;
+    height: 100%;
+  }
+
+}

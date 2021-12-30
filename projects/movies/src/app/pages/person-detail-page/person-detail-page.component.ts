@@ -32,7 +32,7 @@ export class PersonDetailPageComponent {
       loading: true
     });
     this.state.connect(this.adapter.routedPersonSlice$);
-    this.state.connect('recommendations', this.adapter.movieRecomendationsById$);
+    this.state.connect('recommendations', this.adapter.movieRecommendationsById$);
   }
 
   toGenre(genre: MovieGenreModel) {

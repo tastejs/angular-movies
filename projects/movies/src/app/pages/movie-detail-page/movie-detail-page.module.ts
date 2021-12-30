@@ -6,6 +6,7 @@ import { MovieDetailPageComponent } from './movie-detail-page.component';
 import { StarRatingModule } from '../../ui/pattern/star-rating/star-rating.module';
 import { MovieListModule } from '../../ui/pattern/movie-list/movie-list.module';
 import { DetailGridModule } from '../../ui/component/detail-grid/detail-grid.module';
+import { BypassSrcModule } from '../../shared/bypass-src/bypass-src.module';
 
 const ROUTES: Routes = [
   {
@@ -22,7 +23,8 @@ const ROUTES: Routes = [
     RouterModule.forChild(ROUTES),
     StarRatingModule,
     MovieListModule,
-    LetModule
+    LetModule,
+    BypassSrcModule
   ],
   exports: [MovieDetailPageComponent]
 })

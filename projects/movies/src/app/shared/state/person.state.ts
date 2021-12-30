@@ -5,7 +5,7 @@ import { optimizedFetch } from '../utils/optimized-fetch';
 import { getActions } from '../rxa-custom/actions';
 import { withLoadingEmission } from '../utils/withLoadingEmissions';
 import { MoviePersonModel } from '../../data-access/model/movie-person.model';
-import { PersonResource } from '../../data-access/api/person.resource';
+import { getPerson } from '../../data-access/api/person.resource';
 
 export interface State {
   person: Record<string, MoviePersonModel>;
@@ -24,7 +24,7 @@ export class PersonState extends RxState<State> {
 
   fetchPerson = this.actions.fetchPerson;
 
-  constructor(private personResource: PersonResource) {
+  constructor() {
     super();
     this.connect(this.actions.fetchPerson$.pipe(
       /**
@@ -36,7 +36,7 @@ export class PersonState extends RxState<State> {
       optimizedFetch(
         (id) => id,
         (id) => {
-          return this.personResource.getPerson(id)
+          return getPerson(id)
             .pipe(
               map(result => ({ person: toDictionary([result], 'id') } as State)),
               withLoadingEmission('personContext', true, false)

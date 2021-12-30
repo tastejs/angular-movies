@@ -42,6 +42,7 @@ interface CountriesModel {
 interface SpokenModel {
   iso_639_1: string;
   name: string;
+  english_name: string;
 }
 
 interface TrailerVideoModel {
