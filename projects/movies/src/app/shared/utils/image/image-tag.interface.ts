@@ -1,5 +1,5 @@
 export interface ImageTag {
-  url: string;
+  imgUrl: string;
   imgWidth: number;
   imgHeight: number;
   imgRatio: number;

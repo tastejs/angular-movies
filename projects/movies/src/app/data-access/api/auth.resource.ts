@@ -1,31 +1,26 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { baseUrlApiV4 } from './utils';
+import { baseUrlApiV4, getHTTP } from './utils';
 
-@Injectable({
-  providedIn: 'root'
-})
-export class AuthResource {
-  constructor(private http: HttpClient) {
-  }
+type Token = {
+  request_token: string;
+  access_token: string;
+  account_id: string;
+};
 
-  private readonly baseUrl = [baseUrlApiV4, 'auth'].join('/');
-  private readonly URL_REQUEST_TOKEN = [this.baseUrl, 'request_token'].join('/');
-  private readonly URL_ACCESS_TOKEN = [this.baseUrl, 'access_token'].join('/');
+const baseUrl = [baseUrlApiV4, 'auth'].join('/');
+const URL_REQUEST_TOKEN = [baseUrl, 'request_token'].join('/');
+const URL_ACCESS_TOKEN = [baseUrl, 'access_token'].join('/');
 
-  createRequestToken(redirectTo: string): Observable<any> {
-    return this.http.post<any>(this.URL_REQUEST_TOKEN, {
-      redirect_to: redirectTo
-    });
-  }
+export const createRequestToken = (redirectTo: string): Observable<Token> => {
+  return getHTTP().post<any>(URL_REQUEST_TOKEN, {
+    redirect_to: redirectTo
+  });
+};
 
-  createAccessToken = (requestToken: string): Observable<any> =>
-    this.http.post<any>(this.URL_ACCESS_TOKEN, { request_token: requestToken });
+export const createAccessToken = (requestToken: string): Observable<Token> =>
+  getHTTP().post<any>(URL_ACCESS_TOKEN, { request_token: requestToken });
 
-  deleteAccessToken = (accessToken: string): Observable<any> =>
-    this.http.delete<any>(this.URL_ACCESS_TOKEN, {
-      body: { access_token: accessToken }
-    });
-
-}
+export const deleteAccessToken = (accessToken: string): Observable<Token> =>
+  getHTTP().delete<any>(URL_ACCESS_TOKEN, {
+    body: { access_token: accessToken }
+  });

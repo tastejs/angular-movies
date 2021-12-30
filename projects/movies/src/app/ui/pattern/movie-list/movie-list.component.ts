@@ -13,8 +13,8 @@ import { RxState } from '@rx-angular/state';
 import { EMPTY, map, Observable, Subject, switchMap } from 'rxjs';
 import { MovieModel } from '../../../data-access/model/movie.model';
 import { W300H450 } from '../../../data-access/configurations/image-sizes';
-import { ImageTag } from '../../../shared/utils/image-tag.interface';
-import { addImageTag } from '../../../shared/utils/image-object.transform';
+import { ImageTag } from '../../../shared/utils/image/image-tag.interface';
+import { addImageTag } from '../../../shared/utils/image/image-tag.transform';
 
 type Movie = MovieModel & ImageTag;
 
@@ -43,11 +43,11 @@ type Movie = MovieModel & ImageTag;
           <img
             class="aspectRatio-2-3 gradient"
             [attr.loading]="idx === 0 ? '' : 'lazy'"
-            [src]="movie?.url || 'assets/images/no_poster_available.jpg'"
-            [width]="movie.imgWidth"
-            [height]="movie.imgHeight"
-            alt="poster movie"
-            [title]="movie.title"
+            [src]="movie?.imgUrl || 'assets/images/no_poster_available.jpg'"
+            [width]='movie.imgWidth'
+            [height]='movie.imgHeight'
+            alt='poster movie'
+            [title]='movie.title'
           />
           <div class="movies-list--details">
             <h3 class="movies-list--details-title">
