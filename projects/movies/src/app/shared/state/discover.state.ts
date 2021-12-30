@@ -5,7 +5,7 @@ import { patch, RxState } from '@rx-angular/state';
 import { optimizedFetch } from '../utils/optimized-fetch';
 import { getActions } from '../rxa-custom/actions';
 import { withLoadingEmission } from '../utils/withLoadingEmissions';
-import { DiscoverResource } from '../../data-access/api/discover.resource';
+import { getDiscoverMovies } from '../../data-access/api/discover.resource';
 
 export interface State {
   genreMovies: Record<string, MovieModel[]>;
@@ -24,7 +24,7 @@ export class DiscoverState extends RxState<State> {
 
   readonly fetchGenreMovies = this.actions.fetchGenreMovies;
 
-  constructor(private discoverResource: DiscoverResource) {
+  constructor() {
     super();
 
     this.set({
@@ -40,7 +40,7 @@ export class DiscoverState extends RxState<State> {
          */
         optimizedFetch(
           (genre) => 'genre' + '-' + genre,
-          (genre) => this.discoverResource.getDiscoverMovies(genre)
+          (genre) => getDiscoverMovies(genre)
             .pipe(
               map(({ results }) => ({ genreMovies: { [genre]: results } } as State)),
               withLoadingEmission('genreMoviesContext', true, false)

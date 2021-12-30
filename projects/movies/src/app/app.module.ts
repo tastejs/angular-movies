@@ -1,5 +1,5 @@
 import { HttpClientModule } from '@angular/common/http';
-import { NgModule } from '@angular/core';
+import { Injector, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { AppShellModule } from './app-shell/app-shell.module';
@@ -10,6 +10,7 @@ import { SCHEDULED_APP_INITIALIZER_PROVIDER } from './shared/app-initializer/chu
 import { SERVICE_WORKER_IMPORTS } from './shared/pwa/service-worker.imports';
 import { RXA_PROVIDER } from './shared/rxa-custom/rxa.provider';
 import { LetModule } from '@rx-angular/template/let';
+import { setInjector } from './shared/utils/injector.instance';
 
 @NgModule({
   declarations: [AppComponent],
@@ -50,4 +51,8 @@ import { LetModule } from '@rx-angular/template/let';
   bootstrap: [AppComponent]
 })
 export class AppModule {
+
+  constructor(injector: Injector) {
+    setInjector(injector);
+  }
 }
