@@ -1,6 +1,7 @@
 import {
   combineLatest,
   concatMap,
+  filter,
   map,
   Observable,
   Subject,
@@ -15,31 +16,29 @@ import { getIdentifierOfTypeAndLayout } from '../../shared/state/utils';
 import { RouterState } from '../../shared/state/router.state';
 import { GenreState } from '../../shared/state/genre.state';
 import { MovieState } from '../../shared/state/movie.state';
+import { PaginationState } from '../../shared/utils/paginate/paginate-state.interface';
 import { parseTitle } from '../../shared/utils/parse-movie-list-title';
 import { DiscoverState } from '../../shared/state/discover.state';
 import { getMoviesSearch } from '../../data-access/api/search.resource';
 import { withLoadingEmission } from '../../shared/utils/withLoadingEmissions';
 import { getMovieCategory } from '../../data-access/api/movie.resource';
 
-type MovieListPageModel = {
+type MovieListPageModel = PaginationState & {
   loading: boolean;
-  paging?: boolean;
   movies: MovieModel[];
   title: string;
   type: string;
   activeCategory: string;
-  activePage: number;
 };
 
 @Injectable({
   providedIn: 'root',
 })
 export class MovieListPageAdapter extends RxState<MovieListPageModel> {
-  paginate$ = new Subject<void>();
-
   routerSearch$ = this.routerState.select(
     getIdentifierOfTypeAndLayout('search', 'list')
   );
+
   routerGenre$ = this.routerState.select(
     getIdentifierOfTypeAndLayout('genre', 'list')
   );
@@ -47,20 +46,32 @@ export class MovieListPageAdapter extends RxState<MovieListPageModel> {
     getIdentifierOfTypeAndLayout('category', 'list')
   );
 
+  private readonly paginate$ = new Subject<void>();
+
   private readonly categoryMovieList$: Observable<MovieListPageModel> =
     this.movieState.select(
-      selectSlice(['categoryMovies', 'categoryMoviesContext']),
+      selectSlice([
+        'categoryMovies',
+        'categoryMoviesContext',
+        'categoryMoviesTotalPages',
+      ]),
       withLatestFrom(this.routerCategory$),
-      map(([{ categoryMovies, categoryMoviesContext }, listName]) => {
-        return {
-          activePage: 1,
-          loading: categoryMoviesContext,
-          title: parseTitle(listName),
-          activeCategory: listName,
-          type: 'category',
-          movies: (categoryMovies && categoryMovies[listName]) || null,
-        };
-      })
+      map(
+        ([
+          { categoryMovies, categoryMoviesContext, categoryMoviesTotalPages },
+          listName,
+        ]) => {
+          return {
+            activePage: 1,
+            totalPages: categoryMoviesTotalPages[listName],
+            loading: categoryMoviesContext,
+            title: parseTitle(listName),
+            activeCategory: listName,
+            type: 'category',
+            movies: (categoryMovies && categoryMovies[listName]) || null,
+          };
+        }
+      )
     );
 
   _slice$ = combineLatest({
@@ -124,17 +135,23 @@ export class MovieListPageAdapter extends RxState<MovieListPageModel> {
     private routerState: RouterState
   ) {
     super();
-    this.set({ paging: false });
     this.connect(this.routedMovieList$);
 
     this.connect(
       this.paginate$.pipe(
+        filter(() => {
+          return this.get('activePage') < this.get('totalPages');
+        }),
         withLatestFrom(this.routerCategory$),
         concatMap(([_, cat]) =>
           getMovieCategory(cat, this.get('activePage') + 1).pipe(
             map(
-              ({ results }) =>
-                ({ movies: results } as Partial<MovieListPageModel>)
+              ({ results, total_pages }) =>
+                ({
+                  movies: results,
+                  totalPages: total_pages,
+                  activePage: this.get('activePage') + 1,
+                } as Partial<MovieListPageModel>)
             ),
             withLoadingEmission('loading', true, false)
           )
@@ -143,7 +160,6 @@ export class MovieListPageAdapter extends RxState<MovieListPageModel> {
       (oldState, newSlice) => {
         if (newSlice.movies) {
           newSlice.movies = oldState.movies.concat(newSlice.movies);
-          newSlice.activePage = oldState.activePage + 1;
         }
         return newSlice;
       }
