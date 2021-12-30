@@ -3,7 +3,6 @@ import { RxState } from '@rx-angular/state';
 import { RouterParams } from './router-state.interface';
 import { RouterState } from './router.state';
 import { PersonState } from './person.state';
-import { SearchState } from './search.state';
 import { MovieState } from './movie.state';
 import { DiscoverState } from './discover.state';
 
@@ -18,7 +17,6 @@ export class RouterEffects extends RxState<any> {
   constructor(private routerState: RouterState,
               private discoverState: DiscoverState,
               private personState: PersonState,
-              private searchState: SearchState,
               private movieState: MovieState
   ) {
     super();
@@ -33,8 +31,6 @@ export class RouterEffects extends RxState<any> {
       this.movieState.fetchCategoryMovies(identifier);
     } else if (type === 'genre') {
       this.discoverState.fetchGenreMovies(identifier);
-    } else if (type === 'search') {
-      this.searchState.fetchSearchMovies(identifier);
     } else if (layout === 'detail' && type === 'movie') {
       this.movieState.fetchMovie(identifier);
     } else if (layout === 'detail' && type === 'person') {
