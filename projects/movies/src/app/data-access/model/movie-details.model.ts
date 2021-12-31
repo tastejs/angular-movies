@@ -1,11 +1,11 @@
-import { MovieGenreModel } from './movie-genre.model';
+import { TMDBMovieGenreModel } from './movie-genre.model';
 
 export interface MovieDetailsModel {
   adult: boolean;
   backdrop_path: string;
   belongs_to_collection: any;
   budget: number;
-  genres: MovieGenreModel[];
+  genres: TMDBMovieGenreModel[];
   homepage: string;
   id: number;
   imdb_id: string;
@@ -14,38 +14,38 @@ export interface MovieDetailsModel {
   overview: string;
   popularity: number;
   poster_path: string;
-  production_companies: CompaniesModel[];
-  production_countries: CountriesModel[];
+  production_companies: TMDBCompaniesModel[];
+  production_countries: TMDBCountriesModel[];
   release_date: string;
   revenue: number;
   runtime: number;
-  spoken_languages: SpokenModel[];
+  spoken_languages: TMDBSpokenModel[];
   status: string;
   tagline: string;
   title: string;
   video: boolean;
-  videos?: { results?: TrailerVideoModel[] };
+  videos?: { results?: TMDBTrailerVideoModel[] };
   vote_average: number;
   vote_count: number;
 }
 
-interface CompaniesModel {
+interface TMDBCompaniesModel {
   name: string;
   id: number;
 }
 
-interface CountriesModel {
+interface TMDBCountriesModel {
   iso_3166_1: string;
   name: string;
 }
 
-interface SpokenModel {
+interface TMDBSpokenModel {
   iso_639_1: string;
   name: string;
   english_name: string;
 }
 
-interface TrailerVideoModel {
+interface TMDBTrailerVideoModel {
   id: string;
   key: string;
   name: string;

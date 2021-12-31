@@ -1,4 +1,4 @@
-import { MovieModel } from '../../data-access/model/movie.model';
+import { TMDBMovieModel } from '../../data-access/model/movie.model';
 import { Injectable } from '@angular/core';
 import { RxState, selectSlice } from '@rx-angular/state';
 import { RouterState } from '../../shared/state/router.state';
@@ -7,20 +7,20 @@ import { W780H1170 } from '../../data-access/configurations/image-sizes';
 import { ImageTag } from '../../shared/utils/image/image-tag.interface';
 import { addImageTag } from '../../shared/utils/image/image-tag.transform';
 import { getIdentifierOfTypeAndLayout } from '../../shared/state/utils';
-import { MoviePersonModel } from '../../data-access/model/movie-person.model';
+import { TMDBMoviePersonModel } from '../../data-access/model/movie-person.model';
 import { PersonState } from '../../shared/state/person.state';
 import { getCredits } from '../../data-access/api/movie.resource';
 import { getDiscoverMovies } from '../../data-access/api/discover.resource';
 
-export type MoviePerson = MoviePersonModel & ImageTag;
+export type MoviePerson = TMDBMoviePersonModel & ImageTag;
 
 export interface PersonDetailPageAdapterState {
   loading: boolean;
   person: MoviePerson;
-  recommendations: MovieModel[];
+  recommendations: TMDBMovieModel[];
 }
 
-function transformToPersonDetail(_res: MoviePersonModel): MoviePerson {
+function transformToPersonDetail(_res: TMDBMoviePersonModel): MoviePerson {
   return addImageTag(_res, { pathProp: 'profile_path', dims: W780H1170 });
 }
 

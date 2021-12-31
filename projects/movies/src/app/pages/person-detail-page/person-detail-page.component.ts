@@ -1,8 +1,8 @@
 import { Location } from '@angular/common';
 import { ChangeDetectionStrategy, Component, TrackByFunction, ViewEncapsulation } from '@angular/core';
 import { RxState, selectSlice } from '@rx-angular/state';
-import { MovieCastModel } from '../../data-access/model/movie-cast.model';
-import { MovieGenreModel } from '../../data-access/model/movie-genre.model';
+import { TMDBMovieCastModel } from '../../data-access/model/movie-cast.model';
+import { TMDBMovieGenreModel } from '../../data-access/model/movie-genre.model';
 import { Router } from '@angular/router';
 import { PersonDetailAdapter, PersonDetailPageAdapterState } from './person-detail-page.adapter';
 
@@ -35,7 +35,7 @@ export class PersonDetailPageComponent {
     this.state.connect('recommendations', this.adapter.movieRecommendationsById$);
   }
 
-  toGenre(genre: MovieGenreModel) {
+  toGenre(genre: TMDBMovieGenreModel) {
     this.router.navigate(['/list', 'genre', genre.id]);
   }
 
@@ -43,6 +43,6 @@ export class PersonDetailPageComponent {
     this.location.back();
   }
 
-  trackByGenre: TrackByFunction<MovieGenreModel> = (_, genre) => genre.name;
-  trackByCast: TrackByFunction<MovieCastModel> = (_, cast) => cast.cast_id;
+  trackByGenre: TrackByFunction<TMDBMovieGenreModel> = (_, genre) => genre.name;
+  trackByCast: TrackByFunction<TMDBMovieCastModel> = (_, cast) => cast.cast_id;
 }

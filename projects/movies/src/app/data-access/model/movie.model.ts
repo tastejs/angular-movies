@@ -1,11 +1,11 @@
-import {MovieGenreModel} from './movie-genre.model';
+import {TMDBMovieGenreModel} from './movie-genre.model';
 
-export interface MovieModel {
+export interface TMDBMovieModel {
     poster_path: string;
     adult: boolean;
     overview: string;
     release_date: string;
-    genre_ids: MovieGenreModel;
+    genre_ids: TMDBMovieGenreModel;
     id: number;
     original_title: string;
     original_language: string;

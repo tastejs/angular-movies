@@ -1,4 +1,4 @@
-export interface MovieCastModel {
+export interface TMDBMovieCastModel {
     cast_id: number;
     character: string;
     credit_id: string;

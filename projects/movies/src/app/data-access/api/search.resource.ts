@@ -1,5 +1,5 @@
 import { Observable } from 'rxjs';
-import { MovieModel } from '../model/movie.model';
+import { TMDBMovieModel } from '../model/movie.model';
 import { baseUrlApiV3 } from './utils';
 import { getHTTP } from '../../shared/injector/get-http-client';
 
@@ -8,7 +8,7 @@ export const getMoviesSearch = (
   query: string,
   page: string | number = 1,
   lang?: string
-): Observable<{ results: MovieModel[] }> => getHTTP().get<{ results: MovieModel[] }>(URL_SEARCH, {
+): Observable<{ results: TMDBMovieModel[] }> => getHTTP().get<{ results: TMDBMovieModel[] }>(URL_SEARCH, {
   params: { query, page, ...(lang && { lang }) }
 });
 

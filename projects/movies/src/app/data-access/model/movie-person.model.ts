@@ -1,4 +1,4 @@
-export interface MoviePersonModel {
+export interface TMDBMoviePersonModel {
     adult: boolean;
     also_known_as: {
         name: string;

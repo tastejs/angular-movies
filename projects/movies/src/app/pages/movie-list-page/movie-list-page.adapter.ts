@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { RxState, selectSlice } from '@rx-angular/state';
 import { concat, EMPTY, map, Observable, Subject, take, tap, withLatestFrom } from 'rxjs';
-import { MovieModel } from '../../data-access/model/movie.model';
+import { TMDBMovieModel } from '../../data-access/model/movie.model';
 import { getMovieCategory } from '../../data-access/api/movie.resource';
 //import { getMoviesSearch } from '../../data-access/api/search.resource';
 //import { MovieGenreModel } from '../../data-access/model/movie-genre.model';
@@ -18,19 +18,19 @@ import { TMDBPaginationOptions } from '../../data-access/model/pagination.interf
 import { RouterParams } from '../../shared/state/router-state.interface';
 import { PaginatedResult } from '../../shared/state/typings';
 
-type MovieListPageModel = PaginationState<MovieModel> &
+type MovieListPageModel = PaginationState<TMDBMovieModel> &
   {
     type: string;
     identifier: string;
   };
 
-function getFetchByType(type: RouterParams['type']): (i: string, options?: TMDBPaginationOptions) => Observable<PaginatedResult<MovieModel>> {
+function getFetchByType(type: RouterParams['type']): (i: string, options?: TMDBPaginationOptions) => Observable<PaginatedResult<TMDBMovieModel>> {
   if (type === 'category') {
     return getMovieCategory;
   } else if (type === 'genre' || type === 'search') {
     return getDiscoverMovies;
   }
-  return (_: string, __?: TMDBPaginationOptions) => EMPTY as unknown as Observable<PaginationState<MovieModel>>;
+  return (_: string, __?: TMDBPaginationOptions) => EMPTY as unknown as Observable<PaginationState<TMDBMovieModel>>;
 }
 
 @Injectable({
@@ -136,7 +136,6 @@ export class MovieListPageAdapter extends RxState<MovieListPageModel> {
       results: []
     });
     this.initialCategoryMovieList$;
-    // const u = <T>({ type, identifier }) => ({page}: PaginatedResult<T>) => getFetchByType(type)(identifier, { page })
     const routerParamsFromPaginationTrigger$ = this.paginate$.pipe(
       withLatestFrom(this.routerState.routerParams$),
       map(([_, routerParams]) => routerParams)
@@ -150,7 +149,8 @@ export class MovieListPageAdapter extends RxState<MovieListPageModel> {
         infiniteScrolled(
           routerParamsFromPaginationTrigger$.pipe(tap(v => console.log('routerParamsFromPaginationTrigger$: ', v))),
           (paginationOptions: PaginationOptions, { type, identifier }) => {
-            return getFetchByType(type)(identifier, paginationOptions)
+            // @TODO type correctly
+            return getFetchByType(type)(identifier, paginationOptions);// .pipe(withLoadingEmission())
           }
         ).pipe(tap(v => console.log('after scroll: ', v)))
       ),

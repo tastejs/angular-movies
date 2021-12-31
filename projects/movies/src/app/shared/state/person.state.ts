@@ -4,11 +4,11 @@ import { patch, RxState, toDictionary } from '@rx-angular/state';
 import { optimizedFetch } from '../utils/optimized-fetch';
 import { getActions } from '../rxa-custom/actions';
 import { withLoadingEmission } from '../utils/withLoadingEmissions';
-import { MoviePersonModel } from '../../data-access/model/movie-person.model';
+import { TMDBMoviePersonModel } from '../../data-access/model/movie-person.model';
 import { getPerson } from '../../data-access/api/person.resource';
 
 export interface State {
-  person: Record<string, MoviePersonModel>;
+  person: Record<string, TMDBMoviePersonModel>;
   personContext: boolean;
 }
 

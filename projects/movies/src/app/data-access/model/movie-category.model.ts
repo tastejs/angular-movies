@@ -1,8 +1,8 @@
-import {MovieModel} from './movie.model';
+import {TMDBMovieModel} from './movie.model';
 
-export interface MovieCategoryModel {
+export interface TMDBMovieCategoryModel {
     page: number;
-    results: MovieModel[];
+    results: TMDBMovieModel[];
     dates?: {
         maximum: string;
         minimum: string;

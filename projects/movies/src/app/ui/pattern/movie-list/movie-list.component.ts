@@ -2,13 +2,13 @@ import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, Input, O
 import { Router } from '@angular/router';
 import { RxState } from '@rx-angular/state';
 import { map, Observable, Subject, switchMap } from 'rxjs';
-import { MovieModel } from '../../../data-access/model/movie.model';
+import { TMDBMovieModel } from '../../../data-access/model/movie.model';
 import { W300H450 } from '../../../data-access/configurations/image-sizes';
 import { ImageTag } from '../../../shared/utils/image/image-tag.interface';
 import { addImageTag } from '../../../shared/utils/image/image-tag.transform';
 import { observeElementVisibility } from '../../../shared/utils/observe-element-visibility';
 
-type Movie = MovieModel & ImageTag;
+type Movie = TMDBMovieModel & ImageTag;
 
 @Component({
   selector: 'ui-movie-list',
@@ -83,7 +83,7 @@ export class MovieListComponent implements AfterViewInit {
 
   readonly movies$ = this.state.select(
     map((state) =>
-      (state.movies || []).map((m: MovieModel) =>
+      (state.movies || []).map((m: TMDBMovieModel) =>
         addImageTag(m, { pathProp: 'poster_path', dims: W300H450 })
       )
     )
@@ -94,7 +94,7 @@ export class MovieListComponent implements AfterViewInit {
   );
 
   @Input()
-  set movies(movies$: Observable<MovieModel[]>) {
+  set movies(movies$: Observable<TMDBMovieModel[]>) {
     this.state.connect('movies', movies$);
   }
 
@@ -103,7 +103,7 @@ export class MovieListComponent implements AfterViewInit {
   constructor(
     private router: Router,
     private state: RxState<{
-      movies: MovieModel[];
+      movies: TMDBMovieModel[];
     }>
   ) {
   }

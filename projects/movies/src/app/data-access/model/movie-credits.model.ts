@@ -1,8 +1,8 @@
-import {MovieCastModel} from './movie-cast.model';
-import {MovieCrewModel} from './movie-crew.model';
+import {TMDBMovieCastModel} from './movie-cast.model';
+import {TMDBMovieCrewModel} from './movie-crew.model';
 
-export interface MovieCreditsModel {
+export interface TMDBMovieCreditsModel {
     id: number;
-    cast: MovieCastModel[];
-    crew: MovieCrewModel[];
+    cast: TMDBMovieCastModel[];
+    crew: TMDBMovieCrewModel[];
 }

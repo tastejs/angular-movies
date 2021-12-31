@@ -1,10 +1,10 @@
-import { MovieModel } from '../../data-access/model/movie.model';
+import { TMDBMovieModel } from '../../data-access/model/movie.model';
 import { Injectable } from '@angular/core';
 import { RxState, selectSlice } from '@rx-angular/state';
 import { RouterState } from '../../shared/state/router.state';
 import { combineLatest, map, startWith, switchMap } from 'rxjs';
 import { W780H1170 } from '../../data-access/configurations/image-sizes';
-import { MovieCastModel } from '../../data-access/model/movie-cast.model';
+import { TMDBMovieCastModel } from '../../data-access/model/movie-cast.model';
 import { MovieDetailsModel } from '../../data-access/model/movie-details.model';
 import { ImageTag } from '../../shared/utils/image/image-tag.interface';
 import { getIdentifierOfTypeAndLayout } from '../../shared/state/utils';
@@ -19,11 +19,11 @@ export type MovieDetail = MovieDetailsModel & ImageTag & VideoTag & { languages_
 export interface MovieDetailPageModel {
   loading: boolean;
   movie: MovieDetail;
-  recommendations: MovieModel[];
-  cast: MovieCastModel[];
+  recommendations: TMDBMovieModel[];
+  cast: TMDBMovieCastModel[];
 }
 
-function transformToMovieDetail(_res: MovieModel): MovieDetail {
+function transformToMovieDetail(_res: TMDBMovieModel): MovieDetail {
   const res = _res as unknown as MovieDetail;
   let language: string | boolean = false;
   if (Array.isArray(res?.spoken_languages) && res?.spoken_languages.length !== 0) {

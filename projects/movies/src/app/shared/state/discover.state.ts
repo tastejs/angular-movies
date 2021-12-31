@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { map } from 'rxjs';
-import { MovieModel } from '../../data-access/model/movie.model';
+import { TMDBMovieModel } from '../../data-access/model/movie.model';
 import { patch, RxState } from '@rx-angular/state';
 import { optimizedFetch } from '../utils/optimized-fetch';
 import { getActions } from '../rxa-custom/actions';
@@ -8,7 +8,7 @@ import { withLoadingEmission } from '../utils/withLoadingEmissions';
 import { getDiscoverMovies } from '../../data-access/api/discover.resource';
 
 export interface State {
-  discoveredMovies: Record<string, MovieModel[]>;
+  discoveredMovies: Record<string, TMDBMovieModel[]>;
   discoveredMoviesContext: boolean;
 }
 

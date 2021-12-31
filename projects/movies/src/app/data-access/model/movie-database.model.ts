@@ -1,4 +1,4 @@
-export interface MovieDatabaseModel {
+export interface TMDBMovieDatabaseModel {
     id: number;
     category: string;
     date: string;
