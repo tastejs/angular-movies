@@ -1,4 +1,13 @@
-import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, Input, Output, ViewChild, ViewEncapsulation } from '@angular/core';
+import {
+  AfterViewInit,
+  ChangeDetectionStrategy,
+  Component,
+  ElementRef,
+  Input,
+  Output,
+  ViewChild,
+  ViewEncapsulation,
+} from '@angular/core';
 import { Router } from '@angular/router';
 import { RxState } from '@rx-angular/state';
 import { EMPTY, map, Observable, Subject, switchMap } from 'rxjs';
@@ -6,6 +15,7 @@ import { MovieModel } from '../../../data-access/model/movie.model';
 import { W300H450 } from '../../../data-access/configurations/image-sizes';
 import { ImageTag } from '../../../shared/utils/image/image-tag.interface';
 import { addImageTag } from '../../../shared/utils/image/image-tag.transform';
+import { observeElementVisibility } from '../../../shared/utils/observe-element-visibility';
 
 type Movie = MovieModel & ImageTag;
 
@@ -13,7 +23,11 @@ type Movie = MovieModel & ImageTag;
   selector: 'ui-movie-list',
   template: `
     <ng-container
-      *rxLet="moviesListVisible$; let hasMovies; renderCallback: moviesRendered$"
+      *rxLet="
+        moviesListVisible$;
+        let hasMovies;
+        renderCallback: moviesRendered$
+      "
     >
       <div
         class="movies-list--grid"
@@ -35,10 +49,10 @@ type Movie = MovieModel & ImageTag;
             class="aspectRatio-2-3 gradient"
             [attr.loading]="idx === 0 ? '' : 'lazy'"
             [src]="movie?.imgUrl || 'assets/images/no_poster_available.jpg'"
-            [width]='movie.imgWidth'
-            [height]='movie.imgHeight'
-            alt='poster movie'
-            [title]='movie.title'
+            [width]="movie.imgWidth"
+            [height]="movie.imgHeight"
+            alt="poster movie"
+            [title]="movie.title"
           />
           <div class="movies-list--details">
             <h3 class="movies-list--details-title">
@@ -68,7 +82,7 @@ type Movie = MovieModel & ImageTag;
   styleUrls: ['./movie-list.component.scss'],
   providers: [RxState],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  encapsulation: ViewEncapsulation.Emulated
+  encapsulation: ViewEncapsulation.Emulated,
 })
 export class MovieListComponent implements AfterViewInit {
   @ViewChild('paginate') paginateEl?: ElementRef<HTMLElement>;
@@ -92,52 +106,32 @@ export class MovieListComponent implements AfterViewInit {
     this.state.connect('movies', movies$);
   }
 
-  @Input()
-  set totalPages(totalPages: Observable<number>) {
-    this.state.connect('totalPages', totalPages);
-  }
-
   @Output() readonly paginate = new Subject<void>();
 
   constructor(
     private router: Router,
     private state: RxState<{
       movies: MovieModel[];
-      totalPages: number;
     }>
-  ) {
-    this.state.set({ totalPages: 1 });
-  }
+  ) {}
 
   ngAfterViewInit(): void {
-
     this.state.hold(
       this.moviesListVisible$.pipe(
-        switchMap((hasMovies) => !hasMovies ? EMPTY : this.moviesRendered$.pipe(
-          switchMap(() => this.observeElementVisibility((this.paginateEl as ElementRef).nativeElement))
-          )
+        switchMap((hasMovies) =>
+          !hasMovies
+            ? EMPTY
+            : this.moviesRendered$.pipe(
+                switchMap(() =>
+                  observeElementVisibility(
+                    (this.paginateEl as ElementRef).nativeElement
+                  )
+                )
+              )
         )
       ),
       (intersecting) => intersecting && this.paginate.next()
     );
-
-  }
-
-  observeElementVisibility(element: HTMLElement): Observable<boolean> {
-    return new Observable<boolean>((subscriber) => {
-      const observer = new IntersectionObserver(
-        (entries: IntersectionObserverEntry[]) => {
-          subscriber.next(entries[0].isIntersecting);
-        },
-        {
-          root: null,
-          rootMargin: '500px',
-          threshold: 0.5
-        }
-      );
-      observer.observe(element);
-      return () => observer.disconnect();
-    });
   }
 
   trackByMovieId(_: number, movie: Movie) {
