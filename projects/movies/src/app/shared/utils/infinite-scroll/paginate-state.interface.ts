@@ -3,3 +3,5 @@ export interface PaginationState {
   activePage: number;
   loading: boolean;
 }
+
+export type PaginationOptions = { page: number };

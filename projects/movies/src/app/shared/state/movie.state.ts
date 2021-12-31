@@ -5,8 +5,11 @@ import { patch, RxState, toDictionary } from '@rx-angular/state';
 import { optimizedFetch } from '../utils/optimized-fetch';
 import { getActions } from '../rxa-custom/actions';
 import { withLoadingEmission } from '../utils/withLoadingEmissions';
-import { getMovie, getMovieCategory } from '../../data-access/api/movie.resource';
-import { PaginationState } from '../utils/paginate/paginate-state.interface';
+import {
+  getMovie,
+  getMovieCategory,
+} from '../../data-access/api/movie.resource';
+import { PaginationState } from '../utils/infinite-scroll/paginate-state.interface';
 
 export interface State extends PaginationState {
   movies: Record<string, MovieModel>;
@@ -22,7 +25,7 @@ interface Actions {
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class MovieState extends RxState<State> {
   private actions = getActions<Actions>();
@@ -33,23 +36,25 @@ export class MovieState extends RxState<State> {
   constructor() {
     super();
 
-    this.connect(this.actions.fetchMovie$.pipe(
-      /**
-       * **🚀 Perf Tip for TTI, TBT:**
-       *
-       * Avoid over fetching for HTTP get requests to URLs that will not change result quickly.
-       * E.G.: URLs with the same params
-       */
-      optimizedFetch(
-        (id) => id,
-        (id) => {
-          return getMovie(id)
-            .pipe(
-              map((result) => ({ movies: toDictionary([result], 'id') } as State)),
-              withLoadingEmission('moviesContext', true, false)
+    this.connect(
+      this.actions.fetchMovie$.pipe(
+        /**
+         * **🚀 Perf Tip for TTI, TBT:**
+         *
+         * Avoid over fetching for HTTP get requests to URLs that will not change result quickly.
+         * E.G.: URLs with the same params
+         */
+        optimizedFetch(
+          (id) => id,
+          (id) => {
+            return getMovie(id).pipe(
+              map(
+                (result) => ({ movies: toDictionary([result], 'id') } as State)
+              ),
+              withLoadingEmission('moviesContext')
             );
-        }
-      )
+          }
+        )
       ),
       (oldState, newPartial) => {
         let s = newPartial as unknown as State;
@@ -67,7 +72,7 @@ export class MovieState extends RxState<State> {
          * Avoid over fetching for HTTP get requests to URLs that will not change result quickly.
          */
         map(({ category }) => ({
-          category
+          category,
         })),
         optimizedFetch(
           ({ category }) => `category-${category}`,
@@ -77,14 +82,10 @@ export class MovieState extends RxState<State> {
                 ({ results, total_pages }) =>
                   ({
                     categoryMovies: { [category]: results },
-                    categoryMoviesTotalPages: { [category]: total_pages }
+                    categoryMoviesTotalPages: { [category]: total_pages },
                   } as State)
               ),
-              withLoadingEmission(
-                'categoryMoviesContext',
-                true,
-                false
-              )
+              withLoadingEmission('categoryMoviesContext')
             )
         )
       ),

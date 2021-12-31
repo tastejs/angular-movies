@@ -17,10 +17,12 @@ interface Actions {
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class DiscoverState extends RxState<State> {
-  private actions = getActions<Actions>({ fetchGenreMovies: (e: string | number) => e + '' });
+  private actions = getActions<Actions>({
+    fetchGenreMovies: (e: string | number) => e + '',
+  });
 
   readonly fetchGenreMovies = this.actions.fetchGenreMovies;
 
@@ -28,7 +30,7 @@ export class DiscoverState extends RxState<State> {
     super();
 
     this.set({
-      genreMovies: {}
+      genreMovies: {},
     });
 
     this.connect(
@@ -40,20 +42,25 @@ export class DiscoverState extends RxState<State> {
          */
         optimizedFetch(
           (genre) => 'genre' + '-' + genre,
-          (genre) => getDiscoverMovies(genre)
-            .pipe(
-              map(({ results }) => ({ genreMovies: { [genre]: results } } as State)),
-              withLoadingEmission('genreMoviesContext', true, false)
+          (genre) =>
+            getDiscoverMovies(genre).pipe(
+              map(
+                ({ results }) =>
+                  ({ genreMovies: { [genre]: results } } as State)
+              ),
+              withLoadingEmission('genreMoviesContext')
             )
         )
       ),
       (oldState, newPartial) => {
         let s = newPartial as unknown as State;
         let resultState = patch(oldState, s);
-        resultState.genreMovies = patch(oldState.genreMovies, resultState.genreMovies);
+        resultState.genreMovies = patch(
+          oldState.genreMovies,
+          resultState.genreMovies
+        );
         return resultState;
       }
     );
   }
-
 }

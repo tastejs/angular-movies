@@ -17,7 +17,7 @@ interface Actions {
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class PersonState extends RxState<State> {
   private actions = getActions<Actions>();
@@ -26,23 +26,25 @@ export class PersonState extends RxState<State> {
 
   constructor() {
     super();
-    this.connect(this.actions.fetchPerson$.pipe(
-      /**
-       * **🚀 Perf Tip for TTI, TBT:**
-       *
-       * Avoid over fetching for HTTP get requests to URLs that will not change result quickly.
-       * E.G.: URLs with the same params
-       */
-      optimizedFetch(
-        (id) => id,
-        (id) => {
-          return getPerson(id)
-            .pipe(
-              map(result => ({ person: toDictionary([result], 'id') } as State)),
-              withLoadingEmission('personContext', true, false)
+    this.connect(
+      this.actions.fetchPerson$.pipe(
+        /**
+         * **🚀 Perf Tip for TTI, TBT:**
+         *
+         * Avoid over fetching for HTTP get requests to URLs that will not change result quickly.
+         * E.G.: URLs with the same params
+         */
+        optimizedFetch(
+          (id) => id,
+          (id) => {
+            return getPerson(id).pipe(
+              map(
+                (result) => ({ person: toDictionary([result], 'id') } as State)
+              ),
+              withLoadingEmission('personContext')
             );
-        }
-      )
+          }
+        )
       ),
       (oldState, newPartial) => {
         let s = newPartial as unknown as State;
@@ -52,5 +54,4 @@ export class PersonState extends RxState<State> {
       }
     );
   }
-
 }
