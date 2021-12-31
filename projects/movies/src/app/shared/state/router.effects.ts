@@ -28,9 +28,9 @@ export class RouterEffects extends RxState<any> {
 
   private routerFetchEffect = ({ layout, type, identifier }: RouterParams): void => {
     if (type === 'category') {
-      this.movieState.fetchCategoryMovies({ category: identifier });
+    //  this.movieState.fetchCategoryMovies({ category: identifier });
     } else if (type === 'genre') {
-      this.discoverState.fetchGenreMovies(identifier);
+      this.discoverState.fetchDiscoverMovies(identifier);
     } else if (layout === 'detail' && type === 'movie') {
       this.movieState.fetchMovie(identifier);
     } else if (layout === 'detail' && type === 'person') {

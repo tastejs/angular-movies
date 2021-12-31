@@ -1,16 +1,7 @@
-import {
-  AfterViewInit,
-  ChangeDetectionStrategy,
-  Component,
-  ElementRef,
-  Input,
-  Output,
-  ViewChild,
-  ViewEncapsulation,
-} from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, Input, Output, ViewChild, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
 import { RxState } from '@rx-angular/state';
-import { EMPTY, map, Observable, Subject, switchMap } from 'rxjs';
+import { map, Observable, Subject, switchMap } from 'rxjs';
 import { MovieModel } from '../../../data-access/model/movie.model';
 import { W300H450 } from '../../../data-access/configurations/image-sizes';
 import { ImageTag } from '../../../shared/utils/image/image-tag.interface';
@@ -66,7 +57,8 @@ type Movie = MovieModel & ImageTag;
     </ng-container>
 
     <ng-template #noData>
-      <div style="display: flex; align-items: center;">
+      <div style="display: flex; align-items: center;" *rxLet="[];  renderCallback: moviesRendered$">
+        <div #paginate class="pagination"></div>
         <span style="font-size: 1.5rem">No results</span>
         <svg height="24" width="24" viewBox="0 0 24 24" fill="currentColor">
           <path d="M0 0h24v24H0V0z" fill="none" />
@@ -82,7 +74,7 @@ type Movie = MovieModel & ImageTag;
   styleUrls: ['./movie-list.component.scss'],
   providers: [RxState],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  encapsulation: ViewEncapsulation.Emulated,
+  encapsulation: ViewEncapsulation.Emulated
 })
 export class MovieListComponent implements AfterViewInit {
   @ViewChild('paginate') paginateEl?: ElementRef<HTMLElement>;
@@ -113,11 +105,19 @@ export class MovieListComponent implements AfterViewInit {
     private state: RxState<{
       movies: MovieModel[];
     }>
-  ) {}
+  ) {
+  }
 
   ngAfterViewInit(): void {
     this.state.hold(
-      this.moviesListVisible$.pipe(
+      this.moviesRendered$.pipe(
+        switchMap(() =>
+          observeElementVisibility(
+            (this.paginateEl as ElementRef).nativeElement
+          )
+        )
+      )
+      /*this.moviesListVisible$.pipe(
         switchMap((hasMovies) =>
           !hasMovies
             ? EMPTY
@@ -129,7 +129,7 @@ export class MovieListComponent implements AfterViewInit {
                 )
               )
         )
-      ),
+      )*/,
       (intersecting) => intersecting && this.paginate.next()
     );
   }

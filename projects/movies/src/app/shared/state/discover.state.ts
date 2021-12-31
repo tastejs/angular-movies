@@ -8,12 +8,12 @@ import { withLoadingEmission } from '../utils/withLoadingEmissions';
 import { getDiscoverMovies } from '../../data-access/api/discover.resource';
 
 export interface State {
-  genreMovies: Record<string, MovieModel[]>;
-  genreMoviesContext: boolean;
+  discoveredMovies: Record<string, MovieModel[]>;
+  discoveredMoviesContext: boolean;
 }
 
 interface Actions {
-  fetchGenreMovies: string;
+  fetchDiscoverMovies: string;
 }
 
 @Injectable({
@@ -21,20 +21,20 @@ interface Actions {
 })
 export class DiscoverState extends RxState<State> {
   private actions = getActions<Actions>({
-    fetchGenreMovies: (e: string | number) => e + '',
+    fetchDiscoverMovies: (e: string | number) => e + '',
   });
 
-  readonly fetchGenreMovies = this.actions.fetchGenreMovies;
+  readonly fetchDiscoverMovies = this.actions.fetchDiscoverMovies;
 
   constructor() {
     super();
 
     this.set({
-      genreMovies: {},
+      discoveredMovies: {},
     });
 
     this.connect(
-      this.actions.fetchGenreMovies$.pipe(
+      this.actions.fetchDiscoverMovies$.pipe(
         /**
          * **🚀 Perf Tip for TTI, TBT:**
          *
@@ -46,7 +46,7 @@ export class DiscoverState extends RxState<State> {
             getDiscoverMovies(genre).pipe(
               map(
                 ({ results }) =>
-                  ({ genreMovies: { [genre]: results } } as State)
+                  ({ discoveredMovies: { [genre]: results } } as State)
               ),
               withLoadingEmission('genreMoviesContext')
             )
@@ -55,9 +55,9 @@ export class DiscoverState extends RxState<State> {
       (oldState, newPartial) => {
         let s = newPartial as unknown as State;
         let resultState = patch(oldState, s);
-        resultState.genreMovies = patch(
-          oldState.genreMovies,
-          resultState.genreMovies
+        resultState.discoveredMovies = patch(
+          oldState.discoveredMovies,
+          resultState.discoveredMovies
         );
         return resultState;
       }

@@ -1,7 +1,9 @@
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { MovieModel } from '../model/movie.model';
-import { baseUrlApiV3 } from './utils';
+import { baseUrlApiV3, getTMDBPaginationOptions, serverToClientPaginatedResult } from './utils';
 import { getHTTP } from '../../shared/injector/get-http-client';
+import { TMDBPaginatedResult, TMDBPaginationOptions } from '../model/pagination.interface';
+import { PaginatedResult } from '../../shared/state/typings';
 
 const resource = 'movie';
 const base = [baseUrlApiV3, resource].join('/');
@@ -19,14 +21,21 @@ export const getCredits = (id: string): Observable<any> =>
 
 export const getMovieCategory = (
   category: string,
-  page: number = 1
-): Observable<{ results: MovieModel[]; total_pages: number }> =>
-  getHTTP().get<{ results: MovieModel[]; total_pages: number }>(
-    URL_MOVIE_CATEGORY(category) + `?page=${page}`
-  );
+  options: TMDBPaginationOptions = {} as TMDBPaginationOptions
+): Observable<PaginatedResult<MovieModel>> => {
+  console.log('in http category:', category, ' options:', options);
+  options = getTMDBPaginationOptions(options);
+  return getHTTP()
+    .get<TMDBPaginatedResult<MovieModel>>(URL_MOVIE_CATEGORY(category), { params: options })
+    .pipe(map(serverToClientPaginatedResult));
+};
 
 export const getMoviesRecommendations = (
   id: string,
-  page: string = '1'
-): Observable<MovieModel> =>
-  getHTTP().get<MovieModel>(URL_MOVIE_RECOMMENDATIONS(id), { params: { page } });
+  options: TMDBPaginationOptions = {} as TMDBPaginationOptions
+): Observable<PaginatedResult<MovieModel>> => {
+  options = getTMDBPaginationOptions(options);
+  return getHTTP()
+    .get<TMDBPaginatedResult<MovieModel>>(URL_MOVIE_RECOMMENDATIONS(id), { params: options })
+    .pipe(map(serverToClientPaginatedResult));
+};

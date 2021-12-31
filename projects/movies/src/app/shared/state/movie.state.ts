@@ -5,13 +5,9 @@ import { patch, RxState, toDictionary } from '@rx-angular/state';
 import { optimizedFetch } from '../utils/optimized-fetch';
 import { getActions } from '../rxa-custom/actions';
 import { withLoadingEmission } from '../utils/withLoadingEmissions';
-import {
-  getMovie,
-  getMovieCategory,
-} from '../../data-access/api/movie.resource';
-import { PaginationState } from '../utils/infinite-scroll/paginate-state.interface';
+import { getMovie, getMovieCategory } from '../../data-access/api/movie.resource';
 
-export interface State extends PaginationState {
+export interface State {
   movies: Record<string, MovieModel>;
   moviesContext: boolean;
   categoryMovies: Record<string, MovieModel[]>;
@@ -25,7 +21,7 @@ interface Actions {
 }
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class MovieState extends RxState<State> {
   private actions = getActions<Actions>();
@@ -72,17 +68,17 @@ export class MovieState extends RxState<State> {
          * Avoid over fetching for HTTP get requests to URLs that will not change result quickly.
          */
         map(({ category }) => ({
-          category,
+          category
         })),
         optimizedFetch(
           ({ category }) => `category-${category}`,
           ({ category }) =>
             getMovieCategory(category).pipe(
               map(
-                ({ results, total_pages }) =>
+                ({ results, totalPages }) =>
                   ({
                     categoryMovies: { [category]: results },
-                    categoryMoviesTotalPages: { [category]: total_pages },
+                    categoryMoviesTotalPages: { [category]: totalPages }
                   } as State)
               ),
               withLoadingEmission('categoryMoviesContext')
