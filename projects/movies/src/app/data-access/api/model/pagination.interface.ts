@@ -1,4 +1,4 @@
-export type TMDBSortByFlags = 'popularity.desc';
+// export type TMDBSortByFlags = 'popularity.desc';
 
 export interface TMDBPaginationOptions extends Record<string, any> {
   page: number;

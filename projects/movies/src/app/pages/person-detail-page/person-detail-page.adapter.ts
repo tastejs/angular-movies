@@ -1,4 +1,4 @@
-import { TMDBMovieModel } from '../../data-access/model/movie.model';
+import { TMDBMovieModel } from '../../data-access/api/model/movie.model';
 import { Injectable } from '@angular/core';
 import { RxState, selectSlice } from '@rx-angular/state';
 import { RouterState } from '../../shared/state/router.state';
@@ -7,10 +7,10 @@ import { W780H1170 } from '../../data-access/configurations/image-sizes';
 import { ImageTag } from '../../shared/utils/image/image-tag.interface';
 import { addImageTag } from '../../shared/utils/image/image-tag.transform';
 import { getIdentifierOfTypeAndLayout } from '../../shared/state/utils';
-import { TMDBMoviePersonModel } from '../../data-access/model/movie-person.model';
+import { TMDBMoviePersonModel } from '../../data-access/api/model/movie-person.model';
 import { PersonState } from '../../shared/state/person.state';
-import { getCredits } from '../../data-access/api/movie.resource';
-import { getDiscoverMovies } from '../../data-access/api/discover.resource';
+import { getCredits } from '../../data-access/api/resources/movie.resource';
+import { getDiscoverMovies } from '../../data-access/api/resources/discover.resource';
 
 export type MoviePerson = TMDBMoviePersonModel & ImageTag;
 

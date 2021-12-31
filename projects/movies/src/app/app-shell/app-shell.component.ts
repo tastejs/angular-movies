@@ -4,7 +4,7 @@ import { RxState } from '@rx-angular/state';
 import { filter, map } from 'rxjs';
 import { AuthStateService } from '../data-access/auth/auth.state';
 import { AuthEffects } from '../data-access/auth/auth.effects';
-import { TMDBMovieGenreModel } from '../data-access/model/movie-genre.model';
+import { TMDBMovieGenreModel } from '../data-access/api/model/movie-genre.model';
 import { trackByProp } from '../shared/utils/track-by';
 import { getActions } from '../shared/rxa-custom/actions';
 import { RouterState } from '../shared/state/router.state';

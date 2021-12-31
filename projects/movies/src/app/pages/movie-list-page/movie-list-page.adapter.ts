@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
 import { RxState, selectSlice } from '@rx-angular/state';
 import { concat, EMPTY, map, Observable, Subject, take, tap, withLatestFrom } from 'rxjs';
-import { TMDBMovieModel } from '../../data-access/model/movie.model';
-import { getMovieCategory } from '../../data-access/api/movie.resource';
+import { TMDBMovieModel } from '../../data-access/api/model/movie.model';
+import { getMovieCategory } from '../../data-access/api/resources/movie.resource';
+import { getDiscoverMovies } from '../../data-access/api/resources/discover.resource';
+import { TMDBPaginationOptions } from '../../data-access/api/model/pagination.interface';
 //import { getMoviesSearch } from '../../data-access/api/search.resource';
 //import { MovieGenreModel } from '../../data-access/model/movie-genre.model';
 //import { DiscoverState } from '../../shared/state/discover.state';
@@ -11,10 +13,10 @@ import { getMovieCategory } from '../../data-access/api/movie.resource';
 import { MovieState } from '../../shared/state/movie.state';
 import { RouterState } from '../../shared/state/router.state';
 import { getIdentifierOfTypeAndLayout } from '../../shared/state/utils';
-import { infiniteScrolled, PaginationOptions } from '../../shared/utils/infinite-scroll/infinite-scrolled';
 import { PaginationState } from '../../shared/utils/infinite-scroll/paginate-state.interface';
-import { getDiscoverMovies } from '../../data-access/api/discover.resource';
-import { TMDBPaginationOptions } from '../../data-access/model/pagination.interface';
+import { infiniteScrolled, PaginationOptions } from '../../shared/utils/infinite-scroll/infinite-scrolled';
+
+
 import { RouterParams } from '../../shared/state/router-state.interface';
 import { PaginatedResult } from '../../shared/state/typings';
 

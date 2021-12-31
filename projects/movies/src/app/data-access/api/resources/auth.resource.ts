@@ -1,6 +1,6 @@
 import { Observable } from 'rxjs';
-import { baseUrlApiV4 } from './utils';
-import { getHTTP } from '../../shared/injector/get-http-client';
+import { baseUrlApiV4 } from '../utils';
+import { getHTTP } from '../../../shared/injector/get-http-client';
 
 type Token = {
   request_token: string;

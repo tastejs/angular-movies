@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { map } from 'rxjs';
-import { TMDBMovieModel } from '../../data-access/model/movie.model';
+import { TMDBMovieModel } from '../../data-access/api/model/movie.model';
 import { patch, RxState, toDictionary } from '@rx-angular/state';
 import { optimizedFetch } from '../utils/optimized-fetch';
 import { getActions } from '../rxa-custom/actions';
 import { withLoadingEmission } from '../utils/withLoadingEmissions';
-import { getMovie, getMovieCategory } from '../../data-access/api/movie.resource';
+import { getMovie, getMovieCategory } from '../../data-access/api/resources/movie.resource';
 
 export interface State {
   movies: Record<string, TMDBMovieModel>;

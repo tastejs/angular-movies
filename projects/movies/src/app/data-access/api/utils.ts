@@ -1,5 +1,5 @@
 import { environment } from '../../../environments/environment';
-import { TMDBPaginatedResult, TMDBPaginationOptions } from '../model/pagination.interface';
+import { TMDBPaginatedResult, TMDBPaginationOptions } from '../api/model/pagination.interface';
 import { PaginatedResult } from '../../shared/state/typings';
 
 export const baseUrlApiV3 = [environment.tmdbBaseUrl, environment.apiV3].join('/');

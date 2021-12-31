@@ -1,10 +1,11 @@
 import { Location } from '@angular/common';
 import { ChangeDetectionStrategy, Component, TrackByFunction, ViewEncapsulation } from '@angular/core';
 import { RxState, selectSlice } from '@rx-angular/state';
-import { TMDBMovieCastModel } from '../../data-access/model/movie-cast.model';
-import { TMDBMovieGenreModel } from '../../data-access/model/movie-genre.model';
+import { TMDBMovieCastModel } from '../../data-access/api/model/movie-credits.model';
+import { TMDBMovieGenreModel } from '../../data-access/api/model/movie-genre.model';
 import { Router } from '@angular/router';
-import { MovieDetailAdapter, MovieDetailPageModel } from './movie-detail-page.adapter';
+import { MovieDetailAdapter } from './movie-detail-page.adapter';
+import { MovieDetailPageModel } from './selection/movie-detail-page.model';
 
 @Component({
   selector: 'ct-movie',

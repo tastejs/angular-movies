@@ -1,6 +1,6 @@
 import { TMDBMovieGenreModel } from './movie-genre.model';
 
-export interface MovieDetailsModel {
+export interface TMBDMovieDetailsModel {
   adult: boolean;
   backdrop_path: string;
   belongs_to_collection: any;

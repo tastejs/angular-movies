@@ -1,9 +1,10 @@
 import { map, Observable } from 'rxjs';
 import { TMDBMovieModel } from '../model/movie.model';
-import { baseUrlApiV3, getTMDBPaginationOptions, serverToClientPaginatedResult } from './utils';
-import { getHTTP } from '../../shared/injector/get-http-client';
+import { baseUrlApiV3, getTMDBPaginationOptions, serverToClientPaginatedResult } from '../utils';
+import { getHTTP } from '../../../shared/injector/get-http-client';
 import { TMDBPaginatedResult, TMDBPaginationOptions } from '../model/pagination.interface';
-import { PaginatedResult } from '../../shared/state/typings';
+import { PaginatedResult } from '../../../shared/state/typings';
+import { TMDBMovieCreditsModel } from '../model/movie-credits.model';
 
 const resource = 'movie';
 const base = [baseUrlApiV3, resource].join('/');
@@ -16,8 +17,8 @@ const URL_MOVIE_CATEGORY = (category: string) => [base, category].join('/');
 export const getMovie = (id: string, options = { params: { append_to_response: 'videos' } }): Observable<TMDBMovieModel> =>
   getHTTP().get<TMDBMovieModel>(URL_MOVIE(id), options);
 
-export const getCredits = (id: string): Observable<any> =>
-  getHTTP().get<any>(URL_MOVIE_CREDITS(id));
+export const getCredits = (id: string): Observable<TMDBMovieCreditsModel> =>
+  getHTTP().get<TMDBMovieCreditsModel>(URL_MOVIE_CREDITS(id));
 
 export const getMovieCategory = (
   category: string,

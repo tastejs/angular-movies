@@ -2,7 +2,7 @@ import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, Input, O
 import { Router } from '@angular/router';
 import { RxState } from '@rx-angular/state';
 import { map, Observable, Subject, switchMap } from 'rxjs';
-import { TMDBMovieModel } from '../../../data-access/model/movie.model';
+import { TMDBMovieModel } from '../../../data-access/api/model/movie.model';
 import { W300H450 } from '../../../data-access/configurations/image-sizes';
 import { ImageTag } from '../../../shared/utils/image/image-tag.interface';
 import { addImageTag } from '../../../shared/utils/image/image-tag.transform';
