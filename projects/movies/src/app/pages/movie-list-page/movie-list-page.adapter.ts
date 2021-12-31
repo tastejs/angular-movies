@@ -1,4 +1,4 @@
-import { combineLatest, concatMap, filter, map, Observable, Subject, switchMap, switchMapTo, withLatestFrom } from 'rxjs';
+import { combineLatest, concatMap, filter, map, Observable, Subject, switchMap, tap, withLatestFrom } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { MovieModel } from '../../data-access/model/movie.model';
 import { MovieGenreModel } from '../../data-access/model/movie-genre.model';
@@ -36,13 +36,15 @@ type MovieListPageModel = PaginationState & {
 
 type PaginationOptions = { page: number };
 
-function infiniteScrolled<T, I>(fn: (param: I, paginationOptions: PaginationOptions) => Observable<Partial<T & {totalPages: number}>>) {
-  let activePage = 1;
+function infiniteScrolled<T, I>(fetchFn: (param: I, paginationOptions: PaginationOptions) => Observable<T & { totalPages: number }>) {
+  let _activePage = 1;
+  let _totalPages = 2;
   return (o$: Observable<I>): Observable<Partial<T | PaginationState>> => o$.pipe(
+    filter(() => _activePage < _totalPages),
     concatMap((trigger: I) => {
-      return (fn(trigger, { page: ++activePage }) as Observable<PaginationState & T>).pipe(
-        withLoadingEmission('loading', true, false),
-        map(a => a)
+      return (fetchFn(trigger, { page: ++_activePage }) as Observable<T & { totalPages: number } & {loading: boolean}>).pipe(
+        tap(({ totalPages }) => _totalPages = totalPages),
+         withLoadingEmission('loading', true, false)
       );
     })
   );
@@ -156,23 +158,11 @@ export class MovieListPageAdapter extends RxState<MovieListPageModel> {
 
     this.connect(
       this.paginate$.pipe(
-        filter(() => {
-          return this.get('activePage') < this.get('totalPages');
-        }),
-        withLatestFrom(this.routerCategory$),
-        concatMap(([_, cat]) =>
-          getMovieCategory(cat, this.get('activePage') + 1).pipe(
-            map(
-              ({ results, total_pages }) =>
-                ({
-                  movies: results,
-                  totalPages: total_pages,
-                  activePage: this.get('activePage') + 1
-                } as Partial<MovieListPageModel>)
-            ),
-            withLoadingEmission('loading', true, false)
-          )
-        )
+        switchMap(this.routerCategory$),
+        infiniteScrolled((cat, { page }) => getMovieCategory(cat, page).pipe(map(({ results, total_pages }) => ({
+          movies: results,
+          totalPages: total_pages
+        }))))
       ),
       (oldState, newSlice) => {
         if (newSlice.movies) {
