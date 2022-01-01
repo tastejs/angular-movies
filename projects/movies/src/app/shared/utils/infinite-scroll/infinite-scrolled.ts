@@ -38,8 +38,8 @@ export type InfiniteScrolleState<T extends {}> = PaginatedResult<T> & LoadingSta
  *
  * @param fetchFn - a function that takes a param and pagination options
  */
-export function infiniteScrolled<T, I extends {}>(
-  fetchFn: (result: PaginationOptions, triggerParams: I) => Observable<Partial<InfiniteScrolleState<any>>>,
+export function infiniteScrolled<T, I>(
+  fetchFn: (options: PaginationOptions, triggerParams: I) => Observable<Partial<InfiniteScrolleState<T>>>,
   trigger$: Observable<I>,
   initialState: PaginatedResult<any> | Observable<PaginatedResult<T>> = {} as PaginatedResult<any>
 ): Observable<Partial<InfiniteScrolleState<T>>> {

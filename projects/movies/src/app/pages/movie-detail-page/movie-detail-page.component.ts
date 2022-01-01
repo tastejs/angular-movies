@@ -4,8 +4,9 @@ import { RxState, selectSlice } from '@rx-angular/state';
 import { TMDBMovieCastModel } from '../../data-access/api/model/movie-credits.model';
 import { TMDBMovieGenreModel } from '../../data-access/api/model/movie-genre.model';
 import { Router } from '@angular/router';
-import { MovieDetailAdapter } from './movie-detail-page.adapter';
-import { MovieDetailPageModel } from './selection/movie-detail-page.model';
+import { MovieDetailAdapter, MovieDetailPageModel } from './movie-detail-page.adapter';
+import { map } from 'rxjs';
+
 
 @Component({
   selector: 'ct-movie',
@@ -16,11 +17,12 @@ import { MovieDetailPageModel } from './selection/movie-detail-page.model';
   providers: [RxState]
 })
 export class MovieDetailPageComponent {
+
   readonly detailState$ = this.state.select(
     selectSlice(['loading', 'movie', 'cast'])
   );
   readonly recommendedLoading$ = this.state.select('loading');
-  readonly recommendations$ = this.state.select('recommendations');
+  readonly recommendations$ = this.state.select(map(({ recommendations }) => recommendations?.results || []));
 
   constructor(
     private location: Location,
@@ -29,12 +31,11 @@ export class MovieDetailPageComponent {
     private state: RxState<MovieDetailPageModel>
   ) {
     this.state.set({
-      recommendations: [],
       cast: [],
       loading: true
     });
     this.state.connect(this.adapter.routedMovieSlice$);
-    this.state.connect('recommendations', this.adapter.movieRecomendationsById$);
+    this.state.connect('recommendations', this.adapter.movieRecommendationsById$);
     this.state.connect('cast', this.adapter.movieCastById$);
   }
 
@@ -44,6 +45,10 @@ export class MovieDetailPageComponent {
 
   back() {
     this.location.back();
+  }
+
+  paginate() {
+    this.adapter.paginate();
   }
 
   trackByGenre: TrackByFunction<TMDBMovieGenreModel> = (_, genre) => genre.name;
