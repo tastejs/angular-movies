@@ -1,6 +1,6 @@
 import { PaginatedResult } from '../../state/typings';
+import { LoadingState } from '../withLoadingEmissions';
 
-export interface PaginationState<T> extends PaginatedResult<T> {
-  activePage: number;
-  loading: boolean;
-}
+export type InfiniteScrollState<T extends {}> = PaginatedResult<T> & LoadingState<'loading'>;
+export type PaginationOptions = { page: number, totalPages?: number };
+

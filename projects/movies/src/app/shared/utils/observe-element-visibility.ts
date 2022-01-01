@@ -1,4 +1,4 @@
-import { Observable } from 'rxjs';
+import { distinctUntilChanged, Observable } from 'rxjs';
 
 export function observeElementVisibility(
   element: HTMLElement,
@@ -17,10 +17,13 @@ export function observeElementVisibility(
         root: null,
         rootMargin: '500px',
         threshold: 0.5,
-        ...(cfg || {}),
+        ...(cfg || {})
       }
     );
     observer.observe(element);
     return () => observer.disconnect();
-  });
+  }).pipe(
+    // only forward changes in visibility
+    distinctUntilChanged()
+  );
 }

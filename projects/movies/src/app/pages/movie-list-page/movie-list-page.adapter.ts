@@ -8,13 +8,14 @@ import { TMDBPaginationOptions } from '../../data-access/api/model/pagination.in
 import { DiscoverState } from '../../shared/state/discover.state';
 import { MovieState } from '../../shared/state/movie.state';
 import { RouterState } from '../../shared/state/router.state';
-import { infiniteScrolled, InfiniteScrolleState, PaginationOptions } from '../../shared/utils/infinite-scroll/infinite-scrolled';
+import { infiniteScrolled } from '../../shared/utils/infinite-scroll/infinite-scrolled';
 import { RouterParams } from '../../shared/state/router-state.interface';
 import { PaginatedResult } from '../../shared/state/typings';
 import { getActions } from '../../shared/rxa-custom/actions';
+import { InfiniteScrollState, PaginationOptions } from '../../shared/utils/infinite-scroll/paginate-state.interface';
 
 type MovieListRouterParams = Pick<RouterParams, 'type' | 'identifier'>
-type MovieListPageModel = InfiniteScrolleState<TMDBMovieModel> & MovieListRouterParams;
+type MovieListPageModel = InfiniteScrollState<TMDBMovieModel> & MovieListRouterParams;
 
 function listChanged(oldP: any, newP: any): boolean {
   return oldP?.type !== newP?.type || oldP?.identifier !== newP?.identifier;
@@ -77,24 +78,21 @@ export class MovieListPageAdapter extends RxState<MovieListPageModel> {
       this.routerState.routerParams$.pipe(
         // we clear the current result on route change with switchMap and restart
         distinctUntilKeyChanged('identifier'),
-        switchMap(({ type, identifier }) => {
-          console.log('switch to ', type, identifier);
-          return infiniteScrolled(
-            // data fetch funtions
-            (paginationOptions: PaginationOptions, { type, identifier }) => getFetchByType(type)(identifier, paginationOptions)
-              .pipe(map((r) => ({ ...r, type, identifier }))),
-            // trigger from infinite scroll list
-            routerParamsFromPaginationTrigger$,
-            // initial value
-            (type === 'category' ? this.initialCategoryMovieList$(identifier) : this.initialDiscoverMovieList$(identifier)).pipe(
-              map((r) => ({ ...r, type, identifier }))
-            )
-          );
-        })
+        switchMap(({ type, identifier }) => infiniteScrolled(
+          // data fetch functions
+          (paginationOptions: PaginationOptions, { type, identifier }) => getFetchByType(type)(identifier, paginationOptions)
+            .pipe(map((r) => ({ ...r, type, identifier }))),
+          // trigger from infinite scroll list
+          routerParamsFromPaginationTrigger$,
+          // initial value
+          (type === 'category' ? this.initialCategoryMovieList$(identifier) : this.initialDiscoverMovieList$(identifier)).pipe(
+            map((r) => ({ ...r, type, identifier }))
+          )
+          )
+        )
       ),
       (oldState, newSlice) => {
         if (newSlice?.results) {
-          console.log('old results:', oldState, 'newSlice: ', newSlice, listChanged(oldState, newSlice));
           newSlice.results = listChanged(oldState, newSlice) ? newSlice.results : insert((oldState as any)?.results, newSlice.results);
         }
         return newSlice;

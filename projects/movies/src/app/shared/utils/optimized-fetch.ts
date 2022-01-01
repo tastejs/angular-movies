@@ -15,6 +15,7 @@ export function optimizedFetch<T, K, O>(
 ): (o$: Observable<T>) => Observable<O> {
   return (o$: Observable<T>) => o$.pipe(
     groupBy(keySelector),
+    // exhaust by keySelector e.g. url
     map(t$ => t$.pipe(exhaustMap(fetch))),
     mergeAll()
   );

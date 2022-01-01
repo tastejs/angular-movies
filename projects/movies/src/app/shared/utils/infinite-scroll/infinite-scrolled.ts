@@ -1,11 +1,7 @@
-import { concatMap, EMPTY, expand, isObservable, map, Observable, of, take, tap } from 'rxjs';
+import { concatMap, EMPTY, expand, isObservable, map, Observable, of, take } from 'rxjs';
 import { PaginatedResult } from '../../state/typings';
-import { LoadingState, withLoadingEmission } from '../withLoadingEmissions';
-
-export type PaginationOptions = { page: number, totalPages?: number };
-
-export type InfiniteScrolleState<T extends {}> = PaginatedResult<T> & LoadingState<'loading'>;
-
+import { withLoadingEmission } from '../withLoadingEmissions';
+import { InfiniteScrollState, PaginationOptions } from './paginate-state.interface';
 
 /**
  *
@@ -28,21 +24,19 @@ export type InfiniteScrolleState<T extends {}> = PaginatedResult<T> & LoadingSta
  * // the implementation for a static id would lok like this:
  * const activeListId = 42;
  *
- * const paginated$: Observable<{list: any[]} & PaginatedState> = load$.pipe(
- *    mapTo(activeListId),
+ * const paginated$: Observable<{list: any[]} & PaginatedState> =
  *    infiniteScrolled(
- *      (triggerID, options) => fetchList(triggerID, options.page)
- *        .pipe(mapToPaginationResult())
+ *      (options, triggerID) => fetchList(triggerID, options.page).pipe(mapToPaginationResult()),
+ *     load$.pipe(mapTo(activeListId))
  *    )
  * );
  *
- * @param fetchFn - a function that takes a param and pagination options
  */
 export function infiniteScrolled<T, I>(
-  fetchFn: (options: PaginationOptions, triggerParams: I) => Observable<Partial<InfiniteScrolleState<T>>>,
+  fetchFn: (options: PaginationOptions, triggerParams: I) => Observable<Partial<InfiniteScrollState<T>>>,
   trigger$: Observable<I>,
   initialState: PaginatedResult<any> | Observable<PaginatedResult<T>> = {} as PaginatedResult<any>
-): Observable<Partial<InfiniteScrolleState<T>>> {
+): Observable<Partial<InfiniteScrollState<T>>> {
   // We need to reduce the initial page by one as we start by incrementing it
   const initialResult$ = (isObservable(initialState) ? initialState : of(initialState)).pipe(
     map((s) => {
@@ -52,30 +46,23 @@ export function infiniteScrolled<T, I>(
       return { page: page ? page : 0, totalPages: totalPages || 2, ...rest } as PaginatedResult<T>;
     }),
     // in case there is global state connected we take care of just taking the initial value
-    take(1),
-    tap(v => console.log('infiniteScrolled#initialResult$: ', v))
+    take(1)
   );
   let page: number = 0;
   let totalPages: number = 0;
   return initialResult$.pipe(
     expand((result) => {
-      console.log('infiniteScrolled#result: ', result);
-
-      let nextRequest$: Observable<InfiniteScrolleState<T>> = EMPTY as unknown as Observable<InfiniteScrolleState<T>>;
-      const empty$ = EMPTY as unknown as Observable<InfiniteScrolleState<T>>;
+      let nextRequest$: Observable<InfiniteScrollState<T>> = EMPTY as unknown as Observable<InfiniteScrollState<T>>;
+      const empty$ = EMPTY as unknown as Observable<InfiniteScrollState<T>>;
       // if it is a emission with a response ( hacky :( )
       if ('page' in result && 'totalPages' in result) {
         page = result.page + 1;
         totalPages = result.totalPages;
 
         nextRequest$ = (page < totalPages ? trigger$.pipe(
-          concatMap((triggerParams: I) => fetchFn({ page }, triggerParams).pipe(withLoadingEmission()) as Observable<InfiniteScrolleState<T>>),
-          tap(v => console.log('infiniteScrolled#fetchFn$: ', v))
+          concatMap((triggerParams: I) => fetchFn({ page }, triggerParams).pipe(withLoadingEmission()) as Observable<InfiniteScrollState<T>>)
         ) : empty$);
       }
-
-      console.log('infiniteScrolled(page < result.totalPages): ', page, totalPages, page < totalPages);
-
       return nextRequest$;
     })
   );
