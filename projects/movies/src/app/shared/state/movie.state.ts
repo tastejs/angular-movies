@@ -43,7 +43,7 @@ export class MovieState extends RxState<State> {
           (id) => {
             return getMovie(id).pipe(
               map(
-                (result) => ({ movies: toDictionary([result], 'id') } as State)
+                (result) => ({ movies: toDictionary([result], 'id') })
               ),
               withLoadingEmission('moviesLoading')
             );
@@ -51,8 +51,7 @@ export class MovieState extends RxState<State> {
         )
       ),
       (oldState, newPartial) => {
-        let s = newPartial as unknown as State;
-        let resultState = patch(oldState, s);
+        let resultState = patch(oldState, newPartial);
         resultState.movies = patch(oldState?.movies, resultState.movies);
         return resultState;
       }
@@ -80,8 +79,7 @@ export class MovieState extends RxState<State> {
         )
       ),
       (oldState, newPartial) => {
-        let s = newPartial as unknown as State;
-        let resultState = patch(oldState, s);
+        let resultState = patch(oldState, newPartial);
         resultState.categoryMovies = patch(
           oldState?.categoryMovies,
           resultState.categoryMovies

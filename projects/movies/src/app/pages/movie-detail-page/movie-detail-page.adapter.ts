@@ -43,11 +43,11 @@ export class MovieDetailAdapter extends RxState<MovieDetailPageModel> {
       combineLatest({
         id: this.routerMovieId$,
         globalSlice: this.movieState.select(
-          selectSlice(['movies', 'moviesContext'])
+          selectSlice(['movies', 'moviesLoading'])
         )
       }).pipe(
         map(({ id, globalSlice }) => {
-          const { movies, moviesContext: loading } = globalSlice;
+          const { movies, moviesLoading: loading } = globalSlice;
           return {
             loading,
             movie:

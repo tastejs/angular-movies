@@ -46,15 +46,14 @@ export class DiscoverState extends RxState<State> {
             getDiscoverMovies(genre).pipe(
               map(
                 (resp) =>
-                  ({ discoveredMovies: { [genre]: resp } } as State)
+                  ({ discoveredMovies: { [genre]: resp } })
               ),
               withLoadingEmission('discoveredMoviesLoading')
             )
         )
       ),
       (oldState, newPartial) => {
-        let s = newPartial as unknown as State;
-        let resultState = patch(oldState, s);
+        let resultState = patch(oldState, newPartial);
         resultState.discoveredMovies = patch(
           oldState.discoveredMovies,
           resultState.discoveredMovies

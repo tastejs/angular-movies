@@ -9,7 +9,6 @@ import { addImageTag } from '../../shared/utils/image/image-tag.transform';
 import { getIdentifierOfTypeAndLayout } from '../../shared/state/utils';
 import { TMDBMoviePersonModel } from '../../data-access/api/model/movie-person.model';
 import { PersonState } from '../../shared/state/person.state';
-import { getCredits } from '../../data-access/api/resources/movie.resource';
 import { getDiscoverMovies } from '../../data-access/api/resources/discover.resource';
 
 export type MoviePerson = TMDBMoviePersonModel & ImageTag;
@@ -41,22 +40,13 @@ export class PersonDetailAdapter extends RxState<PersonDetailPageAdapterState> {
     )
   );
 
-  readonly movieCastById$ = this.routerPersonId$.pipe(
-    switchMap((identifier) =>
-      getCredits(identifier).pipe(
-        map((res: any) => res.cast || []),
-        startWith([])
-      )
-    )
-  );
-
   constructor(private routerState: RouterState,
               private personState: PersonState) {
     super();
     this.connect(
-      combineLatest({ id: this.routerPersonId$, globalSlice: this.personState.select(selectSlice(['person', 'personContext'])) }).pipe(
+      combineLatest({ id: this.routerPersonId$, globalSlice: this.personState.select(selectSlice(['person', 'personLoading'])) }).pipe(
         map(({ id, globalSlice }) => {
-          const { person, personContext: loading } = globalSlice;
+          const { person, personLoading: loading } = globalSlice;
           return ({
             loading,
             person: person[id] !== undefined ? transformToPersonDetail(person[id]) : null

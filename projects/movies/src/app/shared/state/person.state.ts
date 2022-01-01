@@ -3,13 +3,12 @@ import { map } from 'rxjs';
 import { patch, RxState, toDictionary } from '@rx-angular/state';
 import { optimizedFetch } from '../utils/optimized-fetch';
 import { getActions } from '../rxa-custom/actions';
-import { withLoadingEmission } from '../utils/withLoadingEmissions';
+import { LoadingState, withLoadingEmission } from '../utils/withLoadingEmissions';
 import { TMDBMoviePersonModel } from '../../data-access/api/model/movie-person.model';
 import { getPerson } from '../../data-access/api/resources/person.resource';
 
-export interface State {
+export interface State extends LoadingState<'personLoading'> {
   person: Record<string, TMDBMoviePersonModel>;
-  personContext: boolean;
 }
 
 interface Actions {
@@ -17,7 +16,7 @@ interface Actions {
 }
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class PersonState extends RxState<State> {
   private actions = getActions<Actions>();
@@ -39,7 +38,7 @@ export class PersonState extends RxState<State> {
           (id) => {
             return getPerson(id).pipe(
               map(
-                (result) => ({ person: toDictionary([result], 'id') } as State)
+                (result) => ({ person: toDictionary([result], 'id') })
               ),
               withLoadingEmission('personContext')
             );
@@ -47,8 +46,7 @@ export class PersonState extends RxState<State> {
         )
       ),
       (oldState, newPartial) => {
-        let s = newPartial as unknown as State;
-        let resultState = patch(oldState, s);
+        let resultState = patch(oldState, newPartial);
         resultState.person = patch(oldState?.person, resultState.person);
         return resultState;
       }
