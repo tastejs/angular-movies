@@ -54,21 +54,31 @@ export function infiniteScrolled<T, I extends {}>(
     }),
     // in case there is global state connected we take care of just taking the initial value
     take(1),
-    tap(v => console.log('infiniteScrolled#initialResult$: ', v)),
+    tap(v => console.log('infiniteScrolled#initialResult$: ', v))
   );
-
+  let page: number = 0;
+  let totalPages: number = 0;
   return initialResult$.pipe(
     expand((result) => {
-      const page = result.page + 1;
-      const nextRequest$ = trigger$.pipe(
-        tap(v => console.log('infiniteScrolled#trigger$: ', v)),
-        concatMap((triggerParams: I) => fetchFn({ page }, triggerParams).pipe(withLoadingEmission())),
-        tap(v => console.log('infiniteScrolled#fetchFn$: ', v)),
-      );
+      console.log('infiniteScrolled#result: ', result);
 
-      console.log('infiniteScrolled(page < result.totalPages): ', page < result.totalPages)
+      let nextRequest$: Observable<InfiniteScrolleState<T>> = EMPTY as unknown as Observable<InfiniteScrolleState<T>>;
       const empty$ = EMPTY as unknown as Observable<InfiniteScrolleState<T>>;
-      return (page < result.totalPages ? nextRequest$ : empty$);
+      // if it is a emission with a response ( hacky :( )
+      if ('page' in result && 'totalPages' in result) {
+        page = result.page + 1;
+        totalPages = result.totalPages;
+
+        nextRequest$ = (page < totalPages ? trigger$.pipe(
+          // tap(v => console.log('infiniteScrolled#trigger$: ', v)),
+          concatMap((triggerParams: I) => fetchFn({ page }, triggerParams).pipe(withLoadingEmission()) as Observable<InfiniteScrolleState<T>>),
+          tap(v => console.log('infiniteScrolled#fetchFn$: ', v))
+        ) : empty$);
+      }
+
+      console.log('infiniteScrolled(page < result.totalPages): ', page, totalPages, page < totalPages);
+
+      return nextRequest$;
     })
   );
 }

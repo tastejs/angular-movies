@@ -98,7 +98,11 @@ export class MovieListPageAdapter extends RxState<MovieListPageModel> {
       (oldState, newSlice) => {
         if (newSlice?.results) {
           console.log('old results:', oldState, 'newSlice: ', newSlice, listChanged(oldState, newSlice));
-          newSlice.results = listChanged(oldState, newSlice) ? insert((oldState as any)?.results, newSlice.results) : [];
+          if(listChanged(oldState, newSlice)) {
+            newSlice.results = newSlice.results;
+          } else {
+            newSlice.results = insert((oldState as any)?.results, newSlice.results);
+          }
         }
 
         return newSlice;

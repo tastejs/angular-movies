@@ -1,7 +1,7 @@
 import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, Input, Output, ViewChild, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
 import { RxState } from '@rx-angular/state';
-import { map, Observable, Subject, switchMap, take } from 'rxjs';
+import { map, Observable, Subject, switchMap } from 'rxjs';
 import { TMDBMovieModel } from '../../../data-access/api/model/movie.model';
 import { W300H450 } from '../../../data-access/configurations/image-sizes';
 import { ImageTag } from '../../../shared/utils/image/image-tag.interface';
@@ -20,7 +20,7 @@ type Movie = TMDBMovieModel & ImageTag;
       </pre>
       <div
         class="movies-list--grid"
-        *ngIf="(movies$ | async) !== null; else noData"
+        *ngIf="$any((movies$ | async)?.length) >= 1; else noData"
         data-test="list-container"
       >
         <!--
@@ -55,8 +55,8 @@ type Movie = TMDBMovieModel & ImageTag;
             <ui-star-rating [rating]="movie.vote_average"></ui-star-rating>
           </div>
         </a>
+        <div #paginateEl class="pagination">PAGAGAG</div>
       </div>
-      <div #paginateEl class="pagination">PAGAGAG</div>
     </ng-container>
 
 
@@ -103,7 +103,7 @@ export class MovieListComponent implements AfterViewInit {
     this.state.connect('movies', movies$);
   }
 
-  @Output() readonly paginate = this.ui.paginate$.pipe(take(1));
+  @Output() readonly paginate = this.ui.paginate$;
 
   constructor(
     private router: Router,
