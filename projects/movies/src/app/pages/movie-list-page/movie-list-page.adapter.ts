@@ -42,7 +42,7 @@ export class MovieListPageAdapter extends RxState<MovieListPageModel> {
     map(
       ({ categoryMovies: idMap, categoryMoviesLoading: loading }) => {
         // Add loading and if results is empty set it to []
-        return ({ loading, ...((idMap && idMap[identifier]) || { results: [] }) }) as MovieListPageModel;
+        return ({ loading, ...((idMap && idMap[identifier]) || { results: [] }) });
       }
     )
   );
@@ -84,7 +84,7 @@ export class MovieListPageAdapter extends RxState<MovieListPageModel> {
             routerParamsFromPaginationTrigger$,
             // initial value
             (type === 'category' ? this.initialCategoryMovieList$(identifier) : this.initialDiscoverMovieList$(identifier)).pipe(
-             // map((r) => ({ ...r, type, identifier }))
+             map((r) => ({ ...r, type, identifier }))
             )
           );
         })
