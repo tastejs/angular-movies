@@ -1,6 +1,5 @@
-import { concatMap, EMPTY, expand, map, Observable, take, tap } from 'rxjs';
+import { concatMap, EMPTY, expand, isObservable, map, Observable, of, take, tap } from 'rxjs';
 import { PaginatedResult } from '../../state/typings';
-import { coerceObservable } from '@rx-angular/cdk';
 import { LoadingState, withLoadingEmission } from '../withLoadingEmissions';
 
 export type PaginationOptions = { page: number, totalPages?: number };
@@ -45,7 +44,7 @@ export function infiniteScrolled<T, I extends {}>(
   initialState: PaginatedResult<any> | Observable<PaginatedResult<T>> = {} as PaginatedResult<any>
 ): Observable<Partial<InfiniteScrolleState<T>>> {
   // We need to reduce the initial page by one as we start by incrementing it
-  const initialResult$ = coerceObservable(initialState).pipe(
+  const initialResult$ = (isObservable(initialState) ? initialState : of(initialState)).pipe(
     map((s) => {
       const { page, totalPages, ...rest } = s;
       // if no start result is given start with page 0, total pages 2 => next request will be page 1
