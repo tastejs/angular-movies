@@ -36,26 +36,24 @@ function getFetchByType(type: RouterParams['type']): (i: string, options?: TMDBP
 export class MovieListPageAdapter extends RxState<MovieListPageModel> {
 
   private readonly actions = getActions<{ paginate: void }>();
-
   private readonly initialCategoryMovieList$ = (identifier: string) => this.movieState.select(
     selectSlice(['categoryMovies', 'categoryMoviesLoading']),
     // only forward if loading is finished and items are present
     filter(({ categoryMovies, categoryMoviesLoading }) => !categoryMoviesLoading && Array.isArray(categoryMovies[identifier]?.results)),
     map(
-      ({ categoryMovies: idMap, categoryMoviesLoading: loading }) => {
+      ({ categoryMovies: idMap, categoryMoviesLoading: loading }) =>
         // Add loading and if results is empty set it to []
-        return ({ loading, ...((idMap && idMap[identifier]) || { results: [] }) });
-      }
+        ({ loading, ...((idMap && idMap[identifier]) || { results: [] }) }) as MovieListPageModel
     )
   );
-  private readonly initialDiscoverMovieList$: (i: string) => Observable<MovieListPageModel> = (indentifier: string) => this.discoverState.select(
+  private readonly initialDiscoverMovieList$: (i: string) => Observable<MovieListPageModel> = (identifier: string) => this.discoverState.select(
     selectSlice(['discoveredMovies', 'discoveredMoviesLoading']),
     // only forward if loading is finished and items are present
-    filter(({ discoveredMovies, discoveredMoviesLoading }) => !discoveredMoviesLoading && Array.isArray(discoveredMovies[indentifier]?.results)),
+    filter(({ discoveredMovies, discoveredMoviesLoading }) => !discoveredMoviesLoading && Array.isArray(discoveredMovies[identifier]?.results)),
     map(
       ({ discoveredMovies: idMap, discoveredMoviesLoading: loading }) =>
         // Add loading and if results is empty set it to []
-        ({ loading, ...((idMap && idMap[indentifier]) || { results: [] }) }) as MovieListPageModel
+        ({ loading, ...((idMap && idMap[identifier]) || { results: [] }) }) as MovieListPageModel
     )
   );
 
@@ -93,7 +91,7 @@ export class MovieListPageAdapter extends RxState<MovieListPageModel> {
       ),
       (oldState, newSlice) => {
         if (newSlice?.results) {
-          newSlice.results = listChanged(oldState, newSlice) ? newSlice.results : insert((oldState as any)?.results, newSlice.results);
+          newSlice.results = listChanged(oldState, newSlice) ? newSlice.results : insert(oldState.results, newSlice.results);
         }
         return newSlice;
       }
