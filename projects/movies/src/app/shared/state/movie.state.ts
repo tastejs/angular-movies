@@ -6,12 +6,12 @@ import { optimizedFetch } from '../utils/optimized-fetch';
 import { getActions } from '../rxa-custom/actions';
 import { withLoadingEmission } from '../utils/withLoadingEmissions';
 import { getMovie, getMovieCategory } from '../../data-access/api/resources/movie.resource';
+import { PaginatedResult } from './typings';
 
 export interface State {
   movies: Record<string, TMDBMovieModel>;
   moviesContext: boolean;
-  categoryMovies: Record<string, TMDBMovieModel[]>;
-  categoryMoviesTotalPages: Record<string, number>;
+  categoryMovies: Record<string, PaginatedResult<TMDBMovieModel>>;
   categoryMoviesContext: boolean;
 }
 
@@ -74,13 +74,9 @@ export class MovieState extends RxState<State> {
           ({ category }) => `category-${category}`,
           ({ category }) =>
             getMovieCategory(category).pipe(
-              map(
-                ({ results, totalPages }) =>
-                  ({
-                    categoryMovies: { [category]: results },
-                    categoryMoviesTotalPages: { [category]: totalPages }
-                  } as State)
-              ),
+              map((paginatedResult) => ({
+                categoryMovies: { [category]: paginatedResult }
+              })),
               withLoadingEmission('categoryMoviesContext')
             )
         )
@@ -91,10 +87,6 @@ export class MovieState extends RxState<State> {
         resultState.categoryMovies = patch(
           oldState?.categoryMovies,
           resultState.categoryMovies
-        );
-        resultState.categoryMoviesTotalPages = patch(
-          oldState?.categoryMoviesTotalPages,
-          resultState.categoryMoviesTotalPages
         );
         return resultState;
       }

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { RxState, selectSlice } from '@rx-angular/state';
-import { concat, EMPTY, map, Observable, Subject, take, tap, withLatestFrom } from 'rxjs';
+import { EMPTY, map, Observable, Subject, tap, withLatestFrom } from 'rxjs';
 import { TMDBMovieModel } from '../../data-access/api/model/movie.model';
 import { getMovieCategory } from '../../data-access/api/resources/movie.resource';
 import { getDiscoverMovies } from '../../data-access/api/resources/discover.resource';
@@ -14,7 +14,7 @@ import { MovieState } from '../../shared/state/movie.state';
 import { RouterState } from '../../shared/state/router.state';
 import { getIdentifierOfTypeAndLayout } from '../../shared/state/utils';
 import { PaginationState } from '../../shared/utils/infinite-scroll/paginate-state.interface';
-import { infiniteScrolled, PaginationOptions } from '../../shared/utils/infinite-scroll/infinite-scrolled';
+import { infiniteScrolled, InfiniteScrolleState, PaginationOptions } from '../../shared/utils/infinite-scroll/infinite-scrolled';
 
 
 import { RouterParams } from '../../shared/state/router-state.interface';
@@ -52,7 +52,7 @@ export class MovieListPageAdapter extends RxState<MovieListPageModel> {
 
   private readonly paginate$ = new Subject<void>();
 
-  private readonly initialCategoryMovieList$ = this.movieState.select(
+  private readonly initialCategoryMovieList$: Observable<InfiniteScrolleState<TMDBMovieModel>> = this.movieState.select(
     selectSlice([
       'categoryMovies',
       'categoryMoviesContext'
@@ -60,15 +60,9 @@ export class MovieListPageAdapter extends RxState<MovieListPageModel> {
     withLatestFrom(this.routerCategory$),
     map(
       ([
-         { categoryMovies, categoryMoviesContext },
+         { categoryMovies, categoryMoviesContext: loading },
          indentifier
-       ]) => {
-        return {
-          indentifier,
-          loading: categoryMoviesContext,
-          results: (categoryMovies && categoryMovies[indentifier]) || null
-        };
-      }
+       ]) => ({ loading, ...((categoryMovies && categoryMovies[indentifier]) || { results: null }) })
     )
   );
 
@@ -137,25 +131,22 @@ export class MovieListPageAdapter extends RxState<MovieListPageModel> {
     this.set({
       results: []
     });
-    this.initialCategoryMovieList$;
+
     const routerParamsFromPaginationTrigger$ = this.paginate$.pipe(
       withLatestFrom(this.routerState.routerParams$),
       map(([_, routerParams]) => routerParams)
     );
-    this.initialCategoryMovieList$.pipe(take(1));
+
     // paginated results as container state
     this.connect(
-      concat(
-        // Initial page cached for instant result after navigation the first page result is cached in a global state service
-        // this.initialCategoryMovieList$.pipe(take(1)),
-        infiniteScrolled(
-          routerParamsFromPaginationTrigger$.pipe(tap(v => console.log('routerParamsFromPaginationTrigger$: ', v))),
-          (paginationOptions: PaginationOptions, { type, identifier }) => {
-            // @TODO type correctly
-            return getFetchByType(type)(identifier, paginationOptions);// .pipe(withLoadingEmission())
-          }
-        ).pipe(tap(v => console.log('after scroll: ', v)))
-      ),
+      infiniteScrolled(
+        routerParamsFromPaginationTrigger$.pipe(tap(v => console.log('routerParamsFromPaginationTrigger$: ', v))),
+        (paginationOptions: PaginationOptions, { type, identifier }) => {
+          // @TODO type correctly
+          return getFetchByType(type)(identifier, paginationOptions);// .pipe(withLoadingEmission())
+        },
+        this.initialCategoryMovieList$
+      ).pipe(tap(v => console.log('after scroll: ', v))),
       ({ results }, newSlice) => {
         if (newSlice?.results) {
           newSlice.results = results.concat(newSlice.results);

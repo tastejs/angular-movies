@@ -14,17 +14,18 @@ type Movie = TMDBMovieModel & ImageTag;
   selector: 'ui-movie-list',
   template: `
     <ng-container
-      *rxLet="
-        moviesListVisible$;
-        let hasMovies;
-        renderCallback: moviesRendered$
-      "
+
     >
       <div
         class="movies-list--grid"
-        *ngIf="hasMovies; else noData"
+        *ngIf="(movies$ | async)?.length; else noData"
         data-test="list-container"
       >
+        <!--
+          **🚀 Perf Tip for TBT:**
+          Use \`rxFor\` in favour of \`ngFor\` to get non blocking rendering of lists.
+          This reduces drastically the TBT measure.
+          -->
         <a
           class="movies-list--grid-item"
           *rxFor="let movie of movies$; index as idx; trackBy: trackByMovieId"
@@ -52,13 +53,13 @@ type Movie = TMDBMovieModel & ImageTag;
             <ui-star-rating [rating]="movie.vote_average"></ui-star-rating>
           </div>
         </a>
-        <div #paginate class="pagination"></div>
       </div>
+      <div #paginate class="pagination"></div>
     </ng-container>
 
+
     <ng-template #noData>
-      <div style="display: flex; align-items: center;" *rxLet="[];  renderCallback: moviesRendered$">
-        <div #paginate class="pagination"></div>
+      <div style="display: flex; align-items: center;">
         <span style="font-size: 1.5rem">No results</span>
         <svg height="24" width="24" viewBox="0 0 24 24" fill="currentColor">
           <path d="M0 0h24v24H0V0z" fill="none" />
