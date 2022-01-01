@@ -8,7 +8,7 @@ import { LoadingState, withLoadingEmission } from '../utils/withLoadingEmissions
 import { getMovie, getMovieCategory } from '../../data-access/api/resources/movie.resource';
 import { PaginatedResult } from './typings';
 
-export interface State extends LoadingState<'moviesContext'>, LoadingState<'categoryMoviesContext'> {
+export interface State extends LoadingState<'moviesLoading'>, LoadingState<'categoryMoviesLoading'> {
   movies: Record<string, TMDBMovieModel>;
   categoryMovies: Record<string, PaginatedResult<TMDBMovieModel>>;
 }
@@ -45,7 +45,7 @@ export class MovieState extends RxState<State> {
               map(
                 (result) => ({ movies: toDictionary([result], 'id') } as State)
               ),
-              withLoadingEmission('moviesContext')
+              withLoadingEmission('moviesLoading')
             );
           }
         )
@@ -75,7 +75,7 @@ export class MovieState extends RxState<State> {
               map((paginatedResult) => ({
                 categoryMovies: { [category]: paginatedResult }
               })),
-              withLoadingEmission('categoryMoviesContext')
+              withLoadingEmission('categoryMoviesLoading')
             )
         )
       ),

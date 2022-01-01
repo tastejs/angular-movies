@@ -70,7 +70,6 @@ export function infiniteScrolled<T, I extends {}>(
         totalPages = result.totalPages;
 
         nextRequest$ = (page < totalPages ? trigger$.pipe(
-          // tap(v => console.log('infiniteScrolled#trigger$: ', v)),
           concatMap((triggerParams: I) => fetchFn({ page }, triggerParams).pipe(withLoadingEmission()) as Observable<InfiniteScrolleState<T>>),
           tap(v => console.log('infiniteScrolled#fetchFn$: ', v))
         ) : empty$);

@@ -4,13 +4,12 @@ import { TMDBMovieModel } from '../../data-access/api/model/movie.model';
 import { patch, RxState } from '@rx-angular/state';
 import { optimizedFetch } from '../utils/optimized-fetch';
 import { getActions } from '../rxa-custom/actions';
-import { withLoadingEmission } from '../utils/withLoadingEmissions';
+import { LoadingState, withLoadingEmission } from '../utils/withLoadingEmissions';
 import { getDiscoverMovies } from '../../data-access/api/resources/discover.resource';
 import { PaginatedResult } from './typings';
 
-export interface State {
+export interface State extends LoadingState<'discoveredMoviesLoading'> {
   discoveredMovies: Record<string, PaginatedResult<TMDBMovieModel>>;
-  discoveredMoviesContext: boolean;
 }
 
 interface Actions {
@@ -49,7 +48,7 @@ export class DiscoverState extends RxState<State> {
                 (resp) =>
                   ({ discoveredMovies: { [genre]: resp } } as State)
               ),
-              withLoadingEmission('genreMoviesContext')
+              withLoadingEmission('discoveredMoviesLoading')
             )
         )
       ),

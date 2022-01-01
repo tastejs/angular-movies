@@ -36,23 +36,23 @@ export class MovieListPageAdapter extends RxState<MovieListPageModel> {
   private readonly paginate$ = new Subject<void>();
 
   private readonly initialCategoryMovieList$ = (identifier: string) => this.movieState.select(
-    selectSlice(['categoryMovies', 'categoryMoviesContext']),
+    selectSlice(['categoryMovies', 'categoryMoviesLoading']),
     // only forward if loading is finished and items are present
-    filter(({ categoryMovies, categoryMoviesContext }) => !categoryMoviesContext && Array.isArray(categoryMovies[identifier]?.results)),
+    filter(({ categoryMovies, categoryMoviesLoading }) => !categoryMoviesLoading && Array.isArray(categoryMovies[identifier]?.results)),
     map(
-      ({ categoryMovies: idMap, categoryMoviesContext: loading }) => {
-        // Add loading and if results is empty set it to null
+      ({ categoryMovies: idMap, categoryMoviesLoading: loading }) => {
+        // Add loading and if results is empty set it to []
         return ({ loading, ...((idMap && idMap[identifier]) || { results: [] }) }) as MovieListPageModel;
       }
     )
   );
   private readonly initialDiscoverMovieList$: (i: string) => Observable<MovieListPageModel> = (indentifier: string) => this.discoverState.select(
-    selectSlice(['discoveredMovies', 'discoveredMoviesContext']),
+    selectSlice(['discoveredMovies', 'discoveredMoviesLoading']),
     // only forward if loading is finished and items are present
-    filter(({ discoveredMovies, discoveredMoviesContext }) => !discoveredMoviesContext && Array.isArray(discoveredMovies[indentifier]?.results)),
+    filter(({ discoveredMovies, discoveredMoviesLoading }) => !discoveredMoviesLoading && Array.isArray(discoveredMovies[indentifier]?.results)),
     map(
-      ({ discoveredMovies: idMap, discoveredMoviesContext: loading }) =>
-        // Add loading and if results is empty set it to null
+      ({ discoveredMovies: idMap, discoveredMoviesLoading: loading }) =>
+        // Add loading and if results is empty set it to []
         ({ loading, ...((idMap && idMap[indentifier]) || { results: [] }) }) as MovieListPageModel
     )
   );
@@ -63,9 +63,6 @@ export class MovieListPageAdapter extends RxState<MovieListPageModel> {
     private routerState: RouterState
   ) {
     super();
-    this.set({
-      // to render something to trigger render callback
-    });
 
     const routerParamsFromPaginationTrigger$: Observable<MovieListRouterParams> = this.paginate$.pipe(
       withLatestFrom(this.routerState.routerParams$),
@@ -75,36 +72,28 @@ export class MovieListPageAdapter extends RxState<MovieListPageModel> {
     // paginated results as container state
     this.connect(
       this.routerState.routerParams$.pipe(
-        // we clear the current result on route change with switchMap and startWit
+        // we clear the current result on route change with switchMap and restart
         distinctUntilKeyChanged('identifier'),
         switchMap(({ type, identifier }) => {
           console.log('switch to ', type, identifier);
           return infiniteScrolled(
-            (paginationOptions: PaginationOptions, { type, identifier }) => {
-              // @TODO type correctly
-              const z = getFetchByType(type)(identifier, paginationOptions).pipe(
-                map((r) => ({ ...r, type, identifier }))
-              );
-              return z;
-            },
+            // data fetch funtions
+            (paginationOptions: PaginationOptions, { type, identifier }) => getFetchByType(type)(identifier, paginationOptions)
+              .pipe(map((r) => ({ ...r, type, identifier }))),
+            // trigger from infinite scroll list
             routerParamsFromPaginationTrigger$,
+            // initial value
             (type === 'category' ? this.initialCategoryMovieList$(identifier) : this.initialDiscoverMovieList$(identifier)).pipe(
-              map((r) => ({ ...r, type, identifier }))
+             // map((r) => ({ ...r, type, identifier }))
             )
           );
-          // .pipe(startWith({ results: [], identifier, type } as unknown as InfiniteScrolleState<TMDBMovieModel>));
         })
       ),
       (oldState, newSlice) => {
         if (newSlice?.results) {
           console.log('old results:', oldState, 'newSlice: ', newSlice, listChanged(oldState, newSlice));
-          if(listChanged(oldState, newSlice)) {
-            newSlice.results = newSlice.results;
-          } else {
-            newSlice.results = insert((oldState as any)?.results, newSlice.results);
-          }
+          newSlice.results = listChanged(oldState, newSlice) ? newSlice.results : insert((oldState as any)?.results, newSlice.results);
         }
-
         return newSlice;
       }
     );
