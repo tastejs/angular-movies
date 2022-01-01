@@ -14,11 +14,7 @@ type Movie = TMDBMovieModel & ImageTag;
 @Component({
   selector: 'ui-movie-list',
   template: `
-    <ng-container>
-      <pre>
-        Length movies: {{(movies$ | async)?.length}}
-      </pre>
-      <div
+     <div
         class="movies-list--grid"
         *ngIf="$any((movies$ | async)?.length) >= 1; else noData"
         data-test="list-container"
@@ -55,9 +51,8 @@ type Movie = TMDBMovieModel & ImageTag;
             <ui-star-rating [rating]="movie.vote_average"></ui-star-rating>
           </div>
         </a>
-        <div #paginateEl class="pagination">PAGAGAG</div>
+        <div #paginateEl class="pagination"></div>
       </div>
-    </ng-container>
 
 
     <ng-template #noData>
