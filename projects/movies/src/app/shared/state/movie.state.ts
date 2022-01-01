@@ -4,15 +4,13 @@ import { TMDBMovieModel } from '../../data-access/api/model/movie.model';
 import { patch, RxState, toDictionary } from '@rx-angular/state';
 import { optimizedFetch } from '../utils/optimized-fetch';
 import { getActions } from '../rxa-custom/actions';
-import { withLoadingEmission } from '../utils/withLoadingEmissions';
+import { LoadingState, withLoadingEmission } from '../utils/withLoadingEmissions';
 import { getMovie, getMovieCategory } from '../../data-access/api/resources/movie.resource';
 import { PaginatedResult } from './typings';
 
-export interface State {
+export interface State extends LoadingState<'moviesContext'>, LoadingState<'categoryMoviesContext'> {
   movies: Record<string, TMDBMovieModel>;
-  moviesContext: boolean;
   categoryMovies: Record<string, PaginatedResult<TMDBMovieModel>>;
-  categoryMoviesContext: boolean;
 }
 
 interface Actions {

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { RxState, selectSlice } from '@rx-angular/state';
-import { distinctUntilKeyChanged, EMPTY, map, Observable, startWith, Subject, switchMap, withLatestFrom } from 'rxjs';
+import { insert, RxState, selectSlice } from '@rx-angular/state';
+import { distinctUntilKeyChanged, EMPTY, filter, map, Observable, Subject, switchMap, withLatestFrom } from 'rxjs';
 import { TMDBMovieModel } from '../../data-access/api/model/movie.model';
 import { getMovieCategory } from '../../data-access/api/resources/movie.resource';
 import { getDiscoverMovies } from '../../data-access/api/resources/discover.resource';
@@ -8,16 +8,16 @@ import { TMDBPaginationOptions } from '../../data-access/api/model/pagination.in
 import { DiscoverState } from '../../shared/state/discover.state';
 import { MovieState } from '../../shared/state/movie.state';
 import { RouterState } from '../../shared/state/router.state';
-import { PaginationState } from '../../shared/utils/infinite-scroll/paginate-state.interface';
-import { infiniteScrolled, PaginationOptions } from '../../shared/utils/infinite-scroll/infinite-scrolled';
+import { infiniteScrolled, InfiniteScrolleState, PaginationOptions } from '../../shared/utils/infinite-scroll/infinite-scrolled';
 import { RouterParams } from '../../shared/state/router-state.interface';
 import { PaginatedResult } from '../../shared/state/typings';
 
-type MovieListPageModel = PaginationState<TMDBMovieModel> &
-  {
-    type: string;
-    identifier: string;
-  };
+type MovieListRouterParams = Pick<RouterParams, 'type' | 'identifier'>
+type MovieListPageModel = InfiniteScrolleState<TMDBMovieModel> & MovieListRouterParams;
+
+function listChanged(oldP: any, newP: any): boolean {
+  return oldP?.type !== newP?.type || oldP?.identifier !== newP?.identifier;
+}
 
 function getFetchByType(type: RouterParams['type']): (i: string, options?: TMDBPaginationOptions) => Observable<PaginatedResult<TMDBMovieModel>> {
   if (type === 'category') {
@@ -25,7 +25,7 @@ function getFetchByType(type: RouterParams['type']): (i: string, options?: TMDBP
   } else if (type === 'genre' || type === 'search') {
     return getDiscoverMovies;
   }
-  return (_: string, __?: TMDBPaginationOptions) => EMPTY as unknown as Observable<PaginationState<TMDBMovieModel>>;
+  return (_: string, __?: TMDBPaginationOptions) => EMPTY as unknown as Observable<PaginatedResult<TMDBMovieModel>>;
 }
 
 @Injectable({
@@ -35,20 +35,25 @@ export class MovieListPageAdapter extends RxState<MovieListPageModel> {
 
   private readonly paginate$ = new Subject<void>();
 
-  private readonly initialCategoryMovieList$ = (indentifier: string) => this.movieState.select(
+  private readonly initialCategoryMovieList$ = (identifier: string) => this.movieState.select(
     selectSlice(['categoryMovies', 'categoryMoviesContext']),
+    // only forward if loading is finished and items are present
+    filter(({ categoryMovies, categoryMoviesContext }) => !categoryMoviesContext && Array.isArray(categoryMovies[identifier]?.results)),
     map(
-      ({ categoryMovies: idMap, categoryMoviesContext: loading }) =>
+      ({ categoryMovies: idMap, categoryMoviesContext: loading }) => {
         // Add loading and if results is empty set it to null
-        ({ loading, ...((idMap && idMap[indentifier]) || { results: null }) })
+        return ({ loading, ...((idMap && idMap[identifier]) || { results: [] }) }) as MovieListPageModel;
+      }
     )
   );
-  private readonly initialDiscoverMovieList$ = (indentifier: string) => this.discoverState.select(
+  private readonly initialDiscoverMovieList$: (i: string) => Observable<MovieListPageModel> = (indentifier: string) => this.discoverState.select(
     selectSlice(['discoveredMovies', 'discoveredMoviesContext']),
+    // only forward if loading is finished and items are present
+    filter(({ discoveredMovies, discoveredMoviesContext }) => !discoveredMoviesContext && Array.isArray(discoveredMovies[indentifier]?.results)),
     map(
       ({ discoveredMovies: idMap, discoveredMoviesContext: loading }) =>
         // Add loading and if results is empty set it to null
-        ({ loading, ...((idMap && idMap[indentifier]) || { results: null }) })
+        ({ loading, ...((idMap && idMap[indentifier]) || { results: [] }) }) as MovieListPageModel
     )
   );
 
@@ -60,10 +65,9 @@ export class MovieListPageAdapter extends RxState<MovieListPageModel> {
     super();
     this.set({
       // to render something to trigger render callback
-      results: []
     });
 
-    const routerParamsFromPaginationTrigger$ = this.paginate$.pipe(
+    const routerParamsFromPaginationTrigger$: Observable<MovieListRouterParams> = this.paginate$.pipe(
       withLatestFrom(this.routerState.routerParams$),
       map(([_, routerParams]) => routerParams)
     );
@@ -72,22 +76,31 @@ export class MovieListPageAdapter extends RxState<MovieListPageModel> {
     this.connect(
       this.routerState.routerParams$.pipe(
         // we clear the current result on route change with switchMap and startWit
-        distinctUntilKeyChanged('type'),
+        distinctUntilKeyChanged('identifier'),
         switchMap(({ type, identifier }) => {
+          console.log('switch to ', type, identifier);
           return infiniteScrolled(
-            routerParamsFromPaginationTrigger$,
             (paginationOptions: PaginationOptions, { type, identifier }) => {
               // @TODO type correctly
-              return getFetchByType(type)(identifier, paginationOptions);// .pipe(withLoadingEmission())
+              const z = getFetchByType(type)(identifier, paginationOptions).pipe(
+                map((r) => ({ ...r, type, identifier }))
+              );
+              return z;
             },
-            type === 'category' ? this.initialDiscoverMovieList$(identifier) : this.initialCategoryMovieList$(identifier)
-          ).pipe(startWith({results: []}));
+            routerParamsFromPaginationTrigger$,
+            (type === 'category' ? this.initialCategoryMovieList$(identifier) : this.initialDiscoverMovieList$(identifier)).pipe(
+              map((r) => ({ ...r, type, identifier }))
+            )
+          );
+          // .pipe(startWith({ results: [], identifier, type } as unknown as InfiniteScrolleState<TMDBMovieModel>));
         })
       ),
-      ({ results }, newSlice) => {
+      (oldState, newSlice) => {
         if (newSlice?.results) {
-          newSlice.results = results.concat(newSlice.results);
+          console.log('old results:', oldState, 'newSlice: ', newSlice, listChanged(oldState, newSlice));
+          newSlice.results = listChanged(oldState, newSlice) ? insert((oldState as any)?.results, newSlice.results) : [];
         }
+
         return newSlice;
       }
     );

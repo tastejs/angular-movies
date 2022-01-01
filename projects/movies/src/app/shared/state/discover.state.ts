@@ -6,9 +6,10 @@ import { optimizedFetch } from '../utils/optimized-fetch';
 import { getActions } from '../rxa-custom/actions';
 import { withLoadingEmission } from '../utils/withLoadingEmissions';
 import { getDiscoverMovies } from '../../data-access/api/resources/discover.resource';
+import { PaginatedResult } from './typings';
 
 export interface State {
-  discoveredMovies: Record<string, TMDBMovieModel[]>;
+  discoveredMovies: Record<string, PaginatedResult<TMDBMovieModel>>;
   discoveredMoviesContext: boolean;
 }
 
@@ -17,11 +18,11 @@ interface Actions {
 }
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class DiscoverState extends RxState<State> {
   private actions = getActions<Actions>({
-    fetchDiscoverMovies: (e: string | number) => e + '',
+    fetchDiscoverMovies: (e: string | number) => e + ''
   });
 
   readonly fetchDiscoverMovies = this.actions.fetchDiscoverMovies;
@@ -30,7 +31,7 @@ export class DiscoverState extends RxState<State> {
     super();
 
     this.set({
-      discoveredMovies: {},
+      discoveredMovies: {}
     });
 
     this.connect(
@@ -45,8 +46,8 @@ export class DiscoverState extends RxState<State> {
           (genre) =>
             getDiscoverMovies(genre).pipe(
               map(
-                ({ results }) =>
-                  ({ discoveredMovies: { [genre]: results } } as State)
+                (resp) =>
+                  ({ discoveredMovies: { [genre]: resp } } as State)
               ),
               withLoadingEmission('genreMoviesContext')
             )

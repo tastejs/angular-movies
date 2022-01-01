@@ -2,7 +2,6 @@ import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/
 import { selectSlice } from '@rx-angular/state';
 import { map, Observable } from 'rxjs';
 import { MovieListPageAdapter } from './movie-list-page.adapter';
-import { getIdentifierOfTypeAndLayout } from '../../shared/state/utils';
 import { parseTitle } from '../../shared/utils/parse-movie-list-title';
 
 @Component({
@@ -13,7 +12,6 @@ import { parseTitle } from '../../shared/utils/parse-movie-list-title';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MovieListPageComponent {
-  t = getIdentifierOfTypeAndLayout;
   readonly movies$ = this.adapter.select('results');
   readonly loading$ = this.adapter.select(
     selectSlice(['loading', 'results'], {

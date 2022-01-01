@@ -1,11 +1,15 @@
-import { startWith, endWith, Observable } from 'rxjs';
+import { endWith, Observable, startWith } from 'rxjs';
 
-export function withLoadingEmission<
-  T extends object,
-  K extends string | number | symbol = 'loading'
->(property = 'loading') {
-  const start = { [property]: true } as unknown as T;
-  const end = { [property]: false } as unknown as T;
-  return (o$: Observable<T>): Observable<T | { [k in K]?: boolean }> =>
-    o$.pipe(startWith(start), endWith(end));
+export type LoadingState<K extends string | DefaultLoadingProp> = { [k in K]: boolean };
+
+type DefaultLoadingProp = string & 'loading';
+const defaultLoadingProp:DefaultLoadingProp = 'loading';
+
+export function withLoadingEmission<T extends {}, K extends string = DefaultLoadingProp>(property?: K) {
+  const _property = property === undefined ? defaultLoadingProp as DefaultLoadingProp : property;
+
+  const start = { [_property]: true } as T & LoadingState<K>;
+  const end = { [_property]: false } as T & LoadingState<K>;
+
+  return (o$: Observable<T>) => (o$ as Observable<T & LoadingState<K>>).pipe(startWith(start), endWith(end));
 }

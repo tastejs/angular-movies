@@ -1,24 +1,26 @@
 import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, Input, Output, ViewChild, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
 import { RxState } from '@rx-angular/state';
-import { map, Observable, Subject, switchMap } from 'rxjs';
+import { map, Observable, Subject, switchMap, take } from 'rxjs';
 import { TMDBMovieModel } from '../../../data-access/api/model/movie.model';
 import { W300H450 } from '../../../data-access/configurations/image-sizes';
 import { ImageTag } from '../../../shared/utils/image/image-tag.interface';
 import { addImageTag } from '../../../shared/utils/image/image-tag.transform';
 import { observeElementVisibility } from '../../../shared/utils/observe-element-visibility';
+import { getActions } from '../../../shared/rxa-custom/actions';
 
 type Movie = TMDBMovieModel & ImageTag;
 
 @Component({
   selector: 'ui-movie-list',
   template: `
-    <ng-container
-
-    >
+    <ng-container>
+      <pre>
+        Length movies: {{(movies$ | async)?.length}}
+      </pre>
       <div
         class="movies-list--grid"
-        *ngIf="(movies$ | async)?.length; else noData"
+        *ngIf="(movies$ | async) !== null; else noData"
         data-test="list-container"
       >
         <!--
@@ -28,7 +30,7 @@ type Movie = TMDBMovieModel & ImageTag;
           -->
         <a
           class="movies-list--grid-item"
-          *rxFor="let movie of movies$; index as idx; trackBy: trackByMovieId"
+          *rxFor="let movie of movies$; index as idx; trackBy: trackByMovieId; renderCallback: moviesRendered$"
           (click)="$event.preventDefault(); navigateToMovie(movie)"
           [attr.data-test]="'list-item-idx-' + idx"
         >
@@ -54,7 +56,7 @@ type Movie = TMDBMovieModel & ImageTag;
           </div>
         </a>
       </div>
-      <div #paginate class="pagination"></div>
+      <div #paginateEl class="pagination">PAGAGAG</div>
     </ng-container>
 
 
@@ -78,9 +80,11 @@ type Movie = TMDBMovieModel & ImageTag;
   encapsulation: ViewEncapsulation.Emulated
 })
 export class MovieListComponent implements AfterViewInit {
-  @ViewChild('paginate') paginateEl?: ElementRef<HTMLElement>;
+  @ViewChild('paginateEl') paginateEl?: ElementRef<HTMLElement>;
 
-  readonly moviesRendered$ = new Subject<boolean>();
+  ui = getActions<{ paginate: void }>();
+
+  readonly moviesRendered$ = new Subject<any>();
 
   readonly movies$ = this.state.select(
     map((state) =>
@@ -99,39 +103,25 @@ export class MovieListComponent implements AfterViewInit {
     this.state.connect('movies', movies$);
   }
 
-  @Output() readonly paginate = new Subject<void>();
+  @Output() readonly paginate = this.ui.paginate$.pipe(take(1));
 
   constructor(
     private router: Router,
-    private state: RxState<{
-      movies: TMDBMovieModel[];
-    }>
+    private state: RxState<{ movies: TMDBMovieModel[]; }>
   ) {
   }
 
   ngAfterViewInit(): void {
     this.state.hold(
       this.moviesRendered$.pipe(
+        // @TODO add comments why
         switchMap(() =>
           observeElementVisibility(
             (this.paginateEl as ElementRef).nativeElement
           )
         )
-      )
-      /*this.moviesListVisible$.pipe(
-        switchMap((hasMovies) =>
-          !hasMovies
-            ? EMPTY
-            : this.moviesRendered$.pipe(
-                switchMap(() =>
-                  observeElementVisibility(
-                    (this.paginateEl as ElementRef).nativeElement
-                  )
-                )
-              )
-        )
-      )*/,
-      (intersecting) => intersecting && this.paginate.next()
+      ),
+      (intersecting) => intersecting && this.ui.paginate()
     );
   }
 
