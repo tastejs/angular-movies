@@ -59,7 +59,7 @@ type PartialInfiniteScrollState<T> = Partial<InfiniteScrollState<T>>;
  */
 export function infiniteScrolled<T>(
   fetchFn: (
-    options: PaginationOptions
+    incrementedOptions: PaginationOptions
   ) => Observable<PartialInfiniteScrollState<T>>,
   trigger$: Observable<any>,
   initialPageOrLastResult:
@@ -104,16 +104,18 @@ export function infiniteScrolled<T>(
   ).pipe(
     scan(
       (acc: InfiniteScrollState<T>, response) => {
+        // in case the initial value was no set we take total pages from the result
+        if (response?.totalPages) {
+          totalPages = response.totalPages as number;
+        }
         // Only treas results if they are given.
         // Avoid emitting unnecessary empty arrays which cause render filcker and bad performance
         if (response?.results) {
           acc.results = insert(acc?.results, response?.results || []);
+          delete response.results;
         }
-        if (response?.totalPages) {
-          totalPages = response.totalPages as number;
-        }
-        patch(acc, response);
-        return acc;
+        // the rest gets updated
+        return patch(acc, response);
       },
       { page, totalPages } as unknown as InfiniteScrollState<T>
     )

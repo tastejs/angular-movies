@@ -65,7 +65,8 @@ type Movie = TMDBMovieModel & ImageTag;
             <ui-star-rating [rating]="movie.vote_average"></ui-star-rating>
           </div>
         </a>
-        <div (elementVisibility)="ui.paginate($event)" class="pagination"></div>
+        <!-- If this element is visible in the viewport the paginate event fires -->
+        <div (elementVisibility)="ui.paginate($event)"></div>
       </div>
 
       <ng-template #noData>

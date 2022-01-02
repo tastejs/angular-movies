@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { combineLatest, map, startWith, switchMap } from 'rxjs';
+import { combineLatest, map, switchMap } from 'rxjs';
 import { RxState, selectSlice } from '@rx-angular/state';
 import { RouterState } from '../../shared/state/router.state';
 import { MovieState } from '../../shared/state/movie.state';
@@ -36,17 +36,14 @@ export class MovieDetailAdapter extends RxState<MovieDetailPageModel> {
 
   movieCastById$ = this.routerMovieId$.pipe(
     switchMap((identifier) =>
-      getCredits(identifier).pipe(
-        map((res: any) => res.cast || []),
-        startWith([])
-      )
+      getCredits(identifier).pipe(map((res: any) => res.cast || []))
     )
   );
 
   movieRecommendationsById$ = this.routerMovieId$.pipe(
     switchMap((id) =>
       infiniteScrolled(
-        (params) => getMoviesRecommendations(id, params),
+        (incrementedParams) => getMoviesRecommendations(id, incrementedParams),
         this.actions.paginate$,
         getMoviesRecommendations(id, { page: 1 })
       )
