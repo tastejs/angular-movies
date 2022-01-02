@@ -1,38 +1,41 @@
 import { Injectable } from '@angular/core';
 import { map } from 'rxjs';
-import { MovieModel } from '../../data-access/model/movie.model';
+import { TMDBMovieModel } from '../../data-access/api/model/movie.model';
 import { patch, RxState } from '@rx-angular/state';
 import { optimizedFetch } from '../utils/optimized-fetch';
 import { getActions } from '../rxa-custom/actions';
-import { withLoadingEmission } from '../utils/withLoadingEmissions';
-import { getDiscoverMovies } from '../../data-access/api/discover.resource';
+import { withLoadingEmission } from '../cdk/loading/withLoadingEmissions';
+import { getDiscoverMovies } from '../../data-access/api/resources/discover.resource';
+import { PaginatedResult } from './typings';
+import { LoadingState } from '../cdk/loading/loading-state.interface';
 
-export interface State {
-  genreMovies: Record<string, MovieModel[]>;
-  genreMoviesContext: boolean;
+export interface State extends LoadingState<'discoveredMoviesLoading'> {
+  discoveredMovies: Record<string, PaginatedResult<TMDBMovieModel>>;
 }
 
 interface Actions {
-  fetchGenreMovies: string;
+  fetchDiscoverMovies: string;
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class DiscoverState extends RxState<State> {
-  private actions = getActions<Actions>({ fetchGenreMovies: (e: string | number) => e + '' });
+  private actions = getActions<Actions>({
+    fetchDiscoverMovies: (e: string | number) => e + '',
+  });
 
-  readonly fetchGenreMovies = this.actions.fetchGenreMovies;
+  readonly fetchDiscoverMovies = this.actions.fetchDiscoverMovies;
 
   constructor() {
     super();
 
     this.set({
-      genreMovies: {}
+      discoveredMovies: {},
     });
 
     this.connect(
-      this.actions.fetchGenreMovies$.pipe(
+      this.actions.fetchDiscoverMovies$.pipe(
         /**
          * **🚀 Perf Tip for TTI, TBT:**
          *
@@ -40,20 +43,21 @@ export class DiscoverState extends RxState<State> {
          */
         optimizedFetch(
           (genre) => 'genre' + '-' + genre,
-          (genre) => getDiscoverMovies(genre)
-            .pipe(
-              map(({ results }) => ({ genreMovies: { [genre]: results } } as State)),
-              withLoadingEmission('genreMoviesContext', true, false)
+          (genre) =>
+            getDiscoverMovies(genre).pipe(
+              map((resp) => ({ discoveredMovies: { [genre]: resp } })),
+              withLoadingEmission('discoveredMoviesLoading')
             )
         )
       ),
       (oldState, newPartial) => {
-        let s = newPartial as unknown as State;
-        let resultState = patch(oldState, s);
-        resultState.genreMovies = patch(oldState.genreMovies, resultState.genreMovies);
+        let resultState = patch(oldState, newPartial);
+        resultState.discoveredMovies = patch(
+          oldState.discoveredMovies,
+          resultState.discoveredMovies
+        );
         return resultState;
       }
     );
   }
-
 }

@@ -1,85 +1,78 @@
-import { MovieModel } from '../../data-access/model/movie.model';
 import { Injectable } from '@angular/core';
+import { combineLatest, map, switchMap } from 'rxjs';
 import { RxState, selectSlice } from '@rx-angular/state';
 import { RouterState } from '../../shared/state/router.state';
-import { combineLatest, map, startWith, switchMap, tap } from 'rxjs';
-import { W780H1170 } from '../../data-access/configurations/image-sizes';
-import { MovieCastModel } from '../../data-access/model/movie-cast.model';
-import { MovieDetailsModel } from '../../data-access/model/movie-details.model';
-import { ImageTag } from '../../shared/utils/image/image-tag.interface';
-import { getIdentifierOfTypeAndLayout } from '../../shared/state/utils';
 import { MovieState } from '../../shared/state/movie.state';
-import { addImageTag } from '../../shared/utils/image/image-tag.transform';
-import { getCredits, getMoviesRecommendations } from '../../data-access/api/movie.resource';
-import { addVideoTag } from '../../shared/utils/video/video-tag.transform';
-import { VideoTag } from '../../shared/utils/video/video.interface';
-
-export type MovieDetail = MovieDetailsModel & ImageTag & VideoTag & { languages_runtime_release: string };
+import { getIdentifierOfTypeAndLayout } from '../../shared/state/utils';
+import {
+  getCredits,
+  getMoviesRecommendations,
+} from '../../data-access/api/resources/movie.resource';
+import { transformToMovieDetail } from './selection/client-movie-detail.mapper';
+import { getActions } from '../../shared/rxa-custom/actions';
+import { infiniteScrolled } from '../../shared/cdk/infinite-scroll/infinite-scrolled';
+import { MovieDetail } from './selection/movie-detail.model';
+import { TMDBMovieModel } from '../../data-access/api/model/movie.model';
+import { TMDBMovieCastModel } from '../../data-access/api/model/movie-credits.model';
+import { InfiniteScrollState } from '../../shared/cdk/infinite-scroll/paginate-state.interface';
 
 export interface MovieDetailPageModel {
   loading: boolean;
   movie: MovieDetail;
-  recommendations: MovieModel[];
-  cast: MovieCastModel[];
-}
-
-function transformToMovieDetail(_res: MovieModel): MovieDetail {
-  const res = _res as unknown as MovieDetail;
-  let language: string | boolean = false;
-  if (Array.isArray(res?.spoken_languages) && res?.spoken_languages.length !== 0) {
-    language = res.spoken_languages[0].english_name;
-  }
-  res.languages_runtime_release = `${
-    language + ' / ' || ''
-  } ${res.runtime} MIN. / ${new Date(
-    res.release_date
-  ).getFullYear()}`;
-
-  addVideoTag(res, { pathPropFn: (r: any) => r?.videos?.results[0]?.key + '' });
-  addImageTag(res, { pathProp: 'poster_path', dims: W780H1170 });
-  return res as MovieDetail;
+  recommendations: Partial<InfiniteScrollState<TMDBMovieModel>>;
+  cast: TMDBMovieCastModel[];
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class MovieDetailAdapter extends RxState<MovieDetailPageModel> {
-
+  private readonly actions = getActions<{ paginate: void }>();
+  readonly paginate = this.actions.paginate;
   routedMovieSlice$ = this.select(selectSlice(['movie', 'loading']));
-  routerMovieId$ = this.routerState.select(getIdentifierOfTypeAndLayout('movie', 'detail'), tap(v => console.log('router detail', v)));
-
-  movieRecomendationsById$ = this.routerMovieId$.pipe(
-    switchMap((identifier) =>
-      getMoviesRecommendations(identifier).pipe(
-        map((res: any) => res.results),
-        startWith([])
-      )
-    )
+  routerMovieId$ = this.routerState.select(
+    getIdentifierOfTypeAndLayout('movie', 'detail')
   );
 
   movieCastById$ = this.routerMovieId$.pipe(
     switchMap((identifier) =>
-      getCredits(identifier).pipe(
-        map((res: any) => res.cast || []),
-        startWith([])
+      getCredits(identifier).pipe(map((res: any) => res.cast || []))
+    )
+  );
+
+  movieRecommendationsById$ = this.routerMovieId$.pipe(
+    switchMap((id) =>
+      infiniteScrolled(
+        (incrementedParams) => getMoviesRecommendations(id, incrementedParams),
+        this.actions.paginate$,
+        getMoviesRecommendations(id, { page: 1 })
       )
     )
   );
 
   constructor(
     private movieState: MovieState,
-    private routerState: RouterState) {
+    private routerState: RouterState
+  ) {
     super();
     this.connect(
-      combineLatest({ id: this.routerMovieId$, globalSlice: this.movieState.select(selectSlice(['movies', 'moviesContext'])) }).pipe(
+      combineLatest({
+        id: this.routerMovieId$,
+        globalSlice: this.movieState.select(
+          selectSlice(['movies', 'moviesLoading'])
+        ),
+      }).pipe(
         map(({ id, globalSlice }) => {
-          const { movies, moviesContext: loading } = globalSlice;
-          return ({
+          const { movies, moviesLoading: loading } = globalSlice;
+          return {
             loading,
-            movie: movies[id] !== undefined ? transformToMovieDetail(movies[id]) : null
-          }) as MovieDetailPageModel;
-        }))
+            movie:
+              movies[id] !== undefined
+                ? transformToMovieDetail(movies[id])
+                : null,
+          } as MovieDetailPageModel;
+        })
+      )
     );
   }
-
 }

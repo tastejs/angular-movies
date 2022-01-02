@@ -1,9 +1,9 @@
-export interface MovieVideosModel {
+export interface TMDBMovieVideosModel {
     id: number;
-    results: Results[];
+    results: TMDBVideoResults[];
 }
 
-interface Results {
+interface TMDBVideoResults {
     id: string;
     iso_639_1: string;
     iso_3166_1: string;

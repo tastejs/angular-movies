@@ -1,8 +1,9 @@
 import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/core';
 import { selectSlice } from '@rx-angular/state';
-import { map } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { MovieListPageAdapter } from './movie-list-page.adapter';
-import { getIdentifierOfTypeAndLayout } from '../../shared/state/utils';
+import { parseTitle } from '../../shared/utils/parse-movie-list-title';
+
 @Component({
   selector: 'ct-movies-list',
   templateUrl: './movie-list-page.component.html',
@@ -11,20 +12,23 @@ import { getIdentifierOfTypeAndLayout } from '../../shared/state/utils';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MovieListPageComponent {
-  t = getIdentifierOfTypeAndLayout;
-  readonly movies$ = this.adapter.select('movies');
+  readonly movies$ = this.adapter.select('results');
   readonly loading$ = this.adapter.select(
-    selectSlice(['loading', 'movies'], {
-      movies: (a, b) => a?.length !== b?.length
+    selectSlice(['loading', 'results'], {
+      results: (a, b) => a?.length !== b?.length
     }),
-    map(({ loading, movies }) => loading || movies === null)
+    map(({ loading, results }) => loading || results === null)
   );
-  readonly headings$ = this.adapter.select(selectSlice(['title', 'type']));
+  readonly headings$: Observable<{ title: string, type: string }> = this.adapter.select(
+    selectSlice(['identifier', 'type']),
+    map(({ identifier, type }) => ({ type, title: parseTitle(identifier) }))
+  );
 
-  constructor(
-    private adapter: MovieListPageAdapter
-  ) {
+  constructor(private adapter: MovieListPageAdapter) {
     this.adapter.set({ loading: true });
   }
 
+  paginate() {
+    this.adapter.paginate();
+  }
 }
