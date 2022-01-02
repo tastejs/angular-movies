@@ -1,13 +1,20 @@
-import { distinctUntilChanged, Observable } from 'rxjs';
+import {
+  distinctUntilChanged,
+  isObservable,
+  Observable,
+  takeUntil,
+} from 'rxjs';
 
 export function observeElementVisibility(
   element: HTMLElement,
   cfg?: {
-    root: null;
-    rootMargin: string;
-    threshold: number;
+    root?: HTMLElement | null;
+    rootMargin?: string;
+    threshold?: number;
+    stop$?: Observable<any>;
   }
 ): Observable<boolean> {
+  const { stop$, ..._cgf } = cfg || {};
   return new Observable<boolean>((subscriber) => {
     const observer = new IntersectionObserver(
       (entries: IntersectionObserverEntry[]) => {
@@ -17,13 +24,14 @@ export function observeElementVisibility(
         root: null,
         rootMargin: '500px',
         threshold: 0.5,
-        ...(cfg || {})
+        ..._cgf,
       }
     );
     observer.observe(element);
     return () => observer.disconnect();
   }).pipe(
     // only forward changes in visibility
-    distinctUntilChanged()
+    distinctUntilChanged(),
+    isObservable(stop$) ? takeUntil(stop$) : (o) => o
   );
 }

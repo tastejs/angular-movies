@@ -1,10 +1,13 @@
 import { Injectable } from '@angular/core';
-import { combineLatest, map, startWith, switchMap, switchMapTo } from 'rxjs';
+import { combineLatest, map, startWith, switchMap } from 'rxjs';
 import { RxState, selectSlice } from '@rx-angular/state';
 import { RouterState } from '../../shared/state/router.state';
 import { MovieState } from '../../shared/state/movie.state';
 import { getIdentifierOfTypeAndLayout } from '../../shared/state/utils';
-import { getCredits, getMoviesRecommendations } from '../../data-access/api/resources/movie.resource';
+import {
+  getCredits,
+  getMoviesRecommendations,
+} from '../../data-access/api/resources/movie.resource';
 import { transformToMovieDetail } from './selection/client-movie-detail.mapper';
 import { getActions } from '../../shared/rxa-custom/actions';
 import { infiniteScrolled } from '../../shared/utils/infinite-scroll/infinite-scrolled';
@@ -12,7 +15,6 @@ import { MovieDetail } from './selection/movie-detail.model';
 import { TMDBMovieModel } from '../../data-access/api/model/movie.model';
 import { TMDBMovieCastModel } from '../../data-access/api/model/movie-credits.model';
 import { InfiniteScrollState } from '../../shared/utils/infinite-scroll/paginate-state.interface';
-
 
 export interface MovieDetailPageModel {
   loading: boolean;
@@ -22,10 +24,9 @@ export interface MovieDetailPageModel {
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class MovieDetailAdapter extends RxState<MovieDetailPageModel> {
-
   private readonly actions = getActions<{ paginate: void }>();
   readonly paginate = this.actions.paginate;
   routedMovieSlice$ = this.select(selectSlice(['movie', 'loading']));
@@ -33,9 +34,13 @@ export class MovieDetailAdapter extends RxState<MovieDetailPageModel> {
     getIdentifierOfTypeAndLayout('movie', 'detail')
   );
 
-  movieRecommendationsById$ = infiniteScrolled(
-    (params, identifier) => getMoviesRecommendations(identifier, params),
-    this.actions.paginate$.pipe(switchMapTo(this.routerMovieId$))
+  movieRecommendationsById$ = this.routerMovieId$.pipe(
+    switchMap((id) =>
+      infiniteScrolled(
+        (params) => getMoviesRecommendations(id, params),
+        this.actions.paginate$
+      )
+    )
   );
 
   movieCastById$ = this.routerMovieId$.pipe(
@@ -49,14 +54,15 @@ export class MovieDetailAdapter extends RxState<MovieDetailPageModel> {
 
   constructor(
     private movieState: MovieState,
-    private routerState: RouterState) {
+    private routerState: RouterState
+  ) {
     super();
     this.connect(
       combineLatest({
         id: this.routerMovieId$,
         globalSlice: this.movieState.select(
           selectSlice(['movies', 'moviesLoading'])
-        )
+        ),
       }).pipe(
         map(({ id, globalSlice }) => {
           const { movies, moviesLoading: loading } = globalSlice;
@@ -65,7 +71,7 @@ export class MovieDetailAdapter extends RxState<MovieDetailPageModel> {
             movie:
               movies[id] !== undefined
                 ? transformToMovieDetail(movies[id])
-                : null
+                : null,
           } as MovieDetailPageModel;
         })
       )
