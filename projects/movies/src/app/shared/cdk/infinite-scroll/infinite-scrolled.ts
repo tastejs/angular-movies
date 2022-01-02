@@ -50,6 +50,13 @@ type PartialInfiniteScrollState<T> = Partial<InfiniteScrollState<T>>;
  *    )
  * );
  *
+ * @example
+ * const infiniteList$ = infiniteScrolled(
+ *   (options) => getDiscoverMovies(identifier, options),
+ *   this.actions.paginate$,
+ *   getDiscoverMovies(identifier, { page: 1 })
+ * );
+ *
  */
 export function infiniteScrolled<T>(
   fetchFn: (
