@@ -24,7 +24,6 @@ export const getMovieCategory = (
   category: string,
   options: TMDBPaginationOptions = {} as TMDBPaginationOptions
 ): Observable<PaginatedResult<TMDBMovieModel>> => {
-  console.log('in http category:', category, ' options:', options);
   options = getTMDBPaginationOptions(options);
   return getHTTP()
     .get<TMDBPaginatedResult<TMDBMovieModel>>(URL_MOVIE_CATEGORY(category), { params: options })

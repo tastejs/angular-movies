@@ -8,7 +8,6 @@ import {
   of,
   scan,
   take,
-  tap,
 } from 'rxjs';
 import { PaginatedResult } from '../../state/typings';
 import { withLoadingEmission } from '../loading/withLoadingEmissions';
@@ -98,14 +97,7 @@ export function infiniteScrolled<T>(
       concatMap(() => {
         ++page;
         return page < totalPages
-          ? fetchFn({ page }).pipe(
-              tap((result) => {
-                if ('totalPages' in result) {
-                  totalPages = result.totalPages as number;
-                }
-              }),
-              withLoadingEmission()
-            )
+          ? fetchFn({ page }).pipe(withLoadingEmission())
           : (EMPTY as unknown as Observable<PartialInfiniteScrollState<T>>);
       })
     )
@@ -116,6 +108,9 @@ export function infiniteScrolled<T>(
         // Avoid emitting unnecessary empty arrays which cause render filcker and bad performance
         if (response?.results) {
           acc.results = insert(acc?.results, response?.results || []);
+        }
+        if (response?.totalPages) {
+          totalPages = response.totalPages as number;
         }
         patch(acc, response);
         return acc;
