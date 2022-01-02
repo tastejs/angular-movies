@@ -1,5 +1,5 @@
 import { Directive, ElementRef, OnDestroy, Output } from '@angular/core';
-import { getActions } from '../../../shared/rxa-custom/actions';
+import { getActions } from '../../rxa-custom/actions';
 import { observeElementVisibility } from './observe-element-visibility';
 import { takeUntil } from 'rxjs';
 

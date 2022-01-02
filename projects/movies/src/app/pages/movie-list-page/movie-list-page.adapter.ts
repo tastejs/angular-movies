@@ -16,14 +16,14 @@ import { TMDBPaginationOptions } from '../../data-access/api/model/pagination.in
 import { DiscoverState } from '../../shared/state/discover.state';
 import { MovieState } from '../../shared/state/movie.state';
 import { RouterState } from '../../shared/state/router.state';
-import { infiniteScrolled } from '../../shared/utils/infinite-scroll/infinite-scrolled';
+import { infiniteScrolled } from '../../shared/cdk/infinite-scroll/infinite-scrolled';
 import { RouterParams } from '../../shared/state/router-state.interface';
 import { PaginatedResult } from '../../shared/state/typings';
 import { getActions } from '../../shared/rxa-custom/actions';
 import {
   InfiniteScrollState,
   PaginationOptions,
-} from '../../shared/utils/infinite-scroll/paginate-state.interface';
+} from '../../shared/cdk/infinite-scroll/paginate-state.interface';
 
 type MovieListRouterParams = Pick<RouterParams, 'type' | 'identifier'>;
 type MovieListPageModel = InfiniteScrollState<TMDBMovieModel> &

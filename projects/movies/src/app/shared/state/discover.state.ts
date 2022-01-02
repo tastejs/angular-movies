@@ -4,7 +4,7 @@ import { TMDBMovieModel } from '../../data-access/api/model/movie.model';
 import { patch, RxState } from '@rx-angular/state';
 import { optimizedFetch } from '../utils/optimized-fetch';
 import { getActions } from '../rxa-custom/actions';
-import { LoadingState, withLoadingEmission } from '../utils/withLoadingEmissions';
+import { LoadingState, withLoadingEmission } from '../cdk/withLoadingEmissions';
 import { getDiscoverMovies } from '../../data-access/api/resources/discover.resource';
 import { PaginatedResult } from './typings';
 
@@ -17,11 +17,11 @@ interface Actions {
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class DiscoverState extends RxState<State> {
   private actions = getActions<Actions>({
-    fetchDiscoverMovies: (e: string | number) => e + ''
+    fetchDiscoverMovies: (e: string | number) => e + '',
   });
 
   readonly fetchDiscoverMovies = this.actions.fetchDiscoverMovies;
@@ -30,7 +30,7 @@ export class DiscoverState extends RxState<State> {
     super();
 
     this.set({
-      discoveredMovies: {}
+      discoveredMovies: {},
     });
 
     this.connect(
@@ -44,10 +44,7 @@ export class DiscoverState extends RxState<State> {
           (genre) => 'genre' + '-' + genre,
           (genre) =>
             getDiscoverMovies(genre).pipe(
-              map(
-                (resp) =>
-                  ({ discoveredMovies: { [genre]: resp } })
-              ),
+              map((resp) => ({ discoveredMovies: { [genre]: resp } })),
               withLoadingEmission('discoveredMoviesLoading')
             )
         )

@@ -3,7 +3,7 @@ import { map } from 'rxjs';
 import { patch, RxState, toDictionary } from '@rx-angular/state';
 import { optimizedFetch } from '../utils/optimized-fetch';
 import { getActions } from '../rxa-custom/actions';
-import { LoadingState, withLoadingEmission } from '../utils/withLoadingEmissions';
+import { LoadingState, withLoadingEmission } from '../cdk/withLoadingEmissions';
 import { TMDBMoviePersonModel } from '../../data-access/api/model/movie-person.model';
 import { getPerson } from '../../data-access/api/resources/person.resource';
 
@@ -16,7 +16,7 @@ interface Actions {
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class PersonState extends RxState<State> {
   private actions = getActions<Actions>();
@@ -37,9 +37,7 @@ export class PersonState extends RxState<State> {
           (id) => id,
           (id) => {
             return getPerson(id).pipe(
-              map(
-                (result) => ({ person: toDictionary([result], 'id') })
-              ),
+              map((result) => ({ person: toDictionary([result], 'id') })),
               withLoadingEmission('personContext')
             );
           }

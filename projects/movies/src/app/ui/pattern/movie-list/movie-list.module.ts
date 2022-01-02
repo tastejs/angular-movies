@@ -5,7 +5,7 @@ import { MovieListComponent } from './movie-list.component';
 import { StarRatingModule } from '../star-rating/star-rating.module';
 import { LetModule } from '@rx-angular/template/let';
 import { RxForModule } from '../../../shared/rxa-custom/rx-for/rx-for.module';
-import { ElementVisibilityModule } from '../../cdk/element-visibility/element-visibility.module';
+import { ElementVisibilityModule } from '../../../shared/cdk/element-visibility/element-visibility.module';
 
 @NgModule({
   declarations: [MovieListComponent],

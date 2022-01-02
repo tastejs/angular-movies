@@ -4,11 +4,16 @@ import { TMDBMovieModel } from '../../data-access/api/model/movie.model';
 import { patch, RxState, toDictionary } from '@rx-angular/state';
 import { optimizedFetch } from '../utils/optimized-fetch';
 import { getActions } from '../rxa-custom/actions';
-import { LoadingState, withLoadingEmission } from '../utils/withLoadingEmissions';
-import { getMovie, getMovieCategory } from '../../data-access/api/resources/movie.resource';
+import { LoadingState, withLoadingEmission } from '../cdk/withLoadingEmissions';
+import {
+  getMovie,
+  getMovieCategory,
+} from '../../data-access/api/resources/movie.resource';
 import { PaginatedResult } from './typings';
 
-export interface State extends LoadingState<'moviesLoading'>, LoadingState<'categoryMoviesLoading'> {
+export interface State
+  extends LoadingState<'moviesLoading'>,
+    LoadingState<'categoryMoviesLoading'> {
   movies: Record<string, TMDBMovieModel>;
   categoryMovies: Record<string, PaginatedResult<TMDBMovieModel>>;
 }
@@ -19,7 +24,7 @@ interface Actions {
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class MovieState extends RxState<State> {
   private actions = getActions<Actions>();
@@ -42,9 +47,7 @@ export class MovieState extends RxState<State> {
           (id) => id,
           (id) => {
             return getMovie(id).pipe(
-              map(
-                (result) => ({ movies: toDictionary([result], 'id') })
-              ),
+              map((result) => ({ movies: toDictionary([result], 'id') })),
               withLoadingEmission('moviesLoading')
             );
           }
@@ -65,14 +68,14 @@ export class MovieState extends RxState<State> {
          * Avoid over fetching for HTTP get requests to URLs that will not change result quickly.
          */
         map(({ category }) => ({
-          category
+          category,
         })),
         optimizedFetch(
           ({ category }) => `category-${category}`,
           ({ category }) =>
             getMovieCategory(category).pipe(
               map((paginatedResult) => ({
-                categoryMovies: { [category]: paginatedResult }
+                categoryMovies: { [category]: paginatedResult },
               })),
               withLoadingEmission('categoryMoviesLoading')
             )

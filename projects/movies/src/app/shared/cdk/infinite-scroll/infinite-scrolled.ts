@@ -1,11 +1,11 @@
 import {
-  concatMap,
   EMPTY,
   expand,
   isObservable,
   map,
   Observable,
   of,
+  switchMap,
   take,
 } from 'rxjs';
 import { PaginatedResult } from '../../state/typings';
@@ -86,7 +86,8 @@ export function infiniteScrolled<T>(
 
         if (page < totalPages) {
           nextRequest$ = trigger$.pipe(
-            concatMap((_: any) => fetchFn({ page }).pipe(withLoadingEmission()))
+            take(1),
+            switchMap((_: any) => fetchFn({ page }).pipe(withLoadingEmission()))
           );
         }
       }
