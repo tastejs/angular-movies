@@ -9,7 +9,7 @@ import {
 } from '@angular/core';
 import { Router } from '@angular/router';
 import { RxState } from '@rx-angular/state';
-import { filter, map, Observable, tap } from 'rxjs';
+import { filter, map, Observable } from 'rxjs';
 import { TMDBMovieModel } from '../../../data-access/api/model/movie.model';
 import { W300H450 } from '../../../data-access/configurations/image-sizes';
 import { ImageTag } from '../../../shared/utils/image/image-tag.interface';
@@ -113,10 +113,7 @@ export class MovieListComponent {
   }
 
   // emit paginate event only if element is visible
-  @Output() readonly paginate = this.ui.paginate$.pipe(
-    tap(console.log),
-    filter(Boolean)
-  );
+  @Output() readonly paginate = this.ui.paginate$.pipe(filter(Boolean));
 
   constructor(
     private router: Router,

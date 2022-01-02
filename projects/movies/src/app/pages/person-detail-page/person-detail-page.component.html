@@ -5,7 +5,7 @@
         <img
           class="aspectRatio-2-3 fit-cover"
           [src]="
-          vs.person?.profile_path ? 
+          vs.person?.profile_path ?
             'https://image.tmdb.org/t/p/w' +
             vs.person.imgWidth +
             '/' +
@@ -56,9 +56,9 @@
 </article>
 <article *rxLet="recommendedLoading$; let loading">
   <header *rxLet="detailState$; let d">
-    <h1>{{d.person.name}} in</h1>
+    <h1>{{d.person?.name}} in</h1>
     <h2>Movies</h2>
   </header>
-  <ui-movie-list *ngIf="!loading" [movies]="recommendations$">
+  <ui-movie-list *ngIf="!loading" (paginate)="paginate()" [movies]="recommendations$">
   </ui-movie-list>
 </article>

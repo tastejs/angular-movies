@@ -22,7 +22,7 @@ type PartialInfiniteScrollState<T> = Partial<InfiniteScrollState<T>>;
 
 /**
  *
- * A helper function to trigger HTTP requesty on a paginated API.
+ * A helper function to trigger HTTP requests on a paginated API.
  *
  * @example
  *
@@ -59,7 +59,7 @@ export function infiniteScrolled<T>(
   initialPageOrLastResult:
     | PaginatedResult<any>
     | Observable<PaginatedResult<T>> = {} as PaginatedResult<any>
-): Observable<PartialInfiniteScrollState<T>> {
+): Observable<InfiniteScrollState<T>> {
   let page: number = 0;
   let totalPages: number = 2;
 
@@ -79,7 +79,7 @@ export function infiniteScrolled<T>(
         page,
         totalPages,
         ...rest,
-      } as PaginatedResult<T>;
+      } as InfiniteScrollState<T>;
     }),
     // in case there is global state connected we take care of just taking the initial value
     take(1)
@@ -100,19 +100,20 @@ export function infiniteScrolled<T>(
               withLoadingEmission()
             )
           : (EMPTY as unknown as Observable<PartialInfiniteScrollState<T>>);
-      }),
-      scan(
-        (acc: PaginatedResult<T>, response) => {
-          // Only treas results if they are given.
-          // Avoid emitting unnecessary empty arrays which cause render filcker and bad performance
-          if (response?.results) {
-            acc.results = insert(acc?.results, response?.results || []);
-          }
-          patch(acc, response);
-          return acc;
-        },
-        { page, totalPages } as unknown as PaginatedResult<T>
-      )
+      })
+    )
+  ).pipe(
+    scan(
+      (acc: InfiniteScrollState<T>, response) => {
+        // Only treas results if they are given.
+        // Avoid emitting unnecessary empty arrays which cause render filcker and bad performance
+        if (response?.results) {
+          acc.results = insert(acc?.results, response?.results || []);
+        }
+        patch(acc, response);
+        return acc;
+      },
+      { page, totalPages } as unknown as InfiniteScrollState<T>
     )
   );
 }

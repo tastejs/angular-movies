@@ -39,7 +39,7 @@ export class PersonState extends RxState<State> {
           (id) => {
             return getPerson(id).pipe(
               map((result) => ({ person: toDictionary([result], 'id') })),
-              withLoadingEmission('personContext')
+              withLoadingEmission('personLoading')
             );
           }
         )

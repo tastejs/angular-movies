@@ -1,8 +1,10 @@
 import { TMDBMovieModel } from '../../data-access/api/model/movie.model';
 import { Injectable } from '@angular/core';
 import { RxState, selectSlice } from '@rx-angular/state';
+import { infiniteScrolled } from '../../shared/cdk/infinite-scroll/infinite-scrolled';
+import { getActions } from '../../shared/rxa-custom/actions/index';
 import { RouterState } from '../../shared/state/router.state';
-import { combineLatest, map, startWith, switchMap } from 'rxjs';
+import { combineLatest, map, switchMap } from 'rxjs';
 import { W780H1170 } from '../../data-access/configurations/image-sizes';
 import { ImageTag } from '../../shared/utils/image/image-tag.interface';
 import { addImageTag } from '../../shared/utils/image/image-tag.transform';
@@ -24,35 +26,50 @@ function transformToPersonDetail(_res: TMDBMoviePersonModel): MoviePerson {
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class PersonDetailAdapter extends RxState<PersonDetailPageAdapterState> {
+  private readonly actions = getActions<{ paginate: void }>();
+  readonly paginate = this.actions.paginate;
 
   readonly routedPersonSlice$ = this.select(selectSlice(['person', 'loading']));
-  readonly routerPersonId$ = this.routerState.select(getIdentifierOfTypeAndLayout('person', 'detail'));
+  readonly routerPersonId$ = this.routerState.select(
+    getIdentifierOfTypeAndLayout('person', 'detail')
+  );
 
   readonly movieRecommendationsById$ = this.routerPersonId$.pipe(
     switchMap((identifier) =>
-      getDiscoverMovies(identifier).pipe(
-        map((res: any) => res.results),
-        startWith([])
+      infiniteScrolled(
+        (options) => getDiscoverMovies(identifier, options),
+        this.actions.paginate$,
+        getDiscoverMovies(identifier, { page: 1 })
       )
     )
   );
 
-  constructor(private routerState: RouterState,
-              private personState: PersonState) {
+  constructor(
+    private routerState: RouterState,
+    private personState: PersonState
+  ) {
     super();
     this.connect(
-      combineLatest({ id: this.routerPersonId$, globalSlice: this.personState.select(selectSlice(['person', 'personLoading'])) }).pipe(
+      combineLatest({
+        id: this.routerPersonId$,
+        globalSlice: this.personState.select(
+          selectSlice(['person', 'personLoading'])
+        ),
+      }).pipe(
         map(({ id, globalSlice }) => {
           const { person, personLoading: loading } = globalSlice;
-          return ({
+          return {
             loading,
-            person: person[id] !== undefined ? transformToPersonDetail(person[id]) : null
-          }) as PersonDetailPageAdapterState;
-        }))
+            person:
+              person[id] !== undefined
+                ? transformToPersonDetail(person[id])
+                : null,
+          } as PersonDetailPageAdapterState;
+        })
+      )
     );
   }
-
 }

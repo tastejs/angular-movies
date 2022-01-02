@@ -44,13 +44,12 @@ export class MovieDetailAdapter extends RxState<MovieDetailPageModel> {
   );
 
   movieRecommendationsById$ = this.routerMovieId$.pipe(
-    switchMap(
-      (id) =>
-        infiniteScrolled(
-          (params) => getMoviesRecommendations(id, params),
-          this.actions.paginate$.pipe(startWith(null))
-        )
-      // .pipe(startWith({ results: [{}] }))
+    switchMap((id) =>
+      infiniteScrolled(
+        (params) => getMoviesRecommendations(id, params),
+        this.actions.paginate$,
+        getMoviesRecommendations(id, { page: 1 })
+      )
     )
   );
 
