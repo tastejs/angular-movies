@@ -4,9 +4,10 @@ import { TMDBMovieModel } from '../../data-access/api/model/movie.model';
 import { patch, RxState } from '@rx-angular/state';
 import { optimizedFetch } from '../utils/optimized-fetch';
 import { getActions } from '../rxa-custom/actions';
-import { LoadingState, withLoadingEmission } from '../cdk/withLoadingEmissions';
+import { withLoadingEmission } from '../cdk/loading/withLoadingEmissions';
 import { getDiscoverMovies } from '../../data-access/api/resources/discover.resource';
 import { PaginatedResult } from './typings';
+import { LoadingState } from '../cdk/loading/loading-state.interface';
 
 export interface State extends LoadingState<'discoveredMoviesLoading'> {
   discoveredMovies: Record<string, PaginatedResult<TMDBMovieModel>>;

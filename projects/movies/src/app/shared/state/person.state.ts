@@ -3,9 +3,10 @@ import { map } from 'rxjs';
 import { patch, RxState, toDictionary } from '@rx-angular/state';
 import { optimizedFetch } from '../utils/optimized-fetch';
 import { getActions } from '../rxa-custom/actions';
-import { LoadingState, withLoadingEmission } from '../cdk/withLoadingEmissions';
+import { withLoadingEmission } from '../cdk/loading/withLoadingEmissions';
 import { TMDBMoviePersonModel } from '../../data-access/api/model/movie-person.model';
 import { getPerson } from '../../data-access/api/resources/person.resource';
+import { LoadingState } from '../cdk/loading/loading-state.interface';
 
 export interface State extends LoadingState<'personLoading'> {
   person: Record<string, TMDBMoviePersonModel>;

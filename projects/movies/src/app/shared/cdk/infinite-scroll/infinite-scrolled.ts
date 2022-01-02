@@ -9,7 +9,7 @@ import {
   take,
 } from 'rxjs';
 import { PaginatedResult } from '../../state/typings';
-import { withLoadingEmission } from '../withLoadingEmissions';
+import { withLoadingEmission } from '../loading/withLoadingEmissions';
 import {
   InfiniteScrollState,
   PaginationOptions,
