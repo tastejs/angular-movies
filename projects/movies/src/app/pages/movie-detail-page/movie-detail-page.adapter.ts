@@ -34,21 +34,23 @@ export class MovieDetailAdapter extends RxState<MovieDetailPageModel> {
     getIdentifierOfTypeAndLayout('movie', 'detail')
   );
 
-  movieRecommendationsById$ = this.routerMovieId$.pipe(
-    switchMap((id) =>
-      infiniteScrolled(
-        (params) => getMoviesRecommendations(id, params),
-        this.actions.paginate$
-      )
-    )
-  );
-
   movieCastById$ = this.routerMovieId$.pipe(
     switchMap((identifier) =>
       getCredits(identifier).pipe(
         map((res: any) => res.cast || []),
         startWith([])
       )
+    )
+  );
+
+  movieRecommendationsById$ = this.routerMovieId$.pipe(
+    switchMap(
+      (id) =>
+        infiniteScrolled(
+          (params) => getMoviesRecommendations(id, params),
+          this.actions.paginate$.pipe(startWith(null))
+        )
+      // .pipe(startWith({ results: [{}] }))
     )
   );
 

@@ -1,12 +1,14 @@
 import {
+  concat,
+  concatMap,
   EMPTY,
-  expand,
   isObservable,
   map,
   Observable,
   of,
-  switchMap,
+  scan,
   take,
+  tap,
 } from 'rxjs';
 import { PaginatedResult } from '../../state/typings';
 import { withLoadingEmission } from '../loading/withLoadingEmissions';
@@ -14,6 +16,7 @@ import {
   InfiniteScrollState,
   PaginationOptions,
 } from './paginate-state.interface';
+import { insert, patch } from '@rx-angular/state';
 
 type PartialInfiniteScrollState<T> = Partial<InfiniteScrollState<T>>;
 
@@ -41,7 +44,9 @@ type PartialInfiniteScrollState<T> = Partial<InfiniteScrollState<T>>;
  * const paginated$: Observable<{list: any[]} & PaginatedState> =
  *    infiniteScrolled(
  *      (options, triggerID) => fetchList(triggerID, options.page).pipe(mapToPaginationResult()),
- *     load$.pipe(mapTo(activeListId))
+ *     load$.pipe(mapTo(activeListId)),
+ *     // optional start page, default 0, e.g. {page: 4}, of({page: 4, result: any[]})
+ *     // Notice: If an Observable is passed the result will also be emitted as first value.
  *    )
  * );
  *
@@ -51,47 +56,63 @@ export function infiniteScrolled<T>(
     options: PaginationOptions
   ) => Observable<PartialInfiniteScrollState<T>>,
   trigger$: Observable<any>,
-  initialState:
+  initialPageOrLastResult:
     | PaginatedResult<any>
     | Observable<PaginatedResult<T>> = {} as PaginatedResult<any>
 ): Observable<PartialInfiniteScrollState<T>> {
+  let page: number = 0;
+  let totalPages: number = 2;
+
   // We need to reduce the initial page by one as we start by incrementing it
   const initialResult$ = (
-    isObservable(initialState) ? initialState : of(initialState)
+    isObservable(initialPageOrLastResult)
+      ? initialPageOrLastResult
+      : of(initialPageOrLastResult)
   ).pipe(
     map((s) => {
-      const { page, totalPages, ...rest } = s;
+      const { page: _p, totalPages: _t, ...rest } = s;
       // if no start result is given start with page 0, total pages 2 => next request will be page 1
       // if no initial result is given start with an empty list
+      page = _p || page;
+      totalPages = _t || totalPages;
       return {
-        page: page ? page : 0,
-        totalPages: totalPages || 2,
+        page,
+        totalPages,
         ...rest,
       } as PaginatedResult<T>;
     }),
     // in case there is global state connected we take care of just taking the initial value
     take(1)
   );
-  let page: number = 0;
-  let totalPages: number = 2;
-  return initialResult$.pipe(
-    expand((result) => {
-      console.log('expand: ', result, page, totalPages);
-      let nextRequest$: Observable<PartialInfiniteScrollState<T>> =
-        EMPTY as unknown as Observable<PartialInfiniteScrollState<T>>;
-      // if it is a emission with a response ( hacky :( )
-      if ('page' in result && 'totalPages' in result) {
-        page = result.page + 1;
-        totalPages = result.totalPages;
 
-        if (page < totalPages) {
-          nextRequest$ = trigger$.pipe(
-            take(1),
-            switchMap((_: any) => fetchFn({ page }).pipe(withLoadingEmission()))
-          );
-        }
-      }
-      return nextRequest$;
-    })
+  return concat(
+    initialResult$,
+    trigger$.pipe(
+      concatMap(() => {
+        ++page;
+        return page < totalPages
+          ? fetchFn({ page }).pipe(
+              tap((result) => {
+                if ('totalPages' in result) {
+                  totalPages = result.totalPages as number;
+                }
+              }),
+              withLoadingEmission()
+            )
+          : (EMPTY as unknown as Observable<PartialInfiniteScrollState<T>>);
+      }),
+      scan(
+        (acc: PaginatedResult<T>, response) => {
+          // Only treas results if they are given.
+          // Avoid emitting unnecessary empty arrays which cause render filcker and bad performance
+          if (response?.results) {
+            acc.results = insert(acc?.results, response?.results || []);
+          }
+          patch(acc, response);
+          return acc;
+        },
+        { page, totalPages } as unknown as PaginatedResult<T>
+      )
+    )
   );
 }

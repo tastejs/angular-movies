@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { insert, RxState, selectSlice } from '@rx-angular/state';
+import { RxState, selectSlice } from '@rx-angular/state';
 import {
   distinctUntilKeyChanged,
   EMPTY,
@@ -28,25 +28,6 @@ import {
 type MovieListRouterParams = Pick<RouterParams, 'type' | 'identifier'>;
 type MovieListPageModel = InfiniteScrollState<TMDBMovieModel> &
   MovieListRouterParams;
-
-function listChanged(oldP: any, newP: any): boolean {
-  return oldP?.type !== newP?.type || oldP?.identifier !== newP?.identifier;
-}
-
-function getFetchByType(
-  type: RouterParams['type']
-): (
-  i: string,
-  options?: TMDBPaginationOptions
-) => Observable<PaginatedResult<TMDBMovieModel>> {
-  if (type === 'category') {
-    return getMovieCategory;
-  } else if (type === 'genre' || type === 'search') {
-    return getDiscoverMovies;
-  }
-  return (_: string, __?: TMDBPaginationOptions) =>
-    EMPTY as unknown as Observable<PaginatedResult<TMDBMovieModel>>;
-}
 
 @Injectable({
   providedIn: 'root',
@@ -90,6 +71,21 @@ export class MovieListPageAdapter extends RxState<MovieListPageModel> {
       )
     );
 
+  initialFetchByType({
+    type,
+    identifier,
+  }: Omit<RouterParams, 'layout'>): Observable<
+    PaginatedResult<TMDBMovieModel>
+  > {
+    return type === 'category'
+      ? this.initialCategoryMovieList$(identifier).pipe(
+          map(({ page, ...r }) => ({ ...r, page: page - 1 }))
+        )
+      : this.initialDiscoverMovieList$(identifier).pipe(
+          map(({ page, ...r }) => ({ ...r, page: page - 1 }))
+        );
+  }
+
   readonly paginate = this.actions.paginate;
 
   constructor(
@@ -118,23 +114,26 @@ export class MovieListPageAdapter extends RxState<MovieListPageModel> {
               getFetchByType(type)(identifier, paginationOptions),
             // trigger from infinite scroll list
             routerParamsFromPaginationTrigger$,
-            // initial value from global cache
-            type === 'category'
-              ? this.initialCategoryMovieList$(identifier)
-              : this.initialDiscoverMovieList$(identifier)
+            // initial result and page
+            this.initialFetchByType({ type, identifier })
           )
         )
-      ),
-      (oldState, newSlice) => {
-        // As we can also have emissions independent of the result we have to check for it
-        if (newSlice?.results) {
-          // reset the list on navigation switch or append to list
-          newSlice.results = listChanged(oldState, newSlice)
-            ? newSlice.results
-            : insert(oldState?.results, newSlice.results);
-        }
-        return newSlice;
-      }
+      )
     );
   }
+}
+
+function getFetchByType(
+  type: RouterParams['type']
+): (
+  i: string,
+  options?: TMDBPaginationOptions
+) => Observable<PaginatedResult<TMDBMovieModel>> {
+  if (type === 'category') {
+    return getMovieCategory;
+  } else if (type === 'genre' || type === 'search') {
+    return getDiscoverMovies;
+  }
+  return (_: string, __?: TMDBPaginationOptions) =>
+    EMPTY as unknown as Observable<PaginatedResult<TMDBMovieModel>>;
 }
