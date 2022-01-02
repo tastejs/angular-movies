@@ -1,0 +1,100 @@
+@import "../../token/mixins/flex";
+
+:host {
+  display: contents;
+}
+
+.form {
+  position: relative;
+  @include d-flex-vh;
+  box-shadow: var(--theme-shadow-1);
+  background-color: var(--palette-secondary-dark);
+  border: 1px solid var(--palette-secondary-main);
+  width: 2rem;
+  cursor: pointer;
+  padding: 2rem;
+  height: 2rem;
+  outline: none;
+  border-radius: 100px;
+  transition: width var(--theme-anim-duration-standard)
+  var(--theme-anim-easing-easeInOut);
+}
+
+.magnifier-button {
+  line-height: 0;
+  pointer-events: none;
+  cursor: none;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  color: var(--palette-secondary-contrast-text);
+}
+
+.input {
+  font-size: var(--text-md);
+  font-weight: 300;
+  background-color: transparent;
+  width: 100%;
+  margin-left: 0;
+  color: var(--palette-secondary-contrast-text);
+  border: none;
+  transition: margin-left var(--theme-anim-duration-standard)
+  var(--theme-anim-easing-easeInOut);
+}
+
+input:focus,
+input:active {
+  outline: none;
+}
+
+input::placeholder {
+  color: var(--palette-secondary-contrast-text);
+}
+
+:host.opened .form {
+  width: 30rem;
+  cursor: auto;
+}
+
+:host.opened .magnifier-button {
+  pointer-events: auto;
+  cursor: pointer;
+}
+
+:host.opened .input {
+  margin-left: 1rem;
+  //cursor: pointer;
+}
+
+@media only screen and (max-width: 1300px) {
+  .magnifier-button {
+    font-size: 1rem;
+  }
+
+  .input {
+    font-size: 1.25rem;
+  }
+  .form {
+    padding: 1.5rem;
+    border: 1px solid hsl(0deg 0% 0% / 0%);
+    background-color: var(--palette-secondary-main);
+  }
+}
+
+@media only screen and (max-width: 900px) {
+  .input {
+    font-size: 1rem;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .input {
+    font-size: 0.875rem;
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  .form {
+    max-width: 16rem;
+  }
+}

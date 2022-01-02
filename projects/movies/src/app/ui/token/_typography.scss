@@ -1,0 +1,104 @@
+@import "variables/fontSize";
+
+html {
+  font-size: 62.5%;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 400;
+  line-height: 1.6;
+}
+
+@media only screen and (max-width: 1500px) {
+  html {
+    font-size: 57.5%;
+  }
+}
+
+@media only screen and (max-width: 1300px) {
+  html {
+    font-size: 55%;
+  }
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-weight: normal;
+  color: var(--palette-text-secondary);
+  text-transform: uppercase;
+  line-height: 1;
+  margin-bottom: 0.5rem;
+}
+
+h1 {
+  color: var(--palette-text-primary);
+  font-size: 3rem;
+  font-weight: 300;
+  letter-spacing: -0.5px;
+}
+
+h2 {
+  font-size: 1.75rem;
+  font-weight: 700;
+}
+
+h3 {
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+a {
+  cursor: pointer;
+  text-decoration: none;
+  font-size: 1.25rem;
+  color: var(--palette-secondary-main);
+}
+
+header {
+  margin-bottom: 2rem;
+}
+
+article {
+  @media only screen and (max-width: 1462.5px) {
+    padding-right: 3rem;
+    padding-left: 3rem;
+    margin-top: 3rem;
+  }
+
+  @media only screen and (max-width: 1300px) {
+    padding-right: 2rem;
+    padding-left: 2rem;
+    margin-top: 2rem;
+  }
+
+  padding-right: 4rem;
+  padding-left: 4rem;
+  margin-top: 4rem;
+}
+
+section {
+  display: block;
+  font-size: var(--text-md);
+  line-height: 1.8;
+  color: var(--palette-text-secondary);
+  margin-bottom: 3rem;
+
+  a {
+    color: var(--palette-secondary-main);
+  }
+
+  h3 {
+    color: var(--palette-text-primary);
+  }
+}
+
+
+@media only screen and (max-width: 900px) {
+  .title {
+    font-size: 2.125rem;
+  }
+}

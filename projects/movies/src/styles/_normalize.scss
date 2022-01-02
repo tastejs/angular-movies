@@ -31,6 +31,16 @@ body {
   }
 }
 
+dialog, iframe {
+  border: 0;
+}
+
+dialog {
+  border: 0;
+  margin: auto;
+  overflow: visible;
+}
+
 form,
 input,
 textarea,

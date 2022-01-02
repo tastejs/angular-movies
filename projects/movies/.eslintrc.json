@@ -1,18 +1,19 @@
 {
   "extends": "../../.eslintrc.json",
-  "ignorePatterns": ["!**/*"],
-  "parserOptions": {
-    "createDefaultProgram": true
-  },
+  "ignorePatterns": [
+    "!**/*"
+  ],
   "overrides": [
     {
-      "files": ["*.ts"],
+      "files": [
+        "*.ts"
+      ],
       "rules": {
         "@angular-eslint/directive-selector": [
           "error",
           {
             "type": "attribute",
-            "prefix": ["mv", "app"],
+            "prefix": ["app", "ct"],
             "style": "camelCase"
           }
         ],
@@ -20,7 +21,7 @@
           "error",
           {
             "type": "element",
-            "prefix": ["mv", "app"],
+            "prefix": ["app", "ct"],
             "style": "kebab-case"
           }
         ]

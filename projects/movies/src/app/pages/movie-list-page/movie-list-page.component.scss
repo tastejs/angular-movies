@@ -1,6 +1,5 @@
-@import '../../../styles/components/icon';
-@import '../../../styles/components/padding-wrapper';
-@import '../../../styles/components/tooltip';
+@import '../../ui/component/loader/loader';
+@import '../../ui/token/mixins/flex';
 
 :host {
   width: 100%;

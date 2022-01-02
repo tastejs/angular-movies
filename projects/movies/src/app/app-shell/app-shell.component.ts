@@ -1,31 +1,38 @@
-import { ChangeDetectionStrategy, Component, TrackByFunction, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, TrackByFunction, ViewChild, ViewEncapsulation } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { RxState } from '@rx-angular/state';
 import { filter, map } from 'rxjs';
 import { AuthStateService } from '../data-access/auth/auth.state';
-import { TmdbAuthEffects } from '../data-access/auth/tmdbAuth.effects';
+import { AuthEffects } from '../data-access/auth/auth.effects';
 import { MovieGenreModel } from '../data-access/model/movie-genre.model';
 import { trackByProp } from '../shared/utils/track-by';
-import { StateService } from '../shared/state/state.service';
 import { getActions } from '../shared/rxa-custom/actions';
+import { RouterState } from '../shared/state/router.state';
+import { getIdentifierOfTypeAndLayout } from '../shared/state/utils';
+import { GenreState } from '../shared/state/genre.state';
 
 @Component({
   selector: 'app-shell',
   templateUrl: './app-shell.component.html',
   styleUrls: ['./app-shell.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.Emulated,
   providers: [RxState]
 })
 export class AppShellComponent {
+
+  search$ = this.routerState.select(getIdentifierOfTypeAndLayout('search', 'list'));
+
   constructor(
-    private state: RxState<{
+    private readonly state: RxState<{
       activeRoute: string;
       loggedIn: boolean;
       sideDrawerOpen: boolean;
     }>,
-    public globalState: StateService,
+    public routerState: RouterState,
+    public genreState: GenreState,
     public authState: AuthStateService,
-    public authEffects: TmdbAuthEffects,
+    public authEffects: AuthEffects,
     private router: Router
   ) {
 
@@ -35,11 +42,12 @@ export class AppShellComponent {
      *
      * Disable initial sync navigation in router config and schedule it in router-outlet container component
      */
+    // @TODO use current URL
     setTimeout(() => this.router.navigate(['list/category/popular']));
   }
 
   init() {
-    this.state.set({sideDrawerOpen: false});
+    this.state.set({ sideDrawerOpen: false });
     this.state.connect(
       'sideDrawerOpen',
       this.ui.sideDrawerOpenToggle$
@@ -57,19 +65,19 @@ export class AppShellComponent {
     );
   }
 
-  genres$ = this.globalState.genresNames$;
+  readonly genres$ = this.genreState.genresNames$;
   @ViewChild('snav') snav: any;
 
   readonly viewState$ = this.state.select();
-  readonly ui = getActions<{sideDrawerOpenToggle: boolean}>();
+  readonly ui = getActions<{ sideDrawerOpenToggle: boolean }>();
 
-  trackByGenre: TrackByFunction<MovieGenreModel> =
+  readonly trackByGenre: TrackByFunction<MovieGenreModel> =
     trackByProp<MovieGenreModel>('name');
 
   searchMovie(term: string) {
     term === ''
-      ? this.router.navigate(['/movies/popular'])
-      : this.router.navigate(['/movies/search', { term }]);
+      ? this.router.navigate(['list/category/popular'])
+      : this.router.navigate([`list/search/${term}`]);
   }
 
   onSignOut() {
@@ -81,7 +89,6 @@ export class AppShellComponent {
     event.preventDefault();
     event.stopPropagation();
     this.closeSidenav();
-    this.resetPagination();
     this.router.navigate([path, ...args], { queryParams });
   }
 
@@ -89,7 +96,4 @@ export class AppShellComponent {
     this.ui.sideDrawerOpenToggle(false);
   }
 
-  resetPagination() {
-    sessionStorage.setItem('hubmovies-current-page', '1');
-  }
 }
