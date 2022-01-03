@@ -96,7 +96,7 @@ export function infiniteScrolled<T>(
     trigger$.pipe(
       concatMap(() => {
         ++page;
-        return page < totalPages
+        return page <= totalPages
           ? fetchFn({ page }).pipe(withLoadingEmission())
           : (EMPTY as unknown as Observable<PartialInfiniteScrollState<T>>);
       })
