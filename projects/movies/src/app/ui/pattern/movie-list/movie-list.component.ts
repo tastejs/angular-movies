@@ -91,8 +91,6 @@ type Movie = TMDBMovieModel & ImageTag;
   encapsulation: ViewEncapsulation.Emulated,
 })
 export class MovieListComponent {
-  @ViewChild('paginateEl') paginateEl?: ElementRef<HTMLElement>;
-
   ui =
     getActions<{ paginate: boolean; moviesVisibleRenderCallback: boolean }>();
 
