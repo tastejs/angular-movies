@@ -24,6 +24,7 @@ import {
   InfiniteScrollState,
   PaginationOptions,
 } from '../../shared/cdk/infinite-scroll/paginate-state.interface';
+import { getSearch } from '../../data-access/api/resources/search.resource';
 
 type MovieListRouterParams = Pick<RouterParams, 'type' | 'identifier'>;
 type MovieListPageModel = InfiniteScrollState<TMDBMovieModel> &
@@ -126,14 +127,18 @@ export class MovieListPageAdapter extends RxState<MovieListPageModel> {
 function getFetchByType(
   type: RouterParams['type']
 ): (
-  i: string,
-  options?: TMDBPaginationOptions
+  s: string,
+  options: TMDBPaginationOptions
 ) => Observable<PaginatedResult<TMDBMovieModel>> {
   if (type === 'category') {
     return getMovieCategory;
-  } else if (type === 'genre' || type === 'search') {
-    return getDiscoverMovies;
+  } else if (type === 'search') {
+    return getSearch;
+  } else if (type === 'genre') {
+    return (with_genres: string, options: TMDBPaginationOptions) =>
+      getDiscoverMovies({ ...options, with_genres });
   }
+
   return (_: string, __?: TMDBPaginationOptions) =>
     EMPTY as unknown as Observable<PaginatedResult<TMDBMovieModel>>;
 }

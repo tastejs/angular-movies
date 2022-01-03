@@ -15,6 +15,7 @@ import { W300H450 } from '../../../data-access/configurations/image-sizes';
 import { ImageTag } from '../../../shared/utils/image/image-tag.interface';
 import { addImageTag } from '../../../shared/utils/image/image-tag.transform';
 import { getActions } from '../../../shared/rxa-custom/actions';
+import { coerceObservable } from '../../../shared/utils/coerceObservable';
 
 type Movie = TMDBMovieModel & ImageTag;
 
@@ -109,8 +110,8 @@ export class MovieListComponent {
   );
 
   @Input()
-  set movies(movies$: Observable<TMDBMovieModel[]>) {
-    this.state.connect('movies', movies$);
+  set movies(movies$: Observable<TMDBMovieModel[]> | TMDBMovieModel[]) {
+    this.state.connect('movies', coerceObservable(movies$));
   }
 
   // emit paginate event only if element is visible
