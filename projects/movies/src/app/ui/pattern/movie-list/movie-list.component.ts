@@ -1,10 +1,8 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  ElementRef,
   Input,
   Output,
-  ViewChild,
   ViewEncapsulation,
 } from '@angular/core';
 import { Router } from '@angular/router';
