@@ -21,7 +21,7 @@ export class RootInjectorShortcutModule {
     if (!InjectorInstance) {
       InjectorInstance = injector;
     } else {
-      throw new Error('set injector only once');
+      console.error('set injector only once');
     }
   }
 }
