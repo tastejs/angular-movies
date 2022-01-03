@@ -1,4 +1,4 @@
-export interface Configuration {
+export interface TMDBConfigurationModel {
   change_keys: string[];
   images: {
     backdrop_sizes: string[];

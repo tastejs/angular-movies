@@ -3,13 +3,13 @@ import { map } from 'rxjs';
 import { patch, RxState, toDictionary } from '@rx-angular/state';
 import { optimizedFetch } from '../utils/optimized-fetch';
 import { getActions } from '../rxa-custom/actions';
-import { withLoadingEmission } from '../utils/withLoadingEmissions';
-import { MoviePersonModel } from '../../data-access/model/movie-person.model';
-import { getPerson } from '../../data-access/api/person.resource';
+import { withLoadingEmission } from '../cdk/loading/withLoadingEmissions';
+import { TMDBMoviePersonModel } from '../../data-access/api/model/movie-person.model';
+import { getPerson } from '../../data-access/api/resources/person.resource';
+import { LoadingState } from '../cdk/loading/loading-state.interface';
 
-export interface State {
-  person: Record<string, MoviePersonModel>;
-  personContext: boolean;
+export interface State extends LoadingState<'personLoading'> {
+  person: Record<string, TMDBMoviePersonModel>;
 }
 
 interface Actions {
@@ -17,7 +17,7 @@ interface Actions {
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class PersonState extends RxState<State> {
   private actions = getActions<Actions>();
@@ -26,31 +26,29 @@ export class PersonState extends RxState<State> {
 
   constructor() {
     super();
-    this.connect(this.actions.fetchPerson$.pipe(
-      /**
-       * **🚀 Perf Tip for TTI, TBT:**
-       *
-       * Avoid over fetching for HTTP get requests to URLs that will not change result quickly.
-       * E.G.: URLs with the same params
-       */
-      optimizedFetch(
-        (id) => id,
-        (id) => {
-          return getPerson(id)
-            .pipe(
-              map(result => ({ person: toDictionary([result], 'id') } as State)),
-              withLoadingEmission('personContext', true, false)
+    this.connect(
+      this.actions.fetchPerson$.pipe(
+        /**
+         * **🚀 Perf Tip for TTI, TBT:**
+         *
+         * Avoid over fetching for HTTP get requests to URLs that will not change result quickly.
+         * E.G.: URLs with the same params
+         */
+        optimizedFetch(
+          (id) => id,
+          (id) => {
+            return getPerson(id).pipe(
+              map((result) => ({ person: toDictionary([result], 'id') })),
+              withLoadingEmission('personLoading')
             );
-        }
-      )
+          }
+        )
       ),
       (oldState, newPartial) => {
-        let s = newPartial as unknown as State;
-        let resultState = patch(oldState, s);
+        let resultState = patch(oldState, newPartial);
         resultState.person = patch(oldState?.person, resultState.person);
         return resultState;
       }
     );
   }
-
 }

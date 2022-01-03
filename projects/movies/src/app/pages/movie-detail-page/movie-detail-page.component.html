@@ -132,11 +132,11 @@
     <div class="loader"></div>
   </ng-template>
 </article>
-<article *rxLet="recommendedLoading$; let loading">
+<article>
   <header>
     <h1>Recommended</h1>
     <h2>Movies</h2>
   </header>
-  <ui-movie-list *ngIf="!loading" [movies]="recommendations$">
+  <ui-movie-list [movies]="recommendations$" (paginate)="paginate()">
   </ui-movie-list>
 </article>

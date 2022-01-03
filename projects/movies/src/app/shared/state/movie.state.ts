@@ -1,26 +1,31 @@
 import { Injectable } from '@angular/core';
 import { map } from 'rxjs';
-import { MovieModel } from '../../data-access/model/movie.model';
+import { TMDBMovieModel } from '../../data-access/api/model/movie.model';
 import { patch, RxState, toDictionary } from '@rx-angular/state';
 import { optimizedFetch } from '../utils/optimized-fetch';
 import { getActions } from '../rxa-custom/actions';
-import { withLoadingEmission } from '../utils/withLoadingEmissions';
-import { getMovie, getMovieCategory } from '../../data-access/api/movie.resource';
+import { withLoadingEmission } from '../cdk/loading/withLoadingEmissions';
+import {
+  getMovie,
+  getMovieCategory,
+} from '../../data-access/api/resources/movie.resource';
+import { PaginatedResult } from './typings';
+import { LoadingState } from '../cdk/loading/loading-state.interface';
 
-export interface State {
-  movies: Record<string, MovieModel>;
-  moviesContext: boolean;
-  categoryMovies: Record<string, MovieModel[]>;
-  categoryMoviesContext: boolean;
+export interface State
+  extends LoadingState<'moviesLoading'>,
+    LoadingState<'categoryMoviesLoading'> {
+  movies: Record<string, TMDBMovieModel>;
+  categoryMovies: Record<string, PaginatedResult<TMDBMovieModel>>;
 }
 
 interface Actions {
   fetchMovie: string;
-  fetchCategoryMovies: string;
+  fetchCategoryMovies: { category: string };
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class MovieState extends RxState<State> {
   private actions = getActions<Actions>();
@@ -30,27 +35,27 @@ export class MovieState extends RxState<State> {
 
   constructor() {
     super();
-    this.connect(this.actions.fetchMovie$.pipe(
-      /**
-       * **🚀 Perf Tip for TTI, TBT:**
-       *
-       * Avoid over fetching for HTTP get requests to URLs that will not change result quickly.
-       * E.G.: URLs with the same params
-       */
-      optimizedFetch(
-        (id) => id,
-        (id) => {
-          return getMovie(id)
-            .pipe(
-              map(result => ({ movies: toDictionary([result], 'id') } as State)),
-              withLoadingEmission('moviesContext', true, false)
+
+    this.connect(
+      this.actions.fetchMovie$.pipe(
+        /**
+         * **🚀 Perf Tip for TTI, TBT:**
+         *
+         * Avoid over fetching for HTTP get requests to URLs that will not change result quickly.
+         * E.G.: URLs with the same params
+         */
+        optimizedFetch(
+          (id) => id,
+          (id) => {
+            return getMovie(id).pipe(
+              map((result) => ({ movies: toDictionary([result], 'id') })),
+              withLoadingEmission('moviesLoading')
             );
-        }
-      )
+          }
+        )
       ),
       (oldState, newPartial) => {
-        let s = newPartial as unknown as State;
-        let resultState = patch(oldState, s);
+        let resultState = patch(oldState, newPartial);
         resultState.movies = patch(oldState?.movies, resultState.movies);
         return resultState;
       }
@@ -63,23 +68,28 @@ export class MovieState extends RxState<State> {
          *
          * Avoid over fetching for HTTP get requests to URLs that will not change result quickly.
          */
+        map(({ category }) => ({
+          category,
+        })),
         optimizedFetch(
-          (category) => 'category' + '-' + category,
-          (category) => getMovieCategory(category)
-            .pipe(
-              map(({ results }) => ({ categoryMovies: { [category]: results } } as State)),
-              withLoadingEmission('categoryMoviesContext', true, false)
+          ({ category }) => `category-${category}`,
+          ({ category }) =>
+            getMovieCategory(category).pipe(
+              map((paginatedResult) => ({
+                categoryMovies: { [category]: paginatedResult },
+              })),
+              withLoadingEmission('categoryMoviesLoading')
             )
         )
       ),
       (oldState, newPartial) => {
-        let s = newPartial as unknown as State;
-        let resultState = patch(oldState, s);
-        resultState.categoryMovies = patch(oldState?.categoryMovies, resultState.categoryMovies);
+        let resultState = patch(oldState, newPartial);
+        resultState.categoryMovies = patch(
+          oldState?.categoryMovies,
+          resultState.categoryMovies
+        );
         return resultState;
       }
     );
-
   }
-
 }

@@ -1,10 +1,12 @@
 import { Location } from '@angular/common';
 import { ChangeDetectionStrategy, Component, TrackByFunction, ViewEncapsulation } from '@angular/core';
 import { RxState, selectSlice } from '@rx-angular/state';
-import { MovieCastModel } from '../../data-access/model/movie-cast.model';
-import { MovieGenreModel } from '../../data-access/model/movie-genre.model';
+import { TMDBMovieCastModel } from '../../data-access/api/model/movie-credits.model';
+import { TMDBMovieGenreModel } from '../../data-access/api/model/movie-genre.model';
 import { Router } from '@angular/router';
 import { MovieDetailAdapter, MovieDetailPageModel } from './movie-detail-page.adapter';
+import { map } from 'rxjs';
+
 
 @Component({
   selector: 'ct-movie',
@@ -15,11 +17,12 @@ import { MovieDetailAdapter, MovieDetailPageModel } from './movie-detail-page.ad
   providers: [RxState]
 })
 export class MovieDetailPageComponent {
+
   readonly detailState$ = this.state.select(
     selectSlice(['loading', 'movie', 'cast'])
   );
   readonly recommendedLoading$ = this.state.select('loading');
-  readonly recommendations$ = this.state.select('recommendations');
+  readonly recommendations$ = this.state.select(map(({ recommendations }) => recommendations?.results || []));
 
   constructor(
     private location: Location,
@@ -28,16 +31,15 @@ export class MovieDetailPageComponent {
     private state: RxState<MovieDetailPageModel>
   ) {
     this.state.set({
-      recommendations: [],
       cast: [],
       loading: true
     });
     this.state.connect(this.adapter.routedMovieSlice$);
-    this.state.connect('recommendations', this.adapter.movieRecomendationsById$);
+    this.state.connect('recommendations', this.adapter.movieRecommendationsById$);
     this.state.connect('cast', this.adapter.movieCastById$);
   }
 
-  toGenre(genre: MovieGenreModel) {
+  toGenre(genre: TMDBMovieGenreModel) {
     this.router.navigate(['/list', 'genre', genre.id]);
   }
 
@@ -45,6 +47,10 @@ export class MovieDetailPageComponent {
     this.location.back();
   }
 
-  trackByGenre: TrackByFunction<MovieGenreModel> = (_, genre) => genre.name;
-  trackByCast: TrackByFunction<MovieCastModel> = (_, cast) => cast.cast_id;
+  paginate() {
+    this.adapter.paginate();
+  }
+
+  trackByGenre: TrackByFunction<TMDBMovieGenreModel> = (_, genre) => genre.name;
+  trackByCast: TrackByFunction<TMDBMovieCastModel> = (_, cast) => cast.cast_id;
 }

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { exhaustMap, map, Observable, take } from 'rxjs';
 import { AuthStateService } from './auth.state';
 import { isAuthenticationInProgress } from './utils';
-import { createAccessToken, createRequestToken, deleteAccessToken } from '../api/auth.resource';
+import { createAccessToken, createRequestToken, deleteAccessToken } from '../api/resources/auth.resource';
 
 @Injectable({
   providedIn: 'root'
