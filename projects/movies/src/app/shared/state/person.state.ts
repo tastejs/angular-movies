@@ -7,6 +7,7 @@ import { withLoadingEmission } from '../cdk/loading/withLoadingEmissions';
 import { TMDBMoviePersonModel } from '../../data-access/api/model/movie-person.model';
 import { getPerson } from '../../data-access/api/resources/person.resource';
 import { LoadingState } from '../cdk/loading/loading-state.interface';
+import { AppInitializer } from '../rxa-custom/app-initializer';
 
 export interface State extends LoadingState<'personLoading'> {
   person: Record<string, TMDBMoviePersonModel>;
@@ -19,7 +20,7 @@ interface Actions {
 @Injectable({
   providedIn: 'root',
 })
-export class PersonState extends RxState<State> {
+export class PersonState extends RxState<State> implements AppInitializer {
   private actions = getActions<Actions>();
 
   fetchPerson = this.actions.fetchPerson;
@@ -50,5 +51,9 @@ export class PersonState extends RxState<State> {
         return resultState;
       }
     );
+  }
+
+  initialize(identifier: string): void {
+    this.fetchPerson(identifier);
   }
 }
