@@ -38,13 +38,13 @@ export class PersonDetailAdapter extends RxState<PersonDetailPageAdapterState> {
   );
 
   readonly movieRecommendationsById$ = this.routerPersonId$.pipe(
-    switchMap((with_case) =>
-      infiniteScrolled(
-        (options) => getDiscoverMovies({ with_case, ...options }),
+    switchMap((with_cast) => {
+      return infiniteScrolled(
+        (options) => getDiscoverMovies({ with_cast, ...options }),
         this.actions.paginate$,
-        getDiscoverMovies({ with_case, page: 1 })
-      )
-    )
+        getDiscoverMovies({ with_cast, page: 1 })
+      );
+    })
   );
 
   constructor(

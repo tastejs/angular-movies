@@ -12,7 +12,7 @@ import {
 import { TMDBMovieModel } from '../../data-access/api/model/movie.model';
 import { getMovieCategory } from '../../data-access/api/resources/movie.resource';
 import { getDiscoverMovies } from '../../data-access/api/resources/discover.resource';
-import { TMDBPaginationOptions } from '../../data-access/api/model/pagination.interface';
+import { TMDBPaginationOptions } from '../../data-access/api/pagination/pagination.interface';
 import { DiscoverState } from '../../shared/state/discover.state';
 import { MovieState } from '../../shared/state/movie.state';
 import { RouterState } from '../../shared/state/router.state';
@@ -79,12 +79,8 @@ export class MovieListPageAdapter extends RxState<MovieListPageModel> {
     PaginatedResult<TMDBMovieModel>
   > {
     return type === 'category'
-      ? this.initialCategoryMovieList$(identifier).pipe(
-          map(({ page, ...r }) => ({ ...r, page: page - 1 }))
-        )
-      : this.initialDiscoverMovieList$(identifier).pipe(
-          map(({ page, ...r }) => ({ ...r, page: page - 1 }))
-        );
+      ? this.initialCategoryMovieList$(identifier)
+      : this.initialDiscoverMovieList$(identifier);
   }
 
   readonly paginate = this.actions.paginate;
