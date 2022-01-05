@@ -11,6 +11,7 @@ import {
 } from '../../data-access/api/resources/movie.resource';
 import { PaginatedResult } from './typings';
 import { LoadingState } from '../cdk/loading/loading-state.interface';
+import { AppInitializer } from '../rxa-custom/appInitializer';
 
 export interface State
   extends LoadingState<'moviesLoading'>,
@@ -27,7 +28,7 @@ interface Actions {
 @Injectable({
   providedIn: 'root',
 })
-export class MovieState extends RxState<State> {
+export class MovieState extends RxState<State> implements AppInitializer {
   private actions = getActions<Actions>();
 
   fetchMovie = this.actions.fetchMovie;
@@ -91,5 +92,15 @@ export class MovieState extends RxState<State> {
         return resultState;
       }
     );
+  }
+
+  // prefetch categories / movie
+  initialize(options: { category: string } | { movieId: string }): void {
+    if ('category' in options && options.category) {
+      this.fetchCategoryMovies(options);
+    }
+    if ('movieId' in options && options.movieId) {
+      this.fetchMovie(options.movieId);
+    }
   }
 }

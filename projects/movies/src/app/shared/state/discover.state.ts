@@ -8,6 +8,7 @@ import { withLoadingEmission } from '../cdk/loading/withLoadingEmissions';
 import { getDiscoverMovies } from '../../data-access/api/resources/discover.resource';
 import { PaginatedResult } from './typings';
 import { LoadingState } from '../cdk/loading/loading-state.interface';
+import { AppInitializer } from '../rxa-custom/appInitializer';
 
 export interface State extends LoadingState<'discoveredMoviesLoading'> {
   discoveredMovies: Record<string, PaginatedResult<TMDBMovieModel>>;
@@ -20,7 +21,7 @@ interface Actions {
 @Injectable({
   providedIn: 'root',
 })
-export class DiscoverState extends RxState<State> {
+export class DiscoverState extends RxState<State> implements AppInitializer {
   private actions = getActions<Actions>({
     fetchDiscoverMovies: (e: string | number) => e + '',
   });
@@ -59,5 +60,9 @@ export class DiscoverState extends RxState<State> {
         return resultState;
       }
     );
+  }
+
+  initialize(category: string): void {
+    this.fetchDiscoverMovies(category);
   }
 }

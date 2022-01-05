@@ -4,8 +4,8 @@ import { GenreState } from './genre.state';
 
 function initializeState(genreState: GenreState, effects: RouterEffects) {
   return (): void => {
-    genreState.initialFetch();
-    effects.init();
+    genreState.initialize();
+    effects.initialize();
   };
 }
 
@@ -20,7 +20,6 @@ export const GLOBAL_STATE_APP_INITIALIZER_PROVIDER = [
     provide: APP_INITIALIZER,
     useFactory: initializeState,
     deps: [GenreState, RouterEffects],
-    multi: true
-  }
+    multi: true,
+  },
 ];
-
