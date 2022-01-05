@@ -1,4 +1,10 @@
-import { ChangeDetectionStrategy, Component, TrackByFunction, ViewChild, ViewEncapsulation } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  TrackByFunction,
+  ViewChild,
+  ViewEncapsulation,
+} from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { RxState } from '@rx-angular/state';
 import { filter, map } from 'rxjs';
@@ -17,11 +23,12 @@ import { GenreState } from '../shared/state/genre.state';
   styleUrls: ['./app-shell.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.Emulated,
-  providers: [RxState]
+  providers: [RxState],
 })
 export class AppShellComponent {
-
-  search$ = this.routerState.select(getIdentifierOfTypeAndLayout('search', 'list'));
+  search$ = this.routerState.select(
+    getIdentifierOfTypeAndLayout('search', 'list')
+  );
 
   constructor(
     private readonly state: RxState<{
@@ -35,23 +42,19 @@ export class AppShellComponent {
     public authEffects: AuthEffects,
     private router: Router
   ) {
-
     this.init();
     /**
      * **🚀 Perf Tip for TBT:**
      *
      * Disable initial sync navigation in router config and schedule it in router-outlet container component
      */
-    // @TODO use current URL
+    // @TODO !!!BUG!!! use current URL
     setTimeout(() => this.router.navigate(['list/category/popular']));
   }
 
   init() {
     this.state.set({ sideDrawerOpen: false });
-    this.state.connect(
-      'sideDrawerOpen',
-      this.ui.sideDrawerOpenToggle$
-    );
+    this.state.connect('sideDrawerOpen', this.ui.sideDrawerOpenToggle$);
     this.state.connect(
       'loggedIn',
       this.authState.accountId$.pipe(map((id) => !!id))
@@ -63,13 +66,23 @@ export class AppShellComponent {
         map((e) => e.urlAfterRedirects.split('?')[0])
       )
     );
+
+    this.state.hold(this.ui.signOut$, () => this.onSignOut);
   }
 
   readonly genres$ = this.genreState.genresNames$;
   @ViewChild('snav') snav: any;
 
   readonly viewState$ = this.state.select();
-  readonly ui = getActions<{ sideDrawerOpenToggle: boolean }>();
+  readonly ui = getActions<{
+    sideDrawerOpenToggle: boolean;
+    signOut: Event;
+  }>({
+    signOut: (e: Event) => {
+      e.preventDefault();
+      return e;
+    },
+  });
 
   readonly trackByGenre: TrackByFunction<TMDBMovieGenreModel> =
     trackByProp<TMDBMovieGenreModel>('name');
@@ -85,7 +98,12 @@ export class AppShellComponent {
     this.router.navigate(['/movies/popular']);
   }
 
-  navTo(event: Event, path: string, args: (string | number)[], queryParams?: Record<string, any>) {
+  navTo(
+    event: Event,
+    path: string,
+    args: (string | number)[],
+    queryParams?: Record<string, any>
+  ) {
     event.preventDefault();
     event.stopPropagation();
     this.closeSidenav();
@@ -95,5 +113,4 @@ export class AppShellComponent {
   closeSidenav() {
     this.ui.sideDrawerOpenToggle(false);
   }
-
 }
