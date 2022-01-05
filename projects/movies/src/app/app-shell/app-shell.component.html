@@ -167,10 +167,11 @@
           </svg>
         </a>
         <ng-template #signOut>
+          <span>Account</span>
           <a
             title="sign out"
             href="/movies/popular"
-            (click)="$event.stopPropagation(); onSignOut()">
+            (click)="ui.signOut($event)">
             <svg
               class="icon"
               enable-background="new 0 0 24 24"
