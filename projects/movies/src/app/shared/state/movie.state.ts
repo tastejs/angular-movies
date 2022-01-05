@@ -11,7 +11,7 @@ import {
 } from '../../data-access/api/resources/movie.resource';
 import { PaginatedResult } from './typings';
 import { LoadingState } from '../cdk/loading/loading-state.interface';
-import { AppInitializer } from '../rxa-custom/appInitializer';
+import { AppInitializer } from '../rxa-custom/app-initializer';
 
 export interface State
   extends LoadingState<'moviesLoading'>,

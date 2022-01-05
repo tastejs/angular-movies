@@ -5,7 +5,7 @@ import { RouterState } from './router.state';
 import { PersonState } from './person.state';
 import { MovieState } from './movie.state';
 import { DiscoverState } from './discover.state';
-import { AppInitializer } from '../rxa-custom/appInitializer';
+import { AppInitializer } from '../rxa-custom/app-initializer';
 
 /**
  * This service manages data fetching based on router params

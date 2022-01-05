@@ -8,7 +8,7 @@ import { withLoadingEmission } from '../cdk/loading/withLoadingEmissions';
 import { getDiscoverMovies } from '../../data-access/api/resources/discover.resource';
 import { PaginatedResult } from './typings';
 import { LoadingState } from '../cdk/loading/loading-state.interface';
-import { AppInitializer } from '../rxa-custom/appInitializer';
+import { AppInitializer } from '../rxa-custom/app-initializer';
 
 export interface State extends LoadingState<'discoveredMoviesLoading'> {
   discoveredMovies: Record<string, PaginatedResult<TMDBMovieModel>>;

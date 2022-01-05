@@ -7,7 +7,7 @@ import { withLoadingEmission } from '../cdk/loading/withLoadingEmissions';
 import { TMDBMoviePersonModel } from '../../data-access/api/model/movie-person.model';
 import { getPerson } from '../../data-access/api/resources/person.resource';
 import { LoadingState } from '../cdk/loading/loading-state.interface';
-import { AppInitializer } from '../rxa-custom/appInitializer';
+import { AppInitializer } from '../rxa-custom/app-initializer';
 
 export interface State extends LoadingState<'personLoading'> {
   person: Record<string, TMDBMoviePersonModel>;
