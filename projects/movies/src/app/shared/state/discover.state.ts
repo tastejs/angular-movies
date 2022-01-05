@@ -43,9 +43,9 @@ export class DiscoverState extends RxState<State> {
          */
         optimizedFetch(
           (genre) => 'genre' + '-' + genre,
-          (genre) =>
-            getDiscoverMovies(genre).pipe(
-              map((resp) => ({ discoveredMovies: { [genre]: resp } })),
+          (with_genres: string) =>
+            getDiscoverMovies({ with_genres, page: 1 }).pipe(
+              map((resp) => ({ discoveredMovies: { [with_genres]: resp } })),
               withLoadingEmission('discoveredMoviesLoading')
             )
         )

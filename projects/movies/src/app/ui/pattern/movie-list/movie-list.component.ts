@@ -1,10 +1,8 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  ElementRef,
   Input,
   Output,
-  ViewChild,
   ViewEncapsulation,
 } from '@angular/core';
 import { Router } from '@angular/router';
@@ -15,19 +13,15 @@ import { W300H450 } from '../../../data-access/configurations/image-sizes';
 import { ImageTag } from '../../../shared/utils/image/image-tag.interface';
 import { addImageTag } from '../../../shared/utils/image/image-tag.transform';
 import { getActions } from '../../../shared/rxa-custom/actions';
+import { coerceObservable } from '../../../shared/utils/coerceObservable';
+import { RxInputType } from '../../../shared/rxa-custom/input-type.typing';
 
 type Movie = TMDBMovieModel & ImageTag;
 
 @Component({
   selector: 'ui-movie-list',
   template: `
-    <ng-container
-      *rxLet="
-        moviesListVisible$;
-        let moviesListVisible;
-        renderCallback: { next: ui.moviesVisibleRenderCallback }
-      "
-    >
+    <ng-container *rxLet="moviesListVisible$; let moviesListVisible">
       <div
         class="movies-list--grid"
         *ngIf="moviesListVisible; else noData"
@@ -90,10 +84,7 @@ type Movie = TMDBMovieModel & ImageTag;
   encapsulation: ViewEncapsulation.Emulated,
 })
 export class MovieListComponent {
-  @ViewChild('paginateEl') paginateEl?: ElementRef<HTMLElement>;
-
-  ui =
-    getActions<{ paginate: boolean; moviesVisibleRenderCallback: boolean }>();
+  ui = getActions<{ paginate: boolean }>();
 
   readonly movies$ = this.state.select(
     map((state) =>
@@ -109,16 +100,18 @@ export class MovieListComponent {
   );
 
   @Input()
-  set movies(movies$: Observable<TMDBMovieModel[]>) {
-    this.state.connect('movies', movies$);
+  set movies(movies$: RxInputType<TMDBMovieModel[] | null>) {
+    this.state.connect('movies', coerceObservable(movies$));
   }
 
-  // emit paginate event only if element is visible
-  @Output() readonly paginate = this.ui.paginate$.pipe(filter(Boolean));
+  // emit paginate event only if element is visible (true)
+  @Output() readonly paginate: Observable<true> = this.ui.paginate$.pipe(
+    filter(Boolean)
+  );
 
   constructor(
     private router: Router,
-    private state: RxState<{ movies: TMDBMovieModel[] }>
+    private state: RxState<{ movies: TMDBMovieModel[] | null }>
   ) {}
 
   trackByMovieId(_: number, movie: Movie) {

@@ -1,5 +1,5 @@
 import { Observable } from 'rxjs';
-import { baseUrlApiV4 } from '../utils';
+import { baseUrlApiV4 } from '../constants';
 import { getHTTP } from '../../../shared/injector/get-http-client';
 
 type Token = {
@@ -14,7 +14,7 @@ const URL_ACCESS_TOKEN = [baseUrl, 'access_token'].join('/');
 
 export const createRequestToken = (redirectTo: string): Observable<Token> => {
   return getHTTP().post<any>(URL_REQUEST_TOKEN, {
-    redirect_to: redirectTo
+    redirect_to: redirectTo,
   });
 };
 
@@ -23,5 +23,5 @@ export const createAccessToken = (requestToken: string): Observable<Token> =>
 
 export const deleteAccessToken = (accessToken: string): Observable<Token> =>
   getHTTP().delete<any>(URL_ACCESS_TOKEN, {
-    body: { access_token: accessToken }
+    body: { access_token: accessToken },
   });

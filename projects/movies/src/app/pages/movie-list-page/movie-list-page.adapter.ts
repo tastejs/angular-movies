@@ -12,7 +12,7 @@ import {
 import { TMDBMovieModel } from '../../data-access/api/model/movie.model';
 import { getMovieCategory } from '../../data-access/api/resources/movie.resource';
 import { getDiscoverMovies } from '../../data-access/api/resources/discover.resource';
-import { TMDBPaginationOptions } from '../../data-access/api/model/pagination.interface';
+import { TMDBPaginationOptions } from '../../data-access/api/pagination/pagination.interface';
 import { DiscoverState } from '../../shared/state/discover.state';
 import { MovieState } from '../../shared/state/movie.state';
 import { RouterState } from '../../shared/state/router.state';
@@ -24,6 +24,7 @@ import {
   InfiniteScrollState,
   PaginationOptions,
 } from '../../shared/cdk/infinite-scroll/paginate-state.interface';
+import { getSearch } from '../../data-access/api/resources/search.resource';
 
 type MovieListRouterParams = Pick<RouterParams, 'type' | 'identifier'>;
 type MovieListPageModel = InfiniteScrollState<TMDBMovieModel> &
@@ -78,12 +79,8 @@ export class MovieListPageAdapter extends RxState<MovieListPageModel> {
     PaginatedResult<TMDBMovieModel>
   > {
     return type === 'category'
-      ? this.initialCategoryMovieList$(identifier).pipe(
-          map(({ page, ...r }) => ({ ...r, page: page - 1 }))
-        )
-      : this.initialDiscoverMovieList$(identifier).pipe(
-          map(({ page, ...r }) => ({ ...r, page: page - 1 }))
-        );
+      ? this.initialCategoryMovieList$(identifier)
+      : this.initialDiscoverMovieList$(identifier);
   }
 
   readonly paginate = this.actions.paginate;
@@ -126,14 +123,18 @@ export class MovieListPageAdapter extends RxState<MovieListPageModel> {
 function getFetchByType(
   type: RouterParams['type']
 ): (
-  i: string,
-  options?: TMDBPaginationOptions
+  s: string,
+  options: TMDBPaginationOptions
 ) => Observable<PaginatedResult<TMDBMovieModel>> {
   if (type === 'category') {
     return getMovieCategory;
-  } else if (type === 'genre' || type === 'search') {
-    return getDiscoverMovies;
+  } else if (type === 'search') {
+    return getSearch;
+  } else if (type === 'genre') {
+    return (with_genres: string, options: TMDBPaginationOptions) =>
+      getDiscoverMovies({ ...options, with_genres });
   }
+
   return (_: string, __?: TMDBPaginationOptions) =>
     EMPTY as unknown as Observable<PaginatedResult<TMDBMovieModel>>;
 }
