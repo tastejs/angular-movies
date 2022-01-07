@@ -23,7 +23,7 @@ interface Actions {
 })
 export class DiscoverState extends RxState<State> implements AppInitializer {
   private actions = getActions<Actions>({
-    fetchDiscoverMovies: (e: string | number) => e + '',
+    fetchDiscoverMovies: String,
   });
 
   readonly fetchDiscoverMovies = this.actions.fetchDiscoverMovies;

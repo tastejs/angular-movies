@@ -16,6 +16,7 @@ import { getActions } from '../shared/rxa-custom/actions';
 import { RouterState } from '../shared/state/router.state';
 import { getIdentifierOfTypeAndLayout } from '../shared/state/utils';
 import { GenreState } from '../shared/state/genre.state';
+import { preventDefault } from '../shared/rxa-custom/actions/transforms';
 
 @Component({
   selector: 'app-shell',
@@ -86,10 +87,7 @@ export class AppShellComponent {
     sideDrawerOpenToggle: boolean;
     signOut: Event;
   }>({
-    signOut: (e: Event) => {
-      e.preventDefault();
-      return e;
-    },
+    signOut: preventDefault,
   });
 
   readonly trackByGenre: TrackByFunction<TMDBMovieGenreModel> =
