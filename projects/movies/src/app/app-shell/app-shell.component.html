@@ -137,11 +137,10 @@
         <ui-search-bar [query]="search$" (searchSubmit)="searchMovie($event)"></ui-search-bar>
         <ui-dark-mode-toggle></ui-dark-mode-toggle>
         <a
-          *ngIf="!vs.loggedIn; else signOut"
           title="sign in"
           rel="nofollow"
           href="https://www.themoviedb.org/auth/access"
-          (click)="$event.preventDefault(); authEffects.approveRequestToken()"
+          (click)="$event.preventDefault();"
         >
           <svg
             class="icon"
@@ -166,8 +165,7 @@
           <span>Account</span>
           <a
             title="sign out"
-            href="/movies/popular"
-            (click)="ui.signOut($event)">
+            href="/movies/popular">
             <svg
               class="icon"
               enable-background="new 0 0 24 24"
