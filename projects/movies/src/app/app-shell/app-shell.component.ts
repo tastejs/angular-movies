@@ -7,7 +7,7 @@ import {
 } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { RxState } from '@rx-angular/state';
-import { filter, map } from 'rxjs';
+import { distinctUntilChanged, filter, map } from 'rxjs';
 import { AuthStateService } from '../data-access/auth/auth.state';
 import { AuthEffects } from '../data-access/auth/auth.effects';
 import { TMDBMovieGenreModel } from '../data-access/api/model/movie-genre.model';
@@ -68,6 +68,14 @@ export class AppShellComponent {
     );
 
     this.state.hold(this.ui.signOut$, () => this.onSignOut);
+    this.state.hold(
+      this.router.events.pipe(
+        filter((e) => e instanceof NavigationEnd),
+        map((e) => (e as NavigationEnd).urlAfterRedirects),
+        distinctUntilChanged()
+      ),
+      () => this.closeSidenav()
+    );
   }
 
   readonly genres$ = this.genreState.genresNames$;
@@ -96,18 +104,6 @@ export class AppShellComponent {
   onSignOut() {
     this.authEffects.signOut();
     this.router.navigate(['/movies/popular']);
-  }
-
-  navTo(
-    event: Event,
-    path: string,
-    args: (string | number)[],
-    queryParams?: Record<string, any>
-  ) {
-    event.preventDefault();
-    event.stopPropagation();
-    this.closeSidenav();
-    this.router.navigate([path, ...args], { queryParams });
   }
 
   closeSidenav() {
