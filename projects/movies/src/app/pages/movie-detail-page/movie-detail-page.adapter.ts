@@ -23,9 +23,7 @@ export interface MovieDetailPageModel {
   cast: TMDBMovieCastModel[];
 }
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
 export class MovieDetailAdapter extends RxState<MovieDetailPageModel> {
   private readonly actions = getActions<{ paginate: void }>();
   readonly paginate = this.actions.paginate;

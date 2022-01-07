@@ -21,7 +21,7 @@ import { map } from 'rxjs';
   styleUrls: ['./movie-detail-page.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.Emulated,
-  providers: [RxState],
+  providers: [RxState, MovieDetailAdapter],
 })
 export class MovieDetailPageComponent {
   readonly detailState$ = this.state.select(
