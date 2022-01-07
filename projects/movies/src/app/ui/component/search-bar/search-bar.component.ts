@@ -1,9 +1,30 @@
 import { DOCUMENT } from '@angular/common';
-import { ChangeDetectionStrategy, Component, ElementRef, Inject, Input, OnInit, Output, ViewChild, ViewEncapsulation } from '@angular/core';
-import { filter, fromEvent, map, merge, Observable, startWith, switchMap, take, withLatestFrom } from 'rxjs';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  ElementRef,
+  Inject,
+  Input,
+  OnInit,
+  Output,
+  ViewChild,
+  ViewEncapsulation,
+} from '@angular/core';
+import {
+  filter,
+  fromEvent,
+  map,
+  merge,
+  Observable,
+  startWith,
+  switchMap,
+  take,
+  withLatestFrom,
+} from 'rxjs';
 import { getActions } from '../../../shared/rxa-custom/actions';
 import { RxState } from '@rx-angular/state';
 import { coerceObservable } from '@rx-angular/cdk';
+import { preventDefault } from '../../../shared/rxa-custom/actions/transforms';
 
 @Component({
   selector: 'ui-search-bar',
@@ -21,41 +42,40 @@ import { coerceObservable } from '@rx-angular/cdk';
       >
         <ui-search-icon></ui-search-icon>
       </button>
-      <input *rxLet="search$; let search"
-             aria-label="Search Input"
-             #searchInput [value]="search"
-             (change)="ui.searchChange(searchInput.value)"
-             placeholder="Search for a movie..."
-             class="input"
+      <input
+        *rxLet="search$; let search"
+        aria-label="Search Input"
+        #searchInput
+        [value]="search"
+        (change)="ui.searchChange(searchInput.value)"
+        placeholder="Search for a movie..."
+        class="input"
       />
     </form>
   `,
   styleUrls: ['search-bar.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.Emulated,
-  providers: [RxState]
+  providers: [RxState],
 })
 export class SearchBarComponent implements OnInit {
   @ViewChild('searchInput') inputRef!: ElementRef<HTMLInputElement>;
   @ViewChild('form') formRef!: ElementRef<HTMLFormElement>;
 
   ui = getActions<{
-    searchChange: string,
-    formClick: Event,
-    outsideFormClick: Event,
-    formSubmit: Event
+    searchChange: string;
+    formClick: Event;
+    outsideFormClick: Event;
+    formSubmit: Event;
   }>({
-    searchChange: s => s + '',
-    formSubmit: e => {
-      e.preventDefault();
-      return e;
-    }
+    searchChange: String,
+    formSubmit: preventDefault,
   });
 
   @Input()
   set query(v: string | Observable<string>) {
     this.state.connect('search', coerceObservable(v) as Observable<string>);
-  };
+  }
 
   search$ = this.state.select('search');
   @Output() searchSubmit = this.ui.formSubmit$.pipe(
@@ -73,7 +93,7 @@ export class SearchBarComponent implements OnInit {
     return fromEvent(this.document, 'click').pipe(
       // forward if the form did NOT triggered the click
       // means we clicked somewhere else in the page but the form
-      filter(e => !this.formRef.nativeElement.contains(e.target as any))
+      filter((e) => !this.formRef.nativeElement.contains(e.target as any))
     );
   }
 
@@ -95,7 +115,7 @@ export class SearchBarComponent implements OnInit {
   private readonly classList = this.elementRef.nativeElement.classList;
 
   constructor(
-    private state: RxState<{ search: string, open: boolean }>,
+    private state: RxState<{ search: string; open: boolean }>,
     @Inject(ElementRef) private elementRef: ElementRef,
     @Inject(DOCUMENT) private document: Document
   ) {
@@ -107,7 +127,11 @@ export class SearchBarComponent implements OnInit {
     this.state.hold(this.closedFormClick$, this.focusInput);
 
     this.state.connect('search', this.ui.searchChange$.pipe(startWith('')));
-    this.state.connect('open', merge(this.ui.formSubmit$, this.outsideOpenFormClick$), () => false);
+    this.state.connect(
+      'open',
+      merge(this.ui.formSubmit$, this.outsideOpenFormClick$),
+      () => false
+    );
     this.state.connect('open', this.closedFormClick$, () => true);
   }
 
@@ -116,8 +140,6 @@ export class SearchBarComponent implements OnInit {
   };
 
   private readonly setOpenedStyling = (opened: boolean) => {
-    opened
-      ? this.classList.add('opened')
-      : this.classList.remove('opened');
+    opened ? this.classList.add('opened') : this.classList.remove('opened');
   };
 }
