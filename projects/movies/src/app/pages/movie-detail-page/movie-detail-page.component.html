@@ -35,8 +35,7 @@
                 let genre of vs.movie?.genres || [];
                 trackBy: trackByGenre
               "
-              [href]="'/list/genre/' + genre.id"
-              (click)="$event.preventDefault(); toGenre(genre)"
+              [routerLink]="['/list/genre/', genre.id]"
             >
               <svg viewBox="0 0 24 24" fill="currentColor" class="icon">
                 <path d="M0 0h24v24H0V0z" fill="none" />
