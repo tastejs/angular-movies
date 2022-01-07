@@ -5,7 +5,6 @@ import {
   Output,
   ViewEncapsulation,
 } from '@angular/core';
-import { Router } from '@angular/router';
 import { RxState } from '@rx-angular/state';
 import { filter, map, Observable } from 'rxjs';
 import { TMDBMovieModel } from '../../../data-access/api/model/movie.model';
@@ -35,7 +34,7 @@ type Movie = TMDBMovieModel & ImageTag;
         <a
           class="movies-list--grid-item"
           *rxFor="let movie of movies$; index as idx; trackBy: trackByMovieId"
-          (click)="$event.preventDefault(); navigateToMovie(movie)"
+          [routerLink]="['/detail/movie', movie.id]"
           [attr.data-test]="'list-item-idx-' + idx"
         >
           <!--
@@ -109,16 +108,9 @@ export class MovieListComponent {
     filter(Boolean)
   );
 
-  constructor(
-    private router: Router,
-    private state: RxState<{ movies: TMDBMovieModel[] | null }>
-  ) {}
+  constructor(private state: RxState<{ movies: TMDBMovieModel[] | null }>) {}
 
   trackByMovieId(_: number, movie: Movie) {
     return movie.id;
-  }
-
-  navigateToMovie(movie: Movie) {
-    this.router.navigate(['/detail/movie', movie.id]);
   }
 }

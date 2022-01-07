@@ -21,9 +21,8 @@
       <a
         data-test="link-category-popular"
         class="navigation--link"
-        href="/list"
-        [class.active]="vs.activeRoute === '/list/category/popular'"
-        (click)="navTo($event, '/list', ['category', 'popular'])"
+        [routerLink]="['/list', 'category', 'popular']"
+        routerLinkActive="active"
       >
         <div class="navigation--menu-item">
           <svg
@@ -42,9 +41,8 @@
       <a
         data-test="sidebar-nav-link-category-top_rated"
         class="navigation--link"
-        [class.active]="vs.activeRoute === '/list/category/top_rated'"
-        href="/list"
-        (click)="navTo($event, '/list', ['category', 'top_rated'])"
+        [routerLink]="['/list', 'category', 'top_rated']"
+        routerLinkActive="active"
       >
         <div class="navigation--menu-item">
           <svg
@@ -63,9 +61,8 @@
       <a
         data-test="sidebar-nav-link-category-upcoming"
         class="navigation--link"
-        [class.active]="vs.activeRoute === '/list/category/upcoming'"
-        href="/list"
-        (click)="navTo($event,'/list', ['category', 'upcoming'])"
+        [routerLink]="['/list', 'category', 'upcoming']"
+        routerLinkActive="active"
       >
         <div class="navigation--menu-item">
           <svg
@@ -89,9 +86,8 @@
           strategy: 'idle'
         "
         class="navigation--link"
-        [class.active]="vs.activeRoute === '/list/genre/' + genre.id"
-        [href]="'/list/genre/' + genre.id"
-        (click)="navTo($event, '/list', ['genre', genre.id])"
+        [routerLink]="['/list', 'genre', genre.id]"
+        routerLinkActive="active"
       >
         <div class="navigation--menu-item">
           <svg
