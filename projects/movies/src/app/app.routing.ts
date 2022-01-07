@@ -31,22 +31,33 @@ const ROUTES: Routes = [
   {
     path: 'list/:type/:identifier',
     component: MovieListPageComponent,
-   /* loadChildren: () =>
+    /* loadChildren: () =>
       import('projects/movies/src/app/pages/movie-list-page/movie-list-page.module').then((m) => m.MovieListPageModule)
  */
   },
   {
     path: 'detail/movie/:identifier',
     loadChildren: () =>
-      import('projects/movies/src/app/pages/movie-detail-page/movie-detail-page.module').then((m) => m.MovieDetailPageModule)
+      import(
+        'projects/movies/src/app/pages/movie-detail-page/movie-detail-page.module'
+      ).then((m) => m.MovieDetailPageModule),
   },
   {
     path: 'detail/person/:identifier',
     loadChildren: () =>
-      import('projects/movies/src/app/pages/person-detail-page/person-detail-page.module').then((m) => m.PersonDetailPageModule)
+      import(
+        'projects/movies/src/app/pages/person-detail-page/person-detail-page.module'
+      ).then((m) => m.PersonDetailPageModule),
+  },
+  {
+    path: 'account/lists',
+    loadChildren: () =>
+      import(
+        'projects/movies/src/app/pages/account-list-page/account-list-page.module'
+      ).then((m) => m.AccountListPageModule),
   },
   //      static params for 'list/:type/:identifier'
-  { path: '**', redirectTo: 'list/category/popular' }
+  { path: '**', redirectTo: 'list/category/popular' },
 ];
 
 export const ROUTING_IMPORTS = [
@@ -58,7 +69,5 @@ export const ROUTING_IMPORTS = [
      * Disable initial sync navigation in router config and schedule it in router-outlet container component
      */
     initialNavigation: 'disabled',
-    onSameUrlNavigation: 'reload',
-    relativeLinkResolution: 'legacy'
-  })
+  }),
 ];
