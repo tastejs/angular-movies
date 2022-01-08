@@ -1,6 +1,6 @@
 import { RouterModule, Routes } from '@angular/router';
-import { MovieListPageComponent } from './pages/movie-list-page/movie-list-page.component';
-import { MovieListPageModule } from './pages/movie-list-page/movie-list-page.module';
+//import { MovieListPageComponent } from './pages/movie-list-page/movie-list-page.component';
+//import { MovieListPageModule } from './pages/movie-list-page/movie-list-page.module';
 
 const ROUTES: Routes = [
   /**
@@ -30,27 +30,32 @@ const ROUTES: Routes = [
    */
   {
     path: 'list/:type/:identifier',
-    component: MovieListPageComponent,
-   /* loadChildren: () =>
-      import('projects/movies/src/app/pages/movie-list-page/movie-list-page.module').then((m) => m.MovieListPageModule)
- */
+    /*component: MovieListPageComponent,*/
+    loadChildren: () =>
+      import(
+        'projects/movies/src/app/pages/movie-list-page/movie-list-page.module'
+      ).then((m) => m.MovieListPageModule),
   },
   {
     path: 'detail/movie/:identifier',
     loadChildren: () =>
-      import('projects/movies/src/app/pages/movie-detail-page/movie-detail-page.module').then((m) => m.MovieDetailPageModule)
+      import(
+        'projects/movies/src/app/pages/movie-detail-page/movie-detail-page.module'
+      ).then((m) => m.MovieDetailPageModule),
   },
   {
     path: 'detail/person/:identifier',
     loadChildren: () =>
-      import('projects/movies/src/app/pages/person-detail-page/person-detail-page.module').then((m) => m.PersonDetailPageModule)
+      import(
+        'projects/movies/src/app/pages/person-detail-page/person-detail-page.module'
+      ).then((m) => m.PersonDetailPageModule),
   },
   //      static params for 'list/:type/:identifier'
-  { path: '**', redirectTo: 'list/category/popular' }
+  { path: '**', redirectTo: 'list/category/popular' },
 ];
 
 export const ROUTING_IMPORTS = [
-  MovieListPageModule,
+  //MovieListPageModule,
   RouterModule.forRoot(ROUTES, {
     /**
      * **🚀 Perf Tip for TBT:**
@@ -59,6 +64,6 @@ export const ROUTING_IMPORTS = [
      */
     initialNavigation: 'disabled',
     onSameUrlNavigation: 'reload',
-    relativeLinkResolution: 'legacy'
-  })
+    relativeLinkResolution: 'legacy',
+  }),
 ];
