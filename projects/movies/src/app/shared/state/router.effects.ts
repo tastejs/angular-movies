@@ -2,9 +2,7 @@ import { Injectable } from '@angular/core';
 import { RxState } from '@rx-angular/state';
 import { RouterParams } from './router-state.interface';
 import { RouterState } from './router.state';
-import { PersonState } from './person.state';
 import { MovieState } from './movie.state';
-import { DiscoverState } from './discover.state';
 import { AppInitializer } from '../rxa-custom/app-initializer';
 
 /**
@@ -16,8 +14,6 @@ import { AppInitializer } from '../rxa-custom/app-initializer';
 export class RouterEffects extends RxState<any> implements AppInitializer {
   constructor(
     private routerState: RouterState,
-    private discoverState: DiscoverState,
-    private personState: PersonState,
     private movieState: MovieState
   ) {
     super();
@@ -34,14 +30,16 @@ export class RouterEffects extends RxState<any> implements AppInitializer {
     type,
     identifier,
   }: RouterParams): void => {
-    if (type === 'category') {
+    if (layout === 'list' && type === 'category') {
       this.movieState.initialize({ category: identifier });
-    } else if (type === 'genre') {
+    }
+    /* optionally prefetch other routs too
+    else if (layout === 'list' && type === 'genre') {
       this.discoverState.initialize(identifier);
     } else if (layout === 'detail' && type === 'movie') {
       this.movieState.initialize({ movieId: identifier });
     } else if (layout === 'detail' && type === 'person') {
       this.personState.initialize(identifier);
-    }
+    } */
   };
 }
