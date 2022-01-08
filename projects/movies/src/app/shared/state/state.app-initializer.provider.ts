@@ -1,10 +1,12 @@
 import { APP_INITIALIZER } from '@angular/core';
 import { RouterEffects } from './router.effects';
-import { GenreState } from './genre.state';
+import { getGenresStateful } from '../../data-access/api/resources/genre.resource';
 
-function initializeState(genreState: GenreState, effects: RouterEffects) {
+function initializeState(effects: RouterEffects) {
   return (): void => {
-    genreState.initialize();
+    // sideBar
+    getGenresStateful();
+    // routes
     effects.initialize();
   };
 }
@@ -19,7 +21,7 @@ export const GLOBAL_STATE_APP_INITIALIZER_PROVIDER = [
   {
     provide: APP_INITIALIZER,
     useFactory: initializeState,
-    deps: [GenreState, RouterEffects],
+    deps: [RouterEffects],
     multi: true,
   },
 ];
