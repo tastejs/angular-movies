@@ -1,6 +1,6 @@
 import { RouterModule, Routes } from '@angular/router';
-//import { MovieListPageComponent } from './pages/movie-list-page/movie-list-page.component';
-//import { MovieListPageModule } from './pages/movie-list-page/movie-list-page.module';
+import { MovieListPageComponent } from './pages/movie-list-page/movie-list-page.component';
+import { MovieListPageModule } from './pages/movie-list-page/movie-list-page.module';
 
 const ROUTES: Routes = [
   /**
@@ -30,11 +30,10 @@ const ROUTES: Routes = [
    */
   {
     path: 'list/:type/:identifier',
-    /*component: MovieListPageComponent,*/
-    loadChildren: () =>
-      import(
-        'projects/movies/src/app/pages/movie-list-page/movie-list-page.module'
-      ).then((m) => m.MovieListPageModule),
+    component: MovieListPageComponent,
+    /* loadChildren: () =>
+      import('projects/movies/src/app/pages/movie-list-page/movie-list-page.module').then((m) => m.MovieListPageModule)
+ */
   },
   {
     path: 'detail/movie/:identifier',
@@ -55,7 +54,7 @@ const ROUTES: Routes = [
 ];
 
 export const ROUTING_IMPORTS = [
-  //MovieListPageModule,
+  MovieListPageModule,
   RouterModule.forRoot(ROUTES, {
     /**
      * **🚀 Perf Tip for TBT:**
