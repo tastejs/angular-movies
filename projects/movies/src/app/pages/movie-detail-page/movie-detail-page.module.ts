@@ -7,12 +7,13 @@ import { StarRatingModule } from '../../ui/pattern/star-rating/star-rating.modul
 import { MovieListModule } from '../../ui/pattern/movie-list/movie-list.module';
 import { DetailGridModule } from '../../ui/component/detail-grid/detail-grid.module';
 import { BypassSrcModule } from '../../shared/bypass-src/bypass-src.module';
+import { RxForModule } from '../../shared/rxa-custom/rx-for/rx-for.module';
 
 const ROUTES: Routes = [
   {
     path: '',
-    component: MovieDetailPageComponent
-  }
+    component: MovieDetailPageComponent,
+  },
 ];
 
 @NgModule({
@@ -24,9 +25,9 @@ const ROUTES: Routes = [
     StarRatingModule,
     MovieListModule,
     LetModule,
-    BypassSrcModule
+    BypassSrcModule,
+    RxForModule,
   ],
-  exports: [MovieDetailPageComponent]
+  exports: [MovieDetailPageComponent],
 })
-export class MovieDetailPageModule {
-}
+export class MovieDetailPageModule {}

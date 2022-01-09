@@ -10,14 +10,14 @@ import { exhaustMap, groupBy, map, mergeAll, Observable } from 'rxjs';
  * The following logic avoids this.
  */
 export function optimizedFetch<T, K, O>(
-  keySelector: (value: T) => K,
+  groupSelector: (value: T) => K,
   fetch: (t: T) => Observable<O>
 ): (o$: Observable<T>) => Observable<O> {
-  return (o$: Observable<T>) => o$.pipe(
-    groupBy(keySelector),
-    // exhaust by keySelector e.g. url
-    map(t$ => t$.pipe(exhaustMap(fetch))),
-    mergeAll()
-  );
+  return (o$: Observable<T>) =>
+    o$.pipe(
+      groupBy(groupSelector),
+      // exhaust by keySelector e.g. url
+      map((t$) => t$.pipe(exhaustMap(fetch))),
+      mergeAll()
+    );
 }
-

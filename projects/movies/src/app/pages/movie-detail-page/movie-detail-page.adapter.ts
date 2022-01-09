@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { combineLatest, map, switchMap } from 'rxjs';
-import { RxState, selectSlice } from '@rx-angular/state';
+import { map, Observable, switchMap } from 'rxjs';
+import { RxState } from '@rx-angular/state';
 import { RouterState } from '../../shared/state/router.state';
 import { MovieState } from '../../shared/state/movie.state';
 import { getIdentifierOfTypeAndLayout } from '../../shared/state/utils';
@@ -10,41 +10,44 @@ import {
 } from '../../data-access/api/resources/movie.resource';
 import { transformToMovieDetail } from './selection/client-movie-detail.mapper';
 import { getActions } from '../../shared/rxa-custom/actions';
-import { infiniteScrolled } from '../../shared/cdk/infinite-scroll/infinite-scrolled';
+import { infiniteScroll } from '../../shared/cdk/infinite-scroll/infiniteScroll';
 import { MovieDetail } from './selection/movie-detail.model';
-import { TMDBMovieModel } from '../../data-access/api/model/movie.model';
+import { WithContext } from '../../shared/cdk/context/context.interface';
+import { withLoadingEmission } from '../../shared/cdk/loading/withLoadingEmissions';
 import { TMDBMovieCastModel } from '../../data-access/api/model/movie-credits.model';
-import { InfiniteScrollState } from '../../shared/cdk/infinite-scroll/paginate-state.interface';
-
-export interface MovieDetailPageModel {
-  loading: boolean;
-  movie: MovieDetail;
-  recommendations: Partial<InfiniteScrollState<TMDBMovieModel>>;
-  cast: TMDBMovieCastModel[];
-}
 
 @Injectable({
   providedIn: 'root',
 })
-export class MovieDetailAdapter extends RxState<MovieDetailPageModel> {
-  private readonly actions = getActions<{ paginate: void }>();
-  readonly paginate = this.actions.paginate;
-  routedMovieSlice$ = this.select(selectSlice(['movie', 'loading']));
-  routerMovieId$ = this.routerState.select(
+export class MovieDetailAdapter extends RxState<any> {
+  private readonly actions = getActions<{ paginateRecommendations: void }>();
+  readonly paginateRecommendations = this.actions.paginateRecommendations;
+
+  readonly routerMovieId$: Observable<string> = this.routerState.select(
     getIdentifierOfTypeAndLayout('movie', 'detail')
   );
 
-  movieCastById$ = this.routerMovieId$.pipe(
-    switchMap((identifier) =>
-      getCredits(identifier).pipe(map((res: any) => res.cast || []))
-    )
+  readonly routedMovieCtx$ = this.routerMovieId$.pipe(
+    switchMap(this.movieState.movieByIdCtx),
+    map((ctx) => {
+      ctx.value && ((ctx as any).value = transformToMovieDetail(ctx.value));
+      return ctx as unknown as WithContext<MovieDetail>;
+    })
   );
 
-  movieRecommendationsById$ = this.routerMovieId$.pipe(
+  readonly movieCastById$: Observable<WithContext<TMDBMovieCastModel[]>> =
+    this.routerMovieId$.pipe(
+      switchMap((id) =>
+        getCredits(id).pipe(map(({ cast: value }) => ({ value })))
+      ),
+      withLoadingEmission()
+    );
+
+  readonly infiniteScrollRecommendations$ = this.routerMovieId$.pipe(
     switchMap((id) =>
-      infiniteScrolled(
+      infiniteScroll(
         (incrementedParams) => getMoviesRecommendations(id, incrementedParams),
-        this.actions.paginate$,
+        this.actions.paginateRecommendations$,
         getMoviesRecommendations(id, { page: 1 })
       )
     )
@@ -55,24 +58,6 @@ export class MovieDetailAdapter extends RxState<MovieDetailPageModel> {
     private routerState: RouterState
   ) {
     super();
-    this.connect(
-      combineLatest({
-        id: this.routerMovieId$,
-        globalSlice: this.movieState.select(
-          selectSlice(['movies', 'moviesLoading'])
-        ),
-      }).pipe(
-        map(({ id, globalSlice }) => {
-          const { movies, moviesLoading: loading } = globalSlice;
-          return {
-            loading,
-            movie:
-              movies[id] !== undefined
-                ? transformToMovieDetail(movies[id])
-                : null,
-          } as MovieDetailPageModel;
-        })
-      )
-    );
+    this.hold(this.routerMovieId$, this.movieState.fetchMovie);
   }
 }

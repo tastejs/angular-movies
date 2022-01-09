@@ -5,8 +5,8 @@ import { AppComponent } from './app.component';
 import { AppShellModule } from './app-shell/app-shell.module';
 import { ROUTING_IMPORTS } from './app.routing';
 import { TMDB_HTTP_INTERCEPTORS_PROVIDER } from './data-access/auth/tmdb-http-interceptor.providers';
-import { GLOBAL_STATE_APP_INITIALIZER_PROVIDER } from './shared/state/state.app-initializer.provider';
-import { SCHEDULED_APP_INITIALIZER_PROVIDER } from './shared/app-initializer/chunk.app-initializer.provider';
+import { GLOBAL_STATE_APP_INITIALIZER_PROVIDER } from './shared/state/state-app-initializer.provider';
+import { SCHEDULED_APP_INITIALIZER_PROVIDER } from './shared/app-initializer/chunk-app-initializer.provider';
 import { SERVICE_WORKER_IMPORTS } from './shared/pwa/service-worker.imports';
 import { RXA_PROVIDER } from './shared/rxa-custom/rxa.provider';
 import { LetModule } from '@rx-angular/template/let';
@@ -34,7 +34,7 @@ import { RootInjectorShortcutModule } from './shared/injector/root-injector.modu
     RootInjectorShortcutModule,
     AppShellModule,
     LetModule,
-    ROUTING_IMPORTS
+    ROUTING_IMPORTS,
   ],
   providers: [
     TMDB_HTTP_INTERCEPTORS_PROVIDER,
@@ -55,10 +55,8 @@ import { RootInjectorShortcutModule } from './shared/injector/root-injector.modu
      *
      * Configure RxAngular to get maximum performance.
      */
-    RXA_PROVIDER
+    RXA_PROVIDER,
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule {
-
-}
+export class AppModule {}

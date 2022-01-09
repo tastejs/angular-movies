@@ -5,15 +5,11 @@ import {
   TrackByFunction,
   ViewEncapsulation,
 } from '@angular/core';
-import { RxState, selectSlice } from '@rx-angular/state';
 import { TMDBMovieCastModel } from '../../data-access/api/model/movie-credits.model';
 import { TMDBMovieGenreModel } from '../../data-access/api/model/movie-genre.model';
 
-import {
-  MovieDetailAdapter,
-  MovieDetailPageModel,
-} from './movie-detail-page.adapter';
-import { map } from 'rxjs';
+import { MovieDetailAdapter } from './movie-detail-page.adapter';
+import { select } from '@rx-angular/state';
 
 @Component({
   selector: 'ct-movie',
@@ -21,39 +17,27 @@ import { map } from 'rxjs';
   styleUrls: ['./movie-detail-page.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.Emulated,
-  providers: [RxState],
 })
 export class MovieDetailPageComponent {
-  readonly detailState$ = this.state.select(
-    selectSlice(['loading', 'movie', 'cast'])
+  readonly movieCtx$ = this.adapter.routedMovieCtx$;
+  readonly castList$ = this.adapter.movieCastById$;
+  readonly castListLoading$ = this.adapter.movieCastById$.pipe(
+    select('loading')
   );
-  readonly recommendations$ = this.state.select(
-    map(({ recommendations }) => recommendations?.results || [])
-  );
+  readonly infiniteScrollRecommendations$ =
+    this.adapter.infiniteScrollRecommendations$;
 
   constructor(
     private location: Location,
-    private adapter: MovieDetailAdapter,
-    private state: RxState<MovieDetailPageModel>
-  ) {
-    this.state.set({
-      cast: [],
-      loading: true,
-    });
-    this.state.connect(this.adapter.routedMovieSlice$);
-    this.state.connect(
-      'recommendations',
-      this.adapter.movieRecommendationsById$
-    );
-    this.state.connect('cast', this.adapter.movieCastById$);
-  }
+    private adapter: MovieDetailAdapter
+  ) {}
 
   back() {
     this.location.back();
   }
 
-  paginate() {
-    this.adapter.paginate();
+  paginateRecommendations() {
+    this.adapter.paginateRecommendations();
   }
 
   trackByGenre: TrackByFunction<TMDBMovieGenreModel> = (_, genre) => genre.name;
