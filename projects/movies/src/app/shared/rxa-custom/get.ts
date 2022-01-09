@@ -1,6 +1,6 @@
 /**
  * Safely plucks a property value from an object
- * obj && prop in obj ? obj[prop] : fallback;
+ * `obj && prop in obj ? obj[prop] : fallback`
  */
 export function pluck<T extends {}, K extends keyof T>(
   o: T,

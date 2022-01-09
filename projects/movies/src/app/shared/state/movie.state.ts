@@ -55,12 +55,6 @@ export class MovieState extends RxState<State> implements AppInitializer {
     this.connect(
       'movies',
       this.actions.fetchMovie$.pipe(
-        /**
-         * **🚀 Perf Tip for TTI, TBT:**
-         *
-         * Avoid over fetching for HTTP get requests to URLs that will not change result quickly.
-         * E.G.: URLs with the same params
-         */
         optimizedFetch(
           (id) => id,
           (id) => {
@@ -81,11 +75,6 @@ export class MovieState extends RxState<State> implements AppInitializer {
     this.connect(
       'categoryMovies',
       this.actions.fetchCategoryMovies$.pipe(
-        /**
-         * **🚀 Perf Tip for TTI, TBT:**
-         *
-         * Avoid over fetching for HTTP get requests to URLs that will not change result quickly.
-         */
         map((category) => ({
           category,
         })),

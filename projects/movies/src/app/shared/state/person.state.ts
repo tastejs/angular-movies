@@ -41,12 +41,6 @@ export class PersonState extends RxState<State> implements AppInitializer {
     this.connect(
       'person',
       this.actions.fetchPerson$.pipe(
-        /**
-         * **🚀 Perf Tip for TTI, TBT:**
-         *
-         * Avoid over fetching for HTTP get requests to URLs that will not change result quickly.
-         * E.G.: URLs with the same params
-         */
         optimizedFetch(
           (id) => id,
           (id) => {
