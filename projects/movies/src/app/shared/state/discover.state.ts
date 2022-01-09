@@ -1,21 +1,25 @@
 import { Injectable } from '@angular/core';
 import { map } from 'rxjs';
-import { TMDBMovieModel } from '../../data-access/api/model/movie.model';
 import { patch, RxState } from '@rx-angular/state';
 import { optimizedFetch } from '../utils/optimized-fetch';
 import { getActions } from '../rxa-custom/actions';
 import { withLoadingEmission } from '../cdk/loading/withLoadingEmissions';
-import { getDiscoverMovies } from '../../data-access/api/resources/discover.resource';
-import { PaginatedResult } from './typings';
-import { LoadingState } from '../cdk/loading/loading-state.interface';
+import {
+  getDiscoverMovies,
+  TMDBDiscoverResponse,
+} from '../../data-access/api/resources/discover.resource';
 import { AppInitializer } from '../rxa-custom/app-initializer';
+import { WithContext } from '../cdk/context/context.interface';
+import { pluck } from '../rxa-custom/get';
 
-export interface State extends LoadingState<'discoveredMoviesLoading'> {
-  discoveredMovies: Record<string, PaginatedResult<TMDBMovieModel>>;
+export interface State {
+  genreMovies: WithContext<Record<string, TMDBDiscoverResponse>>;
+  personMovies: WithContext<Record<string, TMDBDiscoverResponse>>;
 }
 
 interface Actions {
-  fetchDiscoverMovies: string;
+  fetchDiscoverGenreMovies: string;
+  fetchDiscoverCastMovies: string;
 }
 
 @Injectable({
@@ -23,39 +27,62 @@ interface Actions {
 })
 export class DiscoverState extends RxState<State> implements AppInitializer {
   private actions = getActions<Actions>({
-    fetchDiscoverMovies: String,
+    fetchDiscoverGenreMovies: String,
+    fetchDiscoverCastMovies: String,
   });
 
-  readonly fetchDiscoverMovies = this.actions.fetchDiscoverMovies;
+  readonly fetchDiscoverGenreMovies = this.actions.fetchDiscoverGenreMovies;
+
+  readonly genreMoviesByIdSlice = (id: string) =>
+    this.select(
+      map(({ genreMovies: { value, loading } }) => ({
+        loading,
+        value: pluck(value, id),
+      }))
+    );
 
   constructor() {
     super();
 
-    this.set({
-      discoveredMovies: {},
-    });
-
     this.connect(
-      this.actions.fetchDiscoverMovies$.pipe(
-        /**
-         * **🚀 Perf Tip for TTI, TBT:**
-         *
-         * Avoid over fetching for HTTP get requests to URLs that will not change result quickly.
-         */
+      'genreMovies',
+      this.actions.fetchDiscoverGenreMovies$.pipe(
         optimizedFetch(
-          (genre) => 'genre' + '-' + genre,
+          (genre: string) => genre,
           (with_genres: string) =>
             getDiscoverMovies({ with_genres, page: 1 }).pipe(
-              map((resp) => ({ discoveredMovies: { [with_genres]: resp } })),
-              withLoadingEmission('discoveredMoviesLoading')
+              map((resp) => ({ value: { [with_genres]: resp } })),
+              withLoadingEmission()
             )
         )
       ),
       (oldState, newPartial) => {
-        let resultState = patch(oldState, newPartial);
-        resultState.discoveredMovies = patch(
-          oldState.discoveredMovies,
-          resultState.discoveredMovies
+        let resultState = patch(oldState.genreMovies, newPartial);
+        resultState.value = patch(
+          oldState?.genreMovies?.value,
+          resultState.value
+        );
+        return resultState;
+      }
+    );
+
+    this.connect(
+      'personMovies',
+      this.actions.fetchDiscoverCastMovies$.pipe(
+        optimizedFetch(
+          (person) => person,
+          (with_cast: string) =>
+            getDiscoverMovies({ with_cast, page: 1 }).pipe(
+              map((resp) => ({ value: { [with_cast]: resp } })),
+              withLoadingEmission()
+            )
+        )
+      ),
+      (oldState, newPartial) => {
+        let resultState = patch(oldState?.personMovies, newPartial);
+        resultState.value = patch(
+          oldState?.personMovies?.value,
+          resultState.value
         );
         return resultState;
       }
@@ -63,6 +90,6 @@ export class DiscoverState extends RxState<State> implements AppInitializer {
   }
 
   initialize(category: string): void {
-    this.fetchDiscoverMovies(category);
+    this.fetchDiscoverGenreMovies(category);
   }
 }

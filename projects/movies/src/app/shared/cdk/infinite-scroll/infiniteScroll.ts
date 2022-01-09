@@ -1,10 +1,18 @@
-import { concat, concatMap, EMPTY, map, Observable, scan, take } from 'rxjs';
-import { PaginatedResult } from '../../state/typings';
+import {
+  concat,
+  concatMap,
+  EMPTY,
+  map,
+  Observable,
+  scan,
+  takeWhile,
+} from 'rxjs';
 import { withLoadingEmission } from '../loading/withLoadingEmissions';
 import {
+  InfiniteScrollOptions,
+  InfiniteScrollResult,
   InfiniteScrollState,
-  PaginationOptions,
-} from './paginate-state.interface';
+} from './infinite-scroll.interface';
 import { insert, patch } from '@rx-angular/state';
 import { coerceObservable } from '../../utils/coerceObservable';
 
@@ -48,34 +56,35 @@ type PartialInfiniteScrollState<T> = Partial<InfiniteScrollState<T>>;
  * );
  *
  */
-export function infiniteScrolled<T>(
+export function infiniteScroll<T>(
   fetchFn: (
-    incrementedOptions: PaginationOptions
+    incrementedOptions: InfiniteScrollOptions
   ) => Observable<PartialInfiniteScrollState<T>>,
   trigger$: Observable<any>,
   initialPageOrLastResult:
-    | PaginatedResult<any>
-    | Observable<PaginatedResult<T>> = {} as PaginatedResult<any>
+    | InfiniteScrollResult<any>
+    | Observable<InfiniteScrollResult<T>> = {} as InfiniteScrollResult<any>
 ): Observable<InfiniteScrollState<T>> {
-  let page: number = 0;
-  let totalPages: number = 2;
+  let page = 0;
+  let total_pages = 2;
 
   // We need to reduce the initial page by one as we start by incrementing it
   const initialResult$ = coerceObservable(initialPageOrLastResult).pipe(
     map((s) => {
-      const { page: _p, totalPages: _t, ...rest } = s;
+      const { page: _page, total_pages: _total_pages, ...rest } = s;
       // if no start result is given start with page 0, total pages 2 => next request will be page 1
       // if no initial result is given start with an empty list
-      page = _p || page;
-      totalPages = _t || totalPages;
+      page = _page || page;
+      total_pages = _total_pages || total_pages;
       return {
         page,
-        totalPages,
+        total_pages,
         ...rest,
       } as InfiniteScrollState<T>;
     }),
-    // in case there is global state connected we take care of just taking the initial value
-    take(1)
+    // in case there is global state connected we take care of just taking the initial value that includes a result.
+    // loading emissoins are forwarded as they are and merged into the result stream. This "forwards" the possible inflight state of the initial result.
+    takeWhile((r) => Array.isArray(r.results))
   );
 
   return concat(
@@ -83,7 +92,7 @@ export function infiniteScrolled<T>(
     trigger$.pipe(
       concatMap(() => {
         ++page;
-        return page <= totalPages
+        return page <= total_pages
           ? fetchFn({ page }).pipe(withLoadingEmission())
           : (EMPTY as unknown as Observable<PartialInfiniteScrollState<T>>);
       })
@@ -92,8 +101,8 @@ export function infiniteScrolled<T>(
     scan(
       (acc: InfiniteScrollState<T>, response) => {
         // in case the initial value was no set we take total pages from the result
-        if (response?.totalPages) {
-          totalPages = response.totalPages as number;
+        if (response?.total_pages) {
+          total_pages = response.total_pages;
         }
         // Only treas results if they are given.
         // Avoid emitting unnecessary empty arrays which cause render filcker and bad performance
@@ -104,7 +113,7 @@ export function infiniteScrolled<T>(
         // the rest gets updated
         return patch(acc, response);
       },
-      { page, totalPages } as unknown as InfiniteScrollState<T>
+      { page, total_pages } as unknown as InfiniteScrollState<T>
     )
   );
 }
