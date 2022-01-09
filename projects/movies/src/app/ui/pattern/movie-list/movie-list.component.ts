@@ -8,7 +8,7 @@ import {
 import { RxState } from '@rx-angular/state';
 import { filter, map, Observable } from 'rxjs';
 import { TMDBMovieModel } from '../../../data-access/api/model/movie.model';
-import { W300H450 } from '../../../data-access/configurations/image-sizes';
+import { W300H450 } from '../../../data-access/api/constants/image-sizes';
 import { ImageTag } from '../../../shared/utils/image/image-tag.interface';
 import { addImageTag } from '../../../shared/utils/image/image-tag.transform';
 import { getActions } from '../../../shared/rxa-custom/actions';
@@ -99,7 +99,7 @@ export class MovieListComponent {
   );
 
   @Input()
-  set movies(movies$: RxInputType<TMDBMovieModel[] | null>) {
+  set movies(movies$: RxInputType<TMDBMovieModel[] | null | undefined>) {
     this.state.connect('movies', coerceObservable(movies$));
   }
 
@@ -108,7 +108,9 @@ export class MovieListComponent {
     filter(Boolean)
   );
 
-  constructor(private state: RxState<{ movies: TMDBMovieModel[] | null }>) {}
+  constructor(
+    private state: RxState<{ movies?: TMDBMovieModel[] | null | undefined }>
+  ) {}
 
   trackByMovieId(_: number, movie: Movie) {
     return movie.id;

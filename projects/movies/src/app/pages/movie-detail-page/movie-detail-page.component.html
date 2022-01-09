@@ -1,29 +1,29 @@
-<article *rxLet="detailState$; let vs">
-  <ng-container *ngIf="!vs.loading; else loading">
+<article *rxLet="movieCtx$; let movieCtx">
+  <ng-container *ngIf="movieCtx?.value as movie; else loading">
     <ui-detail-grid>
       <div detailGridMedia>
         <img
           class="aspectRatio-2-3 fit-cover"
-          [src]="vs.movie.imgUrl"
-          [width]="vs.movie.imgWidth"
-          [height]="vs.movie.imgHeight"
+          [src]="movie.imgUrl"
+          [width]="movie.imgWidth"
+          [height]="movie.imgHeight"
           alt="poster movie"
-          [title]="vs.movie?.title"
+          [title]="movie.title"
           data-test="detail-item-img"
         />
       </div>
       <div detailGridDescription>
         <header>
-          <h1>{{ vs.movie.title }}</h1>
-          <h2>{{ vs.movie.tagline }}</h2>
+          <h1>{{ movie.title }}</h1>
+          <h2>{{ movie.tagline }}</h2>
         </header>
         <section class="movie-detail--basic-infos">
           <ui-star-rating
-            [rating]="vs.movie?.vote_average"
+            [rating]="movie.vote_average"
             [showRating]="true"
           ></ui-star-rating>
           <div class="movie-detail--languages-runtime-release">
-            <strong>{{ vs.movie?.languages_runtime_release }}</strong>
+            <strong>{{ movie.languages_runtime_release }}</strong>
           </div>
         </section>
         <section>
@@ -32,7 +32,7 @@
             <a
               class="movie-detail--genres-link"
               *ngFor="
-                let genre of vs.movie?.genres || [];
+                let genre of movie.genres;
                 trackBy: trackByGenre
               "
               [routerLink]="['/list/genre/', genre.id]"
@@ -50,28 +50,31 @@
         </section>
         <section>
           <h3>The Synopsis</h3>
-          <p>  {{ vs.movie?.overview || 'There is no synopsis available...' }}</p>
+          <p>  {{ movie.overview || 'There is no synopsis available...' }}</p>
         </section>
         <section>
           <h3>The Cast</h3>
           <div class="movie-detail--cast-list">
-            <a
-              *ngFor="let c of vs.cast; trackBy: trackByCast"
-              [routerLink]="['/detail/person/',c.id]"
-              (click)="$event.preventDefault()"
-              class="movie-detail--cast-actor"
-            >
-              <img
-                loading="lazy"
-                [src]="
+            <ng-container *rxLet="castList$; let ctx;  strategy: 'immediate'">
+              <a
+                *rxFor="let c of  ctx.value; trackBy: trackByCast"
+                [routerLink]="['/detail/person/',c.id]"
+                (click)="$event.preventDefault()"
+                class="movie-detail--cast-actor"
+              >
+                <img
+                  loading="lazy"
+                  [src]="
                   c?.profile_path
-                    ? 'https://image.tmdb.org/t/p/w185' + c?.profile_path
+                    ? 'https://image.tmdb.org/t/p/w185' + c.profile_path
                     : 'assets/images/no_poster_available.jpg'
                 "
-                [alt]="c.name"
-                [title]="c.name"
-              />
-            </a>
+                  [alt]="c.name"
+                  [title]="c.name"
+                />
+              </a>
+              <div *ngIf="ctx.loading" class="loader" data-test="list-loader"></div>
+            </ng-container>
           </div>
         </section>
         <section class="movie-detail--ad-section-links">
@@ -79,7 +82,7 @@
             class="btn"
             target="_blank"
             rel="noopener noreferrer"
-            [href]="vs.movie?.homepage"
+            [href]="movie.homepage"
           >
             Website
             <svg class="btn__icon" viewBox="0 0 24 24" fill="currentColor">
@@ -90,11 +93,11 @@
             </svg>
           </a>
           <a
-            *ngIf="vs.movie?.imdb_id"
+            *ngIf="movie.imdb_id"
             class="btn"
             target="_blank"
             rel="noopener noreferrer"
-            [href]="'https://www.imdb.com/title/' + vs.movie?.imdb_id"
+            [href]="'https://www.imdb.com/title/' + movie.imdb_id"
           >
             IMDB
             <svg class="btn__icon" viewBox="0 0 24 24" fill="currentColor">
@@ -105,7 +108,7 @@
             </svg>
           </a>
           <a
-            *ngIf="vs.movie.videoUrl"
+            *ngIf="movie.videoUrl"
             class="btn"
             (click)="$event.preventDefault(); $any(trailerDialog).showModal()"
             href="#trainer"
@@ -117,7 +120,7 @@
           </a>
           <dialog class="video" #trailerDialog id="trailer-dialog">
             <span aria-controls="trailer-dialog" class="close" (click)="$any(trailerDialog).close()"></span>
-            <iframe [bypassSrc]="vs.movie.videoUrl" loading="lazy"
+            <iframe [bypassSrc]="movie.videoUrl" loading="lazy"
                     width="460" height="230"></iframe>
           </dialog>
           <button class="btn" (click)="back()">
@@ -136,6 +139,11 @@
     <h1>Recommended</h1>
     <h2>Movies</h2>
   </header>
-  <ui-movie-list [movies]="recommendations$" (paginate)="paginate()">
-  </ui-movie-list>
+  <ng-container *rxLet="infiniteScrollRecommendations$; let ctx;  strategy: 'immediate'">
+    <ui-movie-list (paginate)="paginateRecommendations()"
+                   [movies]="ctx.results" data-test="list-wrapper">
+    </ui-movie-list>
+    <div *ngIf="ctx.loading" class="loader" data-test="list-loader"></div>
+  </ng-container>
+
 </article>

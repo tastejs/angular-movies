@@ -1,13 +1,15 @@
 import { Injectable } from '@angular/core';
 import { exhaustMap } from 'rxjs';
-import { TMDBMovieGenreModel } from '../../data-access/api/model/movie-genre.model';
 import { RxState } from '@rx-angular/state';
 import { getActions } from '../rxa-custom/actions';
-import { getGenres } from '../../data-access/api/resources/genre.resource';
+import {
+  GenresResponse,
+  getGenres,
+} from '../../data-access/api/resources/genre.resource';
 import { AppInitializer } from '../rxa-custom/app-initializer';
 
 export interface State {
-  genres: TMDBMovieGenreModel[];
+  genres: GenresResponse;
 }
 
 interface Actions {

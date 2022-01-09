@@ -1,5 +1,5 @@
 import { Observable } from 'rxjs';
-import { baseUrlApiV4 } from '../constants';
+import { baseUrlApiV4 } from './base-urls.constant';
 import { getHTTP } from '../../../shared/injector/get-http-client';
 
 type Token = {

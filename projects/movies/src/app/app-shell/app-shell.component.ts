@@ -13,7 +13,8 @@ import { trackByProp } from '../shared/utils/track-by';
 import { getActions } from '../shared/rxa-custom/actions';
 import { RouterState } from '../shared/state/router.state';
 import { getIdentifierOfTypeAndLayout } from '../shared/state/utils';
-import { GenreState } from '../shared/state/genre.state';
+import { preventDefault } from '../shared/rxa-custom/actions/transforms';
+import { getGenresCached } from '../data-access/api/resources/genre.resource';
 
 @Component({
   selector: 'app-shell',
@@ -33,7 +34,6 @@ export class AppShellComponent {
       sideDrawerOpen: boolean;
     }>,
     public routerState: RouterState,
-    public genreState: GenreState,
     private router: Router
   ) {
     this.init();
@@ -61,7 +61,7 @@ export class AppShellComponent {
     );
   }
 
-  readonly genres$ = this.genreState.genresNames$;
+  readonly genres$ = getGenresCached();
   @ViewChild('snav') snav: any;
 
   readonly viewState$ = this.state.select();

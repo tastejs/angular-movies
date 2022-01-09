@@ -1,39 +1,39 @@
-<article *rxLet="detailState$; let vs">
-  <ng-container *ngIf="!vs.loading; else loading">
+<article *rxLet="personCtx$; let personCtx">
+  <ng-container *ngIf="personCtx?.value as person; else loading">
     <ui-detail-grid>
       <div detailGridMedia>
         <img
           class="aspectRatio-2-3 fit-cover"
           [src]="
-          vs.person?.profile_path ?
+          person?.profile_path ?
             'https://image.tmdb.org/t/p/w' +
-            vs.person.imgWidth +
+            person.imgWidth +
             '/' +
-            vs.person?.profile_path : 'assets/images/no_poster_available.jpg'
+            person.profile_path : 'assets/images/no_poster_available.jpg'
           "
-          [width]="vs.person.imgWidth"
-          [height]="vs.person.imgHeight"
+          [width]="person.imgWidth"
+          [height]="person.imgHeight"
           alt="poster movie"
-          [title]="vs.person?.name"
+          [title]="person?.name"
           data-test="detail-item-img"
         />
       </div>
       <div detailGridDescription>
         <header>
-          <h1>{{ vs.person.name }}</h1>
-          <h2>{{ vs.person.birthday }}</h2>
+          <h1>{{ person.name }}</h1>
+          <h2>{{ person.birthday }}</h2>
         </header>
         <section>
           <h3>The Biography</h3>
-          <p>  {{ vs.person?.biography || 'There is no synopsis available...' }}</p>
+          <p>  {{ person.biography || 'There is no synopsis available...' }}</p>
         </section>
         <section class="movie-detail--ad-section-links">
           <a
-            *ngIf="vs.person?.imdb_id"
+            *ngIf="person.imdb_id"
             class="btn"
             target="_blank"
             rel="noopener noreferrer"
-            [href]="'https://www.imdb.com/person/' + vs.person?.imdb_id"
+            [href]="'https://www.imdb.com/person/' + person.imdb_id"
           >
             IMDB
             <svg class="btn__icon" viewBox="0 0 24 24" fill="currentColor">
@@ -54,11 +54,16 @@
     <div class="loader"></div>
   </ng-template>
 </article>
-<article *rxLet="recommendedLoading$; let loading">
-  <header *rxLet="detailState$; let d">
-    <h1>{{d.person?.name}} in</h1>
+<article>
+  <header *rxLet="personCtx$; let p">
+    <h1>{{p?.value?.name || '...'}} in</h1>
     <h2>Movies</h2>
   </header>
-  <ui-movie-list *ngIf="!loading" (paginate)="paginate()" [movies]="recommendations$">
-  </ui-movie-list>
+  <ng-container *rxLet="infiniteScrollRecommendations$; let ctx;  strategy: 'immediate'">
+    <ui-movie-list (paginate)="paginate()"
+                   [movies]="ctx.results" data-test="list-wrapper">
+    </ui-movie-list>
+    <div *ngIf="ctx.loading" class="loader" data-test="list-loader"></div>
+  </ng-container>
 </article>
+
