@@ -2,12 +2,12 @@ import { Injectable } from '@angular/core';
 import { map } from 'rxjs';
 import { RxState } from '@rx-angular/state';
 import { isAuthenticationInProgress } from './utils';
-import { AuthState } from './auth-state.interface';
+import { AuthStateModel } from './auth-state.model';
 
 @Injectable({
   providedIn: 'root',
 })
-export class AuthStateService extends RxState<AuthState>{
+export class AuthState extends RxState<AuthStateModel> {
   private localStorage = window.localStorage;
   readonly redirectUrl = `${window.location.protocol}//${window.location.hostname}:${window.location.port}/movies/popular`;
 
@@ -21,9 +21,9 @@ export class AuthStateService extends RxState<AuthState>{
   constructor() {
     super();
     this.set({
-      requestToken: this.localStorage.getItem('requestToken') || undefined,
-      accessToken: this.localStorage.getItem('accessToken') || undefined,
-      accountId: this.localStorage.getItem('accountId') || undefined,
+      requestToken: this.localStorage.getItem('requestToken'),
+      accessToken: this.localStorage.getItem('accessToken'),
+      accountId: this.localStorage.getItem('accountId'),
     });
   }
 }

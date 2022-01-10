@@ -6,18 +6,15 @@ import {
 
 import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
-import { AuthStateService } from './auth.state';
+import { AuthState } from './auth.state';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ReadAccessInterceptor implements HttpInterceptor {
-  constructor(private authService: AuthStateService) {}
+  constructor(private authService: AuthState) {}
 
-  intercept(
-    req: HttpRequest<any>,
-    next: HttpHandler
-  ) {
+  intercept(req: HttpRequest<any>, next: HttpHandler) {
     const token = this.authService.get().accessToken;
 
     return next.handle(
