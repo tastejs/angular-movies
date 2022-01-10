@@ -6,7 +6,7 @@ import {
   createAccessToken,
   createRequestToken,
   deleteAccessToken,
-} from '../api/resources/auth.resource';
+} from '../../data-access/api/resources/auth.resource';
 
 @Injectable({
   providedIn: 'root',

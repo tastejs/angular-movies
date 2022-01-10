@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { getActions } from '../../shared/rxa-custom/actions';
-import { AuthEffects } from '../../data-access/auth/auth.effects';
+import { AuthEffects } from '../../shared/auth/auth.effects';
 import { RxState } from '@rx-angular/state';
-import { AuthState } from '../../data-access/auth/auth.state';
+import { AuthState } from '../../shared/auth/auth.state';
 import { map, tap } from 'rxjs';
 
 @Component({
