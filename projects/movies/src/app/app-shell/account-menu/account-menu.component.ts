@@ -1,10 +1,9 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { Router } from '@angular/router';
 import { getActions } from '../../shared/rxa-custom/actions';
 import { AuthEffects } from '../../data-access/auth/auth.effects';
 import { RxState } from '@rx-angular/state';
-import { AuthStateService } from '../../data-access/auth/auth.state';
-import { map } from 'rxjs';
+import { AuthState } from '../../data-access/auth/auth.state';
+import { map, tap } from 'rxjs';
 
 @Component({
   selector: 'account-menu',
@@ -22,23 +21,20 @@ export class AccountMenuComponent {
   loggedIn$ = this.state.select('loggedIn');
 
   constructor(
-    private router: Router,
     private authEffects: AuthEffects,
-    private authState: AuthStateService,
+    private authState: AuthState,
     private state: RxState<{ loggedIn: boolean }>
   ) {
     this.state.connect(
       'loggedIn',
-      this.authState.accountId$.pipe(map((s) => s === null))
+      this.authState.accountId$.pipe(
+        tap(console.log),
+        map((s) => s === null)
+      )
     );
-  }
-
-  signIn() {
-    this.authEffects.approveRequestToken();
-  }
-
-  signOut() {
-    this.authEffects.signOut();
-    this.router.navigate(['/movies/popular']);
+    this.state.hold(this.ui.signOut$, () => this.authEffects.signOut());
+    this.state.hold(this.ui.signIn$, () =>
+      this.authEffects.approveRequestToken()
+    );
   }
 }

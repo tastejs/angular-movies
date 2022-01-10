@@ -13,7 +13,6 @@ import { trackByProp } from '../shared/utils/track-by';
 import { getActions } from '../shared/rxa-custom/actions';
 import { RouterState } from '../shared/state/router.state';
 import { getIdentifierOfTypeAndLayout } from '../shared/state/utils';
-import { preventDefault } from '../shared/rxa-custom/actions/transforms';
 import { getGenresCached } from '../data-access/api/resources/genre.resource';
 
 @Component({

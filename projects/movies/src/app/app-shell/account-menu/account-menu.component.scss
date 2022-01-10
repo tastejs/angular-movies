@@ -1,0 +1,23 @@
+:host {
+  max-height: 33px;
+  display: block;
+}
+
+.menu {
+  li {
+    list-style-type: none;
+    line-height: 33px;
+  }
+}
+
+.menu li:hover {
+  .menu {
+    display: block;
+  }
+}
+
+.menu .menu {
+  display: none;
+}
+
+

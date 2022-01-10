@@ -14,7 +14,7 @@ import {
 import { WithContext } from '../cdk/context/context.interface';
 import { pluck } from '../rxa-custom/get';
 
-export interface State {
+export interface MovieModel {
   movies: WithContext<Record<string, MovieResponse>>;
   categoryMovies: WithContext<Record<string, CategoryResponse>>;
 }
@@ -27,7 +27,7 @@ interface Actions {
 @Injectable({
   providedIn: 'root',
 })
-export class MovieState extends RxState<State> implements AppInitializer {
+export class MovieState extends RxState<MovieModel> implements AppInitializer {
   private actions = getActions<Actions>();
 
   fetchMovie = this.actions.fetchMovie;
