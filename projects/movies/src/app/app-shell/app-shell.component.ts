@@ -7,7 +7,13 @@ import {
 } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { RxState } from '@rx-angular/state';
-import { distinctUntilChanged, filter, map } from 'rxjs';
+import {
+  distinctUntilChanged,
+  filter,
+  map,
+  shareReplay,
+  switchMap,
+} from 'rxjs';
 import { TMDBMovieGenreModel } from '../data-access/api/model/movie-genre.model';
 import { trackByProp } from '../shared/utils/track-by';
 import { getActions } from '../shared/rxa-custom/actions';
@@ -24,8 +30,22 @@ import { getGenresCached } from '../data-access/api/resources/genre.resource';
   providers: [RxState],
 })
 export class AppShellComponent {
+  readonly ui = getActions<{
+    sideDrawerOpenToggle: boolean;
+    loadAccountMenu: void;
+  }>();
+
   search$ = this.routerState.select(
     getIdentifierOfTypeAndLayout('search', 'list')
+  );
+
+  accountMenuComponent$ = this.ui.loadAccountMenu$.pipe(
+    switchMap(() =>
+      import('./account-menu/account-menu.component.lazy').then(
+        (c) => c.component
+      )
+    ),
+    shareReplay(1)
   );
 
   constructor(
@@ -64,10 +84,6 @@ export class AppShellComponent {
   @ViewChild('snav') snav: any;
 
   readonly viewState$ = this.state.select();
-
-  readonly ui = getActions<{
-    sideDrawerOpenToggle: boolean;
-  }>();
 
   readonly trackByGenre: TrackByFunction<TMDBMovieGenreModel> =
     trackByProp<TMDBMovieGenreModel>('name');

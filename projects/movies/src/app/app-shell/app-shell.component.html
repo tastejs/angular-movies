@@ -136,7 +136,20 @@
       <div class="ui-toolbar--widget-container">
         <ui-search-bar [query]="search$" (searchSubmit)="searchMovie($event)"></ui-search-bar>
         <ui-dark-mode-toggle></ui-dark-mode-toggle>
-        <account-menu></account-menu>
+        <ul class="menu account-menu" (mouseenter)="ui.loadAccountMenu()">
+          <li>
+            Account
+            <ul class="menu">
+              <ng-container *rxLet="accountMenuComponent$; rxSuspense: loading" [loadComponent]="accountMenuComponent$">
+              </ng-container>
+              <ng-template #loading>
+                <li>Profile</li>
+                <li>My Lists</li>
+                <li>Logout</li>
+              </ng-template>
+            </ul>
+          </li>
+        </ul>
       </div>
     </div>
     <div *rxLet="[]" class="content">

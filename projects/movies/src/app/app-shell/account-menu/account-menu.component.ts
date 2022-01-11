@@ -3,8 +3,11 @@ import { getActions } from '../../shared/rxa-custom/actions';
 import { AuthEffects } from '../../shared/auth/auth.effects';
 import { RxState } from '@rx-angular/state';
 import { AuthState } from '../../shared/auth/auth.state';
-import { map, tap } from 'rxjs';
+import { map } from 'rxjs';
+import { RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
+export const imports = [RouterModule, CommonModule];
 @Component({
   selector: 'account-menu',
   templateUrl: './account-menu.component.html',
@@ -27,10 +30,7 @@ export class AccountMenuComponent {
   ) {
     this.state.connect(
       'loggedIn',
-      this.authState.accountId$.pipe(
-        tap(console.log),
-        map((s) => s === null)
-      )
+      this.authState.accountId$.pipe(map((s) => s === null))
     );
     this.state.hold(this.ui.signOut$, () => this.authEffects.signOut());
     this.state.hold(this.ui.signIn$, () =>

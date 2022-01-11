@@ -1,29 +1,10 @@
-<a
-  *ngIf="loggedIn$ | async; else signOut"
-  title="sign in"
-  rel="nofollow"
-  href="https://www.themoviedb.org/auth/access"
-  (click)="ui.signIn"
->
-  Login
-</a>
-<ng-template #signOut>
-  <ul class="menu">
-    <li>
-      Account
-      <ul class="menu">
-        <li>Profile</li>
-        <li><a [routerLink]="['/account/lists']">My Lists</a></li>
-        <li>
-          <a
-            (click)="ui.signOut($event)"
-            title="sign out"
-            [routerLink]="'/movies/popular'">
-            Logout
-          </a>
-        </li>
-      </ul>
-    </li>
-  </ul>
-
-</ng-template>
+<li><a [routerLink]="['/account/profile']">Profile</a></li>
+<li><a [routerLink]="['/account/lists']">My Lists</a></li>
+<li>
+  <a
+    (click)="ui.signOut($event)"
+    title="sign out"
+    [routerLink]="'/movies/popular'">
+    Logout
+  </a>
+</li>

@@ -49,13 +49,13 @@ const ROUTES: Routes = [
         'projects/movies/src/app/pages/person-detail-page/person-detail-page.module'
       ).then((m) => m.PersonDetailPageModule),
   },
-  {
+  /*{
     path: 'account/lists',
     loadChildren: () =>
       import(
         'projects/movies/src/app/pages/account-list-page/account-list-page.module'
-      ).then((m) => m.AccountListPageModule),
-  },
+      ).then((m) => m),
+  },*/
   //      static params for 'list/:type/:identifier'
   { path: '**', redirectTo: 'list/category/popular' },
 ];

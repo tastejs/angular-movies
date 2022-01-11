@@ -2,6 +2,32 @@
 @import '../ui/token/mixins/flex';
 @import '../ui/component/icons/icon';
 
+.account-menu {
+  max-height: 33px;
+  display: block;
+}
+
+.menu {
+  min-height: 33px;
+  display: block;
+
+  li {
+    list-style-type: none;
+    line-height: 33px;
+  }
+}
+
+.menu li:hover {
+  .menu {
+    display: block;
+  }
+}
+
+.menu .menu {
+  display: none;
+}
+
+
 .ui-toolbar {
   height: 72px;
   @include d-flex-v;
