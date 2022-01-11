@@ -1,3 +1,3 @@
 import { Observable } from 'rxjs';
 
-export type RxInputType<T> = Observable<T | null> | T | null;
+export type RxInputType<T> = Observable<T> | T;
