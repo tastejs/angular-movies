@@ -41,7 +41,7 @@ export class AppShellComponent {
 
   accountMenuComponent$ = this.ui.loadAccountMenu$.pipe(
     switchMap(() =>
-      import('./account-menu/account-menu.component.lazy').then((c) => c._)
+      import('./account-menu/account-menu.component.lazy').then(({ c }) => c)
     ),
     shareReplay(1)
   );

@@ -1,5 +1,10 @@
 import { NgModule } from '@angular/core';
-import { AccountMenuComponent, imports } from './account-menu.component';
+import {
+  // organize your imports next to the component (like stand alone components)
+  // e.g. `export const imports = [RouterModule, CommonModule, ...];`
+  imports,
+  AccountMenuComponent,
+} from './account-menu.component';
 
 /**
  * @NOTICE:
@@ -9,19 +14,44 @@ import { AccountMenuComponent, imports } from './account-menu.component';
  * 1. create a module maintaining all it's dependencies over imports.
  * 2. declared the component as part of the module
  * 3. export the module
- * 4. export the component
+ * 4. export the component under a const (export default is not working)
  * 5. (bonus) avoid usage of the module by
  *  a. naming it as "_"
  *  b. add the @deprecated comment with a message
  */
 
 /**
- *  @deprecated The module is here only for bundling reasons and should not be used // [5.b]
- */
+ *  @deprecated The module is here only for bundling reasons and should not be used
+ */ // [5.b]
 @NgModule({
   imports, // [1]
   declarations: [AccountMenuComponent], // [2]
 })
-export class _ {} // [3], [5.a]
+export class AccountMenuComponentModule {} // [3], [5.a]
 
-export const component = AccountMenuComponent; // [4]
+// as the component is the only thing exported we can couly name it c to save characters
+export const c = AccountMenuComponent; // [4]
+
+/**
+ Implementation:
+
+ @Component({
+  templates: `
+    <ng-container *rxLet="accountMenuComponent$; rxSuspense: loading" [loadComponent]="c$">
+    </ng-container>
+    <ng-template #loading>
+      Loading...
+    </ng-template>
+  `,
+})
+ export class AppShellComponent {
+  readonly load = new Subject<void>();
+
+  c$ = this.load.pipe(
+    switchMap(() =>
+      import('./any.component.lazy').then(({ c }) => c)
+    ),
+    shareReplay(1)
+  );
+  }
+ */

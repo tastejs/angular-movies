@@ -140,7 +140,7 @@
           <li>
             Account
             <ul class="menu">
-              <ng-container *rxLet="accountMenuComponent$; rxSuspense: loading" [loadComponent]="accountMenuComponent$">
+              <ng-container *rxLet="accountMenuComponent$; rxSuspense: loading" [lazy]="accountMenuComponent$">
               </ng-container>
               <ng-template #loading>
                 <li>Profile</li>

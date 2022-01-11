@@ -8,6 +8,7 @@ import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
 export const imports = [RouterModule, CommonModule];
+
 @Component({
   selector: 'account-menu',
   templateUrl: './account-menu.component.html',

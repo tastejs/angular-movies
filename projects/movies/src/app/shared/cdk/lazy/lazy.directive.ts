@@ -26,25 +26,25 @@ import { distinctUntilChanged } from 'rxjs';
  * import('./any-component.lazy.ts').then(c => c.component)
  */
 @Directive({
-  selector: '[loadComponent]',
+  selector: '[lazy]',
 })
-export class LazyComponentDirective extends RxState<{
+export class LazyDirective extends RxState<{
   component: Type<any>;
 }> {
   @Input()
-  set loadComponent(component: RxInputType<Type<any>>) {
+  set lazy(component: RxInputType<Type<any>>) {
     this.connect('component', coerceObservable(component));
   }
 
-  constructor(viewContainerRef: ViewContainerRef) {
+  constructor(vCR: ViewContainerRef) {
     super();
 
     this.hold(
       // avoid recreation of a component with the same class (distinctUntilChanged)
       this.select('component').pipe(distinctUntilChanged()),
-      (component) => {
-        viewContainerRef.clear();
-        viewContainerRef.createComponent(component);
+      (c) => {
+        vCR.clear();
+        vCR.createComponent(c);
       }
     );
   }

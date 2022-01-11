@@ -8,7 +8,7 @@ import { SideDrawerModule } from '../ui/component/side-drawer/side-drawer.module
 import { DarkModeToggleModule } from '../ui/component/dark-mode-toggle/dark-mode-toggle.module';
 import { SearchBarModule } from '../ui/component/search-bar/search-bar.module';
 import { AppShellComponent } from './app-shell.component';
-import { LazyComponentModule } from '../shared/cdk/lazy-component/lazy-component.module';
+import { LazyModule } from '../shared/cdk/lazy/lazy.module';
 
 @NgModule({
   declarations: [AppShellComponent],
@@ -21,7 +21,7 @@ import { LazyComponentModule } from '../shared/cdk/lazy-component/lazy-component
     SearchBarModule,
     DarkModeToggleModule,
     RxForModule,
-    LazyComponentModule,
+    LazyModule,
   ],
   exports: [AppShellComponent],
 })
