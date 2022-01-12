@@ -30,6 +30,12 @@ jobs:
           author_email: opensource@push-based.io
           message: 'Persist stats.json and bundle-size report'
           add: './measures/**/*'
+      - name: Commit measures
+        uses: andresz1/size-limit-action@v1
+          with:
+            build_script: build:prod
+            skip_step: install
+            github_token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Deploy to firebase preview channel hosting
         id: previewDeployStep
