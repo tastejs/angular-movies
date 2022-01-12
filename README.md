@@ -84,7 +84,7 @@ Built with:
 
 
 Based on the original `angular-movies` foundation by [@clamarque](https://github.com/clamarque/angular-movies).
-  
+   
 ## License
 
 [MIT](https://choosealicense.com/licenses/mit/)
