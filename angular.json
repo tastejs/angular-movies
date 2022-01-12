@@ -28,6 +28,7 @@
             "main": "projects/movies/src/main.ts",
             "tsConfig": "projects/movies/tsconfig.app.json",
             "inlineStyleLanguage": "scss",
+            "namedChunks": true,
             "assets": [
               "projects/movies/src/favicon.ico",
               "projects/movies/src/manifest.json",
@@ -41,6 +42,7 @@
           },
           "configurations": {
             "production": {
+              "namedChunks": true,
               "budgets": [
                 {
                   "type": "initial",
