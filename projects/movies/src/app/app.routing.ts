@@ -33,7 +33,7 @@ const ROUTES: Routes = [
     component: MovieListPageComponent,
     /* loadChildren: () =>
       import('projects/movies/src/app/pages/movie-list-page/movie-list-page.module').then((m) => m.MovieListPageModule)
- */
+    */
   },
   {
     path: 'detail/movie/:identifier',
@@ -62,7 +62,5 @@ export const ROUTING_IMPORTS = [
      * Disable initial sync navigation in router config and schedule it in router-outlet container component
      */
     initialNavigation: 'disabled',
-    onSameUrlNavigation: 'reload',
-    relativeLinkResolution: 'legacy',
   }),
 ];
