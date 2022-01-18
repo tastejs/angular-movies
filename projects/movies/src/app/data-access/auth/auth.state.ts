@@ -20,10 +20,25 @@ export class AuthStateService extends RxState<AuthState>{
 
   constructor() {
     super();
+    this.rebootStore();
     this.set({
       requestToken: this.localStorage.getItem('requestToken') || undefined,
       accessToken: this.localStorage.getItem('accessToken') || undefined,
       accountId: this.localStorage.getItem('accountId') || undefined,
     });
+  }
+
+  private rebootStore() {
+    const requestToken = this.localStorage.getItem('requestToken') || undefined;
+    if (requestToken !== undefined) {
+      this.localStorage.removeItem('accessToken');
+      this.localStorage.removeItem('accountId');
+    }
+    const accessToken = this.localStorage.getItem('accessToken') || undefined;
+    if (accessToken !== undefined) {
+      this.localStorage.removeItem('requestToken');
+    } else {
+      this.localStorage.removeItem('accountId');
+    }
   }
 }
