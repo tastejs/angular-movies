@@ -67,7 +67,7 @@ export class AppShellComponent {
       )
     );
 
-    this.state.hold(this.ui.signOut$, () => this.onSignOut);
+    this.state.hold(this.ui.signOut$, this.onSignOut);
     this.state.hold(
       this.router.events.pipe(
         filter((e) => e instanceof NavigationEnd),
@@ -98,12 +98,12 @@ export class AppShellComponent {
       : this.router.navigate([`list/search/${term}`]);
   }
 
-  onSignOut() {
+  onSignOut = () => {
     this.authEffects.signOut();
     this.router.navigate(['/movies/popular']);
-  }
+  };
 
-  closeSidenav() {
+  closeSidenav = () => {
     this.ui.sideDrawerOpenToggle(false);
-  }
+  };
 }
