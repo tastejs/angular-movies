@@ -33,7 +33,7 @@ const ROUTES: Routes = [
     component: MovieListPageComponent,
     /* loadChildren: () =>
       import('projects/movies/src/app/pages/movie-list-page/movie-list-page.module').then((m) => m.MovieListPageModule)
- */
+    */
   },
   {
     path: 'detail/movie/:identifier',

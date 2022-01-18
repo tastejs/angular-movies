@@ -57,7 +57,7 @@ export class DiscoverState extends RxState<State> implements AppInitializer {
         )
       ),
       (oldState, newPartial) => {
-        let resultState = patch(oldState.genreMovies, newPartial);
+        let resultState = patch(oldState?.genreMovies, newPartial);
         resultState.value = patch(
           oldState?.genreMovies?.value,
           resultState.value

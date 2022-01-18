@@ -92,7 +92,12 @@ export class AppShellComponent {
       : this.router.navigate([`list/search/${term}`]);
   }
 
-  closeSidenav() {
+  onSignOut = () => {
+    this.authEffects.signOut();
+    this.router.navigate(['/movies/popular']);
+  };
+
+  closeSidenav = () => {
     this.ui.sideDrawerOpenToggle(false);
-  }
+  };
 }
