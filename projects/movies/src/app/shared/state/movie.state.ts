@@ -66,8 +66,8 @@ export class MovieState extends RxState<State> implements AppInitializer {
         )
       ),
       (oldState, newPartial) => {
-        let resultState = patch(oldState.movies, newPartial);
-        resultState.value = patch(oldState.movies?.value, resultState?.value);
+        let resultState = patch(oldState?.movies, newPartial);
+        resultState.value = patch(oldState?.movies?.value, resultState?.value);
         return resultState;
       }
     );
