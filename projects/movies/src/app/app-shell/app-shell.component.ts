@@ -1,6 +1,7 @@
+import { DOCUMENT } from '@angular/common';
 import {
   ChangeDetectionStrategy,
-  Component,
+  Component, Inject,
   TrackByFunction,
   ViewChild,
   ViewEncapsulation,
@@ -40,6 +41,7 @@ export class AppShellComponent {
     public routerState: RouterState,
     public authState: AuthStateService,
     public authEffects: AuthEffects,
+    @Inject(DOCUMENT) document: Document,
     private router: Router
   ) {
     this.init();
@@ -48,8 +50,7 @@ export class AppShellComponent {
      *
      * Disable initial sync navigation in router config and schedule it in router-outlet container component
      */
-    // @TODO !!!BUG!!! use current URL
-    setTimeout(() => this.router.navigate(['list/category/popular']));
+    setTimeout(() => this.router.navigate([document.location.pathname]));
   }
 
   init() {
