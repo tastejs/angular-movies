@@ -6,7 +6,7 @@ import {
   createAccessToken,
   createRequestToken,
   deleteAccessToken,
-} from '../../data-access/api/resources/auth.resource';
+} from '../../data-access/api/resources/authv4.resource';
 
 @Injectable({
   providedIn: 'root',
@@ -16,7 +16,7 @@ export class AuthEffects {
     this.restoreLogin();
   }
 
-  restoreLogin(): void {
+  restoreLogin = (): void => {
     console.log('restoreLogin');
     if (isAuthenticationInProgress(this.authState.get())) {
       console.log('isAuthenticationInProgress', false);
@@ -36,9 +36,12 @@ export class AuthEffects {
         });
       });
     }
-  }
+  };
 
-  createAccessToken$(): Observable<{ accessToken: string; accountId: string }> {
+  createAccessToken$ = (): Observable<{
+    accessToken: string;
+    accountId: string;
+  }> => {
     return this.authState.requestToken$.pipe(
       tap((v) => console.log('requestToken$', v)),
       take(1),
@@ -49,9 +52,9 @@ export class AuthEffects {
         accountId: account_id,
       }))
     );
-  }
+  };
 
-  approveRequestToken(): void {
+  approveRequestToken = (): void => {
     createRequestToken(this.authState.redirectUrl).subscribe((res) => {
       // store in local storage for the next page load
       window.localStorage.setItem('requestToken', res.request_token);
@@ -59,11 +62,11 @@ export class AuthEffects {
         `https://www.themoviedb.org/auth/access?request_token=${res.request_token}`
       );
     });
-  }
+  };
 
-  signOut() {
-    const accessToken = this.authState.get().accessToken;
-    console.log('accessToken', this.authState.get());
+  signOut = () => {
+    console.log('this.authState.get()', this.authState);
+    const accessToken = this.authState.get()?.accessToken;
     // store in local storage for the next page load
     window.localStorage.removeItem('accessToken');
     window.localStorage.removeItem('accountId');
@@ -77,5 +80,5 @@ export class AuthEffects {
     if (accessToken) {
       deleteAccessToken(accessToken).subscribe();
     }
-  }
+  };
 }

@@ -49,7 +49,7 @@ const ROUTES: Routes = [
         'projects/movies/src/app/pages/person-detail-page/person-detail-page.module'
       ).then((m) => m.PersonDetailPageModule),
   },
-  /*{
+  /* {
     path: 'account/lists',
     loadChildren: () =>
       import(

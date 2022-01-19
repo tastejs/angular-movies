@@ -6,8 +6,9 @@ import { AuthState } from '../../shared/auth/auth.state';
 import { map } from 'rxjs';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { LetModule } from '@rx-angular/template';
 
-export const imports = [RouterModule, CommonModule];
+export const imports = [RouterModule, CommonModule, LetModule];
 
 @Component({
   selector: 'account-menu',
@@ -31,9 +32,9 @@ export class AccountMenuComponent {
   ) {
     this.state.connect(
       'loggedIn',
-      this.authState.accountId$.pipe(map((s) => s === null))
+      this.authState.accountId$.pipe(map((s) => s !== null))
     );
-    this.state.hold(this.ui.signOut$, () => this.authEffects.signOut());
+    this.state.hold(this.ui.signOut$, this.authEffects.signOut);
     this.state.hold(this.ui.signIn$, () =>
       this.authEffects.approveRequestToken()
     );
