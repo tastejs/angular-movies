@@ -1,7 +1,8 @@
 import { DOCUMENT } from '@angular/common';
 import {
   ChangeDetectionStrategy,
-  Component, Inject,
+  Component,
+  Inject,
   TrackByFunction,
   ViewChild,
   ViewEncapsulation,
@@ -9,14 +10,11 @@ import {
 import { NavigationEnd, Router } from '@angular/router';
 import { RxState } from '@rx-angular/state';
 import { distinctUntilChanged, filter, map } from 'rxjs';
-import { AuthStateService } from '../data-access/auth/auth.state';
-import { AuthEffects } from '../data-access/auth/auth.effects';
 import { TMDBMovieGenreModel } from '../data-access/api/model/movie-genre.model';
 import { trackByProp } from '../shared/utils/track-by';
 import { getActions } from '../shared/rxa-custom/actions';
 import { RouterState } from '../shared/state/router.state';
 import { getIdentifierOfTypeAndLayout } from '../shared/state/utils';
-import { preventDefault } from '../shared/rxa-custom/actions/transforms';
 import { getGenresCached } from '../data-access/api/resources/genre.resource';
 
 @Component({
@@ -28,19 +26,28 @@ import { getGenresCached } from '../data-access/api/resources/genre.resource';
   providers: [RxState],
 })
 export class AppShellComponent {
+  readonly ui = getActions<{
+    sideDrawerOpenToggle: boolean;
+    loadAccountMenu: void;
+  }>();
+
   search$ = this.routerState.select(
     getIdentifierOfTypeAndLayout('search', 'list')
   );
 
+  /*
+    accountMenuComponent$ = this.ui.loadAccountMenu$.pipe(
+      switchMap(() =>
+        import('./account-menu/account-menu.component.lazy').then(({ c }) => c)
+      ),
+      shareReplay(1)
+    ); */
+
   constructor(
     private readonly state: RxState<{
-      activeRoute: string;
-      loggedIn: boolean;
       sideDrawerOpen: boolean;
     }>,
     public routerState: RouterState,
-    public authState: AuthStateService,
-    public authEffects: AuthEffects,
     @Inject(DOCUMENT) document: Document,
     private router: Router
   ) {
@@ -48,7 +55,8 @@ export class AppShellComponent {
     /**
      * **🚀 Perf Tip for TBT:**
      *
-     * Disable initial sync navigation in router config and schedule it in router-outlet container component
+     * Disable initial sync navigation in router config and schedule it in router-outlet container component.
+     * We use a scheduling API (setTimeout) to run it in a separate task from the bootstrap phase
      */
     setTimeout(() => this.router.navigate([document.location.pathname]));
   }
@@ -56,19 +64,7 @@ export class AppShellComponent {
   init() {
     this.state.set({ sideDrawerOpen: false });
     this.state.connect('sideDrawerOpen', this.ui.sideDrawerOpenToggle$);
-    this.state.connect(
-      'loggedIn',
-      this.authState.accountId$.pipe(map((id) => !!id))
-    );
-    this.state.connect(
-      'activeRoute',
-      this.router.events.pipe(
-        filter((e): e is NavigationEnd => e instanceof NavigationEnd),
-        map((e) => e.urlAfterRedirects.split('?')[0])
-      )
-    );
 
-    this.state.hold(this.ui.signOut$, this.onSignOut);
     this.state.hold(
       this.router.events.pipe(
         filter((e) => e instanceof NavigationEnd),
@@ -83,12 +79,6 @@ export class AppShellComponent {
   @ViewChild('snav') snav: any;
 
   readonly viewState$ = this.state.select();
-  readonly ui = getActions<{
-    sideDrawerOpenToggle: boolean;
-    signOut: Event;
-  }>({
-    signOut: preventDefault,
-  });
 
   readonly trackByGenre: TrackByFunction<TMDBMovieGenreModel> =
     trackByProp<TMDBMovieGenreModel>('name');
@@ -98,11 +88,6 @@ export class AppShellComponent {
       ? this.router.navigate(['list/category/popular'])
       : this.router.navigate([`list/search/${term}`]);
   }
-
-  onSignOut = () => {
-    this.authEffects.signOut();
-    this.router.navigate(['/movies/popular']);
-  };
 
   closeSidenav = () => {
     this.ui.sideDrawerOpenToggle(false);
