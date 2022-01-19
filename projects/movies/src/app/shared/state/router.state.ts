@@ -1,4 +1,5 @@
-import { Injectable } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
+import { Inject, Injectable } from '@angular/core';
 import { filter, map, Observable, startWith } from 'rxjs';
 import { RxState, select, selectSlice } from '@rx-angular/state';
 import { NavigationEnd, Router } from '@angular/router';
@@ -10,7 +11,7 @@ export type RouterParams = {
 };
 
 /**
- * This service maintains the router state and repopulates it to it's subscriber.
+ * This service maintains the router state and repopulates it to its subscriber.
  */
 @Injectable({
   providedIn: 'root',
@@ -23,7 +24,7 @@ export class RouterState extends RxState<RouterParams> {
       map((_) => {
         // This is a naive way to reduce scripting of router service :)
         // Obviously the params ane not properly managed
-        const [layout, type, identifier] = window.location.href
+        const [layout, type, identifier] = this.document.location.pathname
           .split('/')
           .slice(-3);
         return { layout, type, identifier };
@@ -34,7 +35,7 @@ export class RouterState extends RxState<RouterParams> {
   ) as unknown as Observable<RouterParams>;
   routerParams$ = this.select();
 
-  constructor(private router: Router) {
+  constructor(private router: Router, @Inject(DOCUMENT) private document: Document) {
     super();
     this.connect(this._routerParams$);
   }
