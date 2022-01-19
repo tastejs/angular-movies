@@ -9,7 +9,13 @@ import {
 } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { RxState } from '@rx-angular/state';
-import { distinctUntilChanged, filter, map } from 'rxjs';
+import {
+  distinctUntilChanged,
+  filter,
+  map,
+  shareReplay,
+  switchMap,
+} from 'rxjs';
 import { TMDBMovieGenreModel } from '../data-access/api/model/movie-genre.model';
 import { trackByProp } from '../shared/utils/track-by';
 import { getActions } from '../shared/rxa-custom/actions';
@@ -35,13 +41,12 @@ export class AppShellComponent {
     getIdentifierOfTypeAndLayout('search', 'list')
   );
 
-  /*
-    accountMenuComponent$ = this.ui.loadAccountMenu$.pipe(
-      switchMap(() =>
-        import('./account-menu/account-menu.component.lazy').then(({ c }) => c)
-      ),
-      shareReplay(1)
-    ); */
+  accountMenuComponent$ = this.ui.loadAccountMenu$.pipe(
+    switchMap(() =>
+      import('./account-menu/account-menu.component.lazy').then(({ c }) => c)
+    ),
+    shareReplay(1)
+  );
 
   constructor(
     private readonly state: RxState<{
