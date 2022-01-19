@@ -1,4 +1,5 @@
-import { Directive, ElementRef, OnDestroy, Output } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+import { Directive, ElementRef, Inject, OnDestroy, Output, PLATFORM_ID } from '@angular/core';
 import { getActions } from '../../rxa-custom/actions';
 import { observeElementVisibility } from './observe-element-visibility';
 import { takeUntil } from 'rxjs';
@@ -12,10 +13,10 @@ export class ElementVisibilityDirective implements OnDestroy {
   @Output()
   elementVisibility = this.signals.visible$;
 
-  constructor(elRef: ElementRef) {
-    observeElementVisibility(elRef.nativeElement)
+  constructor(elRef: ElementRef, @Inject(PLATFORM_ID) platformId: Object) {
+    if (isPlatformBrowser(platformId)){ observeElementVisibility(elRef.nativeElement)
       .pipe(takeUntil(this.signals.onDestroy$))
-      .subscribe(this.signals.visible);
+      .subscribe(this.signals.visible);}
   }
 
   ngOnDestroy(): void {
