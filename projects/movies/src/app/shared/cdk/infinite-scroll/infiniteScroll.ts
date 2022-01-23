@@ -83,8 +83,8 @@ export function infiniteScroll<T>(
       } as InfiniteScrollState<T>;
     }),
     // in case there is global state connected we take care of just taking the initial value that includes a result.
-    // loading emissoins are forwarded as they are and merged into the result stream. This "forwards" the possible inflight state of the initial result.
-    takeWhile((r) => Array.isArray(r.results))
+    // loading emissions are forwarded as they are and merged into the result stream. This "forwards" the possible inflight state of the initial result.
+    takeWhile((r) => !Array.isArray(r.results), true)
   );
 
   return concat(

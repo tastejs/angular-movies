@@ -100,9 +100,6 @@ export class MovieListPageAdapter extends RxState<MovieListPageModel> {
     type,
     identifier,
   }: RouterParams): void => {
-    layout;
-    type;
-    identifier;
     if (layout === 'list' && type === 'category') {
       this.movieState.fetchCategoryMovies(identifier);
     } else if (layout === 'list' && type === 'genre') {
