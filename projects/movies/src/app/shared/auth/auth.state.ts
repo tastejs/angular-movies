@@ -1,4 +1,5 @@
-import { Injectable } from '@angular/core';
+import { DOCUMENT, isPlatformBrowser } from '@angular/common';
+import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
 import { map } from 'rxjs';
 import { RxState } from '@rx-angular/state';
 import { isAuthenticationInProgress } from './utils';
@@ -8,9 +9,13 @@ import { AuthStateModel } from './auth-state.model';
   providedIn: 'root',
 })
 export class AuthState extends RxState<AuthStateModel> {
-  private localStorage = window.localStorage;
-  readonly redirectUrl = `${window.location.protocol}//${window.location.hostname}:${window.location.port}/movies/popular`;
+  private localStorage = this.document.defaultView?.localStorage ?? {
+    getItem: () => null,
+    removeItem: () => {},
+    setItem: () => {},
+  };
 
+  readonly redirectUrl = `${this.document.location.protocol}//${this.document.location.hostname}:${this.document.location.port}/movies/popular`;
   readonly requestToken$ = this.select('requestToken');
   readonly accessToken$ = this.select('accessToken');
   readonly accountId$ = this.select('accountId');
@@ -18,9 +23,14 @@ export class AuthState extends RxState<AuthStateModel> {
     map(isAuthenticationInProgress)
   );
 
-  constructor() {
+  constructor(
+    @Inject(DOCUMENT) private document: Document,
+    @Inject(PLATFORM_ID) platformId: Object
+  ) {
     super();
-    this.rebootStore();
+    if (isPlatformBrowser(platformId)) {
+      this.rebootStore();
+    }
     this.set({
       requestToken: this.localStorage.getItem('requestToken'),
       accessToken: this.localStorage.getItem('accessToken'),
