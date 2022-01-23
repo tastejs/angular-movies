@@ -56,8 +56,13 @@ const ROUTES: Routes = [
         'projects/movies/src/app/pages/account-list-page/account-list-page.module'
       ).then((m) => m),
   },*/
-  //      static params for 'list/:type/:identifier'
-  { path: '**', redirectTo: 'list/category/popular' },
+  {
+    path: '**',
+    loadChildren: () =>
+      import(
+        'projects/movies/src/app/pages/not-found-page/not-found-page.module'
+      ).then((m) => m.NotFoundPageModule),
+  },
 ];
 
 export const ROUTING_IMPORTS = [
