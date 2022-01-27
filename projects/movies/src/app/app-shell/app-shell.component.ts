@@ -11,6 +11,7 @@ import { NavigationEnd, Router } from '@angular/router';
 import { RxState } from '@rx-angular/state';
 import { distinctUntilChanged, filter, map } from 'rxjs';
 import { TMDBMovieGenreModel } from '../data-access/api/model/movie-genre.model';
+import { fallbackRouteToDefault } from '../routing-default.utils';
 import { trackByProp } from '../shared/utils/track-by';
 import { getActions } from '../shared/rxa-custom/actions';
 import { RouterState } from '../shared/state/router.state';
@@ -58,7 +59,9 @@ export class AppShellComponent {
      * Disable initial sync navigation in router config and schedule it in router-outlet container component.
      * We use a scheduling API (setTimeout) to run it in a separate task from the bootstrap phase
      */
-    setTimeout(() => this.router.navigate([document.location.pathname]));
+    setTimeout(() =>
+      this.router.navigate([fallbackRouteToDefault(document.location.pathname)])
+    );
   }
 
   init() {
