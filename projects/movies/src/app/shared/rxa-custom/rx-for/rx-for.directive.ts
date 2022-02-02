@@ -14,7 +14,7 @@ import {
   OnInit,
   TemplateRef,
   TrackByFunction,
-  ViewContainerRef
+  ViewContainerRef,
 } from '@angular/core';
 import {
   createListTemplateManager,
@@ -22,8 +22,8 @@ import {
   RxListManager,
   RxListViewComputedContext,
   RxListViewContext,
-  RxStrategyProvider
-} from '@rx-angular/cdk';
+} from '@rx-angular/cdk/template';
+import { RxStrategyProvider } from '@rx-angular/cdk/render-strategies';
 import { coerceDistinctWith } from '@rx-angular/cdk/coercing';
 
 import { Observable, ReplaySubject, Subject, Subscription } from 'rxjs';
@@ -281,10 +281,11 @@ import { Observable, ReplaySubject, Subject, Subscription } from 'rxjs';
  */
 @Directive({
   // eslint-disable-next-line @angular-eslint/directive-selector
-  selector: '[rxFor]'
+  selector: '[rxFor]',
 })
 export class RxForDirective<T, U extends NgIterable<T> = NgIterable<T>>
-  implements OnInit, OnDestroy {
+  implements OnInit, OnDestroy
+{
   /** @internal */
   static ngTemplateGuard_rxFor: 'binding';
 
@@ -390,7 +391,7 @@ export class RxForDirective<T, U extends NgIterable<T> = NgIterable<T>>
    *
    * @param renderParent
    */
-    // eslint-disable-next-line @angular-eslint/no-input-rename
+  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input('rxForParent') renderParent = true;
 
   /**
@@ -423,7 +424,7 @@ export class RxForDirective<T, U extends NgIterable<T> = NgIterable<T>>
    *
    * @param patchZone
    */
-    // eslint-disable-next-line @angular-eslint/no-input-rename
+  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input('rxForPatchZone') patchZone = this.strategyProvider.config.patchZone;
 
   /**
@@ -585,14 +586,15 @@ export class RxForDirective<T, U extends NgIterable<T> = NgIterable<T>>
     private readonly viewContainerRef: ViewContainerRef,
     private strategyProvider: RxStrategyProvider,
     private errorHandler: ErrorHandler
-  ) {
-  }
+  ) {}
 
   /** @internal */
   private strategyInput$ = new ReplaySubject<string | Observable<string>>(1);
 
   /** @internal */
-  private observables$ = new ReplaySubject<Observable<NgIterable<T>> | NgIterable<T>>(1);
+  private observables$ = new ReplaySubject<
+    Observable<NgIterable<T>> | NgIterable<T>
+  >(1);
 
   /** @internal */
   private _renderCallback!: Subject<any>;
@@ -620,15 +622,17 @@ export class RxForDirective<T, U extends NgIterable<T> = NgIterable<T>>
   }
 
   /** @internal */
-    // @ts-ignore
+  // @ts-ignore
   _trackBy: TrackByFunction<T> = (i, a) => a;
   /** @internal */
   _distinctBy = (a: T, b: T) => a === b;
 
   /** @internal */
   ngOnInit() {
-    this.listManager = createListTemplateManager<T,
-      RxDefaultListViewContext<T>>({
+    this.listManager = createListTemplateManager<
+      T,
+      RxDefaultListViewContext<T>
+    >({
       iterableDiffers: this.iterableDiffers,
       renderSettings: {
         cdRef: this.cdRef,
@@ -637,15 +641,15 @@ export class RxForDirective<T, U extends NgIterable<T> = NgIterable<T>>
         defaultStrategyName: this.strategyProvider.primaryStrategy,
         parent: coerceBooleanProperty(this.renderParent),
         patchZone: this.patchZone ? this.ngZone : false,
-        errorHandler: this.errorHandler
+        errorHandler: this.errorHandler,
       },
       templateSettings: {
         viewContainerRef: this.viewContainerRef,
         templateRef: this.templateRef,
         createViewContext: this.createViewContext,
-        updateViewContext: this.updateViewContext as any
+        updateViewContext: this.updateViewContext as any,
       },
-      trackBy: this._trackBy
+      trackBy: this._trackBy,
     });
     this.listManager.nextStrategy(this.strategy$);
     this._subscription = this.listManager
@@ -677,4 +681,3 @@ export class RxForDirective<T, U extends NgIterable<T> = NgIterable<T>>
     this.viewContainerRef.clear();
   }
 }
-

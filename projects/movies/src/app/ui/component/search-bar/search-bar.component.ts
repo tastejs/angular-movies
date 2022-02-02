@@ -23,7 +23,7 @@ import {
 } from 'rxjs';
 import { getActions } from '../../../shared/rxa-custom/actions';
 import { RxState } from '@rx-angular/state';
-import { coerceObservable } from '@rx-angular/cdk';
+import { coerceObservable } from '@rx-angular/cdk/coercing';
 import { preventDefault } from '../../../shared/rxa-custom/actions/transforms';
 
 @Component({
