@@ -15,7 +15,9 @@
 .menu {
   min-height: 33px;
   display: block;
-  list-style-type:none;
+  list-style-type: none;
+  position: relative;
+  cursor: pointer;
 
   li {
     list-style-type: none;
@@ -38,8 +40,9 @@
   position: absolute;
   z-index: 1;
   display: none;
+  right: 0;
+  width: 158px;
 }
-
 
 .ui-toolbar {
   height: 72px;
@@ -61,7 +64,7 @@
     right: 0;
     z-index: 1100;
     box-shadow: rgb(0 0 0 / 20%) 0 2px 4px -1px, rgb(0 0 0 / 14%) 0 4px 5px 0,
-    rgb(0 0 0 / 12%) 0 1px 10px 0;
+      rgb(0 0 0 / 12%) 0 1px 10px 0;
     background-color: var(--palette-background-paper);
     height: 64px;
   }

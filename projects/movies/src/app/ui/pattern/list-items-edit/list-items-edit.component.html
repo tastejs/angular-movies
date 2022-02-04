@@ -1,0 +1,32 @@
+<fieldset>
+  <label for="list-name"> Add Item </label>
+  <input
+    id="list-name"
+    placeholder="Search for a movie..."
+    #itemInput
+    type="text"
+    (input)="adapter.ui.search(itemInput.value)"
+  />
+
+  <ol class="results">
+    <li
+      class="item"
+      (click)="adapter.ui.addMovie(movie)"
+      *rxFor="adapter.searchResults$; let movie; trackBy: trackByMovieId"
+    >
+      <p>
+        {{ movie.title }}
+        <span class="overview">{{ movie.overview }}</span>
+      </p>
+    </li>
+  </ol>
+</fieldset>
+
+<ol class="list">
+  <li class="item" *rxFor="adapter.items$; let item; trackBy: trackByResultId">
+    <div class="box">
+      {{ item.title }}
+      <button class="delete" (click)="adapter.ui.deleteMovie(item)">❌</button>
+    </div>
+  </li>
+</ol>

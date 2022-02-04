@@ -6,7 +6,7 @@ import { NavigationEnd, Router } from '@angular/router';
 
 export type RouterParams = {
   layout: 'list' | 'detail';
-  type: 'person' | 'movie' | 'genre' | 'category' | 'search';
+  type: 'person' | 'movie' | 'genre' | 'category' | 'search' | 'list';
   identifier: string;
 };
 

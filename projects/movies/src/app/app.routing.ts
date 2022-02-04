@@ -36,11 +36,32 @@ const ROUTES: Routes = [
     */
   },
   {
+    path: 'list/add-or-edit',
+    loadChildren: () =>
+      import(
+        'projects/movies/src/app/pages/list-create-page/list-create-page.module'
+      ).then((m) => m.ListCreatePageModule),
+  },
+  {
+    path: 'my-lists',
+    loadChildren: () =>
+      import(
+        'projects/movies/src/app/pages/account-list-page/account-list-page.module'
+      ).then((m) => m.AccountListPageModule),
+  },
+  {
     path: 'detail/movie/:identifier',
     loadChildren: () =>
       import(
         'projects/movies/src/app/pages/movie-detail-page/movie-detail-page.module'
       ).then((m) => m.MovieDetailPageModule),
+  },
+  {
+    path: 'detail/list/:identifier',
+    loadChildren: () =>
+      import(
+        'projects/movies/src/app/pages/list-detail-page/list-detail-page.module'
+      ).then((m) => m.ListDetailsPageModule),
   },
   {
     path: 'detail/person/:identifier',

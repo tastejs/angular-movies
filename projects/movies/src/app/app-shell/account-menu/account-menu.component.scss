@@ -1,6 +1,18 @@
 :host {
-
+  display: block;
+  box-shadow: rgb(0 0 0 / 20%) 0 2px 1px -1px, rgb(0 0 0 / 14%) 0px 1px 1px 0px,
+    rgb(0 0 0 / 12%) 0px 1px 3px 0px;
 }
 
+li {
+  font-size: var(--text-md);
+  padding: 0 16px;
+}
 
+li:not(:last-child) {
+  border-bottom: 1px solid var(--palette-divider);
+}
 
+a {
+  font-size: var(--text-md);
+}

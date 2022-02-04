@@ -3,11 +3,9 @@ import {
   Component,
   ViewEncapsulation,
 } from '@angular/core';
-import { RxState } from '@rx-angular/state';
-import {
-  AccountListPageAdapter,
-  AccountListPageAdapterState,
-} from './account-list-page.adapter';
+import { TMDBAccountList } from '../../data-access/api/model/list.model';
+import { trackByProp } from '../../shared/utils/track-by';
+import { AccountListPageAdapter } from './account-list-page.adapter';
 
 @Component({
   selector: 'ct-person',
@@ -15,19 +13,10 @@ import {
   styleUrls: ['./account-list-page.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.Emulated,
-  providers: [RxState],
 })
 export class AccountListPageComponent {
-  readonly listState$ = this.state.select('lists');
+  readonly lists$ = this.adapter.select('lists');
+  readonly trackById = trackByProp<TMDBAccountList>('id');
 
-  constructor(
-    private adapter: AccountListPageAdapter,
-    private state: RxState<AccountListPageAdapterState>
-  ) {
-    this.state.connect(this.adapter.list$);
-  }
-
-  back() {
-    // this.location.back();
-  }
+  constructor(private adapter: AccountListPageAdapter) {}
 }

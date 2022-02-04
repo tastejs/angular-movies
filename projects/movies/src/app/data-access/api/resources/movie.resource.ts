@@ -1,4 +1,4 @@
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { TMDBMovieModel } from '../model/movie.model';
 import { getTMDBPaginateOptions } from '../paginate/utils';
 import { getHTTP } from '../../../shared/injector/get-http-client';
@@ -16,6 +16,8 @@ const URL_MOVIE = (id: string) => `${[base, id].join('/')}`;
 const URL_MOVIE_CREDITS = (id: string) => [URL_MOVIE(id), 'credits'].join('/');
 const URL_MOVIE_RECOMMENDATIONS = (id: string) =>
   [URL_MOVIE(id), 'recommendations'].join('/');
+const URL_MOVIE_QUERY = (query: string) =>
+  `${baseUrlApiV3}/search/movie?query=${query}`;
 
 export type MovieResponse = TMDBMovieModel;
 export const getMovie = (
@@ -49,3 +51,8 @@ export const getMoviesRecommendations = (
     params: options,
   });
 };
+
+export const queryMovie = (query: string): Observable<MovieResponse[]> =>
+  getHTTP()
+    .get<{ results: MovieResponse[] }>(URL_MOVIE_QUERY(query))
+    .pipe(map((res) => res.results));

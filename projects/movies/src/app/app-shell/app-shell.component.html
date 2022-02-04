@@ -4,11 +4,11 @@
     [opened]="vs.sideDrawerOpen"
     (openedChange)="ui.sideDrawerOpenToggle(false)"
   >
-    <a class="navigation-header" href='/'>
+    <a class="navigation-header" href="/">
       <picture>
         <img
           class="logo-img"
-          src='/assets/svgs/logo.svg'
+          src="/assets/svgs/logo.svg"
           title="HubMovies"
           alt="HubMovies"
           width="150"
@@ -80,11 +80,7 @@
       </a>
       <h3 class="navigation--headline">Genres</h3>
       <a
-        *rxFor="
-          let genre of genres$;
-          trackBy: trackByGenre;
-          strategy: 'idle'
-        "
+        *rxFor="let genre of genres$; trackBy: trackByGenre; strategy: 'idle'"
         class="navigation--link"
         [routerLink]="['/list', 'genre', genre.id]"
         routerLinkActive="active"
@@ -113,11 +109,11 @@
       >
         <picture class="tmdb-mark">
           <source
-            srcset='/assets/svgs/tmdbgreen.svg'
+            srcset="/assets/svgs/tmdbgreen.svg"
             media="(prefers-color-scheme: dark)"
           />
           <source
-            srcset='/assets/svgs/tmdb.svg'
+            srcset="/assets/svgs/tmdb.svg"
             media="(prefers-color-scheme: light)"
           />
           <img width="300" height="118" alt="The Movie Database" src="" />
@@ -134,17 +130,32 @@
       >
       </ui-hamburger-button>
       <div class="ui-toolbar--widget-container">
-        <ui-search-bar [query]="search$" (searchSubmit)="searchMovie($event)"></ui-search-bar>
+        <ui-search-bar
+          [query]="search$"
+          (searchSubmit)="searchMovie($event)"
+        ></ui-search-bar>
         <ui-dark-mode-toggle></ui-dark-mode-toggle>
         <ul class="menu account-menu" (mouseenter)="ui.loadAccountMenu()">
           <li>
-            Account
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              height="32px"
+              viewBox="0 0 24 24"
+              width="32px"
+              fill="var(--palette-secondary-dark)"
+            >
+              <path d="M0 0h24v24H0z" fill="none" />
+              <path
+                d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"
+              />
+            </svg>
             <ul class="menu">
-              <ng-container *rxLet="accountMenuComponent$; rxSuspense: loading" [lazy]="accountMenuComponent$">
+              <ng-container
+                *rxLet="accountMenuComponent$; rxSuspense: loading"
+                [lazy]="accountMenuComponent$"
+              >
               </ng-container>
-              <ng-template #loading>
-                Loading...
-              </ng-template>
+              <ng-template #loading> Loading... </ng-template>
             </ul>
           </li>
         </ul>

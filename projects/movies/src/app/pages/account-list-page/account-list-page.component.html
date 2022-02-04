@@ -3,5 +3,38 @@
     <h1>My Lists</h1>
     <h2>TMDB</h2>
   </header>
-  {{listState$ | async }}
+
+  <div class="account-list--grid">
+    <ng-container *rxFor="lists$; let list; index as idx; trackBy: trackById">
+      <a
+        class="account-list--grid-item"
+        [routerLink]="['/detail/list', list?.id]"
+      >
+        <!--
+        **🚀 Perf Tip for LCP:**
+        To get out the best performance use the native HTML attribute loading="lazy" instead of a directive.
+        This avoids bootstrap and template evaluation time and reduces scripting time in general.
+        -->
+        <img
+          class="aspectRatio-4-3 gradient"
+          [attr.loading]="idx === 0 ? '' : 'lazy'"
+          [src]="list?.poster_path || 'assets/images/nothing.svg'"
+          [width]="500"
+          [height]="282"
+          [alt]="list?.name"
+          [title]="list?.name"
+        />
+        <div class="account-list--details">
+          <h3 class="account-list--details-title">
+            {{ list?.name }}
+          </h3>
+          <p class="account-list--details-stats">
+            {{ list?.number_of_items }} items ({{
+              list?.public ? 'Public' : 'Private'
+            }})
+          </p>
+        </div>
+      </a>
+    </ng-container>
+  </div>
 </article>

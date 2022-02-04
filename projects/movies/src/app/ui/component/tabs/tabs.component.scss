@@ -1,0 +1,31 @@
+:host {
+  display: flex;
+  margin: 16px 0;
+  border: 1px solid var(--palette-divider);
+  background-color: var(--palette-background-paper);
+  align-items: center;
+  justify-content: space-between;
+}
+
+label {
+  padding: 0 16px;
+  min-height: 46px;
+  line-height: 46px;
+  font-size: var(--text-md);
+  color: var(--palette-primary-dark);
+  cursor: pointer;
+  flex-grow: 1;
+  text-align: center;
+
+  &:hover {
+    background: val(--palette-background-default);
+  }
+}
+
+input {
+  display: none;
+
+  &:checked + label {
+    background: var(--palette-background-default);
+  }
+}

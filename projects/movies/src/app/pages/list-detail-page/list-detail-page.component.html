@@ -1,0 +1,16 @@
+<article>
+  <header>
+    <h1 *rxLet="adapter.listName$; let name">{{ name }}</h1>
+    <h2>TMDB</h2>
+  </header>
+  <ui-tabs [items]="tabs" (tabChange)="adapter.ui.changeTab($event)"></ui-tabs>
+  <ng-container *rxLet="adapter.formComponent$; let comp">
+    <ng-container
+      *ngIf="comp.component; else defaultForm"
+      [lazy]="comp.component"
+    ></ng-container>
+    <ng-template #defaultForm
+      ><ui-list-edit-form></ui-list-edit-form
+    ></ng-template>
+  </ng-container>
+</article>

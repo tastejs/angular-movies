@@ -1,4 +1,4 @@
-@import "../../token/mixins/flex";
+@import '../../token/mixins/flex';
 .btn {
   @include d-flex-vh;
   @include d-inline-flex;
@@ -19,4 +19,25 @@
   width: 24px;
   height: 24px;
   margin-left: 8px;
+}
+
+.primary-button {
+  background: var(--palette-primary-main);
+  font-size: var(--text-md);
+  width: 138px;
+  margin-top: 8px;
+  border: none;
+  min-height: 48px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: transform 100ms ease-in-out;
+  box-shadow: rgb(0 0 0 / 20%) 0 2px 3px -1px, rgb(0 0 0 / 14%) 0 3px 4px 0,
+    rgb(0 0 0 / 12%) 0 1px 10px 0;
+
+  &:hover {
+    background: var(--palette-primary-light);
+    transform: translateY(-1px);
+    box-shadow: rgb(0 0 0 / 20%) 0 1px 2px -1px, rgb(0 0 0 / 14%) 0 2px 3px 0,
+      rgb(0 0 0 / 12%) 0 1px 10px 0;
+  }
 }

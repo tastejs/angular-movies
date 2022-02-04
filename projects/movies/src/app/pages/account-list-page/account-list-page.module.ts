@@ -1,8 +1,7 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import { AccountListPageComponent } from './account-list-page.component';
-import { MovieListModule } from '../../ui/pattern/movie-list/movie-list.module';
+import { RxForModule } from '../../shared/rxa-custom/rx-for/rx-for.module';
 
 const ROUTES: Routes = [
   {
@@ -13,7 +12,7 @@ const ROUTES: Routes = [
 
 @NgModule({
   declarations: [AccountListPageComponent],
-  imports: [CommonModule, RouterModule.forChild(ROUTES), MovieListModule],
+  imports: [RxForModule, RouterModule.forChild(ROUTES)],
   exports: [AccountListPageComponent],
 })
 export class AccountListPageModule {}

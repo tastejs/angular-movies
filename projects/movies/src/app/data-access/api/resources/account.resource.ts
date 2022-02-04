@@ -5,7 +5,7 @@ import {
   TMDBPaginateResult,
 } from '../paginate/paginate.interface';
 import { Observable } from 'rxjs';
-import { TMDBAccountList } from '../model/account-list.interface';
+import { TMDBAccountList } from '../model/list.model';
 import { baseUrlApiV4 } from './base-urls.constant';
 
 const URL_ACCOUNT_LIST = (uid: string) =>
