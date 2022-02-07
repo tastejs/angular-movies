@@ -1,6 +1,6 @@
 <ng-container *rxLet="loggedIn$; let loggedIn">
   <ng-container *ngIf="loggedIn; else guest">
-    <li><a [routerLink]="['/list/add-or-edit']">Create New List</a></li>
+    <li><a [routerLink]="['/list/create']">Create New List</a></li>
     <li><a [routerLink]="['/my-lists']">My Lists</a></li>
     <li>
       <a
