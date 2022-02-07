@@ -66,6 +66,12 @@
                 },
                 {
                   "type": "bundle",
+                  "name": "common",
+                  "maximumWarning": "3.5KB",
+                  "maximumError": "4KB"
+                },
+                {
+                  "type": "bundle",
                   "name": "polyfills",
                   "maximumWarning": "118b",
                   "maximumError": "118b"
