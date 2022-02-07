@@ -1,12 +1,5 @@
 import { Injectable } from '@angular/core';
-import {
-  ActivatedRouteSnapshot,
-  CanActivate,
-  CanActivateChild,
-  CanLoad,
-  Route,
-  RouterStateSnapshot,
-} from '@angular/router';
+import { CanActivate, CanActivateChild, CanLoad } from '@angular/router';
 import { Observable, map } from 'rxjs';
 import { AuthState } from './auth.state';
 
@@ -16,18 +9,12 @@ import { AuthState } from './auth.state';
 export class AuthGuard implements CanActivate, CanActivateChild, CanLoad {
   constructor(private authService: AuthState) {}
 
-  canActivate(
-    route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot
-  ): Observable<boolean> | boolean {
+  canActivate(): Observable<boolean> | boolean {
     return this.checkLogin();
   }
 
-  canActivateChild(
-    route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot
-  ): boolean | Observable<boolean> {
-    return this.canActivate(route, state);
+  canActivateChild(): boolean | Observable<boolean> {
+    return this.canActivate();
   }
 
   canLoad(): boolean | Observable<boolean> {

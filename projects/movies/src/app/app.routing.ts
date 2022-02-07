@@ -36,7 +36,7 @@ const ROUTES: Routes = [
     */
   },
   {
-    path: 'list/add-or-edit',
+    path: 'list/create',
     loadChildren: () =>
       import(
         'projects/movies/src/app/pages/list-create-page/list-create-page.module'
@@ -77,8 +77,13 @@ const ROUTES: Routes = [
         'projects/movies/src/app/pages/account-list-page/account-list-page.module'
       ).then((m) => m),
   },
-  //      static params for 'list/:type/:identifier'
-  { path: '**', redirectTo: 'list/category/popular' },
+  {
+    path: '**',
+    loadChildren: () =>
+      import(
+        'projects/movies/src/app/pages/not-found-page/not-found-page.module'
+      ).then((m) => m.NotFoundPageModule),
+  },
 ];
 
 export const ROUTING_IMPORTS = [
@@ -90,5 +95,14 @@ export const ROUTING_IMPORTS = [
      * Disable initial sync navigation in router config and schedule it in router-outlet container component
      */
     initialNavigation: 'disabled',
+    /**
+     * **💡 UX Tip for InfiniteScroll:**
+     *
+     * Reset scroll position to top on route change, users could be
+     * irritated starting a new list from the bottom of the page.
+     *
+     * also: otherwise infinite scroll isn't working properly
+     */
+    scrollPositionRestoration: 'top',
   }),
 ];

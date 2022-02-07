@@ -3,6 +3,7 @@ import { Inject, Injectable } from '@angular/core';
 import { filter, map, Observable, startWith } from 'rxjs';
 import { RxState, select, selectSlice } from '@rx-angular/state';
 import { NavigationEnd, Router } from '@angular/router';
+import { fallbackRouteToDefault } from '../../routing-default.utils';
 
 export type RouterParams = {
   layout: 'list' | 'detail';
@@ -23,8 +24,10 @@ export class RouterState extends RxState<RouterParams> {
       startWith('anyValue'),
       map((_) => {
         // This is a naive way to reduce scripting of router service :)
-        // Obviously the params ane not properly managed
-        const [layout, type, identifier] = this.document.location.pathname
+        // Obviously the params relly on routing structure heavily and could be done more dynamically
+        const [layout, type, identifier] = fallbackRouteToDefault(
+          this.document.location.pathname
+        )
           .split('/')
           .slice(-3);
         return { layout, type, identifier };
@@ -35,7 +38,10 @@ export class RouterState extends RxState<RouterParams> {
   ) as unknown as Observable<RouterParams>;
   routerParams$ = this.select();
 
-  constructor(private router: Router, @Inject(DOCUMENT) private document: Document) {
+  constructor(
+    private router: Router,
+    @Inject(DOCUMENT) private document: Document
+  ) {
     super();
     this.connect(this._routerParams$);
   }
