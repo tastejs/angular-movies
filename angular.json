@@ -67,8 +67,8 @@
                 {
                   "type": "bundle",
                   "name": "common",
-                  "maximumWarning": "3.5KB",
-                  "maximumError": "4KB"
+                  "maximumWarning": "10KB",
+                  "maximumError": "11KB"
                 },
                 {
                   "type": "bundle",

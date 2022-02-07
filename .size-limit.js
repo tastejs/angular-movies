@@ -20,7 +20,7 @@ module.exports = [
   {
     name: 'common',
     path: base + 'common*',
-    limit: '1KB',
+    limit: '4KB',
   },
   {
     name: 'movie-detail-page',
