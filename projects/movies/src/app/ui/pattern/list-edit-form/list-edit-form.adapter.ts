@@ -3,7 +3,7 @@ import { patch, RxState } from '@rx-angular/state';
 import { filter, map, switchMap, withLatestFrom } from 'rxjs';
 
 import { TMDBListCreateUpdateParams } from '../../../data-access/api/model/list.model';
-import { ListDetailAdapter } from '../../../pages/list-detail-page/list-detail-page.adapter';
+import { ListDetailAdapter } from '../../../pages/account-feature/list-detail-page/list-detail-page.adapter';
 import { getActions } from '../../../shared/rxa-custom/actions';
 import { ListState } from '../../../shared/state/list.state';
 

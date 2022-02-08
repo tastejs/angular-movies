@@ -2,10 +2,10 @@ import { Injectable } from '@angular/core';
 import { RxState } from '@rx-angular/state';
 import { filter, map, Observable, switchMap } from 'rxjs';
 
-import { TMDBAccountList } from '../../data-access/api/model/list.model';
-import { getAccountList } from '../../data-access/api/resources/account.resource';
-import { AuthState } from '../../shared/auth/auth.state';
-import { ListState } from '../../shared/state/list.state';
+import { TMDBAccountList } from '../../../data-access/api/model/list.model';
+import { getAccountList } from '../../../data-access/api/resources/account.resource';
+import { AuthState } from '../../../shared/auth/auth.state';
+import { ListState } from '../../../shared/state/list.state';
 
 export interface AccountListPageAdapterState {
   lists: TMDBAccountList[];

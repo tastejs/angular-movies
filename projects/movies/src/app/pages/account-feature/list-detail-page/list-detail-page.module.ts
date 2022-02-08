@@ -3,9 +3,9 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { LetModule } from '@rx-angular/template/let';
 import { ListDetailPageComponent } from './list-detail-page.component';
-import { LazyModule } from '../../shared/cdk/lazy/lazy.module';
-import { TabsComponentModule } from '../../ui/component/tabs/tabs.component';
-import { ListEditFormComponentModule } from '../../ui/pattern/list-edit-form/list-edit-form.component';
+import { LazyModule } from '../../../shared/cdk/lazy/lazy.module';
+import { TabsComponentModule } from '../../../ui/component/tabs/tabs.component';
+import { ListEditFormComponentModule } from '../../../ui/pattern/list-edit-form/list-edit-form.component';
 
 const ROUTES = [
   {

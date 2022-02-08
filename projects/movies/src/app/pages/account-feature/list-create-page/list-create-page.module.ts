@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { ListCreateEditPageComponent } from './list-create-page.component';
-import { ListEditFormComponentModule } from '../../ui/pattern/list-edit-form/list-edit-form.component';
+import { ListEditFormComponentModule } from '../../../ui/pattern/list-edit-form/list-edit-form.component';
 
 const ROUTES = [
   {

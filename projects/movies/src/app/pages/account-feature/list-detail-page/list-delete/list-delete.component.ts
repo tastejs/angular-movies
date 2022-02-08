@@ -2,7 +2,7 @@ import { Component, ChangeDetectionStrategy, NgModule } from '@angular/core';
 import { RxState, toggle } from '@rx-angular/state';
 import { LetModule } from '@rx-angular/template';
 import { merge } from 'rxjs';
-import { getActions } from '../../../shared/rxa-custom/actions';
+import { getActions } from '../../../../shared/rxa-custom/actions';
 import { ListDetailAdapter } from '../list-detail-page.adapter';
 
 @Component({

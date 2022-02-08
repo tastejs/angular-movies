@@ -1,20 +1,20 @@
 import { Injectable } from '@angular/core';
 import { RxState, select } from '@rx-angular/state';
 import { from, map, of, startWith, switchMap, withLatestFrom } from 'rxjs';
-import { TMDBListCreateUpdateParams } from '../../data-access/api/model/list.model';
-import { getActions } from '../../shared/rxa-custom/actions';
-import { ListState } from '../../shared/state/list.state';
+import { TMDBListCreateUpdateParams } from '../../../data-access/api/model/list.model';
+import { getActions } from '../../../shared/rxa-custom/actions';
+import { ListState } from '../../../shared/state/list.state';
 
-import { RouterState } from '../../shared/state/router.state';
-import { getIdentifierOfTypeAndLayout } from '../../shared/state/utils';
+import { RouterState } from '../../../shared/state/router.state';
+import { getIdentifierOfTypeAndLayout } from '../../../shared/state/utils';
 
 const LIST_DETAILS_COMPONENTS = [
   () =>
-    import('../../ui/pattern/list-items-edit/list-items-edit.component').then(
-      (m) => {
-        return m.ListItemsEditComponent;
-      }
-    ),
+    import(
+      '../../../ui/pattern/list-items-edit/list-items-edit.component'
+    ).then((m) => {
+      return m.ListItemsEditComponent;
+    }),
   () =>
     import('./list-delete/list-delete.component').then((m) => {
       return m.ListDeleteComponent;

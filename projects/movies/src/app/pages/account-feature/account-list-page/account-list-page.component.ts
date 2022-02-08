@@ -3,8 +3,8 @@ import {
   Component,
   ViewEncapsulation,
 } from '@angular/core';
-import { TMDBAccountList } from '../../data-access/api/model/list.model';
-import { trackByProp } from '../../shared/utils/track-by';
+import { TMDBAccountList } from '../../../data-access/api/model/list.model';
+import { trackByProp } from '../../../shared/utils/track-by';
 import { AccountListPageAdapter } from './account-list-page.adapter';
 
 @Component({
