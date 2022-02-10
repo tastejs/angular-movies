@@ -1,9 +1,9 @@
+import { RxState } from '@rx-angular/state';
 import {
   ChangeDetectionStrategy,
   Component,
   ViewEncapsulation,
 } from '@angular/core';
-import { RxState } from '@rx-angular/state';
 import {
   AccountListPageAdapter,
   AccountListPageAdapterState,

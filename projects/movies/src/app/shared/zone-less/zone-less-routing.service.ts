@@ -1,5 +1,5 @@
-import { ApplicationRef, Injectable } from '@angular/core';
 import { RxState } from '@rx-angular/state';
+import { ApplicationRef, Injectable } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { isZonePresent } from './is-zone-present';
 
@@ -7,7 +7,7 @@ import { isZonePresent } from './is-zone-present';
  * A small service encapsulating the hacks needed for routing (and bootstrapping) in zone-less applications
  */
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ZonelessRouting extends RxState<any> {
   constructor(private router: Router, private appRef: ApplicationRef) {

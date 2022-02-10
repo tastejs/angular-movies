@@ -1,7 +1,7 @@
+import { RxState } from '@rx-angular/state';
 import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
 import { map } from 'rxjs';
-import { RxState } from '@rx-angular/state';
 import { isAuthenticationInProgress } from './utils';
 import { AuthStateModel } from './auth-state.model';
 

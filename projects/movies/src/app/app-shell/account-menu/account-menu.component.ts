@@ -1,13 +1,12 @@
+import { LetModule } from '@rx-angular/template/let';
+import { RxState } from '@rx-angular/state';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { getActions } from '../../shared/rxa-custom/actions';
 import { AuthEffects } from '../../shared/auth/auth.effects';
-import { RxState } from '@rx-angular/state';
 import { AuthState } from '../../shared/auth/auth.state';
 import { map } from 'rxjs';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { LetModule } from '@rx-angular/template';
-
 export const imports = [RouterModule, CommonModule, LetModule];
 
 @Component({

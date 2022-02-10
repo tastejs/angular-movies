@@ -1,3 +1,4 @@
+import { RxState } from '@rx-angular/state';
 import { DOCUMENT } from '@angular/common';
 import {
   ChangeDetectionStrategy,
@@ -8,7 +9,6 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
-import { RxState } from '@rx-angular/state';
 import { distinctUntilChanged, filter, map } from 'rxjs';
 import { TMDBMovieGenreModel } from '../data-access/api/model/movie-genre.model';
 import { fallbackRouteToDefault } from '../routing-default.utils';

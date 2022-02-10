@@ -1,7 +1,8 @@
+import { select, selectSlice } from '@rx-angular/state/selections';
+import { RxState } from '@rx-angular/state';
 import { DOCUMENT } from '@angular/common';
 import { Inject, Injectable } from '@angular/core';
 import { filter, map, Observable, startWith } from 'rxjs';
-import { RxState, select, selectSlice } from '@rx-angular/state';
 import { NavigationEnd, Router } from '@angular/router';
 import { fallbackRouteToDefault } from '../../routing-default.utils';
 

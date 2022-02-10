@@ -1,6 +1,7 @@
+import { RxState } from '@rx-angular/state';
+import { patch, toDictionary } from '@rx-angular/cdk/transformations';
 import { Injectable } from '@angular/core';
 import { map } from 'rxjs';
-import { patch, RxState, toDictionary } from '@rx-angular/state';
 import { optimizedFetch } from '../utils/optimized-fetch';
 import { AppInitializer } from '../rxa-custom/app-initializer';
 import { getActions } from '../rxa-custom/actions';
@@ -67,7 +68,10 @@ export class MovieState extends RxState<MovieModel> implements AppInitializer {
       ),
       (oldState, newPartial) => {
         let resultState = patch(oldState?.movies || {}, newPartial);
-        resultState.value = patch(oldState?.movies?.value || {}, resultState?.value  || {});
+        resultState.value = patch(
+          oldState?.movies?.value || {},
+          resultState?.value || {}
+        );
         return resultState;
       }
     );

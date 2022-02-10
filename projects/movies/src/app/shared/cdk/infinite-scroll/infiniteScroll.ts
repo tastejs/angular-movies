@@ -1,3 +1,4 @@
+import { insert, patch } from '@rx-angular/cdk/transformations';
 import {
   concat,
   concatMap,
@@ -13,7 +14,6 @@ import {
   InfiniteScrollResult,
   InfiniteScrollState,
 } from './infinite-scroll.interface';
-import { insert, patch } from '@rx-angular/state';
 import { coerceObservable } from '../../utils/coerceObservable';
 
 type PartialInfiniteScrollState<T> = Partial<InfiniteScrollState<T>>;

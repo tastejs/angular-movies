@@ -7,7 +7,7 @@ import { StarRatingModule } from '../../ui/pattern/star-rating/star-rating.modul
 import { MovieListModule } from '../../ui/pattern/movie-list/movie-list.module';
 import { DetailGridModule } from '../../ui/component/detail-grid/detail-grid.module';
 import { BypassSrcModule } from '../../shared/bypass-src/bypass-src.module';
-import { RxForModule } from '../../shared/rxa-custom/rx-for/rx-for.module';
+import { ForModule } from '@rx-angular/template/experimental/for';
 
 const ROUTES: Routes = [
   {
@@ -26,7 +26,7 @@ const ROUTES: Routes = [
     MovieListModule,
     LetModule,
     BypassSrcModule,
-    RxForModule,
+    ForModule,
   ],
   exports: [MovieDetailPageComponent],
 })
