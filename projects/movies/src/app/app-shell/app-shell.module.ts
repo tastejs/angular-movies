@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { LetModule } from '@rx-angular/template/let';
-import { RxForModule } from '../shared/rxa-custom/rx-for/rx-for.module';
+import { ForModule } from '@rx-angular/template/experimental/for';
 import { HamburgerButtonModule } from '../ui/component/hamburger-button/hamburger-button.module';
 import { SideDrawerModule } from '../ui/component/side-drawer/side-drawer.module';
 import { DarkModeToggleModule } from '../ui/component/dark-mode-toggle/dark-mode-toggle.module';
@@ -20,7 +20,7 @@ import { LazyModule } from '../shared/cdk/lazy/lazy.module';
     SideDrawerModule,
     SearchBarModule,
     DarkModeToggleModule,
-    RxForModule,
+    ForModule,
     LazyModule,
   ],
   exports: [AppShellComponent],

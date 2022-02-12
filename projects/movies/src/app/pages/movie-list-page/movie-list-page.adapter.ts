@@ -1,5 +1,5 @@
-import { Injectable } from '@angular/core';
 import { RxState } from '@rx-angular/state';
+import { Injectable } from '@angular/core';
 import {
   distinctUntilKeyChanged,
   EMPTY,

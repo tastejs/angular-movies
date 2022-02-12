@@ -1,3 +1,4 @@
+import { RxState } from '@rx-angular/state';
 import { DOCUMENT } from '@angular/common';
 import {
   ChangeDetectionStrategy,

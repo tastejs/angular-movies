@@ -1,21 +1,25 @@
+import { Promise } from '@rx-angular/cdk/zone-less/browser';
 import fs from 'fs';
 import open from 'open';
 // @ts-ignore
 import puppeteer from 'puppeteer';
 // @ts-ignore
 import { startFlow } from 'lighthouse/lighthouse-core/fraggle-rock/api';
-import { Promise } from '@rx-angular/cdk';
 
 export interface PPTOptions {
-  headless: boolean
+  headless: boolean;
 }
 export interface FlowOptions {
-  name: string
+  name: string;
 }
 
-export type FlowActions = (flow: any, page?: any) => Promise<void>
+export type FlowActions = (flow: any, page?: any) => Promise<void>;
 
-export async function captureReport(pptOptions: PPTOptions = { headless: false }, flowOptions: FlowOptions, flowActions: FlowActions) {
+export async function captureReport(
+  pptOptions: PPTOptions = { headless: false },
+  flowOptions: FlowOptions,
+  flowActions: FlowActions
+) {
   const browser = await puppeteer.launch(pptOptions);
   const page = await browser.newPage();
 

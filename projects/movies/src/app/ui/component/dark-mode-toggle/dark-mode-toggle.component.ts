@@ -1,5 +1,9 @@
-import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/core';
 import { RxState } from '@rx-angular/state';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  ViewEncapsulation,
+} from '@angular/core';
 
 @Component({
   selector: 'ui-dark-mode-toggle',
@@ -9,7 +13,7 @@ import { RxState } from '@rx-angular/state';
 
       <span class="toggle">
         <input
-          *rxLet="isLightTheme$; let checked; strategy:'immediate'"
+          *rxLet="isLightTheme$; let checked; strategy: 'immediate'"
           class="toggle-track"
           type="checkbox"
           id="dark-mode"
@@ -26,7 +30,7 @@ import { RxState } from '@rx-angular/state';
   `,
   styleUrls: ['dark-mode-toggle.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  encapsulation: ViewEncapsulation.Emulated
+  encapsulation: ViewEncapsulation.Emulated,
 })
 export class DarkModeToggleComponent extends RxState<{
   isLightTheme: boolean;
@@ -47,7 +51,7 @@ export class DarkModeToggleComponent extends RxState<{
       window.document.body.classList.add('dark');
       window.document.body.classList.remove('light');
     }
-  }
+  };
 
   setChecked(isLightTheme: boolean): void {
     this.set({ isLightTheme });
