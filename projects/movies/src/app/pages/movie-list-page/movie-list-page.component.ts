@@ -1,9 +1,9 @@
+import { selectSlice } from '@rx-angular/state/selections';
 import {
   ChangeDetectionStrategy,
   Component,
   ViewEncapsulation,
 } from '@angular/core';
-import { selectSlice } from '@rx-angular/state';
 import { map, Observable } from 'rxjs';
 import { MovieListPageAdapter } from './movie-list-page.adapter';
 import { parseTitle } from '../../shared/utils/parse-movie-list-title';

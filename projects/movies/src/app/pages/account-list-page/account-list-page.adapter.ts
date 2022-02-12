@@ -1,5 +1,5 @@
-import { Injectable } from '@angular/core';
 import { RxState } from '@rx-angular/state';
+import { Injectable } from '@angular/core';
 import { filter, map, Observable, switchMap } from 'rxjs';
 import { getAccountList } from '../../data-access/api/resources/account.resource';
 import { TMDBAccountList } from '../../data-access/api/model/account-list.interface';

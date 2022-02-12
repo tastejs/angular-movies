@@ -1,6 +1,6 @@
+import { RxState } from '@rx-angular/state';
 import { TMDBMovieModel } from '../../data-access/api/model/movie.model';
 import { Injectable } from '@angular/core';
-import { RxState } from '@rx-angular/state';
 import { infiniteScroll } from '../../shared/cdk/infinite-scroll/infiniteScroll';
 import { getActions } from '../../shared/rxa-custom/actions/index';
 import { RouterState } from '../../shared/state/router.state';

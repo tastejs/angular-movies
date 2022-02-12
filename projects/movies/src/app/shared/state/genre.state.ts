@@ -1,6 +1,6 @@
+import { RxState } from '@rx-angular/state';
 import { Injectable } from '@angular/core';
 import { exhaustMap } from 'rxjs';
-import { RxState } from '@rx-angular/state';
 import { getActions } from '../rxa-custom/actions';
 import {
   GenresResponse,

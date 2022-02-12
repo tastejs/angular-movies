@@ -4,7 +4,7 @@ import { RouterModule } from '@angular/router';
 import { MovieListComponent } from './movie-list.component';
 import { StarRatingModule } from '../star-rating/star-rating.module';
 import { LetModule } from '@rx-angular/template/let';
-import { RxForModule } from '../../../shared/rxa-custom/rx-for/rx-for.module';
+import { ForModule } from '@rx-angular/template/experimental/for';
 import { ElementVisibilityModule } from '../../../shared/cdk/element-visibility/element-visibility.module';
 
 @NgModule({
@@ -14,7 +14,7 @@ import { ElementVisibilityModule } from '../../../shared/cdk/element-visibility/
     RouterModule,
     StarRatingModule,
     LetModule,
-    RxForModule,
+    ForModule,
     ElementVisibilityModule,
   ],
   exports: [MovieListComponent],

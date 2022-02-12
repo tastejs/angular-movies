@@ -1,6 +1,6 @@
+import { RxState } from '@rx-angular/state';
 import { Directive, Input, Type, ViewContainerRef } from '@angular/core';
 import { RxInputType } from '../../rxa-custom/input-type.typing';
-import { RxState } from '@rx-angular/state';
 import { coerceObservable } from '../../utils/coerceObservable';
 import { distinctUntilChanged } from 'rxjs';
 

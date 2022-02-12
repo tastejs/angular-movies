@@ -1,3 +1,4 @@
+import { select } from '@rx-angular/state/selections';
 import { Location } from '@angular/common';
 import {
   ChangeDetectionStrategy,
@@ -9,7 +10,6 @@ import { TMDBMovieCastModel } from '../../data-access/api/model/movie-credits.mo
 import { TMDBMovieGenreModel } from '../../data-access/api/model/movie-genre.model';
 
 import { MovieDetailAdapter } from './movie-detail-page.adapter';
-import { select } from '@rx-angular/state';
 
 @Component({
   selector: 'ct-movie',

@@ -1,3 +1,4 @@
+import { RxState } from '@rx-angular/state';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -5,7 +6,6 @@ import {
   Output,
   ViewEncapsulation,
 } from '@angular/core';
-import { RxState } from '@rx-angular/state';
 import { filter, map, Observable } from 'rxjs';
 import { TMDBMovieModel } from '../../../data-access/api/model/movie.model';
 import { W300H450 } from '../../../data-access/api/constants/image-sizes';
