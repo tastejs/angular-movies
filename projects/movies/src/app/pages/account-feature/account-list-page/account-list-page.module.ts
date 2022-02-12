@@ -1,34 +1,12 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { RouterModule } from '@angular/router';
 import { AccountListPageComponent } from './account-list-page.component';
-import { RxForModule } from '../../../shared/rxa-custom/rx-for/rx-for.module';
-
-const ROUTES: Routes = [
-  {
-    path: '',
-    component: AccountListPageComponent,
-    children: [
-      {
-        path: 'list/create',
-        loadChildren: () =>
-          import(
-            'projects/movies/src/app/pages/account-feature/list-create-page/list-create-page.module'
-          ).then((m) => m.ListCreatePageModule),
-      },
-      {
-        path: 'my-lists',
-        loadChildren: () =>
-          import(
-            'projects/movies/src/app/pages/account-feature/account-list-page/account-list-page.module'
-          ).then((m) => m.AccountListPageModule),
-      },
-    ],
-  },
-];
+import { ForModule } from '@rx-angular/template/experimental/for';
+import { ROUTES } from './account-list-page.routes';
 
 @NgModule({
   declarations: [AccountListPageComponent],
-  imports: [RxForModule, RouterModule.forChild(ROUTES)],
+  imports: [ForModule, RouterModule.forChild(ROUTES)],
   exports: [AccountListPageComponent],
 })
 export class AccountListPageModule {}

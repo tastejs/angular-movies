@@ -6,7 +6,7 @@ import {
   Output,
 } from '@angular/core';
 import { Subject } from 'rxjs';
-import { RxForModule } from '../../../shared/rxa-custom/rx-for/rx-for.module';
+import { ForModule } from '@rx-angular/template/experimental/for';
 
 @Component({
   selector: 'ui-tabs',
@@ -30,7 +30,7 @@ export class TabsComponent {
 }
 
 @NgModule({
-  imports: [RxForModule],
+  imports: [ForModule],
   declarations: [TabsComponent],
   exports: [TabsComponent],
 })

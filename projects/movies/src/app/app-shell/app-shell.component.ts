@@ -9,7 +9,6 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
-import { RxState } from '@rx-angular/state';
 import {
   distinctUntilChanged,
   filter,

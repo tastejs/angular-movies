@@ -57,11 +57,11 @@ const ROUTES: Routes = [
       ).then((m) => m.PersonDetailPageModule),
   },
   {
-    path: 'account/lists',
+    path: 'account',
     loadChildren: () =>
       import(
         'projects/movies/src/app/pages/account-feature/account-list-page/account-list-page.module'
-      ).then((m) => m),
+      ).then((m) => m.AccountListPageModule),
   },
   {
     path: '**',
@@ -75,6 +75,7 @@ const ROUTES: Routes = [
 export const ROUTING_IMPORTS = [
   MovieListPageModule,
   RouterModule.forRoot(ROUTES, {
+    enableTracing: true,
     /**
      * **🚀 Perf Tip for TBT:**
      *
