@@ -5,7 +5,7 @@
   </header>
 
   <div class="account-list--grid">
-    <ng-container *rxFor="lists$; let list; index as idx; trackBy: trackById">
+    <ng-container *rxFor="let list of lists$; index as idx; trackBy: trackById">
       <a
         class="account-list--grid-item"
         [routerLink]="['/detail/list', list?.id]"

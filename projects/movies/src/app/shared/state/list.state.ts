@@ -27,7 +27,7 @@ interface Actions {
   createList: TMDBListCreateUpdateParams;
   updateList: TMDBListCreateUpdateParams;
   addMovieToList: [MovieResponse, number];
-  deleteMovieFromList: [TMDBMovieDetailsModel, number];
+  deleteMovieFromList: [Partial<TMDBMovieDetailsModel>, number];
   deleteList: string;
   fetchList: string;
 }
@@ -59,7 +59,7 @@ export class ListState extends RxState<ListModel> implements AppInitializer {
       concatMap(([movie, id]) =>
         deleteMovieFromList({
           id,
-          items: [{ media_id: movie.id, media_type: 'movie' }],
+          items: [{ media_id: movie.id || 0, media_type: 'movie' }],
         })
       )
     ),

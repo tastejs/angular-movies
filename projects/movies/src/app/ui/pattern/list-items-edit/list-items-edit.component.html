@@ -12,7 +12,7 @@
     <li
       class="item"
       (click)="adapter.ui.addMovie(movie)"
-      *rxFor="adapter.searchResults$; let movie; trackBy: trackByMovieId"
+      *rxFor="let movie of adapter.searchResults$; trackBy: trackByMovieId"
     >
       <p>
         {{ movie.title }}
@@ -23,7 +23,10 @@
 </fieldset>
 
 <ol class="list">
-  <li class="item" *rxFor="adapter.items$; let item; trackBy: trackByResultId">
+  <li
+    class="item"
+    *rxFor="let item of adapter.items$; trackBy: trackByResultId"
+  >
     <div class="box">
       {{ item.title }}
       <button class="delete" (click)="adapter.ui.deleteMovie(item)">❌</button>

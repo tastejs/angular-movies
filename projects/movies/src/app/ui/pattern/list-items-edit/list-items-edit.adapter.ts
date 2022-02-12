@@ -20,7 +20,7 @@ import { ListState } from '../../../shared/state/list.state';
 interface Actions {
   search: string;
   addMovie: MovieResponse;
-  deleteMovie: TMDBMovieDetailsModel;
+  deleteMovie: Partial<TMDBMovieDetailsModel>;
 }
 
 @Injectable({

@@ -15,7 +15,7 @@ export class ListItemsEditComponent {
   constructor(public adapter: ListItemsEditAdapter) {}
 
   trackByMovieId = trackByProp<MovieResponse>('id');
-  trackByResultId = trackByProp<TMDBMovieDetailsModel>('id');
+  trackByResultId = trackByProp<Partial<TMDBMovieDetailsModel>>('id');
 }
 
 @NgModule({
