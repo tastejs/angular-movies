@@ -4,11 +4,11 @@
     [opened]="vs.sideDrawerOpen"
     (openedChange)="ui.sideDrawerOpenToggle(false)"
   >
-    <a class="navigation-header" href='/'>
+    <a class="navigation-header" href="/">
       <picture>
         <img
           class="logo-img"
-          src='/assets/svgs/logo.svg'
+          src="/assets/svgs/logo.svg"
           title="HubMovies"
           alt="HubMovies"
           width="150"
@@ -80,11 +80,7 @@
       </a>
       <h3 class="navigation--headline">Genres</h3>
       <a
-        *rxFor="
-          let genre of genres$;
-          trackBy: trackByGenre;
-          strategy: 'idle'
-        "
+        *rxFor="let genre of genres$; trackBy: trackByGenre; strategy: 'idle'"
         class="navigation--link"
         [routerLink]="['/list', 'genre', genre.id]"
         routerLinkActive="active"
@@ -113,11 +109,11 @@
       >
         <picture class="tmdb-mark">
           <source
-            srcset='/assets/svgs/tmdbgreen.svg'
+            srcset="/assets/svgs/tmdbgreen.svg"
             media="(prefers-color-scheme: dark)"
           />
           <source
-            srcset='/assets/svgs/tmdb.svg'
+            srcset="/assets/svgs/tmdb.svg"
             media="(prefers-color-scheme: light)"
           />
           <img width="300" height="118" alt="The Movie Database" src="" />
@@ -134,17 +130,18 @@
       >
       </ui-hamburger-button>
       <div class="ui-toolbar--widget-container">
-        <ui-search-bar [query]="search$" (searchSubmit)="searchMovie($event)"></ui-search-bar>
+        <ui-search-bar
+          [query]="search$"
+          (searchSubmit)="searchMovie($event)"
+        ></ui-search-bar>
         <ui-dark-mode-toggle></ui-dark-mode-toggle>
         <ul class="menu account-menu" (mouseenter)="ui.loadAccountMenu()">
           <li>
-            Account
+            Not account
             <ul class="menu">
               <!--<ng-container *rxLet="accountMenuComponent$; rxSuspense: loading" [lazy]="accountMenuComponent$">
               </ng-container>-->
-              <ng-template #loading>
-                Loading...
-              </ng-template>
+              <ng-template #loading> Loading... </ng-template>
             </ul>
           </li>
         </ul>
