@@ -66,10 +66,10 @@ export class ListState extends RxState<ListModel> implements AppInitializer {
     this.actions.updateList$.pipe(concatMap((params) => updateList(params))),
     this.actions.createList$.pipe(
       concatMap((params) => createList(params)),
-      tap((id) => id && this.router.navigate(['my-lists']))
+      tap((id) => id && this.router.navigate(['account/my-lists']))
     ),
     this.actions.deleteList$.pipe(
-      tap((id) => id && this.router.navigate(['my-lists'])),
+      tap((id) => id && this.router.navigate(['account/my-lists'])),
       concatMap((id) => deleteList(id))
     )
   );
