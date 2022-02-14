@@ -5,7 +5,7 @@ import { LetModule } from '@rx-angular/template/let';
 import { ListDetailPageComponent } from './list-detail-page.component';
 import { LazyModule } from '../../../shared/cdk/lazy/lazy.module';
 import { TabsComponentModule } from '../../../ui/component/tabs/tabs.component';
-import { ListEditFormComponentModule } from '../../../ui/pattern/list-edit-form/list-edit-form.component';
+import { MovieListModule } from '../../../ui/pattern/movie-list/movie-list.module';
 
 const ROUTES = [
   {
@@ -13,8 +13,52 @@ const ROUTES = [
     component: ListDetailPageComponent,
     children: [
       {
+        path: '',
+        pathMatch: 'full',
+        redirectTo: 'view',
+      },
+
+      {
+        path: 'view',
+        loadChildren: () =>
+          import('./list-movies/list-movies.module').then(
+            (m) => m.ListMoviesComponentModule
+          ),
+      },
+      {
         path: 'edit',
-        component: ListDetailPageComponent,
+        loadChildren: () =>
+          import(
+            'projects/movies/src/app/pages/account-feature/list-create-page/list-create-page.module'
+          ).then((m) => m.ListCreatePageModule),
+      },
+      {
+        path: 'add-remove-items',
+        loadChildren: () =>
+          import('./list-items-edit/list-items-edit.module').then(
+            (m) => m.ListItemsEditComponentModule
+          ),
+      },
+      {
+        path: 'image',
+        loadChildren: () =>
+          import('./list-image/list-image.module').then(
+            (m) => m.ListImageComponentModule
+          ),
+      },
+      {
+        path: 'share',
+        loadChildren: () =>
+          import('./list-share/list-share.module').then(
+            (m) => m.ListShareComponentModule
+          ),
+      },
+      {
+        path: 'delete',
+        loadChildren: () =>
+          import('./list-remove/list-remove.module').then(
+            (m) => m.ListRemoveComponentModule
+          ),
       },
     ],
   },
@@ -28,9 +72,7 @@ const ROUTES = [
     LetModule,
     LazyModule,
     TabsComponentModule,
-    // TODO: Renders empty when lazy-loaded, need to fix.
-    // CONSIDER: Reduces shifts if not lazy-loaded
-    ListEditFormComponentModule,
+    MovieListModule,
   ],
   exports: [ListDetailPageComponent],
 })

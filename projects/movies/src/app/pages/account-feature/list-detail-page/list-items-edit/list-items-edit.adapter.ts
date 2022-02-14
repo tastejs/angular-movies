@@ -7,15 +7,15 @@ import {
   switchMap,
   withLatestFrom,
 } from 'rxjs';
-import { TMDBMovieDetailsModel } from '../../../data-access/api/model/movie-details.model';
-import { TMDBMovieModel } from '../../../data-access/api/model/movie.model';
+import { TMDBMovieDetailsModel } from '../../../../data-access/api/model/movie-details.model';
+import { TMDBMovieModel } from '../../../../data-access/api/model/movie.model';
 import {
   MovieResponse,
   queryMovie,
-} from '../../../data-access/api/resources/movie.resource';
-import { ListDetailAdapter } from '../../../pages/account-feature/list-detail-page/list-detail-page.adapter';
-import { getActions } from '../../../shared/rxa-custom/actions';
-import { ListState } from '../../../shared/state/list.state';
+} from '../../../../data-access/api/resources/movie.resource';
+import { ListDetailAdapter } from '../../../../pages/account-feature/list-detail-page/list-detail-page.adapter';
+import { getActions } from '../../../../shared/rxa-custom/actions';
+import { ListState } from '../../../../shared/state/list.state';
 
 interface Actions {
   search: string;

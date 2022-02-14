@@ -7,7 +7,7 @@
   justify-content: space-between;
 }
 
-label {
+a {
   padding: 0 16px;
   min-height: 46px;
   line-height: 46px;
@@ -20,12 +20,8 @@ label {
   &:hover {
     background: val(--palette-background-default);
   }
-}
 
-input {
-  display: none;
-
-  &:checked + label {
+  &.active {
     background: var(--palette-background-default);
   }
 }
