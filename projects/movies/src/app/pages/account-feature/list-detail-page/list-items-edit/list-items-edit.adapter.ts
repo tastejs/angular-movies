@@ -1,9 +1,13 @@
 import { Injectable } from '@angular/core';
 import { RxState } from '@rx-angular/state';
+import { W92H138 } from 'projects/movies/src/app/data-access/api/constants/image-sizes';
+import { ImageTag } from 'projects/movies/src/app/shared/utils/image/image-tag.interface';
+import { addImageTag } from 'projects/movies/src/app/shared/utils/image/image-tag.transform';
 import {
   debounceTime,
   distinctUntilChanged,
   filter,
+  map,
   switchMap,
   withLatestFrom,
 } from 'rxjs';
@@ -29,7 +33,7 @@ interface Actions {
 export class ListItemsEditAdapter extends RxState<{
   id: number;
   items: Partial<TMDBMovieDetailsModel>[];
-  searchResults: TMDBMovieModel[];
+  searchResults: (TMDBMovieModel & ImageTag)[];
 }> {
   readonly ui = getActions<Actions>();
 
@@ -48,7 +52,12 @@ export class ListItemsEditAdapter extends RxState<{
     debounceTime(500),
     distinctUntilChanged(),
     filter(Boolean),
-    switchMap((request) => queryMovie(request))
+    switchMap((request) => queryMovie(request)),
+    map((movies) =>
+      movies.map((m) =>
+        addImageTag(m, { pathProp: 'poster_path', dims: W92H138 })
+      )
+    )
   );
 
   constructor(

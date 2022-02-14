@@ -47,13 +47,6 @@ const ROUTES = [
           ),
       },
       {
-        path: 'share',
-        loadChildren: () =>
-          import('./list-share/list-share.module').then(
-            (m) => m.ListShareComponentModule
-          ),
-      },
-      {
         path: 'delete',
         loadChildren: () =>
           import('./list-remove/list-remove.module').then(

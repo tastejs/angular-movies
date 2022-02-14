@@ -24,10 +24,6 @@ export class ListDetailPageComponent {
       link: 'image',
     },
     {
-      name: 'Share',
-      link: 'share',
-    },
-    {
       name: 'Delete List',
       link: 'delete',
     },

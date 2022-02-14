@@ -28,14 +28,14 @@ label {
   position: fixed;
   top: 0;
   right: 0;
-  left: 3px;
+  left: 0;
   bottom: 0;
   margin: auto;
   background: var(--palette-text-disabled);
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 1090;
+  z-index: 2000;
 }
 
 .secondary-button {

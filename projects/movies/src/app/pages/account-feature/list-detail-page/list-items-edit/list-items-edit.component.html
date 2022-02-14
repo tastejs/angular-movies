@@ -8,18 +8,31 @@
     (input)="adapter.ui.search(itemInput.value)"
   />
 
-  <ol class="results">
+  <ul class="results">
     <li
       class="item"
       (click)="adapter.ui.addMovie(movie)"
-      *rxFor="let movie of adapter.searchResults$; trackBy: trackByMovieId"
+      *rxFor="
+        let movie of adapter.searchResults$;
+        index as idx;
+        trackBy: trackByMovieId
+      "
     >
+      <img
+        class="result-image gradient"
+        [attr.loading]="idx === 0 ? '' : 'lazy'"
+        [src]="movie?.imgUrl || 'assets/images/no_poster_available.jpg'"
+        [width]="movie.imgWidth"
+        [height]="movie.imgHeight"
+        alt="poster movie"
+        [title]="movie.title"
+      />
       <p>
         {{ movie.title }}
         <span class="overview">{{ movie.overview }}</span>
       </p>
     </li>
-  </ol>
+  </ul>
 </fieldset>
 
 <ol class="list">

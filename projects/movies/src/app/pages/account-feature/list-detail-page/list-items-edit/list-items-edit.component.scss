@@ -88,6 +88,10 @@ fieldset {
   border: 1px solid var(--palette-divider);
   width: 100%;
 
+  .item:before {
+    display: none;
+  }
+
   .item:hover {
     background: var(--palette-action-hover);
     cursor: pointer;
@@ -97,4 +101,8 @@ fieldset {
 .overview {
   display: block;
   color: var(--palette-text-secondary);
+}
+
+.result-image {
+  margin-right: 16px;
 }

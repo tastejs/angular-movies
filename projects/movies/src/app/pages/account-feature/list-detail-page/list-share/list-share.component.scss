@@ -1,0 +1,29 @@
+.overlay {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 3px;
+  bottom: 0;
+  margin: auto;
+  background: var(--palette-text-disabled);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+}
+
+.modal {
+  background: var(--palette-background-paper);
+}
+
+header,
+p,
+footer {
+  padding: 16px;
+  margin-bottom: 0;
+}
+
+header,
+p {
+  border-bottom: 1px solid var(--palette-divider);
+}

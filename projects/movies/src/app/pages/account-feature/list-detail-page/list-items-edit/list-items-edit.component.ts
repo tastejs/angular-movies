@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { TMDBMovieModel } from 'projects/movies/src/app/data-access/api/model/movie.model';
+import { ImageTag } from 'projects/movies/src/app/shared/utils/image/image-tag.interface';
 import { TMDBMovieDetailsModel } from '../../../../data-access/api/model/movie-details.model';
-import { MovieResponse } from '../../../../data-access/api/resources/movie.resource';
 
 import { trackByProp } from '../../../../shared/utils/track-by';
 import { ListItemsEditAdapter } from './list-items-edit.adapter';
@@ -13,6 +14,6 @@ import { ListItemsEditAdapter } from './list-items-edit.adapter';
 export class ListItemsEditComponent {
   constructor(public adapter: ListItemsEditAdapter) {}
 
-  trackByMovieId = trackByProp<MovieResponse>('id');
+  trackByMovieId = trackByProp<TMDBMovieModel & ImageTag>('id');
   trackByResultId = trackByProp<Partial<TMDBMovieDetailsModel>>('id');
 }
