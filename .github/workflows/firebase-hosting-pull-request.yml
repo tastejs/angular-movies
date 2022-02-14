@@ -21,7 +21,7 @@ jobs:
         run: npm ci
 
       - name: Production build (without SSR)
-        run: npm run build:prod:artefacts
+        run: npm run build:prod:preview
 
       - name: Commit measures
         uses: EndBug/add-and-commit@v7
