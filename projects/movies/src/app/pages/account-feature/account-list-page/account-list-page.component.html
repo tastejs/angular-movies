@@ -8,7 +8,11 @@
     <ng-container *rxFor="let list of lists$; index as idx; trackBy: trackById">
       <a
         class="account-list--grid-item"
-        [routerLink]="['/detail/list', list?.id]"
+        [routerLink]="[
+          '/detail/list',
+          list?.id,
+          list?.number_of_items ? 'view' : 'add-remove-items'
+        ]"
       >
         <!--
         **🚀 Perf Tip for LCP:**

@@ -1,4 +1,4 @@
-import { TMDBMovieDetailsModel } from './movie-details.model';
+import { TMDBMovieModel } from './movie.model';
 
 export interface TMDBListCreateUpdateParams {
   id?: number;
@@ -41,7 +41,7 @@ export interface TMDBListModel {
   public?: boolean;
   revenue?: string;
   page?: number;
-  results?: Partial<TMDBMovieDetailsModel>[];
+  results?: TMDBMovieModel[];
   iso_639_1?: string;
   total_pages?: number;
   description?: string;

@@ -75,7 +75,7 @@ const ROUTES: Routes = [
 export const ROUTING_IMPORTS = [
   MovieListPageModule,
   RouterModule.forRoot(ROUTES, {
-    enableTracing: true,
+    enableTracing: false,
     /**
      * **🚀 Perf Tip for TBT:**
      *

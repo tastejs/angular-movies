@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { deleteProp, patch, RxState } from '@rx-angular/state';
 import { AppInitializer } from '../rxa-custom/app-initializer';
 import { getActions } from '../rxa-custom/actions';
-import { concatMap, merge, tap } from 'rxjs';
+import { concatMap, filter, merge, tap } from 'rxjs';
 import {
   addMovieToList,
   createList,
@@ -79,7 +79,10 @@ export class ListState extends RxState<ListModel> implements AppInitializer {
 
     this.connect(
       'lists',
-      this.actions.fetchList$.pipe(concatMap((id) => fetchList(id))),
+      this.actions.fetchList$.pipe(
+        filter((id) => !isNaN(Number(id))),
+        concatMap((id) => fetchList(id))
+      ),
       (state, list) => patch(state?.lists || {}, list)
     );
 
