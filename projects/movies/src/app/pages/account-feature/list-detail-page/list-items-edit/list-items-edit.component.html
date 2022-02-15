@@ -10,8 +10,7 @@
 
   <ul class="results">
     <li
-      class="item"
-      (click)="adapter.ui.addMovie(movie)"
+      [class]="movie.inList ? 'item selected' : 'item'"
       *rxFor="
         let movie of adapter.searchResults$;
         index as idx;
@@ -27,22 +26,30 @@
         alt="poster movie"
         [title]="movie.title"
       />
-      <p>
-        {{ movie.title }}
-        <span class="overview">{{ movie.overview }}</span>
-      </p>
+      <div>
+        <h3 class="title">{{ movie.title }}</h3>
+        <p class="overview">{{ movie.overview }}</p>
+        <button class="delete-button" (click)="adapter.ui.deleteMovie(movie)">
+          Remove from the list
+        </button>
+        <button class="add-button" (click)="adapter.ui.addMovie(movie)">
+          Add to the list
+        </button>
+      </div>
     </li>
   </ul>
 </fieldset>
 
 <ol class="list">
   <li
-    class="item"
+    class="item selected"
     *rxFor="let item of adapter.items$; trackBy: trackByResultId"
   >
     <div class="box">
       {{ item.title }}
-      <button class="delete" (click)="adapter.ui.deleteMovie(item)">❌</button>
+      <button class="delete-button" (click)="adapter.ui.deleteMovie(item)">
+        Remove from the list
+      </button>
     </div>
   </li>
 </ol>

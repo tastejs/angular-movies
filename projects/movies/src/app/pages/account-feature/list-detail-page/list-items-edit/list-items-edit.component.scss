@@ -41,6 +41,28 @@ fieldset {
   counter-increment: listCounter;
   padding: 8px;
 
+  .overview {
+    margin-bottom: 8px;
+  }
+
+  .add-button {
+    display: block;
+  }
+
+  .delete-button {
+    display: none;
+  }
+
+  &.selected {
+    .add-button {
+      display: none;
+    }
+
+    .delete-button {
+      display: block;
+    }
+  }
+
   &:before {
     margin-right: 10px;
     content: counter(listCounter);
@@ -56,7 +78,7 @@ fieldset {
 }
 
 .box {
-  padding: 2px 8px 2px 20px;
+  padding: 8px 8px 8px 20px;
   flex-grow: 1;
   border: 1px solid var(--palette-divider);
   display: flex;
@@ -104,4 +126,29 @@ fieldset {
 
 .result-image {
   margin-right: 16px;
+}
+
+button {
+  border: none;
+  cursor: pointer;
+  padding: 6px 16px;
+  border-radius: var(--theme-borderRadius-m);
+}
+
+.delete-button {
+  color: var(--palette-background-paper);
+  background: var(--palette-secondary-light);
+
+  &:hover {
+    background: var(--palette-secondary-dark);
+  }
+}
+
+.add-button {
+  color: var(--palette-background-paper);
+  background: var(--palette-primary-dark);
+
+  &:hover {
+    background: var(--palette-primary-light);
+  }
 }

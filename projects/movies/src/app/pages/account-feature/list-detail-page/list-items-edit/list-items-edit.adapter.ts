@@ -1,5 +1,9 @@
 import { Injectable } from '@angular/core';
-import { RxState } from '@rx-angular/state';
+import {
+  dictionaryToArray,
+  toDictionary,
+} from '@rx-angular/cdk/transformations';
+import { RxState, selectSlice } from '@rx-angular/state';
 import { W92H138 } from 'projects/movies/src/app/data-access/api/constants/image-sizes';
 import { ImageTag } from 'projects/movies/src/app/shared/utils/image/image-tag.interface';
 import { addImageTag } from 'projects/movies/src/app/shared/utils/image/image-tag.transform';
@@ -26,21 +30,30 @@ interface Actions {
   deleteMovie: Partial<TMDBMovieDetailsModel>;
 }
 
+export type MovieSearchResult = TMDBMovieModel & ImageTag & { inList: boolean };
+
 @Injectable({
   providedIn: 'root',
 })
 export class ListItemsEditAdapter extends RxState<{
   id: number;
-  items: Partial<TMDBMovieDetailsModel>[];
-  searchResults: (TMDBMovieModel & ImageTag)[];
+  items: Record<number, Partial<TMDBMovieDetailsModel>>;
+  searchResults: MovieSearchResult[];
 }> {
   readonly ui = getActions<Actions>();
 
-  readonly items$ = this.select('items');
-  readonly searchResults$ = this.select('searchResults');
+  readonly items$ = this.select(
+    selectSlice(['items']),
+    map(({ items }) => dictionaryToArray(items))
+  );
+  readonly searchResults$ = this.select(
+    selectSlice(['items', 'searchResults']),
+    map(({ items, searchResults }) =>
+      searchResults.map((r) => ({ ...r, inList: !!items[r.id] }))
+    )
+  );
 
   readonly addMovieEvent$ = this.ui.addMovie$.pipe(
-    filter((m) => !this.get('items').some((i) => i.id === m.id)),
     withLatestFrom(this.select('id'))
   );
 
@@ -54,7 +67,10 @@ export class ListItemsEditAdapter extends RxState<{
     exhaustMap((request) => queryMovie(request)),
     map((movies) =>
       movies.map((m) =>
-        addImageTag(m, { pathProp: 'poster_path', dims: W92H138 })
+        addImageTag(
+          { ...m, inList: false },
+          { pathProp: 'poster_path', dims: W92H138 }
+        )
       )
     )
   );
@@ -69,7 +85,7 @@ export class ListItemsEditAdapter extends RxState<{
 
     this.connect(this.detailsAdapter.listDetails$, (_, list) => ({
       id: list.id,
-      items: list.results,
+      items: toDictionary(list.results || [], 'id'),
     }));
 
     this.hold(this.addMovieEvent$, this.state.addMovieToList);
