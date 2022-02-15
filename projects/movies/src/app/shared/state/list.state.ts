@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { deleteProp, patch, RxState } from '@rx-angular/state';
+import { RxState } from '@rx-angular/state';
 import { AppInitializer } from '../rxa-custom/app-initializer';
 import { getActions } from '../rxa-custom/actions';
 import { concatMap, filter, merge, tap } from 'rxjs';
@@ -18,6 +18,7 @@ import {
 import { Router } from '@angular/router';
 import { MovieResponse } from '../../data-access/api/resources/movie.resource';
 import { TMDBMovieDetailsModel } from '../../data-access/api/model/movie-details.model';
+import { deleteProp, patch } from '@rx-angular/cdk/transformations';
 
 export interface ListModel {
   lists: Record<string, TMDBListModel>;

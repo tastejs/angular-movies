@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { patch, RxState } from '@rx-angular/state';
+import { patch } from '@rx-angular/cdk/transformations';
+import { RxState } from '@rx-angular/state';
 import { map, startWith, withLatestFrom } from 'rxjs';
 
 import { TMDBListCreateUpdateParams } from '../../../data-access/api/model/list.model';
