@@ -1,4 +1,4 @@
-import { Component, OnDestroy } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnDestroy } from '@angular/core';
 import { toggle } from '@rx-angular/cdk/transformations';
 import { RxState } from '@rx-angular/state';
 import { getActions } from 'projects/movies/src/app/shared/rxa-custom/actions';
@@ -9,6 +9,7 @@ import { ListDetailAdapter } from '../list-detail-page.adapter';
   selector: 'app-list-remove',
   templateUrl: './list-remove.component.html',
   styleUrls: ['./list-remove.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ListRemoveComponent
   extends RxState<{
