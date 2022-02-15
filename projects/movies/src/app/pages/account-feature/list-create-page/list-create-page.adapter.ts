@@ -31,7 +31,7 @@ export class ListCreatePageAdapter extends RxState<{
   );
   readonly name$ = this.select('request', 'name');
   readonly description$ = this.select('request', 'description');
-  readonly valid$ = this.select(map((state) => !!state?.request?.name.length));
+  readonly valid$ = this.select(map((state) => !!state?.request?.name?.length));
   readonly private$ = this.select('request', 'private');
 
   private readonly submitEvent$ = this.ui.submit$.pipe(

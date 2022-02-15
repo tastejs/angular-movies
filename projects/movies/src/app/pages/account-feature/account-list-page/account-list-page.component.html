@@ -20,9 +20,9 @@
         This avoids bootstrap and template evaluation time and reduces scripting time in general.
         -->
         <img
-          class="aspectRatio-4-3 gradient"
+          class="aspectRatio-16-9 gradient"
           [attr.loading]="idx === 0 ? '' : 'lazy'"
-          [src]="list?.poster_path || 'assets/images/nothing.svg'"
+          [src]="list?.imgUrl"
           [width]="500"
           [height]="282"
           [alt]="list?.name"

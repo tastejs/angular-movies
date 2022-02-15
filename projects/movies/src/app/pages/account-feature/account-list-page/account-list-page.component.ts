@@ -3,9 +3,11 @@ import {
   Component,
   ViewEncapsulation,
 } from '@angular/core';
-import { TMDBAccountList } from '../../../data-access/api/model/list.model';
 import { trackByProp } from '../../../shared/utils/track-by';
-import { AccountListPageAdapter } from './account-list-page.adapter';
+import {
+  AccountListPageAdapter,
+  ListWithPoster,
+} from './account-list-page.adapter';
 
 @Component({
   selector: 'ct-person',
@@ -16,7 +18,7 @@ import { AccountListPageAdapter } from './account-list-page.adapter';
 })
 export class AccountListPageComponent {
   readonly lists$ = this.adapter.select('lists');
-  readonly trackById = trackByProp<TMDBAccountList>('id');
+  readonly trackById = trackByProp<ListWithPoster>('id');
 
   constructor(private adapter: AccountListPageAdapter) {}
 }

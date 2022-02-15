@@ -1,1 +1,39 @@
-TODO
+<div class="movies-list--grid" data-test="list-container">
+  <div
+    [class]="
+      movie.selected
+        ? 'movies-list--grid-item selected'
+        : 'movies-list--grid-item'
+    "
+    *rxFor="
+      let movie of adapter.posters$;
+      index as idx;
+      trackBy: trackByPosterId
+    "
+    [attr.data-test]="'list-item-idx-' + idx"
+    (click)="adapter.ui.listPosterUpdate(movie.backdrop_path)"
+  >
+    <!--
+            **🚀 Perf Tip for LCP:**
+            To get out the best performance use the native HTML attribute loading="lazy" instead of a directive.
+            This avoids bootstrap and template evaluation time and reduces scripting time in general.
+            -->
+    <img
+      class="aspectRatio-4-3 gradient"
+      [attr.loading]="idx === 0 ? '' : 'lazy'"
+      [src]="movie?.imgUrl"
+      width="355"
+      height="200"
+      alt="poster movie"
+      [title]="movie.title"
+    />
+    <div class="movies-list--details">
+      <h3 class="movies-list--details-title">
+        {{ movie.title }}
+        <h2 class="ribbon">
+          {{ movie.selected ? 'Selected' : 'Select' }}
+        </h2>
+      </h3>
+    </div>
+  </div>
+</div>

@@ -2,10 +2,11 @@ import { TMDBMovieModel } from './movie.model';
 
 export interface TMDBListCreateUpdateParams {
   id?: number;
-  name: string;
-  description: string;
-  iso_639_1: string;
-  private: boolean;
+  name?: string;
+  description?: string;
+  iso_639_1?: string;
+  private?: boolean;
+  backdrop_path?: string;
 }
 
 export interface TMDBAddMovieToListParams {
