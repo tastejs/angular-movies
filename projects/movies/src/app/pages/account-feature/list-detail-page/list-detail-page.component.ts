@@ -3,6 +3,7 @@ import { ListDetailAdapter } from './list-detail-page.adapter';
 @Component({
   selector: 'ct-list-detail-page',
   templateUrl: './list-detail-page.component.html',
+  styleUrls: ['./list-detail-page.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ListDetailPageComponent {

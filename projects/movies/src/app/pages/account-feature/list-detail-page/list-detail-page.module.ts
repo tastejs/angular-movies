@@ -1,11 +1,9 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { LetModule } from '@rx-angular/template/let';
 import { ListDetailPageComponent } from './list-detail-page.component';
-import { LazyModule } from '../../../shared/cdk/lazy/lazy.module';
-import { TabsComponentModule } from '../../../ui/component/tabs/tabs.component';
 import { MovieListModule } from '../../../ui/pattern/movie-list/movie-list.module';
+import { ForModule } from '@rx-angular/template/experimental/for';
 
 const ROUTES = [
   {
@@ -60,13 +58,10 @@ const ROUTES = [
 @NgModule({
   declarations: [ListDetailPageComponent],
   imports: [
-    CommonModule,
     RouterModule.forChild(ROUTES),
     LetModule,
-    LazyModule,
-    TabsComponentModule,
+    ForModule,
     MovieListModule,
   ],
-  exports: [ListDetailPageComponent],
 })
 export class ListDetailsPageModule {}

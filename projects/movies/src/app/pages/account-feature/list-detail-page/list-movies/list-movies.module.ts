@@ -13,6 +13,5 @@ const ROUTES = [
 @NgModule({
   imports: [MovieListModule, RouterModule.forChild(ROUTES)],
   declarations: [ListMoviesComponent],
-  exports: [ListMoviesComponent],
 })
 export class ListMoviesComponentModule {}

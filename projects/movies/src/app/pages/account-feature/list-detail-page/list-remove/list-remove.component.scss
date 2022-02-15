@@ -13,14 +13,12 @@ label {
   cursor: pointer;
   border-radius: 5px;
   transition: transform 100ms ease-in-out;
-  box-shadow: rgb(0 0 0 / 20%) 0 2px 3px -1px, rgb(0 0 0 / 14%) 0 3px 4px 0,
-    rgb(0 0 0 / 12%) 0 1px 10px 0;
+  box-shadow: var(--theme-shadow-1);
 
   &:hover {
     background: var(--palette-primary-light);
     transform: translateY(-1px);
-    box-shadow: rgb(0 0 0 / 20%) 0 1px 2px -1px, rgb(0 0 0 / 14%) 0 2px 3px 0,
-      rgb(0 0 0 / 12%) 0 1px 10px 0;
+    box-shadow: none;
   }
 }
 

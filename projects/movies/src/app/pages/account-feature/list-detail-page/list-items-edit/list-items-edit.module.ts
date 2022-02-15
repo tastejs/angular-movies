@@ -13,6 +13,5 @@ const ROUTES = [
 @NgModule({
   imports: [ForModule, RouterModule.forChild(ROUTES)],
   declarations: [ListItemsEditComponent],
-  exports: [ListItemsEditComponent],
 })
 export class ListItemsEditComponentModule {}
