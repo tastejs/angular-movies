@@ -40,6 +40,7 @@ export class ListItemsEditAdapter extends RxState<{
   readonly searchResults$ = this.select('searchResults');
 
   readonly addMovieEvent$ = this.ui.addMovie$.pipe(
+    filter((m) => !this.get('items').some((i) => i.id === m.id)),
     withLatestFrom(this.select('id'))
   );
 
