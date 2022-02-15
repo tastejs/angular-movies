@@ -15,7 +15,7 @@ export class AuthState extends RxState<AuthStateModel> {
     setItem: () => {},
   };
 
-  readonly redirectUrl = `${this.document.location.protocol}//${this.document.location.hostname}:${this.document.location.port}/movies/popular`;
+  readonly redirectUrl = `${this.document.location.protocol}//${this.document.location.hostname}:${this.document.location.port}/list/category/popular`;
   readonly requestToken$ = this.select('requestToken');
   readonly accessToken$ = this.select('accessToken');
   readonly accountId$ = this.select('accountId');
