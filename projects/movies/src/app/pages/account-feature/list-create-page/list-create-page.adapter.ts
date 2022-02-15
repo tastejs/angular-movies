@@ -86,4 +86,16 @@ export class ListCreatePageAdapter extends RxState<{
       }
     });
   }
+
+  resetForm() {
+    this.set({
+      mode: FormMode.Create,
+      request: {
+        name: '',
+        description: '',
+        iso_639_1: 'en',
+        private: true,
+      },
+    });
+  }
 }

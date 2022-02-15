@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
 import { ListCreatePageAdapter } from './list-create-page.adapter';
 @Component({
   template: `
@@ -60,6 +60,10 @@ import { ListCreatePageAdapter } from './list-create-page.adapter';
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ListCreateEditPageComponent {
+export class ListCreateEditPageComponent implements OnDestroy {
   constructor(public adapter: ListCreatePageAdapter) {}
+
+  ngOnDestroy(): void {
+    this.adapter.resetForm();
+  }
 }
