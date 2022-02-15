@@ -4,11 +4,10 @@ import { W92H138 } from 'projects/movies/src/app/data-access/api/constants/image
 import { ImageTag } from 'projects/movies/src/app/shared/utils/image/image-tag.interface';
 import { addImageTag } from 'projects/movies/src/app/shared/utils/image/image-tag.transform';
 import {
-  debounceTime,
   distinctUntilChanged,
+  exhaustMap,
   filter,
   map,
-  switchMap,
   withLatestFrom,
 } from 'rxjs';
 import { TMDBMovieDetailsModel } from '../../../../data-access/api/model/movie-details.model';
@@ -49,10 +48,9 @@ export class ListItemsEditAdapter extends RxState<{
   );
 
   readonly searchResponse$ = this.ui.search$.pipe(
-    debounceTime(500),
     distinctUntilChanged(),
     filter(Boolean),
-    switchMap((request) => queryMovie(request)),
+    exhaustMap((request) => queryMovie(request)),
     map((movies) =>
       movies.map((m) =>
         addImageTag(m, { pathProp: 'poster_path', dims: W92H138 })
