@@ -6,6 +6,12 @@
   max-height: 33px;
   display: block;
 
+  &:hover {
+    .menu {
+      display: block;
+    }
+  }
+
   .menu {
     background: var(--palette-background-default);
     width: 300px;
