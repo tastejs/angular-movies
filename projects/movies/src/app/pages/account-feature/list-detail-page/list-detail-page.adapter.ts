@@ -52,6 +52,7 @@ export class ListDetailAdapter extends RxState<{
           ...addImageTag(m, {
             pathProp: 'backdrop_path',
             dims: W500H282,
+            fallback: 'assets/images/nothing.svg',
           }),
           selected: m.backdrop_path === backdrop_path,
         }))
