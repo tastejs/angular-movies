@@ -7,7 +7,7 @@
   justify-content: space-between;
 }
 
-a {
+.tab {
   padding: 0 16px;
   min-height: 46px;
   line-height: 46px;
@@ -24,4 +24,21 @@ a {
   &.active {
     background: var(--palette-background-default);
   }
+}
+
+.back {
+  outline: none;
+  padding: 6px 16px;
+  min-width: 96px;
+  margin-top: 16px;
+  font-weight: normal;
+  font-size: var(--text-md);
+  color: var(--palette-primary-main);
+  border: 1px solid rgba(var(--palette-primary-main-rgb), 0.5);
+  border-radius: var(--theme-borderRadius-m);
+  box-shadow: none;
+  background-color: transparent;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
