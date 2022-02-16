@@ -1,17 +1,20 @@
 # angular-movies
 
-This is a Movies App built using Angular and [The Movie Database (TMDB)](https://www.themoviedb.org/) API. 
+This is a Movies App built using [Angular](https://angular.io) and [RxAngular](https://github.com/rx-angular/rx-angular).  
+As data source the [The Movie Database (TMDB)](https://www.themoviedb.org/) API is used. 
+
+[![angular-and-rx-angular](https://user-images.githubusercontent.com/10064416/154189195-c32cbdec-b061-46a5-8590-a9e3d8dc050a.png)](https://www.rx-angular.io/)
+
 
 ## Demo
 
 A [live deployment](https://angular-movies-a12d3.web.app/list/category/popular) of this app is available to try it out.
 
-## Comparison to next app
 
-- [next](https://lighthouse-metrics.com/one-time-tests/61299c3173820a000836ac3b)
-- [angular](https://lighthouse-metrics.com/one-time-tests/61299973401f0d0009349b33)
+## Performance Optimizations 
 
-## Performance Improvements
+[![before-vs-after](https://user-images.githubusercontent.com/10064416/154186437-92a20676-ca63-4d9a-a108-079728cbb75e.gif)](https://www.webpagetest.org/video/compare.php?tests=220216_BiDcHE_2W7,220216_BiDcKV_2W8)
+
 
 For now you can search the codebase for "Perf Tip" later on there will be propper documentation here.
 
@@ -33,6 +36,15 @@ For now you can search the codebase for "Perf Tip" later on there will be proppe
 | 849.c98331a772ee31b8.js       | -             |  12.18 kB |
 | common.80ee1cdf1082c3de.js    | common        |  10.10 kB |
 | 614.4143cf052f9e5361.js       | -             |   3.36 kB |
+
+## Comparison to next app
+
+- [next](https://movies.zaps.dev/?category=Popular&page=1)
+- [angular](https://angular-movies-a12d3.web.app/list/category/popular)
+
+[![angular-vs-next](https://user-images.githubusercontent.com/10064416/154188113-6f470a21-0688-4226-a28f-744658598536.gif)](https://www.webpagetest.org/video/compare.php?tests=220216_BiDcTG_330,220216_BiDcMR_331)
+
+
 
 ## Contributing
 
@@ -71,8 +83,12 @@ Clone and install the dependencies for `angular-movies` locally:
 
 Built with: 
 
-* Angular
-* rx-angular
+* [Angular](https://angular.io)
+* [rx-angular](https://github.com/rx-angular/rx-angular)
+
+[![angular-and-rx-angular](https://user-images.githubusercontent.com/10064416/154189195-c32cbdec-b061-46a5-8590-a9e3d8dc050a.png)](https://www.rx-angular.io/)
+
+
   
 ## Authors
 
