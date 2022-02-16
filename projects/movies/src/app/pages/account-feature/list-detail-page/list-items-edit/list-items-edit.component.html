@@ -1,0 +1,55 @@
+<fieldset>
+  <label for="list-name"> Add Item </label>
+  <input
+    id="list-name"
+    placeholder="Search for a movie..."
+    #itemInput
+    type="text"
+    (input)="adapter.ui.search(itemInput.value)"
+  />
+
+  <ul class="results">
+    <li
+      [class]="movie.inList ? 'item selected' : 'item'"
+      *rxFor="
+        let movie of adapter.searchResults$;
+        index as idx;
+        trackBy: trackByMovieId
+      "
+    >
+      <img
+        class="result-image gradient"
+        [attr.loading]="idx === 0 ? '' : 'lazy'"
+        [src]="movie?.imgUrl || 'assets/images/no_poster_available.jpg'"
+        [width]="movie.imgWidth"
+        [height]="movie.imgHeight"
+        alt="poster movie"
+        [title]="movie.title"
+      />
+      <div>
+        <h3 class="title">{{ movie.title }}</h3>
+        <p class="overview">{{ movie.overview }}</p>
+        <button class="delete-button" (click)="adapter.ui.deleteMovie(movie)">
+          Remove from the list
+        </button>
+        <button class="add-button" (click)="adapter.ui.addMovie(movie)">
+          Add to the list
+        </button>
+      </div>
+    </li>
+  </ul>
+</fieldset>
+
+<ol class="list">
+  <li
+    class="item selected"
+    *rxFor="let item of adapter.items$; trackBy: trackByResultId"
+  >
+    <div class="box">
+      {{ item.title }}
+      <button class="delete-button" (click)="adapter.ui.deleteMovie(item)">
+        Remove from the list
+      </button>
+    </div>
+  </li>
+</ol>

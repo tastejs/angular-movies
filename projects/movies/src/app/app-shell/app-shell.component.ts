@@ -9,7 +9,13 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
-import { distinctUntilChanged, filter, map } from 'rxjs';
+import {
+  distinctUntilChanged,
+  filter,
+  map,
+  shareReplay,
+  switchMap,
+} from 'rxjs';
 import { TMDBMovieGenreModel } from '../data-access/api/model/movie-genre.model';
 import { fallbackRouteToDefault } from '../routing-default.utils';
 import { trackByProp } from '../shared/utils/track-by';
@@ -36,13 +42,12 @@ export class AppShellComponent {
     getIdentifierOfTypeAndLayout('search', 'list')
   );
 
-  /*
-    accountMenuComponent$ = this.ui.loadAccountMenu$.pipe(
-      switchMap(() =>
-        import('./account-menu/account-menu.component.lazy').then(({ c }) => c)
-      ),
-      shareReplay(1)
-    ); */
+  accountMenuComponent$ = this.ui.loadAccountMenu$.pipe(
+    switchMap(() =>
+      import('./account-menu/account-menu.component.lazy').then(({ c }) => c)
+    ),
+    shareReplay(1)
+  );
 
   constructor(
     private readonly state: RxState<{

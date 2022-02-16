@@ -1,0 +1,82 @@
+@import '../../../../ui/token/mixins/flex';
+
+.movies-list {
+  &--details {
+    @include d-flex-v;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 1.5rem 3rem;
+    @media only screen and (max-width: 500px) {
+      padding: 1.5rem;
+    }
+
+    &-title {
+      text-align: center;
+      margin-bottom: 1rem;
+      line-height: 1.4;
+    }
+  }
+
+  &--grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(10rem, 35rem));
+    gap: 4rem 2rem;
+    place-content: space-between space-evenly;
+    align-items: start;
+    margin: 4rem 0;
+    position: relative;
+    contain: layout;
+
+    @media only screen and (max-width: 600px) {
+      grid-template-columns: repeat(auto-fit, minmax(10rem, 23rem));
+      justify-content: space-around;
+      gap: 4rem 1.5rem;
+    }
+
+    @media only screen and (max-width: 500px) {
+      grid-template-columns: repeat(auto-fit, minmax(10rem, 18rem));
+      gap: 4rem 1rem;
+    }
+
+    &-item {
+      @include d-flex;
+      align-items: stretch;
+      flex-direction: column;
+      content-visibility: auto;
+      position: relative;
+      cursor: pointer;
+
+      img {
+        transition: filter 150ms ease-in-out;
+      }
+
+      &:hover {
+        .ribbon {
+          display: block;
+        }
+
+        img {
+          filter: grayscale(1);
+        }
+      }
+
+      &.selected .ribbon {
+        display: block;
+      }
+    }
+  }
+}
+
+.ribbon {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  height: 40px;
+  line-height: 40px;
+  width: 100%;
+  text-align: center;
+  margin: auto;
+  background: var(--palette-primary-main);
+}

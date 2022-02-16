@@ -35,9 +35,7 @@
               "projects/movies/src/manifest.webmanifest",
               "projects/movies/src/assets"
             ],
-            "styles": [
-              "projects/movies/src/styles.scss"
-            ],
+            "styles": ["projects/movies/src/styles.scss"],
             "scripts": []
           },
           "configurations": {
@@ -47,24 +45,30 @@
                 {
                   "type": "initial",
                   "maximumWarning": "300kb",
-                  "maximumError": "335KB"
+                  "maximumError": "349.1KB"
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "2000b",
+                  "maximumWarning": "3000b",
                   "maximumError": "3986b"
                 },
                 {
                   "type": "bundle",
                   "name": "main",
                   "maximumWarning": "300kb",
-                  "maximumError": "324kb"
+                  "maximumError": "330kb"
                 },
                 {
                   "type": "bundle",
                   "name": "styles",
                   "maximumWarning": "5000b",
                   "maximumError": "5.5KB"
+                },
+                {
+                  "type": "bundle",
+                  "name": "common",
+                  "maximumWarning": "10KB",
+                  "maximumError": "11KB"
                 },
                 {
                   "type": "bundle",
@@ -133,9 +137,7 @@
               "projects/movies/src/favicon.ico",
               "projects/movies/src/assets"
             ],
-            "styles": [
-              "projects/movies/src/styles.scss"
-            ],
+            "styles": ["projects/movies/src/styles.scss"],
             "scripts": []
           }
         },
@@ -182,9 +184,7 @@
         "prerender": {
           "builder": "@nguniversal/builders:prerender",
           "options": {
-            "routes": [
-              "/"
-            ]
+            "routes": ["/"]
           },
           "configurations": {
             "production": {

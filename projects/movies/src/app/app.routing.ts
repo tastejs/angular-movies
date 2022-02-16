@@ -43,19 +43,26 @@ const ROUTES: Routes = [
       ).then((m) => m.MovieDetailPageModule),
   },
   {
+    path: 'detail/list/:identifier',
+    loadChildren: () =>
+      import(
+        'projects/movies/src/app/pages/account-feature/list-detail-page/list-detail-page.module'
+      ).then((m) => m.ListDetailsPageModule),
+  },
+  {
     path: 'detail/person/:identifier',
     loadChildren: () =>
       import(
         'projects/movies/src/app/pages/person-detail-page/person-detail-page.module'
       ).then((m) => m.PersonDetailPageModule),
   },
-  /* {
-    path: 'account/lists',
+  {
+    path: 'account',
     loadChildren: () =>
       import(
-        'projects/movies/src/app/pages/account-list-page/account-list-page.module'
-      ).then((m) => m),
-  },*/
+        'projects/movies/src/app/pages/account-feature/account-list-page/account-list-page.module'
+      ).then((m) => m.AccountListPageModule),
+  },
   {
     path: '**',
     loadChildren: () =>
@@ -68,6 +75,7 @@ const ROUTES: Routes = [
 export const ROUTING_IMPORTS = [
   MovieListPageModule,
   RouterModule.forRoot(ROUTES, {
+    enableTracing: false,
     /**
      * **🚀 Perf Tip for TBT:**
      *

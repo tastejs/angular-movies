@@ -1,12 +1,13 @@
 <ng-container *rxLet="loggedIn$; let loggedIn">
-  <ng-container *ngIf="loggedIn; else: guest">
-    <li><a [routerLink]="['/account/profile']">Profile</a></li>
-    <li><a [routerLink]="['/account/lists']">My Lists</a></li>
+  <ng-container *ngIf="loggedIn; else guest">
+    <li><a [routerLink]="['account/list/create']">Create New List</a></li>
+    <li><a [routerLink]="['account/my-lists']">My Lists</a></li>
     <li>
       <a
         (click)="ui.signOut($event)"
         title="sign out"
-        [routerLink]="'/movies/popular'">
+        [routerLink]="'/list/category/popular'"
+      >
         Logout
       </a>
     </li>
@@ -14,11 +15,7 @@
   <ng-template #guest>
     <li>Guest Profile</li>
     <li>
-      <a
-        (click)="ui.signIn($event)"
-        title="sign in">
-        Login
-      </a>
+      <a (click)="ui.signIn($event)" title="sign in"> Login </a>
     </li>
   </ng-template>
 </ng-container>

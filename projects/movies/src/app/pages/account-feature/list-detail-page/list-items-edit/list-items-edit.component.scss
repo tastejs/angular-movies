@@ -1,0 +1,154 @@
+label {
+  display: block;
+  font-size: var(--text-md);
+}
+
+input {
+  margin-top: 4px;
+  font-size: var(--text-md);
+  display: block;
+  padding: 12px 16px;
+  width: 100%;
+  border: 1px solid var(--palette-divider);
+  background: var(--palette-background-paper);
+  color: var(--palette-text-primary);
+
+  &:focus {
+    outline: 1px solid var(--palette-divider);
+  }
+}
+
+fieldset {
+  margin-top: 8px;
+  border: none;
+  position: relative;
+
+  &:hover .results {
+    display: block;
+  }
+}
+
+.list {
+  display: block;
+  counter-reset: listCounter;
+}
+
+.item {
+  display: flex;
+  font-size: var(--text-md);
+  width: 100%;
+  align-items: center;
+  counter-increment: listCounter;
+  padding: 8px;
+
+  .overview {
+    margin-bottom: 8px;
+  }
+
+  .add-button {
+    display: block;
+  }
+
+  .delete-button {
+    display: none;
+  }
+
+  &.selected {
+    .add-button {
+      display: none;
+    }
+
+    .delete-button {
+      display: block;
+    }
+  }
+
+  &:before {
+    margin-right: 10px;
+    content: counter(listCounter);
+    background-color: var(--palette-primary-light);
+    border-radius: 50%;
+    color: var(--palette-text-primary);
+    width: 24px;
+    height: 24px;
+    display: inline-grid;
+    place-items: center;
+    flex-shrink: 0;
+  }
+}
+
+.box {
+  padding: 8px 8px 8px 20px;
+  flex-grow: 1;
+  border: 1px solid var(--palette-divider);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.delete {
+  border: none;
+  background: none;
+  width: 48px;
+  height: 48px;
+  cursor: pointer;
+  border-radius: 50%;
+
+  &:hover {
+    background: var(--palette-action-hover);
+  }
+}
+
+.results {
+  max-height: 300px;
+  overflow: auto;
+  position: absolute;
+  display: none;
+  top: 100%;
+  background: var(--palette-background-paper);
+  border: 1px solid var(--palette-divider);
+  width: 100%;
+
+  .item:before {
+    display: none;
+  }
+
+  .item:hover {
+    background: var(--palette-action-hover);
+    cursor: pointer;
+  }
+}
+
+.overview {
+  display: block;
+  color: var(--palette-text-secondary);
+}
+
+.result-image {
+  margin-right: 16px;
+}
+
+button {
+  border: none;
+  cursor: pointer;
+  padding: 6px 16px;
+  border-radius: var(--theme-borderRadius-m);
+}
+
+.delete-button {
+  color: var(--palette-background-paper);
+  background: var(--palette-secondary-light);
+
+  &:hover {
+    background: var(--palette-secondary-dark);
+  }
+}
+
+.add-button {
+  color: var(--palette-background-paper);
+  background: var(--palette-primary-dark);
+
+  &:hover {
+    background: var(--palette-primary-light);
+  }
+}

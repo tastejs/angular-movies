@@ -1,12 +1,12 @@
-import { RxState } from '@rx-angular/state';
 import {
   ChangeDetectionStrategy,
   Component,
   ViewEncapsulation,
 } from '@angular/core';
+import { trackByProp } from '../../../shared/utils/track-by';
 import {
   AccountListPageAdapter,
-  AccountListPageAdapterState,
+  ListWithPoster,
 } from './account-list-page.adapter';
 
 @Component({
@@ -15,19 +15,10 @@ import {
   styleUrls: ['./account-list-page.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.Emulated,
-  providers: [RxState],
 })
 export class AccountListPageComponent {
-  readonly listState$ = this.state.select('lists');
+  readonly lists$ = this.adapter.select('lists');
+  readonly trackById = trackByProp<ListWithPoster>('id');
 
-  constructor(
-    private adapter: AccountListPageAdapter,
-    private state: RxState<AccountListPageAdapterState>
-  ) {
-    this.state.connect(this.adapter.list$);
-  }
-
-  back() {
-    // this.location.back();
-  }
+  constructor(private adapter: AccountListPageAdapter) {}
 }

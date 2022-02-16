@@ -1,0 +1,31 @@
+label {
+  display: block;
+  font-size: var(--text-md);
+}
+
+form {
+  margin-bottom: 32px;
+}
+
+input,
+textarea,
+select {
+  margin-top: 4px;
+  font-size: var(--text-md);
+  display: block;
+  padding: 12px 16px;
+  width: 100%;
+  border: 1px solid var(--palette-divider);
+  resize: none;
+  background: var(--palette-background-paper);
+  color: var(--palette-text-primary);
+
+  &:focus {
+    outline: 1px solid var(--palette-divider);
+  }
+}
+
+fieldset {
+  margin-top: 8px;
+  border: none;
+}
