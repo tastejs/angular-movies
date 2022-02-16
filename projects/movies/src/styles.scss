@@ -13,7 +13,11 @@
 @import 'app/ui/token/variables/shadow';
 @import 'app/ui/token/dark-light-mode';
 @import 'app/ui/token/typography';
-
+@import "app/ui/component/aspect-ratio/aspect-ratio";
+@import 'app/ui/component/loader/loader';
+@import 'app/ui/component/icons/icon';
+@import 'app/ui/component/button/button';
+@import 'app/ui/component/dialog/dialog.component';
 body {
   color: var(--palette-text-primary);
   background-color: var(--palette-background-default);
@@ -30,3 +34,4 @@ body {
 body.dark img:not([src*='.svg']) {
   filter: var(--image-filter);
 }
+
