@@ -4,7 +4,7 @@ This is a Movies App built using Angular and [The Movie Database (TMDB)](https:/
 
 ## Demo
 
-A [live deployment](https://angular-movies-a12d3.web.app/movies/popular) of this app is available to try it out.
+A [live deployment](https://angular-movies-a12d3.web.app/list/category/popular) of this app is available to try it out.
 
 ## Comparison to next app
 
