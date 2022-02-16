@@ -7,11 +7,11 @@ import { environment } from './environments/environment';
 if (environment.production) {
   enableProdMode();
 }
-document.addEventListener('click', bootstrap, { capture: true });
+document.addEventListener('click',
 
-function bootstrap() {
-  console.log('customm bootstrap');
-  document.removeEventListener('click', bootstrap);
+//function bootstrap
+() => {
+  // document.removeEventListener('click', bootstrap);
   /**
    * **🚀 Perf Tip for TBT:**
    *
@@ -38,4 +38,5 @@ function bootstrap() {
       .bootstrapModule(AppModule, { ngZone: 'noop' })
       .catch((err) => console.error(err))
   );
-}
+},
+  { once: true });
