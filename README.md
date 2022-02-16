@@ -41,7 +41,7 @@ For now you can search the codebase for "Perf Tip" later on there will be proppe
 
 - [angular](https://angular-movies-a12d3.web.app/list/category/popular)
 - [next](https://movies.zaps.dev/?category=Popular&page=1)
-- [nuxt](https://movies.jason.codes/movie)
+- [nuxt](https://movies.jason.codes/movie/category/popular)
 
 [![angular-vs-next-vs-nuxt](https://www.webpagetest.org/video/video.php?tests=220216_AiDcS7_BV4,220216_BiDc2E_AMC,220216_BiDcFG_AME&bg=ffffff&text=222222&end=visual&format=gif)](https://www.webpagetest.org/video/compare.php?tests=220216_AiDcS7_BV4,220216_BiDc2E_AMC,220216_BiDcFG_AME)
 
