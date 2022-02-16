@@ -19,8 +19,8 @@ A [live deployment](https://angular-movies-a12d3.web.app/list/category/popular) 
 For now you can search the codebase for "Perf Tip" later on there will be propper documentation here.
 
 
-[Measures before optimization](https://lighthouse-metrics.com/one-time-tests/616db7e91cff420008f70364)
-![angular-movies-before_michael-hladky](https://user-images.githubusercontent.com/10064416/137785051-1cf9f63a-e803-4d92-a952-c327b7628530.PNG)
+[Measures before optimization](https://lighthouse-metrics.com/checks/9ddeb46e-2c28-453c-b719-cf080a01b13c)
+[![angular-movies-before_michael-hladky](https://user-images.githubusercontent.com/10064416/137785051-1cf9f63a-e803-4d92-a952-c327b7628530.PNG)](https://lighthouse-metrics.com/checks/9ddeb46e-2c28-453c-b719-cf080a01b13c)
 
 
 [Measures after optimization](https://lighthouse-metrics.com/checks/6a888a17-b17b-46a6-abc9-e605b73a530c/runs/503701ad-36aa-43ad-8de3-cb40e775c770)
@@ -39,12 +39,11 @@ For now you can search the codebase for "Perf Tip" later on there will be proppe
 
 ## Comparison to next app
 
-- [next](https://movies.zaps.dev/?category=Popular&page=1)
 - [angular](https://angular-movies-a12d3.web.app/list/category/popular)
+- [next](https://movies.zaps.dev/?category=Popular&page=1)
+- [nuxt](https://movies.jason.codes/movie)
 
-[![angular-vs-next](https://user-images.githubusercontent.com/10064416/154188113-6f470a21-0688-4226-a28f-744658598536.gif)](https://www.webpagetest.org/video/compare.php?tests=220216_BiDcTG_330,220216_BiDcMR_331)
-
-
+[![angular-vs-next-vs-nuxt](https://www.webpagetest.org/video/video.php?tests=220216_AiDcS7_BV4,220216_BiDc2E_AMC,220216_BiDcFG_AME&bg=ffffff&text=222222&end=visual&format=gif)](https://www.webpagetest.org/video/compare.php?tests=220216_AiDcS7_BV4,220216_BiDc2E_AMC,220216_BiDcFG_AME)
 
 ## Contributing
 
@@ -87,8 +86,6 @@ Built with:
 * [rx-angular](https://github.com/rx-angular/rx-angular)
 
 [![angular-and-rx-angular](https://user-images.githubusercontent.com/10064416/154189195-c32cbdec-b061-46a5-8590-a9e3d8dc050a.png)](https://www.rx-angular.io/)
-
-
   
 ## Authors
 
