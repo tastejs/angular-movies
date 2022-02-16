@@ -37,7 +37,7 @@ For now you can search the codebase for "Perf Tip" later on there will be proppe
 | common.80ee1cdf1082c3de.js    | common        |  10.10 kB |
 | 614.4143cf052f9e5361.js       | -             |   3.36 kB |
 
-## Comparison to next app
+## Comparison to next and nuxt
 
 - [angular](https://angular-movies-a12d3.web.app/list/category/popular)
 - [next](https://movies.zaps.dev/?category=Popular&page=1)
