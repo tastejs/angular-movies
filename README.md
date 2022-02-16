@@ -13,7 +13,7 @@ A [live deployment](https://angular-movies-a12d3.web.app/list/category/popular) 
 
 ## Performance Optimizations 
 
-[![before-vs-after](https://user-images.githubusercontent.com/10064416/154186437-92a20676-ca63-4d9a-a108-079728cbb75e.gif)](https://www.webpagetest.org/video/compare.php?tests=220216_BiDcHE_2W7,220216_BiDcKV_2W8)
+[![before-vs-after](https://www.webpagetest.org/video/video.php?tests=220216_BiDcPP_CVM,220216_AiDcBN_ETK&bg=ffffff&text=222222&end=visual&format=gif)](https://www.webpagetest.org/video/compare.php?tests=220216_BiDcPP_CVM,220216_AiDcBN_ETK)
 
 
 For now you can search the codebase for "Perf Tip" later on there will be propper documentation here.
