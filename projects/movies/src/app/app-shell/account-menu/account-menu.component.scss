@@ -1,15 +1,27 @@
 :host {
-  display: block;
-  box-shadow: rgb(0 0 0 / 20%) 0 2px 1px -1px, rgb(0 0 0 / 14%) 0px 1px 1px 0px,
-    rgb(0 0 0 / 12%) 0px 1px 3px 0px;
+  display: flex;
+  flex-direction: column;
 }
 
-li {
+div {
   font-size: var(--text-md);
   padding: 0 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  color: var(--palette-text-primary);
+  height: 36px;
+  background-color: var(--palette-background-paper);
+  transition: background-color 150ms cubic-bezier(0.4, 0, 0.2, 1) 0s;
+  &:hover {
+    background-color: var(--palette-action-hover);
+  }
+  a {
+    color: var(--palette-text-primary)
+  }
 }
 
-li:not(:last-child) {
+div:not(:last-child) {
   border-bottom: 1px solid var(--palette-divider);
 }
 

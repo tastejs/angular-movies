@@ -2,53 +2,64 @@
 @import '../ui/token/mixins/flex';
 @import '../ui/component/icons/icon';
 
-.account-menu {
-  max-height: 33px;
-  display: block;
+.profile-button {
+  outline: none;
+  border: none;
+  color: var(--palette-secondary-main);
+  background-color: var(--palette-background-default);
+  position: relative;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+
+  .focus-overlay {
+    position: absolute;
+    border-radius: 100%;
+    width: 200%;
+    height: 200%;
+  }
 
   &:hover {
-    .menu {
-      display: block;
+    .focus-overlay {
+      background-color: rgba(var(--palette-secondary-main-rgb), .05);
+    }
+  }
+}
+
+.account-menu-dropdown {
+  position: relative;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--palette-background-default);
+
+  svg {
+    z-index: 2;
+    fill: var(--palette-secondary-main);
+  }
+
+  &:hover {
+    .account-menu-content {
+      visibility: visible;
+      pointer-events: auto;
     }
   }
 
-  .menu {
+  .account-menu-content {
+    visibility: hidden;
+    width: 200px;
     background: var(--palette-background-default);
-    width: 300px;
-    top: 95%;
+    pointer-events: none;
+    position: absolute;
+    right: 0;
+    top: 30px;
+    min-width: 160px;
+    box-shadow: var(--theme-shadow-dropdown);
+    border: 1px solid var(--palette-divider);
+    background-color: var(--palette-background-paper);
+    z-index: 1300;
   }
-}
-
-.menu {
-  min-height: 33px;
-  display: block;
-  list-style-type: none;
-  position: relative;
-  cursor: pointer;
-
-  li {
-    list-style-type: none;
-    line-height: 33px;
-    position: relative;
-  }
-}
-
-.menu li:hover {
-  .menu {
-    display: block;
-  }
-}
-.menu li {
-  .menu:hover {
-    display: block;
-  }
-}
-.menu .menu {
-  position: absolute;
-  z-index: 1;
-  display: none;
-  right: 0;
-  width: 158px;
 }
 
 .ui-toolbar {
@@ -92,7 +103,7 @@
   }
 
   &--widget-container {
-    @include d-flex-h;
+    @include d-flex-vh;
     padding: 2rem;
     margin-left: auto;
 
@@ -152,9 +163,10 @@ ui-side-drawer {
 
 .tmdb-mark {
   @include d-flex-h;
+  margin: 16px 8px;
 
   > img {
-    height: 4rem;
+    height: 3rem;
   }
 }
 
@@ -168,9 +180,13 @@ ui-side-drawer {
 .navigation-header {
   display: none;
   width: 100%;
-  height: 15rem;
-  margin-top: 3rem;
+  height: 18rem;
+  margin-bottom: 2rem;
   place-items: center;
+
+  .logo-img {
+    max-width: 75%;
+  }
 
   @include isDesktop {
     display: grid;
@@ -203,21 +219,20 @@ ui-side-drawer {
 
   &--menu-item {
     padding: 1rem 2rem;
+    line-height: 1;
+    display: flex;
+    align-items: center;
   }
 
   &--menu-item-icon {
     margin-right: 5px;
     width: 0.875em;
     height: auto;
-    font-size: var(--text-md);
   }
 
   &--headline {
-    &:not(:first-of-type) {
-      margin-top: 3rem;
-    }
-
     color: var(--palette-text-primary);
-    margin: 0 0 1rem 1rem;
+    margin: 4rem 0 1rem 1rem;
+    font-size: var(--text-sm);
   }
 }
