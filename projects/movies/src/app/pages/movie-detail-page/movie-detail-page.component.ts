@@ -6,7 +6,7 @@ import {
   TrackByFunction,
   ViewEncapsulation,
 } from '@angular/core';
-import { map, tap } from 'rxjs';
+import { map } from 'rxjs';
 import { TMDBMovieCastModel } from '../../data-access/api/model/movie-credits.model';
 import { TMDBMovieGenreModel } from '../../data-access/api/model/movie-genre.model';
 
