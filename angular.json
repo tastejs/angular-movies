@@ -62,7 +62,7 @@
                   "type": "bundle",
                   "name": "styles",
                   "maximumWarning": "5000b",
-                  "maximumError": "5.5KB"
+                  "maximumError": "6KB"
                 },
                 {
                   "type": "bundle",
