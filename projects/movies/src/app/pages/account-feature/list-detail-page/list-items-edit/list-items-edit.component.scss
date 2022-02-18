@@ -7,11 +7,12 @@ input {
   margin-top: 4px;
   font-size: var(--text-md);
   display: block;
-  padding: 12px 16px;
+  padding: 10px 16px;
   width: 100%;
   border: 1px solid var(--palette-divider);
   background: var(--palette-background-paper);
   color: var(--palette-text-primary);
+  cursor: pointer;
 
   &:focus {
     outline: 1px solid var(--palette-divider);
@@ -20,17 +21,15 @@ input {
 
 fieldset {
   margin-top: 8px;
+  margin-bottom: 16px;
   border: none;
   position: relative;
-
-  &:hover .results {
-    display: block;
-  }
 }
 
 .list {
   display: block;
   counter-reset: listCounter;
+  padding-bottom: 16px;
 }
 
 .item {
@@ -39,34 +38,16 @@ fieldset {
   width: 100%;
   align-items: center;
   counter-increment: listCounter;
-  padding: 8px;
+  padding: 3px 0 3px 8px;
 
   .overview {
     margin-bottom: 8px;
   }
 
-  .add-button {
-    display: block;
-  }
-
-  .delete-button {
-    display: none;
-  }
-
-  &.selected {
-    .add-button {
-      display: none;
-    }
-
-    .delete-button {
-      display: block;
-    }
-  }
-
   &:before {
     margin-right: 10px;
     content: counter(listCounter);
-    background-color: var(--palette-primary-light);
+    background-color: var(--palette-custom-lightBlue);
     border-radius: 50%;
     color: var(--palette-text-primary);
     width: 24px;
@@ -78,7 +59,7 @@ fieldset {
 }
 
 .box {
-  padding: 8px 8px 8px 20px;
+  padding: 0 8px 0 20px;
   flex-grow: 1;
   border: 1px solid var(--palette-divider);
   display: flex;
@@ -93,6 +74,9 @@ fieldset {
   height: 48px;
   cursor: pointer;
   border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
   &:hover {
     background: var(--palette-action-hover);
@@ -103,11 +87,22 @@ fieldset {
   max-height: 300px;
   overflow: auto;
   position: absolute;
-  display: none;
-  top: 100%;
+  top: calc(100% + 8px);
   background: var(--palette-background-paper);
   border: 1px solid var(--palette-divider);
   width: 100%;
+  z-index: 2000;
+
+  &-overlay {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    margin: auto;
+    background: transparent;
+    z-index: 1000;
+  }
 
   .item:before {
     display: none;
@@ -128,27 +123,15 @@ fieldset {
   margin-right: 16px;
 }
 
-button {
-  border: none;
-  cursor: pointer;
-  padding: 6px 16px;
-  border-radius: var(--theme-borderRadius-m);
+.poster {
+  width: 92px;
+  height: 92px;
+  overflow: hidden;
+  margin-right: 24px;
 }
 
-.delete-button {
-  color: var(--palette-background-paper);
-  background: var(--palette-secondary-light);
-
-  &:hover {
-    background: var(--palette-secondary-dark);
-  }
-}
-
-.add-button {
-  color: var(--palette-background-paper);
-  background: var(--palette-primary-dark);
-
-  &:hover {
-    background: var(--palette-primary-light);
-  }
+.title {
+  text-transform: none;
+  font-weight: normal;
+  color: var(--palette-text-primary);
 }

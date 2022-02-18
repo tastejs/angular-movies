@@ -1,55 +1,62 @@
-<fieldset>
-  <label for="list-name"> Add Item </label>
-  <input
-    id="list-name"
-    placeholder="Search for a movie..."
-    #itemInput
-    type="text"
-    (input)="adapter.ui.search(itemInput.value)"
-  />
+<ng-container *rxLet="adapter.vm$; let vm">
+  <fieldset>
+    <label for="list-name"> Add Item </label>
+    <input
+      id="list-name"
+      placeholder="Search for a movie..."
+      #itemInput
+      type="text"
+      [value]="vm.searchValue"
+      (focus)="adapter.ui.toggleResults(true)"
+      (input)="adapter.ui.search(itemInput.value)"
+    />
+    <ul class="results" [hidden]="!vm.showResults || !vm.searchResults?.length">
+      <li
+        class="item"
+        *rxFor="
+          let movie of vm.searchResults;
+          index as idx;
+          trackBy: trackByMovieId
+        "
+        (click)="adapter.ui.addMovie(movie)"
+      >
+        <div class="poster">
+          <img
+            class="result-image gradient"
+            [attr.loading]="idx === 0 ? '' : 'lazy'"
+            [src]="movie?.imgUrl || 'assets/images/no_poster_available.jpg'"
+            [width]="movie.imgWidth"
+            [height]="movie.imgHeight"
+            alt="poster movie"
+            [title]="movie.title"
+          />
+        </div>
+        <h3 class="title" style="text-transform: none">{{ movie.title }}</h3>
+      </li>
+    </ul>
+  </fieldset>
 
-  <ul class="results">
+  <ol class="list">
     <li
-      [class]="movie.inList ? 'item selected' : 'item'"
-      *rxFor="
-        let movie of adapter.searchResults$;
-        index as idx;
-        trackBy: trackByMovieId
-      "
+      class="item selected"
+      *rxFor="let item of vm.items; trackBy: trackByResultId"
     >
-      <img
-        class="result-image gradient"
-        [attr.loading]="idx === 0 ? '' : 'lazy'"
-        [src]="movie?.imgUrl || 'assets/images/no_poster_available.jpg'"
-        [width]="movie.imgWidth"
-        [height]="movie.imgHeight"
-        alt="poster movie"
-        [title]="movie.title"
-      />
-      <div>
-        <h3 class="title">{{ movie.title }}</h3>
-        <p class="overview">{{ movie.overview }}</p>
-        <button class="delete-button" (click)="adapter.ui.deleteMovie(movie)">
-          Remove from the list
-        </button>
-        <button class="add-button" (click)="adapter.ui.addMovie(movie)">
-          Add to the list
+      <div class="box">
+        {{ item.title }}
+        <button class="delete" (click)="adapter.ui.deleteMovie(item)">
+          <svg width="24" height="24">
+            <path
+              d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"
+            ></path>
+          </svg>
         </button>
       </div>
     </li>
-  </ul>
-</fieldset>
+  </ol>
 
-<ol class="list">
-  <li
-    class="item selected"
-    *rxFor="let item of adapter.items$; trackBy: trackByResultId"
-  >
-    <div class="box">
-      {{ item.title }}
-      <button class="delete-button" (click)="adapter.ui.deleteMovie(item)">
-        Remove from the list
-      </button>
-    </div>
-  </li>
-</ol>
+  <div
+    class="results-overlay"
+    (click)="adapter.ui.toggleResults(false)"
+    [hidden]="!vm.searchResults?.length"
+  ></div>
+</ng-container>
