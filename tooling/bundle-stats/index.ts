@@ -1,6 +1,6 @@
 import { Options } from 'yargs';
 import { YargsCommandObject } from '../cli/model';
-import { runCommand } from './commands/run-report';
+import { updateDocsCommand } from './commands/update-docs';
 import { runCli } from '../cli';
 
 const OPTIONS: { [key: string]: Options } = {
@@ -9,15 +9,15 @@ const OPTIONS: { [key: string]: Options } = {
     type: 'boolean',
     description: 'Run with verbose logging',
   },
-  path: {
-    alias: 'p',
+  stats: {
+    alias: 's',
     type: 'string',
-    description: 'Path to web-perf.config.json',
+    description: 'Path to stats.json',
   },
-  targetUrl: {
+  target: {
     alias: 't',
     type: 'string',
-    description: 'URL to analyze',
+    description: 'path to markdown file',
   },
   interactive: {
     type: 'boolean',
@@ -27,7 +27,7 @@ const OPTIONS: { [key: string]: Options } = {
   },
 };
 
-const COMMANDS: YargsCommandObject[] = [runCommand];
+const COMMANDS: YargsCommandObject[] = [updateDocsCommand];
 
 (async () => {
   runCli({ commands: COMMANDS, options: OPTIONS });
