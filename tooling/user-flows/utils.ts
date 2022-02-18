@@ -29,7 +29,7 @@ export async function captureReport(
   await browser.close();
 
   const report = flow.generateReport();
-  const fileName = `dist/user-flows/${flowOptions.name}.report.html`;
+  const fileName = `measures/user-flows/${flowOptions.name}.report.html`;
   fs.writeFileSync(fileName, report);
   open(fileName, { wait: false });
 }
