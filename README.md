@@ -30,6 +30,7 @@ For now you can search the codebase for "Perf Tip" later on there will be proppe
 **Bundle Stats**
 
 
+
 <!-- bundle-stats-start -->
 | Names             |       Size |
 | ---               | ---        |
@@ -50,6 +51,7 @@ For now you can search the codebase for "Perf Tip" later on there will be proppe
 | app_pages_account-feature_list-detail-page_list-remove_list-remove           | 3.43 KB |
 | app_pages_account-feature_list-detail-page_list-movies_list-movies           | 837 Bytes |
 <!-- bundle-stats-end -->
+
 
 
 
