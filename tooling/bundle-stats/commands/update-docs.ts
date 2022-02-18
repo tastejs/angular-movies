@@ -1,6 +1,6 @@
 import { YargsCommandObject } from '../../cli/model';
 import { getCliParam } from '../../cli/utils';
-import { formatBytes, readFile } from '../utils';
+import { formatBytes, formatChunkName, readFile } from '../utils';
 import * as fs from 'fs';
 
 export async function run(): Promise<void> {
@@ -38,7 +38,7 @@ export async function run(): Promise<void> {
 
   initialAssets.forEach(([name, size]) => {
     statsContent += `
-| ${name}           | ${formatBytes(size)} |`;
+| ${formatChunkName(name)}           | ${formatBytes(size)} |`;
   });
   statsContent += `
   | **Initial Total** | **${formatBytes(
@@ -49,7 +49,7 @@ export async function run(): Promise<void> {
 
   restAssets.forEach(([name, size]) => {
     statsContent += `
-| ${name}           | ${formatBytes(size)} |`;
+| ${formatChunkName(name)}           | ${formatBytes(size)} |`;
   });
   statsContent +=
     `

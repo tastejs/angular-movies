@@ -13,6 +13,10 @@ export function readFile(path: string, format: Formats = 'json') {
   return JSON.parse(raw);
 }
 
+export function formatChunkName(name: string): string | undefined {
+  return name.split('src_')?.pop()?.split('_module_ts.')?.shift();
+}
+
 export function formatBytes(a: number, b = 2, k = 1024) {
   // @ts-ignore
 

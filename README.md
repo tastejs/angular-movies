@@ -27,10 +27,6 @@ For now you can search the codebase for "Perf Tip" later on there will be proppe
 ![angular-movies-after-optimization_michael-hladky](https://user-images.githubusercontent.com/10064416/146446241-ad9eeed4-b0a4-44a2-a88e-4ea7c97e1acf.PNG)
 
 
-
-
-
-
 <!-- bundle-stats-start -->
 | Names             |       Size |
 | ---               | ---        |
