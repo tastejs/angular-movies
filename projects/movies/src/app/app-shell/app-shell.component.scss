@@ -92,7 +92,7 @@
   }
 
   &--widget-container {
-    @include d-flex-h;
+    @include d-flex-vh;
     padding: 2rem;
     margin-left: auto;
 
