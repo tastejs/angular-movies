@@ -104,8 +104,14 @@ fieldset {
     z-index: 1000;
   }
 
-  .item:before {
-    display: none;
+  .item {
+    padding-top: 4px;
+    padding-bottom: 4px;
+    border-bottom: 1px solid var(--palette-divider);
+
+    &:before {
+      display: none;
+    }
   }
 
   .item:hover {
@@ -117,10 +123,6 @@ fieldset {
 .overview {
   display: block;
   color: var(--palette-text-secondary);
-}
-
-.result-image {
-  margin-right: 16px;
 }
 
 .poster {
