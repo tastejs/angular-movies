@@ -28,10 +28,28 @@ For now you can search the codebase for "Perf Tip" later on there will be proppe
 
 
 
+
 <!-- bundle-stats-start -->
-
-
+| Names             |       Size |
+| ---               | ---        |
+| main.8245690a5ae2901f.js           | 328.78 KB |
+| styles.4f8cd2a839073a8f.css           | 5.4 KB |
+| runtime.86ab619213f3cf43.js           | 3.73 KB |
+  | **Initial Total** | **337.92 KB** |
+  | Names             |       Size |
+| app_pages_movie-detail-page_movie-detail-page           | 13.78 KB |
+| app_pages_not-found-page_not-found-page           | 12.31 KB |
+| common.ed8efc2ecffef487.js           | 10.87 KB |
+| app_pages_person-detail-page_person-detail-page           | 8.09 KB |
+| app_pages_account-feature_list-detail-page_list-items-edit_list-items-edi-393246.1eb4a0cb99024cb4.js           | 7.04 KB |
+| app_pages_account-feature_account-list-page_account-list-page           | 4.9 KB |
+| app_app-shell_account-menu_account-menu_component_lazy_ts.4dad2fc543a840a8.js           | 4.25 KB |
+| app_pages_account-feature_list-detail-page_list-detail-page           | 3.54 KB |
+| app_pages_account-feature_list-detail-page_list-image_list-image           | 3.47 KB |
+| app_pages_account-feature_list-detail-page_list-remove_list-remove           | 3.43 KB |
+| app_pages_account-feature_list-detail-page_list-movies_list-movies           | 837 Bytes |
 <!-- bundle-stats-end -->
+
 
 
 ## Comparison to next and nuxt
