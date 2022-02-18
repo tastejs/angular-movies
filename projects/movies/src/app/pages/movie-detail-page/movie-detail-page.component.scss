@@ -10,6 +10,16 @@
   display: block;
 }
 
+.loader {
+  position: absolute;
+  z-index: 200;
+  top: 250px;
+}
+
+.movie-detail-wrapper {
+  min-height: 500px;
+}
+
 .movie-detail {
 
   @media only screen and (max-width: 1500px) {

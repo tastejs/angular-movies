@@ -6,6 +6,7 @@ import {
   TrackByFunction,
   ViewEncapsulation,
 } from '@angular/core';
+import { map } from 'rxjs';
 import { TMDBMovieCastModel } from '../../data-access/api/model/movie-credits.model';
 import { TMDBMovieGenreModel } from '../../data-access/api/model/movie-genre.model';
 
@@ -20,6 +21,7 @@ import { MovieDetailAdapter } from './movie-detail-page.adapter';
 })
 export class MovieDetailPageComponent {
   readonly movieCtx$ = this.adapter.routedMovieCtx$;
+  readonly movie$ = this.movieCtx$.pipe(map((ctx) => ctx?.value || null));
   readonly castList$ = this.adapter.movieCastById$;
   readonly castListLoading$ = this.adapter.movieCastById$.pipe(
     select('loading')
