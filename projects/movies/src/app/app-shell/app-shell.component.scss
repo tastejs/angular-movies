@@ -152,9 +152,10 @@ ui-side-drawer {
 
 .tmdb-mark {
   @include d-flex-h;
+  margin: 16px 8px;
 
   > img {
-    height: 4rem;
+    height: 3rem;
   }
 }
 
@@ -168,9 +169,13 @@ ui-side-drawer {
 .navigation-header {
   display: none;
   width: 100%;
-  height: 15rem;
-  margin-top: 3rem;
+  height: 18rem;
+  margin-bottom: 2rem;
   place-items: center;
+
+  .logo-img {
+    max-width: 75%;
+  }
 
   @include isDesktop {
     display: grid;
@@ -203,21 +208,20 @@ ui-side-drawer {
 
   &--menu-item {
     padding: 1rem 2rem;
+    line-height: 1;
+    display: flex;
+    align-items: center;
   }
 
   &--menu-item-icon {
     margin-right: 5px;
     width: 0.875em;
     height: auto;
-    font-size: var(--text-md);
   }
 
   &--headline {
-    &:not(:first-of-type) {
-      margin-top: 3rem;
-    }
-
     color: var(--palette-text-primary);
-    margin: 0 0 1rem 1rem;
+    margin: 4rem 0 1rem 1rem;
+    font-size: var(--text-sm);
   }
 }
