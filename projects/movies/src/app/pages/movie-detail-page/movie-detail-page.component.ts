@@ -6,7 +6,7 @@ import {
   TrackByFunction,
   ViewEncapsulation,
 } from '@angular/core';
-import { map, startWith, Subject, tap } from 'rxjs';
+import { map, tap } from 'rxjs';
 import { TMDBMovieCastModel } from '../../data-access/api/model/movie-credits.model';
 import { TMDBMovieGenreModel } from '../../data-access/api/model/movie-genre.model';
 
@@ -21,22 +21,13 @@ import { MovieDetailAdapter } from './movie-detail-page.adapter';
 })
 export class MovieDetailPageComponent {
   readonly movieCtx$ = this.adapter.routedMovieCtx$;
-  readonly movie$ = this.movieCtx$.pipe(
-    map((ctx) => ctx?.value || null),
-    tap((v) => console.log('movie', v))
-  );
+  readonly movie$ = this.movieCtx$.pipe(map((ctx) => ctx?.value || null));
   readonly castList$ = this.adapter.movieCastById$;
   readonly castListLoading$ = this.adapter.movieCastById$.pipe(
     select('loading')
   );
   readonly infiniteScrollRecommendations$ =
     this.adapter.infiniteScrollRecommendations$;
-
-  readonly rendered$ = new Subject<unknown>();
-  readonly strategy$ = this.rendered$.pipe(
-    map(() => 'normal'),
-    startWith('native')
-  );
 
   constructor(
     private location: Location,
