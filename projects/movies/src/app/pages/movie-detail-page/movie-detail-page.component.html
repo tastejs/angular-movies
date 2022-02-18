@@ -1,138 +1,134 @@
-<article *rxLet="movieCtx$; let movieCtx">
-  <ng-container *ngIf="movieCtx?.value as movie; else loading">
-    <ui-detail-grid>
-      <div detailGridMedia>
-        <img
-          class="aspectRatio-2-3 fit-cover"
-          [src]="movie.imgUrl"
-          [width]="movie.imgWidth"
-          [height]="movie.imgHeight"
-          alt="poster movie"
-          [title]="movie.title"
-          data-test="detail-item-img"
-        />
-      </div>
-      <div detailGridDescription>
-        <header>
-          <h1>{{ movie.title }}</h1>
-          <h2>{{ movie.tagline }}</h2>
-        </header>
-        <section class="movie-detail--basic-infos">
-          <ui-star-rating
-            [rating]="movie.vote_average"
-            [showRating]="true"
-          ></ui-star-rating>
-          <div class="movie-detail--languages-runtime-release">
-            <strong>{{ movie.languages_runtime_release }}</strong>
-          </div>
-        </section>
-        <section>
-          <h3>The Genres</h3>
-          <div class="movie-detail--genres">
-            <a
-              class="movie-detail--genres-link"
-              *ngFor="
-                let genre of movie.genres;
+<article *rxLet="movie$; let movie; strategy: strategy$; renderCallback: rendered$" class="movie-detail-wrapper">
+  <ui-detail-grid [style.opacity]="!!movie ? 1 : 0">
+    <div detailGridMedia>
+      <img
+        class="aspectRatio-2-3 fit-cover"
+        [src]="movie?.imgUrl"
+        [width]="movie?.imgWidth"
+        [height]="movie?.imgHeight"
+        alt="poster movie"
+        [title]="movie?.title"
+        data-test="detail-item-img"
+      />
+    </div>
+    <div detailGridDescription>
+      <header>
+        <h1>{{ movie?.title }}</h1>
+        <h2>{{ movie?.tagline }}</h2>
+      </header>
+      <section class="movie-detail--basic-infos">
+        <ui-star-rating
+          [rating]="movie?.vote_average"
+          [showRating]="true"
+        ></ui-star-rating>
+        <div class="movie-detail--languages-runtime-release">
+          <strong>{{ movie?.languages_runtime_release }}</strong>
+        </div>
+      </section>
+      <section>
+        <h3>The Genres</h3>
+        <div class="movie-detail--genres">
+          <a
+            class="movie-detail--genres-link"
+            *ngFor="
+                let genre of movie?.genres;
                 trackBy: trackByGenre
               "
-              [routerLink]="['/list/genre/', genre.id]"
+            [routerLink]="['/list/genre/', genre.id]"
+          >
+            <svg viewBox="0 0 24 24" fill="currentColor" class="icon">
+              <path d="M0 0h24v24H0V0z" fill="none" />
+              <path
+                d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"
+              />
+              <circle cx="12" cy="12" r="5" />
+            </svg>
+            {{ genre.name }}
+          </a>
+        </div>
+      </section>
+      <section>
+        <h3>The Synopsis</h3>
+        <p>  {{ movie?.overview || 'There is no synopsis available...' }}</p>
+      </section>
+      <section>
+        <h3>The Cast</h3>
+        <div class="movie-detail--cast-list">
+          <ng-container *rxLet="castList$; let ctx;  strategy: 'immediate'">
+            <a
+              *rxFor="let c of  ctx.value; trackBy: trackByCast"
+              [routerLink]="['/detail/person/',c.id]"
+              (click)="$event.preventDefault()"
+              class="movie-detail--cast-actor"
             >
-              <svg viewBox="0 0 24 24" fill="currentColor" class="icon">
-                <path d="M0 0h24v24H0V0z" fill="none" />
-                <path
-                  d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"
-                />
-                <circle cx="12" cy="12" r="5" />
-              </svg>
-              {{ genre.name }}
-            </a>
-          </div>
-        </section>
-        <section>
-          <h3>The Synopsis</h3>
-          <p>  {{ movie.overview || 'There is no synopsis available...' }}</p>
-        </section>
-        <section>
-          <h3>The Cast</h3>
-          <div class="movie-detail--cast-list">
-            <ng-container *rxLet="castList$; let ctx;  strategy: 'immediate'">
-              <a
-                *rxFor="let c of  ctx.value; trackBy: trackByCast"
-                [routerLink]="['/detail/person/',c.id]"
-                (click)="$event.preventDefault()"
-                class="movie-detail--cast-actor"
-              >
-                <img
-                  loading="lazy"
-                  [src]="
+              <img
+                loading="lazy"
+                [src]="
                   c?.profile_path
                     ? 'https://image.tmdb.org/t/p/w185' + c.profile_path
                     : 'assets/images/no_poster_available.jpg'
                 "
-                  [alt]="c.name"
-                  [title]="c.name"
-                />
-              </a>
-              <div *ngIf="ctx.loading" class="loader" data-test="list-loader"></div>
-            </ng-container>
-          </div>
-        </section>
-        <section class="movie-detail--ad-section-links">
-          <a
-            class="btn"
-            target="_blank"
-            rel="noopener noreferrer"
-            [href]="movie.homepage"
-          >
-            Website
-            <svg class="btn__icon" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M0 0h24v24H0V0z" fill="none" />
-              <path
-                d="M17 7h-4v2h4c1.65 0 3 1.35 3 3s-1.35 3-3 3h-4v2h4c2.76 0 5-2.24 5-5s-2.24-5-5-5zm-6 8H7c-1.65 0-3-1.35-3-3s1.35-3 3-3h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-2zm-3-4h8v2H8z"
+                [alt]="c.name"
+                [title]="c.name"
               />
-            </svg>
-          </a>
-          <a
-            *ngIf="movie.imdb_id"
-            class="btn"
-            target="_blank"
-            rel="noopener noreferrer"
-            [href]="'https://www.imdb.com/title/' + movie.imdb_id"
-          >
-            IMDB
-            <svg class="btn__icon" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M0 0h24v24H0z" fill="none" />
-              <path
-                d="M18 3v2h-2V3H8v2H6V3H4v18h2v-2h2v2h8v-2h2v2h2V3h-2zM8 17H6v-2h2v2zm0-4H6v-2h2v2zm0-4H6V7h2v2zm10 8h-2v-2h2v2zm0-4h-2v-2h2v2zm0-4h-2V7h2v2z"
-              />
-            </svg>
-          </a>
-          <a
-            *ngIf="movie.videoUrl"
-            class="btn"
-            (click)="$event.preventDefault(); $any(trailerDialog).showModal()"
-            href="#trainer"
-          >
-            Trailer
-            <svg class="btn__icon" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M0 0h24v24H0z" fill="none" />
-            </svg>
-          </a>
-          <dialog class="video" #trailerDialog id="trailer-dialog">
-            <span aria-controls="trailer-dialog" class="close" (click)="$any(trailerDialog).close()"></span>
-            <iframe [bypassSrc]="movie.videoUrl" loading="lazy"
-                    width="460" height="230"></iframe>
-          </dialog>
-          <button class="btn" (click)="back()">
-            Back
-          </button>
-        </section>
-      </div>
-    </ui-detail-grid>
-  </ng-container>
-  <ng-template #loading>
-    <div class="loader"></div>
-  </ng-template>
+            </a>
+            <div *ngIf="ctx.loading" class="loader" data-test="list-loader"></div>
+          </ng-container>
+        </div>
+      </section>
+      <section class="movie-detail--ad-section-links">
+        <a
+          class="btn"
+          target="_blank"
+          rel="noopener noreferrer"
+          [href]="movie?.homepage"
+        >
+          Website
+          <svg class="btn__icon" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M0 0h24v24H0V0z" fill="none" />
+            <path
+              d="M17 7h-4v2h4c1.65 0 3 1.35 3 3s-1.35 3-3 3h-4v2h4c2.76 0 5-2.24 5-5s-2.24-5-5-5zm-6 8H7c-1.65 0-3-1.35-3-3s1.35-3 3-3h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-2zm-3-4h8v2H8z"
+            />
+          </svg>
+        </a>
+        <a
+          *ngIf="movie?.imdb_id"
+          class="btn"
+          target="_blank"
+          rel="noopener noreferrer"
+          [href]="'https://www.imdb.com/title/' + movie?.imdb_id"
+        >
+          IMDB
+          <svg class="btn__icon" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M0 0h24v24H0z" fill="none" />
+            <path
+              d="M18 3v2h-2V3H8v2H6V3H4v18h2v-2h2v2h8v-2h2v2h2V3h-2zM8 17H6v-2h2v2zm0-4H6v-2h2v2zm0-4H6V7h2v2zm10 8h-2v-2h2v2zm0-4h-2v-2h2v2zm0-4h-2V7h2v2z"
+            />
+          </svg>
+        </a>
+        <a
+          *ngIf="movie?.videoUrl"
+          class="btn"
+          (click)="$event.preventDefault(); $any(trailerDialog).showModal()"
+          href="#trainer"
+        >
+          Trailer
+          <svg class="btn__icon" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M0 0h24v24H0z" fill="none" />
+          </svg>
+        </a>
+        <dialog class="video" #trailerDialog id="trailer-dialog">
+          <span aria-controls="trailer-dialog" class="close" (click)="$any(trailerDialog).close()"></span>
+          <iframe [bypassSrc]="movie?.videoUrl" loading="lazy"
+                  width="460" height="230"></iframe>
+        </dialog>
+        <button class="btn" (click)="back()">
+          Back
+        </button>
+      </section>
+    </div>
+  </ui-detail-grid>
+  <div class="loader" *ngIf="!movie"></div>
 </article>
 <article>
   <header>
