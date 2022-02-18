@@ -30,7 +30,10 @@ const starsArray: number[] = new Array(numStars).fill(1);
     </div>
     <div class="rating-value" *ngIf="showRating">{{ rating }}</div>
   `,
-  styleUrls: ['star-rating.component.scss', '../../component/tooltip/_tooltip.scss'],
+  styleUrls: [
+    'star-rating.component.scss',
+    '../../component/tooltip/_tooltip.scss',
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.Emulated,
 })
@@ -51,7 +54,7 @@ export class StarRatingComponent {
 
     const scaledRating = this._rating / (this.range / this.numStars);
     const full = Math.floor(scaledRating);
-    const half = scaledRating % 1 > 0 ? 1 : 0;
+    const half = scaledRating % 1 > 0.5 ? 1 : 0;
     const empty = this.numStars - full - half;
     this.stars = new Array(full)
       .fill(1)

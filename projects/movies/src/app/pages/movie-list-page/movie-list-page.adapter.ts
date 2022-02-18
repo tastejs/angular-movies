@@ -1,4 +1,4 @@
-import { RxState } from '@rx-angular/state';
+import { RxState, selectSlice } from '@rx-angular/state';
 import { Injectable } from '@angular/core';
 import {
   distinctUntilKeyChanged,
@@ -25,6 +25,7 @@ import {
   InfiniteScrollState,
 } from '../../shared/cdk/infinite-scroll/infinite-scroll.interface';
 import { getSearch } from '../../data-access/api/resources/search.resource';
+import { getGenresDictionaryCached } from '../../data-access/api/resources/genre.resource';
 
 type MovieListRouterParams = Pick<RouterParams, 'type' | 'identifier'>;
 type MovieListPageModel = InfiniteScrollState<TMDBMovieModel> &
@@ -74,6 +75,20 @@ export class MovieListPageAdapter extends RxState<MovieListPageModel> {
         withLatestFrom(this.routerState.routerParams$),
         map(([_, routerParams]) => routerParams)
       );
+
+    this.connect(
+      this.routerState.routerParams$.pipe(
+        selectSlice(['identifier', 'type']),
+        withLatestFrom(getGenresDictionaryCached()),
+        map(([slice, generes]) => {
+          // genre identifier needs to get mapped to a real title
+          if (slice.type === 'genre') {
+            slice.identifier = generes[parseInt(slice.identifier)].name;
+          }
+          return slice;
+        })
+      )
+    );
 
     this.connect(
       // paginated results as container state

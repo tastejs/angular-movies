@@ -3,6 +3,8 @@ import { TMDBMovieGenreModel } from '../model/movie-genre.model';
 import { baseUrlApiV3 } from './base-urls.constant';
 import { getHTTP } from '../../../shared/injector/get-http-client';
 import { staticRequest } from '../staticRequest';
+import { toDictionary } from '@rx-angular/cdk/transformations';
+import { stateful } from '@rx-angular/state';
 
 export type GenresResponse = TMDBMovieGenreModel[];
 type GenresServerResponse = { genres: GenresResponse };
@@ -15,3 +17,8 @@ export const getGenres = (): Observable<GenresResponse> =>
     .pipe(map(({ genres }) => genres));
 
 export const getGenresCached = staticRequest(getGenres);
+export const getGenresDictionaryCached = () =>
+  getGenresCached().pipe(
+    map((i) => toDictionary(i, 'id')),
+    stateful()
+  );
