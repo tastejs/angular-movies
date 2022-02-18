@@ -28,9 +28,10 @@ interface Actions {
   search: string;
   addMovie: MovieResponse;
   deleteMovie: Partial<TMDBMovieDetailsModel>;
+  toggleResults: boolean;
 }
 
-export type MovieSearchResult = TMDBMovieModel & ImageTag & { inList: boolean };
+export type MovieSearchResult = TMDBMovieModel & ImageTag;
 
 @Injectable({
   providedIn: 'root',
@@ -39,18 +40,20 @@ export class ListItemsEditAdapter extends RxState<{
   id: number;
   items: Record<number, Partial<TMDBMovieDetailsModel>>;
   searchResults: MovieSearchResult[];
+  showResults: boolean;
+  searchValue: string;
+  latestSelectedTitle: string;
 }> {
   readonly ui = getActions<Actions>();
 
-  readonly items$ = this.select(
-    selectSlice(['items']),
-    map(({ items }) => dictionaryToArray(items))
-  );
-  readonly searchResults$ = this.select(
-    selectSlice(['items', 'searchResults']),
-    map(({ items, searchResults }) =>
-      searchResults.map((r) => ({ ...r, inList: !!items[r.id] }))
-    )
+  readonly vm$ = this.select(
+    selectSlice(['items', 'searchResults', 'showResults', 'searchValue']),
+    map(({ items, searchResults, showResults, searchValue }) => ({
+      items: dictionaryToArray(items),
+      searchResults: searchResults.filter((r) => !items[r.id]),
+      showResults,
+      searchValue,
+    }))
   );
 
   readonly addMovieEvent$ = this.ui.addMovie$.pipe(
@@ -81,11 +84,31 @@ export class ListItemsEditAdapter extends RxState<{
   ) {
     super();
 
-    this.connect('searchResults', this.searchResponse$);
+    this.set({
+      showResults: false,
+      searchResults: [],
+      searchValue: '',
+    });
+
+    this.connect(this.searchResponse$, (_, searchResults) => ({
+      searchResults,
+      showResults: true,
+    }));
 
     this.connect(this.detailsAdapter.listDetails$, (_, list) => ({
       id: list.id,
       items: toDictionary(list.results || [], 'id'),
+    }));
+
+    this.connect(this.ui.toggleResults$, (state, showResults) => ({
+      showResults,
+      searchValue: showResults ? '' : state.latestSelectedTitle,
+      searchResults: [],
+    }));
+    this.connect(this.ui.addMovie$, (_, movie) => ({
+      showResults: false,
+      searchValue: movie.title,
+      latestSelectedTitle: movie.title,
     }));
 
     this.hold(this.addMovieEvent$, this.state.addMovieToList);
