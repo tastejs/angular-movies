@@ -30,7 +30,7 @@ type Movie = TMDBMovieModel & ImageTag;
             **🚀 Perf Tip for TBT:**
             Use \`rxFor\` in favour of \`ngFor\` to get non blocking rendering of lists.
             This reduces drastically the TBT measure.
-            -->
+        -->
         <a
           class="movies-list--grid-item"
           *rxFor="let movie of movies$; index as idx; trackBy: trackByMovieId"

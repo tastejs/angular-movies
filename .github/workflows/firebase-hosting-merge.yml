@@ -27,3 +27,10 @@ jobs:
           npx firebase deploy
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+      - name: Commit measures
+        uses: EndBug/add-and-commit@v7
+        with:
+          author_name: push-based.io
+          author_email: opensource@push-based.io
+          message: 'Persist stats.json bundle-size report and readme'
+          add: '*'
