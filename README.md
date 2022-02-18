@@ -13,38 +13,48 @@ A [live deployment](https://angular-movies-a12d3.web.app/list/category/popular) 
 
 ## Performance Optimizations 
 
-[![before-vs-after](https://user-images.githubusercontent.com/10064416/154186437-92a20676-ca63-4d9a-a108-079728cbb75e.gif)](https://www.webpagetest.org/video/compare.php?tests=220216_BiDcHE_2W7,220216_BiDcKV_2W8)
+[![before-vs-after](https://www.webpagetest.org/video/video.php?tests=220216_BiDcPP_CVM,220216_AiDcBN_ETK&bg=ffffff&text=222222&end=visual&format=gif)](https://www.webpagetest.org/video/compare.php?tests=220216_BiDcPP_CVM,220216_AiDcBN_ETK)
 
 
 For now you can search the codebase for "Perf Tip" later on there will be propper documentation here.
 
 
-[Measures before optimization](https://lighthouse-metrics.com/one-time-tests/616db7e91cff420008f70364)
-![angular-movies-before_michael-hladky](https://user-images.githubusercontent.com/10064416/137785051-1cf9f63a-e803-4d92-a952-c327b7628530.PNG)
+[Measures before optimization](https://lighthouse-metrics.com/checks/9ddeb46e-2c28-453c-b719-cf080a01b13c)
+[![angular-movies-before_michael-hladky](https://user-images.githubusercontent.com/10064416/137785051-1cf9f63a-e803-4d92-a952-c327b7628530.PNG)](https://lighthouse-metrics.com/checks/9ddeb46e-2c28-453c-b719-cf080a01b13c)
 
 
 [Measures after optimization](https://lighthouse-metrics.com/checks/6a888a17-b17b-46a6-abc9-e605b73a530c/runs/503701ad-36aa-43ad-8de3-cb40e775c770)
 ![angular-movies-after-optimization_michael-hladky](https://user-images.githubusercontent.com/10064416/146446241-ad9eeed4-b0a4-44a2-a88e-4ea7c97e1acf.PNG)
 
-| Initial Chunk Files           | Names         |      Size |
-| ---                           | ---           | ---       |
-| main.0537ac5709d0b1e2.js      | main          | **316.55 kB** |
-| styles.13c939b5c2369df2.css   | styles        |   5.00 kB |
-| runtime.793b54f5d026691d.js   | runtime       |   2.73 kB |
-|                               | **Initial Total** | **324.39 kB** |
-| Lazy Chunk Files              | Names         |      Size |
-| 849.c98331a772ee31b8.js       | -             |  12.18 kB |
-| common.80ee1cdf1082c3de.js    | common        |  10.10 kB |
-| 614.4143cf052f9e5361.js       | -             |   3.36 kB |
 
-## Comparison to next app
+<!-- bundle-stats-start -->
+| Names             |       Size |
+| ---               | ---        |
+| main.5de80b3a332abb7b.js           | 328.77 KB |
+| styles.cc65c6709a6ae634.css           | 5.37 KB |
+| runtime.cf36f3597ba77fda.js           | 3.73 KB |
+  | **Initial Total** | **337.87 KB** |
+  | Names             |       Size |
+| projects_movies_src_app_pages_movie-detail-page_movie-detail-page_module_ts.5013e361efd935b0.js           | 13.78 KB |
+| projects_movies_src_app_pages_not-found-page_not-found-page_module_ts.fae776b5c61c1a24.js           | 12.31 KB |
+| common.ed8efc2ecffef487.js           | 10.87 KB |
+| projects_movies_src_app_pages_person-detail-page_person-detail-page_module_ts.286c0760ad02a01d.js           | 8.09 KB |
+| projects_movies_src_app_pages_account-feature_list-detail-page_list-items-edit_list-items-edi-393246.38506ef7d9a63d65.js           | 6.62 KB |
+| projects_movies_src_app_pages_account-feature_account-list-page_account-list-page_module_ts.d8147419d0167752.js           | 4.9 KB |
+| projects_movies_src_app_app-shell_account-menu_account-menu_component_lazy_ts.94c10117a50f0a0a.js           | 4.25 KB |
+| projects_movies_src_app_pages_account-feature_list-detail-page_list-detail-page_module_ts.ecc28661631e9fa9.js           | 3.54 KB |
+| projects_movies_src_app_pages_account-feature_list-detail-page_list-image_list-image_module_ts.5198cd8e27e911ed.js           | 3.47 KB |
+| projects_movies_src_app_pages_account-feature_list-detail-page_list-remove_list-remove_module_ts.4b1a50ea9698f35f.js           | 3.43 KB |
+| projects_movies_src_app_pages_account-feature_list-detail-page_list-movies_list-movies_module_ts.9bcc5b52f48d86cf.js           | 837 Bytes |
+<!-- bundle-stats-end -->
 
-- [next](https://movies.zaps.dev/?category=Popular&page=1)
+## Comparison to next and nuxt
+
 - [angular](https://angular-movies-a12d3.web.app/list/category/popular)
+- [next](https://movies.zaps.dev/?category=Popular&page=1)
+- [nuxt](https://movies.jason.codes/movie/category/popular)
 
-[![angular-vs-next](https://user-images.githubusercontent.com/10064416/154188113-6f470a21-0688-4226-a28f-744658598536.gif)](https://www.webpagetest.org/video/compare.php?tests=220216_BiDcTG_330,220216_BiDcMR_331)
-
-
+[![angular-vs-next-vs-nuxt](https://www.webpagetest.org/video/video.php?tests=220216_AiDcBJ_EAA,220216_BiDcER_CDY,220216_BiDc68_CDZ&bg=ffffff&text=222222&end=visual&format=gif)](https://www.webpagetest.org/video/compare.php?tests=220216_AiDcBJ_EAA,220216_BiDcER_CDY,220216_BiDc68_CDZ)
 
 ## Contributing
 
@@ -87,8 +97,6 @@ Built with:
 * [rx-angular](https://github.com/rx-angular/rx-angular)
 
 [![angular-and-rx-angular](https://user-images.githubusercontent.com/10064416/154189195-c32cbdec-b061-46a5-8590-a9e3d8dc050a.png)](https://www.rx-angular.io/)
-
-
   
 ## Authors
 
