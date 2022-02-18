@@ -23,19 +23,5 @@
 
 .primary-button {
   background: var(--palette-primary-main);
-  font-size: var(--text-md);
-  width: 138px;
-  margin-top: 8px;
-  border: none;
-  min-height: 48px;
-  cursor: pointer;
-  border-radius: 5px;
-  transition: transform 100ms ease-in-out;
-  box-shadow: var(--theme-shadow-1);
-
-  &:hover {
-    background: var(--palette-primary-light);
-    transform: translateY(-1px);
-    box-shadow: none;
-  }
+  color: var(--palette-primary-contrast-text);
 }

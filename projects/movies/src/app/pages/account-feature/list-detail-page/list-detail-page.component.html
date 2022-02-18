@@ -2,7 +2,7 @@
   <header>
     <h1 *rxLet="adapter.listName$; let name">{{ name }}</h1>
     <h2>TMDB</h2>
-    <a class="back" [routerLink]="['../../../account/my-lists']">Back</a>
+    <a class="btn primary-button" [routerLink]="['../../../account/my-lists']">Back</a>
   </header>
   <div class="tabs">
     <ng-container *rxFor="let item of tabs; index as idx">
