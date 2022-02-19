@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
 import { infiniteScroll } from '../../shared/cdk/infinite-scroll/infiniteScroll';
 import { getActions } from '../../shared/rxa-custom/actions/index';
 import { RouterState } from '../../shared/state/router.state';
-import { map, switchMap } from 'rxjs';
+import { combineLatestWith, map, switchMap } from 'rxjs';
 import { W780H1170 } from '../../data-access/api/constants/image-sizes';
 import { ImageTag } from '../../shared/utils/image/image-tag.interface';
 import { addImageTag } from '../../shared/utils/image/image-tag.transform';
@@ -13,6 +13,9 @@ import { TMDBPersonModel } from '../../data-access/api/model/person.model';
 import { PersonState } from '../../shared/state/person.state';
 import { getDiscoverMovies } from '../../data-access/api/resources/discover.resource';
 import { WithContext } from '../../shared/cdk/context/context.interface';
+import { RxInputType } from '../../shared/rxa-custom/input-type.typing';
+import { TBDMSortByValues } from '../../data-access/api/sort/sort.interface';
+import { coerceObservable } from '../../shared/utils/coerceObservable';
 
 export type MoviePerson = TMDBPersonModel & ImageTag;
 
@@ -32,6 +35,7 @@ function transformToPersonDetail(_res: TMDBPersonModel): MoviePerson {
 export class PersonDetailAdapter extends RxState<PersonDetailPageAdapterState> {
   private readonly actions = getActions<{ paginate: void }>();
   readonly paginate = this.actions.paginate;
+  readonly sortBy$ = this.routerState.select('sortBy');
   readonly routerPersonId$ = this.routerState.select(
     getIdentifierOfTypeAndLayout('person', 'detail')
   );
@@ -44,14 +48,21 @@ export class PersonDetailAdapter extends RxState<PersonDetailPageAdapterState> {
   );
 
   readonly movieRecommendationsById$ = this.routerPersonId$.pipe(
-    switchMap((with_cast) => {
+    combineLatestWith(this.sortBy$),
+    switchMap(([with_cast, sortBy]) => {
       return infiniteScroll(
-        (options) => getDiscoverMovies({ with_cast, ...options }),
+        (options) => getDiscoverMovies({ with_cast, ...options, sortBy }),
         this.actions.paginate$,
-        getDiscoverMovies({ with_cast, page: 1 })
+        getDiscoverMovies({ with_cast, page: 1, sortBy })
       );
     })
   );
+
+  sortBy(sortBy: RxInputType<TBDMSortByValues>): void {
+    this.routerState.setOptions(
+      coerceObservable(sortBy).pipe(map((sort_by) => ({ sort_by })))
+    );
+  }
 
   constructor(
     private routerState: RouterState,

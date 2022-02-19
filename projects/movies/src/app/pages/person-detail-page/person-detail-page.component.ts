@@ -5,6 +5,9 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import { PersonDetailAdapter } from './person-detail-page.adapter';
+import { SORT_VALUES } from '../../data-access/api/sort/sort.data';
+import { getActions } from '../../shared/rxa-custom/actions';
+import { TBDMSortByValues } from '../../data-access/api/sort/sort.interface';
 
 @Component({
   selector: 'ct-person',
@@ -14,6 +17,10 @@ import { PersonDetailAdapter } from './person-detail-page.adapter';
   encapsulation: ViewEncapsulation.Emulated,
 })
 export class PersonDetailPageComponent {
+  sortOptions = SORT_VALUES;
+  ui = getActions<{ sort: TBDMSortByValues }>({
+    sort: (e: any): TBDMSortByValues => e.target.value as TBDMSortByValues,
+  });
   readonly personCtx$ = this.adapter.routedPersonCtx$;
   readonly infiniteScrollRecommendations$ =
     this.adapter.movieRecommendationsById$;
@@ -21,7 +28,9 @@ export class PersonDetailPageComponent {
   constructor(
     private location: Location,
     private adapter: PersonDetailAdapter
-  ) {}
+  ) {
+    this.adapter.sortBy(this.ui.sort$);
+  }
 
   paginate(): void {
     this.adapter.paginate();

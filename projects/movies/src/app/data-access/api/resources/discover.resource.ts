@@ -11,10 +11,11 @@ import { TMDBSortOptions } from '../sort/sort.interface';
 
 const URL_DISCOVER_MOVIE = [baseUrlApiV3, 'discover', 'movie'].join('/');
 
-export type TMDBDiscoverOptions = TMDBPaginateOptions & {
-  with_cast?: string;
-  with_genres?: string;
-};
+export type TMDBDiscoverOptions = TMDBPaginateOptions &
+  TMDBSortOptions & {
+    with_cast?: string;
+    with_genres?: string;
+  };
 
 export type TMDBDiscoverResponse = TMDBSortOptions &
   TMDBPaginateResult<TMDBMovieModel>;

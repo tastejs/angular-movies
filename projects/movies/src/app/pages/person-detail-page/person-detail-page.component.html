@@ -60,6 +60,9 @@
     <h1>{{p?.value?.name || '...'}} in</h1>
     <h2>Movies</h2>
   </header>
+  <select (input)="ui.sort($any($event))" >
+    <option [value]="o" *ngFor="let o of sortOptions">{{o}}</option>
+  </select>
   <ng-container *rxLet="infiniteScrollRecommendations$; let ctx;  strategy: 'immediate'">
     <ui-movie-list (paginate)="paginate()"
                    [movies]="ctx.results" data-test="list-wrapper">
