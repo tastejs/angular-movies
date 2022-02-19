@@ -111,21 +111,26 @@
           <a
             *ngIf="movie?.videoUrl"
             class="btn"
-            (click)="$event.preventDefault(); $any(trailerDialog).showModal()"
+            (mouseover)="ui.dialog('load')"
+            (click)="$event.preventDefault(); ui.dialog('open');"
             href="#trainer"
           >
             Trailer
-            <svg class="btn__icon" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M0 0h24v24H0z" fill="none" />
+            <svg class="btn__icon" viewBox="0 0 448 512" fill="currentColor" width="0.875em">
+              <path d="M424.4 214.7L72.4 6.6C43.8-10.3 0 6.1 0 47.9V464c0 37.5 40.7 60.1 72.4 41.3l352-208c31.4-18.5 31.5-64.1 0-82.6z"></path>
             </svg>
           </a>
-          <dialog class="video" #trailerDialog id="trailer-dialog">
-            <span aria-controls="trailer-dialog" class="close" (click)="$any(trailerDialog).close()"></span>
-            <iframe [bypassSrc]="movie?.videoUrl" loading="lazy"
-                    width="460" height="230"></iframe>
+
+          <dialog class="video" #trailerDialog id="trailer-dialog" >
+            <span aria-controls="trailer-dialog" class="close" (click)="ui.dialog('close')"></span>
+            <ng-container *rxLet="ui.dialog$; let dialog">
+              <iframe [bypassSrc]="movie?.videoUrl" loading="lazy" *ngIf="dialog === 'open' || dialog === 'load'"
+                      width="460" height="230"></iframe>
+            </ng-container>
+
           </dialog>
           <button class="btn primary-button" (click)="back()">
-            <svg viewBox="0 0 448 512" fill="currentColor" width="1em"><path d="M257.5 445.1l-22.2 22.2c-9.4 9.4-24.6 9.4-33.9 0L7 273c-9.4-9.4-9.4-24.6 0-33.9L201.4 44.7c9.4-9.4 24.6-9.4 33.9 0l22.2 22.2c9.5 9.5 9.3 25-.4 34.3L136.6 216H424c13.3 0 24 10.7 24 24v32c0 13.3-10.7 24-24 24H136.6l120.5 114.8c9.8 9.3 10 24.8.4 34.3z"></path></svg>&nbsp;
+            <svg class="btn__icon" viewBox="0 0 448 512" fill="currentColor" width="1em"><path d="M257.5 445.1l-22.2 22.2c-9.4 9.4-24.6 9.4-33.9 0L7 273c-9.4-9.4-9.4-24.6 0-33.9L201.4 44.7c9.4-9.4 24.6-9.4 33.9 0l22.2 22.2c9.5 9.5 9.3 25-.4 34.3L136.6 216H424c13.3 0 24 10.7 24 24v32c0 13.3-10.7 24-24 24H136.6l120.5 114.8c9.8 9.3 10 24.8.4 34.3z"></path></svg>&nbsp;
             Back
           </button>
         </section>
