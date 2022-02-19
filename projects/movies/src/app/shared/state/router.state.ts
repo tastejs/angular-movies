@@ -36,15 +36,15 @@ export class RouterState extends RxState<RouterParams> {
           .split('/')
           .slice(-3);
 
-        let sortBy: string | undefined;
+        let sortBy: string | null = null;
         const [__, queryParams]: (string | undefined)[] =
           fallbackRouteToDefault(this.document.location.search).split('?');
-        console.log('queryParams', __, queryParams);
+
         if (queryParams) {
           const [___, sortByAndRest]: (string | undefined)[] =
             queryParams?.split('sort_by=');
-          sortBy = sortByAndRest?.split('&')?.shift();
-          console.log(layout, type, identifier, sortBy);
+          sortBy = sortByAndRest?.split('&')?.shift() || null;
+          console.log('router map:', layout, type, identifier, sortBy);
         }
         return { layout, type, identifier, sortBy };
       }),

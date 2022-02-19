@@ -8,6 +8,7 @@ import { PersonDetailAdapter } from './person-detail-page.adapter';
 import { SORT_VALUES } from '../../data-access/api/sort/sort.data';
 import { getActions } from '../../shared/rxa-custom/actions';
 import { TBDMSortByValues } from '../../data-access/api/sort/sort.interface';
+import { tap } from 'rxjs';
 
 @Component({
   selector: 'ct-person',
@@ -23,7 +24,9 @@ export class PersonDetailPageComponent {
   });
   readonly personCtx$ = this.adapter.routedPersonCtx$;
   readonly infiniteScrollRecommendations$ =
-    this.adapter.movieRecommendationsById$;
+    this.adapter.movieRecommendationsById$.pipe(
+      tap((v) => console.log('infiniteResult', v))
+    );
 
   constructor(
     private location: Location,
