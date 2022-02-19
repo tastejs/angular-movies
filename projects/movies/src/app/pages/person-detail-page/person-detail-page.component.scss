@@ -65,6 +65,7 @@
     margin: auto;
     background: transparent;
     z-index: 1000;
+    box-shadow: var(--theme-shadow-dropdown);
   }
 }
 
@@ -76,8 +77,8 @@ input {
   border-width: 1px;
   cursor: pointer;
   border: 1px solid var(--palette-divider);
-  box-shadow: 0 2px 1px -1px rgb(0 0 0 / 20%), 0 1px 1px 0 rgb(0 0 0 / 14%),
-    0 1px 3px 0 rgb(0 0 0 / 12%);
+  box-shadow: var(--theme-shadow-dropdown);
+  font-size: var(--text-md);
 
   &:focus {
     outline: none;
