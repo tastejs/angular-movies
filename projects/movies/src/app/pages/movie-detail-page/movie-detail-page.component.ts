@@ -3,7 +3,9 @@ import { Location } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
+  ElementRef,
   TrackByFunction,
+  ViewChild,
   ViewEncapsulation,
 } from '@angular/core';
 import { map } from 'rxjs';
@@ -11,6 +13,8 @@ import { TMDBMovieCastModel } from '../../data-access/api/model/movie-credits.mo
 import { TMDBMovieGenreModel } from '../../data-access/api/model/movie-genre.model';
 
 import { MovieDetailAdapter } from './movie-detail-page.adapter';
+import { getActions } from '../../shared/rxa-custom/actions';
+import { RxState } from '@rx-angular/state';
 
 @Component({
   selector: 'ct-movie',
@@ -18,8 +22,10 @@ import { MovieDetailAdapter } from './movie-detail-page.adapter';
   styleUrls: ['./movie-detail-page.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.Emulated,
+  providers: [RxState],
 })
 export class MovieDetailPageComponent {
+  readonly ui = getActions<{ dialog: 'open' | 'close' | 'load' }>();
   readonly movieCtx$ = this.adapter.routedMovieCtx$;
   readonly movie$ = this.movieCtx$.pipe(map((ctx) => ctx?.value || null));
   readonly castList$ = this.adapter.movieCastById$;
@@ -29,10 +35,20 @@ export class MovieDetailPageComponent {
   readonly infiniteScrollRecommendations$ =
     this.adapter.infiniteScrollRecommendations$;
 
+  @ViewChild('trailerDialog')
+  trailerDialog: ElementRef | undefined = undefined;
+
   constructor(
+    private effects: RxState<any>,
     private location: Location,
     private adapter: MovieDetailAdapter
-  ) {}
+  ) {
+    this.effects.hold(this.ui.dialog$, (trigger: string) =>
+      trigger === 'open'
+        ? this.trailerDialog?.nativeElement?.showModal()
+        : this.trailerDialog?.nativeElement.close()
+    );
+  }
 
   back() {
     this.location.back();
