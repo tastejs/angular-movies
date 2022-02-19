@@ -1,10 +1,10 @@
-import { RxState } from '@rx-angular/state';
+import { RxState, selectSlice } from '@rx-angular/state';
 import { TMDBMovieModel } from '../../data-access/api/model/movie.model';
 import { Injectable } from '@angular/core';
 import { infiniteScroll } from '../../shared/cdk/infinite-scroll/infiniteScroll';
 import { getActions } from '../../shared/rxa-custom/actions/index';
 import { RouterState } from '../../shared/state/router.state';
-import { combineLatestWith, map, switchMap } from 'rxjs';
+import { combineLatestWith, map, switchMap, withLatestFrom } from 'rxjs';
 import { W780H1170 } from '../../data-access/api/constants/image-sizes';
 import { ImageTag } from '../../shared/utils/image/image-tag.interface';
 import { addImageTag } from '../../shared/utils/image/image-tag.transform';
@@ -13,9 +13,7 @@ import { TMDBPersonModel } from '../../data-access/api/model/person.model';
 import { PersonState } from '../../shared/state/person.state';
 import { getDiscoverMovies } from '../../data-access/api/resources/discover.resource';
 import { WithContext } from '../../shared/cdk/context/context.interface';
-import { RxInputType } from '../../shared/rxa-custom/input-type.typing';
-import { TBDMSortByValues } from '../../data-access/api/sort/sort.interface';
-import { coerceObservable } from '../../shared/utils/coerceObservable';
+import { MoviesSortValue } from '../../data-access/api/sort/sort.data';
 
 export type MoviePerson = TMDBPersonModel & ImageTag;
 
@@ -23,6 +21,8 @@ export interface PersonDetailPageAdapterState {
   loading: boolean;
   person: MoviePerson;
   recommendations: TMDBMovieModel[];
+  showSorting: boolean;
+  activeSorting: string;
 }
 
 function transformToPersonDetail(_res: TMDBPersonModel): MoviePerson {
@@ -33,11 +33,19 @@ function transformToPersonDetail(_res: TMDBPersonModel): MoviePerson {
   providedIn: 'root',
 })
 export class PersonDetailAdapter extends RxState<PersonDetailPageAdapterState> {
-  private readonly actions = getActions<{ paginate: void }>();
+  private readonly actions = getActions<{
+    paginate: void;
+    toggleSorting: boolean;
+    sortBy: MoviesSortValue;
+  }>();
   readonly paginate = this.actions.paginate;
-  readonly sortBy$ = this.routerState.select('sortBy');
+  readonly toggleSorting = this.actions.toggleSorting;
+  readonly sortBy = this.actions.sortBy;
   readonly routerPersonId$ = this.routerState.select(
     getIdentifierOfTypeAndLayout('person', 'detail')
+  );
+  readonly sortingModel$ = this.select(
+    selectSlice(['showSorting', 'activeSorting'])
   );
   readonly routedPersonCtx$ = this.routerPersonId$.pipe(
     switchMap(this.personState.personByIdCtx),
@@ -48,7 +56,7 @@ export class PersonDetailAdapter extends RxState<PersonDetailPageAdapterState> {
   );
 
   readonly movieRecommendationsById$ = this.routerPersonId$.pipe(
-    combineLatestWith(this.sortBy$),
+    combineLatestWith(this.routerState.select('sortBy')),
     switchMap(([with_cast, sort_by]) => {
       return infiniteScroll(
         (options) => getDiscoverMovies({ with_cast, ...options, sort_by }),
@@ -58,17 +66,30 @@ export class PersonDetailAdapter extends RxState<PersonDetailPageAdapterState> {
     })
   );
 
-  sortBy(sortBy: RxInputType<TBDMSortByValues>): void {
-    this.routerState.setOptions(
-      coerceObservable(sortBy).pipe(map((sort_by) => ({ sort_by })))
-    );
-  }
+  readonly sortingEvent$ = this.actions.sortBy$.pipe(
+    withLatestFrom(this.routerPersonId$),
+    switchMap(([{ value }, with_cast]) => {
+      return infiniteScroll(
+        (options) =>
+          getDiscoverMovies({ with_cast, ...options, sort_by: value }),
+        this.actions.paginate$,
+        getDiscoverMovies({ with_cast, page: 1, sort_by: value })
+      );
+    })
+  );
 
   constructor(
     private routerState: RouterState,
     private personState: PersonState
   ) {
     super();
+
+    this.connect('showSorting', this.actions.toggleSorting$);
+    this.connect(this.actions.sortBy$, (_, sortBy) => ({
+      showSorting: false,
+      activeSorting: sortBy.name,
+    }));
+
     this.hold(this.routerPersonId$, this.personState.fetchPerson);
   }
 }

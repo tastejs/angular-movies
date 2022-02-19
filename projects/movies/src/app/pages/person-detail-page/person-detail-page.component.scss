@@ -1,8 +1,7 @@
 @import '../../ui/component/button/button';
 @import '../../ui/component/loader/loader';
 @import '../../ui/component/aspect-ratio/aspect-ratio';
-@import "../../ui/token/mixins/flex";
-
+@import '../../ui/token/mixins/flex';
 
 :host {
   width: 100%;
@@ -10,7 +9,6 @@
 }
 
 .movie-detail {
-
   @media only screen and (max-width: 1500px) {
     &--grid-item {
       padding: 3rem;
@@ -35,11 +33,81 @@
       float: right;
     }
   }
-
 }
 
 .movie-detail--section {
   margin-bottom: 3rem;
 }
 
+.select-wrapper {
+  position: relative;
+  max-width: 300px;
+  &:before {
+    transform: rotate(45deg);
+    border-right: 1px solid var(--palette-action-active);
+    border-bottom: 1px solid var(--palette-action-active);
+    pointer-events: none;
+    content: '';
+    display: inline-block;
+    position: absolute;
+    top: 10px;
+    right: 19px;
+    width: 11px;
+    height: 11px;
+  }
 
+  &-overlay {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    margin: auto;
+    background: transparent;
+    z-index: 1000;
+  }
+}
+
+input {
+  width: 100%;
+  background: var(--palette-background-paper);
+  padding: 0 16px;
+  min-height: 36px;
+  border-width: 1px;
+  cursor: pointer;
+  border: 1px solid var(--palette-divider);
+  box-shadow: 0 2px 1px -1px rgb(0 0 0 / 20%), 0 1px 1px 0 rgb(0 0 0 / 14%),
+    0 1px 3px 0 rgb(0 0 0 / 12%);
+
+  &:focus {
+    outline: none;
+  }
+}
+
+.options {
+  max-height: 300px;
+  overflow: auto;
+  position: absolute;
+  top: calc(100% + 8px);
+  background: var(--palette-background-paper);
+  border: 1px solid var(--palette-divider);
+  width: 100%;
+  z-index: 2000;
+}
+
+.option {
+  font-size: var(--text-md);
+  padding: 0 16px;
+  min-height: 36px;
+  line-height: 36px;
+  border-bottom: 1px solid var(--palette-divider);
+  cursor: pointer;
+
+  &.selected {
+    background: var(--palette-action-hover);
+  }
+
+  &:hover {
+    background: var(--palette-action-hover);
+  }
+}

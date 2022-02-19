@@ -10,8 +10,8 @@ import { DetailGridModule } from '../../ui/component/detail-grid/detail-grid.mod
 const ROUTES: Routes = [
   {
     path: '',
-    component: PersonDetailPageComponent
-  }
+    component: PersonDetailPageComponent,
+  },
 ];
 
 @NgModule({
@@ -22,9 +22,8 @@ const ROUTES: Routes = [
     RouterModule.forChild(ROUTES),
     StarRatingModule,
     MovieListModule,
-    LetModule
+    LetModule,
   ],
-  exports: [PersonDetailPageComponent]
+  exports: [PersonDetailPageComponent],
 })
-export class PersonDetailPageModule {
-}
+export class PersonDetailPageModule {}
