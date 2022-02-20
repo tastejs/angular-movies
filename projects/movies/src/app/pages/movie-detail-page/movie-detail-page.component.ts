@@ -38,6 +38,9 @@ export class MovieDetailPageComponent {
   @ViewChild('trailerDialog')
   trailerDialog: ElementRef | undefined = undefined;
 
+  @ViewChild('castListWrapper')
+  castListWrapper: ElementRef<HTMLElement> | undefined = undefined;
+
   constructor(
     private effects: RxState<any>,
     private location: Location,
@@ -48,6 +51,20 @@ export class MovieDetailPageComponent {
         ? this.trailerDialog?.nativeElement?.showModal()
         : this.trailerDialog?.nativeElement.close()
     );
+  }
+
+  move(increment: number) {
+    if (this.castListWrapper) {
+      const scrollLeft = this.castListWrapper.nativeElement.scrollLeft;
+      const newScrollLetf = scrollLeft - increment;
+      this.castListWrapper.nativeElement.scrollLeft =
+        newScrollLetf > 0
+          ? Math.max(0, newScrollLetf)
+          : Math.min(
+              newScrollLetf,
+              this.castListWrapper.nativeElement.children.length * increment
+            );
+    }
   }
 
   back() {
