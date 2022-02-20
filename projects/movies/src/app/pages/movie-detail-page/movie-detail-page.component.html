@@ -56,7 +56,8 @@
         <section>
           <h3>The Cast</h3>
           <div class="movie-detail--cast-list">
-            <ng-container *rxLet="castList$; let ctx;  strategy: 'immediate'">
+            <button (mousedown)="move(70)" type="button" role="button" class="cast-list--btn">«</button>
+            <div #castListWrapper class="cast-list" *rxLet="castList$; let ctx;  strategy: 'immediate'">
               <a
                 *rxFor="let c of  ctx.value; trackBy: trackByCast"
                 [routerLink]="['/detail/person/',c.id]"
@@ -75,7 +76,8 @@
                 />
               </a>
               <div *ngIf="ctx.loading" class="loader" data-test="list-loader"></div>
-            </ng-container>
+            </div>
+            <button (mousedown)="move(-70)"  type="button" role="button" class="cast-list--btn">»</button>
           </div>
         </section>
         <section class="movie-detail--ad-section-links">
