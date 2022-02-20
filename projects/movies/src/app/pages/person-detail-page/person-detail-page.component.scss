@@ -1,8 +1,7 @@
 @import '../../ui/component/button/button';
 @import '../../ui/component/loader/loader';
 @import '../../ui/component/aspect-ratio/aspect-ratio';
-@import "../../ui/token/mixins/flex";
-
+@import '../../ui/token/mixins/flex';
 
 :host {
   width: 100%;
@@ -10,7 +9,6 @@
 }
 
 .movie-detail {
-
   @media only screen and (max-width: 1500px) {
     &--grid-item {
       padding: 3rem;
@@ -35,11 +33,53 @@
       float: right;
     }
   }
-
 }
 
 .movie-detail--section {
   margin-bottom: 3rem;
 }
 
+.select-wrapper {
+  position: relative;
+  max-width: 300px;
 
+  &-overlay {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    margin: auto;
+    background: transparent;
+    z-index: 1000;
+    box-shadow: var(--theme-shadow-dropdown);
+  }
+}
+
+.options {
+  max-height: 300px;
+  overflow: auto;
+  position: absolute;
+  top: calc(100% + 8px);
+  background: var(--palette-background-paper);
+  border: 1px solid var(--palette-divider);
+  width: 100%;
+  z-index: 2000;
+}
+
+.option {
+  font-size: var(--text-md);
+  padding: 0 16px;
+  min-height: 36px;
+  line-height: 36px;
+  border-bottom: 1px solid var(--palette-divider);
+  cursor: pointer;
+
+  &.selected {
+    background: var(--palette-action-hover);
+  }
+
+  &:hover {
+    background: var(--palette-action-hover);
+  }
+}

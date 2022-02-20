@@ -123,6 +123,10 @@
 
           <dialog class="video" #trailerDialog id="trailer-dialog" >
             <span aria-controls="trailer-dialog" class="close" (click)="ui.dialog('close')"></span>
+            <!--
+            Perf Tip: scription and resources
+            only render iframe if the user needs it
+            -->
             <ng-container *rxLet="ui.dialog$; let dialog">
               <iframe [bypassSrc]="movie?.videoUrl" loading="lazy" *ngIf="dialog === 'open' || dialog === 'load'"
                       width="460" height="230"></iframe>

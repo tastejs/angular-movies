@@ -12,6 +12,7 @@ import {
 import { AppInitializer } from '../rxa-custom/app-initializer';
 import { WithContext } from '../cdk/context/context.interface';
 import { pluck } from '../rxa-custom/get';
+import { TMDBSortOptions } from '../../data-access/api/sort/sort.interface';
 
 export interface State {
   person: WithContext<Record<string, PersonResponse>>;
@@ -19,6 +20,7 @@ export interface State {
 
 interface Actions {
   fetchPerson: string;
+  sortMovies: TMDBSortOptions;
 }
 
 @Injectable({
@@ -28,6 +30,7 @@ export class PersonState extends RxState<State> implements AppInitializer {
   private actions = getActions<Actions>();
 
   fetchPerson = this.actions.fetchPerson;
+  sortMovies = this.actions.sortMovies;
 
   personByIdCtx = (id: string) =>
     this.select(

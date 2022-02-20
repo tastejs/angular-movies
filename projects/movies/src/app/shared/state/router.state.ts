@@ -5,11 +5,15 @@ import { Inject, Injectable } from '@angular/core';
 import { filter, map, Observable, startWith } from 'rxjs';
 import { NavigationEnd, Router } from '@angular/router';
 import { fallbackRouteToDefault } from '../../routing-default.utils';
+import { TBDMSortByValues } from '../../data-access/api/sort/sort.interface';
+import { RxInputType } from '../rxa-custom/input-type.typing';
+import { coerceObservable } from '../utils/coerceObservable';
 
 export type RouterParams = {
   layout: 'list' | 'detail';
   type: 'person' | 'movie' | 'genre' | 'category' | 'search' | 'list';
   identifier: string;
+  sortBy?: TBDMSortByValues;
 };
 
 /**
@@ -25,19 +29,36 @@ export class RouterState extends RxState<RouterParams> {
       startWith('anyValue'),
       map((_) => {
         // This is a naive way to reduce scripting of router service :)
-        // Obviously the params relly on routing structure heavily and could be done more dynamically
+        // Obviously the params relay on routing structure heavily and could be done more dynamically
         const [layout, type, identifier] = fallbackRouteToDefault(
           this.document.location.pathname
         )
           .split('/')
           .slice(-3);
-        return { layout, type, identifier };
+
+        let sortBy: string | null = null;
+        const [__, queryParams]: (string | undefined)[] =
+          fallbackRouteToDefault(this.document.location.search).split('?');
+
+        if (queryParams) {
+          const [___, sortByAndRest]: (string | undefined)[] =
+            queryParams?.split('sort_by=');
+          sortBy = sortByAndRest?.split('&')?.shift() || null;
+          console.log('router map:', layout, type, identifier, sortBy);
+        }
+        return { layout, type, identifier, sortBy };
       }),
-      // emits if both values are given and set. (filters out undefined values)
-      selectSlice(['layout', 'identifier', 'type'])
+      // emits if all values are given and set. (filters out undefined values and will not emit if one is undefined)
+      selectSlice(['layout', 'identifier', 'type', 'sortBy'])
     )
   ) as unknown as Observable<RouterParams>;
   routerParams$ = this.select();
+
+  setOptions(options: RxInputType<Record<string, string>>) {
+    this.hold(coerceObservable(options), (queryParams) =>
+      this.router.navigate([], { queryParams })
+    );
+  }
 
   constructor(
     private router: Router,
