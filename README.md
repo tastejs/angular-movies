@@ -35,26 +35,28 @@ For now you can search the codebase for "Perf Tip" later on there will be proppe
 
 
 
+
 <!-- bundle-stats-start -->
 | Names             |       Size |
 | ---               | ---        |
-| main.3f9211bc5ee1d13c.js           | 329.76 KB |
-| styles.10507f520e7908cf.css           | 5.53 KB |
-| runtime.cdd476cf2f229c80.js           | 3.73 KB |
-  | **Initial Total** | **339.02 KB** |
+| main.1431126081e2681f.js           | 329.95 KB |
+| styles.be05b375b7ddee56.css           | 6.14 KB |
+| runtime.af723d0a2b526126.js           | 3.73 KB |
+  | **Initial Total** | **339.81 KB** |
   | Names             |       Size |
-| app_pages_movie-detail-page_movie-detail-page           | 15 KB |
-| app_pages_not-found-page_not-found-page           | 12.05 KB |
-| common.bb9f23e44d6af870.js           | 10.61 KB |
-| app_pages_person-detail-page_person-detail-page           | 8.22 KB |
+| app_pages_movie-detail-page_movie-detail-page           | 15.3 KB |
+| app_pages_not-found-page_not-found-page           | 12.15 KB |
+| app_pages_person-detail-page_person-detail-page           | 11.58 KB |
+| common.977fee21c1077856.js           | 10.72 KB |
 | app_pages_account-feature_list-detail-page_list-items-edit_list-items-edi-393246.1eb4a0cb99024cb4.js           | 7.04 KB |
 | app_pages_account-feature_account-list-page_account-list-page           | 4.9 KB |
-| app_app-shell_account-menu_account-menu_component_lazy_ts.2d504625d8aae2d3.js           | 4.55 KB |
-| app_pages_account-feature_list-detail-page_list-detail-page           | 4.13 KB |
+| app_app-shell_account-menu_account-menu_component_lazy_ts.d5cbf929bd9d5bf6.js           | 4.32 KB |
+| app_pages_account-feature_list-detail-page_list-detail-page           | 4.23 KB |
 | app_pages_account-feature_list-detail-page_list-image_list-image           | 3.47 KB |
 | app_pages_account-feature_list-detail-page_list-remove_list-remove           | 3.43 KB |
 | app_pages_account-feature_list-detail-page_list-movies_list-movies           | 837 Bytes |
 <!-- bundle-stats-end -->
+
 
 
 
