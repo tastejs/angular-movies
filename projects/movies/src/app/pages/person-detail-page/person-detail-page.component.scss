@@ -42,19 +42,6 @@
 .select-wrapper {
   position: relative;
   max-width: 300px;
-  &:before {
-    transform: rotate(45deg);
-    border-right: 1px solid var(--palette-action-active);
-    border-bottom: 1px solid var(--palette-action-active);
-    pointer-events: none;
-    content: '';
-    display: inline-block;
-    position: absolute;
-    top: 10px;
-    right: 19px;
-    width: 11px;
-    height: 11px;
-  }
 
   &-overlay {
     position: fixed;
@@ -66,22 +53,6 @@
     background: transparent;
     z-index: 1000;
     box-shadow: var(--theme-shadow-dropdown);
-  }
-}
-
-input {
-  width: 100%;
-  background: var(--palette-background-paper);
-  padding: 0 16px;
-  min-height: 36px;
-  border-width: 1px;
-  cursor: pointer;
-  border: 1px solid var(--palette-divider);
-  box-shadow: var(--theme-shadow-dropdown);
-  font-size: var(--text-md);
-
-  &:focus {
-    outline: none;
   }
 }
 

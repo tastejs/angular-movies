@@ -33,21 +33,24 @@ import { ListCreatePageAdapter } from './list-create-page.adapter';
 
         <fieldset *rxLet="adapter.private$; let private">
           <label for="list-privacy"> Private </label>
-          <select
-            id="list-privacy"
-            #privateInput
-            (change)="adapter.ui.update({ private: privateInput.value })"
-          >
-            <option [selected]="private" [value]="true">Yes</option>
-            <option [selected]="!private" [value]="false">No</option>
-          </select>
+          <div class="select-wrapper">
+            <select
+              id="list-privacy"
+              class="select"
+              #privateInput
+              (change)="adapter.ui.update({ private: privateInput.value })"
+            >
+              <option [selected]="private" [value]="true">Yes</option>
+              <option [selected]="!private" [value]="false">No</option>
+            </select>
+          </div>
         </fieldset>
       </form>
       <ng-container *rxLet="adapter.valid$; let valid">
         <button
           [disabled]="!valid"
           (click)="adapter.ui.submit()"
-          class="primary-button"
+          class="btn primary-button"
         >
           Save
         </button>

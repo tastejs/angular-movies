@@ -13,6 +13,7 @@
   border-radius: var(--theme-borderRadius-m);
   box-shadow: none;
   background-color: transparent;
+  cursor: pointer;
 }
 
 .btn__icon {
@@ -24,4 +25,8 @@
 .primary-button {
   background: var(--palette-primary-main);
   color: var(--palette-primary-contrast-text);
+
+  &:hover {
+    background-color: var(--palette-primary-light);
+  }
 }

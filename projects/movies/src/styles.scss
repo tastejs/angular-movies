@@ -34,37 +34,39 @@ body.dark img:not([src*='.svg']) {
 .select-wrapper {
   position: relative;
 }
-select {
-  display: block;
-  height: 36px;
-  padding: 0 16px;
-  color: var(--palette-text-primary);
-  background-color: var(--palette-background-paper);
-  -webkit-transition: color var(--duration) var(--timing),background-color var(--duration) var(--timing);
-  transition: color var(--duration) var(--timing),background-color var(--duration) var(--timing);
-  border: 1px solid var(--palette-divider);
-  -webkit-box-shadow: 0 2px 1px -1px rgb(0 0 0 / 20%), 0 1px 1px 0 rgb(0 0 0 / 14%), 0 1px 3px 0 rgb(0 0 0 / 12%);
-  box-shadow: 0 2px 1px -1px rgb(0 0 0 / 20%), 0 1px 1px 0 rgb(0 0 0 / 14%), 0 1px 3px 0 rgb(0 0 0 / 12%);
-  outline: none;
-  font-family: "Noto Sans" ,sans-serif;
-  font-size: 1.5rem;
-  text-align: left;
-  text-overflow: ellipsis;
-  line-height: 36px;
-  -webkit-appearance: none;
 
-  &::after {
-    content: " ";
-    display: inline-block;
-    position: absolute;
-    top: calc(50% - 9px);
-    right: 19px;
-    width: 11px;
-    height: 11px;
-    -webkit-transform: rotate(45deg);
-    transform: rotate(45deg);
-    border-right: 1px solid var(--palette-action-active);
-    border-bottom: 1px solid var(--palette-action-active);
-    pointer-events: none;
+.select {
+  width: 100%;
+  background: var(--palette-background-paper);
+  padding: 0 16px;
+  min-height: 36px;
+  border-width: 1px;
+  cursor: pointer;
+  border: 1px solid var(--palette-divider);
+  box-shadow: var(--theme-shadow-dropdown);
+  font-size: var(--text-md);
+  -webkit-appearance: none;
+  position: relative;
+  display: block;
+
+  &:focus {
+    outline: none;
+  }
+
+  &-wrapper {
+    &:before {
+      transform: rotate(45deg);
+      border-right: 1px solid var(--palette-action-active);
+      border-bottom: 1px solid var(--palette-action-active);
+      pointer-events: none;
+      content: '';
+      display: inline-block;
+      position: absolute;
+      top: 10px;
+      right: 19px;
+      width: 11px;
+      height: 11px;
+      z-index: 1090;
+    }
   }
 }
