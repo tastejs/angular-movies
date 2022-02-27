@@ -13,7 +13,8 @@ A [live deployment](https://angular-movies-a12d3.web.app/list/category/popular) 
 
 ## Performance Optimizations 
 
-[![before-vs-after](https://www.webpagetest.org/video/video.php?tests=220216_BiDcPP_CVM,220216_AiDcBN_ETK&bg=ffffff&text=222222&end=visual&format=gif)](https://www.webpagetest.org/video/compare.php?tests=220216_BiDcPP_CVM,220216_AiDcBN_ETK)
+
+[![angular-movies--after-before](https://user-images.githubusercontent.com/10064416/155904454-f70b5bb5-6591-497a-9d21-dca0e2940566.gif)](https://www.webpagetest.org/video/compare.php?tests=220216_BiDcPP_CVM,220216_AiDcBN_ETK)
 
 
 For now you can search the codebase for "Perf Tip" later on there will be propper documentation here.
@@ -29,22 +30,14 @@ For now you can search the codebase for "Perf Tip" later on there will be proppe
 
 **Bundle Stats**
 
-
-
-
-
-
-
-
-
 <!-- bundle-stats-start -->
 | Names             |       Size |
 | ---               | ---        |
 | main.1431126081e2681f.js           | 329.95 KB |
 | styles.be05b375b7ddee56.css           | 6.14 KB |
 | runtime.b39212de0f998127.js           | 3.73 KB |
-  | **Initial Total** | **339.81 KB** |
-  | Names             |       Size |
+| **Initial Total** | **339.81 KB** |
+| Names             |       Size |
 | app_pages_movie-detail-page_movie-detail-page           | 16.44 KB |
 | app_pages_not-found-page_not-found-page           | 12.15 KB |
 | app_pages_person-detail-page_person-detail-page           | 11.58 KB |
@@ -58,23 +51,13 @@ For now you can search the codebase for "Perf Tip" later on there will be proppe
 | app_pages_account-feature_list-detail-page_list-movies_list-movies           | 837 Bytes |
 <!-- bundle-stats-end -->
 
-
-
-
-
-
-
-
-
-
-
 ## Comparison to next and nuxt
 
 - [angular](https://angular-movies-a12d3.web.app/list/category/popular)
 - [next](https://movies.zaps.dev/?category=Popular&page=1)
 - [nuxt](https://movies.jason.codes/movie/category/popular)
 
-[![angular-vs-next-vs-nuxt](https://www.webpagetest.org/video/video.php?tests=220216_AiDcBJ_EAA,220216_BiDcER_CDY,220216_BiDc68_CDZ&bg=ffffff&text=222222&end=visual&format=gif)](https://www.webpagetest.org/video/compare.php?tests=220216_AiDcBJ_EAA,220216_BiDcER_CDY,220216_BiDc68_CDZ)
+[![angular-vs-next-vs-nuxt](https://user-images.githubusercontent.com/10064416/155904543-333e1c25-7c01-470a-b399-40eee4c9d02c.gif)](https://www.webpagetest.org/video/compare.php?tests=220216_AiDcBJ_EAA,220216_BiDcER_CDY,220216_BiDc68_CDZ)
 
 ## Contributing
 
