@@ -30,14 +30,15 @@ For now you can search the codebase for "Perf Tip" later on there will be proppe
 
 **Bundle Stats**
 
+
 <!-- bundle-stats-start -->
 | Names             |       Size |
 | ---               | ---        |
 | main.1431126081e2681f.js           | 329.95 KB |
 | styles.be05b375b7ddee56.css           | 6.14 KB |
 | runtime.b39212de0f998127.js           | 3.73 KB |
-| **Initial Total** | **339.81 KB** |
-| Names             |       Size |
+  | **Initial Total** | **339.81 KB** |
+  | Names             |       Size |
 | app_pages_movie-detail-page_movie-detail-page           | 16.44 KB |
 | app_pages_not-found-page_not-found-page           | 12.15 KB |
 | app_pages_person-detail-page_person-detail-page           | 11.58 KB |
@@ -50,6 +51,7 @@ For now you can search the codebase for "Perf Tip" later on there will be proppe
 | app_pages_account-feature_list-detail-page_list-remove_list-remove           | 3.43 KB |
 | app_pages_account-feature_list-detail-page_list-movies_list-movies           | 837 Bytes |
 <!-- bundle-stats-end -->
+
 
 ## Comparison to next and nuxt
 
