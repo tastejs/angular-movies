@@ -16,4 +16,24 @@ function getCfg(config: any) {
   return cfg;
 }
 
+function resolveVariantConfig(path) {
+  if (path.endsWith('.ts')) {
+    // Register TS compiler lazily
+    require('ts-node').register({
+      compilerOptions: {
+        module: 'commonjs',
+      },
+    });
+  }
+
+  const file = require(path);
+  // If the user provides a configuration in TS file
+  // then there are 2 cases for exporing an object. The first one is:
+  // `module.exports = { ... }`. And the second one is:
+  // `export default { ... }`. The ESM format is compiled into:
+  // `{ default: { ... } }`
+  const exports = file.default || file;
+  return exports;
+}
+
 module.exports = getCfg;
