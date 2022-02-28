@@ -1,4 +1,7 @@
 import { captureReport, FlowActions, FlowOptions, PPTOptions } from '../utils';
+import { SidebarPageObject } from './po/mobile/side-bar.po';
+import { MovieListPagePageObject } from './po/desktop/movie-list-page.po';
+import { MovieDetailPagePageObject } from './po/desktop/movie-detail-page.po';
 
 const pptOptions: PPTOptions = { headless: false };
 const flowOptions: FlowOptions = { name: 'Cold Hot Category Navigations' };
@@ -6,41 +9,37 @@ const flowOptions: FlowOptions = { name: 'Cold Hot Category Navigations' };
 function setupFlowActions(cfg: { baseUrl: string }): FlowActions {
   return async (flow: any, page: any): Promise<void> => {
     const testUrl = `${cfg.baseUrl}list/category/popular`;
-    const hamburgerBtn = '*[data-test="main-side-drawer-hamburger-button"]';
-    const navLink1 = '*[data-test="sidebar-nav-link-category-popular"]';
-    const navLink2 = '*[data-test="sidebar-nav-link-category-top_rated"]';
-    const lcpListItem = '*[data-test="list-item-idx-1"]';
+    const sidebar = new SidebarPageObject(page);
+    const movieListPage = new MovieListPagePageObject(page);
+    const popularName = 'popular';
+    const topRatedName = 'topRated';
 
     await flow.navigate(testUrl, {
       stepName: 'Page Category-Popular navigation',
     });
-    await page.waitForSelector(lcpListItem);
+    await movieListPage.awaitAllContent();
+
     await flow.startTimespan({
       stepName: 'Page Category-Popular top-rated navigation',
     });
-    await page.waitForSelector(hamburgerBtn);
-    await page.click(hamburgerBtn);
-    await page.waitForSelector(navLink2);
-    await page.click(navLink2);
-    await page.waitForSelector(lcpListItem);
+    await sidebar.navigateToCategory(topRatedName);
+    await movieListPage.awaitAllContent();
     await flow.endTimespan();
+
     await flow.startTimespan({
       stepName: 'Page Category-Popular popular navigation',
     });
-    await page.click(hamburgerBtn);
-    await page.waitForSelector(navLink1);
-    await page.click(navLink1);
-    await page.waitForSelector(lcpListItem);
+    await sidebar.navigateToCategory(popularName);
+    await movieListPage.awaitAllContent();
     await flow.endTimespan();
+
     await flow.startTimespan({
       stepName: 'Page Category-Popular top-rated navigation',
     });
-    await page.waitForSelector(hamburgerBtn);
-    await page.click(hamburgerBtn);
-    await page.waitForSelector(navLink2);
-    await page.click(navLink2);
-    await page.waitForSelector(lcpListItem);
+    await sidebar.navigateToCategory(topRatedName);
+    await movieListPage.awaitAllContent();
     await flow.endTimespan();
+
     return Promise.resolve();
   };
 }

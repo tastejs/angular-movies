@@ -35,7 +35,7 @@ type Movie = TMDBMovieModel & ImageTag;
           class="movies-list--grid-item"
           *rxFor="let movie of movies$; index as idx; trackBy: trackByMovieId"
           [routerLink]="['/detail/movie', movie.id]"
-          [attr.data-test]="'list-item-idx-' + idx"
+          [attr.data-test]="'ui-movie-list--list-item-idx-' + idx"
         >
           <!--
             **🚀 Perf Tip for LCP:**

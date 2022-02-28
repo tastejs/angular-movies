@@ -1,5 +1,5 @@
 import { YargsCommandObject } from '../../cli/model';
-import { report as navigation } from '../flows/detail-to-detail-cold-warm-navigation';
+import { report as navigation } from '../flows/detail-to-detail-cold-navigation--warm';
 import { getCliParam } from '../../cli/utils';
 
 export const runCommand: YargsCommandObject = {
