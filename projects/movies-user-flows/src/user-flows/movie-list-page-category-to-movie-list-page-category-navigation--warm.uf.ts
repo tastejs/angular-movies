@@ -1,37 +1,42 @@
 import { captureReport, FlowActions, FlowOptions, PPTOptions } from '../utils';
-import { MovieDetailPageUFO } from './ufo/desktop/movie-detail-page.ufo';
-import { MovieListPageUFO } from './ufo/desktop/movie-list-page.ufo';
-import { SidebarUFO } from './ufo/mobile/side-bar.ufo';
+import { SidebarUFO } from '../ufo/mobile/side-bar.ufo';
+import { MovieListPageUFO } from '../ufo/desktop/movie-list-page.ufo';
 
 const pptOptions: PPTOptions = { headless: false };
-const flowOptions: FlowOptions = {
-  name: 'Category to Detail Navigation - Cold',
-};
+const flowOptions: FlowOptions = { name: 'Category Navigations - Warm' };
 
 function setupFlowActions(cfg: { baseUrl: string }): FlowActions {
   return async (flow: any, page: any): Promise<void> => {
     const testUrl = `${cfg.baseUrl}list/category/popular`;
     const sidebar = new SidebarUFO(page);
     const movieListPage = new MovieListPageUFO(page);
+    const popularName = 'popular';
     const topRatedName = 'topRated';
-    const movieDetailPage = new MovieDetailPageUFO(page);
 
     await flow.navigate(testUrl, {
       stepName: 'Page Category-Popular navigation',
     });
+    await movieListPage.awaitAllContent();
+
     await flow.startTimespan({
-      stepName: 'Page Category-Popular movies loaded',
+      stepName: 'Page Category-Popular top-rated navigation',
     });
-    await sidebar.clickSideMenuBtn();
     await sidebar.navigateToCategory(topRatedName);
-    await movieListPage.awaitLCPContent();
+    await movieListPage.awaitAllContent();
     await flow.endTimespan();
 
     await flow.startTimespan({
-      stepName: 'Page Category-Popular detail navigation',
+      stepName: 'Page Category-Popular popular navigation',
     });
-    await movieListPage.navigateToDetail();
-    await movieDetailPage.awaitAllContent();
+    await sidebar.navigateToCategory(popularName);
+    await movieListPage.awaitAllContent();
+    await flow.endTimespan();
+
+    await flow.startTimespan({
+      stepName: 'Page Category-Popular top-rated navigation',
+    });
+    await sidebar.navigateToCategory(topRatedName);
+    await movieListPage.awaitAllContent();
     await flow.endTimespan();
 
     return Promise.resolve();

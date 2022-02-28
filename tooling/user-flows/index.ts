@@ -3,7 +3,7 @@ import { YargsCommandObject } from '../cli/model';
 import { runCommand } from './commands/run-report';
 import { runCli } from '../cli';
 
-const OPTIONS: { [key: string]: Options } = {
+const OPTIONS: Record<string, Options> = {
   verbose: {
     alias: 'v',
     type: 'boolean',

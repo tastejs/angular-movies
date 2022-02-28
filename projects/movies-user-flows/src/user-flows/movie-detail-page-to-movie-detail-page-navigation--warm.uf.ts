@@ -1,5 +1,5 @@
 import { captureReport, FlowActions, FlowOptions, PPTOptions } from '../utils';
-import { MovieDetailPageUFO } from './ufo/desktop/movie-detail-page.ufo';
+import { MovieDetailPageUFO } from '../ufo/desktop/movie-detail-page.ufo';
 
 const pptOptions: PPTOptions = { headless: false };
 const flowOptions: FlowOptions = {

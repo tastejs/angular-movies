@@ -3,7 +3,6 @@ import { UiMovieListUFO } from './ui-movie-list.ufo';
 import { UiCastListUFO } from './ui-cast-list.ufo';
 import { CwvInterface } from '../typings/cwv.interface';
 import { BackNavigationInterface } from '../typings/back-navigation.interface';
-import { Promise } from '@rx-angular/cdk/zone-less/browser';
 import * as fixtures from '../../fixtures/movie-detail-page.fixtures';
 
 export class MovieDetailPageUFO

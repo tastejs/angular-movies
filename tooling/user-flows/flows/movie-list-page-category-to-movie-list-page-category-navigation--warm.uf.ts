@@ -1,7 +1,6 @@
 import { captureReport, FlowActions, FlowOptions, PPTOptions } from '../utils';
-import { SidebarUFO } from './po/mobile/side-bar.ufo';
-import { MovieListPageUFO } from './po/desktop/movie-list-page.ufo';
-import { MovieDetailPageUFO } from './po/desktop/movie-detail-page.ufo';
+import { SidebarUFO } from './ufo/mobile/side-bar.ufo';
+import { MovieListPageUFO } from './ufo/desktop/movie-list-page.ufo';
 
 const pptOptions: PPTOptions = { headless: false };
 const flowOptions: FlowOptions = { name: 'Category Navigations - Warm' };

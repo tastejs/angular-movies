@@ -1,7 +1,7 @@
 import { captureReport, FlowActions, FlowOptions, PPTOptions } from '../utils';
-import { MovieDetailPageUFO } from './ufo/desktop/movie-detail-page.ufo';
-import { MovieListPageUFO } from './ufo/desktop/movie-list-page.ufo';
-import { SidebarUFO } from './ufo/mobile/side-bar.ufo';
+import { MovieDetailPageUFO } from '../ufo/desktop/movie-detail-page.ufo';
+import { MovieListPageUFO } from '../ufo/desktop/movie-list-page.ufo';
+import { SidebarUFO } from '../ufo/mobile/side-bar.ufo';
 
 const pptOptions: PPTOptions = { headless: false };
 const flowOptions: FlowOptions = {

@@ -6,6 +6,9 @@ import { report as flow4 } from '../flows/movie-list-page-category-to-movie-list
 import { report as flow5 } from '../flows/movie-list-page-category-to-movie-detail-page-navigation--cold.uf';
 
 import { getCliParam } from '../../cli/utils';
+import { UserFlowFn } from '../types/model';
+
+const userFlows: UserFlowFn[] = [flow1, flow2, flow3, flow4, flow5];
 
 export const runCommand: YargsCommandObject = {
   command: 'run',
@@ -22,12 +25,9 @@ export const runCommand: YargsCommandObject = {
 };
 
 export async function run(): Promise<void> {
-  const baseUrl: string =
-    getCliParam(['targetUrl', 't']) || 'https://angular-movies-a12d3.web.app/';
-
-  await flow1({ baseUrl }).catch(console.log);
-  await flow2({ baseUrl }).catch(console.log);
-  await flow3({ baseUrl }).catch(console.log);
-  await flow4({ baseUrl }).catch(console.log);
-  await flow5({ baseUrl }).catch(console.log);
+  const baseUrl: string = getCliParam(['targetUrl', 't']);
+  if (baseUrl == false) {
+    throw new Error('--targetUrl is required');
+  }
+  await Promise.all(userFlows.map((p) => p({ baseUrl }).catch(console.log)));
 }
