@@ -1,18 +1,20 @@
 import { captureReport, FlowActions, FlowOptions, PPTOptions } from '../utils';
-import { MovieDetailPagePageObject } from './po/desktop/movie-detail-page.po';
-import { MovieListPagePageObject } from './po/desktop/movie-list-page.po';
-import { SidebarPageObject } from './po/mobile/side-bar.po';
+import { MovieDetailPageUFO } from './po/desktop/movie-detail-page.ufo';
+import { MovieListPageUFO } from './po/desktop/movie-list-page.ufo';
+import { SidebarUFO } from './po/mobile/side-bar.ufo';
 
 const pptOptions: PPTOptions = { headless: false };
-const flowOptions: FlowOptions = { name: 'Category - Detail Navigation' };
+const flowOptions: FlowOptions = {
+  name: 'Category to Detail Navigation - Cold',
+};
 
 function setupFlowActions(cfg: { baseUrl: string }): FlowActions {
   return async (flow: any, page: any): Promise<void> => {
     const testUrl = `${cfg.baseUrl}list/category/popular`;
-    const sidebar = new SidebarPageObject(page);
-    const movieListPage = new MovieListPagePageObject(page);
+    const sidebar = new SidebarUFO(page);
+    const movieListPage = new MovieListPageUFO(page);
     const topRatedName = 'topRated';
-    const movieDetailPage = new MovieDetailPagePageObject(page);
+    const movieDetailPage = new MovieDetailPageUFO(page);
 
     await flow.navigate(testUrl, {
       stepName: 'Page Category-Popular navigation',

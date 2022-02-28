@@ -1,24 +1,15 @@
 import { Page } from 'puppeteer';
+import { CwvInterface } from '../typings/cwv.interface';
+import * as fixtures from '../../fixtures/sidebar.fixtures';
+import { GenreIds, CategoryNames } from '../../internals/typings';
+import { categoryNames, genreIds } from '../../internals/consts';
 
-export type CategoryNames = 'popular' | 'topRated' | 'upcoming';
-export const categoryNames: CategoryNames[] = [
-  'popular',
-  'topRated',
-  'upcoming',
-];
-export type GenreIds = 28 | 12 | 16;
-export const genreIds: GenreIds[] = [28, 12, 16];
+export class SidebarUFO implements CwvInterface {
+  protected sideMenuBtnSelector = fixtures.sideMenuBtnSelector;
 
-export class SidebarPageObject {
-  protected sideMenuBtnSelector = '*[data-test="sidebar--main-btn"]';
+  protected categorySelector = fixtures.categorySelector;
 
-  protected categorySelector(c: CategoryNames): string {
-    return `*[data-test="sidebar--link--category-${c}"]`;
-  }
-
-  protected genreSelector(g: GenreIds): string {
-    return `*[data-test="sidebar--link--genre-${g}"]`;
-  }
+  protected genreSelector = fixtures.genreSelector;
 
   async clickSideMenuBtn() {
     await this.page.waitForSelector(this.sideMenuBtnSelector);
@@ -48,4 +39,15 @@ export class SidebarPageObject {
   }
 
   constructor(protected page: Page) {}
+
+  async awaitAllContent(): Promise<any> {
+    return await Promise.all([
+      this.page.waitForSelector(this.sideMenuBtnSelector),
+    ]);
+  }
+
+  async awaitLCPContent(): Promise<any> {
+    const anySideBarGenreLink = this.genreSelector(28);
+    return await this.page.waitForSelector(anySideBarGenreLink);
+  }
 }

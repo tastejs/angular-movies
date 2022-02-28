@@ -10,13 +10,13 @@
           [height]="movie?.imgHeight"
           alt="poster movie"
           [title]="movie?.title"
-          data-test="movie-detail--hero-img"
+          data-test="movie-detail-page--hero-img"
         />
       </div>
       <div detailGridDescription>
         <header>
-          <h1 data-test="movie-detail--header-main">{{ movie?.title }}</h1>
-          <h2 data-test="movie-detail--header-sub">{{ movie?.tagline }}</h2>
+          <h1 data-test="movie-detail-page--header-main">{{ movie?.title }}</h1>
+          <h2 data-test="movie-detail-page--header-sub">{{ movie?.tagline }}</h2>
         </header>
         <section class="movie-detail--basic-infos">
           <ui-star-rating
@@ -76,7 +76,7 @@
                   [title]="c.name"
                 />
               </a>
-              <div *ngIf="ctx.loading" class="loader" data-test="list-loader"></div>
+              <div *ngIf="ctx.loading" class="loader"></div>
             </div>
             <button (mousedown)="move(-70)"  type="button" role="button" class="cast-list--btn">»</button>
           </div>
@@ -136,7 +136,7 @@
             </ng-container>
 
           </dialog>
-          <button data-test="movie-detail--btn-back" class="btn primary-button" (click)="back()">
+          <button data-test="movie-detail-page--btn-back" class="btn primary-button" (click)="back()">
             <svg class="btn__icon" viewBox="0 0 448 512" fill="currentColor" width="1em"><path d="M257.5 445.1l-22.2 22.2c-9.4 9.4-24.6 9.4-33.9 0L7 273c-9.4-9.4-9.4-24.6 0-33.9L201.4 44.7c9.4-9.4 24.6-9.4 33.9 0l22.2 22.2c9.5 9.5 9.3 25-.4 34.3L136.6 216H424c13.3 0 24 10.7 24 24v32c0 13.3-10.7 24-24 24H136.6l120.5 114.8c9.8 9.3 10 24.8.4 34.3z"></path></svg>&nbsp;
             Back
           </button>
@@ -153,9 +153,9 @@
   </header>
   <ng-container *rxLet="infiniteScrollRecommendations$; let ctx;  strategy: 'immediate'">
     <ui-movie-list (paginate)="paginateRecommendations()"
-                   [movies]="ctx.results" data-test="list-wrapper">
+                   [movies]="ctx.results">
     </ui-movie-list>
-    <div *ngIf="ctx.loading" class="loader" data-test="list-loader"></div>
+    <div *ngIf="ctx.loading" class="loader"></div>
   </ng-container>
 
 </article>

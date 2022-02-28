@@ -1,5 +1,5 @@
 import { Page } from 'puppeteer';
-import { SidebarPageObject as DesktopSidebarPageObject } from '../desktop/side-bar.po';
+import { SidebarUFO as DesktopSidebarUFO } from '../desktop/side-bar.ufo';
 
 export type CategoryNames = 'popular' | 'topRated' | 'upcoming';
 export const categoryNames: CategoryNames[] = [
@@ -10,7 +10,7 @@ export const categoryNames: CategoryNames[] = [
 export type GenreIds = 28 | 12 | 16;
 export const genreIds: GenreIds[] = [28, 12, 16];
 
-export class SidebarPageObject extends DesktopSidebarPageObject {
+export class SidebarUFO extends DesktopSidebarUFO {
   async navigateToCategory(c: CategoryNames = 'popular') {
     this.ensureSidebarOpen();
     super.navigateToCategory(c);
@@ -27,6 +27,14 @@ export class SidebarPageObject extends DesktopSidebarPageObject {
       .waitForSelector(anySideBarLink, { timeout: 4000 })
       .catch(() => this.page.click(this.sideMenuBtnSelector))
       .then(() => this.page.waitForSelector(anySideBarLink));
+  }
+
+  async awaitAllContent(): Promise<any> {
+    return await Promise.all([this.awaitLCPContent()]);
+  }
+
+  async awaitLCPContent(): Promise<any> {
+    return await this.page.waitForSelector(this.sideMenuBtnSelector);
   }
 
   constructor(page: Page) {

@@ -1,4 +1,3 @@
-import { Promise } from '@rx-angular/cdk/zone-less/browser';
 import fs from 'fs';
 import open from 'open';
 // @ts-ignore

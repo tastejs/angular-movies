@@ -1,10 +1,9 @@
 import { Page } from 'puppeteer';
 import { CwvInterface } from '../typings/cwv.interface';
+import * as fixtures from '../../fixtures/ui-movie-list.fixtures';
 
-export class UiCastListPageObject implements CwvInterface {
-  protected itemSelector(idx: number): string {
-    return `*[data-test="ui-cast-list-item-idx-${idx}"]`;
-  }
+export class UiMovieListUFO implements CwvInterface {
+  protected itemSelector = fixtures.movieImgSelector;
 
   async clickMovieListImage(idx: number) {
     const selector = this.itemSelector(idx);

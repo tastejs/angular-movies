@@ -1,16 +1,16 @@
 import { captureReport, FlowActions, FlowOptions, PPTOptions } from '../utils';
-import { SidebarPageObject } from './po/mobile/side-bar.po';
-import { MovieListPagePageObject } from './po/desktop/movie-list-page.po';
-import { MovieDetailPagePageObject } from './po/desktop/movie-detail-page.po';
+import { SidebarUFO } from './po/mobile/side-bar.ufo';
+import { MovieListPageUFO } from './po/desktop/movie-list-page.ufo';
+import { MovieDetailPageUFO } from './po/desktop/movie-detail-page.ufo';
 
 const pptOptions: PPTOptions = { headless: false };
-const flowOptions: FlowOptions = { name: 'Cold Hot Category Navigations' };
+const flowOptions: FlowOptions = { name: 'Category Navigations - Warm' };
 
 function setupFlowActions(cfg: { baseUrl: string }): FlowActions {
   return async (flow: any, page: any): Promise<void> => {
     const testUrl = `${cfg.baseUrl}list/category/popular`;
-    const sidebar = new SidebarPageObject(page);
-    const movieListPage = new MovieListPagePageObject(page);
+    const sidebar = new SidebarUFO(page);
+    const movieListPage = new MovieListPageUFO(page);
     const popularName = 'popular';
     const topRatedName = 'topRated';
 
