@@ -1,4 +1,4 @@
-export type UserFlowFn = (cfg: any) => Promise<any>;
+export type UserFlowFn = (cfg: { targetUrl: string }) => Promise<any>;
 
 export type UserFlow = {
   name: string;

@@ -1,26 +1,24 @@
 import {
-  captureReport,
-  FlowActions,
-  FlowOptions,
-  PPTOptions,
-} from 'user-flow-ci';
+  UserFlowProvider,
+  UserFlowOptions,
+  UserFlowInteractionsFn,
+  UserFlowContext,
+} from '@user-flow/cli';
 
-const pptOptions: PPTOptions = { headless: false };
-const flowOptions: FlowOptions = { name: 'Detail Bootstrap  - Cold' };
+const flowOptions: UserFlowOptions = { name: 'Detail Bootstrap  - Cold' };
 
-function setupFlowActions(cfg: { baseUrl: string }): FlowActions {
-  return async (flow: any, page: any): Promise<void> => {
-    async function flowActions(): Promise<void> {
-      const testUrl = `${cfg.baseUrl}detail/movie/634649`;
-      await flow.navigate(testUrl);
-      return Promise.resolve();
-    }
-  };
-}
-
-export const report = async (cfg: { baseUrl: string }) =>
-  await captureReport(pptOptions, flowOptions, await setupFlowActions(cfg));
-module.exports = {
-  load,
-  unload,
+const interactions: UserFlowInteractionsFn = async (
+  ctx: UserFlowContext
+): Promise<any> => {
+  const { flow, baseUrl } = ctx;
+  const url = `${baseUrl}detail/movie/634649`;
+  await flow.navigate(url);
+  return Promise.resolve();
 };
+
+const userFlowProvider: UserFlowProvider = {
+  flowOptions,
+  interactions,
+};
+
+module.exports = userFlowProvider;

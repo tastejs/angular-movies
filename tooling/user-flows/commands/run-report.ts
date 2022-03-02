@@ -1,14 +1,8 @@
 import { YargsCommandObject } from '../../cli/model';
-import { report as flow1 } from '../flows/movie-detail-page-to-movie-detail-page-navigation--warm.uf';
-import { report as flow2 } from '../flows/movie-list-page-category--bootstrap--cold.uf';
-import { report as flow3 } from '../flows/movie-list-page-category-to-movie-list-page-category-navigation--cold.uf';
-import { report as flow4 } from '../flows/movie-list-page-category-to-movie-list-page-category-navigation--warm.uf';
-import { report as flow5 } from '../flows/movie-list-page-category-to-movie-detail-page-navigation--cold.uf';
-
 import { getCliParam } from '../../cli/utils';
-import { UserFlowFn } from '../types/model';
-
-const userFlows: UserFlowFn[] = [flow1, flow2, flow3, flow4, flow5];
+import { readdirSync } from 'fs';
+import { join, normalize } from 'path';
+import { resolveAnyFile } from '../utils';
 
 export const runCommand: YargsCommandObject = {
   command: 'run',
@@ -25,9 +19,21 @@ export const runCommand: YargsCommandObject = {
 };
 
 export async function run(): Promise<void> {
-  const baseUrl: string = getCliParam(['targetUrl', 't']);
-  if (baseUrl == false) {
+  const ufPath: string | false = getCliParam(['ufPath', 'f']);
+  if (ufPath == false) {
+    throw new Error('--ufPath is required');
+  }
+  const targetUrl: string | false = getCliParam(['targetUrl', 't']);
+  if (targetUrl == false) {
     throw new Error('--targetUrl is required');
   }
-  await Promise.all(userFlows.map((p) => p({ baseUrl }).catch(console.log)));
+  loadUserFlows(ufPath);
+  // await Promise.all(userFlows.map((p) => p({ targetUrl }).catch(console.log)));
+}
+
+export async function loadUserFlows(path: string): Promise<any> {
+  console.log('loadUserFlows');
+  const flows = readdirSync(path).map((p) => resolveAnyFile(join(path, p)));
+  console.log('flows', flows);
+  // require('./rawContent');
 }

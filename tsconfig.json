@@ -1,6 +1,5 @@
 {
   "compileOnSave": false,
-  "**Perf Tip:**": "Use es2020 as compilerOptions.target to reduce the bundle size slightly",
   "compilerOptions": {
     "importHelpers": true,
     "rootDir": ".",

@@ -3,6 +3,9 @@ import { YargsCommandObject } from '../cli/model';
 import { runCommand } from './commands/run-report';
 import { runCli } from '../cli';
 
+export * from './utils';
+export * from './types/model';
+
 const OPTIONS: Record<string, Options> = {
   verbose: {
     alias: 'v',
@@ -18,6 +21,11 @@ const OPTIONS: Record<string, Options> = {
     alias: 't',
     type: 'string',
     description: 'URL to analyze',
+  },
+  ufPath: {
+    alias: 'f',
+    type: 'string',
+    description: 'folder containing user-flow files `*.uf.ts` or `*.uf.js`',
   },
   interactive: {
     type: 'boolean',

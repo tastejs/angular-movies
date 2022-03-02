@@ -1,47 +1,56 @@
-import { captureReport, FlowActions, FlowOptions, PPTOptions } from '../utils';
 import { SidebarUFO } from '../ufo/mobile/side-bar.ufo';
 import { MovieListPageUFO } from '../ufo/desktop/movie-list-page.ufo';
+import {
+  UserFlowProvider,
+  UserFlowOptions,
+  UserFlowInteractionsFn,
+  UserFlowContext,
+} from '@user-flow/cli';
 
-const pptOptions: PPTOptions = { headless: false };
-const flowOptions: FlowOptions = { name: 'Category Navigations - Warm' };
+const flowOptions: UserFlowOptions = { name: 'Detail Bootstrap  - Cold' };
 
-function setupFlowActions(cfg: { baseUrl: string }): FlowActions {
-  return async (flow: any, page: any): Promise<void> => {
-    const testUrl = `${cfg.baseUrl}list/category/popular`;
-    const sidebar = new SidebarUFO(page);
-    const movieListPage = new MovieListPageUFO(page);
-    const popularName = 'popular';
-    const topRatedName = 'topRated';
+const interactions: UserFlowInteractionsFn = async (
+  ctx: UserFlowContext
+): Promise<any> => {
+  const { flow, baseUrl, page } = ctx;
+  const testUrl = `${baseUrl}list/category/popular`;
+  const sidebar = new SidebarUFO(page as any);
+  const movieListPage = new MovieListPageUFO(page as any);
+  const popularName = 'popular';
+  const topRatedName = 'topRated';
 
-    await flow.navigate(testUrl, {
-      stepName: 'Page Category-Popular navigation',
-    });
-    await movieListPage.awaitAllContent();
+  await flow.navigate(testUrl, {
+    stepName: 'Page Category-Popular navigation',
+  });
+  await movieListPage.awaitAllContent();
 
-    await flow.startTimespan({
-      stepName: 'Page Category-Popular top-rated navigation',
-    });
-    await sidebar.navigateToCategory(topRatedName);
-    await movieListPage.awaitAllContent();
-    await flow.endTimespan();
+  await flow.startTimespan({
+    stepName: 'Page Category-Popular top-rated navigation',
+  });
+  await sidebar.navigateToCategory(topRatedName);
+  await movieListPage.awaitAllContent();
+  await flow.endTimespan();
 
-    await flow.startTimespan({
-      stepName: 'Page Category-Popular popular navigation',
-    });
-    await sidebar.navigateToCategory(popularName);
-    await movieListPage.awaitAllContent();
-    await flow.endTimespan();
+  await flow.startTimespan({
+    stepName: 'Page Category-Popular popular navigation',
+  });
+  await sidebar.navigateToCategory(popularName);
+  await movieListPage.awaitAllContent();
+  await flow.endTimespan();
 
-    await flow.startTimespan({
-      stepName: 'Page Category-Popular top-rated navigation',
-    });
-    await sidebar.navigateToCategory(topRatedName);
-    await movieListPage.awaitAllContent();
-    await flow.endTimespan();
+  await flow.startTimespan({
+    stepName: 'Page Category-Popular top-rated navigation',
+  });
+  await sidebar.navigateToCategory(topRatedName);
+  await movieListPage.awaitAllContent();
+  await flow.endTimespan();
 
-    return Promise.resolve();
-  };
-}
+  return Promise.resolve();
+};
 
-export const report = async (cfg: any) =>
-  await captureReport(pptOptions, flowOptions, await setupFlowActions(cfg));
+const userFlowProvider: UserFlowProvider = {
+  flowOptions,
+  interactions,
+};
+
+module.exports = userFlowProvider;

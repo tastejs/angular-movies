@@ -1,0 +1,17 @@
+{
+  "name": "@user-flow/cli",
+  "version": "1.0.0",
+  "license": "MIT",
+  "scripts": {},
+  "main": "index.js",
+  "bin": {
+    "cli": "cli.js"
+  },
+  "private": true,
+  "dependencies": {
+    "ts-node": "~10.3.1"
+  },
+  "devDependencies": {
+
+  }
+}

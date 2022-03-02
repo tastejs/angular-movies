@@ -1,15 +1,24 @@
-import { captureReport, FlowActions, FlowOptions, PPTOptions } from '../utils';
+import {
+  UserFlowProvider,
+  UserFlowOptions,
+  UserFlowInteractionsFn,
+  UserFlowContext,
+} from '@user-flow/cli';
 
-const pptOptions: PPTOptions = { headless: false };
-const flowOptions: FlowOptions = { name: 'Category Bootstrap  - Cold' };
+const flowOptions: UserFlowOptions = { name: 'Detail Bootstrap  - Cold' };
 
-function setupFlowActions(cfg: { baseUrl: string }): FlowActions {
-  return async (flow: any, page: any): Promise<void> => {
-    const testUrl = `${cfg.baseUrl}list/category/popular`;
-    await flow.navigate(testUrl);
-    return Promise.resolve();
-  };
-}
+const interactions: UserFlowInteractionsFn = async (
+  ctx: UserFlowContext
+): Promise<any> => {
+  const { flow, baseUrl } = ctx;
+  const testUrl = `${baseUrl}list/category/popular`;
+  await flow.navigate(testUrl);
+  return Promise.resolve();
+};
 
-export const report = async (cfg: any) =>
-  await captureReport(pptOptions, flowOptions, await setupFlowActions(cfg));
+const userFlowProvider: UserFlowProvider = {
+  flowOptions,
+  interactions,
+};
+
+module.exports = userFlowProvider;
