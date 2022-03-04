@@ -1,0 +1,5 @@
+{
+  "targetUrl": "https://angular-movies-a12d3.web.app/",
+  "ufPath": "./projects/movies-user-flows/src/user-flows",
+  "outPath": "./measures/user-flows"
+}

@@ -21,11 +21,7 @@ type Movie = TMDBMovieModel & ImageTag;
   selector: 'ui-movie-list',
   template: `
     <ng-container *rxLet="moviesListVisible$; let moviesListVisible">
-      <div
-        class="movies-list--grid"
-        *ngIf="moviesListVisible; else noData"
-        data-test="list-container"
-      >
+      <div class="movies-list--grid" *ngIf="moviesListVisible; else noData">
         <!--
             **🚀 Perf Tip for TBT:**
             Use \`rxFor\` in favour of \`ngFor\` to get non blocking rendering of lists.
@@ -35,7 +31,7 @@ type Movie = TMDBMovieModel & ImageTag;
           class="movies-list--grid-item"
           *rxFor="let movie of movies$; index as idx; trackBy: trackByMovieId"
           [routerLink]="['/detail/movie', movie.id]"
-          [attr.data-test]="'list-item-idx-' + idx"
+          [attr.data-uf]="'ui-movie-list--movie--' + idx"
         >
           <!--
             **🚀 Perf Tip for LCP:**

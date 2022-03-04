@@ -1,12 +1,12 @@
 <article>
   <header *rxLet="headings$; let headings">
-    <h1>{{ headings.title }}</h1>
-    <h2>{{ headings.type }}</h2>
+    <h1 data-uf="header-main">{{ headings.title }}</h1>
+    <h2 data-uf="header-sub">{{ headings.type }}</h2>
   </header>
   <ui-movie-list (paginate)="paginate()"
-                 [movies]="movies$" data-test="list-wrapper">
+                 [movies]="movies$" >
   </ui-movie-list>
   <ng-container *rxLet="loading$; let paging">
-    <div *ngIf="paging" class="loader" data-test="list-loader"></div>
+    <div *ngIf="paging" class="loader"></div>
   </ng-container>
 </article>

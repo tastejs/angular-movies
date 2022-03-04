@@ -1,4 +1,4 @@
-import fs from 'fs';
+import * as fs from 'fs';
 
 // @ts-ignore
 export type Formats = 'json' | 'string';
