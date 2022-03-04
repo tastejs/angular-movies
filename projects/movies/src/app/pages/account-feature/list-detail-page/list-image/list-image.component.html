@@ -1,4 +1,4 @@
-<div class="movies-list--grid" data-test="list-container">
+<div class="movies-list--grid" data-uf="list-container">
   <div
     [class]="
       movie.selected
@@ -10,7 +10,7 @@
       index as idx;
       trackBy: trackByPosterId
     "
-    [attr.data-test]="'list-item-idx-' + idx"
+    [attr.data-uf]="'list-item-idx-' + idx"
     (click)="adapter.ui.listPosterUpdate(movie.backdrop_path)"
   >
     <!--

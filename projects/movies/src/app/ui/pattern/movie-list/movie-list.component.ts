@@ -24,7 +24,7 @@ type Movie = TMDBMovieModel & ImageTag;
       <div
         class="movies-list--grid"
         *ngIf="moviesListVisible; else noData"
-        data-test="list-container"
+        data-uf="list-container"
       >
         <!--
             **🚀 Perf Tip for TBT:**
@@ -35,7 +35,7 @@ type Movie = TMDBMovieModel & ImageTag;
           class="movies-list--grid-item"
           *rxFor="let movie of movies$; index as idx; trackBy: trackByMovieId"
           [routerLink]="['/detail/movie', movie.id]"
-          [attr.data-test]="'ui-movie-list--list-item-idx-' + idx"
+          [attr.data-uf]="'ui-movie-list--list-item-idx-' + idx"
         >
           <!--
             **🚀 Perf Tip for LCP:**

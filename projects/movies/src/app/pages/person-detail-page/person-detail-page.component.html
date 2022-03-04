@@ -16,7 +16,7 @@
           [height]="person.imgHeight"
           alt="poster movie"
           [title]="person?.name"
-          data-test="detail-item-img"
+          data-uf="detail-item-img"
         />
       </div>
       <div detailGridDescription>
@@ -94,9 +94,9 @@
     <ui-movie-list
       (paginate)="paginate()"
       [movies]="ctx.results"
-      data-test="list-wrapper"
+      data-uf="list-wrapper"
     >
     </ui-movie-list>
-    <div *ngIf="ctx.loading" class="loader" data-test="list-loader"></div>
+    <div *ngIf="ctx.loading" class="loader" data-uf="list-loader"></div>
   </ng-container>
 </article>

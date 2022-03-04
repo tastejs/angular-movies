@@ -19,7 +19,7 @@
     <nav class="navigation" *rxLet="[]">
       <h3 class="navigation--headline">Discover</h3>
       <a
-        data-test="sidebar--link--category-popular"
+        data-uf="sidebar--link--category-popular"
         class="navigation--link"
         [routerLink]="['/list', 'category', 'popular']"
         routerLinkActive="active"
@@ -39,7 +39,7 @@
         </div>
       </a>
       <a
-        data-test="sidebar--link--category-topRated"
+        data-uf="sidebar--link--category-topRated"
         class="navigation--link"
         [routerLink]="['/list', 'category', 'top_rated']"
         routerLinkActive="active"
@@ -59,7 +59,7 @@
         </div>
       </a>
       <a
-        data-test="sidebar--link--category-upcoming"
+        data-uf="sidebar--link--category-upcoming"
         class="navigation--link"
         [routerLink]="['/list', 'category', 'upcoming']"
         routerLinkActive="active"
@@ -80,7 +80,7 @@
       </a>
       <h3 class="navigation--headline">Genres</h3>
       <a
-        [attr.data-test]="'sidebar--link--genre-'+genre.id"
+        [attr.data-uf]="'sidebar--link--genre-'+genre.id"
         *rxFor="let genre of genres$; trackBy: trackByGenre; strategy: 'idle'"
         class="navigation--link"
         [routerLink]="['/list', 'genre', genre.id]"
@@ -125,7 +125,7 @@
   <div class="content-wrapper">
     <div *rxLet="[]" class="ui-toolbar">
       <ui-hamburger-button
-        data-test="sidebar--main-btn"
+        data-uf="sidebar--main-btn"
         class="ui-toolbar--action"
         (click)="ui.sideDrawerOpenToggle(!vs.sideDrawerOpen)"
       >
