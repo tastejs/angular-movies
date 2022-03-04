@@ -1,10 +1,10 @@
-import { Page } from 'puppeteer';
 import { CwvInterface } from '../typings/cwv.interface';
 import * as fixtures from '../../fixtures/sidebar.fixtures';
 import { GenreIds, CategoryNames } from '../../internals/typings';
 import { categoryNames, genreIds } from '../../internals/consts';
+import { Ufo } from '@user-flow/cli';
 
-export class SidebarUFO implements CwvInterface {
+export class SidebarUFO extends Ufo implements CwvInterface {
   protected sideMenuBtnSelector = fixtures.sideMenuBtnSelector;
 
   protected categorySelector = fixtures.categorySelector;
@@ -37,8 +37,6 @@ export class SidebarUFO implements CwvInterface {
       .catch(() => this.page.click(this.sideMenuBtnSelector))
       .then(() => this.page.waitForSelector(anySideBarLink));
   }
-
-  constructor(protected page: Page) {}
 
   async awaitAllContent(): Promise<any> {
     return await Promise.all([

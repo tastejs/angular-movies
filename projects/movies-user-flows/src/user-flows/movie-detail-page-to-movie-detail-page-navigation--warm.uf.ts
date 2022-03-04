@@ -21,37 +21,37 @@ const interactions: UserFlowInteractionsFn = async (
   await flow.navigate(testUrl, {
     stepName: 'Warmup',
   });
-  await movieDetailPage.goToMovieDetail(1);
+  await movieDetailPage.goToMovieDetail(0);
   await movieDetailPage.awaitAllContent();
 
-  await movieDetailPage.goToMovieDetail(1);
+  await movieDetailPage.goToMovieDetail(0);
   await movieDetailPage.awaitAllContent();
 
   await flow.startTimespan({
     stepName: 'Page Detail1.1 navigation',
   });
-  await movieDetailPage.goToMovieDetail(1);
+  await movieDetailPage.goToMovieDetail(0);
   await movieDetailPage.awaitAllContent();
   await flow.endTimespan();
 
   await flow.startTimespan({
     stepName: 'Page Detail2.1 navigation',
   });
-  await movieDetailPage.goToMovieDetail(1);
+  await movieDetailPage.goToMovieDetail(0);
   await movieDetailPage.awaitAllContent();
   await flow.endTimespan();
 
   await flow.startTimespan({
     stepName: 'Page Detail1.2 navigation',
   });
-  await movieDetailPage.goToMovieDetail(1);
+  await movieDetailPage.goToMovieDetail(0);
   await movieDetailPage.awaitAllContent();
   await flow.endTimespan();
 
   await flow.startTimespan({
     stepName: 'Page Detail2.2 navigation',
   });
-  await movieDetailPage.goToMovieDetail(1);
+  await movieDetailPage.goToMovieDetail(0);
   await movieDetailPage.awaitAllContent();
   await flow.endTimespan();
 

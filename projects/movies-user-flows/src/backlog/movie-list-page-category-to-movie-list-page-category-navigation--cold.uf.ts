@@ -14,29 +14,14 @@ const interactions: UserFlowInteractionsFn = async (
 ): Promise<any> => {
   const { flow, baseUrl, page } = ctx;
   const testUrl = `${baseUrl}list/category/popular`;
-  const sidebar = new SidebarUFO(page as any);
-  const movieListPage = new MovieListPageUFO(page as any);
-  const popularName = 'popular';
+  const sidebar = new SidebarUFO(page);
+  const movieListPage = new MovieListPageUFO(page);
   const topRatedName = 'topRated';
 
   await flow.navigate(testUrl, {
     stepName: 'Page Category-Popular navigation',
   });
   await movieListPage.awaitAllContent();
-
-  await flow.startTimespan({
-    stepName: 'Page Category-Popular top-rated navigation',
-  });
-  await sidebar.navigateToCategory(topRatedName);
-  await movieListPage.awaitAllContent();
-  await flow.endTimespan();
-
-  await flow.startTimespan({
-    stepName: 'Page Category-Popular popular navigation',
-  });
-  await sidebar.navigateToCategory(popularName);
-  await movieListPage.awaitAllContent();
-  await flow.endTimespan();
 
   await flow.startTimespan({
     stepName: 'Page Category-Popular top-rated navigation',
