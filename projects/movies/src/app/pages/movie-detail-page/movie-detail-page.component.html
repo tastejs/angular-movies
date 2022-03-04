@@ -62,7 +62,7 @@
                 *rxFor="let c of  ctx.value; trackBy: trackByCast; index as idx;"
                 [routerLink]="['/detail/person/',c.id]"
                 (click)="$event.preventDefault()"
-                [attr.data-uf]="'ui-cast-list--movie--' + idx"
+                [attr.data-uf]="'cast-' + idx"
                 class="movie-detail--cast-actor"
               >
                 <img
