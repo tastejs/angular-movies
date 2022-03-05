@@ -10,8 +10,8 @@
         class="account-list--grid-item"
         [routerLink]="[
           '/detail/list',
-          list?.id,
-          list?.number_of_items ? 'view' : 'add-remove-items'
+          list.id,
+          list.number_of_items ? 'view' : 'add-remove-items'
         ]"
       >
         <!--
@@ -22,19 +22,19 @@
         <img
           class="aspectRatio-16-9 gradient"
           [attr.loading]="idx === 0 ? '' : 'lazy'"
-          [src]="list?.imgUrl"
+          [src]="list.imgUrl"
           [width]="500"
           [height]="282"
-          [alt]="list?.name"
-          [title]="list?.name"
+          [alt]="list.name"
+          [title]="list.name"
         />
         <div class="account-list--details">
           <h3 class="account-list--details-title">
-            {{ list?.name }}
+            {{ list.name }}
           </h3>
           <p class="account-list--details-stats">
-            {{ list?.number_of_items }} items ({{
-              list?.public ? 'Public' : 'Private'
+            {{ list.number_of_items }} items ({{
+              list.public ? 'Public' : 'Private'
             }})
           </p>
         </div>
