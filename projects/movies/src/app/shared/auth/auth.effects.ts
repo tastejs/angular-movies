@@ -6,6 +6,7 @@ import {
   createAccessToken,
   createRequestToken,
   deleteAccessToken,
+  Token,
 } from '../../data-access/api/resources/authv4.resource';
 
 @Injectable({
@@ -43,7 +44,7 @@ export class AuthEffects {
       take(1),
       filter(<T>(v: T | null): v is T => v != null),
       exhaustMap((requestToken) => createAccessToken(requestToken)),
-      map(({ access_token, account_id }) => ({
+      map(({ access_token, account_id }: Token) => ({
         accessToken: access_token,
         accountId: account_id,
       }))
@@ -51,7 +52,7 @@ export class AuthEffects {
   };
 
   approveRequestToken = (): void => {
-    createRequestToken(this.authState.redirectUrl).subscribe((res) => {
+    createRequestToken(this.authState.redirectUrl).subscribe((res: Token) => {
       // store in local storage for the next page load
       window.localStorage.setItem('requestToken', res.request_token);
       window.location.replace(

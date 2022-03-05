@@ -1,8 +1,8 @@
 import { Observable } from 'rxjs';
-import { baseUrlApiV4 } from './base-urls.constant';
+import { baseUrlApiV4 } from './internal/base-urls.constant';
 import { getHTTP } from '../../../shared/injector/get-http-client';
 
-type Token = {
+export type Token = {
   request_token: string;
   access_token: string;
   account_id: string;

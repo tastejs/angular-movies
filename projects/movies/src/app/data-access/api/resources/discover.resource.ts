@@ -1,6 +1,6 @@
 import { TMDBMovieModel } from '../model/movie.model';
 import { getTMDBPaginateOptions } from '../paginate/utils';
-import { baseUrlApiV3 } from './base-urls.constant';
+import { baseUrlApiV3 } from './internal/base-urls.constant';
 import { getHTTP } from '../../../shared/injector/get-http-client';
 import {
   TMDBPaginateResult,
@@ -8,6 +8,7 @@ import {
 } from '../paginate/paginate.interface';
 import { Observable } from 'rxjs';
 import { TMDBSortOptions } from '../sort/sort.interface';
+import { getTMDBSortOptions } from '../sort/utils';
 
 const URL_DISCOVER_MOVIE = [baseUrlApiV3, 'discover', 'movie'].join('/');
 
@@ -22,7 +23,10 @@ export type TMDBDiscoverResponse = TMDBSortOptions &
 
 function getTMDBDiscoverOptions(options: any): TMDBDiscoverOptions {
   const { with_cast, with_genres, ...tmdbOptions } = options;
-  const discoverOptions = getTMDBPaginateOptions(tmdbOptions);
+  const discoverOptions = {
+    ...getTMDBPaginateOptions(tmdbOptions),
+    ...getTMDBSortOptions(tmdbOptions),
+  };
   with_cast && (discoverOptions.with_cast = with_cast);
   with_genres && (discoverOptions.with_genres = with_genres);
   return discoverOptions;

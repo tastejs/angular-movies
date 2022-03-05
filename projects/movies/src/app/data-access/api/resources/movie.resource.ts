@@ -7,7 +7,10 @@ import {
   TMDBPaginateOptions,
 } from '../paginate/paginate.interface';
 import { TMDBMovieCreditsModel } from '../model/movie-credits.model';
-import { baseUrlApiV3 } from './base-urls.constant';
+import { baseUrlApiV3 } from './internal/base-urls.constant';
+import { TMDBAppendOptions } from './model/append-options';
+import { TMDBDiscoverOptions } from './discover.resource';
+import { getTMDBSortOptions } from '../sort/utils';
 
 const base = [baseUrlApiV3, 'movie'].join('/');
 
@@ -22,9 +25,9 @@ const URL_MOVIE_QUERY = (query: string) =>
 export type MovieResponse = TMDBMovieModel;
 export const getMovie = (
   id: string,
-  options = { params: { append_to_response: 'videos' } }
+  params: TMDBAppendOptions = { append_to_response: 'videos' }
 ): Observable<MovieResponse> =>
-  getHTTP().get<MovieResponse>(URL_MOVIE(id), options);
+  getHTTP().get<MovieResponse>(URL_MOVIE(id), { params });
 
 export type CreditsResponse = TMDBMovieCreditsModel;
 export const getCredits = (id: string): Observable<CreditsResponse> =>
@@ -33,22 +36,22 @@ export const getCredits = (id: string): Observable<CreditsResponse> =>
 export type CategoryResponse = TMDBPaginateResult<TMDBMovieModel>;
 export const getMovieCategory = (
   category: string,
-  options: TMDBPaginateOptions = {} as TMDBPaginateOptions
+  params: TMDBPaginateOptions = {} as TMDBPaginateOptions
 ): Observable<CategoryResponse> => {
-  options = getTMDBPaginateOptions(options);
+  params = getTMDBMovieOptions(params);
   return getHTTP().get<CategoryResponse>(URL_MOVIE_CATEGORY(category), {
-    params: options,
+    params,
   });
 };
 
 export type RecommendationsResponse = TMDBPaginateResult<TMDBMovieModel>;
 export const getMoviesRecommendations = (
   id: string,
-  options: TMDBPaginateOptions = {} as TMDBPaginateOptions
+  params: TMDBPaginateOptions = {} as TMDBPaginateOptions
 ): Observable<RecommendationsResponse> => {
-  options = getTMDBPaginateOptions(options);
+  params = getTMDBMovieOptions(params);
   return getHTTP().get<RecommendationsResponse>(URL_MOVIE_RECOMMENDATIONS(id), {
-    params: options,
+    params,
   });
 };
 
@@ -56,3 +59,11 @@ export const queryMovie = (query: string): Observable<MovieResponse[]> =>
   getHTTP()
     .get<{ results: MovieResponse[] }>(URL_MOVIE_QUERY(query))
     .pipe(map((res) => res.results));
+
+function getTMDBMovieOptions(options: any): TMDBDiscoverOptions {
+  const discoverOptions = {
+    ...getTMDBPaginateOptions(options),
+    ...getTMDBSortOptions(options),
+  };
+  return discoverOptions;
+}
