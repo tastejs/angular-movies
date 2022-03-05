@@ -2,13 +2,10 @@ import { DOCUMENT } from '@angular/common';
 import { Inject, Injectable, Optional } from '@angular/core';
 import {
   catchError,
-  finalize,
   map,
   merge,
   Observable,
-  of,
-  share,
-  tap,
+  shareReplay,
   throwError,
 } from 'rxjs';
 import { getHTTP } from '../../../shared/injector/get-http-client';
@@ -33,8 +30,7 @@ const icons = [
 
 @Injectable()
 export class IconRegistry {
-  private readonly iconMap = new Map<string, SVGElement>();
-  private readonly loadingMap = new Map<string, Observable<SVGElement>>();
+  private readonly _iconMap = new Map<string, Observable<SVGElement>>();
 
   constructor(
     // TODO: check what happens on SSR
@@ -51,39 +47,31 @@ export class IconRegistry {
     url: string,
     name: string
   ): Observable<SVGElement | undefined> | undefined {
-    if (this.iconMap.has(name)) {
-      return of(this.iconMap.get(name));
-    } else if (this.loadingMap.has(name)) {
-      return this.loadingMap.get(name);
+    if (this._iconMap.has(name)) {
+      return this._iconMap.get(name);
     }
     const o$ = getHTTP()
       .get(url, { responseType: 'text' })
       .pipe(
         map((svg) => {
           const div = this.document.createElement('DIV');
-          console.log(svg);
           div.innerHTML = svg;
           return div.querySelector('svg') as SVGElement;
         }),
-        tap((svg) => this.iconMap.set(name, svg)),
         catchError((err) => {
           console.error(err);
           return throwError(err);
         }),
-        finalize(() => this.loadingMap.delete(name)),
-        share()
+        shareReplay(1)
       ) as Observable<SVGElement>;
-
-    this.loadingMap.set(name, o$);
+    this._iconMap.set(name, o$);
     return o$;
   }
 
   /** Get loaded SVG from registry by name. (also works by url because of blended map) */
   getSvgByName(name: string): Observable<SVGElement | undefined> | undefined {
-    if (this.iconMap.has(name)) {
-      return of(this.iconMap.get(name));
-    } else if (this.loadingMap.has(name)) {
-      return this.loadingMap.get(name);
+    if (this._iconMap.has(name)) {
+      return this._iconMap.get(name);
     }
     return throwError(() => `No svg with name '${name}' has been loaded`);
   }
