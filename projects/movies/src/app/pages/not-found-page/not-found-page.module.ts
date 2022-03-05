@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
-import { NotFoundIconComponent } from './not-found-icon.component';
+import { SvgIconModule } from '../../ui/component/icons/icon.module';
 import { NotFoundPageComponent } from './not-found-page.component';
 
 const ROUTES: Routes = [
@@ -12,8 +12,8 @@ const ROUTES: Routes = [
 ];
 
 @NgModule({
-  declarations: [NotFoundPageComponent, NotFoundIconComponent],
-  imports: [CommonModule, RouterModule.forChild(ROUTES)],
+  declarations: [NotFoundPageComponent],
+  imports: [CommonModule, RouterModule.forChild(ROUTES), SvgIconModule],
   exports: [NotFoundPageComponent],
 })
 export class NotFoundPageModule {}
