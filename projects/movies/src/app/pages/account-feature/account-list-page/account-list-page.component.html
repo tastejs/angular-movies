@@ -4,10 +4,10 @@
     <h2>TMDB</h2>
   </header>
 
-  <div class="account-list--grid">
+  <ui-grid-list>
     <ng-container *rxFor="let list of lists$; index as idx; trackBy: trackById">
       <a
-        class="account-list--grid-item"
+        class="ui-grid-list-item"
         [routerLink]="[
           '/detail/list',
           list.id,
@@ -40,5 +40,5 @@
         </div>
       </a>
     </ng-container>
-  </div>
+  </ui-grid-list>
 </article>

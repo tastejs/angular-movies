@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { GridListModule } from '../../component/grid-list/grid-list.module';
 import { SvgIconModule } from '../../component/icons/icon.module';
 import { MovieListComponent } from './movie-list.component';
 import { StarRatingModule } from '../star-rating/star-rating.module';
@@ -18,6 +19,7 @@ import { ElementVisibilityModule } from '../../../shared/cdk/element-visibility/
     ForModule,
     ElementVisibilityModule,
     SvgIconModule,
+    GridListModule,
   ],
   exports: [MovieListComponent],
 })
