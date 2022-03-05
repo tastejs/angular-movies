@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { SvgIconModule } from '../../component/icons/icon.module';
 import { MovieListComponent } from './movie-list.component';
 import { StarRatingModule } from '../star-rating/star-rating.module';
 import { LetModule } from '@rx-angular/template/let';
@@ -16,6 +17,7 @@ import { ElementVisibilityModule } from '../../../shared/cdk/element-visibility/
     LetModule,
     ForModule,
     ElementVisibilityModule,
+    SvgIconModule,
   ],
   exports: [MovieListComponent],
 })

@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { LetModule } from '@rx-angular/template/let';
+import { SvgIconModule } from '../../../ui/component/icons/icon.module';
 import { ListDetailPageComponent } from './list-detail-page.component';
 import { MovieListModule } from '../../../ui/pattern/movie-list/movie-list.module';
 import { ForModule } from '@rx-angular/template/experimental/for';
@@ -62,6 +63,7 @@ const ROUTES = [
     LetModule,
     ForModule,
     MovieListModule,
+    SvgIconModule,
   ],
 })
 export class ListDetailsPageModule {}
