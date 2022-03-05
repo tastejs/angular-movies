@@ -22,18 +22,12 @@ label {
   }
 }
 
-.overlay {
-  position: fixed;
-  top: 0;
-  right: 0;
-  left: 0;
-  bottom: 0;
-  margin: auto;
-  background: var(--palette-text-disabled);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 2000;
+dialog {
+  background: var(--palette-background-paper);
+}
+
+dialog::backdrop {
+  background: var(--palette-background-backdrop, rgba(0,0,0,.5));
 }
 
 .secondary-button {
@@ -48,6 +42,10 @@ label {
     cursor: pointer;
     background: var(--palette-action-hover);
   }
+}
+
+p {
+  font-size: 1.25rem;
 }
 
 header,
@@ -66,8 +64,4 @@ footer {
   display: flex;
   align-items: center;
   justify-content: flex-end;
-}
-
-.modal {
-  background: var(--palette-background-paper);
 }
