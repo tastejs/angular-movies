@@ -4,7 +4,7 @@ import { RxState } from '@rx-angular/state';
 import { map, startWith, withLatestFrom } from 'rxjs';
 
 import { TMDBListCreateUpdateParams } from '../../../data-access/api/model/list.model';
-import { ListDetailAdapter } from '../../../pages/account-feature/list-detail-page/list-detail-page.adapter';
+import { ListDetailAdapter } from '../list-detail-page/list-detail-page.adapter';
 import { getActions } from '../../../shared/rxa-custom/actions';
 import { ListState } from '../../../shared/state/list.state';
 
@@ -13,7 +13,13 @@ interface Actions {
   update: { [key: string]: string };
 }
 
-enum FormMode {
+/**
+ * **🚀 Perf Tip for FID:**
+ * const enums will be treated as types and disappear after compile-step
+ * from your bundle. Whereas regular enums will result in transpiled javascript
+ * code remaining in your bundle, shipped to the user
+ */
+const enum FormMode {
   Create = 'create',
   Edit = 'edit',
 }
@@ -76,7 +82,7 @@ export class ListCreatePageAdapter extends RxState<{
       )
     );
 
-    this.hold(this.submitEvent$, ([_, state]) => {
+    this.hold(this.submitEvent$, ([, state]) => {
       if (state.mode === 'edit') {
         this.detailsAdapter.ui.listInfoUpdate(state.request);
       }

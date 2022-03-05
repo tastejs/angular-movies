@@ -4,22 +4,18 @@
 <button
   class="primary-button"
   id="delete-list-button"
-  (click)="ui.toggleModal()"
+  (click)="ui.openDialog()"
 >
   Delete
 </button>
 
-<ng-container *rxLet="showModal$; let visible">
-  <article class="overlay" [style.display]="visible ? 'flex' : 'none'">
-    <section class="modal">
-      <header>
-        <h2>Are you sure?</h2>
-      </header>
-      <p>By clicking yes, this list will be permanently deleted.</p>
-      <footer>
-        <button class="secondary-button" (click)="ui.toggleModal()">No</button>
-        <button class="secondary-button" (click)="ui.confirm()">Yes</button>
-      </footer>
-    </section>
-  </article>
-</ng-container>
+<dialog #dialog>
+  <header>
+    <h2>Are you sure?</h2>
+  </header>
+  <p>By clicking yes, this list will be permanently deleted.</p>
+  <footer>
+    <button class="secondary-button" (click)="ui.closeDialog()">No</button>
+    <button class="secondary-button" (click)="ui.confirm()">Yes</button>
+  </footer>
+</dialog>
