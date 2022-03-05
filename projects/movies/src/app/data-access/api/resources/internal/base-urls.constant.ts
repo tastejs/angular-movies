@@ -1,4 +1,4 @@
-import { environment } from '../../../../environments/environment';
+import { environment } from '../../../../../environments/environment';
 
 const { tmdbBaseUrl, apiV3, apiV4 } = environment;
 export const baseUrlApiV3 = [tmdbBaseUrl, apiV3].join('/');

@@ -1,5 +1,5 @@
 import { map, Observable } from 'rxjs';
-import { baseUrlApiV4 } from './base-urls.constant';
+import { baseUrlApiV4 } from './internal/base-urls.constant';
 import { getHTTP } from '../../../shared/injector/get-http-client';
 import {
   TMDBAddMovieToListParams,
