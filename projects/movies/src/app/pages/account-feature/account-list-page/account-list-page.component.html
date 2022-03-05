@@ -23,8 +23,8 @@
           class="aspectRatio-16-9 gradient"
           [attr.loading]="idx === 0 ? '' : 'lazy'"
           [src]="list.imgUrl"
-          [width]="500"
-          [height]="282"
+          [width]="list.imgWidth"
+          [height]="list.imgHeight"
           [alt]="list.name"
           [title]="list.name"
         />
