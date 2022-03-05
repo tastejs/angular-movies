@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 @Component({
   selector: 'ui-grid-list',
@@ -9,8 +9,4 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrls: ['./grid-list.component.scss'],
 })
-export class GridListComponent implements OnInit {
-  constructor() {}
-
-  ngOnInit() {}
-}
+export class GridListComponent {}

@@ -1,10 +1,7 @@
-<div class="movies-list--grid" >
+<ui-grid-list class="movies-list--grid">
   <div
-    [class]="
-      movie.selected
-        ? 'movies-list--grid-item selected'
-        : 'movies-list--grid-item'
-    "
+    class="ui-grid-list-item"
+    [class.selected]="movie.selected"
     *rxFor="
       let movie of adapter.posters$;
       index as idx;
@@ -36,4 +33,4 @@
       </h3>
     </div>
   </div>
-</div>
+</ui-grid-list>
