@@ -21,14 +21,14 @@ type Movie = TMDBMovieModel & ImageTag;
   selector: 'ui-movie-list',
   template: `
     <ng-container *rxLet="moviesListVisible$; let moviesListVisible">
-      <div class="movies-list--grid" *ngIf="moviesListVisible; else noData">
+      <ui-grid-list *ngIf="moviesListVisible; else noData">
         <!--
             **🚀 Perf Tip for TBT:**
             Use \`rxFor\` in favour of \`ngFor\` to get non blocking rendering of lists.
             This reduces drastically the TBT measure.
         -->
         <a
-          class="movies-list--grid-item"
+          class="ui-grid-list-item"
           *rxFor="let movie of movies$; index as idx; trackBy: trackByMovieId"
           [routerLink]="['/detail/movie', movie.id]"
           [attr.data-uf]="'ui-movie-list--movie--' + idx"
@@ -56,7 +56,7 @@ type Movie = TMDBMovieModel & ImageTag;
         </a>
         <!-- If this element is visible in the viewport the paginate event fires -->
         <div (elementVisibility)="ui.paginate($event)"></div>
-      </div>
+      </ui-grid-list>
 
       <ng-template #noData>
         <div style="display: flex; align-items: center;">
