@@ -24,6 +24,9 @@ const icons = [
   'top_rated',
   'upcoming',
   'website',
+  'delete',
+  'sad',
+  'error',
 ];
 
 // credits go here: https://github.com/czeckd/angular-svg-icon/blob/master/projects/angular-svg-icon/src/lib/svg-icon-registry.service.ts

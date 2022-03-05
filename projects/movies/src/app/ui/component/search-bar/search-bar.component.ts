@@ -40,7 +40,7 @@ import { preventDefault } from '../../../shared/rxa-custom/actions/transforms';
         class="magnifier-button"
         aria-label="Search for a movie"
       >
-        <ui-search-icon></ui-search-icon>
+        <svg-icon name="search" size="1.125em"></svg-icon>
       </button>
       <input
         *rxLet="search$; let search"

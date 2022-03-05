@@ -2,6 +2,7 @@ import {
   ChangeDetectionStrategy,
   Component,
   ElementRef,
+  HostBinding,
   Input,
   OnDestroy,
   OnInit,
@@ -23,7 +24,9 @@ import { IconRegistry } from './icon-registry.service';
   styles: [
     `
       :host {
-        display: contents;
+        display: inline-block;
+        width: 24px;
+        height: 24px;
       }
     `,
   ],
@@ -31,6 +34,11 @@ import { IconRegistry } from './icon-registry.service';
 })
 export class SvgIconComponent implements OnInit, OnDestroy {
   @Input() name?: string;
+
+  @HostBinding('style.width')
+  @HostBinding('style.height')
+  @Input()
+  size?: string;
 
   private sub = new Subscription();
 
