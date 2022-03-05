@@ -25,7 +25,7 @@
     "e2e": "ng e2e",
     "ngsw-config": "node_modules/.bin/ngsw-config dist ./src/ngsw-config.json",
     "serve:ngsw": "npm run ngsw-config && http-server dist -p 8080",
-    "bundle-stats-readme": "npx ts-node -P tooling/user-flows/tsconfig.json  ./tooling/bundle-stats/index.ts update-bundle-stats --stats=./measures/bundle-size/stats.json --target=./README.md",
+    "bundle-stats-readme": "npx ts-node -P tooling/tsconfig.json  ./tooling/bundle-stats/index.ts update-bundle-stats --stats=./measures/bundle-size/stats.json --target=./README.md",
     "update:bundle-stats": "npm run copy:prod:ssr:artefacts && npm run copy:prod:ssr:artefacts && npm run bundle-stats-readme",
     "report:bundlesize": "webpack-bundle-analyzer dist/movies/browser/stats.json -m static -r measures/bundle-size/bundle-size-report.prod.html",
     "analyze:bundlesize": "npm run build:prod:artefacts && webpack-bundle-analyzer dist/movies/browser/stats.json",
