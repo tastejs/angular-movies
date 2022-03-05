@@ -14,7 +14,5 @@
     }
   },
   "compilerOptions": {
-    "baseDir":".",
-    "outDir": "../../dist/user-flows"
   }
 }
