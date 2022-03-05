@@ -32,26 +32,28 @@ For now you can search the codebase for "Perf Tip" later on there will be proppe
 
 
 
+
 <!-- bundle-stats-start -->
 | Names             |       Size |
 | ---               | ---        |
-| main.1431126081e2681f.js           | 329.95 KB |
+| main.55fb84e84e4cb77a.js           | 329.05 KB |
 | styles.be05b375b7ddee56.css           | 6.14 KB |
-| runtime.b39212de0f998127.js           | 3.73 KB |
-  | **Initial Total** | **339.81 KB** |
+| runtime.86b67acee5b3b478.js           | 3.73 KB |
+  | **Initial Total** | **338.92 KB** |
   | Names             |       Size |
-| app_pages_movie-detail-page_movie-detail-page           | 16.44 KB |
-| app_pages_not-found-page_not-found-page           | 12.15 KB |
-| app_pages_person-detail-page_person-detail-page           | 11.58 KB |
-| common.977fee21c1077856.js           | 10.72 KB |
-| app_pages_account-feature_list-detail-page_list-items-edit_list-items-edi-393246.1eb4a0cb99024cb4.js           | 7.04 KB |
-| app_pages_account-feature_account-list-page_account-list-page           | 4.9 KB |
-| app_app-shell_account-menu_account-menu_component_lazy_ts.d5cbf929bd9d5bf6.js           | 4.32 KB |
-| app_pages_account-feature_list-detail-page_list-detail-page           | 4.23 KB |
-| app_pages_account-feature_list-detail-page_list-image_list-image           | 3.47 KB |
-| app_pages_account-feature_list-detail-page_list-remove_list-remove           | 3.43 KB |
+| app_pages_movie-detail-page_movie-detail-page           | 15.1 KB |
+| app_pages_person-detail-page_person-detail-page           | 10.95 KB |
+| common.48ad4452ac757563.js           | 10.65 KB |
+| app_pages_account-feature_list-detail-page_list-items-edit_list-items-edi-393246.f60b004df5053c72.js           | 6.92 KB |
+| app_pages_account-feature_account-list-page_account-list-page           | 5.16 KB |
+| app_app-shell_account-menu_account-menu_component_lazy_ts.d6f4d305d651981d.js           | 4.32 KB |
+| app_pages_account-feature_list-detail-page_list-detail-page           | 3.94 KB |
+| app_pages_account-feature_list-detail-page_list-image_list-image           | 3.42 KB |
+| app_pages_account-feature_list-detail-page_list-remove_list-remove           | 3.18 KB |
+| app_pages_not-found-page_not-found-page           | 1.85 KB |
 | app_pages_account-feature_list-detail-page_list-movies_list-movies           | 837 Bytes |
 <!-- bundle-stats-end -->
+
 
 
 
