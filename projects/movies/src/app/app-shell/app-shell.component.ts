@@ -5,7 +5,6 @@ import {
   Component,
   Inject,
   TrackByFunction,
-  ViewChild,
   ViewEncapsulation,
 } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
@@ -84,7 +83,6 @@ export class AppShellComponent {
   }
 
   readonly genres$ = getGenresCached();
-  @ViewChild('snav') snav: any;
 
   readonly viewState$ = this.state.select();
 
