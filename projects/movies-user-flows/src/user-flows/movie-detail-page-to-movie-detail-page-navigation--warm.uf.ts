@@ -3,7 +3,7 @@ import {
   UserFlowOptions,
   UserFlowInteractionsFn,
   UserFlowContext,
-} from '@user-flow/cli';
+} from '@push-based/user-flow';
 import { MovieDetailPageUFO } from '../ufo/desktop/movie-detail-page.ufo';
 
 const flowOptions: UserFlowOptions = {
@@ -13,9 +13,9 @@ const flowOptions: UserFlowOptions = {
 const interactions: UserFlowInteractionsFn = async (
   ctx: UserFlowContext
 ): Promise<any> => {
-  const { flow, baseUrl, page } = ctx;
+  const { flow, collectOptions, page } = ctx;
 
-  const testUrl = `${baseUrl}detail/movie/634649`;
+  const testUrl = `${collectOptions.url}/detail/movie/634649`;
   const movieDetailPage = new MovieDetailPageUFO(page);
 
   await flow.navigate(testUrl, {
@@ -61,6 +61,9 @@ const interactions: UserFlowInteractionsFn = async (
 const userFlowProvider: UserFlowProvider = {
   flowOptions,
   interactions,
+  launchOptions: {
+    headless: false,
+  },
 };
 
 module.exports = userFlowProvider;
