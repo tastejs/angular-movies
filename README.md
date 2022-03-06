@@ -35,26 +35,28 @@ For now you can search the codebase for "Perf Tip" later on there will be proppe
 
 
 
+
 <!-- bundle-stats-start -->
 | Names             |       Size |
 | ---               | ---        |
-| main.d42f20dea1703e86.js           | 328.14 KB |
+| main.5ea7168d7b499279.js           | 329.7 KB |
 | styles.be05b375b7ddee56.css           | 6.14 KB |
-| runtime.1cd0b9b011702fe6.js           | 3.73 KB |
-  | **Initial Total** | **338.01 KB** |
+| runtime.8e706ae0c7dfab48.js           | 3.73 KB |
+  | **Initial Total** | **339.57 KB** |
   | Names             |       Size |
 | app_pages_movie-detail-page_movie-detail-page           | 15.1 KB |
 | app_pages_person-detail-page_person-detail-page           | 10.95 KB |
-| common.779d8769ce80cb11.js           | 10.65 KB |
-| app_pages_account-feature_list-detail-page_list-items-edit_list-items-edi-393246.9a0ce6b4f2e0d06a.js           | 6.92 KB |
-| app_app-shell_account-menu_account-menu_component_lazy_ts.8c703e3e3750b65b.js           | 4.32 KB |
-| app_pages_account-feature_account-list-page_account-list-page           | 4 KB |
-| app_pages_account-feature_list-detail-page_list-detail-page           | 3.94 KB |
+| common.16f111a67bd162d1.js           | 10.66 KB |
+| app_pages_account-feature_list-detail-page_list-items-edit_list-items-edi-393246.418bc26a1f185727.js           | 6.92 KB |
+| app_app-shell_account-menu_account-menu_component_lazy_ts.9f68fde71a8d4094.js           | 4.37 KB |
+| app_pages_account-feature_account-list-page_account-list-page           | 4.01 KB |
+| app_pages_account-feature_list-detail-page_list-detail-page           | 3.93 KB |
 | app_pages_account-feature_list-detail-page_list-remove_list-remove           | 3.18 KB |
 | app_pages_account-feature_list-detail-page_list-image_list-image           | 2.77 KB |
-| app_pages_not-found-page_not-found-page           | 1.85 KB |
+| app_pages_not-found-page_not-found-page           | 1.84 KB |
 | app_pages_account-feature_list-detail-page_list-movies_list-movies           | 837 Bytes |
 <!-- bundle-stats-end -->
+
 
 
 
