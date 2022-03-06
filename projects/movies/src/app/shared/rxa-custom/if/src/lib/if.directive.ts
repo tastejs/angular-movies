@@ -42,29 +42,29 @@ import {
 // eslint-disable-next-line @angular-eslint/directive-class-suffix
 export class RxIf<U> implements OnInit, OnDestroy {
   private subscription = new Subscription();
-  private _renderObserver: NextObserver<any>;
-  private templateManager: RxTemplateManager<
-    U,
-    RxIfViewContext<U>,
-    rxIfTemplateNames
-  >;
+  private _renderObserver: NextObserver<any> | undefined;
+  private templateManager:
+    | RxTemplateManager<U, RxIfViewContext<U>, rxIfTemplateNames>
+    | undefined;
 
   @Input()
   set rxIf(potentialObservable: Observable<U> | U | null | undefined) {
+    // @ts-ignore
     this.observablesHandler.next(coerceObservable(potentialObservable));
   }
 
   /* eslint-disable @angular-eslint/no-input-rename */
   @Input('rxIfStrategy')
   set strategy(strategyName: Observable<string> | string | null | undefined) {
+    // @ts-ignore
     this.strategyHandler.next(strategyName);
   }
 
-  @Input('rxIfElse') else: TemplateRef<any>;
+  @Input('rxIfElse') else: TemplateRef<any> | undefined;
 
-  @Input('rxIfSuspenseTpl') suspenseTmpl: TemplateRef<any>;
-  @Input('rxIfCompleteTpl') completeTmpl: TemplateRef<any>;
-  @Input('rxIfErrorTpl') errorTmpl: TemplateRef<any>;
+  @Input('rxIfSuspenseTpl') suspenseTmpl: TemplateRef<any> | undefined;
+  @Input('rxIfCompleteTpl') completeTmpl: TemplateRef<any> | undefined;
+  @Input('rxIfErrorTpl') errorTmpl: TemplateRef<any> | undefined;
 
   @Input('rxIfParent') renderParent = true;
 
@@ -79,7 +79,9 @@ export class RxIf<U> implements OnInit, OnDestroy {
   private observablesHandler = createTemplateNotifier<U>(
     () => !!this.suspenseTmpl
   );
+
   private readonly strategyHandler = coerceAllFactory<string>(
+    // @ts-ignore
     () => new ReplaySubject<string | Observable<string>>(1),
     mergeAll()
   );
@@ -96,6 +98,7 @@ export class RxIf<U> implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.subscription.add(
+      // @ts-ignore
       this.templateManager
         .render(this.observablesHandler.values$)
         .subscribe((n) => {
@@ -112,26 +115,33 @@ export class RxIf<U> implements OnInit, OnDestroy {
     }
 
     if (changes.else) {
+      // @ts-ignore
       this.templateManager.addTemplateRef(RxIfTemplateNames.else, this.else);
     }
 
     if (changes.completeTmpl) {
+      // @ts-ignore
       this.templateManager.addTemplateRef(
         RxIfTemplateNames.complete,
+        // @ts-ignore
         this.completeTmpl
       );
     }
 
     if (changes.suspenseTmpl) {
+      // @ts-ignore
       this.templateManager.addTemplateRef(
         RxIfTemplateNames.suspense,
+        // @ts-ignore
         this.suspenseTmpl
       );
     }
 
     if (changes.errorTmpl) {
+      // @ts-ignore
       this.templateManager.addTemplateRef(
         RxIfTemplateNames.error,
+        // @ts-ignore
         this.errorTmpl
       );
     }
@@ -150,6 +160,7 @@ export class RxIf<U> implements OnInit, OnDestroy {
       templateSettings: {
         viewContainerRef: this.viewContainerRef,
         createViewContext,
+        // @ts-ignore
         updateViewContext,
         customContext: (rxIf) => ({ rxIf }),
         patchZone: this.patchZone ? this.ngZone : false,
@@ -164,10 +175,12 @@ export class RxIf<U> implements OnInit, OnDestroy {
       },
       notificationToTemplateName: {
         [RxNotificationKind.Suspense]: () => RxIfTemplateNames.suspense,
+        // @ts-ignore
         [RxNotificationKind.Next]: (value, templates) => {
           return value
             ? (RxIfTemplateNames.then as rxIfTemplateNames)
-            : templates.get(RxIfTemplateNames.else)
+            : // @ts-ignore
+            templates.get(RxIfTemplateNames.else)
             ? RxIfTemplateNames.else
             : undefined;
         },
@@ -179,6 +192,7 @@ export class RxIf<U> implements OnInit, OnDestroy {
       RxIfTemplateNames.then,
       this.thenTemplateRef
     );
+    // @ts-ignore
     this.templateManager.nextStrategy(this.strategyHandler.values$);
   }
 }
@@ -199,6 +213,7 @@ function updateViewContext<T>(
   context: RxIfViewContext<T>
 ): void {
   Object.keys(context).forEach((k) => {
+    // @ts-ignore
     view.context[k] = context[k];
   });
 }

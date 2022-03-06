@@ -1,5 +1,4 @@
-<ng-container *rxLet="loggedIn$; let loggedIn">
-  <ng-container *ngIf="loggedIn; else guest">
+  <ng-container *rxIf="loggedIn$; else guest">
     <div><a [routerLink]="['account/list/create']">Create New List</a></div>
     <div><a [routerLink]="['account/my-lists']">My Lists</a></div>
     <div>
@@ -18,4 +17,3 @@
       <a (click)="ui.signIn($event)" title="sign in"> Login </a>
     </div>
   </ng-template>
-</ng-container>

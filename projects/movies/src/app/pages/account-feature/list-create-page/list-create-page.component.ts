@@ -1,13 +1,12 @@
 import { Component, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
 import { ListCreatePageAdapter } from './list-create-page.adapter';
+
 @Component({
   template: `
     <article>
-      <ng-container *rxLet="adapter.showHeader$; let showHeader">
-        <header *ngIf="showHeader">
-          <h1>Create new list</h1>
-        </header>
-      </ng-container>
+      <header *rxIf="adapter.showHeader$">
+        <h1>Create new list</h1>
+      </header>
       <form>
         <fieldset *rxLet="adapter.name$; let name">
           <label for="list-name"> Name </label>
