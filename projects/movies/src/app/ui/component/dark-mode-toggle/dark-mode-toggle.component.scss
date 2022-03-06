@@ -69,6 +69,7 @@ input[type='checkbox'].toggle-track:focus-visible {
 }
 
 input[type='checkbox'].toggle-track + label {
+  user-select: none;
   display: inline-block;
   width: 20px;
   height: 20px;
