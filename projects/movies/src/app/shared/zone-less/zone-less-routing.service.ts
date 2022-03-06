@@ -1,17 +1,22 @@
-import { RxState } from '@rx-angular/state';
-import { ApplicationRef, Injectable } from '@angular/core';
+import { ApplicationRef, ErrorHandler, Injectable } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { isZonePresent } from './is-zone-present';
+import { RxEffects } from '@rx-angular/state/effects';
 
 /**
  * A small service encapsulating the hacks needed for routing (and bootstrapping) in zone-less applications
  */
 @Injectable({
   providedIn: 'root',
+  deps: [RxEffects],
 })
-export class ZonelessRouting extends RxState<any> {
-  constructor(private router: Router, private appRef: ApplicationRef) {
-    super();
+export class ZonelessRouting extends RxEffects {
+  constructor(
+    private router: Router,
+    private appRef: ApplicationRef,
+    errorHandler: ErrorHandler
+  ) {
+    super(errorHandler);
   }
 
   init() {
@@ -22,7 +27,7 @@ export class ZonelessRouting extends RxState<any> {
      * This is a necessity to make it work zone-less, but does not make the app faster.
      */
     if (!isZonePresent()) {
-      this.hold(
+      this.register(
         // Filter relevant navigation events for change detection
         this.router.events,
         // In a service we have to use `ApplicationRef#tick` to trigger change detection.

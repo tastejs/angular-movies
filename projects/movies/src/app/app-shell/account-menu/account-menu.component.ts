@@ -7,6 +7,7 @@ import { AuthState } from '../../shared/auth/auth.state';
 import { map } from 'rxjs';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { RxEffects } from '@rx-angular/state/effects';
 export const imports = [RouterModule, CommonModule, LetModule];
 
 @Component({
@@ -14,7 +15,7 @@ export const imports = [RouterModule, CommonModule, LetModule];
   templateUrl: './account-menu.component.html',
   styleUrls: ['./account-menu.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [RxState],
+  providers: [RxState, RxEffects],
 })
 export class AccountMenuComponent {
   ui = getActions<{
@@ -27,15 +28,17 @@ export class AccountMenuComponent {
   constructor(
     private authEffects: AuthEffects,
     private authState: AuthState,
-    private state: RxState<{ loggedIn: boolean }>
+    private state: RxState<{ loggedIn: boolean }>,
+    private effects: RxEffects
   ) {
     this.state.connect(
       'loggedIn',
       this.authState.accountId$.pipe(map((s) => s !== null))
     );
-    this.state.hold(this.ui.signOut$, this.authEffects.signOut);
-    this.state.hold(this.ui.signIn$, () =>
-      this.authEffects.approveRequestToken()
+    this.effects.register(this.ui.signOut$, this.authEffects.signOut);
+    this.effects.register(
+      this.ui.signIn$,
+      this.authEffects.approveRequestToken
     );
   }
 }

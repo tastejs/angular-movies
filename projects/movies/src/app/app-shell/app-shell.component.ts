@@ -22,6 +22,7 @@ import { getActions } from '../shared/rxa-custom/actions';
 import { RouterState } from '../shared/state/router.state';
 import { getIdentifierOfTypeAndLayout } from '../shared/state/utils';
 import { getGenresCached } from '../data-access/api/resources/genre.resource';
+import { RxEffects } from '@rx-angular/state/effects';
 
 @Component({
   selector: 'app-shell',
@@ -29,7 +30,7 @@ import { getGenresCached } from '../data-access/api/resources/genre.resource';
   styleUrls: ['./app-shell.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.Emulated,
-  providers: [RxState],
+  providers: [RxState, RxEffects],
 })
 export class AppShellComponent {
   readonly ui = getActions<{
@@ -52,6 +53,7 @@ export class AppShellComponent {
     private readonly state: RxState<{
       sideDrawerOpen: boolean;
     }>,
+    public effects: RxEffects,
     public routerState: RouterState,
     @Inject(DOCUMENT) document: Document,
     private router: Router
@@ -72,7 +74,7 @@ export class AppShellComponent {
     this.state.set({ sideDrawerOpen: false });
     this.state.connect('sideDrawerOpen', this.ui.sideDrawerOpenToggle$);
 
-    this.state.hold(
+    this.effects.register(
       this.router.events.pipe(
         filter((e) => e instanceof NavigationEnd),
         map((e) => (e as NavigationEnd).urlAfterRedirects),
