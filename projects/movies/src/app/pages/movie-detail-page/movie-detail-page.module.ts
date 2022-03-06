@@ -9,6 +9,7 @@ import { MovieListModule } from '../../ui/pattern/movie-list/movie-list.module';
 import { DetailGridModule } from '../../ui/component/detail-grid/detail-grid.module';
 import { BypassSrcModule } from '../../shared/bypass-src/bypass-src.module';
 import { ForModule } from '@rx-angular/template/experimental/for';
+import { IfModule } from '../../shared/rxa-custom/if/src';
 
 const ROUTES: Routes = [
   {
@@ -29,6 +30,7 @@ const ROUTES: Routes = [
     BypassSrcModule,
     ForModule,
     SvgIconModule,
+    IfModule,
   ],
   exports: [MovieDetailPageComponent],
 })

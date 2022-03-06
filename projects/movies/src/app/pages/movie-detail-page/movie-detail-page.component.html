@@ -72,7 +72,7 @@
               </a>
               <div *ngIf="ctx.loading" class="loader"></div>
             </div>
-            <button (mousedown)="move(-70)"  type="button" role="button" class="cast-list--btn">»</button>
+            <button (mousedown)="move(-70)" type="button" role="button" class="cast-list--btn">»</button>
           </div>
         </section>
         <section class="movie-detail--ad-section-links">
@@ -106,16 +106,14 @@
             <svg-icon class="btn__icon" name="play"></svg-icon>
           </a>
 
-          <dialog class="video" #trailerDialog id="trailer-dialog" >
+          <dialog class="video" #trailerDialog id="trailer-dialog">
             <span aria-controls="trailer-dialog" class="close" (click)="ui.dialog('close')"></span>
             <!--
             Perf Tip: scription and resources
             only render iframe if the user needs it
             -->
-            <ng-container *rxLet="ui.dialog$; let dialog">
-              <iframe [bypassSrc]="movie?.videoUrl" loading="lazy" *ngIf="dialog === 'open' || dialog === 'load'"
-                      width="460" height="230"></iframe>
-            </ng-container>
+            <iframe *rxIf="initIframe$;" [bypassSrc]="movie?.videoUrl" loading="lazy"
+                    width="460" height="230"></iframe>
 
           </dialog>
           <button data-uf="back" class="btn primary-button" (click)="back()">

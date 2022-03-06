@@ -27,6 +27,9 @@ import { RxState } from '@rx-angular/state';
 export class MovieDetailPageComponent {
   readonly ui = getActions<{ dialog: 'open' | 'close' | 'load' }>();
   readonly movieCtx$ = this.adapter.routedMovieCtx$;
+  readonly initIframe$ = this.ui.dialog$.pipe(
+    map((e) => e === 'open' || e === 'load')
+  );
   readonly movie$ = this.movieCtx$.pipe(map((ctx) => ctx?.value || null));
   readonly castList$ = this.adapter.movieCastById$;
   readonly castListLoading$ = this.adapter.movieCastById$.pipe(
