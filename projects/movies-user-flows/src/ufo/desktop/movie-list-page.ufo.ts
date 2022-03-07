@@ -3,9 +3,10 @@ import { UiMovieListUFO } from './ui-movie-list.ufo';
 import { CwvInterface } from '../typings/cwv.interface';
 import { BackNavigationInterface } from '../typings/back-navigation.interface';
 import * as fixtures from '../../fixtures/movie-list-page.fixtures';
+import { Ufo, UserFlowContext } from '@push-based/user-flow';
 
-export class MovieListPageUFO implements CwvInterface, BackNavigationInterface {
-  movieList = new UiMovieListUFO(this.page);
+export class MovieListPageUFO extends Ufo implements CwvInterface {
+  movieList = new UiMovieListUFO(this.ctx);
 
   async awaitLCPContent() {
     await this.movieList.awaitLCPContent();
@@ -25,11 +26,8 @@ export class MovieListPageUFO implements CwvInterface, BackNavigationInterface {
     ]).catch(console.log);
   }
 
-  constructor(private page: Page) {}
-
-  async navigateBack(): Promise<any> {
-    await this.page.waitForSelector(fixtures.backBtnSelector);
-    await this.page.click(fixtures.backBtnSelector);
+  constructor(private ctx: UserFlowContext) {
+    super(ctx);
   }
 
   async navigateToDetail(id: number = 0): Promise<any> {

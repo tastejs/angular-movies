@@ -3,20 +3,20 @@ import {
   UserFlowOptions,
   UserFlowInteractionsFn,
   UserFlowContext,
-} from '@user-flow/cli';
+} from '@push-based/user-flow';
 import { MovieDetailPageUFO } from '../ufo/desktop/movie-detail-page.ufo';
 
 const flowOptions: UserFlowOptions = {
-  name: 'Detail to Detail Navigations - Warm',
+  name: 'Movie detail page to detail page navigations - Warm',
 };
 
 const interactions: UserFlowInteractionsFn = async (
   ctx: UserFlowContext
 ): Promise<any> => {
-  const { flow, baseUrl, page } = ctx;
+  const { flow, collectOptions, page } = ctx;
 
-  const testUrl = `${baseUrl}detail/movie/634649`;
-  const movieDetailPage = new MovieDetailPageUFO(page);
+  const testUrl = `${collectOptions.url}/detail/movie/634649`;
+  const movieDetailPage = new MovieDetailPageUFO(ctx);
 
   await flow.navigate(testUrl, {
     stepName: 'Warmup',

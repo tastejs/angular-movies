@@ -1,5 +1,7 @@
 import { Page } from 'puppeteer';
 import { SidebarUFO as DesktopSidebarUFO } from '../desktop/side-bar.ufo';
+import { UserFlowContext } from '@push-based/user-flow';
+import * as fixtures from '../../fixtures/sidebar.fixtures';
 
 export type CategoryNames = 'popular' | 'topRated' | 'upcoming';
 export const categoryNames: CategoryNames[] = [
@@ -25,7 +27,7 @@ export class SidebarUFO extends DesktopSidebarUFO {
     const anySideBarLink = this.categorySelector('popular');
     await this.page
       .waitForSelector(anySideBarLink, { timeout: 4000 })
-      .catch(() => this.page.click(this.sideMenuBtnSelector))
+      .catch(() => this.page.click(fixtures.sideMenuBtnSelector))
       .then(() => this.page.waitForSelector(anySideBarLink));
   }
 
@@ -34,10 +36,10 @@ export class SidebarUFO extends DesktopSidebarUFO {
   }
 
   async awaitLCPContent(): Promise<any> {
-    return await this.page.waitForSelector(this.sideMenuBtnSelector);
+    return await this.page.waitForSelector(fixtures.sideMenuBtnSelector);
   }
 
-  constructor(page: Page) {
-    super(page);
+  constructor(ctx: UserFlowContext) {
+    super(ctx);
   }
 }

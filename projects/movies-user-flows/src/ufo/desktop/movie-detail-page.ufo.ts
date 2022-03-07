@@ -4,12 +4,14 @@ import { UiCastListUFO } from './ui-cast-list.ufo';
 import { CwvInterface } from '../typings/cwv.interface';
 import { BackNavigationInterface } from '../typings/back-navigation.interface';
 import * as fixtures from '../../fixtures/movie-detail-page.fixtures';
+import { Ufo, UserFlowContext } from '@push-based/user-flow';
 
 export class MovieDetailPageUFO
+  extends Ufo
   implements CwvInterface, BackNavigationInterface
 {
-  castList = new UiCastListUFO(this.page);
-  movieList = new UiMovieListUFO(this.page);
+  castList = new UiCastListUFO(this.ctx);
+  movieList = new UiMovieListUFO(this.ctx);
 
   async navigateBack(): Promise<void> {
     await this.page.waitForSelector(fixtures.backBtnSelector);
@@ -44,5 +46,7 @@ export class MovieDetailPageUFO
     ]);
   }
 
-  constructor(private page: Page) {}
+  constructor(private ctx: UserFlowContext) {
+    super(ctx);
+  }
 }

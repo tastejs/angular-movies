@@ -2,18 +2,20 @@ import { CwvInterface } from '../typings/cwv.interface';
 import * as fixtures from '../../fixtures/sidebar.fixtures';
 import { GenreIds, CategoryNames } from '../../internals/typings';
 import { categoryNames, genreIds } from '../../internals/consts';
-import { Ufo } from '@user-flow/cli';
+import { Ufo, UserFlowContext } from '@push-based/user-flow';
+import { Page } from 'puppeteer';
 
 export class SidebarUFO extends Ufo implements CwvInterface {
-  protected sideMenuBtnSelector = fixtures.sideMenuBtnSelector;
-
   protected categorySelector = fixtures.categorySelector;
-
   protected genreSelector = fixtures.genreSelector;
 
+  constructor(private ctx: UserFlowContext) {
+    super(ctx);
+  }
+
   async clickSideMenuBtn() {
-    await this.page.waitForSelector(this.sideMenuBtnSelector);
-    await this.page.click(this.sideMenuBtnSelector);
+    await this.page.waitForSelector(fixtures.sideMenuBtnSelector);
+    await this.page.click(fixtures.sideMenuBtnSelector);
   }
 
   async navigateToCategory(c: CategoryNames = 'popular') {
@@ -34,13 +36,13 @@ export class SidebarUFO extends Ufo implements CwvInterface {
     const anySideBarLink = this.categorySelector('popular');
     await this.page
       .waitForSelector(anySideBarLink, { timeout: 4000 })
-      .catch(() => this.page.click(this.sideMenuBtnSelector))
+      .catch(() => this.page.click(fixtures.sideMenuBtnSelector))
       .then(() => this.page.waitForSelector(anySideBarLink));
   }
 
   async awaitAllContent(): Promise<any> {
     return await Promise.all([
-      this.page.waitForSelector(this.sideMenuBtnSelector),
+      this.page.waitForSelector(fixtures.sideMenuBtnSelector),
     ]);
   }
 

@@ -3,25 +3,25 @@ import {
   UserFlowOptions,
   UserFlowInteractionsFn,
   UserFlowContext,
-} from '@user-flow/cli';
+} from '@push-based/user-flow';
 
 import { MovieDetailPageUFO } from '../ufo/desktop/movie-detail-page.ufo';
 import { MovieListPageUFO } from '../ufo/desktop/movie-list-page.ufo';
 import { SidebarUFO } from '../ufo/mobile/side-bar.ufo';
 
 const flowOptions: UserFlowOptions = {
-  name: 'Category to Detail Navigation - Cold',
+  name: 'Movie list page category to detail navigation - Cold',
 };
 
 const interactions: UserFlowInteractionsFn = async (
   ctx: UserFlowContext
 ): Promise<any> => {
-  const { page, flow, baseUrl } = ctx;
-  const url = `${baseUrl}list/category/popular`;
-  const sidebar = new SidebarUFO(page);
-  const movieListPage = new MovieListPageUFO(page);
+  const { page, flow, collectOptions } = ctx;
+  const url = `${collectOptions.url}/list/category/popular`;
+  const sidebar = new SidebarUFO(ctx);
+  const movieListPage = new MovieListPageUFO(ctx);
   const topRatedName = 'topRated';
-  const movieDetailPage = new MovieDetailPageUFO(page);
+  const movieDetailPage = new MovieDetailPageUFO(ctx);
 
   await flow.navigate(url, {
     stepName: 'Page Category-Popular navigation',

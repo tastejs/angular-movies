@@ -3,16 +3,20 @@ import {
   UserFlowOptions,
   UserFlowInteractionsFn,
   UserFlowContext,
-} from '@user-flow/cli';
+} from '@push-based/user-flow';
 
-const flowOptions: UserFlowOptions = { name: 'Detail Bootstrap  - Cold' };
+const flowOptions: UserFlowOptions = {
+  name: 'Movie detail page bootstrap - Cold',
+};
 
 const interactions: UserFlowInteractionsFn = async (
   ctx: UserFlowContext
 ): Promise<any> => {
-  const { flow, baseUrl } = ctx;
-  const testUrl = `${baseUrl}list/category/popular`;
-  await flow.navigate(testUrl);
+  const { flow, collectOptions } = ctx;
+  const url = `${collectOptions.url}/detail/movie/634649`;
+  await flow.navigate(url, {
+    stepName: 'Movie detail page navigation',
+  });
   return Promise.resolve();
 };
 

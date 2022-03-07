@@ -5,17 +5,19 @@ import {
   UserFlowOptions,
   UserFlowInteractionsFn,
   UserFlowContext,
-} from '@user-flow/cli';
+} from '@push-based/user-flow';
 
-const flowOptions: UserFlowOptions = { name: 'Detail Bootstrap  - Cold' };
+const flowOptions: UserFlowOptions = {
+  name: 'Movie list page to list page  - Cold',
+};
 
 const interactions: UserFlowInteractionsFn = async (
   ctx: UserFlowContext
 ): Promise<any> => {
-  const { flow, baseUrl, page } = ctx;
-  const testUrl = `${baseUrl}list/category/popular`;
-  const sidebar = new SidebarUFO(page);
-  const movieListPage = new MovieListPageUFO(page);
+  const { flow, collectOptions, page } = ctx;
+  const testUrl = `${collectOptions.url}/list/category/popular`;
+  const sidebar = new SidebarUFO(ctx);
+  const movieListPage = new MovieListPageUFO(ctx);
   const popularName = 'popular';
   const topRatedName = 'topRated';
 
