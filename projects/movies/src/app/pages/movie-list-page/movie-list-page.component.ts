@@ -39,13 +39,15 @@ function toHeading(
 ): Heading {
   const { identifier, type, genres } = routerParams;
   // default
-  let sub: string = type;
-  const main: string = identifier?.replace(/[-_]/, ' ');
+  let main: string = identifier;
+  const sub: string = type;
 
   // genre identifier needs to get mapped to a real title
   if (type === 'genre') {
-    sub = genres[parseInt(identifier)].name;
+    main = genres[parseInt(identifier)].name;
   }
+
+  main = main.replace(/[-_]/, ' ');
 
   return { main, sub };
 }
