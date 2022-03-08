@@ -1,7 +1,7 @@
 import { RxState } from '@rx-angular/state';
 import { Injectable } from '@angular/core';
 import { map, Observable, switchMap } from 'rxjs';
-import { RouterState } from '../../shared/state/router.state';
+import { RouterState } from '../../shared/router/router.state';
 import { MovieState } from '../../shared/state/movie.state';
 import { getIdentifierOfTypeAndLayout } from '../../shared/state/utils';
 import {

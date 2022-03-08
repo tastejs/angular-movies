@@ -5,16 +5,9 @@ import { Inject, Injectable } from '@angular/core';
 import { filter, map, Observable, startWith } from 'rxjs';
 import { NavigationEnd, Router } from '@angular/router';
 import { fallbackRouteToDefault } from '../../routing-default.utils';
-import { TBDMSortByValues } from '../../data-access/api/sort/sort.interface';
 import { RxInputType } from '../rxa-custom/input-type.typing';
 import { coerceObservable } from '../utils/coerceObservable';
-
-export type RouterParams = {
-  layout: 'list' | 'detail';
-  type: 'person' | 'movie' | 'genre' | 'category' | 'search' | 'list';
-  identifier: string;
-  sortBy?: TBDMSortByValues;
-};
+import { RouterParams } from './router.model';
 
 /**
  * This service maintains the router state and repopulates it to its subscriber.
