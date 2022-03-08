@@ -1,5 +1,9 @@
 {
-  "targetUrl": "https://angular-movies-a12d3.web.app/",
-  "ufPath": "./projects/movies-user-flows/src/user-flows",
-  "outPath": "./measures/user-flows"
+  "collect": {
+    "url": "https://angular-movies-a12d3.web.app/",
+    "ufPath": "./projects/movies-user-flows/src/user-flows"
+  },
+  "persist": {
+    "outPath": "./measures/user-flows"
+  }
 }
