@@ -1,7 +1,7 @@
 <article>
   <header *rxLet="headings$; let headings">
-    <h1 data-uf="header-main">{{ headings.title }}</h1>
-    <h2 data-uf="header-sub">{{ headings.type }}</h2>
+    <h1 data-uf="header-main">{{ headings.main }}</h1>
+    <h2 data-uf="header-sub">{{ headings.sub }}</h2>
   </header>
   <ui-movie-list (paginate)="paginate()"
                  [movies]="movies$" >
