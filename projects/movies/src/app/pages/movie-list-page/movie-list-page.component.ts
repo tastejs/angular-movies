@@ -22,7 +22,7 @@ export class MovieListPageComponent {
   readonly loading$ = this.adapter.select('loading');
   readonly headings$: Observable<Heading> = this.adapter.select(
     selectSlice(['identifier', 'type', 'genres']),
-    map(parseTitle)
+    map(toHeading)
   );
 
   constructor(private adapter: MovieListPageAdapter) {
@@ -34,13 +34,13 @@ export class MovieListPageComponent {
   }
 }
 
-function parseTitle(
+function toHeading(
   routerParams: Pick<MovieListPageModel, 'type' | 'identifier' | 'genres'>
 ): Heading {
   const { identifier, type, genres } = routerParams;
   // default
-  let sub = identifier;
-  const main = identifier?.replace(/[-_]/, ' ');
+  let sub: string = type;
+  const main: string = identifier?.replace(/[-_]/, ' ');
 
   // genre identifier needs to get mapped to a real title
   if (type === 'genre') {
