@@ -6,7 +6,5 @@
   <ui-movie-list (paginate)="paginate()"
                  [movies]="movies$" >
   </ui-movie-list>
-  <ng-container *rxLet="loading$; let paging">
-    <div *ngIf="paging" class="loader"></div>
-  </ng-container>
+  <div *rxIf="loading$; let paging" class="loader"></div>
 </article>

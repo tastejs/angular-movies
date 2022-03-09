@@ -4,12 +4,13 @@ import { MovieListPageComponent } from './movie-list-page.component';
 import { RouterModule, Routes } from '@angular/router';
 import { MovieListModule } from '../../ui/pattern/movie-list/movie-list.module';
 import { LetModule } from '@rx-angular/template/let';
+import { IfModule } from '../../shared/rxa-custom/if/src';
 
 const ROUTES: Routes = [
   {
     path: '',
-    component: MovieListPageComponent
-  }
+    component: MovieListPageComponent,
+  },
 ];
 
 @NgModule({
@@ -18,9 +19,9 @@ const ROUTES: Routes = [
     CommonModule,
     RouterModule.forChild(ROUTES),
     MovieListModule,
-    LetModule
+    LetModule,
+    IfModule,
   ],
-  exports: [MovieListPageComponent]
+  exports: [MovieListPageComponent],
 })
-export class MovieListPageModule {
-}
+export class MovieListPageModule {}
