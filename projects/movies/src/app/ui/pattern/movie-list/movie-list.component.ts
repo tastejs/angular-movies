@@ -11,11 +11,12 @@ import { TMDBMovieModel } from '../../../data-access/api/model/movie.model';
 import { W300H450 } from '../../../data-access/api/constants/image-sizes';
 import { ImageTag } from '../../../shared/utils/image/image-tag.interface';
 import { addImageTag } from '../../../shared/utils/image/image-tag.transform';
-import { getActions } from '../../../shared/rxa-custom/actions';
+import { RxActionFactory } from '../../../shared/rxa-custom/actions';
 import { coerceObservable } from '../../../shared/utils/coerceObservable';
 import { RxInputType } from '../../../shared/rxa-custom/input-type.typing';
 
 type Movie = TMDBMovieModel & ImageTag;
+type UiActions = { paginate: boolean };
 
 @Component({
   selector: 'ui-movie-list',
@@ -64,12 +65,12 @@ type Movie = TMDBMovieModel & ImageTag;
     </ng-template>
   `,
   styleUrls: ['./movie-list.component.scss'],
-  providers: [RxState],
+  providers: [RxState, RxActionFactory],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.Emulated,
 })
 export class MovieListComponent {
-  ui = getActions<{ paginate: boolean }>();
+  ui = this.actions.create();
 
   readonly movies$ = this.state.select(
     map((state) =>
@@ -95,7 +96,8 @@ export class MovieListComponent {
   );
 
   constructor(
-    private state: RxState<{ movies?: TMDBMovieModel[] | null | undefined }>
+    private state: RxState<{ movies?: TMDBMovieModel[] | null | undefined }>,
+    private actions: RxActionFactory<UiActions>
   ) {}
 
   trackByMovieId(_: number, movie: Movie) {

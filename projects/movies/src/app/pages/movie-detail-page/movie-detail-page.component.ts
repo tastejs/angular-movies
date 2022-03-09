@@ -13,7 +13,7 @@ import { TMDBMovieCastModel } from '../../data-access/api/model/movie-credits.mo
 import { TMDBMovieGenreModel } from '../../data-access/api/model/movie-genre.model';
 
 import { MovieDetailAdapter } from './movie-detail-page.adapter';
-import { getActions } from '../../shared/rxa-custom/actions';
+import { RxActionFactory } from '../../shared/rxa-custom/actions';
 import { RxState } from '@rx-angular/state';
 
 @Component({
@@ -25,7 +25,7 @@ import { RxState } from '@rx-angular/state';
   providers: [RxState],
 })
 export class MovieDetailPageComponent {
-  readonly ui = getActions<{ dialog: 'open' | 'close' | 'load' }>();
+  readonly ui = this.actionsF.create();
   readonly movieCtx$ = this.adapter.routedMovieCtx$;
   readonly initIframe$ = this.ui.dialog$.pipe(
     map((e) => e === 'open' || e === 'load')
@@ -47,7 +47,8 @@ export class MovieDetailPageComponent {
   constructor(
     private effects: RxState<any>,
     private location: Location,
-    private adapter: MovieDetailAdapter
+    private adapter: MovieDetailAdapter,
+    private actionsF: RxActionFactory<{ dialog: 'open' | 'close' | 'load' }>
   ) {
     this.effects.hold(this.ui.dialog$, (trigger: string) =>
       trigger === 'open'

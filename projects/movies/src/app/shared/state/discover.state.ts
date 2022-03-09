@@ -3,7 +3,7 @@ import { patch } from '@rx-angular/cdk/transformations';
 import { Injectable } from '@angular/core';
 import { map } from 'rxjs';
 import { optimizedFetch } from '../utils/optimized-fetch';
-import { getActions } from '../rxa-custom/actions';
+import { RxActionFactory } from '../rxa-custom/actions';
 import { withLoadingEmission } from '../cdk/loading/withLoadingEmissions';
 import {
   getDiscoverMovies,
@@ -27,7 +27,7 @@ interface Actions {
   providedIn: 'root',
 })
 export class DiscoverState extends RxState<State> implements AppInitializer {
-  private actions = getActions<Actions>({
+  private actions = this.actionsF.create({
     fetchDiscoverGenreMovies: String,
     fetchDiscoverCastMovies: String,
   });
@@ -42,7 +42,7 @@ export class DiscoverState extends RxState<State> implements AppInitializer {
       }))
     );
 
-  constructor() {
+  constructor(private actionsF: RxActionFactory<Actions>) {
     super();
 
     this.connect(

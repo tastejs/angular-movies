@@ -20,7 +20,7 @@ import { MovieState } from '../../shared/state/movie.state';
 import { RouterState } from '../../shared/router/router.state';
 import { RouterParams } from '../../shared/router/router.model';
 import { infiniteScroll } from '../../shared/cdk/infinite-scroll/infiniteScroll';
-import { getActions } from '../../shared/rxa-custom/actions';
+import { RxActionFactory } from '../../shared/rxa-custom/actions';
 import { InfiniteScrollOptions } from '../../shared/cdk/infinite-scroll/infinite-scroll.interface';
 import { getSearch } from '../../data-access/api/resources/search.resource';
 import { getGenresDictionaryCached } from '../../data-access/api/resources/genre.resource';
@@ -30,11 +30,13 @@ const emptyResult$ = EMPTY as unknown as Observable<
   TMDBPaginateResult<TMDBMovieModel>
 >;
 
+type Actions = { paginate: void };
+
 @Injectable({
   providedIn: 'root',
 })
 export class MovieListPageAdapter extends RxState<MovieListPageModel> {
-  private readonly actions = getActions<{ paginate: void }>();
+  private readonly actions = new RxActionFactory<Actions>().create();
 
   getInitialFetchByType({
     type,

@@ -7,15 +7,21 @@ import {
   ViewChild,
 } from '@angular/core';
 import { RxState } from '@rx-angular/state';
-import { getActions } from 'projects/movies/src/app/shared/rxa-custom/actions';
+import { RxActionFactory } from 'projects/movies/src/app/shared/rxa-custom/actions';
 import { merge } from 'rxjs';
 import { ListDetailAdapter } from '../list-detail-page.adapter';
 
+type Actions = {
+  openDialog: void;
+  closeDialog: void;
+  confirm: void;
+};
 @Component({
   selector: 'app-list-remove',
   templateUrl: './list-remove.component.html',
   styleUrls: ['./list-remove.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [RxActionFactory],
 })
 export class ListRemoveComponent
   extends RxState<never>
@@ -26,13 +32,12 @@ export class ListRemoveComponent
     close: () => void;
   }>;
 
-  readonly ui = getActions<{
-    openDialog: void;
-    closeDialog: void;
-    confirm: void;
-  }>();
+  readonly ui = this.actionsF.create();
 
-  constructor(public adapter: ListDetailAdapter) {
+  constructor(
+    public adapter: ListDetailAdapter,
+    private actionsF: RxActionFactory<Actions>
+  ) {
     super();
     this.hold(this.ui.confirm$, this.adapter.ui.deleteList);
   }

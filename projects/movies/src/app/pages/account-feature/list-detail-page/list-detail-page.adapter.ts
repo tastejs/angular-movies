@@ -4,13 +4,18 @@ import { map, Observable, startWith, switchMap, withLatestFrom } from 'rxjs';
 import { W500H282 } from '../../../data-access/api/constants/image-sizes';
 import { TMDBListCreateUpdateParams } from '../../../data-access/api/model/list.model';
 import { TMDBMovieModel } from '../../../data-access/api/model/movie.model';
-import { getActions } from '../../../shared/rxa-custom/actions';
+import { RxActionFactory } from '../../../shared/rxa-custom/actions';
 import { ListState } from '../../../shared/state/list.state';
 
 import { RouterState } from '../../../shared/router/router.state';
 import { ImageTag } from '../../../shared/utils/image/image-tag.interface';
 import { addImageTag } from '../../../shared/utils/image/image-tag.transform';
 
+type Actions = {
+  listInfoUpdate: TMDBListCreateUpdateParams;
+  deleteList: void;
+  listPosterUpdate: string;
+};
 export type ListPoster = TMDBMovieModel & ImageTag & { selected: boolean };
 @Injectable({
   providedIn: 'root',
@@ -18,11 +23,7 @@ export type ListPoster = TMDBMovieModel & ImageTag & { selected: boolean };
 export class ListDetailAdapter extends RxState<{
   id: string;
 }> {
-  readonly ui = getActions<{
-    listInfoUpdate: TMDBListCreateUpdateParams;
-    deleteList: void;
-    listPosterUpdate: string;
-  }>();
+  readonly ui = new RxActionFactory<Actions>().create();
 
   readonly routerListId$ = this.routerState.select(map((state) => state?.type));
 

@@ -11,6 +11,7 @@ import { SERVICE_WORKER_IMPORTS } from './shared/pwa/service-worker.imports';
 import { RXA_PROVIDER } from './shared/rxa-custom/rxa.provider';
 import { LetModule } from '@rx-angular/template/let';
 import { RootInjectorShortcutModule } from './shared/injector/root-injector.module';
+import { RxActionFactory } from './shared/rxa-custom/actions';
 
 @NgModule({
   declarations: [AppComponent],
@@ -37,6 +38,7 @@ import { RootInjectorShortcutModule } from './shared/injector/root-injector.modu
     ROUTING_IMPORTS,
   ],
   providers: [
+    RxActionFactory,
     TMDB_HTTP_INTERCEPTORS_PROVIDER,
     /**
      * **🚀 Perf Tip for LCP, TTI:**
