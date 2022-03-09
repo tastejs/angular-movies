@@ -1,4 +1,4 @@
-export const backBtnSelector = '*[data-test="back"]';
-export const heandlineSelector = '*[data-test="header-main"]';
-export const subheandlineSelector = '*[data-test="header-sub"]';
-export const heroImageSelector = '*[data-test="hero-img"]';
+export const backBtnSelector = '*[data-uf="back"]';
+export const heandlineSelector = '*[data-uf="header-main"]';
+export const subheandlineSelector = '*[data-uf="header-sub"]';
+export const heroImageSelector = '*[data-uf="hero-img"]';

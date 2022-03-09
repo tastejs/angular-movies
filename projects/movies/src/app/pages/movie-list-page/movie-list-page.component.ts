@@ -6,7 +6,9 @@ import {
 } from '@angular/core';
 import { map, Observable } from 'rxjs';
 import { MovieListPageAdapter } from './movie-list-page.adapter';
-import { parseTitle } from '../../shared/utils/parse-movie-list-title';
+import { MovieListPageModel } from './movie-list-page-adapter.model';
+
+type Heading = { main: string; sub: string };
 
 @Component({
   selector: 'ct-movies-list',
@@ -18,11 +20,10 @@ import { parseTitle } from '../../shared/utils/parse-movie-list-title';
 export class MovieListPageComponent {
   readonly movies$ = this.adapter.select('results');
   readonly loading$ = this.adapter.select('loading');
-  readonly headings$: Observable<{ title: string; type: string }> =
-    this.adapter.select(
-      selectSlice(['identifier', 'type']),
-      map(({ identifier, type }) => ({ type, title: parseTitle(identifier) }))
-    );
+  readonly headings$: Observable<Heading> = this.adapter.select(
+    selectSlice(['identifier', 'type', 'genres']),
+    map(toHeading)
+  );
 
   constructor(private adapter: MovieListPageAdapter) {
     this.adapter.set({ loading: true });
@@ -31,4 +32,22 @@ export class MovieListPageComponent {
   paginate() {
     this.adapter.paginate();
   }
+}
+
+function toHeading(
+  routerParams: Pick<MovieListPageModel, 'type' | 'identifier' | 'genres'>
+): Heading {
+  const { identifier, type, genres } = routerParams;
+  // default
+  let main: string = identifier;
+  const sub: string = type;
+
+  // genre identifier needs to get mapped to a real title
+  if (type === 'genre') {
+    main = genres[parseInt(identifier)].name;
+  }
+
+  main = main.replace(/[-_]/, ' ');
+
+  return { main, sub };
 }

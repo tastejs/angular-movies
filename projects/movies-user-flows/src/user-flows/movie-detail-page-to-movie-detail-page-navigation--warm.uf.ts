@@ -7,7 +7,7 @@ import {
 import { MovieDetailPageUFO } from '../ufo/desktop/movie-detail-page.ufo';
 
 const flowOptions: UserFlowOptions = {
-  name: 'Detail to Detail Navigations - Warm',
+  name: 'Movie detail page to detail page navigations - Warm',
 };
 
 const interactions: UserFlowInteractionsFn = async (
@@ -16,7 +16,7 @@ const interactions: UserFlowInteractionsFn = async (
   const { flow, collectOptions, page } = ctx;
 
   const testUrl = `${collectOptions.url}/detail/movie/634649`;
-  const movieDetailPage = new MovieDetailPageUFO(page);
+  const movieDetailPage = new MovieDetailPageUFO(ctx);
 
   await flow.navigate(testUrl, {
     stepName: 'Warmup',
@@ -61,9 +61,6 @@ const interactions: UserFlowInteractionsFn = async (
 const userFlowProvider: UserFlowProvider = {
   flowOptions,
   interactions,
-  launchOptions: {
-    headless: false,
-  },
 };
 
 module.exports = userFlowProvider;

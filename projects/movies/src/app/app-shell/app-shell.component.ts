@@ -19,7 +19,7 @@ import { TMDBMovieGenreModel } from '../data-access/api/model/movie-genre.model'
 import { fallbackRouteToDefault } from '../routing-default.utils';
 import { trackByProp } from '../shared/utils/track-by';
 import { getActions } from '../shared/rxa-custom/actions';
-import { RouterState } from '../shared/state/router.state';
+import { RouterState } from '../shared/router/router.state';
 import { getIdentifierOfTypeAndLayout } from '../shared/state/utils';
 import { getGenresCached } from '../data-access/api/resources/genre.resource';
 import { RxEffects } from '@rx-angular/state/effects';

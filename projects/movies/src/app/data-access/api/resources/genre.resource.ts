@@ -1,4 +1,4 @@
-import { map, Observable, pipe } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { TMDBMovieGenreModel } from '../model/movie-genre.model';
 import { baseUrlApiV3 } from './internal/base-urls.constant';
 import { getHTTP } from '../../../shared/injector/get-http-client';
@@ -17,12 +17,9 @@ export const getGenres = (): Observable<GenresResponse> =>
 
 export const getGenresCached = staticRequest(getGenres);
 
-const dict = pipe(
-  map<TMDBMovieGenreModel[], { [key: string]: TMDBMovieGenreModel }>((i) =>
-    toDictionary(i, 'id')
-  )
-);
 export const getGenresDictionaryCached = () =>
-  staticRequest(getGenresCached, dict) as any as Observable<{
+  getGenresCached().pipe(
+    map((i: TMDBMovieGenreModel[]) => toDictionary(i, 'id'))
+  ) as any as Observable<{
     [key: string]: TMDBMovieGenreModel;
   }>;

@@ -7,7 +7,7 @@ import { TMDBMovieModel } from '../../../data-access/api/model/movie.model';
 import { getActions } from '../../../shared/rxa-custom/actions';
 import { ListState } from '../../../shared/state/list.state';
 
-import { RouterState } from '../../../shared/state/router.state';
+import { RouterState } from '../../../shared/router/router.state';
 import { ImageTag } from '../../../shared/utils/image/image-tag.interface';
 import { addImageTag } from '../../../shared/utils/image/image-tag.transform';
 

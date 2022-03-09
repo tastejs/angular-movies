@@ -1,5 +1,5 @@
 import { filter, map, OperatorFunction, pipe } from 'rxjs';
-import { RouterParams } from './router.state';
+import { RouterParams } from '../router/router.model';
 
 export const getIdentifierOfTypeAndLayout = (
   filterType: string,

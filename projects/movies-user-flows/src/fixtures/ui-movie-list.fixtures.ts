@@ -1,2 +1,2 @@
 export const movieImgSelector = (idx: number): string =>
-  `*[data-test="movie-${idx}"]`;
+  `*[data-uf="movie-${idx}"]`;
