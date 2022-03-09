@@ -11,7 +11,6 @@ import {
 import { map } from 'rxjs';
 import { TMDBMovieCastModel } from '../../data-access/api/model/movie-credits.model';
 import { TMDBMovieGenreModel } from '../../data-access/api/model/movie-genre.model';
-
 import { MovieDetailAdapter } from './movie-detail-page.adapter';
 import { RxActionFactory } from '../../shared/rxa-custom/actions';
 import { RxState } from '@rx-angular/state';

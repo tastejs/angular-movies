@@ -1,4 +1,4 @@
-<ng-container *rxLet="viewState$; let vs">
+<ng-container *ngIf="viewState$ | async as vs">
   <ui-side-drawer
     [opened]="vs.sideDrawerOpen"
     (openedChange)="ui.sideDrawerOpenToggle(false)"
@@ -53,7 +53,7 @@
       <h3 class="navigation--headline">Genres</h3>
       <a
         [attr.data-uf]="'menu-gen-'+genre.id"
-        *rxFor="let genre of genres$; trackBy: trackByGenre; strategy: 'idle'"
+        *ngFor="let genre of genres$ | async; trackBy: trackByGenre; strategy: 'idle'"
         class="navigation--link"
         [routerLink]="['/list', 'genre', genre.id]"
         routerLinkActive="active"

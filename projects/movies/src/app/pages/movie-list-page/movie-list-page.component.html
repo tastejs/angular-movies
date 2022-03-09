@@ -1,10 +1,10 @@
 <article>
-  <header *rxLet="headings$; let headings">
-    <h1 data-uf="header-main">{{ headings.main }}</h1>
-    <h2 data-uf="header-sub">{{ headings.sub }}</h2>
+  <header>
+    <h1 data-uf="header-main">{{ (headings$ | async)?.main }}</h1>
+    <h2 data-uf="header-sub">{{ (headings$ | async)?.sub }}</h2>
   </header>
   <ui-movie-list (paginate)="paginate()"
-                 [movies]="movies$" >
+                 [movies]="movies$ | async">
   </ui-movie-list>
-  <div *rxIf="loading$; let paging" class="loader"></div>
+  <div *ngIf="loading$ | async" class="loader"></div>
 </article>

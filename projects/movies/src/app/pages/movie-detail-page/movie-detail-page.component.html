@@ -1,5 +1,5 @@
 <article class="movie-detail-wrapper">
-  <ng-container *rxLet="movie$; let movie;">
+  <ng-container *ngIf="movie$ | async as movie;">
     <ui-detail-grid
       [style.opacity]="!!movie ? 1 : 0">
       <div detailGridMedia>
@@ -51,9 +51,9 @@
           <h3>The Cast</h3>
           <div class="movie-detail--cast-list">
             <button (mousedown)="move(70)" type="button" role="button" class="cast-list--btn">«</button>
-            <div #castListWrapper class="cast-list" *rxLet="castList$; let ctx;  strategy: 'immediate'">
+            <div #castListWrapper class="cast-list" *ngIf="castList$ | async as ctx;">
               <a
-                *rxFor="let c of  ctx.value; trackBy: trackByCast; index as idx;"
+                *ngFor="let c of  ctx.value; trackBy: trackByCast; index as idx;"
                 [routerLink]="['/detail/person/',c.id]"
                 (click)="$event.preventDefault()"
                 [attr.data-uf]="'cast-' + idx"
@@ -109,10 +109,10 @@
           <dialog class="video" #trailerDialog id="trailer-dialog">
             <span aria-controls="trailer-dialog" class="close" (click)="ui.dialog('close')"></span>
             <!--
-            Perf Tip: scription and resources
+            Perf Tip: scripting and resources
             only render iframe if the user needs it
             -->
-            <iframe *rxIf="initIframe$;" [bypassSrc]="movie?.videoUrl" loading="lazy"
+            <iframe *ngIf="initIframe$ | async;" [bypassSrc]="movie?.videoUrl" loading="lazy"
                     width="460" height="230"></iframe>
 
           </dialog>
@@ -130,7 +130,7 @@
     <h1>Recommended</h1>
     <h2>Movies</h2>
   </header>
-  <ng-container *rxLet="infiniteScrollRecommendations$; let ctx;  strategy: 'immediate'">
+  <ng-container *ngIf="infiniteScrollRecommendations$ | async as ctx;">
     <ui-movie-list (paginate)="paginateRecommendations()"
                    [movies]="ctx.results">
     </ui-movie-list>
