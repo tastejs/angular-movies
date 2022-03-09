@@ -41,10 +41,11 @@ type UiActions = { paginate: boolean };
           **🚀 Perf Tip for LCP:**
           To get out the best performance use the native HTML attribute loading="lazy" instead of a directive.
           This avoids bootstrap and template evaluation time and reduces scripting time in general.
+
+           [attr.loading]="idx === 0 ? '' : 'lazy'"
           -->
         <img
           class="aspectRatio-2-3 gradient"
-          [attr.loading]="idx === 0 ? '' : 'lazy'"
           [src]="movie?.imgUrl || 'assets/images/no_poster_available.jpg'"
           [width]="movie.imgWidth"
           [height]="movie.imgHeight"
