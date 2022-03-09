@@ -8,7 +8,8 @@ import { map } from 'rxjs';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { RxEffects } from '@rx-angular/state/effects';
-export const imports = [RouterModule, CommonModule, LetModule];
+import { IfModule } from '../../shared/rxa-custom/if/src';
+export const imports = [RouterModule, CommonModule, LetModule, IfModule];
 
 @Component({
   selector: 'account-menu',
