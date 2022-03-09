@@ -2,7 +2,6 @@ import { CwvInterface } from '../typings/cwv.interface';
 import * as fixtures from '../../fixtures/sidebar.fixtures';
 import { GenreIds, CategoryNames } from '../../internals/typings';
 import { Ufo, UserFlowContext } from '@push-based/user-flow';
-import { logVerbose } from '@push-based/user-flow/src/lib/internal/yargs/utils';
 
 export class SidebarUFO extends Ufo implements CwvInterface {
   protected categorySelector = fixtures.categorySelector;
@@ -18,7 +17,6 @@ export class SidebarUFO extends Ufo implements CwvInterface {
   }
 
   async navigateToCategory(c: CategoryNames = 'popular') {
-    logVerbose('categorySelector: ' + this.categorySelector(c));
     await this.page.click(this.categorySelector(c));
   }
 

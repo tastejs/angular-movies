@@ -8,7 +8,7 @@ import {
 } from '@push-based/user-flow';
 
 const flowOptions: UserFlowOptions = {
-  name: 'Movie list page to list page  - Cold',
+  name: 'Movie list page to list page  - Warm',
 };
 
 const interactions: UserFlowInteractionsFn = async (

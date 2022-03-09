@@ -5,7 +5,8 @@ import { CategoryNames, GenreIds } from '../../internals/typings';
 
 export class SidebarUFO extends DesktopSidebarUFO {
   async toggelSideMenu() {
-    await await this.page.waitForSelector(fixtures.sideMenuBtnSelector);
+    await this.page.waitForSelector(fixtures.sideMenuBtnSelector);
+    await this.page.click(fixtures.sideMenuBtnSelector);
   }
   async navigateToCategory(c: CategoryNames = 'popular'): Promise<void> {
     await this.ensureSidebarOpen();
@@ -19,7 +20,6 @@ export class SidebarUFO extends DesktopSidebarUFO {
 
   async ensureSidebarOpen(): Promise<void> {
     const anySideBarLink = this.categorySelector('popular');
-
     await this.toggelSideMenu().then(() =>
       this.page.waitForSelector(anySideBarLink)
     );
