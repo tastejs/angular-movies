@@ -2,7 +2,7 @@ import { RxState, selectSlice } from '@rx-angular/state';
 import { TMDBMovieModel } from '../../data-access/api/model/movie.model';
 import { Injectable } from '@angular/core';
 import { infiniteScroll } from '../../shared/cdk/infinite-scroll/infiniteScroll';
-import { getActions } from '../../shared/rxa-custom/actions/index';
+import { RxActionFactory } from '../../shared/rxa-custom/actions/index';
 import { RouterState } from '../../shared/router/router.state';
 import { combineLatestWith, map, switchMap, withLatestFrom } from 'rxjs';
 import { W780H1170 } from '../../data-access/api/constants/image-sizes';
@@ -16,6 +16,11 @@ import { WithContext } from '../../shared/cdk/context/context.interface';
 import { MoviesSortValue } from '../../data-access/api/sort/sort.data';
 
 export type MoviePerson = TMDBPersonModel & ImageTag;
+export type Actions = {
+  paginate: void;
+  toggleSorting: boolean;
+  sortBy: MoviesSortValue;
+};
 
 export interface PersonDetailPageAdapterState {
   loading: boolean;
@@ -33,11 +38,7 @@ function transformToPersonDetail(_res: TMDBPersonModel): MoviePerson {
   providedIn: 'root',
 })
 export class PersonDetailAdapter extends RxState<PersonDetailPageAdapterState> {
-  private readonly actions = getActions<{
-    paginate: void;
-    toggleSorting: boolean;
-    sortBy: MoviesSortValue;
-  }>();
+  private readonly actions = new RxActionFactory<Actions>().create();
   readonly paginate = this.actions.paginate;
   readonly toggleSorting = this.actions.toggleSorting;
   readonly sortBy = this.actions.sortBy;

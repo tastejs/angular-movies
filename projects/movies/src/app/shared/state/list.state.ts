@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { RxState } from '@rx-angular/state';
 import { AppInitializer } from '../rxa-custom/app-initializer';
-import { getActions } from '../rxa-custom/actions';
+import { RxActionFactory } from '../rxa-custom/actions';
 import { concatMap, filter, merge, tap } from 'rxjs';
 import {
   addMovieToList,
@@ -37,7 +37,7 @@ interface Actions {
   providedIn: 'root',
 })
 export class ListState extends RxState<ListModel> implements AppInitializer {
-  private actions = getActions<Actions>();
+  private actions = this.actionsF.create();
 
   readonly createList = this.actions.createList;
   readonly fetchList = this.actions.fetchList;
@@ -75,7 +75,10 @@ export class ListState extends RxState<ListModel> implements AppInitializer {
     )
   );
 
-  constructor(private router: Router) {
+  constructor(
+    private router: Router,
+    private actionsF: RxActionFactory<Actions>
+  ) {
     super();
 
     this.connect(

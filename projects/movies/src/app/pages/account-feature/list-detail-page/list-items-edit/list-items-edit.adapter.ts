@@ -21,7 +21,7 @@ import {
   queryMovie,
 } from '../../../../data-access/api/resources/movie.resource';
 import { ListDetailAdapter } from '../../../../pages/account-feature/list-detail-page/list-detail-page.adapter';
-import { getActions } from '../../../../shared/rxa-custom/actions';
+import { RxActionFactory } from '../../../../shared/rxa-custom/actions';
 import { ListState } from '../../../../shared/state/list.state';
 
 interface Actions {
@@ -44,7 +44,7 @@ export class ListItemsEditAdapter extends RxState<{
   searchValue: string;
   latestSelectedTitle: string;
 }> {
-  readonly ui = getActions<Actions>();
+  readonly ui = new RxActionFactory<Actions>().create();
 
   readonly vm$ = this.select(
     selectSlice(['items', 'searchResults', 'showResults', 'searchValue']),

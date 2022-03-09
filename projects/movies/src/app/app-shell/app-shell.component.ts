@@ -18,11 +18,16 @@ import {
 import { TMDBMovieGenreModel } from '../data-access/api/model/movie-genre.model';
 import { fallbackRouteToDefault } from '../routing-default.utils';
 import { trackByProp } from '../shared/utils/track-by';
-import { getActions } from '../shared/rxa-custom/actions';
+import { RxActionFactory } from '../shared/rxa-custom/actions';
 import { RouterState } from '../shared/router/router.state';
 import { getIdentifierOfTypeAndLayout } from '../shared/state/utils';
 import { getGenresCached } from '../data-access/api/resources/genre.resource';
 import { RxEffects } from '@rx-angular/state/effects';
+
+type Actions = {
+  sideDrawerOpenToggle: boolean;
+  loadAccountMenu: void;
+};
 
 @Component({
   selector: 'app-shell',
@@ -30,13 +35,10 @@ import { RxEffects } from '@rx-angular/state/effects';
   styleUrls: ['./app-shell.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.Emulated,
-  providers: [RxState, RxEffects],
+  providers: [RxState, RxEffects, RxActionFactory],
 })
 export class AppShellComponent {
-  readonly ui = getActions<{
-    sideDrawerOpenToggle: boolean;
-    loadAccountMenu: void;
-  }>();
+  readonly ui = this.actionsF.create();
 
   search$ = this.routerState.select(
     getIdentifierOfTypeAndLayout('search', 'list')
@@ -56,7 +58,8 @@ export class AppShellComponent {
     public effects: RxEffects,
     public routerState: RouterState,
     @Inject(DOCUMENT) document: Document,
-    private router: Router
+    private router: Router,
+    private actionsF: RxActionFactory<Actions>
   ) {
     this.init();
     /**

@@ -22,9 +22,16 @@ import {
   take,
   withLatestFrom,
 } from 'rxjs';
-import { getActions } from '../../../shared/rxa-custom/actions';
+import { RxActionFactory } from '../../../shared/rxa-custom/actions';
 import { coerceObservable } from '@rx-angular/cdk/coercing';
 import { preventDefault } from '../../../shared/rxa-custom/actions/transforms';
+
+type UiActions = {
+  searchChange: string;
+  formClick: Event;
+  outsideFormClick: Event;
+  formSubmit: Event;
+};
 
 @Component({
   selector: 'ui-search-bar',
@@ -62,12 +69,7 @@ export class SearchBarComponent implements OnInit {
   @ViewChild('searchInput') inputRef!: ElementRef<HTMLInputElement>;
   @ViewChild('form') formRef!: ElementRef<HTMLFormElement>;
 
-  ui = getActions<{
-    searchChange: string;
-    formClick: Event;
-    outsideFormClick: Event;
-    formSubmit: Event;
-  }>({
+  ui = this.actions.create({
     searchChange: String,
     formSubmit: preventDefault,
   });
@@ -116,6 +118,7 @@ export class SearchBarComponent implements OnInit {
 
   constructor(
     private state: RxState<{ search: string; open: boolean }>,
+    private actions: RxActionFactory<UiActions>,
     @Inject(ElementRef) private elementRef: ElementRef,
     @Inject(DOCUMENT) private document: Document
   ) {

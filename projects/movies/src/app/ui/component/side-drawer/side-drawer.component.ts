@@ -1,5 +1,11 @@
-import { ChangeDetectionStrategy, Component, Input, Output, ViewEncapsulation } from '@angular/core';
-import { getActions } from '../../../shared/rxa-custom/actions';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  Output,
+  ViewEncapsulation,
+} from '@angular/core';
+import { RxActionFactory } from '../../../shared/rxa-custom/actions';
 
 @Component({
   selector: 'ui-side-drawer',
@@ -14,10 +20,13 @@ import { getActions } from '../../../shared/rxa-custom/actions';
   `,
   styleUrls: ['./side-drawer.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  encapsulation: ViewEncapsulation.Emulated
+  encapsulation: ViewEncapsulation.Emulated,
+  providers: [RxActionFactory],
 })
 export class SideDrawerComponent {
-  ui = getActions<{ openedChange: boolean }>();
+  ui = this.actions.create();
   @Input() opened = false;
   @Output() openedChange = this.ui.openedChange$;
+
+  constructor(private actions: RxActionFactory<{ openedChange: boolean }>) {}
 }

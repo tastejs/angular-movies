@@ -11,68 +11,66 @@ import { TMDBMovieModel } from '../../../data-access/api/model/movie.model';
 import { W300H450 } from '../../../data-access/api/constants/image-sizes';
 import { ImageTag } from '../../../shared/utils/image/image-tag.interface';
 import { addImageTag } from '../../../shared/utils/image/image-tag.transform';
-import { getActions } from '../../../shared/rxa-custom/actions';
+import { RxActionFactory } from '../../../shared/rxa-custom/actions';
 import { coerceObservable } from '../../../shared/utils/coerceObservable';
 import { RxInputType } from '../../../shared/rxa-custom/input-type.typing';
 
 type Movie = TMDBMovieModel & ImageTag;
+type UiActions = { paginate: boolean };
 
 @Component({
   selector: 'ui-movie-list',
   template: `
-    <ng-container *rxLet="moviesListVisible$; let moviesListVisible">
-      <ui-grid-list *ngIf="moviesListVisible; else noData">
+    <ui-grid-list *rxIf="moviesListVisible$; else noData">
+      <!--
+          **🚀 Perf Tip for TBT:**
+          Use \`rxFor\` in favour of \`ngFor\` to get non blocking rendering of lists.
+          This reduces drastically the TBT measure.
+      -->
+      <a
+        class="ui-grid-list-item"
+        *rxFor="let movie of movies$; index as idx; trackBy: trackByMovieId"
+        [routerLink]="['/detail/movie', movie.id]"
+        [attr.data-uf]="'movie-' + idx"
+      >
         <!--
-            **🚀 Perf Tip for TBT:**
-            Use \`rxFor\` in favour of \`ngFor\` to get non blocking rendering of lists.
-            This reduces drastically the TBT measure.
-        -->
-        <a
-          class="ui-grid-list-item"
-          *rxFor="let movie of movies$; index as idx; trackBy: trackByMovieId"
-          [routerLink]="['/detail/movie', movie.id]"
-          [attr.data-uf]="'movie-' + idx"
-        >
-          <!--
-            **🚀 Perf Tip for LCP:**
-            To get out the best performance use the native HTML attribute loading="lazy" instead of a directive.
-            This avoids bootstrap and template evaluation time and reduces scripting time in general.
-            -->
-          <img
-            class="aspectRatio-2-3 gradient"
-            [attr.loading]="idx === 0 ? '' : 'lazy'"
-            [src]="movie?.imgUrl || 'assets/images/no_poster_available.jpg'"
-            [width]="movie.imgWidth"
-            [height]="movie.imgHeight"
-            alt="poster movie"
-            [title]="movie.title"
-          />
-          <div class="movies-list--details">
-            <h3 class="movies-list--details-title">
-              {{ movie.title }}
-            </h3>
-            <ui-star-rating [rating]="movie.vote_average"></ui-star-rating>
-          </div>
-        </a>
-        <!-- If this element is visible in the viewport the paginate event fires -->
-        <div (elementVisibility)="ui.paginate($event)"></div>
-      </ui-grid-list>
-
-      <ng-template #noData>
-        <div style="display: flex; align-items: center;">
-          <span style="font-size: 1.5rem">No results</span>
-          <svg-icon name="sad"></svg-icon>
+          **🚀 Perf Tip for LCP:**
+          To get out the best performance use the native HTML attribute loading="lazy" instead of a directive.
+          This avoids bootstrap and template evaluation time and reduces scripting time in general.
+          -->
+        <img
+          class="aspectRatio-2-3 gradient"
+          [attr.loading]="idx === 0 ? '' : 'lazy'"
+          [src]="movie?.imgUrl || 'assets/images/no_poster_available.jpg'"
+          [width]="movie.imgWidth"
+          [height]="movie.imgHeight"
+          alt="poster movie"
+          [title]="movie.title"
+        />
+        <div class="movies-list--details">
+          <h3 class="movies-list--details-title">
+            {{ movie.title }}
+          </h3>
+          <ui-star-rating [rating]="movie.vote_average"></ui-star-rating>
         </div>
-      </ng-template>
-    </ng-container>
+      </a>
+      <!-- If this element is visible in the viewport the paginate event fires -->
+      <div (elementVisibility)="ui.paginate($event)"></div>
+    </ui-grid-list>
+    <ng-template #noData>
+      <div style="display: flex; align-items: center;">
+        <span style="font-size: 1.5rem">No results</span>
+        <svg-icon name="sad"></svg-icon>
+      </div>
+    </ng-template>
   `,
   styleUrls: ['./movie-list.component.scss'],
-  providers: [RxState],
+  providers: [RxState, RxActionFactory],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.Emulated,
 })
 export class MovieListComponent {
-  ui = getActions<{ paginate: boolean }>();
+  ui = this.actions.create();
 
   readonly movies$ = this.state.select(
     map((state) =>
@@ -98,7 +96,8 @@ export class MovieListComponent {
   );
 
   constructor(
-    private state: RxState<{ movies?: TMDBMovieModel[] | null | undefined }>
+    private state: RxState<{ movies?: TMDBMovieModel[] | null | undefined }>,
+    private actions: RxActionFactory<UiActions>
   ) {}
 
   trackByMovieId(_: number, movie: Movie) {

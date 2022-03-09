@@ -9,18 +9,19 @@ import {
   getMoviesRecommendations,
 } from '../../data-access/api/resources/movie.resource';
 import { transformToMovieDetail } from './selection/client-movie-detail.mapper';
-import { getActions } from '../../shared/rxa-custom/actions';
+import { RxActionFactory } from '../../shared/rxa-custom/actions';
 import { infiniteScroll } from '../../shared/cdk/infinite-scroll/infiniteScroll';
 import { MovieDetail } from './selection/movie-detail.model';
 import { WithContext } from '../../shared/cdk/context/context.interface';
 import { withLoadingEmission } from '../../shared/cdk/loading/withLoadingEmissions';
 import { TMDBMovieCastModel } from '../../data-access/api/model/movie-credits.model';
 
+type Actions = { paginateRecommendations: void };
 @Injectable({
   providedIn: 'root',
 })
 export class MovieDetailAdapter extends RxState<any> {
-  private readonly actions = getActions<{ paginateRecommendations: void }>();
+  private readonly actions = new RxActionFactory<Actions>().create();
   readonly paginateRecommendations = this.actions.paginateRecommendations;
 
   readonly routerMovieId$: Observable<string> = this.routerState.select(

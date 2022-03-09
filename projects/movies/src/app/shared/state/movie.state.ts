@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
 import { map } from 'rxjs';
 import { optimizedFetch } from '../utils/optimized-fetch';
 import { AppInitializer } from '../rxa-custom/app-initializer';
-import { getActions } from '../rxa-custom/actions';
+import { RxActionFactory } from '../rxa-custom/actions';
 import { withLoadingEmission } from '../cdk/loading/withLoadingEmissions';
 import {
   CategoryResponse,
@@ -29,7 +29,7 @@ interface Actions {
   providedIn: 'root',
 })
 export class MovieState extends RxState<MovieModel> implements AppInitializer {
-  private actions = getActions<Actions>();
+  private actions = this.actionsF.create();
 
   fetchMovie = this.actions.fetchMovie;
   fetchCategoryMovies = this.actions.fetchCategoryMovies;
@@ -50,7 +50,7 @@ export class MovieState extends RxState<MovieModel> implements AppInitializer {
       }))
     );
 
-  constructor() {
+  constructor(private actionsF: RxActionFactory<Actions>) {
     super();
 
     this.connect(
