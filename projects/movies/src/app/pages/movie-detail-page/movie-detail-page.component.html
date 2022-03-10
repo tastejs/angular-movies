@@ -109,8 +109,14 @@
           <dialog class="video" #trailerDialog id="trailer-dialog">
             <span aria-controls="trailer-dialog" class="close" (click)="ui.dialog('close')"></span>
             <!--
-            Perf Tip: scription and resources
-            only render iframe if the user needs it
+             **🚀 Perf Tip for less resource usage:**
+            only render iframe if the user needs it (e.g. `*rxIf` or `*ngIf`)
+            *ngIf="initIframe$ | async;"
+            -->
+            <!--
+            **🚀 Perf Tip for LCP:**
+            To get out the best performance use the native HTML attribute loading="lazy" instead of a directive.
+            This avoids bootstrap and template evaluation time and reduces scripting time in general.
             -->
             <iframe *rxIf="initIframe$;" [bypassSrc]="movie?.videoUrl" loading="lazy"
                     width="460" height="230"></iframe>
