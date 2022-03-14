@@ -53,7 +53,7 @@
       <h3 class="navigation--headline">Genres</h3>
       <a
         [attr.data-uf]="'menu-gen-'+genre.id"
-        *ngFor="let genre of genres$ | async; trackBy: trackByGenre; strategy: 'idle'"
+        *ngFor="let genre of genres$ | async; trackBy: trackByGenre;"
         class="navigation--link"
         [routerLink]="['/list', 'genre', genre.id]"
         routerLinkActive="active"
