@@ -99,8 +99,8 @@
           <a
             *ngIf="movie?.videoUrl"
             class="btn"
-            (mouseover)="ui.iframe('show')"
-            (click)="$event.preventDefault(); ui({dialog:'show',iframe:'show'})"
+            (mouseover)="ui.iframe('load')"
+            (click)="$event.preventDefault(); ui({dialog:'show',iframe:'load'})"
             href="#trainer"
           >
             Trailer

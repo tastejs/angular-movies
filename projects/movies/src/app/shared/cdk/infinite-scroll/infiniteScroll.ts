@@ -88,7 +88,7 @@ export function infiniteScroll<T>(
   );
 
   return concat(
-    initialResult$,
+    initialResult$.pipe(withLoadingEmission()),
     trigger$.pipe(
       concatMap(() => {
         ++page;

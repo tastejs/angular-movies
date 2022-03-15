@@ -37,7 +37,6 @@ export class RouterState extends RxState<RouterParams> {
           const [___, sortByAndRest]: (string | undefined)[] =
             queryParams?.split('sort_by=');
           sortBy = sortByAndRest?.split('&')?.shift() || null;
-          console.log('router map:', layout, type, identifier, sortBy);
         }
         return { layout, type, identifier, sortBy };
       }),
