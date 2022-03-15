@@ -84,6 +84,7 @@
           >
             Website
             <svg-icon class="btn__icon" name="website"></svg-icon>
+
           </a>
           <a
             *ngIf="movie?.imdb_id"
@@ -98,8 +99,8 @@
           <a
             *ngIf="movie?.videoUrl"
             class="btn"
-            (mouseover)="ui.dialog('load')"
-            (click)="$event.preventDefault(); ui.dialog('open');"
+            (mouseover)="ui.iframe('show')"
+            (click)="$event.preventDefault(); ui({dialog:'show',iframe:'show'})"
             href="#trainer"
           >
             Trailer

@@ -69,14 +69,15 @@ export class RxActionFactory<T extends Actions> implements OnDestroy {
    *
    */
   create<U extends ActionTransforms<T> = {}>(transforms?: U): RxActions<T, U> {
+    function signals(): void {}
     return new Proxy(
-      {} as RxActions<T, U>,
+      signals as any as RxActions<T, U>,
       actionProxyHandler(
         this.subjects as any as { [K in keyof T]: Subject<ValuesOf<T>> },
         transforms,
         this.errorHandler
       )
-    ) as RxActions<T, U>;
+    ) as any as RxActions<T, U>;
   }
 
   destroy() {
