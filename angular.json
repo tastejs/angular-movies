@@ -182,21 +182,16 @@
           "defaultConfiguration": "development"
         },
         "prerender": {
-          "builder": "@nguniversal/builders:prerender",
-          "options": {
-            "routes": ["/"]
-          },
+          "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "movies:build:production",
-              "serverTarget": "movies:server:production"
+              "browserTarget": "movies:build:production"
             },
             "development": {
-              "browserTarget": "movies:build:development",
-              "serverTarget": "movies:server:development"
+              "browserTarget": "movies:build:development"
             }
           },
-          "defaultConfiguration": "production"
+          "defaultConfiguration": "development"
         }
       }
     }
