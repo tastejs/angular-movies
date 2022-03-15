@@ -1,4 +1,4 @@
-import { select } from '@rx-angular/state/selections';
+import { select, selectSlice } from '@rx-angular/state/selections';
 import { Location } from '@angular/common';
 import {
   ChangeDetectionStrategy,
@@ -8,7 +8,7 @@ import {
   ViewChild,
   ViewEncapsulation,
 } from '@angular/core';
-import { map } from 'rxjs';
+import { map, mapTo, mergeWith } from 'rxjs';
 import { TMDBMovieCastModel } from '../../data-access/api/model/movie-credits.model';
 import { TMDBMovieGenreModel } from '../../data-access/api/model/movie-genre.model';
 
@@ -27,8 +27,15 @@ import { RxState } from '@rx-angular/state';
 export class MovieDetailPageComponent {
   readonly ui = this.actionsF.create();
   readonly movieCtx$ = this.adapter.routedMovieCtx$;
-  readonly initIframe$ = this.ui.dialog$.pipe(
-    map((e) => e === 'open' || e === 'load')
+  readonly initIframe$ = this.ui.iframe$.pipe(
+    map((e) => e === 'show'),
+    mergeWith(
+      this.adapter.routedMovieCtx$.pipe(
+        // select changes of video deep property
+        selectSlice(['value'], { value: ({ video }) => video }),
+        mapTo(false)
+      )
+    )
   );
   readonly movie$ = this.movieCtx$.pipe(map((ctx) => ctx?.value || null));
   readonly castList$ = this.adapter.movieCastById$;
@@ -48,12 +55,17 @@ export class MovieDetailPageComponent {
     private effects: RxState<any>,
     private location: Location,
     private adapter: MovieDetailAdapter,
-    private actionsF: RxActionFactory<{ dialog: 'open' | 'close' | 'load' }>
+    private actionsF: RxActionFactory<{
+      dialog: 'show' | 'close';
+      iframe: 'show' | 'hide';
+    }>
   ) {
-    this.effects.hold(this.ui.dialog$, (trigger: string) =>
-      trigger === 'open'
-        ? this.trailerDialog?.nativeElement?.showModal()
-        : this.trailerDialog?.nativeElement.close()
+    this.effects.hold(
+      this.ui.dialog$.pipe(map((v) => v === 'show')),
+      (openDialog) =>
+        openDialog
+          ? this.trailerDialog?.nativeElement?.showModal()
+          : this.trailerDialog?.nativeElement.close()
     );
   }
 
