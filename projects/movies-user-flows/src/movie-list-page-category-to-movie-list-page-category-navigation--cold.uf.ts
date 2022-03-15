@@ -1,5 +1,5 @@
-import { SidebarUFO } from '../ufo/mobile/side-bar.ufo';
-import { MovieListPageUFO } from '../ufo/desktop/movie-list-page.ufo';
+import { SidebarUFO } from './ufo/mobile/side-bar.ufo';
+import { MovieListPageUFO } from './ufo/desktop/movie-list-page.ufo';
 import {
   UserFlowProvider,
   UserFlowOptions,
@@ -15,7 +15,7 @@ const flowOptions: UserFlowOptions = {
 const interactions: UserFlowInteractionsFn = async (
   ctx: UserFlowContext
 ): Promise<any> => {
-  const { flow, collectOptions, page } = ctx;
+  const { flow, collectOptions } = ctx;
   const testUrl = `${collectOptions.url}/list/category/popular`;
   const sidebar = new SidebarUFO(ctx);
   const movieListPage = new MovieListPageUFO(ctx);

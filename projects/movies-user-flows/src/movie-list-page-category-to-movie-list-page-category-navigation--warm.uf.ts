@@ -1,5 +1,5 @@
-import { SidebarUFO } from '../ufo/mobile/side-bar.ufo';
-import { MovieListPageUFO } from '../ufo/desktop/movie-list-page.ufo';
+import { SidebarUFO } from './ufo/mobile/side-bar.ufo';
+import { MovieListPageUFO } from './ufo/desktop/movie-list-page.ufo';
 import {
   UserFlowProvider,
   UserFlowOptions,

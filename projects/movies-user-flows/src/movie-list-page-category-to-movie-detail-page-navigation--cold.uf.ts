@@ -5,9 +5,9 @@ import {
   UserFlowContext,
 } from '@push-based/user-flow';
 
-import { MovieDetailPageUFO } from '../ufo/desktop/movie-detail-page.ufo';
-import { MovieListPageUFO } from '../ufo/desktop/movie-list-page.ufo';
-import { SidebarUFO } from '../ufo/mobile/side-bar.ufo';
+import { MovieDetailPageUFO } from './ufo/desktop/movie-detail-page.ufo';
+import { MovieListPageUFO } from './ufo/desktop/movie-list-page.ufo';
+import { SidebarUFO } from './ufo/mobile/side-bar.ufo';
 
 const flowOptions: UserFlowOptions = {
   name: 'Movie list page category to detail navigation - Cold',
