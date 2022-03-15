@@ -99,8 +99,8 @@
           <a
             *ngIf="movie?.videoUrl"
             class="btn"
-            (mouseover)="ui.iframe('show')"
-            (click)="$event.preventDefault(); ui({dialog:'show',iframe:'show'})"
+            (mouseover)="ui.iframe('load')"
+            (click)="$event.preventDefault(); ui({dialog:'show',iframe:'load'})"
             href="#trainer"
           >
             Trailer
@@ -119,7 +119,7 @@
             To get out the best performance use the native HTML attribute loading="lazy" instead of a directive.
             This avoids bootstrap and template evaluation time and reduces scripting time in general.
             -->
-            <iframe *rxIf="initIframe$;" [bypassSrc]="movie?.videoUrl" loading="lazy"
+            <iframe *rxIf="loadIframe$;" [bypassSrc]="movie?.videoUrl" loading="lazy"
                     width="460" height="230"></iframe>
 
           </dialog>

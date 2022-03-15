@@ -8,7 +8,7 @@ import {
   ViewChild,
   ViewEncapsulation,
 } from '@angular/core';
-import { map, mapTo, mergeWith } from 'rxjs';
+import { map, mergeWith } from 'rxjs';
 import { TMDBMovieCastModel } from '../../data-access/api/model/movie-credits.model';
 import { TMDBMovieGenreModel } from '../../data-access/api/model/movie-genre.model';
 
@@ -26,16 +26,15 @@ import { RxState } from '@rx-angular/state';
 })
 export class MovieDetailPageComponent {
   readonly ui = this.actionsF.create();
-  readonly movieCtx$ = this.adapter.routedMovieCtx$;
-  readonly initIframe$ = this.ui.iframe$.pipe(
-    map((e) => e === 'show'),
+  private readonly movieCtx$ = this.adapter.routedMovieCtx$;
+  readonly loadIframe$ = this.ui.iframe$.pipe(
     mergeWith(
-      this.adapter.routedMovieCtx$.pipe(
-        // select changes of video deep property
-        selectSlice(['value'], { value: ({ video }) => video }),
-        mapTo(false)
+      this.movieCtx$.pipe(
+        // select changes of video nested property
+        selectSlice(['value'], { value: ({ video }) => video })
       )
-    )
+    ),
+    map((e) => e === 'load')
   );
   readonly movie$ = this.movieCtx$.pipe(map((ctx) => ctx?.value || null));
   readonly castList$ = this.adapter.movieCastById$;
@@ -57,7 +56,7 @@ export class MovieDetailPageComponent {
     private adapter: MovieDetailAdapter,
     private actionsF: RxActionFactory<{
       dialog: 'show' | 'close';
-      iframe: 'show' | 'hide';
+      iframe: 'load' | 'unload';
     }>
   ) {
     this.effects.hold(

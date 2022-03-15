@@ -18,7 +18,6 @@ export function actionProxyHandler<T extends object, U>(
   type ValuesOfT = ValuesOf<T>;
 
   function dispatch(value: ValuesOfT, prop: KeysOfT) {
-    console.log('dispatch', value, prop);
     subjects[prop] = subjects[prop] || new Subject<ValuesOfT>();
     try {
       const val =
@@ -34,7 +33,6 @@ export function actionProxyHandler<T extends object, U>(
   return {
     // shorthand setter for multiple signals e.g. {propA: 1, propB: 2}
     apply(_: RxActions<T, U>, __: any, props: [T]): any {
-      console.table({ props });
       props.forEach((slice) =>
         Object.entries(slice).forEach(([k, v]) =>
           dispatch(v, k as any as KeysOfT)
