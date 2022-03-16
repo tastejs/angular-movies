@@ -8,13 +8,16 @@ import {
   getCredits,
   getMoviesRecommendations,
 } from '../../data-access/api/resources/movie.resource';
-import { transformToMovieDetail } from './selection/client-movie-detail.mapper';
+import {
+  transformToCastList,
+  transformToMovieDetail,
+} from './selection/client-movie-detail.mapper';
 import { RxActionFactory } from '../../shared/rxa-custom/actions';
 import { infiniteScroll } from '../../shared/cdk/infinite-scroll/infiniteScroll';
 import { MovieDetail } from './selection/movie-detail.model';
 import { WithContext } from '../../shared/cdk/context/context.interface';
 import { withLoadingEmission } from '../../shared/cdk/loading/withLoadingEmissions';
-import { TMDBMovieCastModel } from '../../data-access/api/model/movie-credits.model';
+import { MovieCast } from './selection/movie-cast.model';
 
 type Actions = { paginateRecommendations: void };
 @Injectable({
@@ -36,10 +39,12 @@ export class MovieDetailAdapter extends RxState<any> {
     })
   );
 
-  readonly movieCastById$: Observable<WithContext<TMDBMovieCastModel[]>> =
+  readonly movieCastById$: Observable<WithContext<MovieCast[]>> =
     this.routerMovieId$.pipe(
       switchMap((id) =>
-        getCredits(id).pipe(map(({ cast: value }) => ({ value })))
+        getCredits(id).pipe(
+          map(({ cast }) => ({ value: cast.map(transformToCastList) }))
+        )
       ),
       withLoadingEmission()
     );

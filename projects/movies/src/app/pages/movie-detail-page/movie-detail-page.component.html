@@ -5,26 +5,26 @@
       <div detailGridMedia>
         <img
           class="aspectRatio-2-3 fit-cover"
-          [src]="movie?.imgUrl"
-          [width]="movie?.imgWidth"
-          [height]="movie?.imgHeight"
+          [src]="movie.imgUrl"
+          [width]="movie.imgWidth"
+          [height]="movie.imgHeight"
           alt="poster movie"
-          [title]="movie?.title"
+          [title]="movie.title"
           data-uf="hero-img"
         />
       </div>
       <div detailGridDescription>
         <header>
-          <h1 data-uf="header-main">{{ movie?.title }}</h1>
-          <h2 data-uf="header-sub">{{ movie?.tagline }}</h2>
+          <h1 data-uf="header-main">{{ movie.title }}</h1>
+          <h2 data-uf="header-sub">{{ movie.tagline }}</h2>
         </header>
         <section class="movie-detail--basic-infos">
           <ui-star-rating
-            [rating]="movie?.vote_average"
+            [rating]="movie.vote_average"
             [showRating]="true"
           ></ui-star-rating>
           <div class="movie-detail--languages-runtime-release">
-            <strong>{{ movie?.languages_runtime_release }}</strong>
+            <strong>{{ movie.languages_runtime_release }}</strong>
           </div>
         </section>
         <section>
@@ -33,7 +33,7 @@
             <a
               class="movie-detail--genres-link"
               *ngFor="
-                let genre of movie?.genres;
+                let genre of movie.genres;
                 trackBy: trackByGenre
               "
               [routerLink]="['/list/genre/', genre.id]"
@@ -45,7 +45,7 @@
         </section>
         <section>
           <h3>The Synopsis</h3>
-          <p>  {{ movie?.overview || 'There is no synopsis available...' }}</p>
+          <p>  {{ movie.overview || 'There is no synopsis available...' }}</p>
         </section>
         <section>
           <h3>The Cast</h3>
@@ -61,11 +61,7 @@
               >
                 <img
                   loading="lazy"
-                  [src]="
-                  c?.profile_path
-                    ? 'https://image.tmdb.org/t/p/w185' + c.profile_path
-                    : 'assets/images/no_poster_available.jpg'
-                "
+                  [src]="c.imgUrl"
                   [alt]="c.name"
                   [title]="c.name"
                 />
@@ -80,24 +76,24 @@
             class="btn"
             target="_blank"
             rel="noopener noreferrer"
-            [href]="movie?.homepage"
+            [href]="movie.homepage"
           >
             Website
             <svg-icon class="btn__icon" name="website"></svg-icon>
 
           </a>
           <a
-            *ngIf="movie?.imdb_id"
+            *ngIf="movie.imdb_id"
             class="btn"
-            target="_blank"
+            [target]="movie.target"
             rel="noopener noreferrer"
-            [href]="'https://www.imdb.com/title/' + movie?.imdb_id"
+            [href]="movie.href"
           >
             IMDB
             <svg-icon class="btn__icon" name="imdb"></svg-icon>
           </a>
           <a
-            *ngIf="movie?.videoUrl"
+            *ngIf="movie.videoUrl"
             class="btn"
             (mouseover)="ui.iframe('load')"
             (click)="$event.preventDefault(); ui({dialog:'show',iframe:'load'})"
@@ -119,7 +115,7 @@
             To get out the best performance use the native HTML attribute loading="lazy" instead of a directive.
             This avoids bootstrap and template evaluation time and reduces scripting time in general.
             -->
-            <iframe *rxIf="loadIframe$;" [bypassSrc]="movie?.videoUrl" loading="lazy"
+            <iframe *rxIf="loadIframe$;" [bypassSrc]="movie.videoUrl" loading="lazy"
                     width="460" height="230"></iframe>
 
           </dialog>
