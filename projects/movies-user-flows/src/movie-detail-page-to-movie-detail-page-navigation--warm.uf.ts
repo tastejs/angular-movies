@@ -4,7 +4,7 @@ import {
   UserFlowInteractionsFn,
   UserFlowContext,
 } from '@push-based/user-flow';
-import { MovieDetailPageUFO } from '../ufo/desktop/movie-detail-page.ufo';
+import { MovieDetailPageUFO } from './ufo/desktop/movie-detail-page.ufo';
 
 const flowOptions: UserFlowOptions = {
   name: 'Movie detail page to detail page navigations - Warm',
