@@ -2,6 +2,7 @@
 @import "../../component/aspect-ratio/aspect-ratio";
 
 .movies-list {
+  contain: content;
   &--details {
     @include d-flex-v;
     flex-direction: column;
@@ -18,3 +19,9 @@
     }
   }
 }
+
+.ui-grid-list-item {
+  content-visibility: auto;
+  contain-intrinsic-size: 450px;
+}
+
