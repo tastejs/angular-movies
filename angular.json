@@ -152,6 +152,12 @@
             "extractLicenses": false
           },
           "configurations": {
+            "development": {
+              "outputHashing": "none",
+              "optimization": false,
+              "sourceMap": true,
+              "extractLicenses": true
+            },
             "production": {
               "outputHashing": "media",
               "fileReplacements": [
@@ -171,8 +177,8 @@
           "builder": "@nguniversal/builders:ssr-dev-server",
           "configurations": {
             "development": {
-              "browserTarget": "movies:build:production",
-              "serverTarget": "movies:build-server:production"
+              "browserTarget": "movies:build:development",
+              "serverTarget": "movies:build-server:development"
             },
             "production": {
               "browserTarget": "movies:build:production",
@@ -182,13 +188,20 @@
           "defaultConfiguration": "development"
         },
         "prerender": {
-          "builder": "@angular-devkit/build-angular:dev-server",
+          "builder": "@nguniversal/builders:prerender",
+          "options": {
+            "browserTarget": "movies:build:production",
+            "serverTarget": "movies:build-server:production",
+            "routesFile": "routes.txt"
+          },
           "configurations": {
             "production": {
-              "browserTarget": "movies:build:production"
+              "browserTarget": "movies:build:production",
+              "serverTarget": "movies:build-server:production"
             },
             "development": {
-              "browserTarget": "movies:build:development"
+              "browserTarget": "movies:build:development",
+              "serverTarget": "movies:build-server:development"
             }
           },
           "defaultConfiguration": "development"
