@@ -119,6 +119,8 @@
   display: block;
   height: auto;
   width: 70px;
+  content-visibility: auto;
+  content-intrinsic-size: 50px;
   flex-shrink: 0;
 
   img {
