@@ -9,8 +9,6 @@ import { AppServerModule } from './projects/movies/src/main.server';
 import { APP_BASE_HREF } from '@angular/common';
 import { existsSync } from 'fs';
 
-const domino = require('domino');
-
 // The Express app is exported so that it can be used by serverless Functions.
 export function app(): express.Express {
   const server = express();
@@ -20,7 +18,7 @@ export function app(): express.Express {
     ? 'index.original.html'
     : 'index';
 
-  patchWindow(indexHtml);
+  // patchWindow(indexHtml);
 
   // **🚀 Perf Tip:**
   // Serve gzip for faster load
@@ -76,22 +74,6 @@ function run(): void {
   server.listen(port, () => {
     console.log(`Node Express server listening on http://localhost:${port}`);
   });
-}
-
-function patchWindow(template: string): void {
-  const win = domino.createWindow(template);
-  win.Object = Object;
-  win.Math = Math;
-
-  win.localStorage = {
-    getItem: (): undefined => undefined,
-    setItem: () => void 0,
-  };
-
-  (global as any).window = win;
-  (global as any).document = win.document;
-  (global as any).branch = null;
-  (global as any).object = win.object;
 }
 
 // Webpack will replace 'require' with '__webpack_require__'
