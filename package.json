@@ -38,7 +38,8 @@
     "serve:pwa": "npx http-server -p 8080 -c-1 dist/movies/browser",
     "format:all": "prettier --write .",
     "commit": "git-cz",
-    "prerender": "ng run movies:prerender"
+    "gen:routes": "npx ts-node -P tooling/tsconfig.json ./tooling/generate-routes/generate-routes.ts",
+    "prerender": "npm run gen:routes && ng run movies:prerender"
   },
   "config": {
     "commitizen": {
@@ -102,6 +103,7 @@
     "@types/yargs": "^17.0.7",
     "@typescript-eslint/eslint-plugin": "^5.8.1",
     "@typescript-eslint/parser": "^5.8.1",
+    "axios": "^0.26.1",
     "cash-true": "0.0.2",
     "commitizen": "^4.2.4",
     "compression": "^1.7.4",
