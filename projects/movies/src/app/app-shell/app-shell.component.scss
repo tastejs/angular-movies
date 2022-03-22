@@ -63,6 +63,7 @@
 
 .ui-toolbar {
   height: 72px;
+  contain: layout;
   @include d-flex-v;
   justify-content: space-between;
   width: 100%;
