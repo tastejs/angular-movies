@@ -9,12 +9,13 @@ if (environment.production) {
 }
 
 /**
- * **🚀 Perf Tip for TBT:**
+ * **SSR transfer state requirement**
  *
- * Schedule app bootstrap into next task to reduce Total Blocking Time (TTB).
- * We dont want to trigger style recalculation we avoid `animationFrame`.
+ * The DOMContentLoaded event fires when the initial HTML document has been completely loaded and parsed, without waiting for stylesheets, images, and sub-frames to finish loading.
+ *
+ * This is crucial for transferred state object sent by server as part of the initial HTML page content, as without waiting for complete load app is (could be) bootstrapped before state object is accessible in DOM.
  */
-setTimeout(() =>
+document.addEventListener('DOMContentLoaded', () =>
   platformBrowserDynamic()
     /**
      * **🚀 Perf Tip for LCP, TTI, TBT:**
