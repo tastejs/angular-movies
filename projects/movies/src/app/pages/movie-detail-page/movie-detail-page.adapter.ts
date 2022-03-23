@@ -4,14 +4,8 @@ import { map, Observable, switchMap } from 'rxjs';
 import { RouterState } from '../../shared/router/router.state';
 import { MovieState } from '../../shared/state/movie.state';
 import { getIdentifierOfTypeAndLayout } from '../../shared/state/utils';
-import {
-  getCredits,
-  getMoviesRecommendations,
-} from '../../data-access/api/resources/movie.resource';
-import {
-  transformToCastList,
-  transformToMovieDetail,
-} from './selection/client-movie-detail.mapper';
+import { MovieResource } from '../../data-access/api/resources/movie.resource';
+import { transformToMovieDetail, transformToCastList } from './selection/client-movie-detail.mapper';
 import { RxActionFactory } from '../../shared/rxa-custom/actions';
 import { infiniteScroll } from '../../shared/cdk/infinite-scroll/infiniteScroll';
 import { MovieDetail } from './selection/movie-detail.model';
@@ -42,7 +36,7 @@ export class MovieDetailAdapter extends RxState<any> {
   readonly movieCastById$: Observable<WithContext<MovieCast[]>> =
     this.routerMovieId$.pipe(
       switchMap((id) =>
-        getCredits(id).pipe(
+        this.movieResource.getCredits(id).pipe(
           map(({ cast }) => ({ value: cast.map(transformToCastList) }))
         )
       ),
@@ -52,16 +46,18 @@ export class MovieDetailAdapter extends RxState<any> {
   readonly infiniteScrollRecommendations$ = this.routerMovieId$.pipe(
     switchMap((id) =>
       infiniteScroll(
-        (incrementedParams) => getMoviesRecommendations(id, incrementedParams),
+        (incrementedParams) =>
+          this.movieResource.getMoviesRecommendations(id, incrementedParams),
         this.actions.paginateRecommendations$,
-        getMoviesRecommendations(id, { page: 1 })
+        this.movieResource.getMoviesRecommendations(id, { page: 1 })
       )
     )
   );
 
   constructor(
     private movieState: MovieState,
-    private routerState: RouterState
+    private routerState: RouterState,
+    private movieResource: MovieResource
   ) {
     super();
     this.hold(this.routerMovieId$, this.movieState.fetchMovie);

@@ -1,7 +1,6 @@
 import { TMDBMovieModel } from '../model/movie.model';
 import { getTMDBPaginateOptions } from '../paginate/utils';
 import { baseUrlApiV3 } from './internal/base-urls.constant';
-import { getHTTP } from '../../../shared/injector/get-http-client';
 import {
   TMDBPaginateResult,
   TMDBPaginateOptions,
@@ -9,6 +8,8 @@ import {
 import { Observable } from 'rxjs';
 import { TMDBSortOptions } from '../sort/sort.interface';
 import { getTMDBSortOptions } from '../sort/utils';
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 
 const URL_DISCOVER_MOVIE = [baseUrlApiV3, 'discover', 'movie'].join('/');
 
@@ -32,13 +33,20 @@ function getTMDBDiscoverOptions(options: any): TMDBDiscoverOptions {
   return discoverOptions;
 }
 
-/**
- * This endpoint returns related movies for genres and cast actors
- * @param discoverOptions
- */
-export const getDiscoverMovies = (
-  discoverOptions: TMDBDiscoverOptions = {} as TMDBDiscoverOptions
-): Observable<TMDBDiscoverResponse> =>
-  getHTTP().get<TMDBDiscoverResponse>(URL_DISCOVER_MOVIE, {
-    params: getTMDBDiscoverOptions(discoverOptions),
-  });
+@Injectable({
+  providedIn: 'root',
+})
+export class DiscoverResource {
+  constructor(private http: HttpClient) {}
+
+  /**
+   * This endpoint returns related movies for genres and cast actors
+   * @param discoverOptions
+   */
+  getDiscoverMovies = (
+    discoverOptions: TMDBDiscoverOptions = {} as TMDBDiscoverOptions
+  ): Observable<TMDBDiscoverResponse> =>
+    this.http.get<TMDBDiscoverResponse>(URL_DISCOVER_MOVIE, {
+      params: getTMDBDiscoverOptions(discoverOptions),
+    });
+}
