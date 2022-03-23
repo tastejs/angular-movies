@@ -1,5 +1,4 @@
 import { getTMDBPaginateOptions } from '../paginate/utils';
-import { getHTTP } from '../../../shared/injector/get-http-client';
 import {
   TMDBPaginateOptions,
   TMDBPaginateResult,
@@ -9,6 +8,8 @@ import { TMDBAccountList } from '../model/list.model';
 import { baseUrlApiV4 } from './internal/base-urls.constant';
 import { getTMDBSortOptions } from '../sort/utils';
 import { TMDBDiscoverOptions } from './discover.resource';
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 
 const URL_ACCOUNT_LIST = (uid: string) =>
   [baseUrlApiV4, 'account', uid, 'lists'].join('/');
@@ -22,12 +23,19 @@ function getTMDBAcountListOptions(options: any): TMDBDiscoverOptions {
 }
 
 export type TMDBAccountListResponse = TMDBPaginateResult<TMDBAccountList>;
-export const getAccountList = (
-  accountId: string,
-  params: TMDBPaginateOptions = {} as TMDBPaginateOptions
-): Observable<TMDBAccountListResponse> => {
-  params = getTMDBAcountListOptions(params);
-  return getHTTP().get<TMDBAccountListResponse>(URL_ACCOUNT_LIST(accountId), {
-    params,
-  });
-};
+
+@Injectable({
+  providedIn: 'root',
+})
+export class AccountResource {
+  constructor(private http: HttpClient) {}
+  getAccountList = (
+    accountId: string,
+    params: TMDBPaginateOptions = {} as TMDBPaginateOptions
+  ): Observable<TMDBAccountListResponse> => {
+    params = getTMDBAcountListOptions(params);
+    return this.http.get<TMDBAccountListResponse>(URL_ACCOUNT_LIST(accountId), {
+      params,
+    });
+  };
+}

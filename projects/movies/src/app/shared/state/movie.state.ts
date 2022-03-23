@@ -8,8 +8,7 @@ import { RxActionFactory } from '../rxa-custom/actions';
 import { withLoadingEmission } from '../cdk/loading/withLoadingEmissions';
 import {
   CategoryResponse,
-  getMovie,
-  getMovieCategory,
+  MovieResource,
   MovieResponse,
 } from '../../data-access/api/resources/movie.resource';
 import { WithContext } from '../cdk/context/context.interface';
@@ -50,7 +49,10 @@ export class MovieState extends RxState<MovieModel> implements AppInitializer {
       }))
     );
 
-  constructor(private actionsF: RxActionFactory<Actions>) {
+  constructor(
+    private actionsF: RxActionFactory<Actions>,
+    private movieResource: MovieResource
+  ) {
     super();
 
     this.connect(
@@ -59,7 +61,7 @@ export class MovieState extends RxState<MovieModel> implements AppInitializer {
         optimizedFetch(
           (id) => id,
           (id) => {
-            return getMovie(id).pipe(
+            return this.movieResource.getMovie(id).pipe(
               map((result) => ({ value: toDictionary([result], 'id') })),
               withLoadingEmission()
             );
@@ -85,7 +87,7 @@ export class MovieState extends RxState<MovieModel> implements AppInitializer {
         optimizedFetch(
           ({ category }) => category,
           ({ category }) =>
-            getMovieCategory(category).pipe(
+            this.movieResource.getMovieCategory(category).pipe(
               map((paginatedResult) => ({
                 value: { [category]: paginatedResult },
               })),

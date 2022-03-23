@@ -6,7 +6,7 @@ import { optimizedFetch } from '../utils/optimized-fetch';
 import { RxActionFactory } from '../rxa-custom/actions';
 import { withLoadingEmission } from '../cdk/loading/withLoadingEmissions';
 import {
-  getPerson,
+  PersonResource,
   PersonResponse,
 } from '../../data-access/api/resources/person.resource';
 import { AppInitializer } from '../rxa-custom/app-initializer';
@@ -40,7 +40,10 @@ export class PersonState extends RxState<State> implements AppInitializer {
       }))
     );
 
-  constructor(private actionsF: RxActionFactory<Actions>) {
+  constructor(
+    private actionsF: RxActionFactory<Actions>,
+    private personResource: PersonResource
+  ) {
     super();
     this.connect(
       'person',
@@ -48,7 +51,7 @@ export class PersonState extends RxState<State> implements AppInitializer {
         optimizedFetch(
           (id) => id,
           (id) => {
-            return getPerson(id).pipe(
+            return this.personResource.getPerson(id).pipe(
               map((result) => ({ value: toDictionary([result], 'id') })),
               withLoadingEmission()
             );

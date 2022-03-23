@@ -1,11 +1,12 @@
 import { map, Observable } from 'rxjs';
 import { baseUrlApiV4 } from './internal/base-urls.constant';
-import { getHTTP } from '../../../shared/injector/get-http-client';
 import {
   TMDBAddMovieToListParams,
   TMDBListCreateUpdateParams,
   TMDBListModel,
 } from '../model/list.model';
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 
 export type ListCreateResponse = { id: number };
 
@@ -14,27 +15,29 @@ const URL_EXISTING_LIST = (id: number) => [URL_LIST_BASE, id].join('/');
 const URL_ADD_MOVIE_TO_LIST = (id: number) =>
   [URL_EXISTING_LIST(id), 'items'].join('/');
 
-export const createList = (
-  params: TMDBListCreateUpdateParams
-): Observable<number> =>
-  getHTTP()
-    .post<ListCreateResponse>(URL_LIST_BASE, params)
-    .pipe(map(({ id }) => id));
+@Injectable({
+  providedIn: 'root',
+})
+export class ListResource {
+  constructor(private http: HttpClient) {}
 
-export const fetchList = (
-  id: string
-): Observable<Record<string, TMDBListModel>> =>
-  getHTTP()
-    .get<TMDBListModel>(URL_EXISTING_LIST(+id))
-    .pipe(map((list) => ({ [id]: list })));
+  createList = (params: TMDBListCreateUpdateParams): Observable<number> =>
+    this.http
+      .post<ListCreateResponse>(URL_LIST_BASE, params)
+      .pipe(map(({ id }) => id));
 
-export const updateList = (params: TMDBListCreateUpdateParams) =>
-  getHTTP().put(URL_EXISTING_LIST(params.id || 0), params);
+  fetchList = (id: string): Observable<Record<string, TMDBListModel>> =>
+    this.http
+      .get<TMDBListModel>(URL_EXISTING_LIST(+id))
+      .pipe(map((list) => ({ [id]: list })));
 
-export const addMovieToList = (params: TMDBAddMovieToListParams) =>
-  getHTTP().post(URL_ADD_MOVIE_TO_LIST(params.id), params);
-export const deleteMovieFromList = (params: TMDBAddMovieToListParams) =>
-  getHTTP().delete(URL_ADD_MOVIE_TO_LIST(params.id), { body: params });
+  updateList = (params: TMDBListCreateUpdateParams) =>
+    this.http.put(URL_EXISTING_LIST(params.id || 0), params);
 
-export const deleteList = (id: string) =>
-  getHTTP().delete(URL_EXISTING_LIST(+id));
+  addMovieToList = (params: TMDBAddMovieToListParams) =>
+    this.http.post(URL_ADD_MOVIE_TO_LIST(params.id), params);
+  deleteMovieFromList = (params: TMDBAddMovieToListParams) =>
+    this.http.delete(URL_ADD_MOVIE_TO_LIST(params.id), { body: params });
+
+  deleteList = (id: string) => this.http.delete(URL_EXISTING_LIST(+id));
+}

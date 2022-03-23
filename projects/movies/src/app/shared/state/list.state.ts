@@ -3,14 +3,7 @@ import { RxState } from '@rx-angular/state';
 import { AppInitializer } from '../rxa-custom/app-initializer';
 import { RxActionFactory } from '../rxa-custom/actions';
 import { concatMap, filter, merge, tap } from 'rxjs';
-import {
-  addMovieToList,
-  createList,
-  fetchList,
-  deleteMovieFromList,
-  updateList,
-  deleteList,
-} from '../../data-access/api/resources/list.resource';
+import { ListResource } from '../../data-access/api/resources/list.resource';
 import {
   TMDBListCreateUpdateParams,
   TMDBListModel,
@@ -50,7 +43,7 @@ export class ListState extends RxState<ListModel> implements AppInitializer {
   private readonly sideEffects$ = merge(
     this.actions.addMovieToList$.pipe(
       concatMap(([movie, id]) =>
-        addMovieToList({
+        this.listResource.addMovieToList({
           id,
           items: [{ media_id: movie.id, media_type: 'movie' }],
         })
@@ -58,26 +51,29 @@ export class ListState extends RxState<ListModel> implements AppInitializer {
     ),
     this.actions.deleteMovieFromList$.pipe(
       concatMap(([movie, id]) =>
-        deleteMovieFromList({
+        this.listResource.deleteMovieFromList({
           id,
           items: [{ media_id: movie.id || 0, media_type: 'movie' }],
         })
       )
     ),
-    this.actions.updateList$.pipe(concatMap((params) => updateList(params))),
+    this.actions.updateList$.pipe(
+      concatMap((params) => this.listResource.updateList(params))
+    ),
     this.actions.createList$.pipe(
-      concatMap((params) => createList(params)),
+      concatMap((params) => this.listResource.createList(params)),
       tap((id) => id && this.router.navigate(['account/my-lists']))
     ),
     this.actions.deleteList$.pipe(
       tap((id) => id && this.router.navigate(['account/my-lists'])),
-      concatMap((id) => deleteList(id))
+      concatMap((id) => this.listResource.deleteList(id))
     )
   );
 
   constructor(
     private router: Router,
-    private actionsF: RxActionFactory<Actions>
+    private actionsF: RxActionFactory<Actions>,
+    private listResource: ListResource
   ) {
     super();
 
@@ -85,7 +81,7 @@ export class ListState extends RxState<ListModel> implements AppInitializer {
       'lists',
       this.actions.fetchList$.pipe(
         filter((id) => !isNaN(Number(id))),
-        concatMap((id) => fetchList(id))
+        concatMap((id) => this.listResource.fetchList(id))
       ),
       (state, list) => patch(state?.lists || {}, list)
     );
