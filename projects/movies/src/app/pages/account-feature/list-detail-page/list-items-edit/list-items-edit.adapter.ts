@@ -17,8 +17,8 @@ import {
 import { TMDBMovieDetailsModel } from '../../../../data-access/api/model/movie-details.model';
 import { TMDBMovieModel } from '../../../../data-access/api/model/movie.model';
 import {
+  MovieResource,
   MovieResponse,
-  queryMovie,
 } from '../../../../data-access/api/resources/movie.resource';
 import { ListDetailAdapter } from '../../../../pages/account-feature/list-detail-page/list-detail-page.adapter';
 import { RxActionFactory } from '../../../../shared/rxa-custom/actions';
@@ -67,7 +67,7 @@ export class ListItemsEditAdapter extends RxState<{
   readonly searchResponse$ = this.ui.search$.pipe(
     distinctUntilChanged(),
     filter(Boolean),
-    exhaustMap((request) => queryMovie(request)),
+    exhaustMap((request) => this.moviesResource.queryMovie(request)),
     map((movies) =>
       movies.map((m) =>
         addImageTag(
@@ -80,7 +80,8 @@ export class ListItemsEditAdapter extends RxState<{
 
   constructor(
     private state: ListState,
-    private detailsAdapter: ListDetailAdapter
+    private detailsAdapter: ListDetailAdapter,
+    private moviesResource: MovieResource
   ) {
     super();
 

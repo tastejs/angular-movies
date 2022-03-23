@@ -9,8 +9,6 @@ import {
   withLatestFrom,
 } from 'rxjs';
 import { TMDBMovieModel } from '../../data-access/api/model/movie.model';
-import { getMovieCategory } from '../../data-access/api/resources/movie.resource';
-import { getDiscoverMovies } from '../../data-access/api/resources/discover.resource';
 import {
   TMDBPaginateOptions,
   TMDBPaginateResult,
@@ -22,9 +20,11 @@ import { RouterParams } from '../../shared/router/router.model';
 import { infiniteScroll } from '../../shared/cdk/infinite-scroll/infiniteScroll';
 import { RxActionFactory } from '../../shared/rxa-custom/actions';
 import { InfiniteScrollOptions } from '../../shared/cdk/infinite-scroll/infinite-scroll.interface';
-import { getSearch } from '../../data-access/api/resources/search.resource';
-import { getGenresDictionaryCached } from '../../data-access/api/resources/genre.resource';
 import { MovieListPageModel } from './movie-list-page-adapter.model';
+import { DiscoverResource } from '../../data-access/api/resources/discover.resource';
+import { MovieResource } from '../../data-access/api/resources/movie.resource';
+import { SearchResource } from '../../data-access/api/resources/search.resource';
+import { GenreResource } from '../../data-access/api/resources/genre.resource';
 
 const emptyResult$ = EMPTY as unknown as Observable<
   TMDBPaginateResult<TMDBMovieModel>
@@ -53,7 +53,7 @@ export class MovieListPageAdapter extends RxState<MovieListPageModel> {
         .genreMoviesByIdSlice(identifier)
         .pipe(map(({ loading, value }) => ({ loading, ...value })));
     } else if (type === 'search') {
-      return getSearch(identifier);
+      return this.searchResource.getSearch(identifier);
     }
     return emptyResult$;
   }
@@ -63,7 +63,11 @@ export class MovieListPageAdapter extends RxState<MovieListPageModel> {
   constructor(
     private movieState: MovieState,
     private discoverState: DiscoverState,
-    private routerState: RouterState
+    private routerState: RouterState,
+    private discoverResource: DiscoverResource,
+    private movieResource: MovieResource,
+    private searchResource: SearchResource,
+    private genreResource: GenreResource
   ) {
     super();
 
@@ -72,7 +76,7 @@ export class MovieListPageAdapter extends RxState<MovieListPageModel> {
       map(([_, routerParams]) => routerParams)
     );
 
-    this.connect('genres', getGenresDictionaryCached());
+    this.connect('genres', this.genreResource.getGenresDictionaryCached());
 
     this.connect(
       this.routerState.routerParams$.pipe(selectSlice(['identifier', 'type']))
@@ -87,7 +91,12 @@ export class MovieListPageAdapter extends RxState<MovieListPageModel> {
         switchMap(({ type, identifier }) =>
           infiniteScroll(
             (options: InfiniteScrollOptions) =>
-              getFetchByType(type)(identifier, options),
+              getFetchByType(
+                type,
+                this.movieResource,
+                this.discoverResource,
+                this.searchResource
+              )(identifier, options),
             routerParamsFromPaginationTrigger$,
             this.getInitialFetchByType({ type, identifier })
           )
@@ -112,18 +121,21 @@ export class MovieListPageAdapter extends RxState<MovieListPageModel> {
 }
 
 function getFetchByType(
-  type: RouterParams['type']
+  type: RouterParams['type'],
+  movieResource: MovieResource,
+  discoverResource: DiscoverResource,
+  searchResource: SearchResource
 ): (
   s: string,
   options: TMDBPaginateOptions
 ) => Observable<TMDBPaginateResult<TMDBMovieModel>> {
   if (type === 'category') {
-    return getMovieCategory;
+    return movieResource.getMovieCategory;
   } else if (type === 'search') {
-    return getSearch;
+    return searchResource.getSearch;
   } else if (type === 'genre') {
     return (with_genres: string, options: TMDBPaginateOptions) =>
-      getDiscoverMovies({ ...options, with_genres });
+      discoverResource.getDiscoverMovies({ ...options, with_genres });
   }
 
   return (_: string, __?: TMDBPaginateOptions) => emptyResult$;
