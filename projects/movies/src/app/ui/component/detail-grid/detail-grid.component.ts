@@ -11,7 +11,7 @@ import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/
     </div>
   `,
   styleUrls: ['./detail-grid.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.Default,
   encapsulation: ViewEncapsulation.Emulated
 })
 export class DetailGridComponent {

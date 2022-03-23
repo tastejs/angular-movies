@@ -71,7 +71,7 @@ type UiActions = { paginate: boolean };
   `,
   styleUrls: ['./movie-list.component.scss'],
   providers: [RxState, RxActionFactory],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.Default,
   encapsulation: ViewEncapsulation.Emulated,
 })
 export class MovieListComponent {

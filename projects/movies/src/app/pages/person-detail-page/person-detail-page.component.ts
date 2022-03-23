@@ -12,7 +12,7 @@ import { merge } from 'rxjs';
   selector: 'ct-person',
   templateUrl: './person-detail-page.component.html',
   styleUrls: ['./person-detail-page.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.Default,
   encapsulation: ViewEncapsulation.Emulated,
 })
 export class PersonDetailPageComponent {

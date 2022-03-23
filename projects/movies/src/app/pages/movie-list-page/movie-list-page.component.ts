@@ -15,7 +15,7 @@ type Heading = { main: string; sub: string };
   templateUrl: './movie-list-page.component.html',
   styleUrls: ['./movie-list-page.component.scss'],
   encapsulation: ViewEncapsulation.Emulated,
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.Default,
 })
 export class MovieListPageComponent {
   readonly movies$ = this.adapter.select('results');

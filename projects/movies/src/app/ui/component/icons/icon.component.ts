@@ -30,7 +30,7 @@ import { IconRegistry } from './icon-registry.service';
       }
     `,
   ],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.Default,
 })
 export class SvgIconComponent implements OnInit, OnDestroy {
   @Input() name?: string;

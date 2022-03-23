@@ -11,7 +11,7 @@ import { ListDetailAdapter } from '../list-detail-page.adapter';
   selector: 'ct-list-share',
   templateUrl: './list-share.component.html',
   styleUrls: ['./list-share.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.Default,
 })
 export class ListShareComponent implements OnInit, OnDestroy {
   private body = document.body;

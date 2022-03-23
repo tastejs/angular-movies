@@ -19,7 +19,7 @@ import { RxState } from '@rx-angular/state';
   selector: 'ct-movie',
   templateUrl: './movie-detail-page.component.html',
   styleUrls: ['./movie-detail-page.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.Default,
   encapsulation: ViewEncapsulation.Emulated,
   providers: [RxState],
 })

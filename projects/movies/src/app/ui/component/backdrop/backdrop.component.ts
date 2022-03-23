@@ -4,7 +4,7 @@ import { ChangeDetectionStrategy, Component, HostBinding, Input, ViewEncapsulati
   selector: 'ui-backdrop',
   template: ``,
   styleUrls: ['./backdrop.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.Default,
   encapsulation: ViewEncapsulation.Emulated
 })
 export class BackdropComponent {

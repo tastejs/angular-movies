@@ -19,7 +19,7 @@ import { RxActionFactory } from '../../../shared/rxa-custom/actions';
     </div>
   `,
   styleUrls: ['./side-drawer.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.Default,
   encapsulation: ViewEncapsulation.Emulated,
   providers: [RxActionFactory],
 })

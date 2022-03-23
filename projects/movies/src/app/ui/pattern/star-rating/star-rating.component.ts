@@ -34,7 +34,7 @@ const starsArray: number[] = new Array(numStars).fill(1);
     'star-rating.component.scss',
     '../../component/tooltip/_tooltip.scss',
   ],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.Default,
   encapsulation: ViewEncapsulation.Emulated,
 })
 export class StarRatingComponent {

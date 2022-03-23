@@ -6,7 +6,7 @@ import { ListDetailAdapter, ListPoster } from '../list-detail-page.adapter';
   selector: 'ct-list-image',
   templateUrl: './list-image.component.html',
   styleUrls: ['./list-image.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.Default,
 })
 export class ListImageComponent {
   constructor(public adapter: ListDetailAdapter) {}
