@@ -68,34 +68,16 @@
     justify-content: space-between;
   }
 
-  &--cast-list,
-  &--cast-actor {
-    content-visibility: auto;
-    contain-intrinsic-size: 50px;
-  }
   &--cast-list {
     @include d-flex;
     flex-direction: row;
     margin: 0 20px;
     width: 100%;
     height: 50px;
+    content-visibility: auto;
+    contain-intrinsic-size: 50px;
     contain: strict;
     overflow: hidden;
-  }
-  &--cast-actor {
-    display: block;
-    height: auto;
-    width: 70px;
-    flex-shrink: 0;
-
-    img {
-      display: block;
-      width: 44px;
-      height: 44px;
-      border-radius: var(--theme-borderRadius-circle);
-      object-fit: cover;
-      margin: 0 auto;
-    }
   }
 }
 
@@ -136,8 +118,23 @@
   margin-bottom: 3rem;
 }
 
+.movie-detail--cast-actor {
+  display: block;
+  height: auto;
+  width: 70px;
+  content-visibility: auto;
+  contain-intrinsic-size: 50px;
+  flex-shrink: 0;
+
+  img {
+    display: block;
+    width: 44px;
+    height: 44px;
+    border-radius: var(--theme-borderRadius-circle);
+    object-fit: cover;
+    margin: 0 auto;
+  }
+}
 .recommendations {
   contain: content;
 }
-
-
