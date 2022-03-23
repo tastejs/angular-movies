@@ -8,7 +8,6 @@
   align-items: start;
   margin: 4rem 0;
   position: relative;
-  contain: layout;
 
   @media only screen and (max-width: 600px) {
     grid-template-columns: repeat(auto-fit, minmax(10rem, 23rem));
