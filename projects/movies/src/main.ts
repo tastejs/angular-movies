@@ -31,6 +31,6 @@ platformBrowserDynamic()
    * Remove the `polyfills` option from your `angular.json` to save 1 request and 118b
    *
    */
-  .bootstrapModule(AppModule /*, { ngZone: 'noop' }*/)
+  .bootstrapModule(AppModule, { ngZone: 'noop' })
   .catch((err) => console.error(err));
 //);
