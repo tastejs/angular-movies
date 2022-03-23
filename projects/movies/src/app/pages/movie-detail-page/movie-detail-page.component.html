@@ -61,11 +61,7 @@
               >
                 <img
                   loading="lazy"
-                  [src]="
-                  c?.profile_path
-                    ? 'https://image.tmdb.org/t/p/w185' + c.profile_path
-                    : 'assets/images/no_poster_available.jpg'
-                "
+                  [src]="c.imgUrl"
                   [alt]="c.name"
                   [title]="c.name"
                 />
@@ -89,9 +85,9 @@
           <a
             *ngIf="movie?.imdb_id"
             class="btn"
-            target="_blank"
+            [target]="movie.target"
             rel="noopener noreferrer"
-            [href]="'https://www.imdb.com/title/' + movie?.imdb_id"
+            [href]="movie.href"
           >
             IMDB
             <svg-icon class="btn__icon" name="imdb"></svg-icon>

@@ -13,7 +13,7 @@ import { TMDBMovieCastModel } from '../../data-access/api/model/movie-credits.mo
 import { TMDBMovieGenreModel } from '../../data-access/api/model/movie-genre.model';
 import { MovieDetailAdapter } from './movie-detail-page.adapter';
 import { RxActionFactory } from '../../shared/rxa-custom/actions';
-import { RxState } from '@rx-angular/state';
+import { RxEffects } from '@rx-angular/state/effects';
 
 @Component({
   selector: 'ct-movie',
@@ -21,7 +21,7 @@ import { RxState } from '@rx-angular/state';
   styleUrls: ['./movie-detail-page.component.scss'],
   changeDetection: ChangeDetectionStrategy.Default,
   encapsulation: ViewEncapsulation.Emulated,
-  providers: [RxState],
+  providers: [RxEffects],
 })
 export class MovieDetailPageComponent {
   readonly ui = this.actionsF.create();
@@ -50,7 +50,7 @@ export class MovieDetailPageComponent {
   castListWrapper: ElementRef<HTMLElement> | undefined = undefined;
 
   constructor(
-    private effects: RxState<any>,
+    private effects: RxEffects,
     private location: Location,
     private adapter: MovieDetailAdapter,
     private actionsF: RxActionFactory<{
@@ -58,7 +58,7 @@ export class MovieDetailPageComponent {
       iframe: 'load' | 'unload';
     }>
   ) {
-    this.effects.hold(
+    this.effects.register(
       this.ui.dialog$.pipe(map((v) => v === 'show')),
       (openDialog) =>
         openDialog

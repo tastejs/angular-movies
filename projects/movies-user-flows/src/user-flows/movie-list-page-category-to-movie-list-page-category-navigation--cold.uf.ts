@@ -15,7 +15,7 @@ const flowOptions: UserFlowOptions = {
 const interactions: UserFlowInteractionsFn = async (
   ctx: UserFlowContext
 ): Promise<any> => {
-  const { flow, collectOptions, page } = ctx;
+  const { flow, collectOptions } = ctx;
   const testUrl = `${collectOptions.url}/list/category/popular`;
   const sidebar = new SidebarUFO(ctx);
   const movieListPage = new MovieListPageUFO(ctx);

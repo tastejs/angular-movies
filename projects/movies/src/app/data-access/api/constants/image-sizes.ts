@@ -20,12 +20,12 @@ export const W780H1170: ImageDimensions = {
   WIDTH: 780,
   HEIGHT: 1170,
 } as const;
-/*
+
 export const W185H278: ImageDimensions = {
   WIDTH: 185,
   HEIGHT: 278,
 } as const;
-*/
+
 export const W500H282: ImageDimensions = {
   WIDTH: 500,
   HEIGHT: 282,
