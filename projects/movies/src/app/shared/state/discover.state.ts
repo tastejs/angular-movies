@@ -6,7 +6,7 @@ import { optimizedFetch } from '../utils/optimized-fetch';
 import { RxActionFactory } from '../rxa-custom/actions';
 import { withLoadingEmission } from '../cdk/loading/withLoadingEmissions';
 import {
-  getDiscoverMovies,
+  DiscoverResource,
   TMDBDiscoverResponse,
 } from '../../data-access/api/resources/discover.resource';
 import { AppInitializer } from '../rxa-custom/app-initializer';
@@ -42,7 +42,10 @@ export class DiscoverState extends RxState<State> implements AppInitializer {
       }))
     );
 
-  constructor(private actionsF: RxActionFactory<Actions>) {
+  constructor(
+    private actionsF: RxActionFactory<Actions>,
+    private discoverResource: DiscoverResource
+  ) {
     super();
 
     this.connect(
@@ -51,10 +54,12 @@ export class DiscoverState extends RxState<State> implements AppInitializer {
         optimizedFetch(
           (genre: string) => genre,
           (with_genres: string) =>
-            getDiscoverMovies({ with_genres, page: 1 }).pipe(
-              map((resp) => ({ value: { [with_genres]: resp } })),
-              withLoadingEmission()
-            )
+            this.discoverResource
+              .getDiscoverMovies({ with_genres, page: 1 })
+              .pipe(
+                map((resp) => ({ value: { [with_genres]: resp } })),
+                withLoadingEmission()
+              )
         )
       ),
       (oldState, newPartial) => {
@@ -73,10 +78,12 @@ export class DiscoverState extends RxState<State> implements AppInitializer {
         optimizedFetch(
           (person) => person,
           (with_cast: string) =>
-            getDiscoverMovies({ with_cast, page: 1 }).pipe(
-              map((resp) => ({ value: { [with_cast]: resp } })),
-              withLoadingEmission()
-            )
+            this.discoverResource
+              .getDiscoverMovies({ with_cast, page: 1 })
+              .pipe(
+                map((resp) => ({ value: { [with_cast]: resp } })),
+                withLoadingEmission()
+              )
         )
       ),
       (oldState, newPartial) => {

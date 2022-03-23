@@ -11,9 +11,9 @@ import { addImageTag } from '../../shared/utils/image/image-tag.transform';
 import { getIdentifierOfTypeAndLayout } from '../../shared/state/utils';
 import { TMDBPersonModel } from '../../data-access/api/model/person.model';
 import { PersonState } from '../../shared/state/person.state';
-import { getDiscoverMovies } from '../../data-access/api/resources/discover.resource';
 import { WithContext } from '../../shared/cdk/context/context.interface';
 import { MoviesSortValue } from '../../data-access/api/sort/sort.data';
+import { DiscoverResource } from '../../data-access/api/resources/discover.resource';
 
 export type MoviePerson = TMDBPersonModel & ImageTag;
 export type Actions = {
@@ -60,9 +60,14 @@ export class PersonDetailAdapter extends RxState<PersonDetailPageAdapterState> {
     combineLatestWith(this.routerState.select('sortBy')),
     switchMap(([with_cast, sort_by]) => {
       return infiniteScroll(
-        (options) => getDiscoverMovies({ with_cast, ...options, sort_by }),
+        (options) =>
+          this.discoverResource.getDiscoverMovies({
+            with_cast,
+            ...options,
+            sort_by,
+          }),
         this.actions.paginate$,
-        getDiscoverMovies({ with_cast, page: 1, sort_by })
+        this.discoverResource.getDiscoverMovies({ with_cast, page: 1, sort_by })
       );
     })
   );
@@ -72,16 +77,25 @@ export class PersonDetailAdapter extends RxState<PersonDetailPageAdapterState> {
     switchMap(([{ value }, with_cast]) => {
       return infiniteScroll(
         (options) =>
-          getDiscoverMovies({ with_cast, ...options, sort_by: value }),
+          this.discoverResource.getDiscoverMovies({
+            with_cast,
+            ...options,
+            sort_by: value,
+          }),
         this.actions.paginate$,
-        getDiscoverMovies({ with_cast, page: 1, sort_by: value })
+        this.discoverResource.getDiscoverMovies({
+          with_cast,
+          page: 1,
+          sort_by: value,
+        })
       );
     })
   );
 
   constructor(
     private routerState: RouterState,
-    private personState: PersonState
+    private personState: PersonState,
+    private discoverResource: DiscoverResource
   ) {
     super();
 

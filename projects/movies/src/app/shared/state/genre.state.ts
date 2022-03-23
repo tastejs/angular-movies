@@ -1,10 +1,10 @@
 import { RxState } from '@rx-angular/state';
 import { Injectable } from '@angular/core';
 import { exhaustMap } from 'rxjs';
-import { getActions } from '../rxa-custom/actions';
+import { RxActionFactory } from '../rxa-custom/actions';
 import {
+  GenreResource,
   GenresResponse,
-  getGenres,
 } from '../../data-access/api/resources/genre.resource';
 import { AppInitializer } from '../rxa-custom/app-initializer';
 
@@ -20,13 +20,16 @@ interface Actions {
   providedIn: 'root',
 })
 export class GenreState extends RxState<State> implements AppInitializer {
-  private actions = getActions<Actions>();
+  private actions = this.actionsF.create();
 
   readonly genresNames$ = this.select('genres');
 
   readonly refreshGenres = this.actions.refreshGenres;
 
-  constructor() {
+  constructor(
+    private actionsF: RxActionFactory<Actions>,
+    private genreResource: GenreResource
+  ) {
     super();
 
     this.connect(
@@ -38,7 +41,7 @@ export class GenreState extends RxState<State> implements AppInitializer {
          * Avoid over fetching for HTTP get requests to URLs that will not change result quickly.
          * E.G.: URLs with the same params
          */
-        exhaustMap(getGenres)
+        exhaustMap(this.genreResource.getGenres)
       )
     );
   }

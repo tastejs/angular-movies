@@ -21,7 +21,7 @@ import { trackByProp } from '../shared/utils/track-by';
 import { RxActionFactory } from '../shared/rxa-custom/actions';
 import { RouterState } from '../shared/router/router.state';
 import { getIdentifierOfTypeAndLayout } from '../shared/state/utils';
-import { getGenresCached } from '../data-access/api/resources/genre.resource';
+import { GenreResource } from '../data-access/api/resources/genre.resource';
 import { RxEffects } from '@rx-angular/state/effects';
 
 type Actions = {
@@ -33,7 +33,7 @@ type Actions = {
   selector: 'app-shell',
   templateUrl: './app-shell.component.html',
   styleUrls: ['./app-shell.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.Default,
   encapsulation: ViewEncapsulation.Emulated,
   providers: [RxState, RxEffects, RxActionFactory],
 })
@@ -59,7 +59,8 @@ export class AppShellComponent {
     public routerState: RouterState,
     @Inject(DOCUMENT) document: Document,
     private router: Router,
-    private actionsF: RxActionFactory<Actions>
+    private actionsF: RxActionFactory<Actions>,
+    private genreResource: GenreResource
   ) {
     this.init();
     /**
@@ -87,7 +88,7 @@ export class AppShellComponent {
     );
   }
 
-  readonly genres$ = getGenresCached();
+  readonly genres$ = this.genreResource.getGenresCached();
 
   readonly viewState$ = this.state.select();
 

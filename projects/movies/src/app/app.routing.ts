@@ -85,7 +85,7 @@ export const ROUTING_IMPORTS = [
      *
      * Disable initial sync navigation in router config and schedule it in router-outlet container component
      */
-    initialNavigation: 'disabled',
+    // initialNavigation: 'disabled',
     /**
      * **💡 UX Tip for InfiniteScroll:**
      *

@@ -10,7 +10,7 @@ import {
   selector: 'ct-list-items-edit',
   templateUrl: './list-items-edit.component.html',
   styleUrls: ['./list-items-edit.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.Default,
 })
 export class ListItemsEditComponent {
   constructor(public adapter: ListItemsEditAdapter) {}

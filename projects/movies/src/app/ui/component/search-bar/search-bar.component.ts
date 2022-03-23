@@ -61,7 +61,7 @@ type UiActions = {
     </form>
   `,
   styleUrls: ['search-bar.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.Default,
   encapsulation: ViewEncapsulation.Emulated,
   providers: [RxState],
 })

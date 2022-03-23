@@ -4,7 +4,7 @@ import { ListDetailAdapter } from '../list-detail-page.adapter';
 @Component({
   selector: 'ct-list-movies',
   template: `<ui-movie-list [movies]="adapter.movies$"></ui-movie-list>`,
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.Default,
 })
 export class ListMoviesComponent {
   constructor(public adapter: ListDetailAdapter) {}

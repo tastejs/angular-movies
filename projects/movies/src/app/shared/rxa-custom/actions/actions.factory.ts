@@ -40,7 +40,7 @@ export class RxActionFactory<T extends Actions> implements OnDestroy {
    * const actions = new RxActionFactory<UIActions>().create();
    *
    * actions.search($event.target.value);
-   * actions.search$ | async;
+   * actions.search$.subscribe();
    *
    * As it is well typed the following things would not work:
    * actions.submit('not void'); // not void
@@ -65,7 +65,7 @@ export class RxActionFactory<T extends Actions> implements OnDestroy {
    * actions.search('string');
    * actions.search(42);
    * actions.submit('not void'); // does not error anymore
-   * actions.search$ | async; // string Observable
+   * actions.search$.subscribe(); // string Observable
    *
    */
   create<U extends ActionTransforms<T> = {}>(transforms?: U): RxActions<T, U> {

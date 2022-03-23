@@ -5,8 +5,8 @@ import { AppComponent } from './app.component';
 import { AppShellModule } from './app-shell/app-shell.module';
 import { ROUTING_IMPORTS } from './app.routing';
 import { TMDB_HTTP_INTERCEPTORS_PROVIDER } from './shared/auth/tmdb-http-interceptor.providers';
-import { GLOBAL_STATE_APP_INITIALIZER_PROVIDER } from './state-app-initializer.provider';
-import { SCHEDULED_APP_INITIALIZER_PROVIDER } from './shared/app-initializer/chunk-app-initializer.provider';
+// import { GLOBAL_STATE_APP_INITIALIZER_PROVIDER } from './state-app-initializer.provider';
+// import { SCHEDULED_APP_INITIALIZER_PROVIDER } from './shared/app-initializer/chunk-app-initializer.provider';
 import { SERVICE_WORKER_IMPORTS } from './shared/pwa/service-worker.imports';
 import { RXA_PROVIDER } from './shared/rxa-custom/rxa.provider';
 import { LetModule } from '@rx-angular/template/let';
@@ -45,13 +45,13 @@ import { RxActionFactory } from './shared/rxa-custom/actions';
      *
      * Fetch data visible in viewport on app bootstrap instead of component initialization.
      */
-    GLOBAL_STATE_APP_INITIALIZER_PROVIDER,
+    // GLOBAL_STATE_APP_INITIALIZER_PROVIDER,
     /**
      * **🚀 Perf Tip for TBT:**
      *
      * Chunk app bootstrap over APP_INITIALIZER.
      */
-    SCHEDULED_APP_INITIALIZER_PROVIDER,
+    // SCHEDULED_APP_INITIALIZER_PROVIDER,
     /**
      * **🚀 Perf Tip for TBT, LCP, CLS:**
      *

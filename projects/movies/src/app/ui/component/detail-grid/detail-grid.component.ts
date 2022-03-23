@@ -1,4 +1,8 @@
-import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  ViewEncapsulation,
+} from '@angular/core';
 
 @Component({
   selector: 'ui-detail-grid',
@@ -11,9 +15,7 @@ import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/
     </div>
   `,
   styleUrls: ['./detail-grid.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  encapsulation: ViewEncapsulation.Emulated
+  changeDetection: ChangeDetectionStrategy.Default,
+  encapsulation: ViewEncapsulation.Emulated,
 })
-export class DetailGridComponent {
-
-}
+export class DetailGridComponent {}

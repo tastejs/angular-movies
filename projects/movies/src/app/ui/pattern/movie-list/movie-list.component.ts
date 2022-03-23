@@ -21,7 +21,7 @@ type UiActions = { paginate: boolean };
 @Component({
   selector: 'ui-movie-list',
   template: `
-    <ui-grid-list *rxIf="moviesListVisible$; else noData">
+    <ui-grid-list *ngIf="moviesListVisible$ | async; else noData">
       <!--
           **🚀 Perf Tip for TBT:**
           Use \`rxFor\` in favour of \`ngFor\` to get non blocking rendering of lists.
@@ -29,7 +29,11 @@ type UiActions = { paginate: boolean };
       -->
       <a
         class="ui-grid-list-item"
-        *rxFor="let movie of movies$; index as idx; trackBy: trackByMovieId"
+        *ngFor="
+          let movie of movies$ | async;
+          index as idx;
+          trackBy: trackByMovieId
+        "
         [routerLink]="['/detail/movie', movie.id]"
         [attr.data-uf]="'movie-' + idx"
       >
@@ -37,10 +41,11 @@ type UiActions = { paginate: boolean };
           **🚀 Perf Tip for LCP:**
           To get out the best performance use the native HTML attribute loading="lazy" instead of a directive.
           This avoids bootstrap and template evaluation time and reduces scripting time in general.
+
+           [attr.loading]="idx === 0 ? '' : 'lazy'"
           -->
         <img
           class="aspectRatio-2-3 gradient"
-          [attr.loading]="idx === 0 ? '' : 'lazy'"
           [src]="movie?.imgUrl || 'assets/images/no_poster_available.jpg'"
           [width]="movie.imgWidth"
           [height]="movie.imgHeight"
@@ -66,7 +71,7 @@ type UiActions = { paginate: boolean };
   `,
   styleUrls: ['./movie-list.component.scss'],
   providers: [RxState, RxActionFactory],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.Default,
   encapsulation: ViewEncapsulation.Emulated,
 })
 export class MovieListComponent {

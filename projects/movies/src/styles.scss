@@ -1,3 +1,11 @@
+.launcher {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
 /**
  * **🚀 Perf Tip for TBT:**
  *
@@ -22,7 +30,7 @@ body {
 
   &.modal-visible {
     .content {
-      contain: none;
+
     }
   }
 }

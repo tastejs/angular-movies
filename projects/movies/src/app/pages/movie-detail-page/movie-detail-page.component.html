@@ -1,30 +1,30 @@
 <article class="movie-detail-wrapper">
-  <ng-container *rxLet="movie$; let movie;">
+  <ng-container *ngIf="movie$ | async as movie;">
     <ui-detail-grid
       [style.opacity]="!!movie ? 1 : 0">
       <div detailGridMedia>
         <img
           class="aspectRatio-2-3 fit-cover"
-          [src]="movie.imgUrl"
-          [width]="movie.imgWidth"
-          [height]="movie.imgHeight"
+          [src]="movie?.imgUrl"
+          [width]="movie?.imgWidth"
+          [height]="movie?.imgHeight"
           alt="poster movie"
-          [title]="movie.title"
+          [title]="movie?.title"
           data-uf="hero-img"
         />
       </div>
       <div detailGridDescription>
         <header>
-          <h1 data-uf="header-main">{{ movie.title }}</h1>
-          <h2 data-uf="header-sub">{{ movie.tagline }}</h2>
+          <h1 data-uf="header-main">{{ movie?.title }}</h1>
+          <h2 data-uf="header-sub">{{ movie?.tagline }}</h2>
         </header>
         <section class="movie-detail--basic-infos">
           <ui-star-rating
-            [rating]="movie.vote_average"
+            [rating]="movie?.vote_average"
             [showRating]="true"
           ></ui-star-rating>
           <div class="movie-detail--languages-runtime-release">
-            <strong>{{ movie.languages_runtime_release }}</strong>
+            <strong>{{ movie?.languages_runtime_release }}</strong>
           </div>
         </section>
         <section>
@@ -33,7 +33,7 @@
             <a
               class="movie-detail--genres-link"
               *ngFor="
-                let genre of movie.genres;
+                let genre of movie?.genres;
                 trackBy: trackByGenre
               "
               [routerLink]="['/list/genre/', genre.id]"
@@ -45,15 +45,15 @@
         </section>
         <section>
           <h3>The Synopsis</h3>
-          <p>  {{ movie.overview || 'There is no synopsis available...' }}</p>
+          <p>  {{ movie?.overview || 'There is no synopsis available...' }}</p>
         </section>
         <section>
           <h3>The Cast</h3>
           <div class="movie-detail--cast-list">
             <button (mousedown)="move(70)" type="button" role="button" class="cast-list--btn">«</button>
-            <div #castListWrapper class="cast-list" *rxLet="castList$; let ctx;  strategy: 'immediate'">
+            <div #castListWrapper class="cast-list" *ngIf="castList$ | async as ctx;">
               <a
-                *rxFor="let c of  ctx.value; trackBy: trackByCast; index as idx;"
+                *ngFor="let c of  ctx.value; trackBy: trackByCast; index as idx;"
                 [routerLink]="['/detail/person/',c.id]"
                 (click)="$event.preventDefault()"
                 [attr.data-uf]="'cast-' + idx"
@@ -76,14 +76,14 @@
             class="btn"
             target="_blank"
             rel="noopener noreferrer"
-            [href]="movie.homepage"
+            [href]="movie?.homepage"
           >
             Website
             <svg-icon class="btn__icon" name="website"></svg-icon>
 
           </a>
           <a
-            *ngIf="movie.imdb_id"
+            *ngIf="movie?.imdb_id"
             class="btn"
             [target]="movie.target"
             rel="noopener noreferrer"
@@ -93,7 +93,7 @@
             <svg-icon class="btn__icon" name="imdb"></svg-icon>
           </a>
           <a
-            *ngIf="movie.videoUrl"
+            *ngIf="movie?.videoUrl"
             class="btn"
             (mouseover)="ui.iframe('load')"
             (click)="$event.preventDefault(); ui({dialog:'show',iframe:'load'})"
@@ -106,17 +106,19 @@
           <dialog class="video" #trailerDialog id="trailer-dialog">
             <span aria-controls="trailer-dialog" class="close" (click)="ui.dialog('close')"></span>
             <!--
-             **🚀 Perf Tip for less resource usage:**
+            **🚀 Perf Tip for less resource usage:**
             only render iframe if the user needs it (e.g. `*rxIf` or `*ngIf`)
-            *ngIf="initIframe$ | async;"
+
+            *rxIf="initIframe$;"
             -->
             <!--
             **🚀 Perf Tip for LCP:**
             To get out the best performance use the native HTML attribute loading="lazy" instead of a directive.
             This avoids bootstrap and template evaluation time and reduces scripting time in general.
+
+            loading="lazy"
             -->
-            <iframe *rxIf="loadIframe$;" [bypassSrc]="movie.videoUrl" loading="lazy"
-                    width="460" height="230"></iframe>
+            <iframe [bypassSrc]="movie?.videoUrl" width="460" height="230"></iframe>
 
           </dialog>
           <button data-uf="back" class="btn primary-button" (click)="back()">
@@ -133,7 +135,7 @@
     <h1>Recommended</h1>
     <h2>Movies</h2>
   </header>
-  <ng-container *rxLet="infiniteScrollRecommendations$; let ctx;  strategy: 'immediate'">
+  <ng-container *ngIf="infiniteScrollRecommendations$ | async as ctx;">
     <ui-movie-list (paginate)="paginateRecommendations()"
                    [movies]="ctx.results">
     </ui-movie-list>

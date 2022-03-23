@@ -20,7 +20,7 @@ type Actions = {
   selector: 'account-menu',
   templateUrl: './account-menu.component.html',
   styleUrls: ['./account-menu.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.Default,
   providers: [RxState, RxEffects],
 })
 export class AccountMenuComponent {

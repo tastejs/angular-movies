@@ -22,7 +22,6 @@
     var(--theme-anim-easing-easeOut);
   box-shadow: var(--theme-shadow-16);
   background-color: var(--palette-background-paper);
-  contain: strict;
   transform: translateX(-100%);
 
   & + footer{
