@@ -63,6 +63,7 @@
 
 .ui-toolbar {
   height: 72px;
+  contain: layout;
   @include d-flex-v;
   justify-content: space-between;
   width: 100%;
@@ -199,12 +200,15 @@ ui-side-drawer {
   overflow: auto;
   font-size: var(--text-md);
   font-weight: bold;
+  contain:content;
 
   a {
     outline: none;
     display: block;
     margin-bottom: 0.5rem;
     color: var(--palette-primary-dark);
+    content-visibility: auto;
+    contain-intrinsic-size: 20px;
 
     &.active,
     &:active {

@@ -20,6 +20,7 @@
 }
 
 .movie-detail {
+  contain: content;
 
   @media only screen and (max-width: 1500px) {
     &--grid-item {
@@ -73,6 +74,8 @@
     margin: 0 20px;
     width: 100%;
     height: 50px;
+    content-visibility: auto;
+    contain-intrinsic-size: 50px;
     contain: strict;
     overflow: hidden;
   }
@@ -119,6 +122,8 @@
   display: block;
   height: auto;
   width: 70px;
+  content-visibility: auto;
+  contain-intrinsic-size: 50px;
   flex-shrink: 0;
 
   img {
@@ -129,4 +134,7 @@
     object-fit: cover;
     margin: 0 auto;
   }
+}
+.recommendations {
+  contain: content;
 }

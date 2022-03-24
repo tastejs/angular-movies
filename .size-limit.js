@@ -27,7 +27,7 @@ module.exports = [
     path:
       base +
       'projects_movies_src_app_pages_movie-detail-page_movie-detail-page_module*',
-    limit: '5KB',
+    limit: '5.5KB',
   },
   {
     name: 'person-detail-page',

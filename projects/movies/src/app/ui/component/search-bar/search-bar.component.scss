@@ -16,8 +16,10 @@
   height: 2rem;
   outline: none;
   border-radius: 100px;
-  transition: width var(--theme-anim-duration-standard)
-  var(--theme-anim-easing-easeInOut);
+  contain: strict;
+  transform: translateZ(0px);
+  will-change: width;
+  transition: width var(--theme-anim-duration-standard) var(--theme-anim-easing-easeInOut);
 }
 
 .magnifier-button {
