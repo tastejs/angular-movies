@@ -1,13 +1,17 @@
 import { APP_INITIALIZER } from '@angular/core';
-import { getGenresCached } from './data-access/api/resources/genre.resource';
+import { GenreResource } from './data-access/api/resources/genre.resource';
 import { MovieState } from './shared/state/movie.state';
 import { RouterState } from './shared/router/router.state';
 import { take } from 'rxjs';
 
-function initializeState(movieState: MovieState, routerState: RouterState) {
+function initializeState(
+  movieState: MovieState,
+  routerState: RouterState,
+  genreResource: GenreResource
+) {
   return (): void => {
     // sideBar prefetch
-    getGenresCached().pipe(take(1)).subscribe();
+    genreResource.getGenresCached().pipe(take(1)).subscribe();
     // initial route prefetch
     routerState.routerParams$
       .pipe(take(1))
@@ -34,7 +38,7 @@ export const GLOBAL_STATE_APP_INITIALIZER_PROVIDER = [
   {
     provide: APP_INITIALIZER,
     useFactory: initializeState,
-    deps: [MovieState, RouterState],
+    deps: [MovieState, RouterState, GenreResource],
     multi: true,
   },
 ];
