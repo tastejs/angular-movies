@@ -1,4 +1,5 @@
-import { Injectable } from '@angular/core';
+import { DOCUMENT, isPlatformBrowser } from '@angular/common';
+import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
 import { exhaustMap, filter, map, Observable, take } from 'rxjs';
 import { AuthState } from './auth.state';
 import { isAuthenticationInProgress } from './utils';
@@ -13,9 +14,13 @@ import {
 export class AuthEffects {
   constructor(
     private authState: AuthState,
-    private authResouce: Authv4Resource
+    private authResource: Authv4Resource,
+    @Inject(PLATFORM_ID) platformId: Object,
+    @Inject(DOCUMENT) private document: Document
   ) {
-    this.restoreLogin();
+    if (isPlatformBrowser(platformId)) {
+      this.restoreLogin();
+    }
   }
 
   restoreLogin = (): void => {
@@ -45,7 +50,7 @@ export class AuthEffects {
       take(1),
       filter(<T>(v: T | null): v is T => v != null),
       exhaustMap((requestToken) =>
-        this.authResouce.createAccessToken(requestToken)
+        this.authResource.createAccessToken(requestToken)
       ),
       map(({ access_token, account_id }: Token) => ({
         accessToken: access_token,
@@ -55,12 +60,12 @@ export class AuthEffects {
   };
 
   approveRequestToken = (): void => {
-    this.authResouce
+    this.authResource
       .createRequestToken(this.authState.redirectUrl)
       .subscribe((res: Token) => {
         // store in local storage for the next page load
         window.localStorage.setItem('requestToken', res.request_token);
-        window.location.replace(
+        this.document.location.replace(
           `https://www.themoviedb.org/auth/access?request_token=${res.request_token}`
         );
       });
@@ -78,7 +83,7 @@ export class AuthEffects {
       requestToken: undefined,
     });
     if (accessToken) {
-      this.authResouce.deleteAccessToken(accessToken).subscribe();
+      this.authResource.deleteAccessToken(accessToken).subscribe();
     }
   };
 }
