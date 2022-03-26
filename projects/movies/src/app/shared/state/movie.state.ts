@@ -1,7 +1,7 @@
 import { RxState } from '@rx-angular/state';
 import { patch, toDictionary } from '@rx-angular/cdk/transformations';
 import { Injectable } from '@angular/core';
-import { map } from 'rxjs';
+import { filter, map } from 'rxjs';
 import { optimizedFetch } from '../utils/optimized-fetch';
 import { AppInitializer } from '../rxa-custom/app-initializer';
 import { RxActionFactory } from '../rxa-custom/actions';
@@ -35,6 +35,7 @@ export class MovieState extends RxState<MovieModel> implements AppInitializer {
 
   categoryMoviesByIdCtx = (id: string) =>
     this.select(
+      filter(({ categoryMovies }) => !!categoryMovies),
       map(({ categoryMovies: { value, loading } }) => ({
         loading,
         value: pluck(value, id),
