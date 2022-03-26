@@ -1,4 +1,11 @@
-import { ApplicationRef, ErrorHandler, Injectable } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+import {
+  ApplicationRef,
+  ErrorHandler,
+  Inject,
+  Injectable,
+  PLATFORM_ID,
+} from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { isZonePresent } from './is-zone-present';
 import { RxEffects } from '@rx-angular/state/effects';
@@ -14,6 +21,7 @@ export class ZonelessRouting extends RxEffects {
   constructor(
     private router: Router,
     private appRef: ApplicationRef,
+    @Inject(PLATFORM_ID) private platformId: Object,
     errorHandler: ErrorHandler
   ) {
     super(errorHandler);
@@ -26,7 +34,7 @@ export class ZonelessRouting extends RxEffects {
      * In zone-less applications we have to trigger CD on every `NavigationEnd` event that changes the view.
      * This is a necessity to make it work zone-less, but does not make the app faster.
      */
-    if (!isZonePresent()) {
+    if (isPlatformBrowser(this.platformId) && !isZonePresent()) {
       this.register(
         // Filter relevant navigation events for change detection
         this.router.events,
