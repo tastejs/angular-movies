@@ -8,7 +8,7 @@ import {
   ViewChild,
   ViewEncapsulation,
 } from '@angular/core';
-import { map, mergeWith } from 'rxjs';
+import { filter, map, mergeWith } from 'rxjs';
 import { TMDBMovieCastModel } from '../../data-access/api/model/movie-credits.model';
 import { TMDBMovieGenreModel } from '../../data-access/api/model/movie-genre.model';
 
@@ -36,7 +36,10 @@ export class MovieDetailPageComponent {
     ),
     map((e) => e === 'load')
   );
-  readonly movie$ = this.movieCtx$.pipe(map((ctx) => ctx?.value || null));
+  readonly movie$ = this.movieCtx$.pipe(
+    map((ctx) => ctx?.value || null),
+    filter((movie) => !!movie)
+  );
   readonly castList$ = this.adapter.movieCastById$;
   readonly castListLoading$ = this.adapter.movieCastById$.pipe(
     select('loading')
