@@ -1,6 +1,7 @@
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { TransferHttpCacheModule } from '@nguniversal/common';
 import { AppComponent } from './app.component';
 import { AppShellModule } from './app-shell/app-shell.module';
 import { ROUTING_IMPORTS } from './app.routing';
@@ -10,29 +11,27 @@ import { SCHEDULED_APP_INITIALIZER_PROVIDER } from './shared/app-initializer/chu
 import { SERVICE_WORKER_IMPORTS } from './shared/pwa/service-worker.imports';
 import { RXA_PROVIDER } from './shared/rxa-custom/rxa.provider';
 import { LetModule } from '@rx-angular/template/let';
-import { RootInjectorShortcutModule } from './shared/injector/root-injector.module';
 import { RxActionFactory } from './shared/rxa-custom/actions';
 
 @NgModule({
   declarations: [AppComponent],
   imports: [
-    BrowserModule,
+    BrowserModule.withServerTransition({ appId: 'moviesApp' }),
     HttpClientModule,
+
+    /**
+     * **🚀 Perf Tip for LCP, CLS:**
+     *
+     * Data from HTTP requests performed at SSR are transferred to FE & reused to avoid over-fetching and blink on app bootstrap.
+     */
+    TransferHttpCacheModule,
+
     /**
      * **🚀 Perf Tip for UX:**
      *
      * Setup serviceworker to get caching for HTTP requests and assets as well as better offline experience.
      */
     SERVICE_WORKER_IMPORTS,
-    /**
-     * **🚀 Perf Tip for TBT, LCP:**
-     *
-     * Save 0.6KB plus scripting time for every service class wrapper by accessing injectors directly.
-     *
-     * ⚠ Notice:
-     * You have to import this module in the root module of your application to initialize the "hack"
-     */
-    RootInjectorShortcutModule,
     AppShellModule,
     LetModule,
     ROUTING_IMPORTS,
