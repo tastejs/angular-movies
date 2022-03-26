@@ -10,6 +10,7 @@ import {
 } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { IconRegistry } from './icon-registry.service';
+import type { SupportedIcons } from './suported-icons';
 
 // credits go here: https://github.com/czeckd/angular-svg-icon/blob/bbd269df33fe74f7b474c1eb6322de432890c2d4/projects/angular-svg-icon/src/lib/svg-icon.component.ts
 
@@ -33,7 +34,7 @@ import { IconRegistry } from './icon-registry.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SvgIconComponent implements OnInit, OnDestroy {
-  @Input() name?: string;
+  @Input() name?: SupportedIcons;
 
   @HostBinding('style.width')
   @HostBinding('style.height')
