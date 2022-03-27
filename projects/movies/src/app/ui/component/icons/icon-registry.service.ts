@@ -1,78 +1,89 @@
 import { DOCUMENT } from '@angular/common';
 import { Inject, Injectable, Optional } from '@angular/core';
 import {
-  catchError,
+  distinctUntilChanged,
+  map,
   Observable,
-  of,
+  ReplaySubject,
   shareReplay,
-  switchMap,
-  throwError,
+  Subject,
 } from 'rxjs';
+import { iconProvider } from './icon-data';
+import { HttpClient } from '@angular/common/http';
 
-const iconProvider = (name: string) => `/assets/svg-icons/${name}.svg`;
-const icons = [
-  'account',
-  'back',
-  'genre',
-  'imdb',
-  'play',
-  'popular',
-  'search',
-  'top_rated',
-  'upcoming',
-  'website',
-  'delete',
-  'sad',
-  'error',
-];
-icons;
+const createIconFromUrl = (
+  container: HTMLElement,
+  iconCfg: { url: string; name: string }
+): SVGElement => {
+  const { url, name } = iconCfg;
+  container.innerHTML = `<svg id="${name}" viewBox="0 0 24 24"><use xlink:href='${url}#${name}'></use></svg>`;
+  return container.children[0].cloneNode(true) as SVGElement;
+};
 
-// credits go here: https://github.com/czeckd/angular-svg-icon/blob/master/projects/angular-svg-icon/src/lib/svg-icon-registry.service.ts
+const createIconFromString = (
+  container: HTMLElement,
+  iconSvg: string
+): SVGElement => {
+  container.innerHTML = iconSvg;
+  return container.children[0].cloneNode(true) as SVGElement;
+};
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class IconRegistry {
-  private readonly _iconMap = new Map<string, Observable<SVGElement>>();
+  private readonly _iconMap = new Map<string, Subject<SVGElement>>();
+
+  defaultProvider = iconProvider;
+
+  storeIconName(name: string, url: string): void {
+    const icon = createIconFromUrl(this.document.createElement('DIV'), {
+      name,
+      url,
+    });
+    this.getIconStream(name).next(icon);
+  }
 
   constructor(
-    // TODO: check what happens on SSR
-    // @Inject(PLATFORM_ID) private platformId: Object,
-    @Optional() @Inject(DOCUMENT) private document: Document
+    @Optional()
+    @Inject(DOCUMENT)
+    private document: Document,
+    private http: HttpClient
   ) {
-    // preload all icons
-    // merge(...icons.map((i) => this.loadSvg(i))).subscribe();
+    // @TODO preloading all icons
   }
 
-  loadSvg(name: string): Observable<SVGElement> {
-    const url = iconProvider(name);
+  loadIconOverHttp(name: string): void {
+    // only fetch 1 time
     if (this._iconMap.has(name)) {
-      return this._iconMap.get(name) as Observable<SVGElement>;
+      return;
     }
-    this.document.querySelector(`[data-svg-icon="${name}"]`);
-    const div = this.document.createElement('DIV');
-    div.innerHTML = `<svg viewBox="0 0 24 24">
-                        <use xlink:href='${url}#${name}'></use>
-                     </svg>`;
-    const svgElem = div.querySelector('svg') as SVGElement;
-    const o$ = of(svgElem).pipe(
-      catchError((err) => {
-        console.error(err);
-        return throwError(err);
-      }),
-      shareReplay(1)
-    ) as Observable<SVGElement>;
-    this._iconMap.set(name, o$);
-    return o$;
+    this.http
+      .get(this.defaultProvider(name), { responseType: 'text' })
+      .subscribe((body) => {
+        this.storeIconSvg(name, body);
+      });
   }
 
-  /** Get loaded SVG from registry by name. (also works by url because of blended map) */
-  getSvgByName(name: string): Observable<SVGElement> {
-    return new Observable<boolean>((s) => s.next(this._iconMap.has(name))).pipe(
-      switchMap((hasName) =>
-        hasName
-          ? (this._iconMap.get(name) as Observable<SVGElement>)
-          : this.loadSvg(name)
-      )
-      // @TODO handle errors
-    );
+  getIcon(name: string): Observable<SVGElement> {
+    return this.getIconStream(name)
+      .asObservable()
+      .pipe(
+        distinctUntilChanged((a, b) => a.innerHTML === b.innerHTML),
+        map((i) => i.cloneNode(true) as SVGElement),
+        shareReplay({ bufferSize: 1, refCount: true })
+      );
+  }
+
+  private getIconStream(n: string): Subject<SVGElement> {
+    if (!this._iconMap.has(n)) {
+      this._iconMap.set(n, new ReplaySubject<SVGElement>(1));
+    }
+    return this._iconMap.get(n) as Subject<SVGElement>;
+  }
+
+  private storeIconSvg(name: string, svg: string): void {
+    const icon = createIconFromString(this.document.createElement('DIV'), svg);
+    this.getIconStream(name).next(icon);
   }
 }
