@@ -58,26 +58,41 @@ For now you can search the codebase for "Perf Tip" later on there will be proppe
 
 
 
+
 <!-- bundle-stats-start -->
 | Names             |       Size |
 | ---               | ---        |
-| main.3be9aa83a5fc0ab3.js           | 333.7 KB |
-| styles.be05b375b7ddee56.css           | 6.14 KB |
-| runtime.2ebee702aaf70ea8.js           | 3.73 KB |
-  | **Initial Total** | **343.57 KB** |
+| main.12a3f55c1bacc0b9.js           | 340.71 KB |
+| styles.4880b5e8c855033b.css           | 6.15 KB |
+| runtime.30c00ca9e3b1d4d9.js           | 5.08 KB |
+  | **Initial Total** | **351.94 KB** |
   | Names             |       Size |
-| app_pages_movie-detail-page_movie-detail-page           | 15.43 KB |
-| app_pages_person-detail-page_person-detail-page           | 10.94 KB |
-| common.fa88d42376be556b.js           | 10.69 KB |
-| app_pages_account-feature_list-detail-page_list-items-edit_list-items-edi-393246.a07ece70117839f4.js           | 6.93 KB |
-| app_app-shell_account-menu_account-menu_component_lazy_ts.dbb1672cdc5020df.js           | 4.32 KB |
-| app_pages_account-feature_account-list-page_account-list-page           | 4.01 KB |
+| app_pages_movie-detail-page_movie-detail-page           | 15.79 KB |
+| app_pages_person-detail-page_person-detail-page           | 11.35 KB |
+| common.a1e936ea9d74320e.js           | 11.17 KB |
+| assets_svg-icons_error_svg_raw.30ac5d5a9945d244.js           | 8.53 KB |
+| app_pages_account-feature_list-detail-page_list-items-edit_list-items-edi-393246.d901dcdc1b118caf.js           | 6.99 KB |
+| app_app-shell_account-menu_account-menu_component_lazy_ts.596dd834d0d57d47.js           | 4.75 KB |
+| app_pages_account-feature_account-list-page_account-list-page           | 4.22 KB |
 | app_pages_account-feature_list-detail-page_list-detail-page           | 3.93 KB |
 | app_pages_account-feature_list-detail-page_list-remove_list-remove           | 3.23 KB |
 | app_pages_account-feature_list-detail-page_list-image_list-image           | 2.77 KB |
-| app_pages_not-found-page_not-found-page           | 1.84 KB |
+| app_pages_not-found-page_not-found-page           | 1.85 KB |
 | app_pages_account-feature_list-detail-page_list-movies_list-movies           | 837 Bytes |
+| assets_svg-icons_sad_svg_raw.0d3839f95844b290.js           | 643 Bytes |
+| assets_svg-icons_top_rated_svg_raw.807b146de0d8b1f7.js           | 632 Bytes |
+| assets_svg-icons_search_svg_raw.d35164b0daaca8ca.js           | 606 Bytes |
+| assets_svg-icons_back_svg_raw.ead31491dd663490.js           | 513 Bytes |
+| assets_svg-icons_popular_svg_raw.0895f072f92f42fe.js           | 501 Bytes |
+| assets_svg-icons_website_svg_raw.1b39960161322dde.js           | 487 Bytes |
+| assets_svg-icons_genre_svg_raw.fd60d3b9cff56fdf.js           | 485 Bytes |
+| assets_svg-icons_account_svg_raw.d3ba5e4dc44e61ad.js           | 484 Bytes |
+| assets_svg-icons_upcoming_svg_raw.b7cedc151068d05a.js           | 454 Bytes |
+| assets_svg-icons_imdb_svg_raw.5e1047a06fe2cb42.js           | 449 Bytes |
+| assets_svg-icons_play_svg_raw.48945e676e6da062.js           | 395 Bytes |
+| assets_svg-icons_delete_svg_raw.26778cd0f66469b9.js           | 338 Bytes |
 <!-- bundle-stats-end -->
+
 
 
 
