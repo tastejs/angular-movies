@@ -6,40 +6,39 @@ import {
   Observable,
   ReplaySubject,
   shareReplay,
-  Subject,
+  Subject
 } from 'rxjs';
-import { iconProvider } from './icon-data';
 import { HttpClient } from '@angular/common/http';
+import { IconProvider } from './icon-provider.token';
+import { IconProviderToken } from './icon-provider.model';
 
 const createIconFromUrl = (
   container: HTMLElement,
   iconCfg: { url: string; name: string }
-): SVGElement => {
+): HTMLElement => {
   const { url, name } = iconCfg;
-  container.innerHTML = `<svg id="${name}" viewBox="0 0 24 24"><use xlink:href='${url}#${name}'></use></svg>`;
-  return container.children[0].cloneNode(true) as SVGElement;
+  container.innerHTML = `<svg data-name="${name}"><use xlink:href='${url}#${name}'></use></svg>`;
+  return container.children[0].cloneNode(true) as HTMLElement;
 };
 
 const createIconFromString = (
   container: HTMLElement,
   iconSvg: string
-): SVGElement => {
+): HTMLElement => {
   container.innerHTML = iconSvg;
-  return container.children[0].cloneNode(true) as SVGElement;
+  return container.children[0].cloneNode(true) as HTMLElement;
 };
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
-export class IconRegistry {
-  private readonly _iconMap = new Map<string, Subject<SVGElement>>();
-
-  defaultProvider = iconProvider;
+export class IconCache {
+  private readonly _iconMap = new Map<string, Subject<HTMLElement>>();
 
   storeIconName(name: string, url: string): void {
     const icon = createIconFromUrl(this.document.createElement('DIV'), {
       name,
-      url,
+      url
     });
     this.getIconStream(name).next(icon);
   }
@@ -48,9 +47,10 @@ export class IconRegistry {
     @Optional()
     @Inject(DOCUMENT)
     private document: Document,
-    private http: HttpClient
-  ) {
-    // @TODO preloading all icons
+    private http: HttpClient,
+    @Inject(IconProvider)
+    public iconProvider: IconProviderToken) {
+    // @TODO preloading all icons optional
   }
 
   loadIconOverHttp(name: string): void {
@@ -59,27 +59,27 @@ export class IconRegistry {
       return;
     }
     this.http
-      .get(this.defaultProvider(name), { responseType: 'text' })
+      .get(this.iconProvider.url(name), { responseType: 'text' })
       .subscribe((body) => {
         this.storeIconSvg(name, body);
       });
   }
 
-  getIcon(name: string): Observable<SVGElement> {
+  getIcon(name: string): Observable<HTMLElement> {
     return this.getIconStream(name)
       .asObservable()
       .pipe(
         distinctUntilChanged((a, b) => a.innerHTML === b.innerHTML),
-        map((i) => i.cloneNode(true) as SVGElement),
+        map((i) => i.cloneNode(true) as HTMLElement),
         shareReplay({ bufferSize: 1, refCount: true })
       );
   }
 
-  private getIconStream(n: string): Subject<SVGElement> {
-    if (!this._iconMap.has(n)) {
-      this._iconMap.set(n, new ReplaySubject<SVGElement>(1));
+  private getIconStream(name: string): Subject<HTMLElement> {
+    if (!this._iconMap.has(name)) {
+      this._iconMap.set(name, new ReplaySubject<HTMLElement>(1));
     }
-    return this._iconMap.get(n) as Subject<SVGElement>;
+    return this._iconMap.get(name) as Subject<HTMLElement>;
   }
 
   private storeIconSvg(name: string, svg: string): void {
