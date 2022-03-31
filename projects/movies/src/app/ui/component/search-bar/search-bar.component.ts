@@ -50,6 +50,7 @@ type UiActions = {
         <svg-icon name="search" size="1.125em"></svg-icon>
       </button>
       <input
+        data-uf="q"
         *rxLet="search$; let search"
         aria-label="Search Input"
         #searchInput

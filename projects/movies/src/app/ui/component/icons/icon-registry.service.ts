@@ -20,7 +20,7 @@ export class IconRegistry {
   private readonly _iconMap = new Map<string, Observable<SVGElement>>();
 
   constructor(@Optional() @Inject(DOCUMENT) private document: Document) {
-    // preload all icons
+    // preload often used icons subset (good for SSR transfere state improvements)
     merge(
       ...SUPPORTED_ICONS.map((iconName) => this.loadSvg(iconName))
     ).subscribe();
@@ -33,6 +33,9 @@ export class IconRegistry {
       return this._iconMap.get(name);
     }
     const o$ = from(
+      /**
+       * This requires a custom webpack config (?raw)
+       */
       import(`../../../../assets/svg-icons/${name}.svg?raw`).then(
         (m) => m.default
       )
