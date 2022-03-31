@@ -37,6 +37,7 @@ type UiActions = {
   selector: 'ui-search-bar',
   template: `
     <form
+      data-uf="q-form"
       (submit)="ui.formSubmit($event)"
       #form
       class="form"
