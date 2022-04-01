@@ -18,23 +18,28 @@ import { RouterParams } from './router.model';
 export class RouterState extends RxState<RouterParams> {
   private _routerParams$: Observable<RouterParams> = this.router.events.pipe(
     select(
-      filter((event) => event instanceof NavigationEnd),
+      filter((event): event is NavigationEnd => event instanceof NavigationEnd),
       startWith('anyValue'),
       map((_) => {
         // This is a naive way to reduce scripting of router service :)
         // Obviously the params relay on routing structure heavily and could be done more dynamically
         const [layout, type, identifier] = fallbackRouteToDefault(
-          this.document.location.pathname
+          new URL(
+            this.document.location.href,
+            /* On SSR pre-render the location data are relative paths instead of valid absolute URLs, that's why we need to construct a new URL, with explicit origin (substituted by mock if pre-rendering) and then only consume pathname as our routing location */
+            this.document.location.origin || 'http://mock.domain'
+          ).pathname
         )
           .split('/')
           .slice(-3);
 
         let sortBy: string | null = null;
-        const [__, queryParams]: (string | undefined)[] =
-          fallbackRouteToDefault(this.document.location.search).split('?');
+        const [, queryParams]: (string | undefined)[] = fallbackRouteToDefault(
+          this.document.location.search
+        ).split('?');
 
         if (queryParams) {
-          const [___, sortByAndRest]: (string | undefined)[] =
+          const [, sortByAndRest]: (string | undefined)[] =
             queryParams?.split('sort_by=');
           sortBy = sortByAndRest?.split('&')?.shift() || null;
         }
