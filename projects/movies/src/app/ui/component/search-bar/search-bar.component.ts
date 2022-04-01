@@ -37,6 +37,7 @@ type UiActions = {
   selector: 'ui-search-bar',
   template: `
     <form
+      data-uf="q-form"
       (submit)="ui.formSubmit($event)"
       #form
       class="form"
@@ -50,6 +51,7 @@ type UiActions = {
         <svg-icon name="search" size="1.125em"></svg-icon>
       </button>
       <input
+        data-uf="q"
         *rxLet="search$; let search"
         aria-label="Search Input"
         #searchInput
