@@ -60,7 +60,7 @@ type UiActions = { paginate: boolean };
     <ng-template #noData>
       <div style="display: flex; align-items: center;">
         <span style="font-size: 1.5rem">No results</span>
-        <svg-icon name="sad"></svg-icon>
+        <fast-icon name="sad"></fast-icon>
       </div>
     </ng-template>
   `,

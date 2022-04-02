@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import { LetModule } from '@rx-angular/template/let';
-import { SvgIconModule } from '../../ui/component/icons/icon.module';
+import { FastIconModule } from '../../shared/fast-icon/fast-icon.module';
 import { MovieDetailPageComponent } from './movie-detail-page.component';
 import { StarRatingModule } from '../../ui/pattern/star-rating/star-rating.module';
 import { MovieListModule } from '../../ui/pattern/movie-list/movie-list.module';
@@ -29,7 +29,7 @@ const ROUTES: Routes = [
     LetModule,
     BypassSrcModule,
     ForModule,
-    SvgIconModule,
+    FastIconModule,
     IfModule,
   ],
   exports: [MovieDetailPageComponent],

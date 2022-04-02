@@ -38,7 +38,7 @@
               "
               [routerLink]="['/list/genre/', genre.id]"
             >
-              <svg-icon name="genre" style="margin-right: .5rem"></svg-icon>
+              <fast-icon name="genre" style="margin-right: .5rem"></fast-icon>
               {{ genre.name }}
             </a>
           </div>
@@ -79,7 +79,7 @@
             [href]="movie.homepage"
           >
             Website
-            <svg-icon class="btn__icon" name="website"></svg-icon>
+            <fast-icon class="btn__icon" name="website"></fast-icon>
 
           </a>
           <a
@@ -90,7 +90,7 @@
             [href]="movie.href"
           >
             IMDB
-            <svg-icon class="btn__icon" name="imdb"></svg-icon>
+            <fast-icon class="btn__icon" name="imdb"></fast-icon>
           </a>
           <a
             *ngIf="movie.videoUrl"
@@ -100,7 +100,7 @@
             href="#trainer"
           >
             Trailer
-            <svg-icon class="btn__icon" name="play"></svg-icon>
+            <fast-icon class="btn__icon" name="play"></fast-icon>
           </a>
 
           <dialog class="video" #trailerDialog id="trailer-dialog">
@@ -120,7 +120,7 @@
 
           </dialog>
           <button data-uf="back" class="btn primary-button" (click)="back()">
-            <svg-icon class="btn__icon" name="back" size="1em"></svg-icon>&nbsp;Back
+            <fast-icon class="btn__icon" name="back" size="1em"></fast-icon>&nbsp;Back
           </button>
         </section>
       </div>

@@ -4,13 +4,13 @@ import { RouterModule } from '@angular/router';
 import { LetModule } from '@rx-angular/template/let';
 import { ForModule } from '@rx-angular/template/experimental/for';
 import { HamburgerButtonModule } from '../ui/component/hamburger-button/hamburger-button.module';
-import { IconRegistry } from '../ui/component/icons/icon-registry.service';
-import { SvgIconModule } from '../ui/component/icons/icon.module';
+import { FastIconModule } from '../shared/fast-icon/fast-icon.module';
 import { SideDrawerModule } from '../ui/component/side-drawer/side-drawer.module';
 import { DarkModeToggleModule } from '../ui/component/dark-mode-toggle/dark-mode-toggle.module';
 import { SearchBarModule } from '../ui/component/search-bar/search-bar.module';
 import { AppShellComponent } from './app-shell.component';
 import { LazyModule } from '../shared/cdk/lazy/lazy.module';
+import { FAST_ICON_PROVIDERS } from '../ui/component/icons/movie.icon.provider';
 
 @NgModule({
   declarations: [AppShellComponent],
@@ -24,9 +24,9 @@ import { LazyModule } from '../shared/cdk/lazy/lazy.module';
     DarkModeToggleModule,
     ForModule,
     LazyModule,
-    SvgIconModule,
+    FastIconModule,
   ],
   exports: [AppShellComponent],
-  providers: [IconRegistry],
+  providers: [FAST_ICON_PROVIDERS],
 })
 export class AppShellModule {}

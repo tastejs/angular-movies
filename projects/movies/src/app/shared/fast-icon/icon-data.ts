@@ -1,4 +1,6 @@
-export type SupportedIcons = typeof SUPPORTED_ICONS[number];
+export function iconProvider(name: string): string {
+  return `/assets/svg-icons/${name}.svg`;
+}
 
 export const SUPPORTED_ICONS = [
   'account',
@@ -15,3 +17,4 @@ export const SUPPORTED_ICONS = [
   'sad',
   'error',
 ] as const;
+export type SupportedIcons = typeof SUPPORTED_ICONS[number];
