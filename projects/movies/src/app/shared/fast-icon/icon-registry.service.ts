@@ -12,7 +12,7 @@ import { SuspenseIcon } from './token/suspense-icon.token';
 })
 export class IconRegistry {
   private readonly _fetchedIcons = new Set();
-  private readonly _iconMap = new Map<string, BehaviorSubject<string>>();
+  private readonly _iconHrefCache = new Map<string, BehaviorSubject<string>>();
 
   // pattern has to be `#<provideID>-<iconName>`
   iconId(name: string): string {
@@ -29,7 +29,6 @@ export class IconRegistry {
     public iconProvider: IconProvider
   ) {
     this.cacheSvgInDOM('suspense', suspenseIcon);
-    // @TODO preloading all icons in rendered templates
   }
 
   fetchIcon(iconName: string): void {
@@ -51,34 +50,33 @@ export class IconRegistry {
 
   iconHref$(name: string): Observable<string> {
     // start by displaying the suspense icon immediately
-    return this.getIconSubject(name)
-      .asObservable()
-      .pipe(map((id) => `#${id}`));
+    return this.getIconSubject(this.iconId(name)).pipe(map((id) => `#${id}`));
   }
 
-  private cacheSvgInDOM(name: string, svgString: string): void {
+  private cacheSvgInDOM(iconId: string, svgString: string): void {
     // create HTML
     const _ = this.document.createElement('div');
     _.innerHTML = svgString;
     const svgElem = _.children[0];
+
     // the svg element needs to be accessible over a href and end with a specific anchor to select the element by id
-    svgElem.setAttribute('id', this.iconId(name));
+    svgElem.setAttribute('id', iconId);
     this.document.body.appendChild(svgElem);
     // notify subscribers about change
-    this.getIconSubject(name).next(`${this.iconId(name)}`);
+    this.getIconSubject(iconId).next(iconId);
   }
 
   private setupIconSubject(name: string): void {
-    if (!this._iconMap.has(name)) {
-      this._iconMap.set(
+    if (!this._iconHrefCache.has(name)) {
+      this._iconHrefCache.set(
         name,
         new BehaviorSubject<string>(this.iconId('suspense'))
       );
     }
   }
 
-  private getIconSubject(name: string): BehaviorSubject<string> {
-    this.setupIconSubject(name);
-    return this._iconMap.get(name) as BehaviorSubject<string>;
+  private getIconSubject(iconId: string): BehaviorSubject<string> {
+    this.setupIconSubject(iconId);
+    return this._iconHrefCache.get(iconId) as BehaviorSubject<string>;
   }
 }
