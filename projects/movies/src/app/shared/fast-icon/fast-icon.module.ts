@@ -11,11 +11,11 @@ import { fallbackIcon, suspenseIcon } from './token/default-token-values';
   providers: [
     {
       provide: SuspenseIcon,
-      useValue: () => suspenseIcon,
+      useValue: suspenseIcon,
     },
     {
       provide: FallbackIcon,
-      useValue: () => fallbackIcon,
+      useValue: fallbackIcon,
     },
   ],
   exports: [FastIconComponent],

@@ -1,99 +1,84 @@
 import { DOCUMENT } from '@angular/common';
 import { Inject, Injectable, Optional } from '@angular/core';
-import { Observable, ReplaySubject, shareReplay, Subject } from 'rxjs';
+import { BehaviorSubject, map, Observable } from 'rxjs';
 import { IconProviderToken } from './token/icon-provider.token';
 import { IconProvider } from './token/icon-provider.model';
+import { SuspenseIcon } from './token/suspense-icon.token';
 
-const createIconFromUrl = (
-  container: any,
-  iconCfg: { url: string; name: string }
-): any => {
-  const { url, name } = iconCfg;
-  container.innerHTML &&
-    `<svg data-name="${name}"><use href='${url}#${name}'></use></svg>`;
-  return container.children[0].cloneNode(true) as any;
-};
-
-const createIconFromString = (
-  container: any,
-  data: { iconSvg: string; name: string; providerId: string }
-): any => {
-  const { iconSvg, name, providerId } = data;
-  container.innerHTML = iconSvg;
-  const i = container.children[0];
-  // the svg element needs to be accessible ofer a href and end with a specific anchor to select a the element by id
-  i.setAttribute('id', `${providerId}-${name}`);
-  return i;
-};
+// @TODO compose icons in 1 sprite and fetch by id as before
 
 @Injectable({
   providedIn: 'root',
 })
 export class IconRegistry {
-  private readonly _iconMap = new Map<string, Subject<any>>();
+  private readonly _fetchedIcons = new Set();
+  private readonly _iconMap = new Map<string, BehaviorSubject<string>>();
 
-  storeIconName(name: string, url: string): void {
-    const icon = createIconFromUrl(this.document.createElement('DIV'), {
-      name,
-      url,
-    });
-    this.getIconStream(name).next(icon);
+  // pattern has to be `#<provideID>-<iconName>`
+  iconId(name: string): string {
+    return `${this.iconProvider.id}-${name}`;
   }
 
   constructor(
     @Optional()
     @Inject(DOCUMENT)
     private document: Document,
+    @Inject(SuspenseIcon)
+    suspenseIcon: string,
     @Inject(IconProviderToken)
     public iconProvider: IconProvider
   ) {
-    // @TODO preloading all icons optional
+    this.cacheSvgInDOM('suspense', suspenseIcon);
+    // @TODO preloading all icons in rendered templates
   }
 
-  fetchIcon(providerIdAndName: string): void {
-    console.log('fetchIcon: ', this._iconMap.has(providerIdAndName));
-    // is already fetched or in progress
-    if (this._iconMap.has(providerIdAndName)) {
+  fetchIcon(iconName: string): void {
+    const iconId = this.iconId(iconName);
+
+    // if the svg is already fetched we return early
+    if (this._fetchedIcons.has(iconId)) {
       return;
     }
-
-    // flag icon as in progress
-    this.setupIconStream(providerIdAndName);
+    this._fetchedIcons.add(iconId);
 
     // trigger fetch
     this.iconProvider
-      .load(this.iconProvider, providerIdAndName)
+      .load(this.iconProvider.url(iconName))
       .subscribe((body) => {
-        this.storeIconSvg(providerIdAndName, body);
+        this.cacheSvgInDOM(iconId, body);
       });
   }
 
-  getIcon(name: string): Observable<any> {
-    return this.getIconStream(name)
+  iconHref$(name: string): Observable<string> {
+    // start by displaying the suspense icon immediately
+    return this.getIconSubject(name)
       .asObservable()
-      .pipe(
-        //  map((i) => i.cloneNode(true) as any),
-        shareReplay({ bufferSize: 1, refCount: true })
-      );
+      .pipe(map((id) => `#${id}`));
   }
 
-  private setupIconStream(name: string): void {
+  private cacheSvgInDOM(name: string, svgString: string): void {
+    // create HTML
+    const _ = this.document.createElement('div');
+    _.innerHTML = svgString;
+    const svgElem = _.children[0];
+    // the svg element needs to be accessible over a href and end with a specific anchor to select the element by id
+    svgElem.setAttribute('id', this.iconId(name));
+    this.document.body.appendChild(svgElem);
+    // notify subscribers about change
+    this.getIconSubject(name).next(`${this.iconId(name)}`);
+  }
+
+  private setupIconSubject(name: string): void {
     if (!this._iconMap.has(name)) {
-      this._iconMap.set(name, new ReplaySubject<any>(1));
+      this._iconMap.set(
+        name,
+        new BehaviorSubject<string>(this.iconId('suspense'))
+      );
     }
   }
-  private getIconStream(name: string): Subject<any> {
-    this.setupIconStream(name);
-    return this._iconMap.get(name) as Subject<any>;
-  }
 
-  private storeIconSvg(name: string, iconSvg: string): void {
-    const icon = createIconFromString(this.document.createElement('DIV'), {
-      iconSvg,
-      providerId: this.iconProvider.id,
-      name,
-    });
-    this.document.body.appendChild(icon);
-    this.getIconStream(name).next(`#${this.iconProvider.id}-${name}`);
+  private getIconSubject(name: string): BehaviorSubject<string> {
+    this.setupIconSubject(name);
+    return this._iconMap.get(name) as BehaviorSubject<string>;
   }
 }

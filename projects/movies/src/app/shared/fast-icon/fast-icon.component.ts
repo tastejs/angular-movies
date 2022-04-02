@@ -1,26 +1,23 @@
 import {
+  AfterViewInit,
   ChangeDetectionStrategy,
   Component,
   ElementRef,
   Inject,
   Input,
   OnDestroy,
-  OnInit,
   PLATFORM_ID,
-  Renderer2,
   ViewEncapsulation,
 } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { IconRegistry } from './icon-registry.service';
 import { isPlatformServer } from '@angular/common';
-import { SuspenseIcon } from './token/suspense-icon.token';
-import { CreateIcon } from './create-icon.model';
 
 @Component({
   // eslint-disable-next-line @angular-eslint/component-selector
   selector: 'fast-icon',
   template: `
-    <!-- CSR
+    <!-- CSR - Browser native lazy loading hack
     We use an img element here to leverage the browsers native features:
     - lazy loading (loading="lazy") to only load the icons that are actually visible
     - priority hints to down prioritize the fetch avoid delaying LCP img faster
@@ -29,19 +26,27 @@ import { CreateIcon } from './create-icon.model';
 
     When the new icon arrives we append it to the (already empty) template
 
-    Note: SSR trigger is in the class
+    Edge cases:
+    - only resources that are not loaded in this visite of the website will get lazy loaded
+    - already loaded resources will get emitted from the cache immediately, even if loading is set to lazy :o
+    - the image needs to have display other than none
+
+    Note:
+    SSR trigger is in the class in onInit
     -->
     <img
-      *ngIf="!isSSR"
-      width="10"
-      height="10"
-      style="visibility: hidden;"
+      style="display: none"
+      width="0"
+      height="0"
       loading="lazy"
       fetchpriority="lowest"
-      [src]="'assets/' + name"
+      [src]="url"
       (load)="notifyLoadSvg()"
     />
     <!-- a fallback icon is inserted below at bootstrap time -->
+    <svg class="icon">
+      <use href=""></use>
+    </svg>
   `,
   styles: [
     `
@@ -53,28 +58,28 @@ import { CreateIcon } from './create-icon.model';
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
 })
-export class FastIconComponent implements OnInit, OnDestroy {
+export class FastIconComponent implements AfterViewInit, OnDestroy {
   isSSR = isPlatformServer(this.platform);
+
+  svg: SVGElement | null = null;
+  img: HTMLImageElement | null = null;
+
+  get url() {
+    return this.registry.iconProvider.url(this.name);
+  }
 
   @Input()
   name: string = '';
 
+  updateIcon = (href: string): void => {
+    if (this.svg) {
+      this.applySize();
+      this.svg.children[0].setAttribute('href', href);
+    }
+  };
+
   notifyLoadSvg = () => {
-    console.log('notifyLoadSvg');
     this.registry.fetchIcon(this.name);
-
-    // listen to icon changes if icon is visible - CSR & SSR
-    this.sub
-      .add
-      /* this.registry.getIcon(this.name).subscribe((icon) => {
-        const elem = this.element.nativeElement;
-
-        elem.innerHTML = '';
-        elem.innerHTML += `<svg class="icon"><use href='${icon}'></use></svg>`;
-        this.applySize(elem.children[0] as HTMLElement);
-        this.renderer.appendChild(elem, icon);
-      }) */
-      ();
   };
 
   @Input()
@@ -85,39 +90,40 @@ export class FastIconComponent implements OnInit, OnDestroy {
   constructor(
     @Inject(PLATFORM_ID)
     private platform: Object,
-    @Inject(SuspenseIcon)
-    private suspenseIcon: CreateIcon,
     private registry: IconRegistry,
-    private renderer: Renderer2,
     private element: ElementRef<HTMLElement>
   ) {}
 
-  ngOnInit() {
+  ngAfterViewInit() {
     if (!this.name) {
       throw new Error('icon component needs a name to operate');
     }
-
+    // Setup view refs
     const elem = this.element.nativeElement;
-    this.handleFallbackIcon(elem);
+    this.img = elem.querySelector('img') as HTMLImageElement;
+    this.svg = elem.querySelector('svg') as SVGElement;
 
-    // if SSR load icons on server => HTTP transfer state
-    // Note: CSR trigger is in the template
-    // this.isSSR && this.registry.fetchIcon(this.name);
-  }
-
-  handleFallbackIcon(view: HTMLElement) {
-    if (!this.suspenseIcon) {
-      return;
+    // SSR
+    if (this.isSSR) {
+      // No lazy loading hack used on SSR so we could remove the icon
+      // this.img.remove(); @Doublecheck
+      // if SSR load icons on server => HTTP transfer state
+      this.registry.fetchIcon(this.name);
     }
-    const icon = this.suspenseIcon();
-    this.applySize(icon);
-    this.renderer.appendChild(view, icon);
+    // CSR
+    else {
+      // Trigger is in the template over loading="lazy" and (onload)
+      // Than the same image is fetched over HTTPClient and rendered as SVG
+      this.img.setAttribute('style', '');
+    }
+    // listen to icon changes
+    this.sub.add(this.registry.iconHref$(this.name).subscribe(this.updateIcon));
   }
 
-  applySize(icon: HTMLElement) {
-    if (this.size) {
-      icon.setAttribute('width', this.size);
-      icon.setAttribute('height', this.size);
+  applySize() {
+    if (this.size && this.svg) {
+      this.svg.setAttribute('width', this.size);
+      this.svg.setAttribute('height', this.size);
     }
   }
 

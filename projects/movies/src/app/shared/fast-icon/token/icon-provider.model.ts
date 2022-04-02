@@ -1,8 +1,8 @@
-import { LoadIconFunctionSsr } from '../load-svg.ssr.model';
+import { Observable } from 'rxjs';
 
 export type IconProvider = {
   id: string;
   defaultSize: number;
   url: (name: string) => string;
-  load: LoadIconFunctionSsr;
+  load: (url: string) => Observable<string>;
 };
