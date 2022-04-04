@@ -1,7 +1,3 @@
-export function iconProvider(name: string): string {
-  return `/assets/svg-icons/${name}.svg`;
-}
-
 export const SUPPORTED_ICONS = [
   'account',
   'back',

@@ -10,7 +10,7 @@ import {
  * @NOTICE:
  *
  * To lazy load components you need to:
- * 0. in a new file `any.component.lazy.ts` (the name is irrelevant)
+ * 0. in a new file `any.component.lazy.ts` next to the components file (the name is irrelevant)
  * 1. create a module maintaining all it's dependencies over imports.
  * 2. declared the component as part of the module
  * 3. export the module

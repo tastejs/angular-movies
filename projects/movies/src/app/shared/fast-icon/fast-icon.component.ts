@@ -7,12 +7,16 @@ import {
   Input,
   OnDestroy,
   PLATFORM_ID,
-  ViewEncapsulation,
 } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { IconRegistry } from './icon-registry.service';
 import { isPlatformServer } from '@angular/common';
 
+/**
+ * ngx-fast-icon enables lazy loading features of the browser for SVG.
+ * It also manages the caching of SVG's in the DOM for multiple usage and different stylings
+ * This component also Supports lazy loading with SSR and http transfere cache
+ * */
 @Component({
   // eslint-disable-next-line @angular-eslint/component-selector
   selector: 'fast-icon',
@@ -20,14 +24,20 @@ import { isPlatformServer } from '@angular/common';
     <!-- CSR - Browser native lazy loading hack
     We use an img element here to leverage the browsers native features:
     - lazy loading (loading="lazy") to only load the icons that are actually visible
-    - priority hints to down prioritize the fetch avoid delaying LCP img faster
+    - priority hints to down prioritize the fetch to avoid delaying the LCP
 
+    While the SVG is loading we display a fallback SVG.
     After the image is loaded we remove it from the DOM. (IMG load event)
+    When the new icon arrives we append it to the template.
 
-    When the new icon arrives we append it to the (already empty) template
+    Note:
+    - the image is styled with display none. this prevents any loading of the resource ever.
+      on component bootstrap we decide what we want to do. when we remove display none it performs the browser native behavior
+    - the image has 0 height and with and containment as well as contnet-visibility to recuce any performance impact
+
 
     Edge cases:
-    - only resources that are not loaded in this visite of the website will get lazy loaded
+    - only resources that are not loaded in the current session of the browser will get lazy loaded (same URL to trigger loading is not possible)
     - already loaded resources will get emitted from the cache immediately, even if loading is set to lazy :o
     - the image needs to have display other than none
 
@@ -35,15 +45,21 @@ import { isPlatformServer } from '@angular/common';
     SSR trigger is in the class in onInit
     -->
     <img
-      style="display: none"
+      style="display: none; contain: content; content-visibility: auto;"
       width="0"
       height="0"
       loading="lazy"
       fetchpriority="lowest"
       [src]="url"
-      (load)="notifyLoadSvg()"
+      (load)="loaded(name)"
     />
-    <!-- a fallback icon is inserted below at bootstrap time -->
+    <!-- Icon - Displayed lazy or at bootstrap time from cache due to SSR or already loaded resources
+    We use a DOM caching mechanism to display icon over the 'use' tag and an href attribute.
+    - We display an empty SVG at the beginning. Invisible and without dimensions
+    - On View init the size is applied even if no icon is loaded to avoid flickering in dimensions
+    - A suspense icon is displayed at the same time to reduce visual flickering
+    - when the real icon is loaded it is directly cached in the DOM and displayed over a new href value
+     -->
     <svg class="icon">
       <use href=""></use>
     </svg>
@@ -53,16 +69,20 @@ import { isPlatformServer } from '@angular/common';
       :host {
         display: contents;
       }
+
+      .icon {
+        margin: 3px;
+        /* leverage css perf features for older browsers not supporting content-visibility */
+        contain: content;
+        /* leverage contain:content improvements, exclude node completely from recalc styles if offscreen */
+        content-visibility: auto;
+      }
     `,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  encapsulation: ViewEncapsulation.None,
 })
 export class FastIconComponent implements AfterViewInit, OnDestroy {
-  isSSR = isPlatformServer(this.platform);
-
-  svg: SVGElement | null = null;
-  img: HTMLImageElement | null = null;
+  private sub = new Subscription();
 
   get url() {
     return this.registry.iconProvider.url(this.name);
@@ -70,22 +90,12 @@ export class FastIconComponent implements AfterViewInit, OnDestroy {
 
   @Input()
   name: string = '';
-
-  updateIcon = (href: string): void => {
-    if (this.svg) {
-      this.applySize();
-      this.svg.children[0].setAttribute('href', href);
-    }
-  };
-
-  notifyLoadSvg = () => {
-    this.registry.fetchIcon(this.name);
-  };
-
   @Input()
   size: string = this.registry.iconProvider.defaultSize + '';
 
-  private sub = new Subscription();
+  // When the browser loaded the icon resource we trigger the caching mechanism
+  // re-fetch -> cache-hit -> get SVG -> cache in DOM
+  loaded = this.registry.fetchIcon;
 
   constructor(
     @Inject(PLATFORM_ID)
@@ -98,32 +108,50 @@ export class FastIconComponent implements AfterViewInit, OnDestroy {
     if (!this.name) {
       throw new Error('icon component needs a name to operate');
     }
-    // Setup view refs
+    // Setup view refs and init them
     const elem = this.element.nativeElement;
-    this.img = elem.querySelector('img') as HTMLImageElement;
-    this.svg = elem.querySelector('svg') as SVGElement;
+
+    const svg = elem.querySelector('svg') as SVGElement;
+    if (this.size && svg) {
+      svg.setAttribute('width', this.size);
+      svg.setAttribute('height', this.size);
+      // To avoid any scroll flicker caused by `content-visibility:auto` defined in component styles
+      svg.style.setProperty('contain-intrinsic-size', this.size);
+    }
+
+    const img = elem.querySelector('img') as HTMLImageElement;
+
+    // Listen to icon changes
+    // This potentially could already receive the icon from the cache and drop the img from the DOM before it gets activated for lazy loading.
+    // This
+    this.sub = this.registry.iconHref$(this.name).subscribe((href) => {
+      // The first child is the `use` tag. The value of href gets displayed as SVG
+      svg.children[0].setAttribute('href', href);
+
+      // early exit no image
+      // if (!this.img) return void 0;
+
+      // If the img is present
+      // and the name in included in the href (icon is fully loaded, not only the suspense icon)
+      // Remove the element from the DOM as it is no longer needed
+      img && href.includes(this.name) && img.remove();
+    });
 
     // SSR
-    if (this.isSSR) {
-      // No lazy loading hack used on SSR so we could remove the icon
+    if (isPlatformServer(this.platform)) {
+      // No lazy loading hack used on SSR so we could remove the img tag
       // this.img.remove(); @Doublecheck
       // if SSR load icons on server => HTTP transfer state
       this.registry.fetchIcon(this.name);
     }
     // CSR
     else {
-      // Trigger is in the template over loading="lazy" and (onload)
-      // Than the same image is fetched over HTTPClient and rendered as SVG
-      this.img.setAttribute('style', '');
-    }
-    // listen to icon changes
-    this.sub.add(this.registry.iconHref$(this.name).subscribe(this.updateIcon));
-  }
-
-  applySize() {
-    if (this.size && this.svg) {
-      this.svg.setAttribute('width', this.size);
-      this.svg.setAttribute('height', this.size);
+      // Activate the lazy loading hack
+      // Loading is triggered in the template over loading="lazy" and onload
+      // Than the same image is fetched over HTTPClient and rendered as SVG. (This will result in a cache hit for this svg)
+      //
+      // If the img is present activate it
+      img && img.style.setProperty('display', 'block');
     }
   }
 
