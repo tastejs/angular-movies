@@ -5,22 +5,32 @@ name: Add User Flow Reports
 
 on:
   pull_request:
-    branches: [ master ]
   push:
     branches: [ master ]
 
 jobs:
-  checkout:
+  collect_user_flows:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [14.x]
     steps:
-      - run: npm run build:ssr:prod && npm run measure-basic-user-flows
-      - uses: tzkhan/pr-update-action@v2
+      - name: Checkout the repository
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
         with:
-          repo-token: "${{ secrets.GITHUB_TOKEN }}"
-          head-branch-regex: '.+'
-          body-template: "chore: [LH-UserFlow] basic-flows \
-                          [PR user-flow report](https://github.com/tastejs/angular-movies/${{ github.head_ref }}/assets/bundle-report.html) | [Compare to staging](https://github.com/tastejs/angular-movies/assets/bundle-report.html)"
-          body-update-action: 'suffix'
+          node-version: '14'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Collect user flows
+        run: npm run analyze:user-flows
+
+      - name: Commit measures
+        uses: EndBug/add-and-commit@v7
+        with:
+          author_name: push-based.io
+          author_email: opensource@push-based.io
+          message: 'Persist user flow reports'
+          add: '*'
