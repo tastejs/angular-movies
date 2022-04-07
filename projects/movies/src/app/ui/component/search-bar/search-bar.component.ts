@@ -48,7 +48,7 @@ type UiActions = {
         class="magnifier-button"
         aria-label="Search for a movie"
       >
-        <svg-icon name="search" size="1.125em"></svg-icon>
+        <fast-icon name="search" size="1.125em"></fast-icon>
       </button>
       <input
         data-uf="q"

@@ -12,6 +12,8 @@ import { SERVICE_WORKER_IMPORTS } from './shared/pwa/service-worker.imports';
 import { RXA_PROVIDER } from './shared/rxa-custom/rxa.provider';
 import { LetModule } from '@rx-angular/template/let';
 import { RxActionFactory } from './shared/rxa-custom/actions';
+import { FAST_ICON_PROVIDERS } from './ui/component/icons/movie.icon.provider';
+import { FastIconModule } from './shared/fast-icon/fast-icon.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -35,6 +37,7 @@ import { RxActionFactory } from './shared/rxa-custom/actions';
     AppShellModule,
     LetModule,
     ROUTING_IMPORTS,
+    FastIconModule.forClient(),
   ],
   providers: [
     RxActionFactory,
@@ -57,6 +60,7 @@ import { RxActionFactory } from './shared/rxa-custom/actions';
      * Configure RxAngular to get maximum performance.
      */
     RXA_PROVIDER,
+    FAST_ICON_PROVIDERS,
   ],
   bootstrap: [AppComponent],
 })

@@ -5,6 +5,7 @@
     (openedChange)="ui.sideDrawerOpenToggle(false)"
   >
     <a class="navigation-header" href="/">
+      <!--
       <picture srcset="/assets/images/logo.svg" media="(min-width: 80em)">
         <img
           class="logo-img"
@@ -15,6 +16,8 @@
           height="150"
         />
       </picture>
+      -->
+        <fast-icon name="movies-logo" size="150"></fast-icon>
     </a>
     <nav class="navigation" *rxLet="[]">
       <h3 class="navigation--headline">Discover</h3>
@@ -25,7 +28,7 @@
         routerLinkActive="active"
       >
         <div class="navigation--menu-item">
-          <svg-icon class="navigation--menu-item-icon" name="popular"></svg-icon>
+          <fast-icon class="navigation--menu-item-icon" name="popular"></fast-icon>
           Popular
         </div>
       </a>
@@ -36,7 +39,7 @@
         routerLinkActive="active"
       >
         <div class="navigation--menu-item">
-          <svg-icon class="navigation--menu-item-icon" name="top_rated"></svg-icon>
+          <fast-icon class="navigation--menu-item-icon" name="top_rated"></fast-icon>
           Top Rated
         </div>
       </a>
@@ -47,7 +50,7 @@
         routerLinkActive="active"
       >
         <div class="navigation--menu-item">
-          <svg-icon class="navigation--menu-item-icon" name="upcoming"></svg-icon>
+          <fast-icon class="navigation--menu-item-icon" name="upcoming"></fast-icon>
           Upcoming
         </div>
       </a>
@@ -60,7 +63,7 @@
         routerLinkActive="active"
       >
         <div class="navigation--menu-item">
-          <svg-icon class="navigation--menu-item-icon" name="genre"></svg-icon>
+          <fast-icon class="navigation--menu-item-icon" name="genre"></fast-icon>
           {{ genre.name }}
         </div>
       </a>
@@ -71,17 +74,7 @@
         target="_blank"
         rel="noreferrer noopener"
       >
-        <picture class="tmdb-mark">
-          <source
-            srcset="/assets/images/tmdbgreen.svg"
-            media="(prefers-color-scheme: dark)"
-          />
-          <source
-            srcset="/assets/images/tmdb.svg"
-            media="(prefers-color-scheme: light)"
-          />
-          <img width="300" height="118" alt="The Movie Database" src="" />
-        </picture>
+        <fast-icon name="tmdb-logo" width="150" height="59" ></fast-icon>
       </a>
     </div>
   </ui-side-drawer>
@@ -102,7 +95,7 @@
         <div class="account-menu-dropdown">
           <button type="button" name="profile" class="profile-button" (mouseenter)="ui.loadAccountMenu();">
             <div class="focus-overlay"></div>
-            <svg-icon name="account"></svg-icon>
+            <fast-icon name="account"></fast-icon>
           </button>
           <div class="account-menu-content">
             <ng-container

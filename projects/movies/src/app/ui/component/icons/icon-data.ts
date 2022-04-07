@@ -1,5 +1,3 @@
-export type SupportedIcons = typeof SUPPORTED_ICONS[number];
-
 export const SUPPORTED_ICONS = [
   'account',
   'back',
@@ -15,3 +13,4 @@ export const SUPPORTED_ICONS = [
   'sad',
   'error',
 ] as const;
+export type SupportedIcons = typeof SUPPORTED_ICONS[number];

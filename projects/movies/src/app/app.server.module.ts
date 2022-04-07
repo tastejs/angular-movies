@@ -17,7 +17,6 @@ import { RXA_PROVIDER_SSR } from './shared/rxa-custom/rxa.provider.ssr';
      * Setup SSR to increase LCP by shipping rendered HTML on first load.
      */
     ServerModule,
-
     ServerTransferStateModule,
   ],
   providers: [RXA_PROVIDER_SSR],
