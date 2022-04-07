@@ -6,6 +6,8 @@ name: Add User Flow Reports
 on:
   pull_request:
     branches: [ master ]
+  push:
+    branches: [ master ]
 
 jobs:
   checkout:
