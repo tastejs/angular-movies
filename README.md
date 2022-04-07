@@ -63,6 +63,7 @@ For now you can search the codebase for "Perf Tip" later on there will be proppe
 
 
 
+
 <!-- bundle-stats-start -->
 | Names             |       Size |
 | ---               | ---        |
@@ -96,6 +97,7 @@ For now you can search the codebase for "Perf Tip" later on there will be proppe
 | assets_svg-icons_play_svg_raw.20ac5c1e300c3aec.js           | 405 Bytes |
 | assets_svg-icons_delete_svg_raw.dbdd7de5f63f0217.js           | 350 Bytes |
 <!-- bundle-stats-end -->
+
 
 
 
