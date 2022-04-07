@@ -11,7 +11,7 @@ export const FAST_ICON_PROVIDERS = [
       url: (name: string): string => {
         return `assets/svg-icons/${name}.svg`;
       },
-      load: (url: string) => http.get(url, { responseType: 'text' })
+      load: (url: string) => http.get(url, { responseType: 'text' }),
     }),
     deps: [HttpClient],
   },
