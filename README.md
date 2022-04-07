@@ -57,6 +57,7 @@ For now you can search the codebase for "Perf Tip" later on there will be proppe
 
 
 
+
 <!-- bundle-stats-start -->
 | Names             |       Size |
 | ---               | ---        |
@@ -77,6 +78,7 @@ For now you can search the codebase for "Perf Tip" later on there will be proppe
 | app_pages_not-found-page_not-found-page           | 1.85 KB |
 | app_pages_account-feature_list-detail-page_list-movies_list-movies           | 837 Bytes |
 <!-- bundle-stats-end -->
+
 
 
 
