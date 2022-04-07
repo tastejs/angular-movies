@@ -21,11 +21,8 @@
       "sourceRoot": "projects/movies/src",
       "architect": {
         "build": {
-          "builder": "@angular-builders/custom-webpack:browser",
+          "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "customWebpackConfig": {
-              "path": "./extra-webpack.config.js"
-            },
             "outputPath": "dist/movies/browser",
             "index": "projects/movies/src/index.original.html",
             "main": "projects/movies/src/main.ts",
@@ -102,7 +99,7 @@
           "defaultConfiguration": "production"
         },
         "serve": {
-          "builder": "@angular-builders/custom-webpack:dev-server",
+          "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
               "browserTarget": "movies:build:production"
@@ -114,7 +111,7 @@
           "defaultConfiguration": "development"
         },
         "extract-i18n": {
-          "builder": "@angular-builders/custom-webpack:extract-i18n",
+          "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
             "browserTarget": "movies:build"
           }
@@ -129,7 +126,7 @@
           }
         },
         "test": {
-          "builder": "@angular-builders/custom-webpack:karma",
+          "builder": "@angular-devkit/build-angular:karma",
           "options": {
             "main": "projects/movies/src/test.ts",
             "polyfills": "projects/movies/src/polyfills.ts",
@@ -145,11 +142,8 @@
           }
         },
         "build-server": {
-          "builder": "@angular-builders/custom-webpack:server",
+          "builder": "@angular-devkit/build-angular:server",
           "options": {
-            "customWebpackConfig": {
-              "path": "./extra-webpack.config.js"
-            },
             "outputPath": "dist/movies/server",
             "main": "server.ts",
             "tsConfig": "projects/movies/tsconfig.server.json",
