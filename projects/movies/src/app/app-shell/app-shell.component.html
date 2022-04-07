@@ -5,6 +5,7 @@
     (openedChange)="ui.sideDrawerOpenToggle(false)"
   >
     <a class="navigation-header" href="/">
+      <!--
       <picture srcset="/assets/images/logo.svg" media="(min-width: 80em)">
         <img
           class="logo-img"
@@ -15,6 +16,8 @@
           height="150"
         />
       </picture>
+      -->
+        <fast-icon name="movies-logo" size="150"></fast-icon>
     </a>
     <nav class="navigation" *rxLet="[]">
       <h3 class="navigation--headline">Discover</h3>
@@ -71,17 +74,7 @@
         target="_blank"
         rel="noreferrer noopener"
       >
-        <picture class="tmdb-mark">
-          <source
-            srcset="/assets/images/tmdbgreen.svg"
-            media="(prefers-color-scheme: dark)"
-          />
-          <source
-            srcset="/assets/images/tmdb.svg"
-            media="(prefers-color-scheme: light)"
-          />
-          <img width="300" height="118" alt="The Movie Database" src="" />
-        </picture>
+        <fast-icon name="tmdb-logo" width="150" height="59" ></fast-icon>
       </a>
     </div>
   </ui-side-drawer>

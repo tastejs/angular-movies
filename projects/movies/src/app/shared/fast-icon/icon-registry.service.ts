@@ -53,29 +53,45 @@ export class IconRegistry {
     this.document.body.appendChild(domCache);
     return domCache;
   })();
-  private readonly _fetchedIcons = new Set();
+
   private readonly _iconHrefCache = new Map<string, BehaviorSubject<string>>();
+  private readonly _cachedIcons = new Set();
 
   constructor(
     @Optional()
     @Inject(DOCUMENT)
     private document: Document,
     @Inject(SuspenseIcon)
-    suspenseIcon: string,
+    private suspenseIcon: string,
     @Inject(IconProviderToken)
     public iconProvider: IconProvider
   ) {
-    this.cacheSvgInDOM('suspense', suspenseIcon);
+    this.hydrateFromDom();
+  }
+
+  private hydrateFromDom(): void {
+    // hydrate DOM cache
+    Array.from(this.svgDomCache.children).forEach((i) => {
+      // add to fetchedIcons
+      this._cachedIcons.add(i.id);
+      // publish to components and render it
+      this.getIconSubject(i.id).next(i.id);
+    });
+
+    // configure suspense icon
+    const suspenseIconId = this.iconId('suspense');
+    !this._cachedIcons.has(suspenseIconId) &&
+      this.cacheSvgInDOM(suspenseIconId, this.suspenseIcon);
   }
 
   fetchIcon = (iconName: string): void => {
     const iconId = this.iconId(iconName);
 
     // if the svg is already fetched we return early
-    if (this._fetchedIcons.has(iconId)) {
+    if (this._cachedIcons.has(iconId)) {
       return;
     }
-    this._fetchedIcons.add(iconId);
+    this._cachedIcons.add(iconId);
 
     // trigger fetch
     this.iconProvider
@@ -84,6 +100,10 @@ export class IconRegistry {
         this.cacheSvgInDOM(iconId, body);
       });
   };
+
+  isIconCached(name: string): boolean {
+    return this._cachedIcons.has(this.iconId(name));
+  }
 
   iconHref$(name: string): Observable<string> {
     // start by displaying the suspense icon immediately

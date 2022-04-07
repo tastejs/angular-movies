@@ -8,14 +8,14 @@ import {
   HttpInterceptor,
   HttpResponse,
 } from '@angular/common/http';
-import { makeStateKey, TransferState } from '@angular/platform-browser';
+// import { makeStateKey, TransferState } from '@angular/platform-browser';
 import { IconProviderToken } from '../token/icon-provider.token';
 import { IconProvider } from '../token/icon-provider.model';
 
 @Injectable()
 export class TransferStateInterceptorSSR implements HttpInterceptor {
   constructor(
-    private transferState: TransferState,
+    //  private transferState: TransferState,
     @Inject(IconProviderToken)
     public iconProvider: IconProvider
   ) {}
@@ -42,7 +42,7 @@ export class TransferStateInterceptorSSR implements HttpInterceptor {
           const matches = req.url.toString().includes(pattern);
           if (matches !== null) {
             console.log('TransferStateIntercepSSR', pattern, matches);
-            this.transferState.set(makeStateKey<any>(pattern), event.body);
+            // this.transferState.set(makeStateKey<any>(pattern), event.body);
           }
         }
       })
