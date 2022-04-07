@@ -27,10 +27,10 @@ jobs:
       - name: Collect user flows
         run: npm run measure-basic-user-flows
 
-      - uses: tzkhan/pr-update-action@v2
+      - name: Commit measures
+        uses: EndBug/add-and-commit@v7
         with:
-          repo-token: "${{ secrets.GITHUB_TOKEN }}"
-          head-branch-regex: '.+'
-          body-template: "chore: [LH-UserFlow] basic-flows \
-                          [PR user-flow report](https://github.com/tastejs/angular-movies/${{ github.head_ref }}/assets/bundle-report.html) | [Compare to staging](https://github.com/tastejs/angular-movies/assets/bundle-report.html)"
-          body-update-action: 'suffix'
+          author_name: push-based.io
+          author_email: opensource@push-based.io
+          message: 'Persist user flow reports'
+          add: '*'
