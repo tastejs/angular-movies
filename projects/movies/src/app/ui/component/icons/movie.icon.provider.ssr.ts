@@ -16,6 +16,7 @@ export const FAST_ICON_PROVIDERS_SSR = [
       load: (url: string): Observable<string> => {
         const iconPath = join(process.cwd(), 'dist', 'movies', 'browser', url);
         const iconSVG = readFileSync(iconPath, 'utf8');
+        console.log('--- icon:', { url, iconPath, iconSVG });
         return of(iconSVG);
       },
     }),
