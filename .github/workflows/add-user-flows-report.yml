@@ -3,10 +3,7 @@
 
 name: Add User Flow Reports
 
-on:
-  pull_request:
-    branches: [ master ]
-  push:
+on: [ pull_request, push ]
     branches: [ master ]
 
 jobs:
