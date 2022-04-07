@@ -15,7 +15,7 @@ import { RxActionFactory } from '../../../shared/rxa-custom/actions';
       [opened]="opened"
     ></ui-backdrop>
     <div class="side-drawer" [class.opened]="opened">
-      <ng-content></ng-content>
+      <ng-content *ngIf="opened"></ng-content>
     </div>
   `,
   styleUrls: ['./side-drawer.component.scss'],
