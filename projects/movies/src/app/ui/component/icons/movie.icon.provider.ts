@@ -1,3 +1,4 @@
+import { Observable } from 'rxjs';
 import { IconProviderToken } from '../../../shared/fast-icon/token/icon-provider.token';
 import { IconProvider } from '../../../shared/fast-icon/token/icon-provider.model';
 import { HttpClient } from '@angular/common/http';
@@ -11,7 +12,8 @@ export const FAST_ICON_PROVIDERS = [
       url: (name: string): string => {
         return `assets/svg-icons/${name}.svg`;
       },
-      load: (url: string) => http.get(url, { responseType: 'text' }),
+      load: (url: string): Observable<string> =>
+        http.get(url, { responseType: 'text' }),
     }),
     deps: [HttpClient],
   },
