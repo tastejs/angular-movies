@@ -59,26 +59,28 @@ For now you can search the codebase for "Perf Tip" later on there will be proppe
 
 
 
+
 <!-- bundle-stats-start -->
 | Names             |       Size |
 | ---               | ---        |
-| main.d015ca43f221aca1.js           | 340.4 KB |
+| main.d8535c44e85b1e70.js           | 340.65 KB |
 | styles.95074ad981542eac.css           | 6.15 KB |
-| runtime.aaca508a7464cfef.js           | 3.73 KB |
-  | **Initial Total** | **350.29 KB** |
+| runtime.2967c3b1544cbb85.js           | 3.73 KB |
+  | **Initial Total** | **350.53 KB** |
   | Names             |       Size |
-| app_pages_movie-detail-page_movie-detail-page           | 15.79 KB |
-| app_pages_person-detail-page_person-detail-page           | 11.36 KB |
-| common.501395734f06f1b5.js           | 11.17 KB |
-| app_pages_account-feature_list-detail-page_list-items-edit_list-items-edi-393246.d802ce12191e6182.js           | 6.99 KB |
+| app_pages_movie-detail-page_movie-detail-page           | 15.96 KB |
+| app_pages_person-detail-page_person-detail-page           | 11.38 KB |
+| common.f5f41f37f0a6603d.js           | 11.21 KB |
+| app_pages_account-feature_list-detail-page_list-items-edit_list-items-edi-393246.cc3b7ed1b5458f28.js           | 7.01 KB |
 | app_app-shell_account-menu_account-menu_component_lazy_ts.ab73c8ee922f225b.js           | 4.75 KB |
 | app_pages_account-feature_account-list-page_account-list-page           | 4.22 KB |
 | app_pages_account-feature_list-detail-page_list-detail-page           | 3.94 KB |
-| app_pages_account-feature_list-detail-page_list-remove_list-remove           | 3.23 KB |
+| app_pages_account-feature_list-detail-page_list-remove_list-remove           | 3.34 KB |
 | app_pages_account-feature_list-detail-page_list-image_list-image           | 2.77 KB |
 | app_pages_not-found-page_not-found-page           | 1.85 KB |
 | app_pages_account-feature_list-detail-page_list-movies_list-movies           | 837 Bytes |
 <!-- bundle-stats-end -->
+
 
 
 
