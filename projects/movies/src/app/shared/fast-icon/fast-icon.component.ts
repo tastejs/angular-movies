@@ -123,7 +123,7 @@ export class FastIconComponent implements AfterViewInit, OnDestroy {
       loading="lazy"
       fetchpriority="lowest"
       src="${this.registry.iconProvider.url(this.name)}"
-      (load)="loaded(name)
+      (load)="loaded(name)"
       alt="${this.name.trim().replace('=', '').replace('"', '')}"
     />
     ` + elem.innerHTML;
