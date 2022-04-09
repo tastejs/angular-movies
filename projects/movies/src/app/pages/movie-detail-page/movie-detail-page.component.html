@@ -1,7 +1,6 @@
 <article class="movie-detail-wrapper">
-  <ng-container *rxLet="movie$; let movie;">
-    <ui-detail-grid
-      [style.opacity]="!!movie ? 1 : 0">
+  <ng-container *rxLet="movie$; let movie">
+    <ui-detail-grid [style.opacity]="!!movie ? 1 : 0">
       <div detailGridMedia>
         <img
           class="aspectRatio-2-3 fit-cover"
@@ -32,32 +31,42 @@
           <div class="movie-detail--genres">
             <a
               class="movie-detail--genres-link"
-              *ngFor="
-                let genre of movie.genres;
-                trackBy: trackByGenre
-              "
+              *ngFor="let genre of movie.genres; trackBy: trackByGenre"
               [routerLink]="['/list/genre/', genre.id]"
             >
-              <fast-icon name="genre" style="margin-right: .5rem"></fast-icon>
+              <fast-icon name="genre" style="margin-right: 0.5rem"></fast-icon>
               {{ genre.name }}
             </a>
           </div>
         </section>
         <section>
           <h3>The Synopsis</h3>
-          <p>  {{ movie.overview || 'There is no synopsis available...' }}</p>
+          <p>{{ movie.overview || 'There is no synopsis available...' }}</p>
         </section>
         <section>
           <h3>The Cast</h3>
           <div class="movie-detail--cast-list">
-            <button (mousedown)="move(70)" type="button" role="button" class="cast-list--btn">«</button>
-            <div #castListWrapper class="cast-list" *rxLet="castList$; let ctx;  strategy: 'immediate'">
+            <button
+              aria-label="Scroll cast left"
+              (mousedown)="move(70)"
+              type="button"
+              role="button"
+              class="cast-list--btn"
+            >
+              «
+            </button>
+            <div
+              #castListWrapper
+              class="cast-list"
+              *rxLet="castList$; let ctx; strategy: 'immediate'"
+            >
               <a
-                *rxFor="let c of  ctx.value; trackBy: trackByCast; index as idx;"
-                [routerLink]="['/detail/person/',c.id]"
+                *rxFor="let c of ctx.value; trackBy: trackByCast; index as idx"
+                [routerLink]="['/detail/person/', c.id]"
                 (click)="$event.preventDefault()"
                 [attr.data-uf]="'cast-' + idx"
                 class="movie-detail--cast-actor"
+                [attr.aria-label]="c.name"
               >
                 <img
                   loading="lazy"
@@ -68,7 +77,15 @@
               </a>
               <div *ngIf="ctx.loading" class="loader"></div>
             </div>
-            <button (mousedown)="move(-70)" type="button" role="button" class="cast-list--btn">»</button>
+            <button
+              aria-label="Scroll cast right"
+              (mousedown)="move(-70)"
+              type="button"
+              role="button"
+              class="cast-list--btn"
+            >
+              »
+            </button>
           </div>
         </section>
         <section class="movie-detail--ad-section-links">
@@ -80,7 +97,6 @@
           >
             Website
             <fast-icon class="btn__icon" name="website"></fast-icon>
-
           </a>
           <a
             *ngIf="movie.imdb_id"
@@ -96,7 +112,9 @@
             *ngIf="movie.videoUrl"
             class="btn"
             (mouseover)="ui.iframe('load')"
-            (click)="$event.preventDefault(); ui({dialog:'show',iframe:'load'})"
+            (click)="
+              $event.preventDefault(); ui({ dialog: 'show', iframe: 'load' })
+            "
             href="#trainer"
           >
             Trailer
@@ -104,7 +122,11 @@
           </a>
 
           <dialog class="video" #trailerDialog id="trailer-dialog">
-            <span aria-controls="trailer-dialog" class="close" (click)="ui.dialog('close')"></span>
+            <span
+              aria-controls="trailer-dialog"
+              class="close"
+              (click)="ui.dialog('close')"
+            ></span>
             <!--
              **🚀 Perf Tip for less resource usage:**
             only render iframe if the user needs it (e.g. `*rxIf` or `*ngIf`)
@@ -115,12 +137,22 @@
             To get out the best performance use the native HTML attribute loading="lazy" instead of a directive.
             This avoids bootstrap and template evaluation time and reduces scripting time in general.
             -->
-            <iframe *rxIf="loadIframe$;" [bypassSrc]="movie.videoUrl" loading="lazy"
-                    width="460" height="230"></iframe>
-
+            <iframe
+              *rxIf="loadIframe$"
+              [bypassSrc]="movie.videoUrl"
+              loading="lazy"
+              width="460"
+              height="230"
+            ></iframe>
           </dialog>
-          <button data-uf="back" class="btn primary-button" (click)="back()">
-            <fast-icon class="btn__icon" name="back" size="1em"></fast-icon>&nbsp;Back
+          <button
+            aria-label="Back"
+            data-uf="back"
+            class="btn primary-button"
+            (click)="back()"
+          >
+            <fast-icon class="btn__icon" name="back" size="1em"></fast-icon
+            >&nbsp;Back
           </button>
         </section>
       </div>
@@ -133,11 +165,14 @@
     <h1>Recommended</h1>
     <h2>Movies</h2>
   </header>
-  <ng-container *rxLet="infiniteScrollRecommendations$; let ctx;  strategy: 'immediate'">
-    <ui-movie-list (paginate)="paginateRecommendations()"
-                   [movies]="ctx.results">
+  <ng-container
+    *rxLet="infiniteScrollRecommendations$; let ctx; strategy: 'immediate'"
+  >
+    <ui-movie-list
+      (paginate)="paginateRecommendations()"
+      [movies]="ctx.results"
+    >
     </ui-movie-list>
     <div *ngIf="ctx.loading" class="loader"></div>
   </ng-container>
-
 </article>

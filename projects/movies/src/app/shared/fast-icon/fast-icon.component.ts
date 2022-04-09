@@ -124,6 +124,7 @@ export class FastIconComponent implements AfterViewInit, OnDestroy {
       fetchpriority="lowest"
       src="${this.registry.iconProvider.url(this.name)}"
       (load)="loaded(name)"
+      alt="${this.name.trim().replace('=', '').replace('"', '')}"
     />
     ` + elem.innerHTML;
       // get img

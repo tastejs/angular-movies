@@ -39,7 +39,7 @@
             IMDB
             <fast-icon class="btn__icon" name="imdb"></fast-icon>
           </a>
-          <button class="btn primary-button" (click)="back()">
+          <button aria-label="Back" class="btn primary-button" (click)="back()">
             <fast-icon name="back" size="1em"></fast-icon>&nbsp; Back
           </button>
         </section>
@@ -82,11 +82,7 @@
   <ng-container
     *rxLet="infiniteScrollRecommendations$; let ctx; strategy: 'immediate'"
   >
-    <ui-movie-list
-      (paginate)="paginate()"
-      [movies]="ctx.results"
-
-    >
+    <ui-movie-list (paginate)="paginate()" [movies]="ctx.results">
     </ui-movie-list>
     <div *ngIf="ctx.loading" class="loader"></div>
   </ng-container>

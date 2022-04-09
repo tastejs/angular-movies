@@ -11,7 +11,14 @@ import {
   selector: 'ui-dark-mode-toggle',
   template: `
     <div class="dark-mode-toggle">
-      <button type="button" class="light" (click)="setChecked(true)">☀</button>
+      <button
+        aria-label="Enable dark mode"
+        type="button"
+        class="light"
+        (click)="setChecked(true)"
+      >
+        ☀
+      </button>
 
       <span class="toggle">
         <input
@@ -27,7 +34,14 @@ import {
         </label>
       </span>
 
-      <button type="button" class="dark" (click)="setChecked(false)">☾</button>
+      <button
+        aria-label="Disable dark mode"
+        type="button"
+        class="dark"
+        (click)="setChecked(false)"
+      >
+        ☾
+      </button>
     </div>
   `,
   styleUrls: ['dark-mode-toggle.component.scss'],
