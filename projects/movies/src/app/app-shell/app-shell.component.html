@@ -4,19 +4,23 @@
     [opened]="vs.sideDrawerOpen"
     (openedChange)="ui.sideDrawerOpenToggle(false)"
   >
-    <a class="navigation-header" href="/">
-        <fast-icon name="movies-logo" size="150"></fast-icon>
+    <a class="navigation-header" aria-label="Main page" href="/">
+      <fast-icon name="movies-logo" size="150"></fast-icon>
     </a>
     <nav class="navigation" *rxLet="[]">
       <h3 class="navigation--headline">Discover</h3>
       <a
+        aria-label="Popular"
         data-uf="menu-cat-popular"
         class="navigation--link"
         [routerLink]="['/list', 'category', 'popular']"
         routerLinkActive="active"
       >
         <div class="navigation--menu-item">
-          <fast-icon class="navigation--menu-item-icon" name="popular"></fast-icon>
+          <fast-icon
+            class="navigation--menu-item-icon"
+            name="popular"
+          ></fast-icon>
           Popular
         </div>
       </a>
@@ -27,7 +31,10 @@
         routerLinkActive="active"
       >
         <div class="navigation--menu-item">
-          <fast-icon class="navigation--menu-item-icon" name="top_rated"></fast-icon>
+          <fast-icon
+            class="navigation--menu-item-icon"
+            name="top_rated"
+          ></fast-icon>
           Top Rated
         </div>
       </a>
@@ -38,31 +45,38 @@
         routerLinkActive="active"
       >
         <div class="navigation--menu-item">
-          <fast-icon class="navigation--menu-item-icon" name="upcoming"></fast-icon>
+          <fast-icon
+            class="navigation--menu-item-icon"
+            name="upcoming"
+          ></fast-icon>
           Upcoming
         </div>
       </a>
       <h3 class="navigation--headline">Genres</h3>
       <a
-        [attr.data-uf]="'menu-gen-'+genre.id"
+        [attr.data-uf]="'menu-gen-' + genre.id"
         *rxFor="let genre of genres$; trackBy: trackByGenre; strategy: 'idle'"
         class="navigation--link"
         [routerLink]="['/list', 'genre', genre.id]"
         routerLinkActive="active"
       >
         <div class="navigation--menu-item">
-          <fast-icon class="navigation--menu-item-icon" name="genre"></fast-icon>
+          <fast-icon
+            class="navigation--menu-item-icon"
+            name="genre"
+          ></fast-icon>
           {{ genre.name }}
         </div>
       </a>
     </nav>
     <div class="menu-footer">
       <a
+        aria-label="The movie DB website"
         href="https://www.themoviedb.org/"
         target="_blank"
         rel="noreferrer noopener"
       >
-        <fast-icon name="tmdb-logo" width="75" height="30" ></fast-icon>
+        <fast-icon name="tmdb-logo" width="75" height="30"></fast-icon>
       </a>
     </div>
   </ui-side-drawer>
@@ -81,7 +95,13 @@
         ></ui-search-bar>
         <ui-dark-mode-toggle></ui-dark-mode-toggle>
         <div class="account-menu-dropdown">
-          <button type="button" name="profile" class="profile-button" (mouseenter)="ui.loadAccountMenu();">
+          <button
+            type="button"
+            aria-label="Toggle profile menu"
+            name="profile"
+            class="profile-button"
+            (mouseenter)="ui.loadAccountMenu()"
+          >
             <div class="focus-overlay"></div>
             <fast-icon name="account"></fast-icon>
           </button>

@@ -15,7 +15,19 @@
   </header>
   <p>By clicking yes, this list will be permanently deleted.</p>
   <footer>
-    <button class="secondary-button" (click)="ui.closeDialog()">No</button>
-    <button class="secondary-button" (click)="ui.confirm()">Yes</button>
+    <button
+      aria-label="Cancel list delete"
+      class="secondary-button"
+      (click)="ui.closeDialog()"
+    >
+      No
+    </button>
+    <button
+      aria-label="Confirm list delete"
+      class="secondary-button"
+      (click)="ui.confirm()"
+    >
+      Yes
+    </button>
   </footer>
 </dialog>

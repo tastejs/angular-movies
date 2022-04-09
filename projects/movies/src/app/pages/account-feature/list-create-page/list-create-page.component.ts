@@ -50,6 +50,8 @@ import { ListCreatePageAdapter } from './list-create-page.adapter';
           [disabled]="!valid"
           (click)="adapter.ui.submit()"
           class="btn primary-button"
+          name="save"
+          aria-label="Save list"
         >
           Save
         </button>

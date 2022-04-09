@@ -43,7 +43,11 @@
     >
       <div class="box">
         {{ item.title }}
-        <button class="delete" (click)="adapter.ui.deleteMovie(item)">
+        <button
+          class="delete"
+          aria-label="Delete item"
+          (click)="adapter.ui.deleteMovie(item)"
+        >
           <fast-icon name="delete"></fast-icon>
         </button>
       </div>
