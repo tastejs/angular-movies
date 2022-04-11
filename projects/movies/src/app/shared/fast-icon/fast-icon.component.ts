@@ -10,7 +10,17 @@ import {
 } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { IconRegistry } from './icon-registry.service';
-import { isPlatformServer } from '@angular/common';
+import { DOCUMENT, isPlatformServer } from '@angular/common';
+
+let element: HTMLElement | undefined = undefined;
+
+function createDomParser(document: Document): (s: string) => HTMLElement {
+  const e = element || document.createElement('DIV');
+  return (s: string) => {
+    e && (e.innerHTML = s);
+    return e.firstChild as HTMLElement;
+  };
+}
 
 /**
  * ngx-fast-icon enables lazy loading features of the browser for SVG.
@@ -29,7 +39,7 @@ import { isPlatformServer } from '@angular/common';
     - when the real icon is loaded it is directly cached in the DOM and displayed over a new href value
      -->
     <svg class="icon">
-      <use href=""></use>
+      <use></use>
     </svg>
   `,
   styles: [
@@ -67,6 +77,7 @@ export class FastIconComponent implements AfterViewInit, OnDestroy {
   constructor(
     @Inject(PLATFORM_ID)
     private platform: Object,
+    @Inject(DOCUMENT) private document: Document,
     private registry: IconRegistry,
     private element: ElementRef<HTMLElement>
   ) {}
@@ -114,19 +125,22 @@ export class FastIconComponent implements AfterViewInit, OnDestroy {
        - the image needs to have display other than none
 
        */
-      elem.innerHTML =
-        `
-    <img
-      style="display: none; contain: content; content-visibility: auto;"
-      width="0"
-      height="0"
-      loading="lazy"
-      fetchpriority="lowest"
-      src="${this.registry.iconProvider.url(this.name)}"
-      (load)="loaded(name)"
-      alt="${this.name.trim().replace('=', '').replace('"', '')}"
-    />
-    ` + elem.innerHTML;
+      const domParser = createDomParser(this.document);
+
+      elem.appendChild(
+        domParser(`
+          <img
+            style="display: none; contain: content; content-visibility: auto;"
+            width="0"
+            height="0"
+            loading="lazy"
+            fetchpriority="lowest"
+            src="${this.registry.iconProvider.url(this.name)}"
+            (load)="loaded(name)"
+            alt="${this.name.trim().replace('=', '').replace('"', '')}"
+          />`)
+      );
+
       // get img
       img = elem.querySelector('img');
       img?.addEventListener('load', this.loadedListener);
