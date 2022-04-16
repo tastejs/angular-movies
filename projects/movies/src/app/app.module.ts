@@ -12,7 +12,6 @@ import { SERVICE_WORKER_IMPORTS } from './shared/pwa/service-worker.imports';
 import { RXA_PROVIDER } from './shared/rxa-custom/rxa.provider';
 import { LetModule } from '@rx-angular/template/let';
 import { RxActionFactory } from './shared/rxa-custom/actions';
-import { FAST_ICON_PROVIDERS } from './ui/component/icons/movie.icon.provider';
 import { FastIconModule } from './shared/fast-icon/fast-icon.module';
 
 @NgModule({
@@ -20,7 +19,6 @@ import { FastIconModule } from './shared/fast-icon/fast-icon.module';
   imports: [
     BrowserModule.withServerTransition({ appId: 'moviesApp' }),
     HttpClientModule,
-
     /**
      * **🚀 Perf Tip for LCP, CLS:**
      *
@@ -37,7 +35,11 @@ import { FastIconModule } from './shared/fast-icon/fast-icon.module';
     AppShellModule,
     LetModule,
     ROUTING_IMPORTS,
-    FastIconModule.forClient(),
+    FastIconModule.forRoot({
+      url: (name: string): string => {
+        return `assets/svg-icons/${name}.svg`;
+      },
+    }),
   ],
   providers: [
     RxActionFactory,
@@ -60,7 +62,6 @@ import { FastIconModule } from './shared/fast-icon/fast-icon.module';
      * Configure RxAngular to get maximum performance.
      */
     RXA_PROVIDER,
-    FAST_ICON_PROVIDERS,
   ],
   bootstrap: [AppComponent],
 })
