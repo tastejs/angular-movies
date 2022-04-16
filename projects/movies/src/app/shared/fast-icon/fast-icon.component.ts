@@ -7,18 +7,30 @@ import {
   Input,
   OnDestroy,
   PLATFORM_ID,
+  Renderer2,
 } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { IconRegistry } from './icon-registry.service';
-import { DOCUMENT, isPlatformServer } from '@angular/common';
+import { isPlatformServer } from '@angular/common';
 
-let element: HTMLElement | undefined = undefined;
+let element: HTMLElement = undefined as any;
 
-function createDomParser(document: Document): (s: string) => HTMLElement {
-  const e = element || document.createElement('DIV');
-  return (s: string) => {
-    e && (e.innerHTML = s);
-    return e.firstChild as HTMLElement;
+function createGetImgFn(renderer: Renderer2): (src: string) => HTMLElement {
+  if (element === undefined) {
+    element = renderer.createElement('img');
+    element.setAttribute(
+      'style',
+      'display: none; contain: content; content-visibility: auto;'
+    );
+    element.setAttribute('loading', 'lazy');
+    element.setAttribute('width', '0');
+    element.setAttribute('height', '0');
+  }
+
+  return (src: string) => {
+    const e = element.cloneNode(true) as HTMLElement;
+    e.setAttribute('src', src);
+    return e;
   };
 }
 
@@ -38,7 +50,7 @@ function createDomParser(document: Document): (s: string) => HTMLElement {
     - A suspense icon is displayed at the same time to reduce visual flickering
     - when the real icon is loaded it is directly cached in the DOM and displayed over a new href value
      -->
-    <svg class="icon">
+    <svg class="fast-icon">
       <use></use>
     </svg>
   `,
@@ -48,7 +60,7 @@ function createDomParser(document: Document): (s: string) => HTMLElement {
         display: contents;
       }
 
-      .icon {
+      .fast-icon {
         margin: 3px;
         /* leverage css perf features for older browsers not supporting content-visibility */
         contain: content;
@@ -61,23 +73,26 @@ function createDomParser(document: Document): (s: string) => HTMLElement {
 })
 export class FastIconComponent implements AfterViewInit, OnDestroy {
   private sub = new Subscription();
+  private readonly getImg = createGetImgFn(this.renderer);
 
   @Input()
   name: string = '';
   @Input()
-  size: string = this.registry.iconProvider.defaultSize + '';
+  size: string = this.registry.defaultSize;
   @Input()
   width: string = '';
   @Input()
   height: string = '';
   // When the browser loaded the icon resource we trigger the caching mechanism
   // re-fetch -> cache-hit -> get SVG -> cache in DOM
-  loadedListener = () => this.registry.fetchIcon(this.name);
+  loadedListener = () => {
+    this.registry.fetchIcon(this.name);
+  };
 
   constructor(
     @Inject(PLATFORM_ID)
     private platform: Object,
-    @Inject(DOCUMENT) private document: Document,
+    private renderer: Renderer2,
     private registry: IconRegistry,
     private element: ElementRef<HTMLElement>
   ) {}
@@ -92,10 +107,10 @@ export class FastIconComponent implements AfterViewInit, OnDestroy {
     const svg = elem.querySelector('svg') as SVGElement;
     // apply size
     if (this.size && svg) {
+      // We apply fixed dimensions
+      // Additionally to SEO rules, to avoid any scroll flicker caused by `content-visibility:auto` defined in component styles
       svg.setAttribute('width', this.width || this.size);
       svg.setAttribute('height', this.height || this.width || this.size);
-      // To avoid any scroll flicker caused by `content-visibility:auto` defined in component styles
-      svg.style.setProperty('contain-intrinsic-size', this.height || this.size);
     }
 
     let img: HTMLImageElement | null = null;
@@ -125,26 +140,14 @@ export class FastIconComponent implements AfterViewInit, OnDestroy {
        - the image needs to have display other than none
 
        */
-      const domParser = createDomParser(this.document);
-
-      elem.appendChild(
-        domParser(`
-          <img
-            style="display: none; contain: content; content-visibility: auto;"
-            width="0"
-            height="0"
-            loading="lazy"
-            fetchpriority="lowest"
-            src="${this.registry.iconProvider.url(this.name)}"
-            (load)="loaded(name)"
-            alt="${this.name.trim().replace('=', '').replace('"', '')}"
-          />`)
-      );
+      const i = this.getImg(this.registry.url(this.name));
+      this.renderer.appendChild(this.element.nativeElement, i);
 
       // get img
       img = elem.querySelector('img');
       img?.addEventListener('load', this.loadedListener);
     }
+
     // Listen to icon changes
     // This potentially could already receive the icon from the cache and drop the img from the DOM before it gets activated for lazy loading.
     // NOTICE:
@@ -154,12 +157,12 @@ export class FastIconComponent implements AfterViewInit, OnDestroy {
       svg.children[0].setAttribute('href', href);
 
       // early exit no image
-      // if (!this.img) return void 0;
+      if (!img) return;
 
       // If the img is present
       // and the name in included in the href (icon is fully loaded, not only the suspense icon)
       // Remove the element from the DOM as it is no longer needed
-      if (img && href.includes(this.name)) {
+      if (href.includes(this.name)) {
         img.removeEventListener('load', this.loadedListener);
         img.remove();
       }
@@ -169,7 +172,7 @@ export class FastIconComponent implements AfterViewInit, OnDestroy {
     if (isPlatformServer(this.platform)) {
       // No lazy loading hack used on SSR so we could remove the img tag
       // this.img.remove(); @Doublecheck
-      // if SSR load icons on server => HTTP transfer state
+      // if SSR load icons on server => ends up in DOM cache and ships to the client
       this.registry.fetchIcon(this.name);
     }
     // CSR
