@@ -1,15 +1,16 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { IconLoadStrategy } from '../../../shared/fast-icon/token/icon-load.strategy.model';
+import { join } from 'path';
+import { readFileSync } from 'fs';
 
 @Injectable()
 export class IconLoadStrategySsr implements IconLoadStrategy {
-  constructor(private http: HttpClient) {}
+  constructor() {}
 
   load(url: string): Observable<string> {
-    return this.http.get('http://localhost:4200/' + url, {
-      responseType: 'text',
-    });
+    const iconPath = join(process.cwd(), 'dist', 'movies', 'browser', url);
+    const iconSVG = readFileSync(iconPath, 'utf8');
+    return of(iconSVG);
   }
 }
