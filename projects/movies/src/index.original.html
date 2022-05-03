@@ -1,74 +1,75 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <title>HubMovies</title>
-  <base href="/" />
-  <meta
-    name="description"
-    content="A movies manager - no idea which movie to watch ? find it here"
-  />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link rel="apple-touch-icon" href=/assets/icons/light-apple-touch-icon.png">
-  <!--
+  <head>
+    <meta charset="utf-8" />
+    <title>HubMovies</title>
+    <base href="/" />
+    <meta
+      name="description"
+      content="A movies manager - no idea which movie to watch ? find it here"
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="apple-touch-icon" href=/assets/icons/light-apple-touch-icon.png">
+    <!--
   **🚀 Perf Tip for LCP:**
 
   preconnect urls used in the bootstrap phase or important urls used later in time.
   -->
-  <link
-    rel="preconnect"
-    href="https://image.tmdb.org/"
-    crossorigin=""
-  />
-  <link rel="preconnect" href="https://api.themoviedb.org/" crossorigin="" />
+    <link rel="preconnect" href="https://image.tmdb.org/" crossorigin="" />
+    <link rel="preconnect" href="https://api.themoviedb.org/" crossorigin="" />
 
-  <link rel="manifest" href="manifest.webmanifest" />
-  <meta name="theme-color" content="#1976d2" />
-</head>
+    <link rel="manifest" href="manifest.webmanifest" />
+    <meta name="theme-color" content="#1976d2" />
 
-<!--
+    <!--
 **🚀 Perf Tip for LCP:**
 Preload important images placed outside the viewport
 Prefetch resources needed after router navigation event
 -->
-<link
-  rel="preload"
-  as="image"
-  href="assets/icons/android-chrome-192x192.png"
-/>
-<link
-  rel="prefetch"
-  as="image"
-  href="assets/images/no_poster_available.jpg"
-/>
+    <link
+      rel="preload"
+      as="image"
+      href="assets/icons/android-chrome-192x192.png"
+    />
+    <link
+      rel="prefetch"
+      as="image"
+      href="assets/images/no_poster_available.jpg"
+    />
 
-<!--
+    <!--
 **🚀 Perf Tip for CLS and LCP:**
 Inline the styles for the app loading spinner to avoid flickering.
 -->
-<style>
-  .launcher {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-  }
-</style>
-<body class="light">
-<app-root>
-  <div class="launcher">
-    <!--
+    <style>
+      .launcher {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+      }
+    </style>
+  </head>
+
+  <body class="light">
+    <app-root>
+      <div class="launcher">
+        <!--
     **🚀 Perf Tip for CLS:**
     Always use fixed with and height fot images to avoid flickering and CLS
     -->
-    <img width="192px" height="192px" src="assets/icons/android-chrome-192x192.png" alt="logo" />
-    <p>HubMovies</p>
-  </div>
-</app-root>
-<noscript
->Please enable JavaScript to continue using this application.
-</noscript
->
-</body>
+        <img
+          width="192px"
+          height="192px"
+          src="assets/icons/android-chrome-192x192.png"
+          alt="logo"
+        />
+        <p>HubMovies</p>
+      </div>
+    </app-root>
+    <noscript
+      >Please enable JavaScript to continue using this application.
+    </noscript>
+  </body>
 </html>
