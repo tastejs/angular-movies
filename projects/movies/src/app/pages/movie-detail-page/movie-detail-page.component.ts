@@ -8,13 +8,15 @@ import {
   ViewChild,
   ViewEncapsulation,
 } from '@angular/core';
-import { filter, map, mergeWith } from 'rxjs';
+import { filter, map, mergeWith, tap } from 'rxjs';
 import { TMDBMovieCastModel } from '../../data-access/api/model/movie-credits.model';
 import { TMDBMovieGenreModel } from '../../data-access/api/model/movie-genre.model';
 
 import { MovieDetailAdapter } from './movie-detail-page.adapter';
 import { RxActionFactory } from '../../shared/rxa-custom/actions';
 import { RxEffects } from '@rx-angular/state/effects';
+
+import { Link } from '../../shared/link/link.service';
 
 @Component({
   selector: 'ct-movie',
@@ -36,8 +38,10 @@ export class MovieDetailPageComponent {
     ),
     map((e) => e === 'load')
   );
+  
   readonly movie$ = this.movieCtx$.pipe(
     map((ctx) => ctx?.value || null),
+    tap((ctx) => this.preloadLCPImage(ctx?.imgUrl || null)),
     filter((movie) => !!movie)
   );
   readonly castList$ = this.adapter.movieCastById$;
@@ -60,7 +64,8 @@ export class MovieDetailPageComponent {
     private actionsF: RxActionFactory<{
       dialog: 'show' | 'close';
       iframe: 'load' | 'unload';
-    }>
+    }>,
+    private linkService: Link
   ) {
     this.effects.register(
       this.ui.dialog$.pipe(map((v) => v === 'show')),
@@ -69,6 +74,14 @@ export class MovieDetailPageComponent {
           ? this.trailerDialog?.nativeElement?.showModal()
           : this.trailerDialog?.nativeElement.close()
     );
+  }
+
+  private preloadLCPImage(href: string | null): void | null {
+    if (!href) return null;
+    const preloadLink = {
+      rel: "preload", as: "image", type:"image/jpeg", href: href
+    }
+    this.linkService.addTag(preloadLink);
   }
 
   move(increment: number) {

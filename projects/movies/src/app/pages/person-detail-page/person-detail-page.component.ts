@@ -6,7 +6,9 @@ import {
 } from '@angular/core';
 import { PersonDetailAdapter } from './person-detail-page.adapter';
 import { SORT_VALUES } from '../../data-access/api/sort/sort.data';
-import { merge } from 'rxjs';
+import { merge, tap } from 'rxjs';
+
+import { Link } from '../../shared/link/link.service';
 
 @Component({
   selector: 'ct-person',
@@ -17,7 +19,9 @@ import { merge } from 'rxjs';
 })
 export class PersonDetailPageComponent {
   sortOptions = SORT_VALUES;
-  readonly personCtx$ = this.adapter.routedPersonCtx$;
+  readonly personCtx$ = this.adapter.routedPersonCtx$.pipe(
+    tap((actor) => this.preloadLCPImage(actor?.value?.imgUrl || null))
+  );
   readonly sortingModel$ = this.adapter.sortingModel$;
 
   readonly sortBy = this.adapter.sortBy;
@@ -29,12 +33,21 @@ export class PersonDetailPageComponent {
 
   constructor(
     private location: Location,
-    private adapter: PersonDetailAdapter
+    private adapter: PersonDetailAdapter,
+    private linkService: Link
   ) {
     this.adapter.set({
       activeSorting: this.sortOptions[0].name,
       showSorting: false,
     });
+  }
+
+  private preloadLCPImage(href: string | null): void | null {
+    if (!href) return null;
+    const preloadLink = {
+      rel: "preload", as: "image", type:"image/jpeg", href: href
+    }
+    this.linkService.addTag(preloadLink);
   }
 
   paginate(): void {
