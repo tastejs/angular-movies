@@ -80,13 +80,13 @@
   },
   "devDependencies": {
     "@angular-builders/custom-webpack": "^13.1.0",
-    "@angular-devkit/build-angular": "~13.0.2",
+    "@angular-devkit/build-angular": "^14.2.1",
     "@angular-eslint/builder": "~13.0.1",
     "@angular-eslint/eslint-plugin": "~13.0.1",
     "@angular-eslint/eslint-plugin-template": "~13.0.1",
     "@angular-eslint/schematics": "~13.0.1",
     "@angular-eslint/template-parser": "~13.0.1",
-    "@angular/cli": "13.0.2",
+    "@angular/cli": "14.2.1",
     "@angular/compiler-cli": "14.2.0",
     "@angular/language-service": "14.2.0",
     "@commitlint/cli": "^12.1.4",
@@ -139,7 +139,7 @@
     "stylelint-prettier": "^1.2.0",
     "terminate": "^2.2.1",
     "ts-node": "~10.3.1",
-    "typescript": "4.4.4",
+    "typescript": "4.8.2",
     "webpack-bundle-analyzer": "^3.3.2",
     "yargs": "^17.3.1"
   }
