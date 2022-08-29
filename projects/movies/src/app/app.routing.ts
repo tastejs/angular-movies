@@ -64,7 +64,7 @@ const ROUTES: Routes = [
       ).then((m) => m.AccountListPageModule),
   },
   {
-    path: 'page-not-fount',
+    path: 'page-not-found',
     loadChildren: () =>
       import(
         'projects/movies/src/app/pages/not-found-page/not-found-page.module'
