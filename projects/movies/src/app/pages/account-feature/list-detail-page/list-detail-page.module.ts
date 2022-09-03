@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 import { LetModule } from '@rx-angular/template/let';
 import { FastIconModule } from '../../../shared/fast-icon/fast-icon.module';
 import { ListDetailPageComponent } from './list-detail-page.component';
 import { MovieListModule } from '../../../ui/pattern/movie-list/movie-list.module';
 import { ForModule } from '@rx-angular/template/experimental/for';
 
-const ROUTES = [
+const ROUTES: Routes = [
   {
     path: '',
     component: ListDetailPageComponent,
@@ -16,7 +16,6 @@ const ROUTES = [
         pathMatch: 'full',
         redirectTo: 'view',
       },
-
       {
         path: 'view',
         loadChildren: () =>
