@@ -11,7 +11,7 @@
     "start:ssr:prod": "ng run movies:serve-ssr --configuration=production",
     "build": "ng build",
     "build:prod": "npm run ng build -- --configuration production",
-    "build:prod:ssr": "npm run build:prod:artefacts && ng run movies:build-server && npm run build:functions",
+    "build:prod:ssrbuild:prod:ssr": "npm run build:prod:artefacts && ng run movies:build-server && npm run build:functions",
     "build:prod:ssr-update": "npm run build:prod:artefacts && npm run update:bundle-stats && ng run movies:build-server && npm run build:functions",
     "build+prerender:prod:ssr-update": "npm run build:prod:artefacts && npm run update:bundle-stats && npm run prerender && npm run build:functions",
     "build:prod:artefacts": "npm run ng build -- --configuration production --stats-json && npm run report:bundlesize",

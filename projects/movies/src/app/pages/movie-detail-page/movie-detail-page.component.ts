@@ -1,5 +1,5 @@
 import { select, selectSlice } from '@rx-angular/state/selections';
-import { Location } from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -15,8 +15,30 @@ import { TMDBMovieGenreModel } from '../../data-access/api/model/movie-genre.mod
 import { MovieDetailAdapter } from './movie-detail-page.adapter';
 import { RxActionFactory } from '../../shared/rxa-custom/actions';
 import { RxEffects } from '@rx-angular/state/effects';
+import { DetailGridComponent } from '../../ui/component/detail-grid/detail-grid.component';
+import { StarRatingComponent } from '../../ui/pattern/star-rating/star-rating.component';
+import { MovieListComponent } from '../../ui/pattern/movie-list/movie-list.component';
+import { LetModule } from '@rx-angular/template/let';
+import { BypassSrcDirective } from '../../shared/bypass-src/bypass-src.directive';
+import { ForModule } from '@rx-angular/template/experimental/for';
+import { FastIconModule } from '../../shared/fast-icon/fast-icon.module';
+import { IfModule } from '../../shared/rxa-custom/if/src';
+import { RouterModule } from '@angular/router';
 
 @Component({
+  standalone: true,
+  imports: [
+    CommonModule,
+    RouterModule,
+    DetailGridComponent,
+    StarRatingComponent,
+    MovieListComponent,
+    LetModule,
+    BypassSrcDirective,
+    ForModule,
+    FastIconModule,
+    IfModule,
+  ],
   selector: 'ct-movie',
   templateUrl: './movie-detail-page.component.html',
   styleUrls: ['./movie-detail-page.component.scss'],

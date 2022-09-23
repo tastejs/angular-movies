@@ -5,9 +5,12 @@ import {
   OnInit,
 } from '@angular/core';
 import { ListDetailAdapter } from '../list-detail-page.adapter';
+import { LetModule } from '@rx-angular/template';
 
 // TODO
 @Component({
+  standalone: true,
+  imports: [LetModule],
   selector: 'ct-list-share',
   templateUrl: './list-share.component.html',
   styleUrls: ['./list-share.component.scss'],

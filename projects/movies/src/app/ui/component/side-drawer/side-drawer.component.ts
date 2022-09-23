@@ -6,8 +6,12 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import { RxActionFactory } from '../../../shared/rxa-custom/actions';
+import { CommonModule } from '@angular/common';
+import { BackdropComponent } from '../backdrop/backdrop.component';
 
 @Component({
+  standalone: true,
+  imports: [CommonModule, BackdropComponent],
   selector: 'ui-side-drawer',
   template: `
     <ui-backdrop

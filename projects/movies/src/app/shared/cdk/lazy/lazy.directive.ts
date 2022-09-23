@@ -26,6 +26,7 @@ import { distinctUntilChanged } from 'rxjs';
  * import('./any-component.lazy.ts').then(c => c.component)
  */
 @Directive({
+  standalone: true,
   selector: '[lazy]',
 })
 export class LazyDirective extends RxState<{

@@ -1,6 +1,11 @@
-import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  ViewEncapsulation,
+} from '@angular/core';
 
 @Component({
+  standalone: true,
   selector: 'ui-hamburger-button',
   templateUrl: './hamburger-button.component.html',
   styleUrls: ['./hamburger-button.component.scss'],
@@ -8,8 +13,7 @@ import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/
   encapsulation: ViewEncapsulation.Emulated,
   // eslint-disable-next-line @angular-eslint/no-host-metadata-property
   host: {
-    class: 'hamburger-button'
-  }
+    class: 'hamburger-button',
+  },
 })
-export class HamburgerButtonComponent {
-}
+export class HamburgerButtonComponent {}

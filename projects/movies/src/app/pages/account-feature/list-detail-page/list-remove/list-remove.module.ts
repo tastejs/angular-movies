@@ -10,7 +10,7 @@ const ROUTES = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(ROUTES)],
-  declarations: [ListRemoveComponent],
+  imports: [RouterModule.forChild(ROUTES), ListRemoveComponent],
+  declarations: [],
 })
 export class ListRemoveComponentModule {}

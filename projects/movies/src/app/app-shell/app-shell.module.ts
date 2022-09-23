@@ -3,12 +3,12 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { LetModule } from '@rx-angular/template/let';
 import { ForModule } from '@rx-angular/template/experimental/for';
-import { HamburgerButtonModule } from '../ui/component/hamburger-button/hamburger-button.module';
-import { SideDrawerModule } from '../ui/component/side-drawer/side-drawer.module';
-import { DarkModeToggleModule } from '../ui/component/dark-mode-toggle/dark-mode-toggle.module';
-import { SearchBarModule } from '../ui/component/search-bar/search-bar.module';
+import { HamburgerButtonComponent } from '../ui/component/hamburger-button/hamburger-button.component';
+import { SideDrawerComponent } from '../ui/component/side-drawer/side-drawer.component';
+import { DarkModeToggleComponent } from '../ui/component/dark-mode-toggle/dark-mode-toggle.component';
+import { SearchBarComponent } from '../ui/component/search-bar/search-bar.component';
 import { AppShellComponent } from './app-shell.component';
-import { LazyModule } from '../shared/cdk/lazy/lazy.module';
+import { LazyDirective } from '../shared/cdk/lazy/lazy.directive';
 import { FastIconModule } from '../shared/fast-icon/fast-icon.module';
 
 @NgModule({
@@ -16,13 +16,13 @@ import { FastIconModule } from '../shared/fast-icon/fast-icon.module';
   imports: [
     CommonModule,
     RouterModule,
-    HamburgerButtonModule,
+    HamburgerButtonComponent,
     LetModule,
-    SideDrawerModule,
-    SearchBarModule,
-    DarkModeToggleModule,
+    SideDrawerComponent,
+    SearchBarComponent,
+    DarkModeToggleComponent,
     ForModule,
-    LazyModule,
+    LazyDirective,
     FastIconModule,
   ],
   exports: [AppShellComponent],

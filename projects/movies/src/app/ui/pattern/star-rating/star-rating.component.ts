@@ -6,12 +6,15 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import { trackByIndex } from '../../../shared/utils/track-by';
+import { CommonModule } from '@angular/common';
 
 const range = 10;
 const numStars = 5;
 const starsArray: number[] = new Array(numStars).fill(1);
 
 @Component({
+  standalone: true,
+  imports: [CommonModule],
   selector: 'ui-star-rating',
   template: `
     <span class="tooltip">
