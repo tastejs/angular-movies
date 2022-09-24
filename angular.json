@@ -35,7 +35,6 @@
               "projects/movies/src/manifest.webmanifest",
               "projects/movies/src/assets"
             ],
-            "polyfills": "projects/movies/src/polyfills.ts",
             "styles": [
               "projects/movies/src/styles.scss"
             ],

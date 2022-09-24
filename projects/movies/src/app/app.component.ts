@@ -3,10 +3,12 @@ import { ZonelessRouting } from './shared/zone-less/zone-less-routing.service';
 import { RouterModule } from '@angular/router';
 import { LetModule } from '@rx-angular/template/let';
 import { AppShellComponent } from './app-shell/app-shell.component';
-
+export const APP_COMPONENT_IMPORTS = [
+  RouterModule,
+  AppShellComponent,
+  LetModule,
+];
 @Component({
-  standalone: true,
-  imports: [RouterModule, AppShellComponent, LetModule],
   selector: 'app-root',
   template: `
     <app-shell *rxLet="[]">

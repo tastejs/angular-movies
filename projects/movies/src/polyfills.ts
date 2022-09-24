@@ -51,7 +51,7 @@
  *
  * Remove `zone.js` import to save significant bundle size and bootstrap time
  */
-import 'zone.js'; // Included with Angular CLI.
+// import 'zone.js'; // Included with Angular CLI.
 
 /***************************************************************************************************
  * APPLICATION IMPORTS
