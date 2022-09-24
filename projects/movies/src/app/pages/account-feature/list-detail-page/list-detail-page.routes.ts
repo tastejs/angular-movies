@@ -13,37 +13,37 @@ export const ROUTES: Routes = [
       },
       {
         path: 'view',
-        loadChildren: () =>
-          import('./list-movies/list-movies.module').then(
-            (m) => m.ListMoviesComponentModule
+        loadComponent: () =>
+          import('./list-movies/list-movies.component').then(
+            (m) => m.ListMoviesComponent
           ),
       },
       {
         path: 'edit',
-        loadChildren: () =>
+        loadComponent: () =>
           import(
-            'projects/movies/src/app/pages/account-feature/list-create-page/list-create-page.module'
-          ).then((m) => m.ListCreatePageModule),
+            'projects/movies/src/app/pages/account-feature/list-create-page/list-create-page.component'
+          ).then((m) => m.ListCreateEditPageComponent),
       },
       {
         path: 'add-remove-items',
-        loadChildren: () =>
-          import('./list-items-edit/list-items-edit.module').then(
-            (m) => m.ListItemsEditComponentModule
+        loadComponent: () =>
+          import('./list-items-edit/list-items-edit.component').then(
+            (m) => m.ListItemsEditComponent
           ),
       },
       {
         path: 'image',
-        loadChildren: () =>
-          import('./list-image/list-image.module').then(
-            (m) => m.ListImageComponentModule
+        loadComponent: () =>
+          import('./list-image/list-image.component').then(
+            (m) => m.ListImageComponent
           ),
       },
       {
         path: 'delete',
-        loadChildren: () =>
-          import('./list-remove/list-remove.module').then(
-            (m) => m.ListRemoveComponentModule
+        loadComponent: () =>
+          import('./list-remove/list-remove.component').then(
+            (m) => m.ListRemoveComponent
           ),
       },
     ],

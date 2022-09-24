@@ -1,14 +1,11 @@
 import { Routes } from '@angular/router';
-import { AccountListPageComponent } from './account-list-page.component';
 
 export const ROUTES: Routes = [
   {
-    path: '',
-    pathMatch: 'full',
-    redirectTo: 'my-lists',
-  },
-  {
     path: 'my-lists',
-    component: AccountListPageComponent,
+    loadComponent: () =>
+      import(
+        'projects/movies/src/app/pages/account-feature/account-list-page/account-list-page.component'
+      ).then((c) => c.AccountListPageComponent),
   },
 ];
