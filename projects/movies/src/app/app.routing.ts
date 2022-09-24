@@ -59,8 +59,8 @@ const ROUTES: Routes = [
     path: 'account',
     loadChildren: () =>
       import(
-        'projects/movies/src/app/pages/account-feature/account-list-page/account-list-page.module'
-      ).then((c) => c.AccountListPageModule),
+        'projects/movies/src/app/pages/account-feature/account-feature.routing.module'
+      ).then((c) => c.AccountFeatureRoutingModule),
   },
   {
     path: 'page-not-found',
