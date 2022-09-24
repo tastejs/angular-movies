@@ -10,7 +10,6 @@ const ROUTES: Routes = [
 ];
 
 @NgModule({
-  declarations: [],
   imports: [RouterModule.forChild(ROUTES), MovieDetailPageComponent],
   exports: [MovieDetailPageComponent],
 })
