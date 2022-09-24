@@ -1,8 +1,9 @@
-import { enableProdMode } from '@angular/core';
+import { enableProdMode, importProvidersFrom } from '@angular/core';
 import { environment } from './environments/environment';
 import { bootstrapApplication } from '@angular/platform-browser';
 import { AppComponent } from './app/app.component';
 import { APP_PROVIDERS } from './app/app.provider';
+import { APP_IMPORTS } from './app/app.imports';
 
 if (environment.production) {
   enableProdMode();
@@ -17,6 +18,6 @@ if (environment.production) {
  */
 document.addEventListener('DOMContentLoaded', () =>
   bootstrapApplication(AppComponent, {
-    providers: APP_PROVIDERS,
+    providers: [APP_PROVIDERS, importProvidersFrom(APP_IMPORTS)],
   }).catch((err) => console.error(err))
 );

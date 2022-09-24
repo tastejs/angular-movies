@@ -1,15 +1,10 @@
-import { importProvidersFrom, NgZone, ɵNoopNgZone } from '@angular/core';
+import { NgZone, ɵNoopNgZone } from '@angular/core';
 import { ROUTER_PROVIDER } from './app.router.provider';
 import { RxActionFactory } from './shared/rxa-custom/actions';
 import { TMDB_HTTP_INTERCEPTORS_PROVIDER } from './shared/auth/tmdb-http-interceptor.providers';
 import { GLOBAL_STATE_APP_INITIALIZER_PROVIDER } from './state-app-initializer.provider';
 import { SCHEDULED_APP_INITIALIZER_PROVIDER } from './shared/app-initializer/chunk-app-initializer.provider';
 import { RXA_PROVIDER } from './shared/rxa-custom/rxa.provider';
-import { FastIconModule } from './shared/fast-icon/fast-icon.module';
-import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
-import { TransferHttpCacheModule } from '@nguniversal/common';
-import { SERVICE_WORKER_IMPORTS } from './shared/pwa/service-worker.imports';
 
 export const APP_PROVIDERS = [
   /**
@@ -53,26 +48,4 @@ export const APP_PROVIDERS = [
    * Configure RxAngular to get maximum performance.
    */
   RXA_PROVIDER,
-  importProvidersFrom(
-    FastIconModule.forRoot({
-      url: (name: string): string => {
-        return `assets/svg-icons/${name}.svg`;
-      },
-    }),
-    BrowserModule.withServerTransition({ appId: 'moviesApp' }),
-    HttpClientModule,
-    /**
-     * **🚀 Perf Tip for LCP, CLS:**
-     *
-     * Data from HTTP requests performed at SSR are transferred to FE & reused to avoid over-fetching and blink on app bootstrap.
-     */
-    TransferHttpCacheModule,
-
-    /**
-     * **🚀 Perf Tip for UX:**
-     *
-     * Setup serviceworker to get caching for HTTP requests and assets as well as better offline experience.
-     */
-    SERVICE_WORKER_IMPORTS
-  ),
 ];
