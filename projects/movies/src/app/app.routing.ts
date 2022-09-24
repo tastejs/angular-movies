@@ -57,10 +57,10 @@ const ROUTES: Routes = [
   },
   {
     path: 'account',
-    loadComponent: () =>
+    loadChildren: () =>
       import(
-        'projects/movies/src/app/pages/account-feature/account-list-page/account-list-page.component'
-      ).then((c) => c.AccountListPageComponent),
+        'projects/movies/src/app/pages/account-feature/account-list-page/account-list-page.module'
+      ).then((c) => c.AccountListPageModule),
   },
   {
     path: 'page-not-found',
