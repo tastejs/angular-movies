@@ -8,14 +8,14 @@ export const ROUTES: Routes = [
     redirectTo: 'my-lists',
   },
   {
+    path: 'my-lists',
+    component: AccountListPageComponent,
+  },
+  {
     path: 'list/create',
     loadComponent: () =>
       import(
         'projects/movies/src/app/pages/account-feature/list-create-page/list-create-page.component'
       ).then((c) => c.ListCreateEditPageComponent),
-  },
-  {
-    path: 'my-lists',
-    component: AccountListPageComponent,
   },
 ];
