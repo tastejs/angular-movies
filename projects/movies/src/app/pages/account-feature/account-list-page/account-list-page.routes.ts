@@ -9,10 +9,10 @@ export const ROUTES: Routes = [
   },
   {
     path: 'list/create',
-    loadChildren: () =>
+    loadComponent: () =>
       import(
-        'projects/movies/src/app/pages/account-feature/list-create-page/list-create-page.module'
-      ).then((m) => m.ListCreatePageModule),
+        'projects/movies/src/app/pages/account-feature/list-create-page/list-create-page.component'
+      ).then((c) => c.ListCreateEditPageComponent),
   },
   {
     path: 'my-lists',

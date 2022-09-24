@@ -1,14 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-
-import { ListMoviesComponent } from './list-movies.component';
-
-const ROUTES = [
-  {
-    path: '',
-    component: ListMoviesComponent,
-  },
-];
+import { ROUTES } from './list-movies.routes';
 
 @NgModule({
   imports: [RouterModule.forChild(ROUTES)],
