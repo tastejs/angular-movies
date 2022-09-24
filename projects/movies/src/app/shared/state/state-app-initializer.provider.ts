@@ -1,7 +1,7 @@
 import { APP_INITIALIZER } from '@angular/core';
-import { GenreResource } from './data-access/api/resources/genre.resource';
-import { MovieState } from './shared/state/movie.state';
-import { RouterState } from './shared/router/router.state';
+import { GenreResource } from '../../data-access/api/resources/genre.resource';
+import { MovieState } from './movie.state';
+import { RouterState } from '../router/router.state';
 import { take } from 'rxjs';
 
 function initializeState(

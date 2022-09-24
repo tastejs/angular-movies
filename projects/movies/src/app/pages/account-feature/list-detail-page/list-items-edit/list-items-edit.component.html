@@ -10,7 +10,7 @@
       (focus)="adapter.ui.toggleResults(true)"
       (input)="adapter.ui.search(itemInput.value)"
     />
-    <ul class="results" [hidden]="!vm.showResults || !vm.searchResults?.length">
+    <ul class="results" [hidden]="!vm.showResults || !vm.searchResults.length">
       <li
         class="item"
         *rxFor="
@@ -57,6 +57,6 @@
   <div
     class="results-overlay"
     (click)="adapter.ui.toggleResults(false)"
-    [hidden]="!vm.searchResults?.length"
+    [hidden]="!vm.searchResults.length"
   ></div>
 </ng-container>

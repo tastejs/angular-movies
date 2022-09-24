@@ -1,7 +1,7 @@
 import { NgZone, ɵNoopNgZone } from '@angular/core';
 import { RxActionFactory } from './shared/rxa-custom/actions';
 import { TMDB_HTTP_INTERCEPTORS_PROVIDER } from './shared/auth/tmdb-http-interceptor.providers';
-import { GLOBAL_STATE_APP_INITIALIZER_PROVIDER } from './state-app-initializer.provider';
+import { GLOBAL_STATE_APP_INITIALIZER_PROVIDER } from './shared/state/state-app-initializer.provider';
 import { SCHEDULED_APP_INITIALIZER_PROVIDER } from './shared/app-initializer/chunk-app-initializer.provider';
 import { RXA_PROVIDER } from './shared/rxa-custom/rxa.provider';
 import {

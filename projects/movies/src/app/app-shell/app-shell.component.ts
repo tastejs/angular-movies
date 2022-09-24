@@ -16,11 +16,11 @@ import {
   switchMap,
 } from 'rxjs';
 import { TMDBMovieGenreModel } from '../data-access/api/model/movie-genre.model';
-import { fallbackRouteToDefault } from '../routing-default.utils';
+import { fallbackRouteToDefault } from '../shared/router/routing-default.util';
 import { trackByProp } from '../shared/utils/track-by';
 import { RxActionFactory } from '../shared/rxa-custom/actions';
 import { RouterState } from '../shared/router/router.state';
-import { getIdentifierOfTypeAndLayout } from '../shared/state/utils';
+import { getIdentifierOfTypeAndLayoutUtil } from '../shared/router/get-identifier-of-type-and-layout.util';
 import { GenreResource } from '../data-access/api/resources/genre.resource';
 import { RxEffects } from '@rx-angular/state/effects';
 import { HamburgerButtonComponent } from '../ui/component/hamburger-button/hamburger-button.component';
@@ -62,7 +62,7 @@ export class AppShellComponent {
   readonly ui = this.actionsF.create();
 
   search$ = this.routerState.select(
-    getIdentifierOfTypeAndLayout('search', 'list')
+    getIdentifierOfTypeAndLayoutUtil('search', 'list')
   );
 
   accountMenuComponent$ = this.ui.loadAccountMenu$.pipe(

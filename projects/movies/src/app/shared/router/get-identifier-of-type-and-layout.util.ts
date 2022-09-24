@@ -1,7 +1,7 @@
 import { filter, map, OperatorFunction, pipe } from 'rxjs';
-import { RouterParams } from '../router/router.model';
+import { RouterParams } from './router.model';
 
-export const getIdentifierOfTypeAndLayout = (
+export const getIdentifierOfTypeAndLayoutUtil = (
   filterType: string,
   filterLayout: string = 'list'
 ): OperatorFunction<RouterParams, string> => {
