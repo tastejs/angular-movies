@@ -4,13 +4,12 @@ import {
   ServerTransferStateModule,
 } from '@angular/platform-server';
 import { AppModule } from './app.module';
-import { AppComponent } from './app.component';
+import { AppComponent } from './app-component/app.component';
 import { RXA_PROVIDER_SSR } from './shared/rxa-custom/rxa.provider.ssr';
 import { FastIconModule } from './shared/fast-icon/fast-icon.module';
 import { IconLoadStrategySsr } from './ui/component/icons/icon-load.ssr.strategy';
 
 @NgModule({
-  declarations: [],
   imports: [
     AppModule,
     /**
