@@ -4,8 +4,10 @@ import {
   ServerTransferStateModule,
 } from '@angular/platform-server';
 import { IconLoadStrategySsr } from '../ui/component/icons/icon-load.ssr.strategy';
+import { APP_IMPORTS } from '../app.imports';
 
 export const APP_SERVER_IMPORTS = [
+  APP_IMPORTS,
   /**
    * **🚀 Perf Tip for LCP, CLS:**
    *
