@@ -1,9 +1,9 @@
-import { FastIconModule } from './shared/fast-icon/fast-icon.module';
+import { FastIconModule } from '../shared/fast-icon/fast-icon.module';
 import {
   ServerModule,
   ServerTransferStateModule,
 } from '@angular/platform-server';
-import { IconLoadStrategySsr } from './ui/component/icons/icon-load.ssr.strategy';
+import { IconLoadStrategySsr } from '../ui/component/icons/icon-load.ssr.strategy';
 
 export const APP_SERVER_IMPORTS = [
   /**

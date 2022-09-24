@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { ZonelessRouting } from './shared/zone-less/zone-less-routing.service';
+import { ZonelessRouting } from '../shared/zone-less/zone-less-routing.service';
 
 @Component({
   selector: 'app-root',
