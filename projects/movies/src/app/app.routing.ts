@@ -1,6 +1,5 @@
 import { RouterModule, Routes } from '@angular/router';
 import { MovieListPageComponent } from './pages/movie-list-page/movie-list-page.component';
-import { MovieListPageModule } from './pages/movie-list-page/movie-list-page.module';
 
 const ROUTES: Routes = [
   /**
@@ -31,44 +30,44 @@ const ROUTES: Routes = [
   {
     path: 'list/:type/:identifier',
     component: MovieListPageComponent,
-    /* loadChildren: () =>
-      import('projects/movies/src/app/pages/movie-list-page/movie-list-page.module').then((m) => m.MovieListPageModule)
+    /* loadComponent: () =>
+      import('projects/movies/src/app/pages/movie-list-page/movie-list-page.component').then((m) => m.MovieListPageComponent)
     */
   },
   {
     path: 'detail/movie/:identifier',
-    loadChildren: () =>
+    loadComponent: () =>
       import(
-        'projects/movies/src/app/pages/movie-detail-page/movie-detail-page.module'
-      ).then((m) => m.MovieDetailPageModule),
+        'projects/movies/src/app/pages/movie-detail-page/movie-detail-page.component'
+      ).then((c) => c.MovieDetailPageComponent),
   },
   {
     path: 'detail/list/:identifier',
-    loadChildren: () =>
+    loadComponent: () =>
       import(
-        'projects/movies/src/app/pages/account-feature/list-detail-page/list-detail-page.module'
-      ).then((m) => m.ListDetailsPageModule),
+        'projects/movies/src/app/pages/account-feature/list-detail-page/list-detail-page.component'
+      ).then((c) => c.ListDetailPageComponent),
   },
   {
     path: 'detail/person/:identifier',
-    loadChildren: () =>
+    loadComponent: () =>
       import(
-        'projects/movies/src/app/pages/person-detail-page/person-detail-page.module'
-      ).then((m) => m.PersonDetailPageModule),
+        'projects/movies/src/app/pages/person-detail-page/person-detail-page.component'
+      ).then((c) => c.PersonDetailPageComponent),
   },
   {
     path: 'account',
-    loadChildren: () =>
+    loadComponent: () =>
       import(
-        'projects/movies/src/app/pages/account-feature/account-list-page/account-list-page.module'
-      ).then((m) => m.AccountListPageModule),
+        'projects/movies/src/app/pages/account-feature/account-list-page/account-list-page.component'
+      ).then((c) => c.AccountListPageComponent),
   },
   {
     path: 'page-not-found',
-    loadChildren: () =>
+    loadComponent: () =>
       import(
-        'projects/movies/src/app/pages/not-found-page/not-found-page.module'
-      ).then((m) => m.NotFoundPageModule),
+        'projects/movies/src/app/pages/not-found-page/not-found-page.component'
+      ).then((c) => c.NotFoundPageComponent),
   },
   {
     path: '**',
@@ -77,7 +76,6 @@ const ROUTES: Routes = [
 ];
 
 export const ROUTING_IMPORTS = [
-  MovieListPageModule,
   RouterModule.forRoot(ROUTES, {
     enableTracing: false,
     /**
