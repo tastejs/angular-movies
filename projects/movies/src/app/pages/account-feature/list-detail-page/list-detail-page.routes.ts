@@ -1,10 +1,12 @@
-import { ListDetailPageComponent } from './list-detail-page.component';
 import { Routes } from '@angular/router';
 
 export const ROUTES: Routes = [
   {
     path: '',
-    component: ListDetailPageComponent,
+    loadComponent: () =>
+      import(
+        'projects/movies/src/app/pages/account-feature/list-detail-page/list-detail-page.component'
+      ).then((c) => c.ListDetailPageComponent),
     children: [
       {
         path: '',

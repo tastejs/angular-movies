@@ -1,7 +1,7 @@
-import { RouterModule, Routes } from '@angular/router';
+import { Routes } from '@angular/router';
 import { MovieListPageComponent } from './pages/movie-list-page/movie-list-page.component';
 
-const ROUTES: Routes = [
+export const ROUTES: Routes = [
   /**
    * **🚀 Perf Tip for TTI, TBT:**
    *
@@ -59,8 +59,8 @@ const ROUTES: Routes = [
     path: 'account',
     loadChildren: () =>
       import(
-        'projects/movies/src/app/pages/account-feature/account-feature.routing.module'
-      ).then((c) => c.AccountFeatureRoutingModule),
+        'projects/movies/src/app/pages/account-feature/account-featuer-page.routes'
+      ).then((c) => c.ROUTES),
   },
   {
     path: 'page-not-found',
@@ -73,25 +73,4 @@ const ROUTES: Routes = [
     path: '**',
     redirectTo: 'page-not-found',
   },
-];
-
-export const ROUTING_IMPORTS = [
-  RouterModule.forRoot(ROUTES, {
-    enableTracing: false,
-    /**
-     * **🚀 Perf Tip for TBT:**
-     *
-     * Disable initial sync navigation in router config and schedule it in router-outlet container component
-     */
-    initialNavigation: 'disabled',
-    /**
-     * **💡 UX Tip for InfiniteScroll:**
-     *
-     * Reset scroll position to top on route change, users could be
-     * irritated starting a new list from the bottom of the page.
-     *
-     * also: otherwise infinite scroll isn't working properly
-     */
-    scrollPositionRestoration: 'top',
-  }),
 ];
