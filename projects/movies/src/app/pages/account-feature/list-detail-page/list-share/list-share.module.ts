@@ -1,6 +1,6 @@
+import { LetModule } from '@rx-angular/template/let';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { LetModule } from '@rx-angular/template';
 import { ListShareComponent } from './list-share.component';
 
 const ROUTES = [

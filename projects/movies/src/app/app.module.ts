@@ -11,8 +11,8 @@ import { SCHEDULED_APP_INITIALIZER_PROVIDER } from './shared/app-initializer/chu
 import { SERVICE_WORKER_IMPORTS } from './shared/pwa/service-worker.imports';
 import { RXA_PROVIDER } from './shared/rxa-custom/rxa.provider';
 import { LetModule } from '@rx-angular/template/let';
-import { RxActionFactory } from './shared/rxa-custom/actions';
-import { FastIconModule } from './shared/fast-icon/fast-icon.module';
+import { RxActionFactory } from '@rx-angular/state/actions';
+import { FastSvgModule } from '@push-based/ngx-fast-svg';
 
 @NgModule({
   declarations: [AppComponent],
@@ -35,7 +35,7 @@ import { FastIconModule } from './shared/fast-icon/fast-icon.module';
     AppShellModule,
     LetModule,
     ROUTING_IMPORTS,
-    FastIconModule.forRoot({
+    FastSvgModule.forRoot({
       url: (name: string): string => {
         return `assets/svg-icons/${name}.svg`;
       },

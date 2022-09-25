@@ -1,7 +1,7 @@
+import { LetModule } from '@rx-angular/template/let';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { LetModule } from '@rx-angular/template';
 import { ListCreateEditPageComponent } from './list-create-page.component';
 import { ROUTES } from './list-create-page.routes';
 

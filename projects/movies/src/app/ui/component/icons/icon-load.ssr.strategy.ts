@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { IconLoadStrategy } from '../../../shared/fast-icon/token/icon-load.strategy.model';
+import { SvgLoadStrategy } from '@push-based/ngx-fast-svg';
 import { join } from 'path';
 import { readFileSync } from 'fs';
 
 @Injectable()
-export class IconLoadStrategySsr implements IconLoadStrategy {
+export class IconLoadStrategySsr implements SvgLoadStrategy {
   constructor() {}
 
   load(url: string): Observable<string> {

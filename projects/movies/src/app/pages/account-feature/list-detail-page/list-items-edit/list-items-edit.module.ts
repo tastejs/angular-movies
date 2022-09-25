@@ -1,8 +1,8 @@
+import { ForModule } from '@rx-angular/template/for';
+import { LetModule } from '@rx-angular/template/let';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { LetModule } from '@rx-angular/template';
-import { ForModule } from '@rx-angular/template/experimental/for';
-import { FastIconModule } from '../../../../shared/fast-icon/fast-icon.module';
+import { FastSvgModule } from '@push-based/ngx-fast-svg';
 import { ListItemsEditComponent } from './list-items-edit.component';
 
 const ROUTES = [
@@ -13,12 +13,7 @@ const ROUTES = [
 ];
 
 @NgModule({
-  imports: [
-    ForModule,
-    LetModule,
-    RouterModule.forChild(ROUTES),
-    FastIconModule,
-  ],
+  imports: [ForModule, LetModule, RouterModule.forChild(ROUTES), FastSvgModule],
   declarations: [ListItemsEditComponent],
 })
 export class ListItemsEditComponentModule {}

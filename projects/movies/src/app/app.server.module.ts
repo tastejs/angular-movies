@@ -6,7 +6,7 @@ import {
 import { AppModule } from './app.module';
 import { AppComponent } from './app.component';
 import { RXA_PROVIDER_SSR } from './shared/rxa-custom/rxa.provider.ssr';
-import { FastIconModule } from './shared/fast-icon/fast-icon.module';
+import { FastSvgModule } from '@push-based/ngx-fast-svg';
 import { IconLoadStrategySsr } from './ui/component/icons/icon-load.ssr.strategy';
 
 @NgModule({
@@ -19,11 +19,11 @@ import { IconLoadStrategySsr } from './ui/component/icons/icon-load.ssr.strategy
      * Setup SSR to increase LCP by shipping rendered HTML on first load.
      */
     ServerModule,
-    FastIconModule.forRoot({
+    FastSvgModule.forRoot({
       url: (name: string): string => {
         return `assets/svg-icons/${name}.svg`;
       },
-      iconLoadStrategy: IconLoadStrategySsr,
+      svgLoadStrategy: IconLoadStrategySsr,
     }),
     ServerTransferStateModule,
   ],
