@@ -5,7 +5,7 @@ import {
   Output,
   ViewEncapsulation,
 } from '@angular/core';
-import { RxActionFactory } from '../../../shared/rxa-custom/actions';
+import { RxActionFactory } from '@rx-angular/state/actions';
 
 @Component({
   selector: 'ui-side-drawer',

@@ -11,7 +11,7 @@ import { TMDBMovieModel } from '../../../data-access/api/model/movie.model';
 import { W300H450 } from '../../../data-access/api/constants/image-sizes';
 import { ImageTag } from '../../../shared/utils/image/image-tag.interface';
 import { addImageTag } from '../../../shared/utils/image/image-tag.transform';
-import { RxActionFactory } from '../../../shared/rxa-custom/actions';
+import { RxActionFactory } from '@rx-angular/state/actions';
 import { coerceObservable } from '../../../shared/utils/coerceObservable';
 import { RxInputType } from '../../../shared/rxa-custom/input-type.typing';
 
@@ -60,7 +60,7 @@ type UiActions = { paginate: boolean };
     <ng-template #noData>
       <div style="display: flex; align-items: center;">
         <span style="font-size: 1.5rem">No results</span>
-        <fast-icon name="sad"></fast-icon>
+        <fast-svg name="sad"></fast-svg>
       </div>
     </ng-template>
   `,

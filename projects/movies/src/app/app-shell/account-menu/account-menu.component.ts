@@ -1,7 +1,7 @@
 import { LetModule } from '@rx-angular/template/let';
 import { RxState } from '@rx-angular/state';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { RxActionFactory } from '../../shared/rxa-custom/actions';
+import { RxActionFactory } from '@rx-angular/state/actions';
 import { AuthEffects } from '../../shared/auth/auth.effects';
 import { AuthState } from '../../shared/auth/auth.state';
 import { map } from 'rxjs';

@@ -5,8 +5,11 @@ import { RouterState } from '../../shared/router/router.state';
 import { MovieState } from '../../shared/state/movie.state';
 import { getIdentifierOfTypeAndLayout } from '../../shared/state/utils';
 import { MovieResource } from '../../data-access/api/resources/movie.resource';
-import { transformToMovieDetail, transformToCastList } from './selection/client-movie-detail.mapper';
-import { RxActionFactory } from '../../shared/rxa-custom/actions';
+import {
+  transformToMovieDetail,
+  transformToCastList,
+} from './selection/client-movie-detail.mapper';
+import { RxActionFactory } from '@rx-angular/state/actions';
 import { infiniteScroll } from '../../shared/cdk/infinite-scroll/infiniteScroll';
 import { MovieDetail } from './selection/movie-detail.model';
 import { WithContext } from '../../shared/cdk/context/context.interface';
@@ -36,9 +39,9 @@ export class MovieDetailAdapter extends RxState<any> {
   readonly movieCastById$: Observable<WithContext<MovieCast[]>> =
     this.routerMovieId$.pipe(
       switchMap((id) =>
-        this.movieResource.getCredits(id).pipe(
-          map(({ cast }) => ({ value: cast.map(transformToCastList) }))
-        )
+        this.movieResource
+          .getCredits(id)
+          .pipe(map(({ cast }) => ({ value: cast.map(transformToCastList) })))
       ),
       withLoadingEmission()
     );

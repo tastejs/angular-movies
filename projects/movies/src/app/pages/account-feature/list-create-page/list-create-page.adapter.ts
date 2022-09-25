@@ -5,7 +5,7 @@ import { map, startWith, withLatestFrom } from 'rxjs';
 
 import { TMDBListCreateUpdateParams } from '../../../data-access/api/model/list.model';
 import { ListDetailAdapter } from '../list-detail-page/list-detail-page.adapter';
-import { RxActionFactory } from '../../../shared/rxa-custom/actions';
+import { RxActionFactory } from '@rx-angular/state/actions';
 import { ListState } from '../../../shared/state/list.state';
 
 interface Actions {

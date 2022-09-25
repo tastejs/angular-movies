@@ -4,7 +4,7 @@ import { map, Observable, startWith, switchMap, withLatestFrom } from 'rxjs';
 import { W500H282 } from '../../../data-access/api/constants/image-sizes';
 import { TMDBListCreateUpdateParams } from '../../../data-access/api/model/list.model';
 import { TMDBMovieModel } from '../../../data-access/api/model/movie.model';
-import { RxActionFactory } from '../../../shared/rxa-custom/actions';
+import { RxActionFactory } from '@rx-angular/state/actions';
 import { ListState } from '../../../shared/state/list.state';
 
 import { RouterState } from '../../../shared/router/router.state';

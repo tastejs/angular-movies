@@ -1,7 +1,7 @@
 import { RxState } from '@rx-angular/state';
 import { Injectable } from '@angular/core';
 import { exhaustMap } from 'rxjs';
-import { RxActionFactory } from '../rxa-custom/actions';
+import { RxActionFactory } from '@rx-angular/state/actions';
 import {
   GenreResource,
   GenresResponse,
