@@ -5,7 +5,7 @@
     (openedChange)="ui.sideDrawerOpenToggle(false)"
   >
     <a class="navigation-header" aria-label="Main page" href="/">
-      <fast-icon name="movies-logo" size="150"></fast-icon>
+      <fast-svg name="movies-logo" size="150"></fast-svg>
     </a>
     <nav class="navigation" *rxLet="[]">
       <h3 class="navigation--headline">Discover</h3>
@@ -17,10 +17,10 @@
         routerLinkActive="active"
       >
         <div class="navigation--menu-item">
-          <fast-icon
+          <fast-svg
             class="navigation--menu-item-icon"
             name="popular"
-          ></fast-icon>
+          ></fast-svg>
           Popular
         </div>
       </a>
@@ -31,10 +31,10 @@
         routerLinkActive="active"
       >
         <div class="navigation--menu-item">
-          <fast-icon
+          <fast-svg
             class="navigation--menu-item-icon"
             name="top_rated"
-          ></fast-icon>
+          ></fast-svg>
           Top Rated
         </div>
       </a>
@@ -45,10 +45,10 @@
         routerLinkActive="active"
       >
         <div class="navigation--menu-item">
-          <fast-icon
+          <fast-svg
             class="navigation--menu-item-icon"
             name="upcoming"
-          ></fast-icon>
+          ></fast-svg>
           Upcoming
         </div>
       </a>
@@ -61,10 +61,10 @@
         routerLinkActive="active"
       >
         <div class="navigation--menu-item">
-          <fast-icon
+          <fast-svg
             class="navigation--menu-item-icon"
             name="genre"
-          ></fast-icon>
+          ></fast-svg>
           {{ genre.name }}
         </div>
       </a>
@@ -76,7 +76,7 @@
         target="_blank"
         rel="noreferrer noopener"
       >
-        <fast-icon name="tmdb-logo" width="75" height="30"></fast-icon>
+        <fast-svg name="tmdb-logo" width="75" height="30"></fast-svg>
       </a>
     </div>
   </ui-side-drawer>
@@ -103,7 +103,7 @@
             (mouseenter)="ui.loadAccountMenu()"
           >
             <div class="focus-overlay"></div>
-            <fast-icon name="account"></fast-icon>
+            <fast-svg name="account"></fast-svg>
           </button>
           <div class="account-menu-content">
             <ng-container

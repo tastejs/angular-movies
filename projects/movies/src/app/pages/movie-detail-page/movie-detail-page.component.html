@@ -34,7 +34,7 @@
               *ngFor="let genre of movie.genres; trackBy: trackByGenre"
               [routerLink]="['/list/genre/', genre.id]"
             >
-              <fast-icon name="genre" style="margin-right: 0.5rem"></fast-icon>
+              <fast-svg name="genre" style="margin-right: 0.5rem"></fast-svg>
               {{ genre.name }}
             </a>
           </div>
@@ -96,7 +96,7 @@
             [href]="movie.homepage"
           >
             Website
-            <fast-icon class="btn__icon" name="website"></fast-icon>
+            <fast-svg class="btn__icon" name="website"></fast-svg>
           </a>
           <a
             *ngIf="movie.imdb_id"
@@ -106,7 +106,7 @@
             [href]="movie.href"
           >
             IMDB
-            <fast-icon class="btn__icon" name="imdb"></fast-icon>
+            <fast-svg class="btn__icon" name="imdb"></fast-svg>
           </a>
           <a
             *ngIf="movie.videoUrl"
@@ -118,7 +118,7 @@
             href="#trainer"
           >
             Trailer
-            <fast-icon class="btn__icon" name="play"></fast-icon>
+            <fast-svg class="btn__icon" name="play"></fast-svg>
           </a>
 
           <dialog class="video" #trailerDialog id="trailer-dialog">
@@ -151,8 +151,7 @@
             class="btn primary-button"
             (click)="back()"
           >
-            <fast-icon class="btn__icon" name="back" size="1em"></fast-icon
-            >&nbsp;Back
+            <fast-svg class="btn__icon" name="back" size="1em"></fast-svg>&nbsp;Back
           </button>
         </section>
       </div>
