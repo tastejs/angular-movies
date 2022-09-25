@@ -15,26 +15,26 @@ module.exports = [
   {
     name: 'styles',
     path: base + 'styles*',
-    limit: '5Kb',
+    limit: '10Kb',
   },
   {
     name: 'common',
     path: base + 'common*',
-    limit: '5KB',
+    limit: '10KB',
   },
   {
     name: 'movie-detail-page',
     path:
       base +
       'projects_movies_src_app_pages_movie-detail-page_movie-detail-page_module*',
-    limit: '6KB',
+    limit: '10KB',
   },
   {
     name: 'person-detail-page',
     path:
       base +
       'projects_movies_src_app_pages_person-detail-page_person-detail-page_module*',
-    limit: '5KB',
+    limit: '10KB',
   },
 ];
 
