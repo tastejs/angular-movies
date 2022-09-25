@@ -5,12 +5,12 @@ module.exports = [
   {
     name: 'initial',
     path: base + '(main|styles|runtime|polyfills)*.js',
-    limit: '120Kb',
+    limit: '125Kb',
   },
   {
     name: 'main',
     path: base + 'main*',
-    limit: '115Kb',
+    limit: '120Kb',
   },
   {
     name: 'styles',
