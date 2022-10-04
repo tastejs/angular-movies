@@ -14,6 +14,7 @@ import { takeUntil } from 'rxjs';
 type Actions = { visible: boolean; onDestroy: void };
 
 @Directive({
+  standalone: true,
   selector: '[elementVisibility]',
 })
 export class ElementVisibilityDirective implements OnDestroy {

@@ -3,9 +3,12 @@ import { Injectable } from '@angular/core';
 import { map, Observable, switchMap } from 'rxjs';
 import { RouterState } from '../../shared/router/router.state';
 import { MovieState } from '../../shared/state/movie.state';
-import { getIdentifierOfTypeAndLayout } from '../../shared/state/utils';
+import { getIdentifierOfTypeAndLayoutUtil } from '../../shared/router/get-identifier-of-type-and-layout.util';
 import { MovieResource } from '../../data-access/api/resources/movie.resource';
-import { transformToMovieDetail, transformToCastList } from './selection/client-movie-detail.mapper';
+import {
+  transformToMovieDetail,
+  transformToCastList,
+} from './selection/client-movie-detail.mapper';
 import { RxActionFactory } from '../../shared/rxa-custom/actions';
 import { infiniteScroll } from '../../shared/cdk/infinite-scroll/infiniteScroll';
 import { MovieDetail } from './selection/movie-detail.model';
@@ -22,7 +25,7 @@ export class MovieDetailAdapter extends RxState<any> {
   readonly paginateRecommendations = this.actions.paginateRecommendations;
 
   readonly routerMovieId$: Observable<string> = this.routerState.select(
-    getIdentifierOfTypeAndLayout('movie', 'detail')
+    getIdentifierOfTypeAndLayoutUtil('movie', 'detail')
   );
 
   readonly routedMovieCtx$ = this.routerMovieId$.pipe(
@@ -36,9 +39,9 @@ export class MovieDetailAdapter extends RxState<any> {
   readonly movieCastById$: Observable<WithContext<MovieCast[]>> =
     this.routerMovieId$.pipe(
       switchMap((id) =>
-        this.movieResource.getCredits(id).pipe(
-          map(({ cast }) => ({ value: cast.map(transformToCastList) }))
-        )
+        this.movieResource
+          .getCredits(id)
+          .pipe(map(({ cast }) => ({ value: cast.map(transformToCastList) })))
       ),
       withLoadingEmission()
     );

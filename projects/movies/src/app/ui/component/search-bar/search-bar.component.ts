@@ -1,5 +1,5 @@
 import { RxState } from '@rx-angular/state';
-import { DOCUMENT } from '@angular/common';
+import { CommonModule, DOCUMENT } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -25,6 +25,8 @@ import {
 import { RxActionFactory } from '../../../shared/rxa-custom/actions';
 import { coerceObservable } from '@rx-angular/cdk/coercing';
 import { preventDefault } from '../../../shared/rxa-custom/actions/transforms';
+import { LetModule } from '@rx-angular/template/let';
+import { FastIconModule } from '../../../shared/fast-icon/fast-icon.module';
 
 type UiActions = {
   searchChange: string;
@@ -34,6 +36,8 @@ type UiActions = {
 };
 
 @Component({
+  standalone: true,
+  imports: [CommonModule, LetModule, FastIconModule],
   selector: 'ui-search-bar',
   template: `
     <form

@@ -1,68 +1,12 @@
-import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-import { TransferHttpCacheModule } from '@nguniversal/common';
-import { AppComponent } from './app.component';
-import { AppShellModule } from './app-shell/app-shell.module';
-import { ROUTING_IMPORTS } from './app.routing';
-import { TMDB_HTTP_INTERCEPTORS_PROVIDER } from './shared/auth/tmdb-http-interceptor.providers';
-import { GLOBAL_STATE_APP_INITIALIZER_PROVIDER } from './state-app-initializer.provider';
-import { SCHEDULED_APP_INITIALIZER_PROVIDER } from './shared/app-initializer/chunk-app-initializer.provider';
-import { SERVICE_WORKER_IMPORTS } from './shared/pwa/service-worker.imports';
-import { RXA_PROVIDER } from './shared/rxa-custom/rxa.provider';
-import { LetModule } from '@rx-angular/template/let';
-import { RxActionFactory } from './shared/rxa-custom/actions';
-import { FastIconModule } from './shared/fast-icon/fast-icon.module';
+import { AppComponent, APP_COMPONENT_IMPORTS } from './app.component';
+import { APP_PROVIDERS } from './app.provider';
+import { APP_IMPORTS } from './app.imports';
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [
-    BrowserModule.withServerTransition({ appId: 'moviesApp' }),
-    HttpClientModule,
-    /**
-     * **🚀 Perf Tip for LCP, CLS:**
-     *
-     * Data from HTTP requests performed at SSR are transferred to FE & reused to avoid over-fetching and blink on app bootstrap.
-     */
-    TransferHttpCacheModule,
-
-    /**
-     * **🚀 Perf Tip for UX:**
-     *
-     * Setup serviceworker to get caching for HTTP requests and assets as well as better offline experience.
-     */
-    SERVICE_WORKER_IMPORTS,
-    AppShellModule,
-    LetModule,
-    ROUTING_IMPORTS,
-    FastIconModule.forRoot({
-      url: (name: string): string => {
-        return `assets/svg-icons/${name}.svg`;
-      },
-    }),
-  ],
-  providers: [
-    RxActionFactory,
-    TMDB_HTTP_INTERCEPTORS_PROVIDER,
-    /**
-     * **🚀 Perf Tip for LCP, TTI:**
-     *
-     * Fetch data visible in viewport on app bootstrap instead of component initialization.
-     */
-    GLOBAL_STATE_APP_INITIALIZER_PROVIDER,
-    /**
-     * **🚀 Perf Tip for TBT:**
-     *
-     * Chunk app bootstrap over APP_INITIALIZER.
-     */
-    SCHEDULED_APP_INITIALIZER_PROVIDER,
-    /**
-     * **🚀 Perf Tip for TBT, LCP, CLS:**
-     *
-     * Configure RxAngular to get maximum performance.
-     */
-    RXA_PROVIDER,
-  ],
+  imports: [APP_IMPORTS, APP_COMPONENT_IMPORTS],
+  providers: APP_PROVIDERS,
   bootstrap: [AppComponent],
 })
 export class AppModule {}
