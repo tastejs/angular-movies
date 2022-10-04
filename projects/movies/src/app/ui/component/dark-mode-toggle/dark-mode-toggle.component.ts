@@ -1,4 +1,4 @@
-import { DOCUMENT } from '@angular/common';
+import { CommonModule, DOCUMENT } from '@angular/common';
 import { RxState } from '@rx-angular/state';
 import {
   ChangeDetectionStrategy,
@@ -6,8 +6,11 @@ import {
   Inject,
   ViewEncapsulation,
 } from '@angular/core';
+import { LetModule } from '@rx-angular/template/let';
 
 @Component({
+  standalone: true,
+  imports: [CommonModule, LetModule],
   selector: 'ui-dark-mode-toggle',
   template: `
     <div class="dark-mode-toggle">

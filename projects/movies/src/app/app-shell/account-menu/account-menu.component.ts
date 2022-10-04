@@ -17,6 +17,8 @@ type Actions = {
 };
 
 @Component({
+  standalone: true,
+  imports: [RouterModule, CommonModule, LetModule, IfModule],
   selector: 'account-menu',
   templateUrl: './account-menu.component.html',
   styleUrls: ['./account-menu.component.scss'],

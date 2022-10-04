@@ -1,4 +1,4 @@
-import { Location } from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -7,8 +7,22 @@ import {
 import { PersonDetailAdapter } from './person-detail-page.adapter';
 import { SORT_VALUES } from '../../data-access/api/sort/sort.data';
 import { merge } from 'rxjs';
+import { DetailGridComponent } from '../../ui/component/detail-grid/detail-grid.component';
+import { StarRatingComponent } from '../../ui/pattern/star-rating/star-rating.component';
+import { MovieListComponent } from '../../ui/pattern/movie-list/movie-list.component';
+import { LetModule } from '@rx-angular/template/let';
+import { FastIconModule } from '../../shared/fast-icon/fast-icon.module';
 
 @Component({
+  standalone: true,
+  imports: [
+    CommonModule,
+    DetailGridComponent,
+    StarRatingComponent,
+    MovieListComponent,
+    LetModule,
+    FastIconModule,
+  ],
   selector: 'ct-person',
   templateUrl: './person-detail-page.component.html',
   styleUrls: ['./person-detail-page.component.scss'],

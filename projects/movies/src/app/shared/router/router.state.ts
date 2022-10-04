@@ -4,7 +4,7 @@ import { DOCUMENT } from '@angular/common';
 import { Inject, Injectable } from '@angular/core';
 import { filter, map, Observable, startWith } from 'rxjs';
 import { NavigationEnd, Router } from '@angular/router';
-import { fallbackRouteToDefault } from '../../routing-default.utils';
+import { fallbackRouteToDefault } from './routing-default.util';
 import { RxInputType } from '../rxa-custom/input-type.typing';
 import { coerceObservable } from '../utils/coerceObservable';
 import { RouterParams } from './router.model';

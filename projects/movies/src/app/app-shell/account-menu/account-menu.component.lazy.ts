@@ -1,16 +1,11 @@
 import { NgModule } from '@angular/core';
-import {
-  // organize your imports next to the component (like stand alone components)
-  // e.g. `export const imports = [RouterModule, CommonModule, ...];`
-  imports,
-  AccountMenuComponent,
-} from './account-menu.component';
+import { AccountMenuComponent } from './account-menu.component';
 
 /**
  * @NOTICE:
  *
  * To lazy load components you need to:
- * 0. in a new file `any.component.lazy.ts` next to the components file (the name is irrelevant)
+ * 0. create a new file `any.component.lazy.ts` next to the components file (the name is irrelevant)
  * 1. create a module maintaining all it's dependencies over imports.
  * 2. declared the component as part of the module
  * 3. export the module
@@ -24,8 +19,7 @@ import {
  *  @deprecated The module is here only for bundling reasons and should not be used
  */ // [5.b]
 @NgModule({
-  imports, // [1]
-  declarations: [AccountMenuComponent], // [2]
+  imports: [AccountMenuComponent], // [1]
 })
 export class AccountMenuComponentModule {} // [3], [5.a]
 

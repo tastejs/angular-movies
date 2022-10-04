@@ -1,7 +1,7 @@
 # angular-movies
 
 This is a Movies App built using [Angular](https://angular.io) and [RxAngular](https://github.com/rx-angular/rx-angular).  
-As data source the [The Movie Database (TMDB)](https://www.themoviedb.org/) API is used. 
+As data source the [The Movie Database (TMDB)](https://www.themoviedb.org/) API is used.  
 
 [![angular-and-rx-angular](https://user-images.githubusercontent.com/10064416/154189195-c32cbdec-b061-46a5-8590-a9e3d8dc050a.png)](https://www.rx-angular.io/)
 
@@ -66,61 +66,27 @@ For now you can search the codebase for "Perf Tip" later on there will be proppe
 
 
 
+
 <!-- bundle-stats-start -->
 | Names             |       Size |
 | ---               | ---        |
-| main.c25c47a51fda55f7.js           | 341.34 KB |
-| styles.95074ad981542eac.css           | 6.15 KB |
-| runtime.b3ca251565e7c678.js           | 3.73 KB |
-  | **Initial Total** | **351.22 KB** |
+| main.c9d7922fdab9e576.js           | 350.4 KB |
+| styles.587a48cd73a27b6a.css           | 6.14 KB |
+| runtime.b126cd6ff2956147.js           | 3.71 KB |
+  | **Initial Total** | **360.25 KB** |
   | Names             |       Size |
-| app_pages_movie-detail-page_movie-detail-page           | 15.96 KB |
-| app_pages_person-detail-page_person-detail-page           | 11.38 KB |
-| common.f5f41f37f0a6603d.js           | 11.21 KB |
-| app_pages_account-feature_list-detail-page_list-items-edit_list-items-edi-393246.00f00fc36b0c62ff.js           | 7.01 KB |
-| app_app-shell_account-menu_account-menu_component_lazy_ts.ab73c8ee922f225b.js           | 4.75 KB |
-| app_pages_account-feature_account-list-page_account-list-page           | 4.22 KB |
-| app_pages_account-feature_list-detail-page_list-detail-page           | 3.94 KB |
-| app_pages_account-feature_list-detail-page_list-remove_list-remove           | 3.34 KB |
-| app_pages_account-feature_list-detail-page_list-image_list-image           | 2.77 KB |
-| app_pages_not-found-page_not-found-page           | 1.85 KB |
+| app_pages_movie-detail-page_movie-detail-page           | 15.95 KB |
+| app_pages_person-detail-page_person-detail-page           | 11.34 KB |
+| common.ac086ebe2c5af958.js           | 11.17 KB |
+| app_pages_account-feature_list-detail-page_list-items-edit_list-items-edi-393246.1449ba670c578347.js           | 7.04 KB |
+| app_app-shell_account-menu_account-menu_component_lazy_ts.63e97605206e9a9d.js           | 4.74 KB |
+| app_pages_account-feature_account-list-page_account-list-page           | 4.18 KB |
+| app_pages_account-feature_list-detail-page_list-detail-page           | 3.92 KB |
+| app_pages_account-feature_list-detail-page_list-remove_list-remove           | 3.3 KB |
+| app_pages_account-feature_list-detail-page_list-image_list-image           | 2.76 KB |
+| app_pages_not-found-page_not-found-page           | 1.84 KB |
 | app_pages_account-feature_list-detail-page_list-movies_list-movies           | 837 Bytes |
 <!-- bundle-stats-end -->
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 ## Comparison to next and nuxt

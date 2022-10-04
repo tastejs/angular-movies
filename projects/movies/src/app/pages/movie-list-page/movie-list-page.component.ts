@@ -7,10 +7,16 @@ import {
 import { map, Observable } from 'rxjs';
 import { MovieListPageAdapter } from './movie-list-page.adapter';
 import { MovieListPageModel } from './movie-list-page-adapter.model';
+import { CommonModule } from '@angular/common';
+import { LetModule } from '@rx-angular/template/let';
+import { IfModule } from '../../shared/rxa-custom/if/src';
+import { MovieListComponent } from '../../ui/pattern/movie-list/movie-list.component';
 
 type Heading = { main: string; sub: string };
 
 @Component({
+  standalone: true,
+  imports: [CommonModule, LetModule, IfModule, MovieListComponent],
   selector: 'ct-movies-list',
   templateUrl: './movie-list-page.component.html',
   styleUrls: ['./movie-list-page.component.scss'],

@@ -14,11 +14,30 @@ import { addImageTag } from '../../../shared/utils/image/image-tag.transform';
 import { RxActionFactory } from '@rx-angular/state/actions';
 import { coerceObservable } from '../../../shared/utils/coerceObservable';
 import { RxInputType } from '../../../shared/rxa-custom/input-type.typing';
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
+import { StarRatingComponent } from '../star-rating/star-rating.component';
+import { ForModule } from '@rx-angular/template/experimental/for';
+import { ElementVisibilityDirective } from '../../../shared/cdk/element-visibility/element-visibility.directive';
+import { FastIconModule } from '../../../shared/fast-icon/fast-icon.module';
+import { GridListComponent } from '../../component/grid-list/grid-list.component';
+import { IfModule } from '../../../shared/rxa-custom/if/src';
 
 type Movie = TMDBMovieModel & ImageTag;
 type UiActions = { paginate: boolean };
 
 @Component({
+  standalone: true,
+  imports: [
+    CommonModule,
+    RouterModule,
+    StarRatingComponent,
+    ForModule,
+    ElementVisibilityDirective,
+    FastIconModule,
+    GridListComponent,
+    IfModule,
+  ],
   selector: 'ui-movie-list',
   template: `
     <ui-grid-list *rxIf="moviesListVisible$; else noData">

@@ -17,6 +17,7 @@ type Actions = {
   confirm: void;
 };
 @Component({
+  standalone: true,
   selector: 'app-list-remove',
   templateUrl: './list-remove.component.html',
   styleUrls: ['./list-remove.component.scss'],

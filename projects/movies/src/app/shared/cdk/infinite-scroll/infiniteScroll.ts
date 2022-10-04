@@ -16,7 +16,7 @@ import {
 } from './infinite-scroll.interface';
 import { coerceObservable } from '../../utils/coerceObservable';
 
-type PartialInfiniteScrollState<T> = Partial<InfiniteScrollState<T>>;
+type PartialInfiniteScrollState<T extends {}> = Partial<InfiniteScrollState<T>>;
 
 /**
  *
@@ -56,7 +56,7 @@ type PartialInfiniteScrollState<T> = Partial<InfiniteScrollState<T>>;
  * );
  *
  */
-export function infiniteScroll<T>(
+export function infiniteScroll<T extends {}>(
   fetchFn: (
     incrementedOptions: InfiniteScrollOptions
   ) => Observable<PartialInfiniteScrollState<T>>,

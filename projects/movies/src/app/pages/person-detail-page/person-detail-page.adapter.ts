@@ -8,7 +8,7 @@ import { combineLatestWith, map, switchMap, withLatestFrom } from 'rxjs';
 import { W780H1170 } from '../../data-access/api/constants/image-sizes';
 import { ImageTag } from '../../shared/utils/image/image-tag.interface';
 import { addImageTag } from '../../shared/utils/image/image-tag.transform';
-import { getIdentifierOfTypeAndLayout } from '../../shared/state/utils';
+import { getIdentifierOfTypeAndLayoutUtil } from '../../shared/router/get-identifier-of-type-and-layout.util';
 import { TMDBPersonModel } from '../../data-access/api/model/person.model';
 import { PersonState } from '../../shared/state/person.state';
 import { WithContext } from '../../shared/cdk/context/context.interface';
@@ -43,7 +43,7 @@ export class PersonDetailAdapter extends RxState<PersonDetailPageAdapterState> {
   readonly toggleSorting = this.actions.toggleSorting;
   readonly sortBy = this.actions.sortBy;
   readonly routerPersonId$ = this.routerState.select(
-    getIdentifierOfTypeAndLayout('person', 'detail')
+    getIdentifierOfTypeAndLayoutUtil('person', 'detail')
   );
   readonly sortingModel$ = this.select(
     selectSlice(['showSorting', 'activeSorting'])
