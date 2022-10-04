@@ -9,7 +9,7 @@ import {
   transformToMovieDetail,
   transformToCastList,
 } from './selection/client-movie-detail.mapper';
-import { RxActionFactory } from '../../shared/rxa-custom/actions';
+import { RxActionFactory } from '@rx-angular/state/actions';
 import { infiniteScroll } from '../../shared/cdk/infinite-scroll/infiniteScroll';
 import { MovieDetail } from './selection/movie-detail.model';
 import { WithContext } from '../../shared/cdk/context/context.interface';

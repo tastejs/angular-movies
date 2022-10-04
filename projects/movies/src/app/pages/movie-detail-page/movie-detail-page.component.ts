@@ -13,15 +13,15 @@ import { TMDBMovieCastModel } from '../../data-access/api/model/movie-credits.mo
 import { TMDBMovieGenreModel } from '../../data-access/api/model/movie-genre.model';
 
 import { MovieDetailAdapter } from './movie-detail-page.adapter';
-import { RxActionFactory } from '../../shared/rxa-custom/actions';
+import { RxActionFactory } from '@rx-angular/state/actions';
 import { RxEffects } from '@rx-angular/state/effects';
 import { DetailGridComponent } from '../../ui/component/detail-grid/detail-grid.component';
 import { StarRatingComponent } from '../../ui/pattern/star-rating/star-rating.component';
 import { MovieListComponent } from '../../ui/pattern/movie-list/movie-list.component';
 import { LetModule } from '@rx-angular/template/let';
 import { BypassSrcDirective } from '../../shared/bypass-src/bypass-src.directive';
-import { ForModule } from '@rx-angular/template/experimental/for';
-import { FastIconModule } from '../../shared/fast-icon/fast-icon.module';
+import { ForModule } from '@rx-angular/template/for';
+import { FastSvgModule } from '@push-based/ngx-fast-svg';
 import { IfModule } from '../../shared/rxa-custom/if/src';
 import { RouterModule } from '@angular/router';
 
@@ -36,7 +36,7 @@ import { RouterModule } from '@angular/router';
     LetModule,
     BypassSrcDirective,
     ForModule,
-    FastIconModule,
+    FastSvgModule,
     IfModule,
   ],
   selector: 'ct-movie',

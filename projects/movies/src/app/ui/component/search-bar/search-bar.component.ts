@@ -22,11 +22,10 @@ import {
   take,
   withLatestFrom,
 } from 'rxjs';
-import { RxActionFactory } from '../../../shared/rxa-custom/actions';
+import { RxActionFactory, preventDefault } from '@rx-angular/state/actions';
 import { coerceObservable } from '@rx-angular/cdk/coercing';
-import { preventDefault } from '../../../shared/rxa-custom/actions/transforms';
 import { LetModule } from '@rx-angular/template/let';
-import { FastIconModule } from '../../../shared/fast-icon/fast-icon.module';
+import { FastSvgModule } from '@push-based/ngx-fast-svg';
 
 type UiActions = {
   searchChange: string;
@@ -37,7 +36,7 @@ type UiActions = {
 
 @Component({
   standalone: true,
-  imports: [CommonModule, LetModule, FastIconModule],
+  imports: [CommonModule, LetModule, FastSvgModule],
   selector: 'ui-search-bar',
   template: `
     <form
@@ -52,7 +51,7 @@ type UiActions = {
         class="magnifier-button"
         aria-label="Search for a movie"
       >
-        <fast-icon name="search" size="1.125em"></fast-icon>
+        <fast-svg name="search" size="1.125em"></fast-svg>
       </button>
       <input
         data-uf="q"

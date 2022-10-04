@@ -3,7 +3,7 @@ import { patch } from '@rx-angular/cdk/transformations';
 import { Injectable } from '@angular/core';
 import { map } from 'rxjs';
 import { optimizedFetch } from '../utils/optimized-fetch';
-import { RxActionFactory } from '../rxa-custom/actions';
+import { RxActionFactory } from '@rx-angular/state/actions';
 import { withLoadingEmission } from '../cdk/loading/withLoadingEmissions';
 import {
   DiscoverResource,

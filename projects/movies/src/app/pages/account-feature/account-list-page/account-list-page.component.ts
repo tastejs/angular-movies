@@ -8,7 +8,7 @@ import {
   AccountListPageAdapter,
   ListWithPoster,
 } from './account-list-page.adapter';
-import { ForModule } from '@rx-angular/template/experimental/for';
+import { ForModule } from '@rx-angular/template/for';
 import { GridListComponent } from '../../../ui/component/grid-list/grid-list.component';
 import { RouterModule } from '@angular/router';
 

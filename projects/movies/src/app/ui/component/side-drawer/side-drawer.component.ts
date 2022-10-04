@@ -5,7 +5,7 @@ import {
   Output,
   ViewEncapsulation,
 } from '@angular/core';
-import { RxActionFactory } from '../../../shared/rxa-custom/actions';
+import { RxActionFactory } from '@rx-angular/state/actions';
 import { CommonModule } from '@angular/common';
 import { BackdropComponent } from '../backdrop/backdrop.component';
 

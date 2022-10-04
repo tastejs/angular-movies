@@ -18,7 +18,7 @@ import {
 import { TMDBMovieGenreModel } from '../data-access/api/model/movie-genre.model';
 import { fallbackRouteToDefault } from '../shared/router/routing-default.util';
 import { trackByProp } from '../shared/utils/track-by';
-import { RxActionFactory } from '../shared/rxa-custom/actions';
+import { RxActionFactory } from '@rx-angular/state/actions';
 import { RouterState } from '../shared/router/router.state';
 import { getIdentifierOfTypeAndLayoutUtil } from '../shared/router/get-identifier-of-type-and-layout.util';
 import { GenreResource } from '../data-access/api/resources/genre.resource';
@@ -28,10 +28,9 @@ import { LetModule } from '@rx-angular/template/let';
 import { SideDrawerComponent } from '../ui/component/side-drawer/side-drawer.component';
 import { SearchBarComponent } from '../ui/component/search-bar/search-bar.component';
 import { DarkModeToggleComponent } from '../ui/component/dark-mode-toggle/dark-mode-toggle.component';
-import { ForModule } from '@rx-angular/template/experimental/for';
+import { ForModule } from '@rx-angular/template/for';
 import { LazyDirective } from '../shared/cdk/lazy/lazy.directive';
-import { FastIconModule } from '../shared/fast-icon/fast-icon.module';
-
+import { FastSvgModule } from '@push-based/ngx-fast-svg';
 type Actions = {
   sideDrawerOpenToggle: boolean;
   loadAccountMenu: void;
@@ -44,7 +43,7 @@ type Actions = {
     RouterModule,
     LetModule,
     ForModule,
-    FastIconModule,
+    FastSvgModule,
     HamburgerButtonComponent,
     SideDrawerComponent,
     SearchBarComponent,

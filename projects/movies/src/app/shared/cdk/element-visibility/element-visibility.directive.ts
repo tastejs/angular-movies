@@ -7,7 +7,7 @@ import {
   Output,
   PLATFORM_ID,
 } from '@angular/core';
-import { RxActionFactory } from '../../rxa-custom/actions';
+import { RxActionFactory } from '@rx-angular/state/actions';
 import { observeElementVisibility } from './observe-element-visibility';
 import { takeUntil } from 'rxjs';
 

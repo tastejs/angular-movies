@@ -2,7 +2,7 @@ import { RxState, selectSlice } from '@rx-angular/state';
 import { TMDBMovieModel } from '../../data-access/api/model/movie.model';
 import { Injectable } from '@angular/core';
 import { infiniteScroll } from '../../shared/cdk/infinite-scroll/infiniteScroll';
-import { RxActionFactory } from '../../shared/rxa-custom/actions/index';
+import { RxActionFactory } from '@rx-angular/state/actions';
 import { RouterState } from '../../shared/router/router.state';
 import { combineLatestWith, map, switchMap, withLatestFrom } from 'rxjs';
 import { W780H1170 } from '../../data-access/api/constants/image-sizes';

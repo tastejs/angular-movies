@@ -11,15 +11,15 @@ import { TMDBMovieModel } from '../../../data-access/api/model/movie.model';
 import { W300H450 } from '../../../data-access/api/constants/image-sizes';
 import { ImageTag } from '../../../shared/utils/image/image-tag.interface';
 import { addImageTag } from '../../../shared/utils/image/image-tag.transform';
-import { RxActionFactory } from '../../../shared/rxa-custom/actions';
+import { RxActionFactory } from '@rx-angular/state/actions';
 import { coerceObservable } from '../../../shared/utils/coerceObservable';
 import { RxInputType } from '../../../shared/rxa-custom/input-type.typing';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { StarRatingComponent } from '../star-rating/star-rating.component';
-import { ForModule } from '@rx-angular/template/experimental/for';
+import { ForModule } from '@rx-angular/template/for';
 import { ElementVisibilityDirective } from '../../../shared/cdk/element-visibility/element-visibility.directive';
-import { FastIconModule } from '../../../shared/fast-icon/fast-icon.module';
+import { FastSvgModule } from '@push-based/ngx-fast-svg';
 import { GridListComponent } from '../../component/grid-list/grid-list.component';
 import { IfModule } from '../../../shared/rxa-custom/if/src';
 
@@ -34,7 +34,7 @@ type UiActions = { paginate: boolean };
     StarRatingComponent,
     ForModule,
     ElementVisibilityDirective,
-    FastIconModule,
+    FastSvgModule,
     GridListComponent,
     IfModule,
   ],
@@ -79,7 +79,7 @@ type UiActions = { paginate: boolean };
     <ng-template #noData>
       <div style="display: flex; align-items: center;">
         <span style="font-size: 1.5rem">No results</span>
-        <fast-icon name="sad"></fast-icon>
+        <fast-svg name="sad"></fast-svg>
       </div>
     </ng-template>
   `,

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { RxState } from '@rx-angular/state';
 import { AppInitializer } from '../rxa-custom/app-initializer';
-import { RxActionFactory } from '../rxa-custom/actions';
+import { RxActionFactory } from '@rx-angular/state/actions';
 import { concatMap, filter, merge, tap } from 'rxjs';
 import { ListResource } from '../../data-access/api/resources/list.resource';
 import {

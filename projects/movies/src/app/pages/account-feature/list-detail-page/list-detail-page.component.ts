@@ -1,9 +1,9 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { ListDetailAdapter } from './list-detail-page.adapter';
 import { LetModule } from '@rx-angular/template/let';
-import { ForModule } from '@rx-angular/template/experimental/for';
+import { ForModule } from '@rx-angular/template/for';
 import { MovieListComponent } from '../../../ui/pattern/movie-list/movie-list.component';
-import { FastIconModule } from '../../../shared/fast-icon/fast-icon.module';
+import { FastSvgModule } from '@push-based/ngx-fast-svg';
 import { RouterModule } from '@angular/router';
 
 @Component({
@@ -13,7 +13,7 @@ import { RouterModule } from '@angular/router';
     LetModule,
     ForModule,
     MovieListComponent,
-    FastIconModule,
+    FastSvgModule,
   ],
   selector: 'ct-list-detail-page',
   templateUrl: './list-detail-page.component.html',

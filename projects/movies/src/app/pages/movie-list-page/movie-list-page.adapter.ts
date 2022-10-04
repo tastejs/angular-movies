@@ -18,7 +18,7 @@ import { MovieState } from '../../shared/state/movie.state';
 import { RouterState } from '../../shared/router/router.state';
 import { RouterParams } from '../../shared/router/router.model';
 import { infiniteScroll } from '../../shared/cdk/infinite-scroll/infiniteScroll';
-import { RxActionFactory } from '../../shared/rxa-custom/actions';
+import { RxActionFactory } from '@rx-angular/state/actions';
 import { InfiniteScrollOptions } from '../../shared/cdk/infinite-scroll/infinite-scroll.interface';
 import { MovieListPageModel } from './movie-list-page-adapter.model';
 import { DiscoverResource } from '../../data-access/api/resources/discover.resource';

@@ -7,7 +7,7 @@ import {
   ViewChild,
 } from '@angular/core';
 import { RxState } from '@rx-angular/state';
-import { RxActionFactory } from 'projects/movies/src/app/shared/rxa-custom/actions';
+import { RxActionFactory } from '@rx-angular/state/actions';
 import { merge } from 'rxjs';
 import { ListDetailAdapter } from '../list-detail-page.adapter';
 

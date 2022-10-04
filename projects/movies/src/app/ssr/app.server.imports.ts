@@ -1,4 +1,4 @@
-import { FastIconModule } from '../shared/fast-icon/fast-icon.module';
+import { FastSvgModule } from '@push-based/ngx-fast-svg';
 import {
   ServerModule,
   ServerTransferStateModule,
@@ -15,7 +15,7 @@ export const APP_SERVER_IMPORTS = [
    */
   ServerModule,
   ServerTransferStateModule,
-  FastIconModule.forRoot({
+  FastSvgModule.forRoot({
     url: (name: string): string => {
       return `assets/svg-icons/${name}.svg`;
     },
