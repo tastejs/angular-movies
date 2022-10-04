@@ -1,4 +1,3 @@
-import { RxState } from '@rx-angular/state';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -9,9 +8,7 @@ import {
 import { filter, map, Observable } from 'rxjs';
 import { TMDBMovieModel } from '../../../data-access/api/model/movie.model';
 import { W300H450 } from '../../../data-access/api/constants/image-sizes';
-import { ImageTag } from '../../../shared/utils/image/image-tag.interface';
 import { addImageTag } from '../../../shared/utils/image/image-tag.transform';
-import { RxActionFactory } from '@rx-angular/state/actions';
 import { coerceObservable } from '../../../shared/utils/coerceObservable';
 import { RxInputType } from '../../../shared/rxa-custom/input-type.typing';
 import { CommonModule } from '@angular/common';
@@ -21,10 +18,16 @@ import { ForModule } from '@rx-angular/template/for';
 import { ElementVisibilityDirective } from '../../../shared/cdk/element-visibility/element-visibility.directive';
 import { FastSvgModule } from '@push-based/ngx-fast-svg';
 import { GridListComponent } from '../../component/grid-list/grid-list.component';
-import { IfModule } from '../../../shared/rxa-custom/if/src';
+import { IfModule } from '@rx-angular/template/experimental/if';
+import { describeRxState } from '../../../shared/rxa-custom/rx-state.definition';
+import { describeRxActions } from '../../../shared/rxa-custom/actions.definition';
 
-type Movie = TMDBMovieModel & ImageTag;
+const { provide: provideRxState, inject: injectRxState } =
+  describeRxState<{ movies?: TMDBMovieModel[] | null | undefined }>();
+
 type UiActions = { paginate: boolean };
+const { provide: provideRxActions, inject: injectRxActions } =
+  describeRxActions<UiActions>();
 
 @Component({
   standalone: true,
@@ -48,7 +51,7 @@ type UiActions = { paginate: boolean };
       -->
       <a
         class="ui-grid-list-item"
-        *rxFor="let movie of movies$; index as idx; trackBy: trackByMovieId"
+        *rxFor="let movie of movies$; index as idx; trackBy: 'id'"
         [routerLink]="['/detail/movie', movie.id]"
         [attr.data-uf]="'movie-' + idx"
       >
@@ -84,14 +87,15 @@ type UiActions = { paginate: boolean };
     </ng-template>
   `,
   styleUrls: ['./movie-list.component.scss'],
-  providers: [RxState, RxActionFactory],
+  providers: [provideRxState(), provideRxActions()],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.Emulated,
 })
 export class MovieListComponent {
-  ui = this.actions.create();
+  protected readonly ui = injectRxActions();
+  private readonly state = injectRxState();
 
-  readonly movies$ = this.state.select(
+  protected readonly movies$ = this.state.select(
     map((state) =>
       (state.movies || []).map((m: TMDBMovieModel) =>
         addImageTag(m, { pathProp: 'poster_path', dims: W300H450 })
@@ -113,13 +117,4 @@ export class MovieListComponent {
   @Output() readonly paginate: Observable<true> = this.ui.paginate$.pipe(
     filter(Boolean)
   );
-
-  constructor(
-    private state: RxState<{ movies?: TMDBMovieModel[] | null | undefined }>,
-    private actions: RxActionFactory<UiActions>
-  ) {}
-
-  trackByMovieId(_: number, movie: Movie) {
-    return movie.id;
-  }
 }

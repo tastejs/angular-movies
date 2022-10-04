@@ -15,7 +15,7 @@ import { RxEffects } from '@rx-angular/state/effects';
  */
 @Injectable({
   providedIn: 'root',
-  deps: [RxEffects],
+  deps: [],
 })
 export class ZonelessRouting extends RxEffects {
   constructor(

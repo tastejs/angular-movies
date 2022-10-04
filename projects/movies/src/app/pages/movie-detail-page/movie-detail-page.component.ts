@@ -14,7 +14,7 @@ import { TMDBMovieGenreModel } from '../../data-access/api/model/movie-genre.mod
 
 import { MovieDetailAdapter } from './movie-detail-page.adapter';
 import { RxActionFactory } from '@rx-angular/state/actions';
-import { RxEffects } from '@rx-angular/state/effects';
+
 import { DetailGridComponent } from '../../ui/component/detail-grid/detail-grid.component';
 import { StarRatingComponent } from '../../ui/pattern/star-rating/star-rating.component';
 import { MovieListComponent } from '../../ui/pattern/movie-list/movie-list.component';
@@ -22,8 +22,12 @@ import { LetModule } from '@rx-angular/template/let';
 import { BypassSrcDirective } from '../../shared/bypass-src/bypass-src.directive';
 import { ForModule } from '@rx-angular/template/for';
 import { FastSvgModule } from '@push-based/ngx-fast-svg';
-import { IfModule } from '../../shared/rxa-custom/if/src';
+import { IfModule } from '@rx-angular/template/experimental/if';
 import { RouterModule } from '@angular/router';
+import { describeRxEffects } from '../../shared/rxa-custom/effects.definition';
+
+const { provide: provideRxEffects, inject: injectRxEffects } =
+  describeRxEffects();
 
 @Component({
   standalone: true,
@@ -44,10 +48,11 @@ import { RouterModule } from '@angular/router';
   styleUrls: ['./movie-detail-page.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.Emulated,
-  providers: [RxEffects],
+  providers: [provideRxEffects()],
 })
 export class MovieDetailPageComponent {
   readonly ui = this.actionsF.create();
+  private effects = injectRxEffects();
   private readonly movieCtx$ = this.adapter.routedMovieCtx$;
   readonly loadIframe$ = this.ui.iframe$.pipe(
     mergeWith(
@@ -76,7 +81,6 @@ export class MovieDetailPageComponent {
   castListWrapper: ElementRef<HTMLElement> | undefined = undefined;
 
   constructor(
-    private effects: RxEffects,
     private location: Location,
     private adapter: MovieDetailAdapter,
     private actionsF: RxActionFactory<{

@@ -1,4 +1,3 @@
-import { RxState } from '@rx-angular/state';
 import { CommonModule, DOCUMENT } from '@angular/common';
 import {
   ChangeDetectionStrategy,
@@ -22,10 +21,12 @@ import {
   take,
   withLatestFrom,
 } from 'rxjs';
-import { RxActionFactory, preventDefault } from '@rx-angular/state/actions';
+import { preventDefault } from '@rx-angular/state/actions';
 import { coerceObservable } from '@rx-angular/cdk/coercing';
 import { LetModule } from '@rx-angular/template/let';
 import { FastSvgModule } from '@push-based/ngx-fast-svg';
+import { describeRxState } from '../../../shared/rxa-custom/rx-state.definition';
+import { describeRxActions } from '../../../shared/rxa-custom/actions.definition';
 
 type UiActions = {
   searchChange: string;
@@ -33,6 +34,14 @@ type UiActions = {
   outsideFormClick: Event;
   formSubmit: Event;
 };
+
+const { provide: provideRxActions, inject: injectRxActions } =
+  describeRxActions<UiActions>({
+    searchChange: String,
+    formSubmit: preventDefault,
+  });
+const { provide: provideRxState, inject: injectRxState } =
+  describeRxState<{ search: string; open: boolean }>();
 
 @Component({
   standalone: true,
@@ -68,16 +77,14 @@ type UiActions = {
   styleUrls: ['search-bar.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.Emulated,
-  providers: [RxState],
+  providers: [provideRxState(), provideRxActions()],
 })
 export class SearchBarComponent implements OnInit {
   @ViewChild('searchInput') inputRef!: ElementRef<HTMLInputElement>;
   @ViewChild('form') formRef!: ElementRef<HTMLFormElement>;
 
-  ui = this.actions.create({
-    searchChange: String,
-    formSubmit: preventDefault,
-  });
+  protected readonly ui = injectRxActions();
+  private state = injectRxState();
 
   @Input()
   set query(v: string | Observable<string>) {
@@ -122,8 +129,6 @@ export class SearchBarComponent implements OnInit {
   private readonly classList = this.elementRef.nativeElement.classList;
 
   constructor(
-    private state: RxState<{ search: string; open: boolean }>,
-    private actions: RxActionFactory<UiActions>,
     @Inject(ElementRef) private elementRef: ElementRef,
     @Inject(DOCUMENT) private document: Document
   ) {

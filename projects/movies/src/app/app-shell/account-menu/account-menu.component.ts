@@ -1,5 +1,4 @@
 import { LetModule } from '@rx-angular/template/let';
-import { RxState } from '@rx-angular/state';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RxActionFactory } from '@rx-angular/state/actions';
 import { AuthEffects } from '../../shared/auth/auth.effects';
@@ -7,14 +6,23 @@ import { AuthState } from '../../shared/auth/auth.state';
 import { map } from 'rxjs';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { RxEffects } from '@rx-angular/state/effects';
-import { IfModule } from '../../shared/rxa-custom/if/src';
+
+import { IfModule } from '@rx-angular/template/experimental/if';
+import { describeRxState } from '../../shared/rxa-custom/rx-state.definition';
+import { describeRxEffects } from '../../shared/rxa-custom/effects.definition';
+
 export const imports = [RouterModule, CommonModule, LetModule, IfModule];
 
 type Actions = {
   signOut: Event;
   signIn: Event;
 };
+
+const { provide: provideRxState, inject: injectRxState } = describeRxState<{
+  loggedIn: boolean;
+}>();
+const { provide: provideRxEffects, inject: injectRxEffects } =
+  describeRxEffects();
 
 @Component({
   standalone: true,
@@ -23,18 +31,18 @@ type Actions = {
   templateUrl: './account-menu.component.html',
   styleUrls: ['./account-menu.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [RxState, RxEffects],
+  providers: [provideRxState(), provideRxEffects()],
 })
 export class AccountMenuComponent {
   ui = this.actionsF.create();
-
+  private effects = injectRxEffects();
+  private state = injectRxState();
   loggedIn$ = this.state.select('loggedIn');
 
   constructor(
     private authEffects: AuthEffects,
     private authState: AuthState,
-    private state: RxState<{ loggedIn: boolean }>,
-    private effects: RxEffects,
+
     private actionsF: RxActionFactory<Actions>
   ) {
     this.state.connect(

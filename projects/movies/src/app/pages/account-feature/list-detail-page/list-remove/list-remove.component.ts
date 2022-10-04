@@ -3,54 +3,51 @@ import {
   ChangeDetectionStrategy,
   Component,
   ElementRef,
-  OnDestroy,
   ViewChild,
 } from '@angular/core';
-import { RxState } from '@rx-angular/state';
-import { RxActionFactory } from '@rx-angular/state/actions';
 import { merge } from 'rxjs';
 import { ListDetailAdapter } from '../list-detail-page.adapter';
+import { describeRxActions } from '../../../../shared/rxa-custom/actions.definition';
+import { describeRxEffects } from '../../../../shared/rxa-custom/effects.definition';
 
 type Actions = {
   openDialog: void;
   closeDialog: void;
   confirm: void;
 };
+const { provide: provideRxActions, inject: injectRxActions } =
+  describeRxActions<Actions>();
+
+const { provide: provideRxEffects, inject: injectRxEffects } =
+  describeRxEffects();
+
 @Component({
   standalone: true,
   selector: 'app-list-remove',
   templateUrl: './list-remove.component.html',
   styleUrls: ['./list-remove.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [RxActionFactory],
+  providers: [provideRxActions(), provideRxEffects()],
 })
-export class ListRemoveComponent
-  extends RxState<never>
-  implements AfterViewInit, OnDestroy
-{
+export class ListRemoveComponent implements AfterViewInit {
   @ViewChild('dialog', { static: true }) dialog!: ElementRef<{
     showModal: () => void;
     close: () => void;
   }>;
 
-  readonly ui = this.actionsF.create();
+  readonly ui = injectRxActions();
+  readonly ef = injectRxEffects();
 
-  constructor(
-    public adapter: ListDetailAdapter,
-    private actionsF: RxActionFactory<Actions>
-  ) {
-    super();
-    this.hold(this.ui.confirm$, this.adapter.ui.deleteList);
+  constructor(public adapter: ListDetailAdapter) {
+    this.ef.register(this.ui.confirm$, this.adapter.ui.deleteList);
   }
 
   ngAfterViewInit(): void {
-    this.hold(merge(this.ui.confirm$, this.ui.closeDialog$), () =>
+    this.ef.register(merge(this.ui.confirm$, this.ui.closeDialog$), () =>
       this.dialog.nativeElement.close()
     );
-    this.hold(this.ui.openDialog$, () => this.dialog.nativeElement.showModal());
-  }
-
-  ngOnDestroy(): void {
-    super.ngOnDestroy();
+    this.ef.register(this.ui.openDialog$, () =>
+      this.dialog.nativeElement.showModal()
+    );
   }
 }

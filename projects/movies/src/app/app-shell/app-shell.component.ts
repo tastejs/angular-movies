@@ -1,4 +1,3 @@
-import { RxState } from '@rx-angular/state';
 import { CommonModule, DOCUMENT } from '@angular/common';
 import {
   ChangeDetectionStrategy,
@@ -18,11 +17,9 @@ import {
 import { TMDBMovieGenreModel } from '../data-access/api/model/movie-genre.model';
 import { fallbackRouteToDefault } from '../shared/router/routing-default.util';
 import { trackByProp } from '../shared/utils/track-by';
-import { RxActionFactory } from '@rx-angular/state/actions';
 import { RouterState } from '../shared/router/router.state';
 import { getIdentifierOfTypeAndLayoutUtil } from '../shared/router/get-identifier-of-type-and-layout.util';
 import { GenreResource } from '../data-access/api/resources/genre.resource';
-import { RxEffects } from '@rx-angular/state/effects';
 import { HamburgerButtonComponent } from '../ui/component/hamburger-button/hamburger-button.component';
 import { LetModule } from '@rx-angular/template/let';
 import { SideDrawerComponent } from '../ui/component/side-drawer/side-drawer.component';
@@ -31,10 +28,22 @@ import { DarkModeToggleComponent } from '../ui/component/dark-mode-toggle/dark-m
 import { ForModule } from '@rx-angular/template/for';
 import { LazyDirective } from '../shared/cdk/lazy/lazy.directive';
 import { FastSvgModule } from '@push-based/ngx-fast-svg';
+import { describeRxState } from '../shared/rxa-custom/rx-state.definition';
+import { describeRxActions } from '../shared/rxa-custom/actions.definition';
+import { describeRxEffects } from '../shared/rxa-custom/effects.definition';
+// import { TMDBMovieModel } from '../data-access/api/model/movie.model';
 type Actions = {
   sideDrawerOpenToggle: boolean;
   loadAccountMenu: void;
 };
+
+const { provide: provideRxState, inject: injectRxState } = describeRxState<{
+  sideDrawerOpen: boolean;
+}>();
+const { provide: provideRxActions, inject: injectRxActions } =
+  describeRxActions<Actions>();
+const { provide: provideRxEffects, inject: injectRxEffects } =
+  describeRxEffects();
 
 @Component({
   standalone: true,
@@ -55,16 +64,18 @@ type Actions = {
   styleUrls: ['./app-shell.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.Emulated,
-  providers: [RxState, RxEffects, RxActionFactory],
+  providers: [provideRxState(), provideRxEffects(), provideRxActions()],
 })
 export class AppShellComponent {
-  readonly ui = this.actionsF.create();
+  readonly ui = injectRxActions();
+  readonly state = injectRxState();
+  public effects = injectRxEffects();
 
-  search$ = this.routerState.select(
+  readonly search$ = this.routerState.select(
     getIdentifierOfTypeAndLayoutUtil('search', 'list')
   );
 
-  accountMenuComponent$ = this.ui.loadAccountMenu$.pipe(
+  readonly accountMenuComponent$ = this.ui.loadAccountMenu$.pipe(
     switchMap(() =>
       import('./account-menu/account-menu.component.lazy').then(({ c }) => c)
     ),
@@ -72,15 +83,10 @@ export class AppShellComponent {
   );
 
   constructor(
-    private readonly state: RxState<{
-      sideDrawerOpen: boolean;
-    }>,
-    public effects: RxEffects,
     public routerState: RouterState,
     public genreResource: GenreResource,
     @Inject(DOCUMENT) document: Document,
-    private router: Router,
-    private actionsF: RxActionFactory<Actions>
+    private router: Router
   ) {
     this.init();
     /**
