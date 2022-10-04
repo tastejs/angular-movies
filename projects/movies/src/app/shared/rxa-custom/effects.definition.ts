@@ -12,10 +12,7 @@ export function describeRxEffects() {
         RxEffects,
         {
           provide: token,
-          useFactory() {
-            const ef = inject(RxEffects);
-            return ef;
-          },
+          useClass: RxEffects,
         },
       ];
     },
@@ -23,7 +20,7 @@ export function describeRxEffects() {
       const ef = inject(token, InjectFlags.Self | InjectFlags.Optional);
 
       if (ngDevMode && ef == null) {
-        throw new Error(`Oups! It seems that you forgot to provide the state.
+        throw new Error(`Oups! It seems that you forgot to add provides for the effects service.
 Try adding "provideXXX()" to your declarable's providers.`);
       }
 

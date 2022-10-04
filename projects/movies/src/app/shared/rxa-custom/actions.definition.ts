@@ -14,10 +14,7 @@ export function describeRxActions<TRIGGER extends Record<string, unknown>>(
         RxActionFactory,
         {
           provide: token,
-          useFactory() {
-            const fac = inject(RxActionFactory);
-            return fac;
-          },
+          useClass: RxActionFactory,
         },
       ];
     },
@@ -25,7 +22,7 @@ export function describeRxActions<TRIGGER extends Record<string, unknown>>(
       const fac = inject(token, InjectFlags.Self | InjectFlags.Optional);
 
       if (ngDevMode && fac == null) {
-        throw new Error(`Oups! It seems that you forgot to provide the state.
+        throw new Error(`Oups! It seems that you forgot to add provides for the actions service.
 Try adding "provideXXX()" to your declarable's providers.`);
       }
 

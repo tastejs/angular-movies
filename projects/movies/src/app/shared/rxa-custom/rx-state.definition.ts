@@ -26,7 +26,7 @@ export function describeRxState<STATE extends Record<string, unknown>>(
       const state = inject(token, InjectFlags.Self | InjectFlags.Optional);
 
       if (ngDevMode && state == null) {
-        throw new Error(`Oups! It seems that you forgot to provide the state.
+        throw new Error(`Oups! It seems that you forgot to add provides for the state service.
 Try adding "provideXXX()" to your declarable's providers.`);
       }
 
