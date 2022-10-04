@@ -9,11 +9,6 @@ import {
   transformToMovieDetail,
   transformToCastList,
 } from './selection/client-movie-detail.mapper';
-import { RxActionFactory } from '../../shared/rxa-custom/actions';
-import {
-  transformToMovieDetail,
-  transformToCastList,
-} from './selection/client-movie-detail.mapper';
 import { RxActionFactory } from '@rx-angular/state/actions';
 import { infiniteScroll } from '../../shared/cdk/infinite-scroll/infiniteScroll';
 import { MovieDetail } from './selection/movie-detail.model';
