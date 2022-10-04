@@ -35,7 +35,9 @@
               "projects/movies/src/manifest.webmanifest",
               "projects/movies/src/assets"
             ],
-            "styles": ["projects/movies/src/styles.scss"],
+            "styles": [
+              "projects/movies/src/styles.scss"
+            ],
             "scripts": []
           },
           "configurations": {
@@ -44,8 +46,8 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "300kb",
-                  "maximumError": "355KB"
+                  "maximumWarning": "310kb",
+                  "maximumError": "365KB"
                 },
                 {
                   "type": "anyComponentStyle",
@@ -55,8 +57,8 @@
                 {
                   "type": "bundle",
                   "name": "main",
-                  "maximumWarning": "300kb",
-                  "maximumError": "342kb"
+                  "maximumWarning": "310kb",
+                  "maximumError": "352kb"
                 },
                 {
                   "type": "bundle",
@@ -137,7 +139,9 @@
               "projects/movies/src/favicon.ico",
               "projects/movies/src/assets"
             ],
-            "styles": ["projects/movies/src/styles.scss"],
+            "styles": [
+              "projects/movies/src/styles.scss"
+            ],
             "scripts": []
           }
         },
@@ -208,6 +212,5 @@
         }
       }
     }
-  },
-  "defaultProject": "movies"
+  }
 }

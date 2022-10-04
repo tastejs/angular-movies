@@ -9,7 +9,7 @@ import { Subject } from 'rxjs';
 import { KeysOf, ValuesOf, RxActions } from './types';
 import { ErrorHandler } from '@angular/core';
 
-export function actionProxyHandler<T extends object, U>(
+export function actionProxyHandler<T extends object, U extends object>(
   subjects: { [K in keyof T]: Subject<ValuesOf<T>> },
   transforms?: U,
   errorHandler?: ErrorHandler
