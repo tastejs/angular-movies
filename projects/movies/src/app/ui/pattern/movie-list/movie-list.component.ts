@@ -17,9 +17,9 @@ import { RxInputType } from '../../../shared/rxa-custom/input-type.typing';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { StarRatingComponent } from '../star-rating/star-rating.component';
-import { ForModule } from '@rx-angular/template/experimental/for';
+import { ForModule } from '@rx-angular/template/for';
 import { ElementVisibilityDirective } from '../../../shared/cdk/element-visibility/element-visibility.directive';
-import { FastIconModule } from '../../../shared/fast-icon/fast-icon.module';
+import { FastSvgModule } from '@push-based/ngx-fast-svg';
 import { GridListComponent } from '../../component/grid-list/grid-list.component';
 import { IfModule } from '../../../shared/rxa-custom/if/src';
 
@@ -34,7 +34,7 @@ type UiActions = { paginate: boolean };
     StarRatingComponent,
     ForModule,
     ElementVisibilityDirective,
-    FastIconModule,
+    FastSvgModule,
     GridListComponent,
     IfModule,
   ],

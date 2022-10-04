@@ -1,11 +1,11 @@
-import { FastIconModule } from './shared/fast-icon/fast-icon.module';
+import { FastSvgModule } from '@push-based/ngx-fast-svg';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { TransferHttpCacheModule } from '@nguniversal/common';
 import { SERVICE_WORKER_IMPORTS } from './shared/pwa/service-worker.imports';
 
 export const APP_IMPORTS = [
-  FastIconModule.forRoot({
+  FastSvgModule.forRoot({
     url: (name: string): string => {
       return `assets/svg-icons/${name}.svg`;
     },

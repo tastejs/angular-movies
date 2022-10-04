@@ -6,13 +6,12 @@ import {
   ListItemsEditAdapter,
   MovieSearchResult,
 } from './list-items-edit.adapter';
-import { ForModule } from '@rx-angular/template/experimental/for';
+import { ForModule } from '@rx-angular/template/for';
 import { LetModule } from '@rx-angular/template';
-import { FastIconModule } from '../../../../shared/fast-icon/fast-icon.module';
-
+import { FastSvgModule } from '@push-based/ngx-fast-svg';
 @Component({
   standalone: true,
-  imports: [ForModule, LetModule, FastIconModule],
+  imports: [ForModule, LetModule, FastSvgModule],
   selector: 'ct-list-items-edit',
   templateUrl: './list-items-edit.component.html',
   styleUrls: ['./list-items-edit.component.scss'],

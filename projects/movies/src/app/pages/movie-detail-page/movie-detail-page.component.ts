@@ -20,8 +20,8 @@ import { StarRatingComponent } from '../../ui/pattern/star-rating/star-rating.co
 import { MovieListComponent } from '../../ui/pattern/movie-list/movie-list.component';
 import { LetModule } from '@rx-angular/template/let';
 import { BypassSrcDirective } from '../../shared/bypass-src/bypass-src.directive';
-import { ForModule } from '@rx-angular/template/experimental/for';
-import { FastIconModule } from '../../shared/fast-icon/fast-icon.module';
+import { ForModule } from '@rx-angular/template/for';
+import { FastSvgModule } from '@push-based/ngx-fast-svg';
 import { IfModule } from '../../shared/rxa-custom/if/src';
 import { RouterModule } from '@angular/router';
 
@@ -36,7 +36,7 @@ import { RouterModule } from '@angular/router';
     LetModule,
     BypassSrcDirective,
     ForModule,
-    FastIconModule,
+    FastSvgModule,
     IfModule,
   ],
   selector: 'ct-movie',

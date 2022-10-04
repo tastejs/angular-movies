@@ -25,7 +25,7 @@ import {
 import { RxActionFactory, preventDefault } from '@rx-angular/state/actions';
 import { coerceObservable } from '@rx-angular/cdk/coercing';
 import { LetModule } from '@rx-angular/template/let';
-import { FastIconModule } from '../../../shared/fast-icon/fast-icon.module';
+import { FastSvgModule } from '@push-based/ngx-fast-svg';
 
 type UiActions = {
   searchChange: string;
@@ -36,7 +36,7 @@ type UiActions = {
 
 @Component({
   standalone: true,
-  imports: [CommonModule, LetModule, FastIconModule],
+  imports: [CommonModule, LetModule, FastSvgModule],
   selector: 'ui-search-bar',
   template: `
     <form
