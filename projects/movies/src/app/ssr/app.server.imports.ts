@@ -19,6 +19,6 @@ export const APP_SERVER_IMPORTS = [
     url: (name: string): string => {
       return `assets/svg-icons/${name}.svg`;
     },
-    iconLoadStrategy: IconLoadStrategySsr,
+    svgLoadStrategy: IconLoadStrategySsr,
   }),
 ];

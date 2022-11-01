@@ -107,7 +107,7 @@
           </button>
           <div class="account-menu-content">
             <ng-container
-              *rxLet="accountMenuComponent$; rxSuspense: loading"
+              *rxLet="accountMenuComponent$; suspense: loading"
               [lazy]="accountMenuComponent$"
             >
             </ng-container>
