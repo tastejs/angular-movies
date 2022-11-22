@@ -40,7 +40,7 @@
     "format:all": "prettier --write .",
     "commit": "git-cz",
     "gen:routes": "npx ts-node -P tooling/tsconfig.json ./tooling/generate-routes/generate-routes.ts",
-    "prerender": "npm run gen:routes && ng run movies:prerender --configuration production"
+    "prerender": "npm run gen:routes && ng run movies:prerender:production"
   },
   "config": {
     "commitizen": {
