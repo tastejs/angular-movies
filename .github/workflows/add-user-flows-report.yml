@@ -6,7 +6,7 @@ name: Add User Flow Reports
 on:
   pull_request:
   push:
-    branches: [ master ]
+    branches: [master]
 
 jobs:
   collect_user_flows:
@@ -18,7 +18,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: '14'
+          node-version: '16'
           cache: 'npm'
 
       - name: Install dependencies

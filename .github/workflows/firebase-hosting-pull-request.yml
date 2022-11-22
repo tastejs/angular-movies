@@ -14,7 +14,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: '14'
+          node-version: '16'
           cache: 'npm'
 
       - name: Install dependencies
@@ -38,6 +38,6 @@ jobs:
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_ANGULAR_MOVIES_A12D3 }}'
           projectId: angular-movies-a12d3
           channelId: ${{ github.head_ref }}
-          expires: 21d
+          expires: 42d
         env:
           FIREBASE_CLI_PREVIEWS: hostingchannels

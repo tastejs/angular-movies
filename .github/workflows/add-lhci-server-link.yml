@@ -5,20 +5,19 @@ name: Add LHCI Server Link
 
 on:
   pull_request:
-    branches: [ master ]
+    branches: [master]
 
 jobs:
   checkout:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [14.x]
+        node-version: [16.x]
     steps:
-
       - uses: tzkhan/pr-update-action@v2
         with:
-          repo-token: "${{ secrets.GITHUB_TOKEN }}"
+          repo-token: '${{ secrets.GITHUB_TOKEN }}'
           head-branch-regex: '.+'
           # http://localhost:9001/app/projects/angular-movies-perf/compare/163c990e52fe
-          body-template: "[LHCI Server](http://localhost:9001/app/projects/)"
+          body-template: '[LHCI Server](http://localhost:9001/app/projects/)'
           body-update-action: 'suffix'
