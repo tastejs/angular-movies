@@ -1,0 +1,90 @@
+{
+    "App": {
+        "Search movies": "Rechercher des films",
+        "Now-playing": "Au cinéma",
+        "Coming soon": "A venir",
+        "Trending": "Tendance",
+        "Watch later": "À Regarder",
+        "Categories": "Catégories",
+        "Account": "Compte",
+        "Sign out": "Se déconnecter",
+        "Sign in": "Se connecter",
+        "Settings": "Paramètres",
+        "About": "À propos de",
+        "Language": "Langue"
+    },
+    "Movie-list": {
+        "Title": "Title",
+        "No results": "Aucun résultats",
+        "Watch later": "À regarder plus tard"
+    },
+    "Movie": {
+        "Watch later": "À regarder",
+        "Favorite": "Favoris",
+        "Categories": "Catégories",
+        "Share": "Partager",
+        "Cast": "CASTING",
+        "Trailer": "BANDES ANNONCES",
+        "Similar": "FILMS RECOMMANDÉS",
+        "No lists": "Aucune listes disponibles",
+        "No trailer": "Aucune bande-annonce disponible"
+    },
+    "Star": {
+        "Known in movies": "CONNU DANS LES FILMS POUR",
+        "Known in TV": "CONNU DANS LES SÉRIES POUR"
+    },
+    "Watch later": {
+        "Title": "À regarder plus tard",
+        "To watch": "À REGARDER",
+        "Watched": "REGARDÉ",
+        "Not Watched": "Pas encore vue",
+        "Watched?": "Vue",
+        "No movies": "Pas encore de films"
+    },
+    "Categories": {
+        "Title": "Catégories",
+        "Btn-add": "Créer une catégorie",
+        "Btn-delete": "Supprimer une catégorie",
+        "Favorites": "FAVORIS",
+        "No movies": "Pas encore de films",
+        "No favorites": "Pas encore de favoris"
+    },
+    "Categories-add": {
+        "Title": "Ajouter une catégorie",
+        "Content": "Tapez le nom de la catégorie"
+    },
+    "Categories-delete": {
+        "Title": "Supprimer une catégorie",
+        "Content": "Etes-vous sûr de supprimer cette catégorie? Tapez le nom de la catégorie"
+    },
+    "Account": {
+        "Delete account": "Supprimer le compte"
+    },
+    "Account-dialog": {
+        "Title": "Supprimer votre compte",
+        "Content": "Êtes-vous sûr de vouloir supprimer votre compte?"
+    },
+    "Shared-dialog": {
+        "Title": "Partager sur",
+        "Btn-copy": "COPIER LE LIEN"
+    },
+    "Sign-in": {
+        "Title": "Se connecter",
+        "Btn-sign": "Se connecter avec"
+    },
+    "Settings": {
+        "label": "Inclure le contenu pour adulte"
+    },
+    "Btn-cancel": "ANNULER",
+    "Btn-share": "Partager",
+    "Btn-delete": "Supprimer",
+    "Error": {
+        "Goodbye": "Déjà parti ? Nous espérons te revoir bientôt",
+        "Welcome": "Bienvenue",
+        "Delete": "Au revoir ! Nous espérons que notre site vous a plu",
+        "List-updated": "Liste mise à jour",
+        "Movie-added": "Le film a été ajouté",
+        "Offline": "Désolé, vous êtes déconnecté",
+        "Link": "Le lien a été copié"
+    }
+}

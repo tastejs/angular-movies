@@ -1,0 +1,26 @@
+@import '../../../assets/scss/palette';
+
+h2 {
+    text-transform: capitalize;
+}
+
+h3 {
+    margin: 15px 0 5px;
+    color: $primary-light;
+}
+
+a {
+    position: relative;
+    display: block;
+}
+
+.date {
+    margin: 0;
+    color: $white;
+}
+
+.btn-add {
+    position: absolute;
+    top: 0;
+    right: 0;
+}

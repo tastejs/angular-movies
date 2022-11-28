@@ -1,0 +1,73 @@
+<div class="app-toolbar" [class.app-toolbar--mobile]="mobileQuery.matches">
+  <mat-toolbar color="primary">
+    <button mat-icon-button (click)="snav.toggle()">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <h1>HubMovies</h1>
+  </mat-toolbar>
+</div>
+<mat-sidenav-container class="app-sidenav">
+  <mat-sidenav [opened]="mobileQuery.matches ? 'false': 'true'" #snav [mode]="mobileQuery.matches ? 'over' : 'side'" [fixedInViewport]="mobileQuery.matches">
+    <nav class="navigation">
+      <div class="navigation--search">
+        <mat-form-field appearance="outline">
+          <mat-label>{{'App.Search movies' |translate}}...</mat-label>
+          <input matInput #search (keyup.enter)="searchMovie(search.value); search.value=''" (keyup.enter)="closeSidenav()"
+            tabindex="-1">
+          <mat-icon matSuffix>search</mat-icon>
+        </mat-form-field>
+      </div>
+      <ul class="navigation--links">
+        <li>
+          <a [routerLink]="['/movies', 'now-playing']" routerLinkActive="active" (click)="closeSidenav(); resetPagination()">
+            <mat-icon>local_movies</mat-icon> {{'App.Now-playing' | translate}}</a>
+        </li>
+        <li>
+          <a [routerLink]="['/movies', 'upcoming']" routerLinkActive="active" (click)="closeSidenav(); resetPagination()">
+            <mat-icon>date_range</mat-icon> {{'App.Coming soon' | translate}}</a>
+        </li>
+        <li>
+          <a [routerLink]="['/movies', 'discover']" routerLinkActive="active" (click)="closeSidenav(); resetPagination()">
+            <mat-icon>whatshot</mat-icon> {{'App.Trending' | translate}}</a>
+        </li>
+        <li *ngIf="authService.user | async">
+          <a [routerLink]="['/playlist']" routerLinkActive="active" (click)="closeSidenav()">
+            <mat-icon>watch_later</mat-icon> {{'App.Watch later' | translate}}</a>
+        </li>
+        <li *ngIf="authService.user | async">
+          <a [routerLink]="['/categories']" routerLinkActive="active" (click)="closeSidenav()">
+            <mat-icon>folder</mat-icon> {{'App.Categories' | translate}}</a>
+        </li>
+        <li *ngIf="authService.user | async">
+          <a routerLink="/account" routerLinkActive="active" (click)="closeSidenav()">
+            <mat-icon>account_box</mat-icon> {{'App.Account' | translate}}</a>
+        </li>
+        <li [hidden]="authService.user | async">
+          <a routerLink="/sign-in" routerLinkActive="active" (click)="closeSidenav()">
+            <mat-icon>account_circle</mat-icon> {{'App.Sign in' | translate}}</a>
+        </li>
+        <li *ngIf="authService.user | async">
+          <a (click)="closeSidenav()" (click)="onSignOut()">
+            <mat-icon>cancel</mat-icon> {{'App.Sign out' | translate}}</a>
+        </li>
+        <li>
+            <a routerLink="/settings" routerLinkActive="active" (click)="closeSidenav()">
+              <mat-icon>settings</mat-icon> {{'App.Settings' | translate}}</a>
+        </li>
+        <li>
+          <a routerLink="/about" routerLinkActive="active" (click)="closeSidenav()">
+            <mat-icon>info</mat-icon> {{'App.About' | translate}}</a>
+        </li>
+      </ul>
+
+    </nav>
+  </mat-sidenav>
+  <div id="hub-movies">
+    <router-outlet></router-outlet>
+  </div>
+</mat-sidenav-container>
+<div id="btn-returnToTop">
+  <button mat-mini-fab color="primary" (click)="scrollTop()">
+    <mat-icon>arrow_upward</mat-icon>
+  </button>
+</div>

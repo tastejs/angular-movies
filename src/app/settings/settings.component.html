@@ -1,0 +1,16 @@
+<div class="settings">
+  <h2>{{'App.Settings' | translate}}</h2>
+  <div class="settings__container">
+    <div class="setting">
+        <mat-icon>language</mat-icon>
+        <mat-select placeholder="{{'App.Language' | translate}}" [ngModel]="lang" (selectionChange)="languageChange($event)">
+          <mat-option *ngFor="let language of languages" [value]="language.value">
+            {{ language.viewValue }}
+          </mat-option>
+        </mat-select>
+    </div>
+    <div class="setting">
+        <mat-slide-toggle [checked]="adult" (change)="adultChange($event)">{{'Settings.label' | translate}}</mat-slide-toggle>
+    </div>
+  </div>
+</div>

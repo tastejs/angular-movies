@@ -1,46 +1,24 @@
 {
-  "functions": {
-    "predeploy": "npm --prefix \"$RESOURCE_DIR\" run build+prerender:prod:ssr-update",
-    "source": "."
+  "database": {
+    "rules": "database.rules.json"
   },
   "hosting": {
-    "public": "dist/movies/browser",
-    "cleanUrls": true,
-    "trailingSlash": false,
-    "ignore": ["!dist", "*", "**/**"],
-    "headers": [
-      {
-        "source": "**/*.html",
-        "headers": [
-          {
-            "key": "Cache-Control",
-            "value": "max-age=0, no-cache"
-          }
-        ]
-      },
-      {
-        "source": "**/*.@(js|css)",
-        "headers": [
-          {
-            "key": "Cache-Control",
-            "value": "public, max-age=31557600"
-          }
-        ]
-      },
-      {
-        "source": "**/*.@(jpg|jpeg|gif|png|svg|webp|ico)",
-        "headers": [
-          {
-            "key": "Cache-Control",
-            "value": "public, max-age=604800"
-          }
-        ]
-      }
-    ],
+    "public": "dist/hub-movies/",
     "rewrites": [
       {
         "source": "**",
-        "function": "ssr"
+        "destination": "/index.html"
+      }
+    ],
+    "headers": [
+      {
+        "source": "**/*.@(jpg|jpeg|gif|png|js|css|eot|otf|ttf|ttc|woff|woff2)",
+        "headers": [
+          {
+            "key": "Cache-Control",
+            "value": "max-age=31536000"
+          }
+        ]
       }
     ]
   }

@@ -1,0 +1,130 @@
+<div class="loading-shade" *ngIf="isLoadingResults">
+  <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
+</div>
+<ng-template [ngIf]="!isLoadingResults">
+  <h2>{{ "Categories.Title" | translate }}</h2>
+  <button
+    class="btn-add-category"
+    mat-icon-button
+    (click)="addCategoryDialog()"
+    matTooltip="{{ 'Categories.Btn-add' | translate }}"
+  >
+    <mat-icon>add</mat-icon>
+  </button>
+  <button
+    class="btn-delete-category"
+    mat-icon-button
+    (click)="deleteCategoryDialog()"
+    matTooltip="{{ 'Categories.Btn-delete' | translate }}"
+  >
+    <mat-icon>delete_forever</mat-icon>
+  </button>
+  <mat-tab-group
+    class="categories__tab"
+    #tabGroup
+    (selectedTabChange)="tabChanged($event)"
+  >
+    <mat-tab label="{{ 'Categories.Favorites' | translate }}">
+      <div *ngIf="movies.length > 0; else noData">
+        <mat-nav-list *ngFor="let movie of movies">
+          <a mat-list-item [routerLink]="['/movie', movie.movieId]">
+            <div
+              matListAvatar
+              class="icon-container"
+              [ngStyle]="{
+                'background-image':
+                  'url(' +
+                  'https://image.tmdb.org/t/p/original' +
+                  movie.poster_path +
+                  ')'
+              }"
+            >
+              <mat-icon *ngIf="!movie.poster_path" class="icon-movie"
+                >movie</mat-icon
+              >
+            </div>
+            <h3 matLine>{{ movie.original_title }}</h3>
+            <p matLine>{{ movie.release_date | date }}</p>
+          </a>
+          <mat-action-list>
+            <button mat-icon-button (click)="shareDialog(movie)">
+              <mat-icon>share</mat-icon>
+            </button>
+            <button
+              mat-icon-button
+              (click)="deleteMovieFromFavorites(movie.movieId)"
+            >
+              <mat-icon>delete</mat-icon>
+            </button>
+          </mat-action-list>
+          <div class="actions">
+            <button mat-icon-button [matMenuTriggerFor]="menu">
+              <mat-icon>more_vert</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu">
+              <button mat-menu-item (click)="shareDialog(movie)">
+                <mat-icon>share</mat-icon>
+                <span>{{ "Btn-share" | translate }}</span>
+              </button>
+              <button
+                mat-menu-item
+                (click)="deleteMovieFromFavorites(movie.movieId)"
+              >
+                <mat-icon>delete</mat-icon>
+                <span>{{ "Btn-delete" | translate }}</span>
+              </button>
+            </mat-menu>
+          </div>
+        </mat-nav-list>
+      </div>
+      <ng-template #noData>
+        <h3>
+          {{ "Categories.No favorites" | translate }}
+          <mat-icon>sentiment_very_dissatisfied</mat-icon>
+        </h3>
+      </ng-template>
+    </mat-tab>
+    <mat-tab *ngFor="let category of categories" [label]="category">
+      <div *ngIf="movies.length > 0; else noData">
+        <mat-nav-list *ngFor="let movie of movies">
+          <a mat-list-item [routerLink]="['/movie', movie.movieId]">
+            <div
+              matListAvatar
+              class="icon-container"
+              [ngStyle]="{
+                'background-image':
+                  'url(' +
+                  'https://image.tmdb.org/t/p/original' +
+                  movie.poster_path +
+                  ')'
+              }"
+            >
+              <mat-icon *ngIf="!movie.poster_path" class="icon-movie"
+                >movie</mat-icon
+              >
+            </div>
+            <h3 matLine>{{ movie.original_title }}</h3>
+            <p matLine>{{ movie.release_date | date }}</p>
+          </a>
+          <mat-action-list>
+            <button mat-icon-button (click)="shareDialog(movie)">
+              <mat-icon>share</mat-icon>
+            </button>
+            <button
+              mat-icon-button
+              (click)="deleteMovieFromCategory(movie.category, movie.movieId)"
+            >
+              <mat-icon>delete</mat-icon>
+            </button>
+          </mat-action-list>
+        </mat-nav-list>
+      </div>
+      <ng-template #noData>
+        <h3>
+          {{ "Categories.No movies" | translate }}
+          <mat-icon>sentiment_very_dissatisfied</mat-icon>
+        </h3>
+      </ng-template>
+    </mat-tab>
+  </mat-tab-group>
+</ng-template>
