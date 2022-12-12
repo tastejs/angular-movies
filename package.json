@@ -68,7 +68,6 @@
     "@rx-angular/cdk": "^1.0.0-rc.2",
     "@rx-angular/state": "^1.7.0",
     "@rx-angular/template": "^1.0.0-rc.3",
-    "angular2-universal-polyfills": "^2.1.0-rc.1",
     "core-js": "^2.6.9",
     "express": "^4.15.2",
     "firebase-admin": "^9.11.0",
