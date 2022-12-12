@@ -183,6 +183,7 @@ export class RxIf<U> implements OnInit, OnChanges, OnDestroy, OnChanges {
     >({
       templateSettings: {
         viewContainerRef: this.viewContainerRef,
+        // @ts-ignore
         createViewContext,
         // @ts-ignore
         updateViewContext,
