@@ -67,26 +67,31 @@ For now you can search the codebase for "Perf Tip" later on there will be proppe
 
 
 
+
 <!-- bundle-stats-start -->
 | Names             |       Size |
 | ---               | ---        |
-| main.c9d7922fdab9e576.js           | 350.4 KB |
+| main.299800b59ac22135.js           | 348.15 KB |
 | styles.587a48cd73a27b6a.css           | 6.14 KB |
-| runtime.b126cd6ff2956147.js           | 3.71 KB |
-  | **Initial Total** | **360.25 KB** |
+| runtime.add647e95cbfbc8c.js           | 4.04 KB |
+  | **Initial Total** | **358.34 KB** |
   | Names             |       Size |
-| app_pages_movie-detail-page_movie-detail-page           | 15.95 KB |
-| app_pages_person-detail-page_person-detail-page           | 11.34 KB |
-| common.ac086ebe2c5af958.js           | 11.17 KB |
-| app_pages_account-feature_list-detail-page_list-items-edit_list-items-edi-393246.1449ba670c578347.js           | 7.04 KB |
-| app_app-shell_account-menu_account-menu_component_lazy_ts.63e97605206e9a9d.js           | 4.74 KB |
-| app_pages_account-feature_account-list-page_account-list-page           | 4.18 KB |
-| app_pages_account-feature_list-detail-page_list-detail-page           | 3.92 KB |
-| app_pages_account-feature_list-detail-page_list-remove_list-remove           | 3.3 KB |
-| app_pages_account-feature_list-detail-page_list-image_list-image           | 2.76 KB |
-| app_pages_not-found-page_not-found-page           | 1.84 KB |
-| app_pages_account-feature_list-detail-page_list-movies_list-movies           | 837 Bytes |
+| app_pages_movie-detail-page_movie-detail-page_component_ts.601065b23e157749.js           | 15.6 KB |
+| app_pages_person-detail-page_person-detail-page_component_ts.77bd1c323de08677.js           | 11.1 KB |
+| app_pages_account-feature_list-detail-page_list-items-edit_list-items-edi-13eb42.a44a677f9c8d6c94.js           | 6.8 KB |
+| common.f2a4c0c7f8c5e622.js           | 5.78 KB |
+| app_pages_account-feature_list-create-page_list-create-page_component_ts.5481cda0e59d6cd6.js           | 5.28 KB |
+| app_app-shell_account-menu_account-menu_component_lazy_ts.5ce7154cb6cd7726.js           | 4.74 KB |
+| app_pages_account-feature_account-list-page_account-list-page_component_ts.4e15c5ff835a4f2d.js           | 3.88 KB |
+| app_pages_account-feature_list-detail-page_list-remove_list-remove_component_ts.33c2cc8d85f99493.js           | 3.12 KB |
+| app_pages_account-feature_list-detail-page_list-detail-page_component_ts.f785b952611349bd.js           | 2.83 KB |
+| app_pages_account-feature_list-detail-page_list-image_list-image_component_ts.ae6d420b79be8b1d.js           | 2.58 KB |
+| app_pages_not-found-page_not-found-page_component_ts.5a8126d84c1a66df.js           | 1.68 KB |
+| app_pages_account-feature_list-detail-page_list-detail-page_routes_ts.d7e2c90a1f032c1b.js           | 1.57 KB |
+| app_pages_account-feature_account-featuer-page_routes_ts.71de5f44cacc5fac.js           | 841 Bytes |
+| app_pages_account-feature_list-detail-page_list-movies_list-movies_component_ts.e53b2197270a61db.js           | 666 Bytes |
 <!-- bundle-stats-end -->
+
 
 
 ## Comparison to next and nuxt
