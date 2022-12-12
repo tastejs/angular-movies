@@ -35,9 +35,7 @@
               "projects/movies/src/manifest.webmanifest",
               "projects/movies/src/assets"
             ],
-            "styles": [
-              "projects/movies/src/styles.scss"
-            ],
+            "styles": ["projects/movies/src/styles.scss"],
             "scripts": []
           },
           "configurations": {
@@ -125,24 +123,6 @@
               "projects/movies/src/app/**/*.ts",
               "projects/movies/src/app/**/*.html"
             ]
-          }
-        },
-        "test": {
-          "builder": "@angular-devkit/build-angular:karma",
-          "options": {
-            "main": "projects/movies/src/test.ts",
-            "polyfills": "projects/movies/src/polyfills.ts",
-            "tsConfig": "projects/movies/tsconfig.spec.json",
-            "karmaConfig": "projects/movies/karma.conf.js",
-            "inlineStyleLanguage": "scss",
-            "assets": [
-              "projects/movies/src/favicon.ico",
-              "projects/movies/src/assets"
-            ],
-            "styles": [
-              "projects/movies/src/styles.scss"
-            ],
-            "scripts": []
           }
         },
         "build-server": {
