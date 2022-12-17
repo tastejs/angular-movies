@@ -31,7 +31,7 @@
     "analyze:user-flows": "npx --no-install @push-based/user-flow collect -p=./projects/movies-user-flows/.user-flowrc.json -v",
     "lcp-experiment": "npm run lcp-experiment:1 && npm run lcp-experiment:2",
     "lcp-experiment:1": "npx --no-install @push-based/user-flow collect -p=./projects/movies-user-flows/.user-flowrc.lcp.json",
-    "lcp-experiment:2": "npx ts-node ./projects/movies-user-flows/src/scripts/log-lcp-from-audit.ts",
+    "lcp-experiment:2": "npx ts-node -P projects/movies-user-flows/src/scripts/tsconfig.json ./projects/movies-user-flows/src/scripts/log-lcp-from-audit.ts",
     "lhci-server:start": "npm run lhci --  server --https --storage.storageMethod=sql --storage.sqlDialect=sqlite --storage.sqlDatabasePath=./.lighthouseci/db.sql || true",
     "lhci-server:stop": "node tooling/stop-lhci-server.js",
     "lhci-cli:autorun": "npm run lhci -- autorun --config=lighthouserc.js && npm run lhci-server:stop",
