@@ -15,6 +15,14 @@ console.log('run LCP experiment');
     let reportJson = JSON.parse(
       fs.readFileSync(path.join(outPath, f), { encoding: 'utf8' })
     );
-    console.log(reportJson.steps[0].lhr.audits['lcp-lazy-loaded'].details);
+    const DomSnippet =
+      reportJson.steps[0].lhr.audits['lcp-lazy-loaded'].details.items[0].node
+        .snippet;
+    const srcChecker = /(src=["'])([A-Za-z0-9$.:/_\-~]*)(["'])(?!data:$)/g;
+    const res = srcChecker.exec(DomSnippet);
+    const url = res && res[2];
+    console.log('LCP elem url', url);
+    const preloadLink = `<link rel="preload" as="image" src="${url}" />`;
+    console.log('preloadLink: ', preloadLink);
   }
 })();
