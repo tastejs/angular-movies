@@ -64,7 +64,7 @@
     "@angular/service-worker": "^15.0.4",
     "@nguniversal/common": "^15.0.0",
     "@nguniversal/express-engine": "^15.0.0",
-    "@push-based/ngx-fast-svg": "^0.2.2",
+    "@push-based/ngx-fast-svg": "^0.2.3",
     "@rx-angular/cdk": "^1.0.0-rc.2",
     "@rx-angular/state": "^1.7.0",
     "@rx-angular/template": "^1.0.0-rc.3",
