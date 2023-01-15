@@ -15,7 +15,7 @@ function optimizeHtmlFileForLCP(
   options?: { fetchpriorityFallback: boolean }
 ) {
   const { collect, persist } = JSON.parse(
-    fs.readFileSync(reportPath, { encoding: 'utf8', }) || '{}'
+    fs.readFileSync(reportPath, { encoding: 'utf8' }) || '{}'
   );
   const { outPath } = persist;
   const f = fs.readdirSync(outPath).find((n) => n.includes('lcp'));
@@ -25,7 +25,8 @@ function optimizeHtmlFileForLCP(
       fs.readFileSync(path.join(outPath, f), { encoding: 'utf8' })
     );
     const DomSnippet =
-      reportJson.steps[0].lhr.audits['lcp-lazy-loaded'].details.items[0].node.snippet;
+      reportJson.steps[0].lhr.audits['lcp-lazy-loaded'].details.items[0].node
+        .snippet;
     const srcChecker = /(src=["'])([A-Za-z0-9$.:/_\-~]*)(["'])(?!data:$)/g;
     const res = srcChecker.exec(DomSnippet);
     const url = res && res[2];
