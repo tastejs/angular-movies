@@ -1,0 +1,1094 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>HubMovies</title>
+  <base href="/">
+  <meta name="description" content="A movies manager build with Angular - no idea which movie to watch ? find it here">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="apple-touch-icon" href="/assets/icons/light-apple-touch-icon.png&quot;">
+  <!--
+**🚀 Perf Tip for LCP:**
+
+preconnect urls used in the bootstrap phase or important urls used later in time.
+-->
+  <link rel="preconnect" href="https://image.tmdb.org/" crossorigin="">
+  <link rel="preconnect" href="https://api.themoviedb.org/" crossorigin="">
+
+  <link rel="manifest" href="manifest.webmanifest">
+  <meta name="theme-color" content="#1976d2">
+
+  <!--
+**🚀 Perf Tip for LCP:**
+Preload important images placed outside the viewport
+Prefetch resources needed after router navigation event
+-->
+  <link rel="preload" as="image" href="assets/icons/android-chrome-192x192.png">
+  <link rel="prefetch" as="image" href="assets/images/no_poster_available.jpg">
+
+  <!--
+**🚀 Perf Tip for CLS and LCP:**
+Inline the styles for the app loading spinner to avoid flickering.
+-->
+  <style>
+    .launcher {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+    }
+  </style>
+  <style>@charset "UTF-8";
+  html {
+    box-sizing: border-box
+  }
+
+  *, *:before, *:after {
+    box-sizing: inherit;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale
+  }
+
+  html, body {
+    width: 100%;
+    height: 100%;
+    background-color: var(--palette-background-default)
+  }
+
+  * {
+    margin: 0;
+    padding: 0
+  }
+
+  @media screen and (prefers-reduced-motion: reduce) {
+    html {
+      -webkit-scroll-behavior: auto;
+      -moz-scroll-behavior: auto;
+      -ms-scroll-behavior: auto;
+      scroll-behavior: auto
+    }
+  }
+
+  :root {
+    --theme-borderRadius-sm: 3px;
+    --theme-borderRadius-m: 4px;
+    --theme-borderRadius-circle: 50%
+  }
+
+  :root {
+    --theme-aspectRatio-2-3: 2/3;
+    --theme-aspectRatio-16-9: 16/9;
+    --theme-aspectRatio-4-3: 4/3
+  }
+
+  :root {
+    --theme-appbar-zIndex: 1100;
+    --theme-backdrop-zIndex: 1101;
+    --theme-drawer-zIndex: 1200;
+    --theme-tooptip-zIndex: 1300
+  }
+
+  :root {
+    --duration: .5s;
+    --timing: ease;
+    --theme-anim-duration-short: .25s;
+    --theme-anim-duration-standard: .3s;
+    --theme-anim-duration-leavingScreen: 195ms;
+    --theme-anim-easing-easeInOut: cubic-bezier(.4, 0, .2, 1);
+    --theme-anim-easing-easeOut: cubic-bezier(.4, 0, .2, 1);
+    --theme-anim-easing-easeIn: cubic-bezier(.4, 0, .2, 1);
+    --theme-anim-easing-sharp: cubic-bezier(.4, 0, .2, 1)
+  }
+
+  :root {
+    --theme-shadow-1: 0px 2px 1px -1px rgba(0, 0, 0, .2), 0px 1px 1px 0px rgba(0, 0, 0, .14), 0px 1px 3px 0px rgba(0, 0, 0, .12);
+    --theme-shadow-dropdown: rgb(0 0 0 / 20%) 0px 2px 1px -1px, rgb(0 0 0 / 14%) 0px 1px 1px 0px, rgb(0 0 0 / 12%) 0px 1px 3px 0px;
+    --theme-shadow-16: 0px 8px 10px -5px rgba(0, 0, 0, .2), 0px 16px 24px 2px rgba(0, 0, 0, .14), 0px 6px 30px 5px rgba(0, 0, 0, .12)
+  }
+
+  body.light {
+    --palette-background-default: #fafafa;
+    --palette-text-primary: rgba(0, 0, 0, .87);
+    --palette-text-secondary: rgba(0, 0, 0, .54);
+    --palette-text-disabled: rgba(0, 0, 0, .38);
+    --palette-divider: rgba(0, 0, 0, .12);
+    --palette-action-active: rgba(0, 0, 0, .54);
+    --palette-action-hover: rgba(0, 0, 0, .04);
+    --palette-action-hover-opacity: .04;
+    --palette-action-selected: rgba(0, 0, 0, .08);
+    --palette-action-disabled: rgba(0, 0, 0, .26);
+    --palette-action-disabled-background: rgba(0, 0, 0, .12);
+    --palette-background-paper: #fff;
+    --palette-primary-main: #14b8a2;
+    --palette-primary-main-rgb: 20, 184, 162;
+    --palette-primary-dark: #0e8071;
+    --palette-primary-light: #43c6b4;
+    --palette-primary-contrast-text: rgba(0, 0, 0, .87);
+    --palette-secondary-main: #b80040;
+    --palette-secondary-main-rgb: 184, 0, 64;
+    --palette-secondary-dark: #80002c;
+    --palette-secondary-light: #c63366;
+    --palette-secondary-contrast-text: #fff;
+    --palette-warning-main: #b5b800;
+    --palette-warning-dark: #7e8000;
+    --palette-warning-light: #c3c633;
+    --palette-toggle-light-light: #ffb74d;
+    --palette-custom-lightBlue: #add8e6;
+    --palette-warning-contrast-text: rgba(0, 0, 0, .87);
+    --background-blend-gradient: linear-gradient(rgba(255, 255, 255, 0) 68%, rgb(255, 255, 255) 100%)
+  }
+
+  :root {
+    --text-sm: 1.25rem;
+    --text-md: 1.5rem;
+    --text-lg: 1.75rem;
+    --text-xl: 2rem
+  }
+
+  html {
+    font-size: 62.5%;
+    box-sizing: border-box
+  }
+
+  body {
+    font-family: Montserrat, sans-serif;
+    font-weight: 400;
+    line-height: 1.6
+  }
+
+  @media only screen and (max-width: 1500px) {
+    html {
+      font-size: 57.5%
+    }
+  }
+
+  @media only screen and (max-width: 1300px) {
+    html {
+      font-size: 55%
+    }
+  }
+
+  body {
+    color: var(--palette-text-primary);
+    background-color: var(--palette-background-default);
+    transition: color var(--duration) var(--timing), background-color var(--duration) var(--timing)
+  }</style>
+  <style>@charset "UTF-8";
+  html {
+    box-sizing: border-box
+  }
+
+  *, *:before, *:after {
+    box-sizing: inherit;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale
+  }
+
+  html, body {
+    width: 100%;
+    height: 100%;
+    background-color: var(--palette-background-default)
+  }
+
+  * {
+    margin: 0;
+    padding: 0
+  }
+
+  @media screen and (prefers-reduced-motion: reduce) {
+    html {
+      -webkit-scroll-behavior: auto;
+      -moz-scroll-behavior: auto;
+      -ms-scroll-behavior: auto;
+      scroll-behavior: auto
+    }
+  }
+
+  form, input, button, a {
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    -webkit-text-decoration: none;
+    text-decoration: none
+  }
+
+  :root {
+    --theme-borderRadius-sm: 3px;
+    --theme-borderRadius-m: 4px;
+    --theme-borderRadius-circle: 50%
+  }
+
+  :root {
+    --theme-aspectRatio-2-3: 2/3;
+    --theme-aspectRatio-16-9: 16/9;
+    --theme-aspectRatio-4-3: 4/3
+  }
+
+  :root {
+    --theme-appbar-zIndex: 1100;
+    --theme-backdrop-zIndex: 1101;
+    --theme-drawer-zIndex: 1200;
+    --theme-tooptip-zIndex: 1300
+  }
+
+  :root {
+    --duration: .5s;
+    --timing: ease;
+    --theme-anim-duration-short: .25s;
+    --theme-anim-duration-standard: .3s;
+    --theme-anim-duration-leavingScreen: 195ms;
+    --theme-anim-easing-easeInOut: cubic-bezier(.4, 0, .2, 1);
+    --theme-anim-easing-easeOut: cubic-bezier(.4, 0, .2, 1);
+    --theme-anim-easing-easeIn: cubic-bezier(.4, 0, .2, 1);
+    --theme-anim-easing-sharp: cubic-bezier(.4, 0, .2, 1)
+  }
+
+  :root {
+    --theme-shadow-1: 0px 2px 1px -1px rgba(0, 0, 0, .2), 0px 1px 1px 0px rgba(0, 0, 0, .14), 0px 1px 3px 0px rgba(0, 0, 0, .12);
+    --theme-shadow-dropdown: rgb(0 0 0 / 20%) 0px 2px 1px -1px, rgb(0 0 0 / 14%) 0px 1px 1px 0px, rgb(0 0 0 / 12%) 0px 1px 3px 0px;
+    --theme-shadow-16: 0px 8px 10px -5px rgba(0, 0, 0, .2), 0px 16px 24px 2px rgba(0, 0, 0, .14), 0px 6px 30px 5px rgba(0, 0, 0, .12)
+  }
+
+  body.light {
+    --palette-background-default: #fafafa;
+    --palette-text-primary: rgba(0, 0, 0, .87);
+    --palette-text-secondary: rgba(0, 0, 0, .54);
+    --palette-text-disabled: rgba(0, 0, 0, .38);
+    --palette-divider: rgba(0, 0, 0, .12);
+    --palette-action-active: rgba(0, 0, 0, .54);
+    --palette-action-hover: rgba(0, 0, 0, .04);
+    --palette-action-hover-opacity: .04;
+    --palette-action-selected: rgba(0, 0, 0, .08);
+    --palette-action-disabled: rgba(0, 0, 0, .26);
+    --palette-action-disabled-background: rgba(0, 0, 0, .12);
+    --palette-background-paper: #fff;
+    --palette-primary-main: #14b8a2;
+    --palette-primary-main-rgb: 20, 184, 162;
+    --palette-primary-dark: #0e8071;
+    --palette-primary-light: #43c6b4;
+    --palette-primary-contrast-text: rgba(0, 0, 0, .87);
+    --palette-secondary-main: #b80040;
+    --palette-secondary-main-rgb: 184, 0, 64;
+    --palette-secondary-dark: #80002c;
+    --palette-secondary-light: #c63366;
+    --palette-secondary-contrast-text: #fff;
+    --palette-warning-main: #b5b800;
+    --palette-warning-dark: #7e8000;
+    --palette-warning-light: #c3c633;
+    --palette-toggle-light-light: #ffb74d;
+    --palette-custom-lightBlue: #add8e6;
+    --palette-warning-contrast-text: rgba(0, 0, 0, .87);
+    --background-blend-gradient: linear-gradient(rgba(255, 255, 255, 0) 68%, rgb(255, 255, 255) 100%)
+  }
+
+  :root {
+    --text-sm: 1.25rem;
+    --text-md: 1.5rem;
+    --text-lg: 1.75rem;
+    --text-xl: 2rem
+  }
+
+  html {
+    font-size: 62.5%;
+    box-sizing: border-box
+  }
+
+  body {
+    font-family: Montserrat, sans-serif;
+    font-weight: 400;
+    line-height: 1.6
+  }
+
+  @media only screen and (max-width: 1500px) {
+    html {
+      font-size: 57.5%
+    }
+  }
+
+  @media only screen and (max-width: 1300px) {
+    html {
+      font-size: 55%
+    }
+  }
+
+  h3 {
+    font-weight: 400;
+    color: var(--palette-text-secondary);
+    text-transform: uppercase;
+    line-height: 1;
+    margin-bottom: .5rem
+  }
+
+  h3 {
+    font-size: 1.5rem;
+    font-weight: 700
+  }
+
+  a {
+    cursor: pointer;
+    text-decoration: none;
+    font-size: 1.25rem;
+    color: var(--palette-secondary-main)
+  }
+
+  body {
+    color: var(--palette-text-primary);
+    background-color: var(--palette-background-default);
+    transition: color var(--duration) var(--timing), background-color var(--duration) var(--timing)
+  }</style>
+  <link rel="stylesheet" href="styles.587a48cd73a27b6a.css" media="print" onload="this.media='all'">
+  <noscript>
+    <link rel="stylesheet" href="styles.587a48cd73a27b6a.css">
+  </noscript>
+  <style ng-transition="moviesApp">.profile-button[_ngcontent-sc32] {
+    outline: none;
+    border: none;
+    color: var(--palette-secondary-main);
+    background-color: var(--palette-background-default);
+    position: relative;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer
+  }
+
+  .profile-button[_ngcontent-sc32] .focus-overlay[_ngcontent-sc32] {
+    position: absolute;
+    border-radius: 100%;
+    width: 200%;
+    height: 200%
+  }
+
+  .profile-button[_ngcontent-sc32]:hover .focus-overlay[_ngcontent-sc32] {
+    background-color: rgba(var(--palette-secondary-main-rgb), .05)
+  }
+
+  .account-menu-dropdown[_ngcontent-sc32] {
+    position: relative;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--palette-background-default)
+  }
+
+  .account-menu-dropdown[_ngcontent-sc32] svg[_ngcontent-sc32] {
+    z-index: 2;
+    fill: var(--palette-secondary-main)
+  }
+
+  .account-menu-dropdown[_ngcontent-sc32]:hover .account-menu-content[_ngcontent-sc32] {
+    visibility: visible;
+    pointer-events: auto
+  }
+
+  .account-menu-dropdown[_ngcontent-sc32] .account-menu-content[_ngcontent-sc32] {
+    visibility: hidden;
+    width: 200px;
+    background: var(--palette-background-default);
+    pointer-events: none;
+    position: absolute;
+    right: 0;
+    top: 30px;
+    min-width: 160px;
+    box-shadow: var(--theme-shadow-dropdown);
+    border: 1px solid var(--palette-divider);
+    background-color: var(--palette-background-paper);
+    z-index: 1300
+  }
+
+  .ui-toolbar[_ngcontent-sc32] {
+    height: 72px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 0 24px
+  }
+
+  @media screen and (min-width: 1298px) {
+    .ui-toolbar--action[_ngcontent-sc32] {
+      display: none
+    }
+  }
+
+  @media screen and (max-width: 1299px) {
+    .ui-toolbar[_ngcontent-sc32] {
+      position: fixed;
+      top: 0;
+      left: auto;
+      right: 0;
+      z-index: 1100;
+      box-shadow: #0003 0 2px 4px -1px, #00000024 0 4px 5px, #0000001f 0 1px 10px;
+      background-color: var(--palette-background-paper);
+      height: 64px
+    }
+  }
+
+  @media screen and (max-width: 600px) {
+    .ui-toolbar[_ngcontent-sc32] {
+      height: 56px;
+      padding: 0 16px
+    }
+  }
+
+  @media screen and (max-width: 500px) {
+    .ui-toolbar[_ngcontent-sc32] {
+      height: 56px;
+      padding: 0 16px;
+      background-color: #0000
+    }
+  }
+
+  .ui-toolbar--action[_ngcontent-sc32] {
+    color: var(--palette-secondary-main)
+  }
+
+  .ui-toolbar--widget-container[_ngcontent-sc32] {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    margin-left: auto
+  }
+
+  .ui-toolbar--widget-container[_ngcontent-sc32] > [_ngcontent-sc32]:not(:first-child) {
+    margin-left: 12px;
+    margin-right: 12px
+  }
+
+  .ui-toolbar--widget-container[_ngcontent-sc32] a[_ngcontent-sc32] {
+    display: flex;
+    align-items: center;
+    color: var(--palette-secondary-main)
+  }
+
+  @media screen and (max-width: 1299px) {
+    .ui-toolbar--widget-container[_ngcontent-sc32] {
+      padding: 0
+    }
+
+    .ui-toolbar--widget-container[_ngcontent-sc32] > [_ngcontent-sc32]:not(:first-child) {
+      margin: 0 0 0 8px
+    }
+  }
+
+  ui-side-drawer[_ngcontent-sc32] {
+    grid-area: sidenav
+  }
+
+  .menu-footer[_ngcontent-sc32] {
+    margin-top: 16px
+  }
+
+  .content-wrapper[_ngcontent-sc32] {
+    grid-area: content
+  }
+
+  @media screen and (max-width: 1299px) {
+    .content-wrapper[_ngcontent-sc32] {
+      padding-top: 72px
+    }
+  }
+
+  .content[_ngcontent-sc32] {
+    min-height: calc(100vh - 72px);
+    width: 100%;
+    contain: layout
+  }
+
+  [_nghost-sc32] {
+    min-height: 100vh;
+    background: var(--palette-background-default)
+  }
+
+  @media screen and (min-width: 1298px) {
+    [_nghost-sc32] {
+      display: grid;
+      grid:"sidenav  content" 100vh/25rem 1fr
+    }
+  }
+
+  .tmdb-mark[_ngcontent-sc32] {
+    display: flex;
+    justify-content: center;
+    margin: 16px 8px
+  }
+
+  .tmdb-mark[_ngcontent-sc32] > img[_ngcontent-sc32] {
+    height: 3rem
+  }
+
+  @media screen and (min-width: 1298px) {
+    .navigation[_ngcontent-sc32], .navigation-header[_ngcontent-sc32] {
+      border-right: 1px solid var(--palette-action-disabled-background)
+    }
+  }
+
+  .navigation-header[_ngcontent-sc32] {
+    display: none;
+    width: 100%;
+    height: 18rem;
+    margin-bottom: 2rem;
+    place-items: center
+  }
+
+  .navigation-header[_ngcontent-sc32] .logo-img[_ngcontent-sc32] {
+    max-width: 75%
+  }
+
+  @media screen and (min-width: 1298px) {
+    .navigation-header[_ngcontent-sc32] {
+      display: grid
+    }
+  }
+
+  .navigation[_ngcontent-sc32] {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    overflow: auto;
+    font-size: var(--text-md);
+    font-weight: 700;
+    contain: content
+  }
+
+  .navigation[_ngcontent-sc32] a[_ngcontent-sc32] {
+    outline: none;
+    display: block;
+    margin-bottom: .5rem;
+    color: var(--palette-primary-dark);
+    content-visibility: auto;
+    contain-intrinsic-size: 20px
+  }
+
+  .navigation[_ngcontent-sc32] a.active[_ngcontent-sc32], .navigation[_ngcontent-sc32] a[_ngcontent-sc32]:active {
+    color: var(--palette-secondary-main)
+  }
+
+  .navigation[_ngcontent-sc32] a[_ngcontent-sc32]:hover {
+    text-decoration: underline
+  }
+
+  .navigation--menu-item[_ngcontent-sc32] {
+    padding: 1rem 2rem;
+    line-height: 1;
+    display: flex;
+    align-items: center
+  }
+
+  .navigation--menu-item-icon[_ngcontent-sc32] {
+    margin-right: 5px;
+    width: .875em;
+    height: auto
+  }
+
+  .navigation--headline[_ngcontent-sc32] {
+    color: var(--palette-text-primary);
+    margin: 4rem 0 1rem 1rem;
+    font-size: var(--text-sm)
+  }</style>
+  <style ng-transition="moviesApp">[_nghost-sc28] {
+    display: contents
+  }
+
+  .side-drawer[_ngcontent-sc28] {
+    contain: strict;
+    content-visibility: auto;
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 250px;
+    max-width: 70%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    z-index: var(--theme-drawer-zIndex);
+    padding: 32px 16px 16px;
+    overflow-y: auto;
+    box-sizing: border-box;
+    transition: transform var(--theme-anim-duration-short) var(--theme-anim-easing-easeOut);
+    box-shadow: var(--theme-shadow-16);
+    background-color: var(--palette-background-paper);
+    transform: translate(-100%)
+  }
+
+  .side-drawer[_ngcontent-sc28] + footer[_ngcontent-sc28] {
+    transition: transform var(--theme-anim-duration-short) var(--theme-anim-easing-easeOut);
+    transform: translate(-100%)
+  }
+
+  @media screen and (min-width: 1298px) {
+    .side-drawer[_ngcontent-sc28] {
+      box-shadow: unset;
+      background-color: transparent
+    }
+  }
+
+  @media screen and (min-width: 1298px) {
+    .side-drawer[_ngcontent-sc28] {
+      transform: translate(0)
+    }
+
+    ui-backdrop[_ngcontent-sc28] {
+      display: none
+    }
+  }
+
+  .side-drawer.opened[_ngcontent-sc28] {
+    transform: translate(0)
+  }
+
+  .side-drawer.opened[_ngcontent-sc28] + footer[_ngcontent-sc28] {
+    transform: translate(0)
+  }</style>
+  <style ng-transition="moviesApp">[_nghost-sc22] {
+    display: contents
+  }
+
+  .fast-svg[_ngcontent-sc22] {
+    margin: 3px;
+    contain: content;
+    content-visibility: auto
+  }</style>
+  <style ng-transition="moviesApp">[_nghost-sc27] {
+    visibility: hidden;
+    opacity: 0;
+    position: fixed;
+    z-index: var(--theme-backdrop-zIndex);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    inset: 0;
+    background-color: var(--palette-background-backdrop);
+    transition: opacity var(--theme-anim-duration-leavingScreen) var(--theme-anim-easing-easeInOut) 0ms
+  }
+
+  .opened[_nghost-sc27] {
+    visibility: visible;
+    opacity: 1
+  }</style>
+  <style ng-transition="moviesApp">[_nghost-sc26] {
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    justify-content: space-around;
+    width: 25px;
+    cursor: pointer
+  }
+
+  .bar[_ngcontent-sc26] {
+    width: 100%;
+    height: 4px;
+    margin: 2px 0;
+    border-radius: 4px;
+    background-color: var(--palette-secondary-main)
+  }</style>
+  <style ng-transition="moviesApp">[_nghost-sc29] {
+    display: contents
+  }
+
+  .form[_ngcontent-sc29] {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: var(--theme-shadow-1);
+    background-color: var(--palette-secondary-dark);
+    border: 1px solid var(--palette-secondary-main);
+    width: 2rem;
+    cursor: pointer;
+    padding: 2rem;
+    height: 2rem;
+    outline: none;
+    border-radius: 100px;
+    contain: strict;
+    transform: translateZ(0);
+    will-change: width;
+    transition: width var(--theme-anim-duration-standard) var(--theme-anim-easing-easeInOut)
+  }
+
+  .magnifier-button[_ngcontent-sc29] {
+    line-height: 0;
+    pointer-events: none;
+    cursor: none;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    color: var(--palette-secondary-contrast-text)
+  }
+
+  .input[_ngcontent-sc29] {
+    font-size: var(--text-md);
+    font-weight: 300;
+    background-color: transparent;
+    width: 100%;
+    margin-left: 0;
+    color: var(--palette-secondary-contrast-text);
+    border: none;
+    transition: margin-left var(--theme-anim-duration-standard) var(--theme-anim-easing-easeInOut)
+  }
+
+  input[_ngcontent-sc29]:focus, input[_ngcontent-sc29]:active {
+    outline: none
+  }
+
+  input[_ngcontent-sc29]::placeholder {
+    color: var(--palette-secondary-contrast-text)
+  }
+
+  .opened[_nghost-sc29] .form[_ngcontent-sc29] {
+    width: 30rem;
+    cursor: auto
+  }
+
+  .opened[_nghost-sc29] .magnifier-button[_ngcontent-sc29] {
+    pointer-events: auto;
+    cursor: pointer
+  }
+
+  .opened[_nghost-sc29] .input[_ngcontent-sc29] {
+    margin-left: 1rem
+  }
+
+  @media only screen and (max-width: 1300px) {
+    .magnifier-button[_ngcontent-sc29] {
+      font-size: 1rem
+    }
+
+    .input[_ngcontent-sc29] {
+      font-size: 1.25rem
+    }
+
+    .form[_ngcontent-sc29] {
+      padding: 1.5rem;
+      border: 1px solid hsla(0deg, 0%, 0%, 0);
+      background-color: var(--palette-secondary-main)
+    }
+  }
+
+  @media only screen and (max-width: 900px) {
+    .input[_ngcontent-sc29] {
+      font-size: 1rem
+    }
+  }
+
+  @media only screen and (max-width: 600px) {
+    .input[_ngcontent-sc29] {
+      font-size: .875rem
+    }
+  }
+
+  @media only screen and (max-width: 500px) {
+    .form[_ngcontent-sc29] {
+      max-width: 16rem
+    }
+  }</style>
+  <style ng-transition="moviesApp">[_nghost-sc30] {
+    display: flex
+  }
+
+  .dark-mode-toggle[_ngcontent-sc30] {
+    display: flex
+  }
+
+  .dark-mode-toggle[_ngcontent-sc30] > button[_ngcontent-sc30] {
+    font-size: 2.125rem;
+    background: none;
+    border: none;
+    line-height: 0;
+    cursor: pointer;
+    color: var(--palette-text-primary);
+    transition: color var(--theme-anim-duration-standard) var(--theme-anim-easing-easeInOut)
+  }
+
+  .dark-mode-toggle[_ngcontent-sc30] > button[_ngcontent-sc30]:focus {
+    outline: none
+  }
+
+  button.light[_ngcontent-sc30] {
+    color: var(--palette-text-disabled)
+  }
+
+  button.dark[_ngcontent-sc30] {
+    color: var(--palette-custom-tmdbLightBlue)
+  }
+
+  .light[_nghost-sc30] button.light[_ngcontent-sc30], .light [_nghost-sc30] button.light[_ngcontent-sc30] {
+    color: var(--palette-toggle-light-light)
+  }
+
+  .light[_nghost-sc30] button.dark[_ngcontent-sc30], .light [_nghost-sc30] button.dark[_ngcontent-sc30] {
+    color: var(--palette-text-primary)
+  }
+
+  .toggle[_ngcontent-sc30] {
+    position: relative;
+    padding: 0 6px;
+    display: flex;
+    align-items: center;
+    width: 45px
+  }
+
+  input[type=checkbox].toggle-track[_ngcontent-sc30] {
+    width: 34px;
+    height: 14px;
+    opacity: .5;
+    background-color: var(--palette-secondary-main);
+    position: relative;
+    border-radius: 7px;
+    -webkit-appearance: none;
+    appearance: none;
+    cursor: pointer;
+    vertical-align: 2px;
+    outline: none
+  }
+
+  input[type=checkbox].toggle-track[_ngcontent-sc30]:checked + label[_ngcontent-sc30] {
+    left: 20px
+  }
+
+  input[type=checkbox].toggle-track[_ngcontent-sc30]:focus-visible {
+    outline: solid 2px white
+  }
+
+  input[type=checkbox].toggle-track[_ngcontent-sc30] + label[_ngcontent-sc30] {
+    -webkit-user-select: none;
+    user-select: none;
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border-radius: var(--theme-borderRadius-circle);
+    transition: left var(--theme-anim-duration-standard) var(--theme-anim-easing-easeInOut);
+    cursor: pointer;
+    position: absolute;
+    left: 2px;
+    background-color: var(--palette-secondary-main)
+  }</style>
+</head>
+
+<body class="light">
+<app-root ng-version="14.2.12" ng-server-context="other">
+  <app-shell _nghost-sc32="">
+    <ui-side-drawer _ngcontent-sc32="" _nghost-sc28="">
+      <ui-backdrop _ngcontent-sc28="" _nghost-sc27="" class=""></ui-backdrop>
+      <div _ngcontent-sc28="" class="side-drawer"><a _ngcontent-sc32="" aria-label="Main page" href="/"
+                                                     class="navigation-header">
+        <fast-svg _ngcontent-sc32="" name="movies-logo" size="150" _nghost-sc22="">
+          <svg _ngcontent-sc22="" class="fast-svg" width="150" height="150" viewBox="0 0 512 512">
+            <use _ngcontent-sc22="" href="#movies-logo"></use>
+          </svg>
+        </fast-svg>
+      </a>
+        <nav _ngcontent-sc32="" class="navigation"><h3 _ngcontent-sc32="" class="navigation--headline">Discover</h3><a
+          _ngcontent-sc32="" aria-label="Popular" data-uf="menu-cat-popular" routerlinkactive="active"
+          class="navigation--link" href="/list/category/popular">
+          <div _ngcontent-sc32="" class="navigation--menu-item">
+            <fast-svg _ngcontent-sc32="" name="popular" class="navigation--menu-item-icon" _nghost-sc22="">
+              <svg _ngcontent-sc22="" class="fast-svg" width="24" height="24" viewBox="0 0 24 24">
+                <use _ngcontent-sc22="" href="#popular"></use>
+              </svg>
+            </fast-svg>
+            Popular
+          </div>
+        </a><a _ngcontent-sc32="" data-uf="menu-cat-topRated" routerlinkactive="active" class="navigation--link"
+               href="/list/category/top_rated">
+          <div _ngcontent-sc32="" class="navigation--menu-item">
+            <fast-svg _ngcontent-sc32="" name="top_rated" class="navigation--menu-item-icon" _nghost-sc22="">
+              <svg _ngcontent-sc22="" class="fast-svg" width="24" height="24" viewBox="0 0 24 24">
+                <use _ngcontent-sc22="" href="#top_rated"></use>
+              </svg>
+            </fast-svg>
+            Top Rated
+          </div>
+        </a><a _ngcontent-sc32="" data-uf="menu-cat-upcoming" routerlinkactive="active" class="navigation--link"
+               href="/list/category/upcoming">
+          <div _ngcontent-sc32="" class="navigation--menu-item">
+            <fast-svg _ngcontent-sc32="" name="upcoming" class="navigation--menu-item-icon" _nghost-sc22="">
+              <svg _ngcontent-sc22="" class="fast-svg" width="24" height="24" viewBox="0 0 24 24">
+                <use _ngcontent-sc22="" href="#upcoming"></use>
+              </svg>
+            </fast-svg>
+            Upcoming
+          </div>
+        </a>
+          <h3 _ngcontent-sc32="" class="navigation--headline">Genres</h3><!----></nav><!---->
+        <div _ngcontent-sc32="" class="menu-footer"><a _ngcontent-sc32="" aria-label="The movie DB website"
+                                                       href="https://www.themoviedb.org/" target="_blank"
+                                                       rel="noreferrer noopener">
+          <fast-svg _ngcontent-sc32="" name="tmdb-logo" width="75" height="30" _nghost-sc22="">
+            <svg _ngcontent-sc22="" class="fast-svg" width="75" height="30" viewBox="0 0 407.34 160.81">
+              <use _ngcontent-sc22="" href="#tmdb-logo"></use>
+            </svg>
+          </fast-svg>
+        </a></div>
+      </div>
+    </ui-side-drawer><!---->
+    <div _ngcontent-sc32="" class="content-wrapper">
+      <div _ngcontent-sc32="" class="ui-toolbar">
+        <ui-hamburger-button _ngcontent-sc32="" data-uf="menu-btn" class="hamburger-button ui-toolbar--action"
+                             _nghost-sc26=""><span _ngcontent-sc26="" class="bar"></span><span _ngcontent-sc26=""
+                                                                                               class="bar"></span><span
+          _ngcontent-sc26="" class="bar"></span></ui-hamburger-button>
+        <div _ngcontent-sc32="" class="ui-toolbar--widget-container">
+          <ui-search-bar _ngcontent-sc32="" _nghost-sc29="" class="">
+            <form _ngcontent-sc29="" data-uf="q-form" class="form">
+              <button _ngcontent-sc29="" type="submit" aria-label="Search for a movie" class="magnifier-button">
+                <fast-svg _ngcontent-sc29="" name="search" size="1.125em" _nghost-sc22="">
+                  <svg _ngcontent-sc22="" class="fast-svg" width="1.125em" height="1.125em" viewBox="0 0 512 512">
+                    <use _ngcontent-sc22="" href="#search"></use>
+                  </svg>
+                </fast-svg>
+              </button>
+              <input _ngcontent-sc29="" data-uf="q" aria-label="Search Input" placeholder="Search for a movie..."
+                     class="input" value=""><!----></form>
+          </ui-search-bar>
+          <ui-dark-mode-toggle _ngcontent-sc32="" _nghost-sc30="">
+            <div _ngcontent-sc30="" class="dark-mode-toggle">
+              <button _ngcontent-sc30="" aria-label="Enable dark mode" type="button" class="light"> ☀</button>
+              <span _ngcontent-sc30="" class="toggle"><!----><label _ngcontent-sc30="" for="dark-mode"
+                                                                    style="color: transparent;"> Toggle Switch </label></span>
+              <button _ngcontent-sc30="" aria-label="Disable dark mode" type="button" class="dark"> ☾</button>
+            </div>
+          </ui-dark-mode-toggle>
+          <div _ngcontent-sc32="" class="account-menu-dropdown">
+            <button _ngcontent-sc32="" type="button" aria-label="Toggle profile menu" name="profile"
+                    class="profile-button">
+              <div _ngcontent-sc32="" class="focus-overlay"></div>
+              <fast-svg _ngcontent-sc32="" name="account" _nghost-sc22="">
+                <svg _ngcontent-sc22="" class="fast-svg" width="24" height="24" viewBox="0 0 24 24">
+                  <use _ngcontent-sc22="" href="#account"></use>
+                </svg>
+              </fast-svg>
+            </button>
+            <div _ngcontent-sc32="" class="account-menu-content"> Loading... <!----><!----></div>
+          </div>
+        </div>
+      </div><!---->
+      <div _ngcontent-sc32="" class="content">
+        <img _ngcontent-moviesapp-c23="" alt="poster movie" class="aspectRatio-2-3 gradient" src="https://image.tmdb.org/t/p/w300//pFlaoHTZeyNkG83vxsAJiGzfSsa.jpg" width="300" height="450" fetchpriority="high">
+        <!----></div><!----></div><!----><!----></app-shell><!----></app-root>
+<noscript>Please enable JavaScript to continue using this application.
+</noscript>
+<script src="runtime.add647e95cbfbc8c.js" type="module"></script>
+<script src="main.299800b59ac22135.js" type="module"></script>
+
+
+<div id="svg-cache" style="
+    overflow: hidden;
+    width: 0px;
+    height: 0px;
+    position: fixed;
+    bottom: -2000px;
+    contain: content;
+    content-visibility: auto;
+  ">
+  <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg" id="suspense">
+    <path d="M0 0h24v24H0V0z" fill="none"></path>
+    <circle cx="15.5" cy="9.5" r="1.5"></circle>
+    <circle cx="8.5" cy="9.5" r="1.5"></circle>
+    <path
+      d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm0-6c-2.33 0-4.32 1.45-5.12 3.5h1.67c.69-1.19 1.97-2 3.45-2s2.75.81 3.45 2h1.67c-.8-2.05-2.79-3.5-5.12-3.5z"></path>
+  </svg>
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" id="popular">
+    <path d="M0 0h24v24H0V0z" fill="none"></path>
+    <path
+      d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"></path>
+  </svg>
+  <svg id="top_rated" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+    <path d="M0 0h24v24H0z" fill="none"></path>
+    <path
+      d="M13.5.67s.74 2.65.74 4.8c0 2.06-1.35 3.73-3.41 3.73-2.07 0-3.63-1.67-3.63-3.73l.03-.36C5.21 7.51 4 10.62 4 14c0 4.42 3.58 8 8 8s8-3.58 8-8C20 8.61 17.41 3.8 13.5.67zM11.71 19c-1.78 0-3.22-1.4-3.22-3.14 0-1.62 1.05-2.76 2.81-3.12 1.77-.36 3.6-1.21 4.62-2.58.39 1.29.59 2.65.59 4.04 0 2.65-2.15 4.8-4.8 4.8z"></path>
+  </svg>
+  <svg id="upcoming" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+    <path d="M0 0h24v24H0V0z" fill="none"></path>
+    <path
+      d="M20 3h-1V1h-2v2H7V1H5v2H4c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 18H4V10h16v11zm0-13H4V5h16v3z"></path>
+  </svg>
+  <svg id="movies-logo" version="1.1" viewBox="0 0 512 512" xml:space="preserve" xmlns="http://www.w3.org/2000/svg"><style>.st0 {
+    fill: #efa21b
+  }</style>
+    <g id="XMLID_186_"><path class="st0" d="M431.1 273.3c-.5 0-1 .1-1.3.4-.3.3-.4.6-.4 1 0 .5.1.9.4 1.2.3.3.7.4 1.3.4.6 0 1-.1 1.3-.4.3-.3.5-.7.5-1.2 0-.4-.2-.8-.5-1-.2-.2-.7-.4-1.3-.4z" id="XMLID_326_"></path>
+      <path class="st0"
+            d="M439.2 235.5c-.5-.3-1.2-.5-2.2-.5h-4.6c-1 0-1.7.2-2.2.5-.5.3-.7.8-.7 1.3 0 .6.3 1 .7 1.3.5.3 1.2.5 2.2.5h4.6c1 0 1.7-.2 2.2-.5.5-.3.7-.8.7-1.4 0-.5-.2-.9-.7-1.2z"
+            id="XMLID_325_"></path>
+      <path class="st0"
+            d="M439.2 298.9c-.5-.3-1.1-.5-1.8-.5-.8 0-1.4.2-1.8.5-.4.3-.7.8-.7 1.3s.1 1 .2 1.3c.1.4.3.7.6.9h.7c1.1 0 2-.2 2.6-.6.6-.4.9-.9.9-1.6 0-.6-.2-1-.7-1.3z"
+            id="XMLID_324_"></path>
+      <path class="st0"
+            d="M439.2 248.2c-.5-.3-1.2-.5-2.2-.5h-4.6c-1 0-1.7.2-2.2.5-.5.3-.7.8-.7 1.3 0 .6.3 1 .7 1.3.5.3 1.2.5 2.2.5h4.6c1 0 1.7-.2 2.2-.5.5-.3.7-.8.7-1.4 0-.5-.2-.9-.7-1.2z"
+            id="XMLID_323_"></path>
+      <path class="st0" id="XMLID_322_" d="M431.5 312.6l.8.4 4.1 2.8v-3.3h-4.9z"></path>
+      <path class="st0"
+            d="M437.9 272.8c-.6 0-1.1.2-1.5.6-.4.4-.6.8-.6 1.4 0 .6.2 1.1.6 1.5.4.4.9.6 1.5.6s1.1-.2 1.5-.6c.4-.4.6-.9.6-1.6 0-.6-.2-1-.5-1.4-.5-.3-1-.5-1.6-.5z"
+            id="XMLID_321_"></path>
+      <path class="st0"
+            d="M433.9 260.5h-1.7c-.9 0-1.6.2-2 .5-.5.3-.7.8-.7 1.3 0 .6.3 1 .8 1.3.5.3 1.2.5 1.9.5.8 0 1.4-.1 1.9-.4.5-.3.7-.7.7-1.3 0-.4-.1-.8-.2-1.1-.2-.4-.4-.6-.7-.8z"
+            id="XMLID_320_"></path>
+      <path class="st0"
+            d="M439.2 159.2c-.5-.3-1.2-.5-2.2-.5h-4.6c-1 0-1.7.2-2.2.5-.5.3-.7.8-.7 1.3 0 .6.3 1 .7 1.3.5.3 1.2.5 2.2.5h4.6c1 0 1.7-.2 2.2-.5.5-.3.7-.8.7-1.4 0-.4-.2-.9-.7-1.2z"
+            id="XMLID_319_"></path>
+      <path class="st0"
+            d="M196.9 309c-.6 0-1.1.2-1.5.6-.4.4-.6.9-.6 1.5s.2 1.1.6 1.5c.4.4.9.6 1.6.6.6 0 1-.2 1.4-.5.4-.4.6-.9.6-1.5s-.2-1.1-.6-1.5c-.5-.5-.9-.7-1.5-.7z"
+            id="XMLID_318_"></path>
+      <path class="st0" id="XMLID_317_" d="M158.7 305.5l-2.8 4.1h3.3v-4.9h-.1z"></path>
+      <path class="st0"
+            d="M171.5 308.2c-.5 0-1 .1-1.3.2-.4.1-.7.3-.9.6v.7c0 1.1.2 2 .6 2.6.4.6.9.9 1.6.9.5 0 1-.2 1.3-.7.3-.5.5-1.1.5-1.8 0-.8-.2-1.4-.5-1.8-.3-.5-.7-.7-1.3-.7z"
+            id="XMLID_316_"></path>
+      <path class="st0"
+            d="M196.9 306.2c.4 0 .8-.2 1-.5.2-.3.4-.8.4-1.3s-.1-1-.4-1.3-.6-.4-1-.4c-.5 0-.9.1-1.2.4-.3.3-.4.7-.4 1.3 0 .6.1 1 .4 1.3.4.4.7.5 1.2.5z"
+            id="XMLID_315_"></path>
+      <path class="st0"
+            d="M222.1 302.7c-.6 0-1 .3-1.3.7-.3.5-.5 1.2-.5 2.2v4.6c0 1 .2 1.7.5 2.2.3.5.8.7 1.4.7.6 0 1-.2 1.3-.7.3-.5.5-1.2.5-2.2v-4.6c0-1-.2-1.7-.5-2.2-.3-.5-.8-.7-1.4-.7z"
+            id="XMLID_314_"></path>
+      <path class="st0"
+            d="M234.8 302.7c-.6 0-1 .3-1.3.7-.3.5-.5 1.2-.5 2.2v4.6c0 1 .2 1.7.5 2.2.3.5.8.7 1.4.7.6 0 1-.2 1.3-.7.3-.5.5-1.2.5-2.2v-4.6c0-1-.2-1.7-.5-2.2-.3-.5-.8-.7-1.4-.7z"
+            id="XMLID_313_"></path>
+      <path class="st0"
+            d="M209.4 302.7c-.6 0-1 .3-1.3.8-.3.5-.5 1.2-.5 1.9 0 .8.1 1.4.4 1.9.3.5.7.7 1.3.7.4 0 .8-.1 1.1-.2.3-.2.6-.4.8-.6v-1.7c0-.9-.2-1.6-.5-2-.3-.6-.8-.8-1.3-.8z"
+            id="XMLID_312_"></path>
+      <path class="st0"
+            d="M311.1 302.7c-.6 0-1 .3-1.3.7-.3.5-.5 1.2-.5 2.2v4.6c0 1 .2 1.7.5 2.2.3.5.8.7 1.4.7.6 0 1-.2 1.3-.7.3-.5.5-1.2.5-2.2v-4.6c0-1-.2-1.7-.5-2.2-.4-.5-.8-.7-1.4-.7z"
+            id="XMLID_311_"></path>
+      <path class="st0"
+            d="M479.4 133.7H32.6C17.9 133.7 6 145.6 6 160.3v191.5c0 14.7 11.9 26.6 26.6 26.6h375.7v-14.6h10.6v14.6h60.5c14.7 0 26.6-11.9 26.6-26.6V160.3c0-14.7-11.9-26.6-26.6-26.6zm-207.7 46h12.6V234h-12.6v-54.3zm-15.1 75.1v-5.4h23v5.4h-8v25h-7.1v-25h-7.9zM231 179.7l10.6 39.6.4 2h.2l.4-1.8 10.8-39.7h13.2L249 234h-13.6l-17.5-54.3H231zm21.3 81.6v5.4h-10.7v7.6h12.8v5.4h-19.9v-30.4h19.9v5.4h-12.9v6.5h10.8zM169.2 202c0-6.7 2.1-12.2 6.4-16.5 4.3-4.4 9.8-6.5 16.7-6.5 6.8 0 12.4 2.2 16.6 6.5 4.3 4.4 6.4 9.9 6.4 16.5v9.8c0 6.7-2.1 12.2-6.4 16.5-4.2 4.3-9.8 6.5-16.6 6.5-6.9 0-12.5-2.2-16.7-6.5-4.3-4.3-6.4-9.8-6.4-16.5V202zm-1.5 47.3h7v30.4h-7v-30.4zm-26.2 5.5v-5.4h23v5.4h-8v25h-7.1v-25h-7.9zm-37.8-75.1h16.5l12.2 38h.2l12.3-38h16.7V234H149v-35h-.2l-12 35h-8.5l-11.7-34.5h-.2V234h-12.6v-54.3zm10 178.5h-3.3v-38.6h3.3v38.6zm7.6 0h-5.6v-38.6h5.6v38.6zm1.8-42.5h-3.6v-12.5h-3.1v-2.8l6.8-.6v15.9zm3.1 42.5h-2.3v-38.6h2.3v38.6zm8-55c-.3-.4-.7-.5-1.3-.5-.6 0-1 .2-1.3.7-.3.5-.5 1-.5 1.8h-3.5v-.1c0-1.4.4-2.7 1.4-3.7 1-1 2.3-1.5 3.9-1.5 1.7 0 3 .4 4 1.3.9.8 1.4 2 1.4 3.5 0 1-.3 1.9-.8 2.6-.5.8-1.5 1.9-2.8 3.4l-1.9 2.3v.1h6v2.8H128v-2.4l4.8-5.3c.6-.7 1.1-1.4 1.4-2 .3-.6.5-1.1.5-1.5-.1-.7-.3-1.2-.5-1.5zm2.1 55h-7v-38.6h7v38.6zm3.8 0h-1.6v-38.6h1.6v38.6zm8.5 0H143v-38.6h5.6v38.6zm3 0h-1.1v-38.6h1.1v38.6zm-1.6-43.5c-1.1.8-2.5 1.2-4.2 1.2-1.5 0-2.8-.4-3.8-1.2-1.1-.8-1.6-1.9-1.6-3.3v-.1h3.5c0 .5.2.9.5 1.3.4.3.8.5 1.3.5.7 0 1.2-.2 1.6-.5.4-.4.6-.8.6-1.3 0-.8-.2-1.3-.6-1.7-.4-.3-1-.5-1.7-.5H144v-2.7h1.7c.7 0 1.2-.2 1.5-.5.4-.4.5-.8.5-1.5 0-.5-.2-.9-.5-1.2-.4-.3-.8-.5-1.4-.5-.5 0-.8.1-1.2.4-.3.3-.5.6-.5 1.1h-3.5v-.1c0-1.2.4-2.2 1.5-3 1-.8 2.3-1.2 3.7-1.2 1.7 0 3 .4 4.1 1.2 1 .8 1.5 1.9 1.5 3.3 0 .7-.2 1.4-.6 1.9-.4.6-1 1.1-1.7 1.4.8.3 1.5.8 2 1.4.5.6.7 1.4.7 2.3-.2 1.4-.7 2.5-1.8 3.3zm9.1 43.5h-6v-38.6h6v38.6zm2.6 0h-.8v-38.6h.8v38.6zm1.1-42.5h-3.6v-3.3H153l-.2-2.2 6.4-10.1h3.6v9.5h1.6v2.8h-1.6v3.3zm4.1 42.5h-3.3v-38.6h3.3v38.6zm7.6 0h-5.6v-38.6h5.6v38.6zm.9-43.8c-1 1-2.3 1.5-3.9 1.5-1.7 0-3.1-.6-4.2-1.7s-1.6-2.7-1.6-4.6v-3.1c0-2.1.6-3.7 1.8-4.9 1.2-1.2 2.8-1.8 4.7-1.8.6 0 1.1.1 1.6.2s1 .3 1.6.5l-.6 2.6c-.5-.1-.9-.3-1.3-.3-.4-.1-.8-.1-1.3-.1-.9 0-1.6.3-2.1.9-.5.6-.8 1.6-.8 2.8v.1c.4-.4.9-.7 1.5-.9.6-.2 1.2-.3 1.9-.3 1.3 0 2.4.5 3.1 1.5s1.1 2.2 1.1 3.8c0 1.6-.5 2.8-1.5 3.8zm3.9 43.8H177v-38.6h2.3v38.6zm10.2 0h-7v-38.6h7v38.6zm.1-55.3c-1.7 1.9-2.8 3.6-3.4 5.2-.6 1.6-.9 3.4-.9 5.6v2h-3.6v-2c0-2.1.4-4 1.1-5.7.8-1.7 1.9-3.4 3.3-5h-7.8v-2.8h11.3v2.7zm3.7 55.3h-1.6v-38.6h1.6v38.6zm8.5 0h-5.6v-38.6h5.6v38.6zm-.9-43.5c-1 .8-2.4 1.2-4 1.2-1.7 0-3.1-.4-4.2-1.2-1.1-.8-1.6-1.9-1.6-3.4 0-.8.3-1.6.8-2.2.5-.6 1.2-1.1 2.1-1.5-.7-.3-1.3-.8-1.7-1.4-.4-.6-.6-1.3-.6-2 0-1.4.5-2.4 1.4-3.2 1-.7 2.2-1.1 3.8-1.1 1.5 0 2.7.4 3.6 1.1.9.7 1.4 1.8 1.4 3.2 0 .8-.2 1.4-.6 2-.4.6-.9 1.1-1.6 1.4.8.4 1.5.9 2 1.5s.7 1.4.7 2.2c.1 1.5-.4 2.6-1.5 3.4zm2.5-55.2h-6.9c0-1.9-.4-3.2-1.2-4-.8-.8-2.1-1.2-3.9-1.2-1.6 0-2.8.6-3.7 1.9-.8 1.3-1.3 3-1.3 5.1v6.4c0 2.1.5 3.8 1.4 5.1.9 1.3 2.3 1.9 4 1.9 1.6 0 2.8-.4 3.5-1.2.7-.8 1.1-2.2 1.1-4.1h6.9v.1c.1 3.5-.9 6.1-2.9 7.9-2 1.8-4.9 2.7-8.5 2.7-3.8 0-6.8-1.1-9-3.4-2.3-2.3-3.4-5.3-3.4-9v-6.3c0-3.7 1.1-6.7 3.3-9 2.2-2.3 5.1-3.5 8.7-3.5 3.9 0 6.8.9 8.9 2.7 2.1 1.8 3.1 4.4 3.1 7.8l-.1.1zm1.3 98.7h-1.1v-38.6h1.1v38.6zm7.6 0h-6v-38.6h6v38.6zm-3.3-42.3c-.5 0-1.1-.1-1.7-.2-.6-.1-1.1-.3-1.6-.5l.6-2.6c.5.2.9.3 1.3.4.4.1.9.1 1.4.1.7 0 1.2-.3 1.6-.8.4-.5.6-1.2.6-2.1v-.9c-.4.4-.8.8-1.2 1-.5.2-1 .3-1.5.3-1.4 0-2.5-.5-3.3-1.4-.8-1-1.2-2.2-1.2-3.8 0-1.5.5-2.8 1.5-3.9s2.3-1.6 3.9-1.6 2.9.5 3.9 1.6 1.5 2.6 1.5 4.5v3.9c0 1.8-.6 3.2-1.7 4.3-1.1 1.2-2.5 1.7-4.1 1.7zm5.9 42.3h-.8v-38.6h.8v38.6zm-.5-90.7v12.2h-7.1v-30.4h7.1v11.9h1.5l6.9-11.9h8.9l-9.6 13.8 10.4 16.6h-9.1l-7-12.2h-2zm5.4 90.7h-3.3v-38.6h3.3v38.6zm7.6 0h-5.6v-38.6h5.6v38.6zm.2-48.2c0 1.9-.5 3.3-1.5 4.4-1 1.1-2.3 1.6-3.9 1.6s-3-.5-4-1.6-1.5-2.5-1.5-4.4v-4.1c0-1.9.5-3.3 1.5-4.4 1-1.1 2.3-1.6 3.9-1.6s2.9.5 3.9 1.6 1.5 2.5 1.5 4.4v4.1zm4.6 48.2h-2.3v-38.6h2.3v38.6zm-1.3-43.9c-1-1.1-1.5-2.5-1.5-4.4v-4.1c0-1.9.5-3.3 1.5-4.4 1-1.1 2.3-1.6 3.9-1.6s2.9.5 3.9 1.6 1.5 2.5 1.5 4.4v4.1c0 1.9-.5 3.3-1.5 4.4-1 1.1-2.3 1.6-3.9 1.6s-2.9-.5-3.9-1.6zm11.5 43.9h-7v-38.6h7v38.6zm3.8 0h-1.6v-38.6h1.6v38.6zm-2.8-55v-2.8l6.8-.6v15.8h-3.6v-12.5h-3.2zm11.3 55h-5.6v-38.6h5.6v38.6zm2.9 0h-1.1v-38.6h1.1v38.6zm7.6 0h-6v-38.6h6v38.6zm.7-42.5H255v-2.4l4.8-5.3c.6-.7 1.1-1.4 1.4-2 .3-.6.5-1.1.5-1.5 0-.6-.1-1.1-.4-1.4-.3-.4-.7-.5-1.3-.5-.6 0-1 .2-1.3.7-.3.5-.5 1-.5 1.8h-3.5v-.1c0-1.4.4-2.7 1.4-3.7 1-1 2.3-1.5 3.9-1.5 1.7 0 3 .4 4 1.3.9.8 1.4 2 1.4 3.5 0 1-.3 1.9-.8 2.6-.5.8-1.5 1.9-2.8 3.4l-1.9 2.3v.1h6v2.7zm1.9 42.5h-.8v-38.6h.8v38.6zm-.3-46.8l3.5-.1c0 .5.2.9.5 1.3.4.3.8.5 1.3.5.7 0 1.2-.2 1.6-.5.4-.4.6-.8.6-1.3 0-.8-.2-1.3-.6-1.7-.4-.3-1-.5-1.7-.5H271v-2.7h1.7c.7 0 1.2-.2 1.5-.5.4-.4.5-.8.5-1.5 0-.5-.2-.9-.5-1.2-.4-.3-.8-.5-1.4-.5-.5 0-.8.1-1.2.4-.3.3-.5.6-.5 1.1h-3.5v-.1c0-1.2.4-2.2 1.5-3 1-.8 2.3-1.2 3.7-1.2 1.7 0 3 .4 4.1 1.2 1 .8 1.5 1.9 1.5 3.3 0 .7-.2 1.4-.6 1.9-.4.6-1 1.1-1.7 1.4.8.3 1.5.8 2 1.4.5.6.7 1.4.7 2.3 0 1.4-.5 2.6-1.6 3.4-1.1.8-2.5 1.2-4.2 1.2-1.5 0-2.8-.4-3.8-1.2-1.3-.8-1.8-1.9-1.7-3.4zm5.4 46.8h-3.3v-38.6h3.3v38.6zm7.7 0H275v-38.6h5.6v38.6zm4.8 0h-2.3v-38.6h2.3v38.6zm1.5-44.5v2h-3.6v-2c0-2.1.4-4 1.1-5.7.8-1.7 1.9-3.4 3.3-5H280v-2.8h11.3v2.8c-1.7 1.9-2.8 3.6-3.4 5.2-.7 1.5-1 3.3-1 5.5zm8.7 44.5h-7v-38.6h7v38.6zm3.8 0h-1.6v-38.6h1.6v38.6zm.2-44.5v2H296v-2c0-2.1.4-4 1.1-5.7.8-1.7 1.9-3.4 3.3-5h-7.8v-2.8H304v2.8c-1.7 1.9-2.8 3.6-3.4 5.2-.7 1.5-1 3.3-1 5.5zm8.3 44.5h-5.6v-38.6h5.6v38.6zm2.9 0h-1.1v-38.6h1.1v38.6zm-3.6-43.9c-1-1.1-1.5-2.5-1.5-4.4v-4.1c0-1.9.5-3.3 1.5-4.4 1-1.1 2.3-1.6 3.9-1.6s2.9.5 3.9 1.6 1.5 2.5 1.5 4.4v4.1c0 1.9-.5 3.3-1.5 4.4-1 1.1-2.3 1.6-3.9 1.6s-2.9-.5-3.9-1.6zm11.2 43.9h-6v-38.6h6v38.6zm2.5 0h-.8v-38.6h.8v38.6zm8.4-168.8h-23v11.7h19.1v9.7h-19.1v13.5h22.9v9.7h-35.5v-54.3h35.6v9.7zM430.1 213c.5.3 1 .5 1.8.5v3.5h-.1c-1.4 0-2.7-.4-3.7-1.4-1-1-1.5-2.3-1.5-3.9 0-1.7.4-3 1.3-4 .8-.9 2-1.4 3.5-1.4 1 0 1.9.3 2.6.8.8.5 1.9 1.5 3.4 2.8l2.3 1.9h.1v-6h2.8v10.8h-2.4l-5.3-4.8c-.7-.6-1.4-1.1-2-1.4-.6-.3-1.1-.5-1.5-.5-.6 0-1.1.1-1.4.4-.4.3-.5.7-.5 1.3-.1.7.2 1.1.6 1.4zm12.4 8.5v3.6H430v3.1h-2.8l-.6-6.8h15.9zm-23.6 125.3h-10.6v-21.3h10.6v21.3zm0-38.3h-10.6v-21.3h10.6v21.3zm0-38.2h-10.6V249h10.6v21.3zm0-38.2h-10.6v-21.3h10.6v21.3zm0-38.3h-10.6v-21.3h10.6v21.3zm0-38.2h-10.6v-21.3h10.6v21.3zm23.6 196.6H430v3.1h-2.8l-.6-6.8h15.8v3.7zm0-8.4h-2.4l-5.3-4.8c-.7-.6-1.4-1.1-2-1.4-.6-.3-1.1-.5-1.5-.5-.6 0-1.1.1-1.4.4-.4.3-.5.7-.5 1.3 0 .6.2 1 .7 1.3.5.3 1 .5 1.8.5v3.5h-.1c-1.4 0-2.7-.4-3.7-1.4-1-1-1.5-2.3-1.5-3.9 0-1.7.4-3 1.3-4 .8-.9 2-1.4 3.5-1.4 1 0 1.9.3 2.6.8.8.5 1.9 1.5 3.4 2.8l2.3 1.9h.1v-6h2.8v10.9zm-1-14.1c-.8 1.1-1.9 1.6-3.3 1.6h-.1v-3.5c.5 0 .9-.2 1.3-.5.3-.3.5-.8.5-1.3 0-.7-.2-1.2-.5-1.6-.4-.4-.8-.6-1.3-.6-.8 0-1.3.2-1.7.6-.3.4-.5 1-.5 1.7v1.7h-2.7v-1.7c0-.7-.2-1.2-.5-1.5-.3-.4-.8-.5-1.5-.5-.5 0-.9.2-1.2.5-.3.4-.5.8-.5 1.4 0 .5.1.8.4 1.2.3.3.6.5 1.1.5v3.5h-.1c-1.2 0-2.2-.4-3-1.5-.8-1-1.2-2.3-1.2-3.7 0-1.7.4-3 1.2-4.1.8-1 1.9-1.5 3.3-1.5.7 0 1.4.2 1.9.6.6.4 1.1 1 1.4 1.7.3-.8.8-1.5 1.4-2 .6-.5 1.4-.7 2.3-.7 1.4 0 2.6.5 3.4 1.6.8 1.1 1.2 2.5 1.2 4.2-.1 1.6-.5 2.8-1.3 3.9zm1-20.8v3.6h-3.3v6.2l-2.2.2-10.1-6.4v-3.6h9.5v-1.6h2.8v1.6h3.3zm-1.5-4.6c-1.1 1.1-2.7 1.6-4.6 1.6h-3.1c-2.1 0-3.7-.6-4.9-1.8-1.2-1.2-1.8-2.8-1.8-4.7 0-.6.1-1.1.2-1.6s.3-1 .5-1.6l2.6.6c-.1.5-.3.9-.3 1.3-.1.4-.1.8-.1 1.3 0 .9.3 1.6.9 2.1.6.5 1.6.8 2.8.8h.1c-.4-.4-.7-.9-.9-1.5-.2-.6-.3-1.2-.3-1.9 0-1.3.5-2.4 1.5-3.1 1-.7 2.2-1.1 3.8-1.1 1.5 0 2.8.5 3.8 1.5s1.5 2.3 1.5 3.9c0 1.8-.6 3.2-1.7 4.2zm-14.1-10.9v-11.3h2.8c1.9 1.7 3.6 2.8 5.2 3.4 1.6.6 3.4.9 5.6.9h2v3.6h-2c-2.1 0-4-.4-5.7-1.1-1.7-.8-3.4-1.9-5-3.3v7.8h-2.9zm14.6-14.5c-.8 1.1-1.9 1.6-3.4 1.6-.8 0-1.6-.3-2.2-.8-.6-.5-1.1-1.2-1.5-2.1-.3.7-.8 1.3-1.4 1.7-.6.4-1.3.6-2 .6-1.4 0-2.4-.5-3.2-1.4-.7-1-1.1-2.2-1.1-3.8 0-1.5.4-2.7 1.1-3.6.7-.9 1.8-1.4 3.2-1.4.8 0 1.4.2 2 .6.6.4 1.1.9 1.4 1.6.4-.8.9-1.5 1.5-2s1.4-.7 2.2-.7c1.5 0 2.6.5 3.4 1.6.8 1 1.2 2.4 1.2 4s-.4 3-1.2 4.1zm1-14.5c-.1.6-.3 1.1-.5 1.6l-2.6-.6c.2-.5.3-.9.4-1.3.1-.4.1-.9.1-1.4 0-.7-.3-1.2-.8-1.6-.5-.4-1.2-.6-2.1-.6h-.9c.4.4.8.8 1 1.2.2.5.3 1 .3 1.5 0 1.4-.5 2.5-1.4 3.3-1 .8-2.2 1.2-3.8 1.2-1.5 0-2.8-.5-3.9-1.5s-1.6-2.3-1.6-3.9.5-2.9 1.6-3.9 2.6-1.5 4.5-1.5h3.9c1.8 0 3.2.6 4.3 1.7 1.1 1.1 1.6 2.5 1.6 4.2.1.4 0 1-.1 1.6zm-1.4-10.9c-1.1 1-2.5 1.5-4.4 1.5h-4.1c-1.9 0-3.3-.5-4.4-1.5-1.1-1-1.6-2.3-1.6-3.9s.5-2.9 1.6-3.9 2.5-1.5 4.4-1.5h4.1c1.9 0 3.3.5 4.4 1.5 1.1 1 1.6 2.3 1.6 3.9 0 1.5-.5 2.9-1.6 3.9zm0-12.8c-1.1 1-2.5 1.5-4.4 1.5h-4.1c-1.9 0-3.3-.5-4.4-1.5-1.1-1-1.6-2.3-1.6-3.9s.5-2.9 1.6-3.9 2.5-1.5 4.4-1.5h4.1c1.9 0 3.3.5 4.4 1.5 1.1 1 1.6 2.3 1.6 3.9s-.5 3-1.6 3.9zm.4-38.1c-.8 1.1-1.9 1.6-3.3 1.6h-.1v-3.5c.5 0 .9-.2 1.3-.5.3-.3.5-.8.5-1.3 0-.7-.2-1.2-.5-1.6-.4-.4-.8-.6-1.3-.6-.8 0-1.3.2-1.7.6-.3.4-.5 1-.5 1.7v1.7h-2.7V199c0-.7-.2-1.2-.5-1.5-.3-.3-.8-.5-1.5-.5-.5 0-.9.2-1.2.5-.3.4-.5.8-.5 1.4 0 .5.1.8.4 1.2.3.3.6.5 1.1.5v3.5h-.1c-1.2 0-2.2-.4-3-1.5-.8-1-1.2-2.3-1.2-3.7 0-1.7.4-3 1.2-4.1.8-1 1.9-1.5 3.3-1.5.7 0 1.4.2 1.9.6.6.4 1.1 1 1.4 1.7.3-.8.8-1.5 1.4-2 .6-.5 1.4-.7 2.3-.7 1.4 0 2.6.5 3.4 1.6.8 1.1 1.2 2.5 1.2 4.2-.1 1.6-.5 2.8-1.3 3.9zm-11.8-22.2c1.9 1.7 3.6 2.8 5.2 3.4 1.6.6 3.4.9 5.6.9h2v3.6h-2c-2.1 0-4-.4-5.7-1.1-1.7-.8-3.4-1.9-5-3.3v7.8H427v-11.3h2.7zm-2.8-1.4v-11.3h2.8c1.9 1.7 3.6 2.8 5.2 3.4 1.6.6 3.4.9 5.6.9h2v3.6h-2c-2.1 0-4-.4-5.7-1.1-1.7-.8-3.4-1.9-5-3.3v7.8h-2.9zm14.2-14.5c-1.1 1-2.5 1.5-4.4 1.5h-4.1c-1.9 0-3.3-.5-4.4-1.5-1.1-1-1.6-2.3-1.6-3.9s.5-2.9 1.6-3.9 2.5-1.5 4.4-1.5h4.1c1.9 0 3.3.5 4.4 1.5 1.1 1 1.6 2.3 1.6 3.9s-.5 2.9-1.6 3.9zm57.2 196.8h-51.9V358h51.9v3.3zm0-5.4h-51.9v-5.6h51.9v5.6zm0-8.1h-51.9v-2.3h51.9v2.3zm0-5.5h-51.9v-7h51.9v7zm0-9.2h-51.9v-1.6h51.9v1.6zm0-4.5h-51.9V323h51.9v5.6zm0-7.4h-51.9v-1.1h51.9v1.1zm0-2.7h-51.9v-6h51.9v6zm0-7.7h-51.9v-.8h51.9v.8zm0-2.7h-51.9v-3.3h51.9v3.3zm0-5.4h-51.9v-5.6h51.9v5.6zm0-8.1h-51.9v-2.3h51.9v2.3zm0-5.5h-51.9v-7h51.9v7zm0-9.2h-51.9v-1.6h51.9v1.6zm0-4.5h-51.9v-5.6h51.9v5.6zm0-7.4h-51.9v-1.1h51.9v1.1zm0-2.7h-51.9v-6h51.9v6zm0-7.7h-51.9v-.8h51.9v.8zm0-2.4h-51.9v-3.3h51.9v3.3zm0-5.3h-51.9v-5.6h51.9v5.6zm0-8.2h-51.9v-2.3h51.9v2.3zm0-5.4h-51.9v-7h51.9v7zm0-9.2h-51.9v-1.6h51.9v1.6zm0-4.5h-51.9V217h51.9v5.6zm0-7.4h-51.9v-1.1h51.9v1.1zm0-2.7h-51.9v-6h51.9v6zm0-7.8h-51.9v-.8h51.9v.8zm0-2.7h-51.9v-3.3h51.9v3.3zm0-5.3h-51.9v-5.6h51.9v5.6zm0-8.2h-51.9v-2.3h51.9v2.3zm0-5.4h-51.9v-7h51.9v7zm0-9.2h-51.9v-1.6h51.9v1.6zm0-4.5h-51.9v-5.6h51.9v5.6zm0-7.4h-51.9v-1.1h51.9v1.1zm0-2.7h-51.9v-6h51.9v6zm0-7.8h-51.9v-.8h51.9v.8z"
+            id="XMLID_188_"></path>
+      <path class="st0"
+            d="M192.3 225.1c3.3 0 5.9-1.2 7.7-3.7 1.8-2.5 2.7-5.7 2.7-9.6V202c0-3.9-.9-7.1-2.7-9.5-1.8-2.5-4.4-3.7-7.7-3.7-3.4 0-6 1.2-7.8 3.7-1.8 2.5-2.7 5.7-2.7 9.6v9.8c0 3.9.9 7.1 2.7 9.6 1.8 2.3 4.4 3.6 7.8 3.6z"
+            id="XMLID_187_"></path></g></svg>
+  <svg id="tmdb-logo" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 407.34 160.81">
+    <defs>
+      <style>.cls-1 {
+        fill: #081c24
+      }</style>
+    </defs>
+    <path class="cls-1"
+          d="M50.38 102.47h6.94V74.71h8.64v-6.89H41.74v6.89h8.64v27.76zM88.53 102.47h6.94v-34.7h-6.94v13.88H78.14V67.77H71.2v34.7h6.94V88.59h10.39v13.88zM121.25 95.53h-13.02v-6.94h11.12v-6.94h-11.12v-6.94h12.43v-6.94h-19.38v34.7h19.97v-6.94zM157.79 82.54L144.1 67.3h-2.23v35.24h7.03V83.17l8.89 9.32 8.88-9.32-.05 19.37h7.04V67.3h-2.19l-13.68 15.24z"></path>
+    <path class="cls-1"
+          d="M3309.1 1841.93c-23.88 0-23.88 35.77 0 35.77s23.9-35.77 0-35.77zm0 28.59c-13.88 0-13.88-21.45 0-21.45s13.9 21.45 0 21.45z"
+          transform="translate(-3111.93 -1774.68)"></path>
+    <path class="cls-1"
+          d="M254.5 67.83h6.94v34.7h-6.94zM274.19 95.6v-6.94h11.13v-6.94h-11.13v-6.94h12.44v-6.95h-19.38v34.71h19.96V95.6h-13.02z"></path>
+    <path class="cls-1"
+          d="M3429.48 1842.91h-10.34v34.7h10.34c23.1 0 23.1-34.7 0-34.7zm0 27.76h-3.4v-20.82h3.4c13.52 0 13.52 20.82 0 20.82z"
+          transform="translate(-3111.93 -1774.68)"></path>
+    <path class="cls-1"
+          d="M3472.7 1860.23c2.18-1.5 3.11-4.22 3.2-6.84.15-6.12-3.69-10.53-9.85-10.53h-13.74v34.75H3466a10.32 10.32 0 0010.24-10.44 8.43 8.43 0 00-3.54-6.94zm-13.4-10.44h6.17a3.51 3.51 0 010 7h-6.17v-7zm6.17 20.87h-6.17v-6.94h6.17a3.41 3.41 0 013.49 3.45 3.45 3.45 0 01-3.49 3.5z"
+          transform="translate(-3111.93 -1774.68)"></path>
+    <path class="cls-1" d="M233.13 86.57L224 67.83h-8.01l16.37 35.44h1.55l16.37-35.44h-8.01l-9.14 18.74z"></path>
+    <path class="cls-1"
+          d="M3494.78 1920.93c14.6 0 24.48-9.88 24.48-24.48v-97.28c0-14.6-9.88-24.48-24.48-24.48h-358.37c-14.6 0-24.48 9.88-24.48 24.48v136.33l12.56-14.56v-121.77a11.94 11.94 0 0111.92-11.92h358.37a11.94 11.94 0 0111.92 11.92v97.28a11.94 11.94 0 01-11.92 11.92H3155l-12.56 12.56-.08-.1z"
+          transform="translate(-3111.93 -1774.68)"></path>
+    <path class="cls-1"
+          d="M3154.3 1827.53v-15h5.9c5.84 0 5.82 9.26 0 9.26h-2.9v5.73h-3zm5.65-8.65c2 0 2-3.36 0-3.36h-2.65v3.36h2.65zM3176.07 1812.27c10.33 0 10.33 15.47 0 15.47s-10.33-15.47 0-15.47zm0 3.09c-6 0-6 9.28 0 9.28s6.01-9.29 0-9.29zM3193.12 1827.85l-6.15-15.33h3.38l3 7.66 2.94-7.52h.15l2.94 7.52 3-7.66h3.38l-6.13 15.26h-.55l-2.75-6.66-2.73 6.72h-.52zM3209.53 1827.53v-15h7.47v3h-4.51v3h3.95v3h-3.95v3h4.77v3h-7.77zM3229.47 1827.53l-3-5.73H3225v5.73h-3v-15h5.92c5.35 0 5.88 7.54 1.47 8.82l3.49 6.19h-3.4zm-4.47-8.65h2.65c2 0 2-3.36 0-3.36H3225v3.36zM3236.76 1827.53v-15h7.52v3h-4.51v3h3.95v3h-3.95v3h4.77v3h-7.77zM3253.71 1827.53h-4.47v-15h4.47c9.99-.01 9.99 15 0 15zm-1.47-12v9h1.47c5.84 0 5.84-9 0-9h-1.47zM3291.89 1820.77l-5.23-8.25h3.65l3.07 5.17 3.07-5.17h3.67l-5.25 8.25v6.76h-3v-6.76zM3282.58 1820.18a3.68 3.68 0 001.39-3 4.13 4.13 0 00-4.26-4.56h-5.94v15h5.94a4.46 4.46 0 004.43-4.51 3.65 3.65 0 00-1.56-2.93zm-5.79-4.51h2.67a1.52 1.52 0 010 3h-2.67v-3zm2.67 9h-2.67v-3h2.67a1.47 1.47 0 011.51 1.49 1.49 1.49 0 01-1.52 1.54z"
+          transform="translate(-3111.93 -1774.68)"></path>
+  </svg>
+  <svg id="search" fill="currentColor" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+    <path
+      d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"></path>
+  </svg>
+  <svg id="account" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+    <path
+      d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2a7.2 7.2 0 01-6-3.22c.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08a7.2 7.2 0 01-6 3.22z"></path>
+  </svg>
+</div>
+</body><!-- This page was prerendered with Angular Universal --></html>
