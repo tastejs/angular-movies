@@ -140,7 +140,8 @@
               "outputHashing": "none",
               "optimization": false,
               "sourceMap": true,
-              "extractLicenses": true
+              "extractLicenses": true,
+              "vendorChunk": true
             },
             "production": {
               "outputHashing": "media",
