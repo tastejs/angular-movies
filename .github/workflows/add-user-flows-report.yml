@@ -6,7 +6,7 @@ name: Add User Flow Reports
 on:
   pull_request:
   push:
-    branches: [master]
+    branches: [main]
 
 jobs:
   collect_user_flows:
@@ -34,4 +34,5 @@ jobs:
           author_email: opensource@push-based.io
           message: 'Persist user flow reports'
           add: '*'
+          pull: 'main --rebase --autostash'
           push: origin HEAD:main
