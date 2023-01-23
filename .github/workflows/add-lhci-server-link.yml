@@ -5,7 +5,7 @@ name: Add LHCI Server Link
 
 on:
   pull_request:
-    branches: [main]
+    branches: [master]
 
 jobs:
   checkout:

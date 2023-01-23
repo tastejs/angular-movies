@@ -6,7 +6,7 @@ name: Add User Flow Reports
 on:
   pull_request:
   push:
-    branches: [main]
+    branches: [master]
 
 jobs:
   collect_user_flows:
