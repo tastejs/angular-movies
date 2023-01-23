@@ -30,8 +30,9 @@ jobs:
       - name: Commit measures
         uses: EndBug/add-and-commit@v9
         with:
-          push: origin HEAD:${{ github.head_ref }}
+          pull: 'main --rebase --autostash'
           author_name: push-based.io
           author_email: opensource@push-based.io
           message: 'Persist user flow reports'
           add: '*'
+          push: origin HEAD:main
