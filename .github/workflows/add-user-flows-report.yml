@@ -30,6 +30,7 @@ jobs:
       - name: Commit measures
         uses: EndBug/add-and-commit@v9
         with:
+          push: origin HEAD:${{ github.head_ref }}
           author_name: push-based.io
           author_email: opensource@push-based.io
           message: 'Persist user flow reports'
