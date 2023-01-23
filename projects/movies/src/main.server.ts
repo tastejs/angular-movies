@@ -16,8 +16,4 @@ if (environment.production) {
 }
 
 export { AppServerModule } from './app/ssr/app.server.module';
-export {
-  renderModule,
-  renderModuleFactory,
-  renderApplication,
-} from '@angular/platform-server';
+export { renderModuleFactory, renderApplication } from '@angular/platform-server';

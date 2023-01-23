@@ -10,17 +10,23 @@
     "module": "esnext",
     "moduleResolution": "node",
     "experimentalDecorators": true,
-    "target": "es2020",
+    "target": "ES2022",
     "allowSyntheticDefaultImports": true,
     "skipLibCheck": true,
-    "typeRoots": ["node_modules/@types"],
-    "lib": ["es2020", "dom"],
+    "typeRoots": [
+      "node_modules/@types"
+    ],
+    "lib": [
+      "es2020",
+      "dom"
+    ],
     "forceConsistentCasingInFileNames": true,
     "noImplicitReturns": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "strict": true,
-    "strictNullChecks": true
+    "strictNullChecks": true,
+    "useDefineForClassFields": false
   },
   "exclude": ["node_modules", "tmp"],
   "angularCompilerOptions": {
