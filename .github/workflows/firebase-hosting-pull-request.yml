@@ -30,6 +30,7 @@ jobs:
           author_email: opensource@push-based.io
           message: 'Persist stats.json bundle-size report and readme'
           add: '*'
+          push: origin HEAD:main
       - name: Deploy to firebase preview channel hosting
         id: previewDeployStep
         uses: FirebaseExtended/action-hosting-deploy@v0.6-alpha
