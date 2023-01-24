@@ -1,6 +1,6 @@
 import { Options } from 'yargs';
 import { YargsCommandObject } from '../cli/model';
-import { updateDocsCommand } from './commands/optimize-lcp';
+import { optimizeLcpCommand } from './commands/optimize-lcp';
 import { runCli } from '../cli';
 
 const OPTIONS: { [key: string]: Options } = {
@@ -29,7 +29,7 @@ const OPTIONS: { [key: string]: Options } = {
   },
 };
 
-const COMMANDS: YargsCommandObject[] = [updateDocsCommand];
+const COMMANDS: YargsCommandObject[] = [optimizeLcpCommand];
 
 (async () => {
   runCli({ commands: COMMANDS, options: OPTIONS });
