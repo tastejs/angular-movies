@@ -1,3 +1,8 @@
+/**
+ * Server needs to import zone.js
+ */
+import 'zone.js';
+
 /***************************************************************************************************
  * Initialize the server environment - for example, adding DOM built-in types to the global scope.
  *
@@ -16,4 +21,7 @@ if (environment.production) {
 }
 
 export { AppServerModule } from './app/ssr/app.server.module';
-export { renderModuleFactory, renderApplication } from '@angular/platform-server';
+export {
+  renderModuleFactory,
+  renderApplication,
+} from '@angular/platform-server';
