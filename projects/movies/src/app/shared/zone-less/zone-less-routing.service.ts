@@ -1,9 +1,9 @@
 import { isPlatformBrowser } from '@angular/common';
 import {
-  ApplicationRef,
   ErrorHandler,
   Inject,
   Injectable,
+  NgZone,
   PLATFORM_ID,
 } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
@@ -20,7 +20,7 @@ import { RxEffects } from '@rx-angular/state/effects';
 export class ZonelessRouting extends RxEffects {
   constructor(
     private router: Router,
-    private appRef: ApplicationRef,
+    private ngZone: NgZone,
     @Inject(PLATFORM_ID) private platformId: Object,
     errorHandler: ErrorHandler
   ) {
@@ -42,7 +42,9 @@ export class ZonelessRouting extends RxEffects {
         // In a component we use `ChangeDetectorRef#detectChanges()` as it is less work compared to `ApplicationRef#tick` as it's less work.
         (e) => {
           if (e instanceof NavigationEnd) {
-            this.appRef.tick();
+            // Inside appRef [NgZone.onMicrotaskEmpty is used to call appRef.tick()](https://github.com/angular/angular/blob/2fc5b70fcedb8ac35b825b245c0ae394dc125244/packages/core/src/application_ref.ts#L769)
+            // As the router events are not tracked in a zone-less environment we programmatically schedule onMicrotaskEmpty here to trigger CD after routing occurred
+            this.ngZone.onMicrotaskEmpty.next(true);
           }
         }
       );
