@@ -25,6 +25,5 @@ export class AccountListPageComponent {
   readonly lists$ = this.adapter.select('lists');
   readonly trackById = trackByProp<ListWithPoster>('id');
 
-  constructor(private adapter: AccountListPageAdapter) {
-  }
+  constructor(private adapter: AccountListPageAdapter) {}
 }
