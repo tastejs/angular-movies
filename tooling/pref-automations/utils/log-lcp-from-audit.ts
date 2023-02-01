@@ -86,8 +86,7 @@ function optimizeLCPElement(
   _.appendChild(img);
   const optimizedElem = _.innerHTML;
   if (!html.match(elemToOptimize)) {
-    console.log('LCP element not present in target html');
-    return html;
+    throw new Error('LCP candidate element not present in target html');
   } else {
     const optimizedHtml = html.replace(elemToOptimize, optimizedElem);
     console.log('LCP element optimized.');
