@@ -15,11 +15,17 @@ export function optimizeHtmlFileForLCP(
     console.log('No candidate of type img available');
   } else {
     const { url, element } = lcpCandidate;
+    console.log('LCP candidate element: ', element);
     const originalHtml = fs.readFileSync(targetPath, { encoding: 'utf8' });
     const opt = {
       preloadUrl: options?.fetchpriorityFallback ? url : null,
     };
-    const optimizedHtml = optimizeLCPElement(originalHtml, element || '', opt);
+
+    const optimizedHtml = optimizeLCPElement(
+      originalHtml,
+      element || null,
+      opt
+    );
     console.log('update target with optimizations');
     fs.writeFileSync(targetPath, optimizedHtml);
   }
@@ -65,6 +71,11 @@ function optimizeLCPElement(
   elemToOptimize: string,
   options: { preloadUrl: string | null | undefined }
 ): string {
+  if (options.preloadUrl) {
+    throw new Error('Adding a preload link to head is not implemented.');
+    //const preloadLink = `<link rel="preload" as="image" src="${options.preloadUrl}" />`;
+    //console.log('preloadLink: ', preloadLink);
+  }
   const doc: Document = getDocumentFromHtml(elemToOptimize);
   // @ts-ignore
   const img = doc.body.querySelector('img');
@@ -74,15 +85,12 @@ function optimizeLCPElement(
   const _ = doc.createElement('div');
   _.appendChild(img);
   const optimizedElem = _.innerHTML;
-  if (html.match(elemToOptimize)) {
+  if (!html.match(elemToOptimize)) {
     console.log('LCP element not present in target html');
+    return html;
+  } else {
+    const optimizedHtml = html.replace(elemToOptimize, optimizedElem);
+    console.log('LCP element optimized.');
+    return optimizedHtml;
   }
-  const optimizedHtml = html.replace(elemToOptimize, optimizedElem);
-  console.log('LCP element optimized.');
-  if (options.preloadUrl) {
-    throw new Error('Adding a preload link to head is not implemented.');
-    //const preloadLink = `<link rel="preload" as="image" src="${options.preloadUrl}" />`;
-    //console.log('preloadLink: ', preloadLink);
-  }
-  return optimizedHtml;
 }

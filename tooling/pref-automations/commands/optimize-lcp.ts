@@ -1,11 +1,10 @@
 import { YargsCommandObject } from '../../cli/model';
 import { getCliParam } from '../../cli/utils';
-import { readFile } from '../utils';
-import { mkdirSync, existsSync, readdirSync } from 'fs';
+import { existsSync, mkdirSync, readdirSync } from 'fs';
 import { execSync } from 'child_process';
 
 import { optimizeHtmlFileForLCP } from '../utils/log-lcp-from-audit';
-import { writeFile } from '@push-based/user-flow/src/lib/core/file';
+import { writeFile } from '@push-based/user-flow/src/lib/internal/utils/file';
 import { join } from 'path';
 
 export async function run(): Promise<void> {
@@ -15,14 +14,16 @@ export async function run(): Promise<void> {
   // 4. check output and log result
   // 4.1 optional check the result again with LH
   const htmlPath: string | false = getCliParam(['target', 't']);
-  let url: string | false = getCliParam(['url', 'u']);
-
   if (!htmlPath) {
     throw new Error('param --target or -t is required');
   }
+  const url: string | false = getCliParam(['url', 'u']);
+  if (!url) {
+    throw new Error('param --url or -u is required');
+  }
+
   // const targetHtml = readFile<string>(htmlPath, 'string');
   console.log(`Target file to optimize: ${htmlPath}`);
-  url = `https://angular-movies-a12d3.web.app/list/category/popular`;
   console.log(`Url to analyze: ${url}`);
 
   if (!existsSync('./tmp')) {
@@ -37,7 +38,7 @@ export async function run(): Promise<void> {
     `
 module.exports = {
   flowOptions: {
-    name: 'test flow'
+    name: 'Flow to detect LCP candidate'
   },
   interactions: async (ctx: any) => {
     const { flow, collectOptions } = ctx;
@@ -70,7 +71,6 @@ module.exports = {
 }
 
 const command = 'optimize-lcp';
-
 export const optimizeLcpCommand: YargsCommandObject = {
   command,
   description: 'Update related html files with LCP optimizations',
