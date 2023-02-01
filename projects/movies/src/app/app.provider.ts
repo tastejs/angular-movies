@@ -9,18 +9,8 @@ import {
   withInMemoryScrolling,
 } from '@angular/router';
 import { ROUTES } from './app.routing';
-import { NgZone } from '@angular/core';
-import { CustomNgZone } from './shared/zone-less/noop-zone';
 
 export const APP_PROVIDERS = [
-  {
-    provide: NgZone,
-    /**
-     * Normally `ɵNoopNgZone` is used here but we need to overwrite a bit of the logic to make TransferState work in a zone-less app
-     * Provide hacks for Zone#isStable as it causes problems for HTTP cache to work
-     */
-    useClass: CustomNgZone,
-  },
   provideRouter(
     ROUTES,
     // withDebugTracing(),
