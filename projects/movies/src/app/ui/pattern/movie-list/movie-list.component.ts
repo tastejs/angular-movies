@@ -59,6 +59,7 @@ type UiActions = { paginate: boolean };
           -->
         <img
           class="aspectRatio-2-3 gradient"
+          [attr.fetchpriority]="idx <= 2 ? 'high' : ''"
           [attr.loading]="idx === 0 ? '' : 'lazy'"
           [src]="movie?.imgUrl || 'assets/images/no_poster_available.jpg'"
           [width]="movie.imgWidth"
