@@ -89,9 +89,13 @@ export class AppShellComponent {
      * Disable initial sync navigation in router config and schedule it in router-outlet container component.
      * We use a scheduling API (setTimeout) to run it in a separate task from the bootstrap phase
      */
-    setTimeout(() =>
-      this.router.navigate([fallbackRouteToDefault(document.location.pathname)])
-    );
+    setTimeout(() => {
+      this.router.navigate([
+        // The pathname route seems to work correctly on SSR but when pre-rendering it is an empty string.
+        // We have to fall back to document URL as a fix.
+        fallbackRouteToDefault(document.location.pathname || document.URL),
+      ]);
+    });
   }
 
   init() {

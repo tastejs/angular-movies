@@ -1,4 +1,13 @@
-import { exhaustMap, groupBy, map, mergeAll, Observable } from 'rxjs';
+import {
+  concatWith,
+  exhaustMap,
+  filter,
+  groupBy,
+  map,
+  mergeAll,
+  Observable,
+  timer,
+} from 'rxjs';
 
 /**
  * **🚀 Perf Tip for TTI, TBT:**
@@ -11,13 +20,24 @@ import { exhaustMap, groupBy, map, mergeAll, Observable } from 'rxjs';
  */
 export function optimizedFetch<T, K, O>(
   groupSelector: (value: T) => K,
-  fetch: (t: T) => Observable<O>
+  fetch: (t: T) => Observable<O>,
+  cfg: {
+    cacheTime: number;
+  } = {
+    cacheTime: 10000,
+  }
 ): (o$: Observable<T>) => Observable<O> {
+  const delay = (ms: number) =>
+    timer(ms).pipe(filter((_) => false)) as Observable<O>;
   return (o$: Observable<T>) =>
     o$.pipe(
       groupBy(groupSelector),
       // exhaust by keySelector e.g. url
-      map((t$) => t$.pipe(exhaustMap(fetch))),
+      map((t$) =>
+        t$.pipe(
+          exhaustMap((t) => fetch(t).pipe(concatWith(delay(cfg.cacheTime))))
+        )
+      ),
       mergeAll()
     );
 }
