@@ -6,7 +6,7 @@ As data source the [The Movie Database (TMDB)](https://www.themoviedb.org/) API 
 [![angular-and-rx-angular](https://user-images.githubusercontent.com/10064416/154189195-c32cbdec-b061-46a5-8590-a9e3d8dc050a.png)](https://www.rx-angular.io/)
 
 
-## Demo
+## [Demo](https://angular-movies-a12d3.web.app/list/category/popular)
 
 A [live deployment](https://angular-movies-a12d3.web.app/list/category/popular) of this app is available to try it out.
 
