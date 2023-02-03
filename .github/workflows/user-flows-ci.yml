@@ -14,4 +14,4 @@ jobs:
         uses: push-based/user-flow-gh-action@v0.0.0-alpha.20
         with:
           verbose: 'on'
-          rcPath: ./projects/movies-user-flows/.user-flowrc.json
+          rcPath: ./projects/movies-user-flows/.user-flowrc.ci.json
