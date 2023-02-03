@@ -6,7 +6,7 @@ import {
 } from '@push-based/user-flow';
 
 const flowOptions: UserFlowOptions = {
-  name: 'LCP experiment',
+  name: 'LCP Audit',
   config: {
     settings: {
       onlyAudits: ['lcp-lazy-loaded'],
@@ -20,7 +20,7 @@ const interactions: UserFlowInteractionsFn = async (
   const { flow, collectOptions } = ctx;
   const url = `${collectOptions.url}`;
   await flow.navigate(url, {
-    stepName: 'navigation',
+    stepName: 'detect LCP',
   });
   return Promise.resolve();
 };
