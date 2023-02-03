@@ -6,9 +6,9 @@
     "awaitServeStdout": "Angular Universal Live Development Server is listening on"
   },
   "persist": {
-    "outPath": "./projects/movies-user-flows/src/measures",
+    "outPath": "./measures/user-flows",
     "format": [
-      "md"
+      "json"
     ]
   }
 }
