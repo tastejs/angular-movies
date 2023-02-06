@@ -1,14 +1,13 @@
 import { EventEmitter, NgZone } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
-import { Promise } from '@rx-angular/cdk/zone-less/browser';
+import { BehaviorSubject, timer } from 'rxjs';
 
 /**
  * Provides a noop like implementation of `NgZone` which does nothing and provides a way to customize behavior.
  * This zone requires explicit calls to framework to perform rendering.
  */
 export class CustomNgZone {
-  hasPendingMicrotasks = false;
-  hasPendingMacrotasks = false;
+  hasPendingMicrotasks = true;
+  hasPendingMacrotasks = true;
 
   onUnstable = new EventEmitter();
   onMicrotaskEmpty = new EventEmitter();
@@ -25,9 +24,11 @@ export class CustomNgZone {
     /**
      * Notice:
      * This is a hack to delay the emission of isStable for a micro task
-     * This helps HttpTransferCache to get it's values first from the cache
+     * This helps HttpTransferCache to get its values first from the cache
      */
-    Promise.resolve().then(() => {
+    timer(3000).subscribe(() => {
+      this.hasPendingMicrotasks = false;
+      this.hasPendingMacrotasks = false;
       this.onStable.next(true);
     });
   }
@@ -46,7 +47,7 @@ export class CustomNgZone {
   }
 }
 
-export const customZoneProvider = {
+export const CUSTOM_ZONE_PROVIDER = {
   provide: NgZone,
   /**
    * Normally `ɵNoopNgZone` is used here but we need to overwrite a bit of the logic to make TransferState work in a zone-less app
