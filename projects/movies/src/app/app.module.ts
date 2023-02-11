@@ -1,12 +1,13 @@
 import { NgModule } from '@angular/core';
-import { AppComponent, APP_COMPONENT_IMPORTS } from './app.component';
+import { APP_BROWSER_PROVIDER } from './app.browser.provider';
+import { APP_COMPONENT_IMPORTS, AppComponent } from './app.component';
 import { APP_PROVIDERS } from './app.provider';
 import { APP_IMPORTS } from './app.imports';
 
 @NgModule({
   declarations: [AppComponent],
   imports: [APP_IMPORTS, APP_COMPONENT_IMPORTS],
-  providers: APP_PROVIDERS,
+  providers: [...APP_PROVIDERS, ...APP_BROWSER_PROVIDER],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
