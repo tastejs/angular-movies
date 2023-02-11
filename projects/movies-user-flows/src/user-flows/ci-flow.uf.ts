@@ -28,40 +28,37 @@ const interactions: UserFlowInteractionsFn = async (
   const topRatedName = 'topRated';
   const movieDetailPage = new MovieDetailPageUFO(ctx);
 
-  await flow.navigate(
-    url,
-    {
-      stepName: 'Initial navigation',
-    },
-    {
+  await flow.navigate(url, {
+    stepName: '🧭 Initial navigation',
+    config: {
       extends: 'lighthouse:default',
       settings: {
         budgets: listBudgets,
       },
     }
-  );
+  });
   await flow.snapshot({
-    stepName: 'Initial navigation done',
+    stepName: '✔ Initial navigation done',
   });
   await flow.startTimespan({
-    stepName: 'Navigate to popular',
+    stepName: '🧭 Navigate to popular',
   });
   await sidebar.clickSideMenuBtn();
   await sidebar.navigateToCategory(topRatedName);
   await movieListPage.awaitLCPContent();
   await flow.endTimespan();
   await flow.snapshot({
-    stepName: 'Navigation to popular done',
+    stepName: '✔ Navigation to popular done',
   });
   await flow.startTimespan({
-    stepName: 'Navigate to detail page',
+    stepName: '🧭 Navigate to detail page',
   });
 
   await movieListPage.navigateToDetail();
   await movieDetailPage.awaitAllContent();
   await flow.endTimespan();
   await flow.snapshot({
-    stepName: 'Navigation to detail done',
+    stepName: '✔ Navigation to detail done',
   });
 
   return Promise.resolve();
