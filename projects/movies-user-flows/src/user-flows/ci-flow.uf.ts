@@ -4,6 +4,7 @@ import {
   UserFlowInteractionsFn,
   UserFlowContext,
 } from '@push-based/user-flow';
+import { readBudgets } from '@push-based/user-flow/src/lib/commands/assert/utils/budgets';
 
 import { MovieDetailPageUFO } from '../ufo/desktop/movie-detail-page.ufo';
 import { MovieListPageUFO } from '../ufo/desktop/movie-list-page.ufo';
@@ -12,6 +13,10 @@ import { SidebarUFO } from '../ufo/mobile/side-bar.ufo';
 const flowOptions: UserFlowOptions = {
   name: 'Basic user flow to ensure basic functionality',
 };
+
+const listBudgets = readBudgets(
+  './projects/movies-user-flows/src/configs/list.budgets.json'
+);
 
 const interactions: UserFlowInteractionsFn = async (
   ctx: UserFlowContext
@@ -23,9 +28,18 @@ const interactions: UserFlowInteractionsFn = async (
   const topRatedName = 'topRated';
   const movieDetailPage = new MovieDetailPageUFO(ctx);
 
-  await flow.navigate(url, {
-    stepName: 'Initial navigation',
-  });
+  await flow.navigate(
+    url,
+    {
+      stepName: 'Initial navigation',
+    },
+    {
+      extends: 'lighthouse:default',
+      settings: {
+        budgets: listBudgets,
+      },
+    }
+  );
   await flow.snapshot({
     stepName: 'Initial navigation done',
   });
