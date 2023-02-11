@@ -7,6 +7,7 @@
     "lhci": "lhci",
     "concurrently": "concurrently",
     "start": "ng serve",
+    "start:prod": "ng serve -- --configuration production",
     "start:ssr:dev": "ng run movies:serve-ssr",
     "start:ssr:prod": "ng run movies:serve-ssr:production",
     "build": "ng build",

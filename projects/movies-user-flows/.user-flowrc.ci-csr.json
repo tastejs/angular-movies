@@ -2,7 +2,7 @@
   "collect": {
     "url": "http://localhost:4200",
     "ufPath": "./projects/movies-user-flows/src/user-flows",
-    "serveCommand": "npm run start",
+    "serveCommand": "npm run start:prod",
     "awaitServeStdout": "Angular"
   },
   "persist": {

@@ -35,7 +35,7 @@ const interactions: UserFlowInteractionsFn = async (
       settings: {
         budgets: listBudgets,
       },
-    }
+    },
   });
   await flow.snapshot({
     stepName: '✔ Initial navigation done',
