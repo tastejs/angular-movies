@@ -2,6 +2,10 @@
   {
     "resourceCounts": [
       {
+        "resourceType": "document",
+        "budget": 1
+      },
+      {
         "resourceType": "script",
         "budget": 1
       },
@@ -14,14 +18,30 @@
         "budget": 20
       },
       {
+        "resourceType": "media",
+        "budget": 0
+      },
+      {
         "resourceType": "font",
+        "budget": 0
+      },
+      {
+        "resourceType": "other",
+        "budget": 0
+      },
+      {
+        "resourceType": "third-party",
         "budget": 0
       }
     ],
     "resourceSizes": [
       {
         "resourceType": "script",
-        "budget": 150
+        "budget": 35000
+      },
+      {
+        "resourceType": "stylesheet",
+        "budget": 5000
       }
     ],
     "timings": [
