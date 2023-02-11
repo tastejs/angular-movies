@@ -94,7 +94,7 @@
     "@lhci/cli": "^0.8.0",
     "@lhci/server": "^0.8.0",
     "@nguniversal/builders": "^15.0.0",
-    "@push-based/user-flow": "^0.13.17",
+    "@push-based/user-flow": "^0.18.1",
     "@rx-angular/import-graph-visualizer": "^0.2.0",
     "@size-limit/file": "^7.0.5",
     "@types/compression": "^1.7.1",
