@@ -30,6 +30,7 @@ export const ROUTES: Routes = [
   {
     path: 'list/:type/:identifier',
     component: MovieListPageComponent,
+    data: { revalidate: 60 },
     /* loadComponent: () =>
       import('projects/movies/src/app/pages/movie-list-page/movie-list-page.component').then((m) => m.MovieListPageComponent)
     */
@@ -40,6 +41,7 @@ export const ROUTES: Routes = [
       import(
         'projects/movies/src/app/pages/movie-detail-page/movie-detail-page.component'
       ).then((c) => c.MovieDetailPageComponent),
+    data: { revalidate: 60 },
   },
   {
     path: 'detail/list/:identifier',
@@ -47,6 +49,7 @@ export const ROUTES: Routes = [
       import(
         'projects/movies/src/app/pages/account-feature/list-detail-page/list-detail-page.component'
       ).then((c) => c.ListDetailPageComponent),
+    data: { revalidate: 60 },
   },
   {
     path: 'detail/person/:identifier',
@@ -54,6 +57,7 @@ export const ROUTES: Routes = [
       import(
         'projects/movies/src/app/pages/person-detail-page/person-detail-page.component'
       ).then((c) => c.PersonDetailPageComponent),
+    data: { revalidate: 60 },
   },
   {
     path: 'account',
@@ -61,6 +65,7 @@ export const ROUTES: Routes = [
       import(
         'projects/movies/src/app/pages/account-feature/account-featuer-page.routes'
       ).then((c) => c.ROUTES),
+    data: { revalidate: 60 },
   },
   {
     path: 'page-not-found',
@@ -68,6 +73,7 @@ export const ROUTES: Routes = [
       import(
         'projects/movies/src/app/pages/not-found-page/not-found-page.component'
       ).then((c) => c.NotFoundPageComponent),
+    data: { revalidate: 60 },
   },
   {
     path: '**',

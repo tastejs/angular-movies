@@ -6,8 +6,9 @@ import { join } from 'path';
 import * as compressionModule from 'compression';
 
 import { AppServerModule } from './projects/movies/src/main.server';
-import { APP_BASE_HREF } from '@angular/common';
 import { existsSync } from 'fs';
+import { ISRHandler } from 'ngx-isr';
+import { environment } from 'projects/movies/src/environments/environment';
 
 // The Express app is exported so that it can be used by serverless Functions.
 export function app(): express.Express {
@@ -17,6 +18,12 @@ export function app(): express.Express {
   const indexHtml = existsSync(join(distFolder, 'index.original.html'))
     ? 'index.original.html'
     : 'index';
+
+  const isr = new ISRHandler({
+    indexHtml,
+    invalidateSecretToken: 'MY_TOKEN',
+    enableLogging: !environment.production,
+  });
 
   // patchWindow(indexHtml);
 
@@ -48,20 +55,13 @@ export function app(): express.Express {
     })
   );
 
-  // All regular routes use the Universal engine
-  server.get('*', (req, res) => {
-    // return rendered HTML including Angular generated DOM
-    console.log('SSR for route', req.url);
-    res.render(indexHtml, {
-      req,
-      providers: [
-        {
-          provide: APP_BASE_HREF,
-          useValue: req.baseUrl,
-        },
-      ],
-    });
-  });
+  server.get(
+    '*',
+    // Serve page if it exists in cache
+    async (req, res, next) => await isr.serveFromCache(req, res, next),
+    // Server side render the page and add to cache if needed
+    async (req, res, next) => await isr.render(req, res, next)
+  );
 
   return server;
 }
