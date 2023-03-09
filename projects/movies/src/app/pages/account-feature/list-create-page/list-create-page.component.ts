@@ -1,6 +1,6 @@
+import { LetModule } from '@rx-angular/template/let';
 import { Component, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
 import { ListCreatePageAdapter } from './list-create-page.adapter';
-import { LetModule } from '@rx-angular/template';
 import { CommonModule } from '@angular/common';
 
 @Component({

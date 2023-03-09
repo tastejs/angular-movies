@@ -1,3 +1,4 @@
+import { LetModule } from '@rx-angular/template/let';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { TMDBMovieDetailsModel } from '../../../../data-access/api/model/movie-details.model';
 
@@ -7,7 +8,6 @@ import {
   MovieSearchResult,
 } from './list-items-edit.adapter';
 import { ForModule } from '@rx-angular/template/for';
-import { LetModule } from '@rx-angular/template';
 import { FastSvgModule } from '@push-based/ngx-fast-svg';
 @Component({
   standalone: true,
