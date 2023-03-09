@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { RxState, select, selectSlice } from '@rx-angular/state';
+import { RxState } from '@rx-angular/state';
+import { selectSlice, select } from '@rx-angular/state/selections';
 import { map, Observable, startWith, switchMap, withLatestFrom } from 'rxjs';
 import { W500H282 } from '../../../data-access/api/constants/image-sizes';
 import { TMDBListCreateUpdateParams } from '../../../data-access/api/model/list.model';

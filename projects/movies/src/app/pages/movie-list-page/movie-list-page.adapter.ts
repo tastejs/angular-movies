@@ -1,4 +1,5 @@
-import { RxState, selectSlice } from '@rx-angular/state';
+import { RxState } from '@rx-angular/state';
+import { selectSlice } from '@rx-angular/state/selections';
 import { Injectable } from '@angular/core';
 import {
   distinctUntilKeyChanged,

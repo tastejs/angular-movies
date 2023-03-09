@@ -1,4 +1,5 @@
-import { RxState, selectSlice } from '@rx-angular/state';
+import { RxState } from '@rx-angular/state';
+import { selectSlice } from '@rx-angular/state/selections';
 import { TMDBMovieModel } from '../../data-access/api/model/movie.model';
 import { Injectable } from '@angular/core';
 import { infiniteScroll } from '../../shared/cdk/infinite-scroll/infiniteScroll';
