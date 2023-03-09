@@ -1,5 +1,5 @@
 import { select, selectSlice } from '@rx-angular/state/selections';
-import { CommonModule, Location } from '@angular/common';
+import { CommonModule, Location, NgOptimizedImage } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -30,6 +30,7 @@ import { RouterModule } from '@angular/router';
   imports: [
     CommonModule,
     RouterModule,
+    NgOptimizedImage,
     DetailGridComponent,
     StarRatingComponent,
     MovieListComponent,

@@ -40,10 +40,9 @@ Inline the styles for the app loading spinner to avoid flickering.
 Always use fixed with and height fot images to avoid flickering and CLS
 -->
     <img
-      width="192px"
-      height="192px"
-      fetchpriority="low"
-      src="assets/icons/android-chrome-192x192.png"
+      width="192"
+      height="192"
+      [ngSrc]="'assets/icons/android-chrome-192x192.png'"
       alt="logo"
     />
     <p>HubMovies</p>

@@ -11,10 +11,11 @@ import {
 import { ForModule } from '@rx-angular/template/for';
 import { GridListComponent } from '../../../ui/component/grid-list/grid-list.component';
 import { RouterModule } from '@angular/router';
+import { NgOptimizedImage } from '@angular/common';
 
 @Component({
   standalone: true,
-  imports: [RouterModule, ForModule, GridListComponent],
+  imports: [RouterModule, ForModule, GridListComponent, NgOptimizedImage],
   selector: 'ct-person',
   templateUrl: './account-list-page.component.html',
   styleUrls: ['./account-list-page.component.scss'],

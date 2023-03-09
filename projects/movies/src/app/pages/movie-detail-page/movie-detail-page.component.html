@@ -4,11 +4,10 @@
       <div detailGridMedia>
         <img
           class="aspectRatio-2-3 fit-cover"
-          [src]="movie.imgUrl"
+          [ngSrc]="movie.imgUrl"
           [width]="movie.imgWidth"
           [height]="movie.imgHeight"
           alt="poster movie"
-          fetchpriority="high"
           [title]="movie.title"
           data-uf="hero-img"
         />
@@ -70,8 +69,7 @@
                 [attr.aria-label]="c.name"
               >
                 <img
-                  loading="lazy"
-                  [src]="c.imgUrl"
+                  [ngSrc]="c.imgUrl"
                   [alt]="c.name"
                   [title]="c.name"
                 />
