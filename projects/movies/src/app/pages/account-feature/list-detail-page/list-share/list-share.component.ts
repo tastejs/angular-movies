@@ -1,3 +1,4 @@
+import { LetModule } from '@rx-angular/template/let';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -5,8 +6,6 @@ import {
   OnInit,
 } from '@angular/core';
 import { ListDetailAdapter } from '../list-detail-page.adapter';
-import { LetModule } from '@rx-angular/template';
-
 // TODO
 @Component({
   standalone: true,
