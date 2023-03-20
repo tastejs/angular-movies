@@ -4,6 +4,7 @@ import { ngExpressEngine } from '@nguniversal/express-engine';
 import * as express from 'express';
 import { join } from 'path';
 import * as compressionModule from 'compression';
+import { default as serverTiming } from 'server-timing';
 
 import { AppServerModule } from './projects/movies/src/main.server';
 import { APP_BASE_HREF } from '@angular/common';
@@ -12,13 +13,7 @@ import { existsSync } from 'fs';
 // The Express app is exported so that it can be used by serverless Functions.
 export function app(): express.Express {
   const server = express();
-
-  const distFolder = join(process.cwd(), 'dist/movies/browser');
-  const indexHtml = existsSync(join(distFolder, 'index.original.html'))
-    ? 'index.original.html'
-    : 'index';
-
-  // patchWindow(indexHtml);
+  server.use(serverTiming());
 
   // **🚀 Perf Tip:**
   // Serve gzip for faster load
@@ -31,7 +26,7 @@ export function app(): express.Express {
       bootstrap: AppServerModule,
     })
   );
-
+  const distFolder = join(process.cwd(), 'dist/movies/browser');
   server.set('view engine', 'html');
   server.set('views', distFolder);
 
@@ -52,15 +47,26 @@ export function app(): express.Express {
   server.get('*', (req, res) => {
     // return rendered HTML including Angular generated DOM
     console.log('SSR for route', req.url);
-    res.render(indexHtml, {
-      req,
-      providers: [
-        {
-          provide: APP_BASE_HREF,
-          useValue: req.baseUrl,
-        },
-      ],
-    });
+    res.startTime('SSR', 'SSR Render Time');
+    const indexHtml = existsSync(join(distFolder, 'index.original.html'))
+      ? 'index.original.html'
+      : 'index';
+    res.render(
+      indexHtml,
+      {
+        req,
+        providers: [
+          {
+            provide: APP_BASE_HREF,
+            useValue: req.baseUrl,
+          },
+        ],
+      },
+      (_, html) => {
+        res.endTime('SSR');
+        res.send(html);
+      }
+    );
   });
 
   return server;
