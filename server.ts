@@ -13,7 +13,13 @@ import { existsSync } from 'fs';
 // The Express app is exported so that it can be used by serverless Functions.
 export function app(): express.Express {
   const server = express();
-  server.use(serverTiming());
+
+  const distFolder = join(process.cwd(), 'dist/movies/browser');
+  const indexHtml = existsSync(join(distFolder, 'index.original.html'))
+    ? 'index.original.html'
+    : 'index';
+
+  // patchWindow(indexHtml);
 
   // **🚀 Perf Tip:**
   // Serve gzip for faster load
@@ -26,7 +32,7 @@ export function app(): express.Express {
       bootstrap: AppServerModule,
     })
   );
-  const distFolder = join(process.cwd(), 'dist/movies/browser');
+
   server.set('view engine', 'html');
   server.set('views', distFolder);
 
@@ -47,10 +53,7 @@ export function app(): express.Express {
   server.get('*', (req, res) => {
     // return rendered HTML including Angular generated DOM
     console.log('SSR for route', req.url);
-    res.startTime('SSR', 'SSR Render Time');
-    const indexHtml = existsSync(join(distFolder, 'index.original.html'))
-      ? 'index.original.html'
-      : 'index';
+    res.startTime('SSR', 'Total SSR Time');
     res.render(
       indexHtml,
       {
