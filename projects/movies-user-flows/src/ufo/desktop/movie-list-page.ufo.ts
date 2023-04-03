@@ -31,6 +31,6 @@ export class MovieListPageUFO extends Ufo implements CwvInterface {
   }
 
   async navigateToDetail(id: number = 0): Promise<any> {
-    await this.movieList.clickMovieListImage(0);
+    await this.movieList.clickMovieListImage(id);
   }
 }

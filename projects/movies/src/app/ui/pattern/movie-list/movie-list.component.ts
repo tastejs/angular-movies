@@ -14,7 +14,7 @@ import { addImageTag } from '../../../shared/utils/image/image-tag.transform';
 import { RxActionFactory } from '@rx-angular/state/actions';
 import { coerceObservable } from '../../../shared/utils/coerceObservable';
 import { RxInputType } from '../../../shared/rxa-custom/input-type.typing';
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { StarRatingComponent } from '../star-rating/star-rating.component';
 import { ForModule } from '@rx-angular/template/for';
@@ -37,6 +37,7 @@ type UiActions = { paginate: boolean };
     FastSvgModule,
     GridListComponent,
     IfModule,
+    NgOptimizedImage,
   ],
   selector: 'ui-movie-list',
   template: `
@@ -59,9 +60,7 @@ type UiActions = { paginate: boolean };
           -->
         <img
           class="aspectRatio-2-3 gradient"
-          [attr.fetchpriority]="idx <= 2 ? 'high' : ''"
-          [attr.loading]="idx === 0 ? '' : 'lazy'"
-          [src]="movie?.imgUrl || 'assets/images/no_poster_available.jpg'"
+          [ngSrc]="movie?.imgUrl || 'assets/images/no_poster_available.jpg'"
           [width]="movie.imgWidth"
           [height]="movie.imgHeight"
           alt="poster movie"

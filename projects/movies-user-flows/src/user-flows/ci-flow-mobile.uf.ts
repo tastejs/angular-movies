@@ -9,7 +9,6 @@ import { readBudgets } from '@push-based/user-flow/src/lib/commands/assert/utils
 import { MovieDetailPageUFO } from '../ufo/desktop/movie-detail-page.ufo';
 import { MovieListPageUFO } from '../ufo/desktop/movie-list-page.ufo';
 import { SidebarUFO } from '../ufo/mobile/side-bar.ufo';
-import { SidebarUFO as DesktopSidebarUFO } from '../ufo/desktop/side-bar.ufo';
 
 const flowOptions: UserFlowOptions = {
   name: 'Basic user flow to ensure basic functionality',
@@ -24,7 +23,7 @@ const interactions: UserFlowInteractionsFn = async (
 ): Promise<any> => {
   const { page, flow, collectOptions } = ctx;
   const url = `${collectOptions.url}/list/category/popular`;
-  const sidebar = new DesktopSidebarUFO(ctx);
+  const sidebar = new SidebarUFO(ctx);
   const movieListPage = new MovieListPageUFO(ctx);
   const topRatedName = 'topRated';
   const movieDetailPage = new MovieDetailPageUFO(ctx);
@@ -45,6 +44,7 @@ const interactions: UserFlowInteractionsFn = async (
   await flow.startTimespan({
     stepName: '🧭 Navigate to popular',
   });
+  await sidebar.clickSideMenuBtn();
 
   await sidebar.navigateToCategory(topRatedName);
   await movieListPage.awaitLCPContent();
@@ -58,7 +58,9 @@ const interactions: UserFlowInteractionsFn = async (
     stepName: '🧭 Navigate to detail page',
   });
 
+  console.log('navigateToDetail');
   await movieListPage.navigateToDetail();
+  console.log('awaitAllContent');
   await movieDetailPage.awaitAllContent();
   await flow.endTimespan();
   await flow.snapshot({
