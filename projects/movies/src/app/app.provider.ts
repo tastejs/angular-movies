@@ -8,6 +8,7 @@ import {
   withDisabledInitialNavigation,
   withInMemoryScrolling,
 } from '@angular/router';
+import {provideClientHydration} from '@angular/platform-browser';
 import { ROUTES } from './app.routing';
 
 export const APP_PROVIDERS = [
@@ -52,4 +53,9 @@ export const APP_PROVIDERS = [
    * Configure RxAngular to get maximum performance.
    */
   RXA_PROVIDER,
+
+  /**
+   *
+   */
+  provideClientHydration()
 ];
