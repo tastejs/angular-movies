@@ -9,9 +9,10 @@ import {
 } from './list-items-edit.adapter';
 import { ForModule } from '@rx-angular/template/for';
 import { FastSvgModule } from '@push-based/ngx-fast-svg';
+import { NgOptimizedImage } from '@angular/common';
 @Component({
   standalone: true,
-  imports: [ForModule, LetModule, FastSvgModule],
+  imports: [NgOptimizedImage, ForModule, LetModule, FastSvgModule],
   selector: 'ct-list-items-edit',
   templateUrl: './list-items-edit.component.html',
   styleUrls: ['./list-items-edit.component.scss'],

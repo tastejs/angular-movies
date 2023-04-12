@@ -4,7 +4,7 @@
       <div detailGridMedia>
         <img
           class="aspectRatio-2-3 fit-cover"
-          [src]="
+          [ngSrc]="
             person?.profile_path
               ? 'https://image.tmdb.org/t/p/w' +
                 person.imgWidth +
@@ -15,7 +15,6 @@
           [width]="person.imgWidth"
           [height]="person.imgHeight"
           alt="poster movie"
-          fetchpriority="high"
           [title]="person?.name"
           data-uf="hero-img"
         />
