@@ -1,11 +1,10 @@
 import { LetModule } from '@rx-angular/template/let';
 import { Component, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
 import { ListCreatePageAdapter } from './list-create-page.adapter';
-import { CommonModule } from '@angular/common';
 
 @Component({
   standalone: true,
-  imports: [LetModule, CommonModule],
+  imports: [LetModule],
   template: `
     <article>
       <header *rxIf="adapter.showHeader$">

@@ -36,6 +36,7 @@ import {
 } from './model/index';
 
 @Directive({
+  // eslint-disable-next-line @angular-eslint/directive-selector
   selector: '[rxIf]',
 })
 // eslint-disable-next-line @angular-eslint/directive-class-suffix

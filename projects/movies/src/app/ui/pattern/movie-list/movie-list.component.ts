@@ -14,7 +14,6 @@ import { addImageTag } from '../../../shared/utils/image/image-tag.transform';
 import { RxActionFactory } from '@rx-angular/state/actions';
 import { coerceObservable } from '../../../shared/utils/coerceObservable';
 import { RxInputType } from '../../../shared/rxa-custom/input-type.typing';
-import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { StarRatingComponent } from '../star-rating/star-rating.component';
 import { ForModule } from '@rx-angular/template/for';
@@ -22,7 +21,7 @@ import { ElementVisibilityDirective } from '../../../shared/cdk/element-visibili
 import { FastSvgModule } from '@push-based/ngx-fast-svg';
 import { GridListComponent } from '../../component/grid-list/grid-list.component';
 import { IfModule } from '../../../shared/rxa-custom/if/src';
-import { NgOptimizedImage } from '@angular/common';
+import {NgFor, NgOptimizedImage} from '@angular/common';
 
 type Movie = TMDBMovieModel & ImageTag;
 type UiActions = { paginate: boolean };
@@ -30,7 +29,7 @@ type UiActions = { paginate: boolean };
 @Component({
   standalone: true,
   imports: [
-    CommonModule,
+    NgFor,
     RouterModule,
     StarRatingComponent,
     ForModule,

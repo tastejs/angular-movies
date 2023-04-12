@@ -1,4 +1,4 @@
-import { CommonModule, Location, NgOptimizedImage } from '@angular/common';
+import {Location, NgClass, NgIf, NgOptimizedImage} from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -16,7 +16,7 @@ import { FastSvgModule } from '@push-based/ngx-fast-svg';
 @Component({
   standalone: true,
   imports: [
-    CommonModule,
+    NgIf, NgClass,
     NgOptimizedImage,
     DetailGridComponent,
     StarRatingComponent,

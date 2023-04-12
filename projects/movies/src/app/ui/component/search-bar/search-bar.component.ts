@@ -1,5 +1,5 @@
 import { RxState } from '@rx-angular/state';
-import { CommonModule, DOCUMENT } from '@angular/common';
+import { DOCUMENT } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -36,7 +36,7 @@ type UiActions = {
 
 @Component({
   standalone: true,
-  imports: [CommonModule, LetModule, FastSvgModule],
+  imports: [LetModule, FastSvgModule],
   selector: 'ui-search-bar',
   template: `
     <form

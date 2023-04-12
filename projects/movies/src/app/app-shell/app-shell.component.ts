@@ -1,5 +1,5 @@
 import { RxState } from '@rx-angular/state';
-import { CommonModule, DOCUMENT } from '@angular/common';
+import { DOCUMENT } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -39,7 +39,6 @@ type Actions = {
 @Component({
   standalone: true,
   imports: [
-    CommonModule,
     RouterModule,
     LetModule,
     ForModule,
