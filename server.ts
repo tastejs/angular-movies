@@ -25,6 +25,8 @@ export function app(): express.Express {
   // Serve gzip for faster load
   server.use(compressionModule());
 
+  server.use(serverTiming());
+
   // Our Universal express-engine (found @ https://github.com/angular/universal/tree/master/modules/express-engine)
   server.engine(
     'html',
