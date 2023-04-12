@@ -14,15 +14,14 @@ import { addImageTag } from '../../../shared/utils/image/image-tag.transform';
 import { RxActionFactory } from '@rx-angular/state/actions';
 import { coerceObservable } from '../../../shared/utils/coerceObservable';
 import { RxInputType } from '../../../shared/rxa-custom/input-type.typing';
-import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { StarRatingComponent } from '../star-rating/star-rating.component';
 import { ForModule } from '@rx-angular/template/for';
 import { ElementVisibilityDirective } from '../../../shared/cdk/element-visibility/element-visibility.directive';
 import { FastSvgModule } from '@push-based/ngx-fast-svg';
 import { GridListComponent } from '../../component/grid-list/grid-list.component';
-import { IfModule } from '../../../shared/rxa-custom/if/src';
-import { NgOptimizedImage } from '@angular/common';
+import { IfModule } from '@rx-angular/template/if';
+import {NgFor, NgOptimizedImage} from '@angular/common';
 
 type Movie = TMDBMovieModel & ImageTag;
 type UiActions = { paginate: boolean };
@@ -30,7 +29,7 @@ type UiActions = { paginate: boolean };
 @Component({
   standalone: true,
   imports: [
-    CommonModule,
+    NgFor,
     RouterModule,
     StarRatingComponent,
     ForModule,
@@ -61,6 +60,7 @@ type UiActions = { paginate: boolean };
           -->
         <img
           [ngSrc]="movie?.imgUrl || 'assets/images/no_poster_available.jpg'"
+          [attr.priority]="idx <= 3 ? 'high' : null"
           class="aspectRatio-2-3 gradient"
           [width]="movie.imgWidth"
           [height]="movie.imgHeight"

@@ -7,9 +7,9 @@ import {
 import { map, Observable } from 'rxjs';
 import { MovieListPageAdapter } from './movie-list-page.adapter';
 import { MovieListPageModel } from './movie-list-page-adapter.model';
-import { CommonModule, NgOptimizedImage } from '@angular/common';
+import { NgOptimizedImage } from '@angular/common';
 import { LetModule } from '@rx-angular/template/let';
-import { IfModule } from '../../shared/rxa-custom/if/src';
+import { IfModule } from '@rx-angular/template/if';
 import { MovieListComponent } from '../../ui/pattern/movie-list/movie-list.component';
 
 type Heading = { main: string; sub: string };
@@ -17,7 +17,6 @@ type Heading = { main: string; sub: string };
 @Component({
   standalone: true,
   imports: [
-    CommonModule,
     NgOptimizedImage,
     LetModule,
     IfModule,

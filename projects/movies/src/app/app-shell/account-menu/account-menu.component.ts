@@ -6,10 +6,11 @@ import { AuthEffects } from '../../shared/auth/auth.effects';
 import { AuthState } from '../../shared/auth/auth.state';
 import { map } from 'rxjs';
 import { RouterModule } from '@angular/router';
-import { CommonModule } from '@angular/common';
+
 import { RxEffects } from '@rx-angular/state/effects';
-import { IfModule } from '../../shared/rxa-custom/if/src';
-export const imports = [RouterModule, CommonModule, LetModule, IfModule];
+import { IfModule } from '@rx-angular/template/if';
+
+export const imports = [RouterModule, LetModule, IfModule];
 
 type Actions = {
   signOut: Event;
@@ -18,8 +19,8 @@ type Actions = {
 
 @Component({
   standalone: true,
-  imports: [RouterModule, CommonModule, LetModule, IfModule],
-  selector: 'account-menu',
+  imports: [RouterModule, LetModule, IfModule],
+  selector: 'ct-account-menu',
   templateUrl: './account-menu.component.html',
   styleUrls: ['./account-menu.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
