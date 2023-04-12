@@ -1,5 +1,5 @@
 import { select, selectSlice } from '@rx-angular/state/selections';
-import {Location, NgIf, NgOptimizedImage} from '@angular/common';
+import {Location, NgFor, NgIf, NgOptimizedImage} from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -28,7 +28,7 @@ import { RouterModule } from '@angular/router';
 @Component({
   standalone: true,
   imports: [
-    NgIf,
+    NgIf,NgFor,
     RouterModule,
     NgOptimizedImage,
     DetailGridComponent,

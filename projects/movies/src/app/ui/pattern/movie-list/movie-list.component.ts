@@ -60,6 +60,7 @@ type UiActions = { paginate: boolean };
           -->
         <img
           [ngSrc]="movie?.imgUrl || 'assets/images/no_poster_available.jpg'"
+          [attr.priority]="idx <= 3 ? 'high' : null"
           class="aspectRatio-2-3 gradient"
           [width]="movie.imgWidth"
           [height]="movie.imgHeight"
