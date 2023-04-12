@@ -22,7 +22,7 @@ import { LetModule } from '@rx-angular/template/let';
 import { BypassSrcDirective } from '../../shared/bypass-src/bypass-src.directive';
 import { ForModule } from '@rx-angular/template/for';
 import { FastSvgModule } from '@push-based/ngx-fast-svg';
-import { IfModule } from '../../shared/rxa-custom/if/src';
+import { IfModule } from '@rx-angular/template/if';
 import { RouterModule } from '@angular/router';
 
 @Component({

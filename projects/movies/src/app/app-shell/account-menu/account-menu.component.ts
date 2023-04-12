@@ -8,7 +8,7 @@ import { map } from 'rxjs';
 import { RouterModule } from '@angular/router';
 
 import { RxEffects } from '@rx-angular/state/effects';
-import { IfModule } from '../../shared/rxa-custom/if/src';
+import { IfModule } from '@rx-angular/template/if';
 
 export const imports = [RouterModule, LetModule, IfModule];
 

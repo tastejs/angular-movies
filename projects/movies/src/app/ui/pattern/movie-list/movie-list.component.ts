@@ -20,7 +20,7 @@ import { ForModule } from '@rx-angular/template/for';
 import { ElementVisibilityDirective } from '../../../shared/cdk/element-visibility/element-visibility.directive';
 import { FastSvgModule } from '@push-based/ngx-fast-svg';
 import { GridListComponent } from '../../component/grid-list/grid-list.component';
-import { IfModule } from '../../../shared/rxa-custom/if/src';
+import { IfModule } from '@rx-angular/template/if';
 import {NgFor, NgOptimizedImage} from '@angular/common';
 
 type Movie = TMDBMovieModel & ImageTag;
