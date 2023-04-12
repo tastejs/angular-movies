@@ -4,6 +4,7 @@ import { ngExpressEngine } from '@nguniversal/express-engine';
 import * as express from 'express';
 import { join } from 'path';
 import * as compressionModule from 'compression';
+import { default as serverTiming } from 'server-timing';
 
 import { AppServerModule } from './projects/movies/src/main.server';
 import { APP_BASE_HREF } from '@angular/common';
@@ -52,15 +53,23 @@ export function app(): express.Express {
   server.get('*', (req, res) => {
     // return rendered HTML including Angular generated DOM
     console.log('SSR for route', req.url);
-    res.render(indexHtml, {
-      req,
-      providers: [
-        {
-          provide: APP_BASE_HREF,
-          useValue: req.baseUrl,
-        },
-      ],
-    });
+    res.startTime('SSR', 'Total SSR Time');
+    res.render(
+      indexHtml,
+      {
+        req,
+        providers: [
+          {
+            provide: APP_BASE_HREF,
+            useValue: req.baseUrl,
+          },
+        ],
+      },
+      (_, html) => {
+        res.endTime('SSR');
+        res.send(html);
+      }
+    );
   });
 
   return server;
