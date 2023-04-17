@@ -129,5 +129,22 @@
     "typescript": "5.0.4",
     "webpack-bundle-analyzer": "^3.3.2",
     "yargs": "^17.3.1"
+  },
+  "overrides": {
+    "@push-based/ngx-fast-svg": {
+      "@angular/core": "^16.0.0-next.7"
+    },
+    "@rx-angular/cdk": {
+      "@angular/core": "^16.0.0-next.7"
+    },
+    "@rx-angular/state": {
+      "@angular/core": "^16.0.0-next.7"
+    },
+    "@rx-angular/template": {
+      "@angular/core": "^16.0.0-next.7"
+    },
+    "@push-based/user-flow": {
+      "rxjs": "^7.5.0"
+    }
   }
 }
