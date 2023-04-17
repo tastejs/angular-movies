@@ -81,13 +81,7 @@
     "zone.js": "~0.13.0"
   },
   "devDependencies": {
-    "@angular-builders/custom-webpack": "^15.0.0",
     "@angular-devkit/build-angular": "^16.0.0-next.7",
-    "@angular-eslint/builder": "^15.2.1",
-    "@angular-eslint/eslint-plugin": "^15.2.1",
-    "@angular-eslint/eslint-plugin-template": "^15.2.1",
-    "@angular-eslint/schematics": "^15.2.1",
-    "@angular-eslint/template-parser": "^15.2.1",
     "@angular/cli": "^16.0.0-next.7",
     "@angular/compiler-cli": "^16.0.0-next.7",
     "@angular/language-service": "^16.0.0-next.7",
@@ -135,5 +129,22 @@
     "typescript": "5.0.4",
     "webpack-bundle-analyzer": "^3.3.2",
     "yargs": "^17.3.1"
+  },
+  "overrides": {
+    "@push-based/ngx-fast-svg": {
+      "@angular/core": "^16.0.0-next.7"
+    },
+    "@rx-angular/cdk": {
+      "@angular/core": "^16.0.0-next.7"
+    },
+    "@rx-angular/state": {
+      "@angular/core": "^16.0.0-next.7"
+    },
+    "@rx-angular/template": {
+      "@angular/core": "^16.0.0-next.7"
+    },
+    "@push-based/user-flow": {
+      "rxjs": "^7.5.0"
+    }
   }
 }
