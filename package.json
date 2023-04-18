@@ -54,19 +54,19 @@
   "main": "dist/movies/server/index.js",
   "private": true,
   "dependencies": {
-    "@angular/animations": "^16.0.0-next.7",
-    "@angular/cdk": "^16.0.0-next.5",
-    "@angular/common": "^16.0.0-next.7",
-    "@angular/compiler": "^16.0.0-next.7",
-    "@angular/core": "^16.0.0-next.7",
-    "@angular/forms": "^16.0.0-next.7",
-    "@angular/platform-browser": "^16.0.0-next.7",
-    "@angular/platform-browser-dynamic": "^16.0.0-next.7",
-    "@angular/platform-server": "^16.0.0-next.7",
+    "@angular/animations": "^16.0.0-rc.1",
+    "@angular/cdk": "^16.0.0-rc.0",
+    "@angular/common": "^16.0.0-rc.1",
+    "@angular/compiler": "^16.0.0-rc.1",
+    "@angular/core": "^16.0.0-rc.1",
+    "@angular/forms": "^16.0.0-rc.1",
+    "@angular/platform-browser": "^16.0.0-rc.1",
+    "@angular/platform-browser-dynamic": "^16.0.0-rc.1",
+    "@angular/platform-server": "^16.0.0-rc.1",
     "@angular/router": "^16.0.0-next.7",
-    "@angular/service-worker": "^16.0.0-next.7",
-    "@nguniversal/common": "^16.0.0-next.0",
-    "@nguniversal/express-engine": "^16.0.0-next.0",
+    "@angular/service-worker": "^16.0.0-rc.1",
+    "@nguniversal/common": "^16.0.0-rc.0",
+    "@nguniversal/express-engine": "^16.0.0-rc.0",
     "@push-based/ngx-fast-svg": "^0.2.4",
     "@rx-angular/cdk": "^15.0.0",
     "@rx-angular/state": "^15.0.0",
@@ -82,15 +82,15 @@
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^16.0.0-rc.0",
-    "@angular/cli": "^16.0.0-next.7",
-    "@angular/compiler-cli": "^16.0.0-next.7",
-    "@angular/language-service": "^16.0.0-next.7",
+    "@angular/cli": "^16.0.0-rc.0",
+    "@angular/compiler-cli": "^16.0.0-rc.1",
+    "@angular/language-service": "^16.0.0-rc.1",
     "@commitlint/cli": "^12.1.4",
     "@commitlint/config-conventional": "^12.1.4",
     "@commitlint/cz-commitlint": "^12.1.4",
     "@lhci/cli": "^0.8.0",
     "@lhci/server": "^0.8.0",
-    "@nguniversal/builders": "^16.0.0-next.0",
+    "@nguniversal/builders": "^16.0.0-rc.0",
     "@push-based/user-flow": "^0.19.0",
     "@rx-angular/import-graph-visualizer": "^0.2.0",
     "@size-limit/file": "^7.0.5",
@@ -132,16 +132,16 @@
   },
   "overrides": {
     "@push-based/ngx-fast-svg": {
-      "@angular/core": "^16.0.0-rc.0"
+      "@angular/core": "^16.0.0-rc.1"
     },
     "@rx-angular/cdk": {
-      "@angular/core": "^16.0.0-rc.0"
+      "@angular/core": "^16.0.0-rc.1"
     },
     "@rx-angular/state": {
-      "@angular/core": "^16.0.0-rc.0"
+      "@angular/core": "^16.0.0-rc.1"
     },
     "@rx-angular/template": {
-      "@angular/core": "^16.0.0-rc.0"
+      "@angular/core": "^16.0.0-rc.1"
     },
     "@push-based/user-flow": {
       "rxjs": "^7.5.0"
