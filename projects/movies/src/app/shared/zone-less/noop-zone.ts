@@ -26,7 +26,7 @@ export class CustomNgZone {
      * This is a hack to delay the emission of isStable for a micro task
      * This helps HttpTransferCache to get its values first from the cache
      */
-    timer(3000).subscribe(() => {
+    timer(5000).subscribe(() => {
       this.hasPendingMicrotasks = false;
       this.hasPendingMacrotasks = false;
       this.onStable.next(true);
