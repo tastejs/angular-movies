@@ -132,16 +132,16 @@
   },
   "overrides": {
     "@push-based/ngx-fast-svg": {
-      "@angular/core": "^16.0.0-next.7"
+      "@angular/core": "^16.0.0-rc.1"
     },
     "@rx-angular/cdk": {
-      "@angular/core": "^16.0.0-next.7"
+      "@angular/core": "^16.0.0-rc.1"
     },
     "@rx-angular/state": {
-      "@angular/core": "^16.0.0-next.7"
+      "@angular/core": "^16.0.0-rc.1"
     },
     "@rx-angular/template": {
-      "@angular/core": "^16.0.0-next.7"
+      "@angular/core": "^16.0.0-rc.1"
     },
     "@push-based/user-flow": {
       "rxjs": "^7.5.0"
