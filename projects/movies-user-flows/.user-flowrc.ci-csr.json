@@ -1,8 +1,8 @@
 {
   "collect": {
-    "url": "http://localhost:4200",
+    "url": "http://localhost:4240",
     "ufPath": "./projects/movies-user-flows/src/user-flows",
-    "serveCommand": "npm run start",
+    "serveCommand": "npm run start -- --port 4240",
     "awaitServeStdout": "Angular Live Development"
   },
   "persist": {
