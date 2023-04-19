@@ -21,7 +21,6 @@ import { ElementVisibilityDirective } from '../../../shared/cdk/element-visibili
 import { FastSvgModule } from '@push-based/ngx-fast-svg';
 import { GridListComponent } from '../../component/grid-list/grid-list.component';
 import { IfModule } from '@rx-angular/template/if';
-import {NgFor, NgOptimizedImage} from '@angular/common';
 
 type Movie = TMDBMovieModel & ImageTag;
 type UiActions = { paginate: boolean };
@@ -29,15 +28,13 @@ type UiActions = { paginate: boolean };
 @Component({
   standalone: true,
   imports: [
-    NgFor,
     RouterModule,
     StarRatingComponent,
     ForModule,
     ElementVisibilityDirective,
     FastSvgModule,
     GridListComponent,
-    IfModule,
-    NgOptimizedImage,
+    IfModule
   ],
   selector: 'ui-movie-list',
   template: `
@@ -59,8 +56,9 @@ type UiActions = { paginate: boolean };
           This avoids bootstrap and template evaluation time and reduces scripting time in general.
           -->
         <img
-          [ngSrc]="movie?.imgUrl || 'assets/images/no_poster_available.jpg'"
-          priority="{{idx <= 3 ? 'high' : null}}"
+          [src]="movie?.imgUrl || 'assets/images/no_poster_available.jpg'"
+          [attr.fetchriority]="idx < 2 ? 'high' : null"
+          [attr.loading]="idx < 2 ? null : 'lazy'"
           class="aspectRatio-2-3 gradient"
           [width]="movie.imgWidth"
           [height]="movie.imgHeight"
