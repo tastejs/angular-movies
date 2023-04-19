@@ -100,6 +100,9 @@
 }
 
 .cast-list--btn {
+  min-height: 48px;
+  min-width: 48px;
+  padding-bottom: 4px;
   background: transparent;
   border: 0;
   z-index: 2;
@@ -110,7 +113,7 @@
 }
 
 .movie-detail--languages-runtime-release {
-  color: var(--palette-warning-main);
+  color: var(--palette-warning-dark);
   text-transform: uppercase;
 }
 
