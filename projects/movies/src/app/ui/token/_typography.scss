@@ -97,6 +97,10 @@ section {
   }
 }
 
+label {
+  font-size: var(--text-md);
+}
+
 
 @media only screen and (max-width: 900px) {
   .title {
