@@ -43,6 +43,28 @@
         "resourceType": "stylesheet",
         "budget": 5000
       }
+    ],
+    "timings": [
+      {
+        "metric": "first-contentful-paint",
+        "budget": 3000
+      },
+      {
+        "metric": "speed-index",
+        "budget": 5800
+      },
+      {
+        "metric": "largest-contentful-paint",
+        "budget": 4000
+      },
+      {
+        "metric": "cumulative-layout-shift",
+        "budget": 0.25
+      },
+      {
+        "metric": "total-blocking-time",
+        "budget": 600
+      }
     ]
   }
 ]
