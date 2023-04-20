@@ -29,11 +29,10 @@ export function getTestSets(path: string, options: {
       };
       if (test.lhBudget && test.lhBudget.length) {
         // cache by filename?
-        const budgets: Budget[] = test.lhBudget.flatMap(budget => readBudgets(budget));
         cfg.config = {
           extends: 'lighthouse:default',
           settings: {
-            budgets
+            budgets: mergeBudgets(test.lhBudget)
           }
         }
       }
@@ -41,4 +40,24 @@ export function getTestSets(path: string, options: {
       return test.urls.map(url => ({url: options.baseUrl ? options.baseUrl + url : url, cfg}));
     });
 
+}
+
+export function mergeBudgets(lhBudgetPaths: string[]): Budget[] {
+  return [
+    lhBudgetPaths
+    // map path to json ( string => Budget[] )
+    .flatMap(budgetPath => readBudgets(budgetPath))
+    .reduce((mergedBudget, budget: Budget) => {
+      // @ts-ignore
+      budget.resourceCounts && (mergedBudget.resourceCounts = [...mergedBudget.resourceCounts, ...budget.resourceCounts]);
+      budget.resourceSizes && (mergedBudget.resourceSizes = [...mergedBudget.resourceSizes, ...budget.resourceSizes]);
+      // @ts-ignore
+      budget.timings && (mergedBudget.timings = [...mergedBudget.timings, ...budget.timings]);
+      return mergedBudget;
+    }, {
+      resourceCounts: [],
+      resourceSizes: [],
+      timings: []
+    } as Budget)
+  ];
 }

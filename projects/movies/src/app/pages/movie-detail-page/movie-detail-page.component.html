@@ -173,6 +173,7 @@
     <ui-movie-list
       (paginate)="paginateRecommendations()"
       [movies]="ctx.results"
+      [withImgPriority]="0"
     >
     </ui-movie-list>
     <div *ngIf="ctx.loading" class="loader"></div>

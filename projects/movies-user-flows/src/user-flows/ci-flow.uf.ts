@@ -6,6 +6,7 @@ import {
 } from '@push-based/user-flow';
 import { readBudgets } from '@push-based/user-flow/src/lib/commands/assert/utils/budgets';
 
+import { mergeBudgets } from '../internals/test-sets';
 import { MovieDetailPageUFO } from '../ufo/desktop/movie-detail-page.ufo';
 import { MovieListPageUFO } from '../ufo/desktop/movie-list-page.ufo';
 import { SidebarUFO } from '../ufo/mobile/side-bar.ufo';
@@ -13,13 +14,6 @@ import { SidebarUFO } from '../ufo/mobile/side-bar.ufo';
 const flowOptions: UserFlowOptions = {
   name: 'Basic user flow to ensure basic functionality',
 };
-
-const listBudgets = readBudgets(
-  './projects/movies-user-flows/src/configs/list.budgets.json'
-);
-const timingBudgets = readBudgets(
-  './projects/movies-user-flows/src/configs/general-timing.budgets.json'
-);
 
 const interactions: UserFlowInteractionsFn = async (
   ctx: UserFlowContext
@@ -36,7 +30,11 @@ const interactions: UserFlowInteractionsFn = async (
     config: {
       extends: 'lighthouse:default',
       settings: {
-        budgets: timingBudgets.concat(listBudgets),
+        budgets: mergeBudgets([
+          "./projects/movies-user-flows/src/configs/angular.budgets.json",
+          "./projects/movies-user-flows/src/configs/general-timing.budgets.json",
+          "./projects/movies-user-flows/src/configs/movie-list.budgets.json"
+        ]),
       },
     },
   });
