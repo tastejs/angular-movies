@@ -29,7 +29,21 @@ export function getTestSets(path: string, options: {
       };
       if (test.lhBudget && test.lhBudget.length) {
         // cache by filename?
-        const budgets: Budget[] = test.lhBudget.flatMap(budget => readBudgets(budget));
+        const budgets: Budget[] = test.lhBudget.map(budget => {
+          const b = readBudgets(budget);
+          return b.reduce((acc, bb: Budget) => {
+            // @ts-ignore
+            bb.resourceCounts && (acc.resourceCounts = [...acc.resourceCounts, ...bb.resourceCounts]);
+            bb.resourceSizes && (acc.resourceSizes = [...acc.resourceSizes, ...bb.resourceSizes]);
+            // @ts-ignore
+            bb.timings && (acc.timings = [...acc.timings, ...bb.timings]);
+            return acc;
+          }, {
+            resourceCounts: [],
+            resourceSizes: [],
+            timings: []
+          } as Budget);
+        });
         cfg.config = {
           extends: 'lighthouse:default',
           settings: {

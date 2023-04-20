@@ -8,8 +8,9 @@
       "src/user-flows/ci-flow.uf.ts"
     ],
     "lhBudget":[
-      "./projects/movies-user-flows/src/configs/list.budgets.json",
-      "./projects/movies-user-flows/src/configs/general-timing.budgets.json"
+      "./projects/movies-user-flows/src/configs/angular.budgets.json",
+      "./projects/movies-user-flows/src/configs/general-timing.budgets.json",
+      "./projects/movies-user-flows/src/configs/movie-list.budgets.json"
     ]
   },
   {
@@ -20,8 +21,9 @@
       "/list/category/upcoming"
     ],
     "lhBudget":[
-      "./projects/movies-user-flows/src/configs/list.budgets.json",
-      "./projects/movies-user-flows/src/configs/general-timing.budgets.json"
+      "./projects/movies-user-flows/src/configs/angular.budgets.json",
+      "./projects/movies-user-flows/src/configs/general-timing.budgets.json",
+      "./projects/movies-user-flows/src/configs/movie-list.budgets.json"
     ],
     "ufs": [
       "src/user-flows/navigation.uf.ts"
@@ -33,7 +35,9 @@
       "/list/genre/28"
     ],
     "lhBudget": [
-      "./projects/movies-user-flows/src/configs/list.budgets.json"
+      "./projects/movies-user-flows/src/configs/angular.budgets.json",
+      "./projects/movies-user-flows/src/configs/general-timing.budgets.json",
+      "./projects/movies-user-flows/src/configs/movie-list.budgets.json"
     ],
     "ufs": [
       "src/user-flows/navigation.uf.ts"
@@ -45,7 +49,9 @@
       "/detail/movie/594767"
     ],
     "lhBudget":[
-      "./projects/movies-user-flows/src/configs/detail.budgets.json"
+      "./projects/movies-user-flows/src/configs/angular.budgets.json",
+      "./projects/movies-user-flows/src/configs/general-timing.budgets.json",
+      "./projects/movies-user-flows/src/configs/movie-detail.budgets.json"
     ],
     "ufs": [
       "src/user-flows/navigation.uf.ts"
@@ -57,7 +63,9 @@
       "/detail/person/1023139"
     ],
     "lhBudget":[
-      "./projects/movies-user-flows/src/configs/detail.budgets.json"
+      "./projects/movies-user-flows/src/configs/angular.budgets.json",
+      "./projects/movies-user-flows/src/configs/general-timing.budgets.json",
+      "./projects/movies-user-flows/src/configs/person-detail.budgets.json"
     ],
     "ufs": [
       "src/user-flows/navigation.uf.ts"
