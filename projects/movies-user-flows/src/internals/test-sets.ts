@@ -43,9 +43,11 @@ export function getTestSets(path: string, options: {
 }
 
 export function mergeBudgets(lhBudgetPaths: string[]): Budget[] {
-  return lhBudgetPaths.map(budgetPath => {
-    const budgets = readBudgets(budgetPath);
-    return budgets.reduce((mergedBudget, budget: Budget) => {
+  return [
+    lhBudgetPaths
+    // map path to json ( string => Budget[] )
+    .flatMap(budgetPath => readBudgets(budgetPath))
+    .reduce((mergedBudget, budget: Budget) => {
       // @ts-ignore
       budget.resourceCounts && (mergedBudget.resourceCounts = [...mergedBudget.resourceCounts, ...budget.resourceCounts]);
       budget.resourceSizes && (mergedBudget.resourceSizes = [...mergedBudget.resourceSizes, ...budget.resourceSizes]);
@@ -56,6 +58,6 @@ export function mergeBudgets(lhBudgetPaths: string[]): Budget[] {
       resourceCounts: [],
       resourceSizes: [],
       timings: []
-    } as Budget);
-  });
+    } as Budget)
+  ];
 }
