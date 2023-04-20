@@ -57,8 +57,8 @@ type UiActions = { paginate: boolean };
           -->
         <img
           [src]="movie?.imgUrl || 'assets/images/no_poster_available.jpg'"
-          [attr.fetchriority]="idx < 2 ? 'high' : null"
-          [attr.loading]="idx < 2 ? null : 'lazy'"
+          [attr.fetchriority]="idx < numPriority() ? 'high' : null"
+          [attr.loading]="idx < numPriority() ? null : 'lazy'"
           class="aspectRatio-2-3 gradient"
           [width]="movie.imgWidth"
           [height]="movie.imgHeight"
@@ -90,6 +90,19 @@ type UiActions = { paginate: boolean };
 export class MovieListComponent {
   ui = this.actions.create();
 
+  numPriority() {
+    return this.state.get('numPriority');
+  }
+
+  @Input()
+  set withImgPriority(p: number | boolean) {
+    if(p) {
+      this.state.set({numPriority: p === true ? 2 : p})
+    } else {
+      this.state.set({numPriority: 0})
+    }
+  }
+
   readonly movies$ = this.state.select(
     map((state) =>
       (state.movies || []).map((m: TMDBMovieModel) =>
@@ -114,9 +127,11 @@ export class MovieListComponent {
   );
 
   constructor(
-    private state: RxState<{ movies?: TMDBMovieModel[] | null | undefined }>,
+    private state: RxState<{ movies?: TMDBMovieModel[] | null | undefined, numPriority: number }>,
     private actions: RxActionFactory<UiActions>
-  ) {}
+  ) {
+    this.state.set({numPriority: 2})
+  }
 
   trackByMovieId(_: number, movie: Movie) {
     return movie.id;
