@@ -56,8 +56,10 @@
     <h1>{{ p?.value?.name || '...' }} in</h1>
     <h2>Movies</h2>
   </header>
+  <label for="sort">Sort</label>
   <div class="select-wrapper" *rxLet="sortingModel$; let sorting">
     <input
+      id="sort"
       type="text"
       readonly
       class="select"
