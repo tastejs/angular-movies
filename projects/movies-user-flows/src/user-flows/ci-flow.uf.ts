@@ -17,13 +17,16 @@ const flowOptions: UserFlowOptions = {
 const listBudgets = readBudgets(
   './projects/movies-user-flows/src/configs/list.budgets.json'
 );
+const timingBudgets = readBudgets(
+  './projects/movies-user-flows/src/configs/general-timing.budgets.json'
+);
 
 const interactions: UserFlowInteractionsFn = async (
   ctx: UserFlowContext
 ): Promise<any> => {
   const { page, flow, collectOptions } = ctx;
-  const url = `${collectOptions.url}/list/category/popular`;
-  const sidebar = new SidebarUFO(ctx);
+ const url = `${collectOptions.url}/list/category/popular`;
+ const sidebar = new SidebarUFO(ctx);
   const movieListPage = new MovieListPageUFO(ctx);
   const topRatedName = 'topRated';
   const movieDetailPage = new MovieDetailPageUFO(ctx);
@@ -33,7 +36,7 @@ const interactions: UserFlowInteractionsFn = async (
     config: {
       extends: 'lighthouse:default',
       settings: {
-        budgets: listBudgets,
+        budgets: timingBudgets.concat(listBudgets),
       },
     },
   });
