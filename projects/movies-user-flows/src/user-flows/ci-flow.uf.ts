@@ -5,11 +5,11 @@ import {
   UserFlowContext,
 } from '@push-based/user-flow';
 import { readBudgets } from '@push-based/user-flow/src/lib/commands/assert/utils/budgets';
-/*
+
 import { MovieDetailPageUFO } from '../ufo/desktop/movie-detail-page.ufo';
 import { MovieListPageUFO } from '../ufo/desktop/movie-list-page.ufo';
 import { SidebarUFO } from '../ufo/mobile/side-bar.ufo';
-*/
+
 const flowOptions: UserFlowOptions = {
   name: 'Basic user flow to ensure basic functionality',
 };
@@ -26,11 +26,11 @@ const interactions: UserFlowInteractionsFn = async (
 ): Promise<any> => {
   const { page, flow, collectOptions } = ctx;
  const url = `${collectOptions.url}/list/category/popular`;
-  /* const sidebar = new SidebarUFO(ctx);
+ const sidebar = new SidebarUFO(ctx);
   const movieListPage = new MovieListPageUFO(ctx);
   const topRatedName = 'topRated';
   const movieDetailPage = new MovieDetailPageUFO(ctx);
-*/
+
   await flow.navigate(url, {
     stepName: '🧭 Initial navigation',
     config: {
@@ -39,7 +39,7 @@ const interactions: UserFlowInteractionsFn = async (
         budgets: timingBudgets.concat(listBudgets),
       },
     },
-  });/*
+  });
   await flow.snapshot({
     stepName: '✔ Initial navigation done',
   });
@@ -62,7 +62,7 @@ const interactions: UserFlowInteractionsFn = async (
   await flow.endTimespan();
   await flow.snapshot({
     stepName: '✔ Navigation to detail done',
-  });*/
+  });
 
   return Promise.resolve();
 };
