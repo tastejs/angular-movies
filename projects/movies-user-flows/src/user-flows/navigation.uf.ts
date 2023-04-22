@@ -27,6 +27,7 @@ const interactions: UserFlowInteractionsFn = async (
     match: 'navigation'
   })
   for await (const test of navigations) {
+    test.cfg.config.name = '🧭 ' + test.cfg.config.name;
     await flow.navigate(test.url, test.cfg);
   }
 
