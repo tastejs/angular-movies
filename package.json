@@ -64,7 +64,7 @@
     "@push-based/ngx-fast-svg": "^0.2.4",
     "@rx-angular/cdk": "^15.0.0",
     "@rx-angular/state": "^15.0.0",
-    "@rx-angular/template": "^15.0.1",
+    "@rx-angular/template": "^15.2.0",
     "core-js": "^2.6.9",
     "express": "^4.15.2",
     "firebase-admin": "^9.11.0",
