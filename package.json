@@ -52,9 +52,8 @@
   "private": true,
   "dependencies": {
     "@angular/animations": "^16.0.0-rc.1",
-    "@angular/cdk": "^16.0.0-rc.0",
+    "@angular/cdk": "^16.0.0-rc.1",
     "@angular/common": "^16.0.0-rc.1",
-    "@angular/compiler": "^16.0.0-rc.1",
     "@angular/core": "^16.0.0-rc.1",
     "@angular/forms": "^16.0.0-rc.1",
     "@angular/platform-browser": "^16.0.0-rc.1",
@@ -62,12 +61,10 @@
     "@angular/platform-server": "^16.0.0-rc.1",
     "@angular/router": "^16.0.0-rc.1",
     "@angular/service-worker": "^16.0.0-rc.1",
-    "@nguniversal/common": "^16.0.0-rc.0",
-    "@nguniversal/express-engine": "^16.0.0-rc.0",
     "@push-based/ngx-fast-svg": "^0.2.4",
     "@rx-angular/cdk": "^15.0.0",
     "@rx-angular/state": "^15.0.0",
-    "@rx-angular/template": "^15.0.1",
+    "@rx-angular/template": "^15.2.0",
     "core-js": "^2.6.9",
     "express": "^4.15.2",
     "firebase-admin": "^9.11.0",
@@ -78,16 +75,24 @@
     "zone.js": "~0.13.0"
   },
   "devDependencies": {
+    "@angular/compiler": "^16.0.0-rc.1",
     "@angular-devkit/build-angular": "^16.0.0-rc.0",
-    "@angular/cli": "^16.0.0-rc.0",
+    "@angular/cli": "^16.0.0-rc.1",
     "@angular/compiler-cli": "^16.0.0-rc.1",
     "@angular/language-service": "^16.0.0-rc.1",
+    "@angular-eslint/builder": "^15.2.1",
+    "@angular-eslint/eslint-plugin": "^15.2.1",
+    "@angular-eslint/eslint-plugin-template": "^15.2.1",
+    "@angular-eslint/schematics": "^15.2.1",
+    "@angular-eslint/template-parser": "^15.2.1",
     "@commitlint/cli": "^12.1.4",
     "@commitlint/config-conventional": "^12.1.4",
     "@commitlint/cz-commitlint": "^12.1.4",
     "@lhci/cli": "^0.8.0",
     "@lhci/server": "^0.8.0",
-    "@nguniversal/builders": "^16.0.0-rc.0",
+    "@nguniversal/common": "^16.0.0-rc.1",
+    "@nguniversal/express-engine": "^16.0.0-rc.1",
+    "@nguniversal/builders": "^16.0.0-rc.1",
     "@push-based/user-flow": "^0.19.2",
     "@rx-angular/import-graph-visualizer": "^0.2.0",
     "@size-limit/file": "^7.0.5",
@@ -142,6 +147,9 @@
     },
     "@push-based/user-flow": {
       "rxjs": "^7.5.0"
+    },
+    "@angular-eslint/schematics": {
+      "@angular/cli": "^16.0.0-rc.1"
     }
   }
 }

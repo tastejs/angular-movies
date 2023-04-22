@@ -25,7 +25,7 @@ export function getTestSets(path: string, options: {
     .filter(test => test.ufs.find(u => u.includes(options.match)))
     .flatMap((test: Test) => {
       const cfg: any = {
-        stepName: '🧭 Bootstrap ' + test.name,
+        stepName: test.name,
       };
       if (test.lhBudget && test.lhBudget.length) {
         // cache by filename?

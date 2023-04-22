@@ -1,10 +1,11 @@
 import { DOCUMENT } from '@angular/common';
 import {
   ChangeDetectionStrategy,
-  Component,// effect,
-  Inject, signal,
+  Component,
+  Inject,
   ViewEncapsulation,
 } from '@angular/core';
+import { RxState } from '@rx-angular/state';
 import { LetModule } from '@rx-angular/template/let';
 
 @Component({
@@ -23,12 +24,12 @@ import { LetModule } from '@rx-angular/template/let';
       </button>
 
       <span class="toggle">
-        <input
+        <input *rxLet="isLightTheme$; let isLightTheme"
           class="toggle-track"
           type="checkbox"
           id="dark-mode"
-          [checked]="isLightTheme()"
-          (change)="setChecked(!isLightTheme())"
+          [checked]="isLightTheme"
+          (change)="setChecked(!isLightTheme)"
         />
         <label style="color: transparent" for="dark-mode">
           Toggle Switch
@@ -49,11 +50,13 @@ import { LetModule } from '@rx-angular/template/let';
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.Emulated,
 })
-export class DarkModeToggleComponent {
-  isLightTheme = signal(true);
+export class DarkModeToggleComponent extends RxState<{isLightTheme: boolean}> {
+  isLightTheme$ = this.select('isLightTheme');
 
   constructor(@Inject(DOCUMENT) private document: Document) {
-
+    super()
+    this.set({isLightTheme: true})
+    this.hold(this.isLightTheme$, this.toggleTheme);
   }
 
   toggleTheme = (isLightTheme: boolean): void => {
@@ -67,6 +70,6 @@ export class DarkModeToggleComponent {
   };
 
   setChecked(isLightTheme: boolean): void {
-    this.isLightTheme.set(isLightTheme);
+    this.set({isLightTheme});
   }
 }
