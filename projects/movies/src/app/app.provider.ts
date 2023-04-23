@@ -10,7 +10,7 @@ import {
 } from '@angular/router';
 import {provideClientHydration} from '@angular/platform-browser';
 import { ROUTES } from './app.routing';
-import {provideMovieDbImageLoader} from "./data-access/api/images/image-loader";
+import {provideMovieDbImageLoader} from "./configuration/image-loader";
 
 export const APP_PROVIDERS = [
   provideRouter(

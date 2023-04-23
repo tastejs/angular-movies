@@ -1,7 +1,6 @@
 import {IMAGE_LOADER, ImageLoaderConfig} from '@angular/common';
-import {W154H205} from '../constants/image-sizes';
-import {POSTER_FALLBACK} from "../../../shared/cdk/image/constants";
-
+import {W154H205} from '../data-access/api/constants/image-sizes';
+import {POSTER_FALLBACK} from "../shared/cdk/image/constants";
 
 const baseUrl = `https://image.tmdb.org/t/p/w`;
 
