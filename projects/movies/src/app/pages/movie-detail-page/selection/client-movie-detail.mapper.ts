@@ -1,13 +1,13 @@
 import { TMDBMovieModel } from '../../../data-access/api/model/movie.model';
-import { addVideoTag } from '../../../shared/utils/video/video-tag.transform';
-import { addImageTag } from '../../../shared/utils/image/image-tag.transform';
+import { addVideoTag } from '../../../shared/cdk/video/video-tag.transform';
+import { addImageTag } from '../../../shared/cdk/image/image-tag.transform';
 import {
   SIZES, W154H205,
   W300H450,
   W92H138,
 } from '../../../data-access/api/constants/image-sizes';
 import { MovieDetail } from './movie-detail.model';
-import { addLinkTag } from '../../../shared/utils/link/a-tag.transform';
+import { addLinkTag } from '../../../shared/cdk/link/a-tag.transform';
 import { TMDBMovieCastModel } from '../../../data-access/api/model/movie-credits.model';
 import { MovieCast } from './movie-cast.model';
 import {BREAKPOINTS} from "../../../shared/utils/breakpoints";

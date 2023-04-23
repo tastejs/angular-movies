@@ -9,9 +9,9 @@ import {
 } from '@angular/core';
 import {filter, map, Observable} from 'rxjs';
 import {TMDBMovieModel} from '../../../data-access/api/model/movie.model';
-import {addImageTag} from '../../../shared/utils/image/image-tag.transform';
+import {addImageTag} from '../../../shared/cdk/image/image-tag.transform';
 import {RxActionFactory} from '@rx-angular/state/actions';
-import {coerceObservable} from '../../../shared/utils/coerceObservable';
+import {coerceObservable} from '../../../shared/cdk/coerceObservable';
 import {RxInputType} from '../../../shared/rxa-custom/input-type.typing';
 import {RouterModule} from '@angular/router';
 import {StarRatingComponent} from '../star-rating/star-rating.component';

@@ -9,8 +9,8 @@ import { RxActionFactory } from '@rx-angular/state/actions';
 import { ListState } from '../../../shared/state/list.state';
 
 import { RouterState } from '../../../shared/router/router.state';
-import { ImageTag } from '../../../shared/utils/image/image-tag.interface';
-import { addImageTag } from '../../../shared/utils/image/image-tag.transform';
+import { ImageTag } from '../../../shared/cdk/image/image-tag.interface';
+import { addImageTag } from '../../../shared/cdk/image/image-tag.transform';
 
 type Actions = {
   listInfoUpdate: TMDBListCreateUpdateParams;

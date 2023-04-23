@@ -28,7 +28,7 @@ import { SearchResource } from '../../data-access/api/resources/search.resource'
 import { GenreResource } from '../../data-access/api/resources/genre.resource';
 import {BREAKPOINTS} from "../../shared/utils/breakpoints";
 import {SIZES, W154H205} from "../../data-access/api/constants/image-sizes";
-import {addImageTag} from "../../shared/utils/image/image-tag.transform";
+import {addImageTag} from "../../shared/cdk/image/image-tag.transform";
 
 const emptyResult$ = EMPTY as unknown as Observable<
   TMDBPaginateResult<TMDBMovieModel>

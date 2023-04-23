@@ -2,7 +2,7 @@ import {RxState} from '@rx-angular/state';
 import {patch, toDictionary} from '@rx-angular/cdk/transformations';
 import {Injectable} from '@angular/core';
 import {filter, map} from 'rxjs';
-import {optimizedFetch} from '../utils/optimized-fetch';
+import {optimizedFetch} from '../cdk/optimized-fetch';
 import {AppInitializer} from '../rxa-custom/app-initializer';
 import {RxActionFactory} from '@rx-angular/state/actions';
 import {withLoadingEmission} from '../cdk/loading/withLoadingEmissions';
@@ -14,7 +14,7 @@ import {
 import {WithContext} from '../cdk/context/context.interface';
 import {pluck} from '../rxa-custom/get';
 import {TMDBMovieModel} from "../../data-access/api/model/movie.model";
-import {ImageTag} from "../utils/image/image-tag.interface";
+import {ImageTag} from "../cdk/image/image-tag.interface";
 //import {TMDBMovieModel} from "../../data-access/api/model/movie.model";
 
 export type Movie = TMDBMovieModel & ImageTag;

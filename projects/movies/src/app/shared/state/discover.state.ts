@@ -2,7 +2,7 @@ import { RxState } from '@rx-angular/state';
 import { patch } from '@rx-angular/cdk/transformations';
 import { Injectable } from '@angular/core';
 import { map } from 'rxjs';
-import { optimizedFetch } from '../utils/optimized-fetch';
+import { optimizedFetch } from '../cdk/optimized-fetch';
 import { RxActionFactory } from '@rx-angular/state/actions';
 import { withLoadingEmission } from '../cdk/loading/withLoadingEmissions';
 import {
