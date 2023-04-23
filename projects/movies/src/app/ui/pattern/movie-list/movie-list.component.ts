@@ -1,4 +1,7 @@
-import { RxState } from '@rx-angular/state';
+import {NgOptimizedImage} from '@angular/common';
+import {RxState} from '@rx-angular/state';
+//import {BREAKPOINTS} from "../../../data-access/api/constants/breakpoints";
+//import {SIZES, W154H205} from '../../../data-access/api/constants/image-sizes';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -8,7 +11,6 @@ import {
 } from '@angular/core';
 import { filter, map, Observable } from 'rxjs';
 import { TMDBMovieModel } from '../../../data-access/api/model/movie.model';
-import { W300H450 } from '../../../data-access/api/constants/image-sizes';
 import { ImageTag } from '../../../shared/utils/image/image-tag.interface';
 import { addImageTag } from '../../../shared/utils/image/image-tag.transform';
 import { RxActionFactory } from '@rx-angular/state/actions';
@@ -21,6 +23,7 @@ import { ElementVisibilityDirective } from '../../../shared/cdk/element-visibili
 import { FastSvgModule } from '@push-based/ngx-fast-svg';
 import { GridListComponent } from '../../component/grid-list/grid-list.component';
 import { IfModule } from '@rx-angular/template/if';
+import {W300H450} from "../../../data-access/api/constants/image-sizes";
 
 type Movie = TMDBMovieModel & ImageTag;
 type UiActions = { paginate: boolean };
@@ -34,7 +37,8 @@ type UiActions = { paginate: boolean };
     ElementVisibilityDirective,
     FastSvgModule,
     GridListComponent,
-    IfModule
+    IfModule,
+    NgOptimizedImage
   ],
   selector: 'ui-movie-list',
   template: `
@@ -56,9 +60,8 @@ type UiActions = { paginate: boolean };
           This avoids bootstrap and template evaluation time and reduces scripting time in general.
           -->
         <img
-          [src]="movie?.imgUrl || 'assets/images/no_poster_available.jpg'"
-          [attr.fetchriority]="idx < numPriority() ? 'high' : null"
-          [attr.loading]="idx < numPriority() ? null : 'lazy'"
+          [ngSrc]="movie?.imgUrl || 'assets/images/no_poster_available.jpg'"
+          [priority]="idx < numPriority()"
           class="aspectRatio-2-3 gradient"
           [width]="movie.imgWidth"
           [height]="movie.imgHeight"
