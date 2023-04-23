@@ -2,12 +2,12 @@ import { RxState } from '@rx-angular/state';
 import { Injectable } from '@angular/core';
 import { map, Observable, switchMap } from 'rxjs';
 import { RouterState } from '../../shared/router/router.state';
-import { MovieState } from '../../shared/state/movie.state';
+import { MovieState} from '../../shared/state/movie.state';
 import { getIdentifierOfTypeAndLayoutUtil } from '../../shared/router/get-identifier-of-type-and-layout.util';
 import { MovieResource } from '../../data-access/api/resources/movie.resource';
 import {
   transformToMovieDetail,
-  transformToCastList,
+  transformToCastList, transformToMovieModel,
 } from './selection/client-movie-detail.mapper';
 import { RxActionFactory } from '@rx-angular/state/actions';
 import { infiniteScroll } from '../../shared/cdk/infinite-scroll/infiniteScroll';
@@ -15,8 +15,9 @@ import { MovieDetail } from './selection/movie-detail.model';
 import { WithContext } from '../../shared/cdk/context/context.interface';
 import { withLoadingEmission } from '../../shared/cdk/loading/withLoadingEmissions';
 import { MovieCast } from './selection/movie-cast.model';
-
 type Actions = { paginateRecommendations: void };
+
+
 @Injectable({
   providedIn: 'root',
 })
@@ -54,7 +55,8 @@ export class MovieDetailAdapter extends RxState<any> {
         this.actions.paginateRecommendations$,
         this.movieResource.getMoviesRecommendations(id, { page: 1 })
       )
-    )
+    ),
+    map((v) => ({...v, results: v?.results?.map(transformToMovieModel)}))
   );
 
   constructor(

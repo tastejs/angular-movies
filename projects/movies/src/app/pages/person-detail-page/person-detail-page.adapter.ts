@@ -6,7 +6,7 @@ import { infiniteScroll } from '../../shared/cdk/infinite-scroll/infiniteScroll'
 import { RxActionFactory } from '@rx-angular/state/actions';
 import { RouterState } from '../../shared/router/router.state';
 import { combineLatestWith, map, switchMap, withLatestFrom } from 'rxjs';
-import { W780H1170 } from '../../data-access/api/constants/image-sizes';
+import {SIZES, W300H450} from '../../data-access/api/constants/image-sizes';
 import { ImageTag } from '../../shared/utils/image/image-tag.interface';
 import { addImageTag } from '../../shared/utils/image/image-tag.transform';
 import { getIdentifierOfTypeAndLayoutUtil } from '../../shared/router/get-identifier-of-type-and-layout.util';
@@ -15,6 +15,8 @@ import { PersonState } from '../../shared/state/person.state';
 import { WithContext } from '../../shared/cdk/context/context.interface';
 import { MoviesSortValue } from '../../data-access/api/sort/sort.data';
 import { DiscoverResource } from '../../data-access/api/resources/discover.resource';
+import {BREAKPOINTS} from "../../shared/utils/breakpoints";
+import {Movie} from "../../shared/state/movie.state";
 
 export type MoviePerson = TMDBPersonModel & ImageTag;
 export type Actions = {
@@ -31,8 +33,64 @@ export interface PersonDetailPageAdapterState {
   activeSorting: string;
 }
 
+
+/**
+ * Person Detail Page - Hero img
+ *
+ * Screen: xs
+ * <img>
+ *  __
+ * <p>
+ *
+ * Screen: s
+ * <img>
+ * __
+ * <p>
+ *
+ * Screen: m
+ * <img> | <p>
+ *
+ * Screen: l
+ * <img> | <p>
+ *
+ * Screen: xl
+ * <img> | <p>
+ *
+ */
+
+export const PERSON_DETAIL_HERO_IMG_SIZE = `${BREAKPOINTS.xSmall} ${SIZES["342w"]}, ${BREAKPOINTS.small} ${SIZES["342w"]}, ${BREAKPOINTS.mobile} ${SIZES["185w"]}, ${BREAKPOINTS.isLargeDesktop} ${SIZES["500w"]}`;
+/**
+ * Pattern: Movie List - List Img
+ *
+ * Screen: xs
+ * <img>
+ *  __
+ * <p>
+ *
+ * Screen: s
+ * <img>
+ * __
+ * <p>
+ *
+ * Screen: m
+ * <img> | <p>
+ *
+ * Screen: l
+ * <img> | <p>
+ *
+ * Screen: xl
+ * <img> | <p>
+ *
+ */
+export const PERSON_DETAIL_RECOMMENDATION_LIST_IMG_SIZE = `${BREAKPOINTS.xSmall} ${SIZES["154w"]}, ${BREAKPOINTS.small} ${SIZES["185w"]}, ${BREAKPOINTS.mobile} ${SIZES["342w"]}, ${BREAKPOINTS.isLargeDesktop} ${SIZES["342w"]}`;
+
+
 function transformToPersonDetail(_res: TMDBPersonModel): MoviePerson {
-  return addImageTag(_res, { pathProp: 'profile_path', dims: W780H1170 });
+  return addImageTag(_res, { pathProp: 'profile_path', dims: W300H450, sizes: PERSON_DETAIL_HERO_IMG_SIZE });
+}
+
+function transformToMovieModel(_res: TMDBMovieModel): Movie {
+  return addImageTag(_res as Movie, { pathProp: 'poster_path', dims: W300H450, sizes: PERSON_DETAIL_RECOMMENDATION_LIST_IMG_SIZE });
 }
 
 @Injectable({
@@ -51,7 +109,7 @@ export class PersonDetailAdapter extends RxState<PersonDetailPageAdapterState> {
   );
   readonly routedPersonCtx$ = this.routerPersonId$.pipe(
     switchMap(this.personState.personByIdCtx),
-    map((ctx) => {
+    map((ctx: WithContext<TMDBPersonModel>): WithContext<MoviePerson> => {
       ctx.value && ((ctx as any).value = transformToPersonDetail(ctx.value));
       return ctx as unknown as WithContext<MoviePerson>;
     })
@@ -70,7 +128,8 @@ export class PersonDetailAdapter extends RxState<PersonDetailPageAdapterState> {
         this.actions.paginate$,
         this.discoverResource.getDiscoverMovies({ with_cast, page: 1, sort_by })
       );
-    })
+    }),
+    map((v) => ({...v, results:  v.results?.map(transformToMovieModel)}))
   );
 
   readonly sortingEvent$ = this.actions.sortBy$.pipe(

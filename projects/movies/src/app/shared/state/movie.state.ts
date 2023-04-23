@@ -1,18 +1,23 @@
-import { RxState } from '@rx-angular/state';
-import { patch, toDictionary } from '@rx-angular/cdk/transformations';
-import { Injectable } from '@angular/core';
-import { filter, map } from 'rxjs';
-import { optimizedFetch } from '../utils/optimized-fetch';
-import { AppInitializer } from '../rxa-custom/app-initializer';
-import { RxActionFactory } from '@rx-angular/state/actions';
-import { withLoadingEmission } from '../cdk/loading/withLoadingEmissions';
+import {RxState} from '@rx-angular/state';
+import {patch, toDictionary} from '@rx-angular/cdk/transformations';
+import {Injectable} from '@angular/core';
+import {filter, map} from 'rxjs';
+import {optimizedFetch} from '../utils/optimized-fetch';
+import {AppInitializer} from '../rxa-custom/app-initializer';
+import {RxActionFactory} from '@rx-angular/state/actions';
+import {withLoadingEmission} from '../cdk/loading/withLoadingEmissions';
 import {
   CategoryResponse,
   MovieResource,
   MovieResponse,
 } from '../../data-access/api/resources/movie.resource';
-import { WithContext } from '../cdk/context/context.interface';
-import { pluck } from '../rxa-custom/get';
+import {WithContext} from '../cdk/context/context.interface';
+import {pluck} from '../rxa-custom/get';
+import {TMDBMovieModel} from "../../data-access/api/model/movie.model";
+import {ImageTag} from "../utils/image/image-tag.interface";
+//import {TMDBMovieModel} from "../../data-access/api/model/movie.model";
+
+export type Movie = TMDBMovieModel & ImageTag;
 
 export interface MovieModel {
   movies: WithContext<Record<string, MovieResponse>>;
@@ -35,8 +40,8 @@ export class MovieState extends RxState<MovieModel> implements AppInitializer {
 
   categoryMoviesByIdCtx = (id: string) =>
     this.select(
-      filter(({ categoryMovies }) => !!categoryMovies),
-      map(({ categoryMovies: { value, loading } }) => ({
+      filter(({categoryMovies}) => !!categoryMovies),
+      map(({categoryMovies: {value, loading}}) => ({
         loading,
         value: pluck(value, id),
       }))
@@ -44,7 +49,7 @@ export class MovieState extends RxState<MovieModel> implements AppInitializer {
 
   movieByIdCtx = (id: string) =>
     this.select(
-      map(({ movies: { value, loading } }) => ({
+      map(({movies: {value, loading}}) => ({
         loading,
         value: pluck(value, id),
       }))
@@ -63,7 +68,7 @@ export class MovieState extends RxState<MovieModel> implements AppInitializer {
           (id) => id,
           (id) => {
             return this.movieResource.getMovie(id).pipe(
-              map((result) => ({ value: toDictionary([result], 'id') })),
+              map((result) => ({value: toDictionary([result], 'id')})),
               withLoadingEmission()
             );
           }
@@ -86,11 +91,11 @@ export class MovieState extends RxState<MovieModel> implements AppInitializer {
           category,
         })),
         optimizedFetch(
-          ({ category }) => category,
-          ({ category }) =>
+          ({category}) => category,
+          ({category}) =>
             this.movieResource.getMovieCategory(category).pipe(
               map((paginatedResult) => ({
-                value: { [category]: paginatedResult },
+                value: {[category]: paginatedResult},
               })),
               withLoadingEmission()
             )
@@ -98,6 +103,8 @@ export class MovieState extends RxState<MovieModel> implements AppInitializer {
       ),
       (oldState, newPartial) => {
         let resultState = patch(oldState?.categoryMovies, newPartial);
+        // @ts-ignore
+        // resultState?.value.results = resultState?.value?.results.map((m: TMDBMovieModel) => ({...m, poster_path: m.poster_path}) as TMDBMovieModel)
         resultState.value = patch(
           oldState?.categoryMovies?.value,
           resultState?.value

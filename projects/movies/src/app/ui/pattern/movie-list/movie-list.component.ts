@@ -1,7 +1,5 @@
 import {NgOptimizedImage} from '@angular/common';
 import {RxState} from '@rx-angular/state';
-//import {BREAKPOINTS} from "../../../data-access/api/constants/breakpoints";
-//import {SIZES, W154H205} from '../../../data-access/api/constants/image-sizes';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -9,23 +7,22 @@ import {
   Output,
   ViewEncapsulation,
 } from '@angular/core';
-import { filter, map, Observable } from 'rxjs';
-import { TMDBMovieModel } from '../../../data-access/api/model/movie.model';
-import { ImageTag } from '../../../shared/utils/image/image-tag.interface';
-import { addImageTag } from '../../../shared/utils/image/image-tag.transform';
-import { RxActionFactory } from '@rx-angular/state/actions';
-import { coerceObservable } from '../../../shared/utils/coerceObservable';
-import { RxInputType } from '../../../shared/rxa-custom/input-type.typing';
-import { RouterModule } from '@angular/router';
-import { StarRatingComponent } from '../star-rating/star-rating.component';
-import { ForModule } from '@rx-angular/template/for';
-import { ElementVisibilityDirective } from '../../../shared/cdk/element-visibility/element-visibility.directive';
-import { FastSvgModule } from '@push-based/ngx-fast-svg';
-import { GridListComponent } from '../../component/grid-list/grid-list.component';
-import { IfModule } from '@rx-angular/template/if';
+import {filter, map, Observable} from 'rxjs';
+import {TMDBMovieModel} from '../../../data-access/api/model/movie.model';
+import {addImageTag} from '../../../shared/utils/image/image-tag.transform';
+import {RxActionFactory} from '@rx-angular/state/actions';
+import {coerceObservable} from '../../../shared/utils/coerceObservable';
+import {RxInputType} from '../../../shared/rxa-custom/input-type.typing';
+import {RouterModule} from '@angular/router';
+import {StarRatingComponent} from '../star-rating/star-rating.component';
+import {ForModule} from '@rx-angular/template/for';
+import {ElementVisibilityDirective} from '../../../shared/cdk/element-visibility/element-visibility.directive';
+import {FastSvgModule} from '@push-based/ngx-fast-svg';
+import {GridListComponent} from '../../component/grid-list/grid-list.component';
+import {IfModule} from '@rx-angular/template/if';
 import {W300H450} from "../../../data-access/api/constants/image-sizes";
+import {Movie} from "../../../shared/state/movie.state";
 
-type Movie = TMDBMovieModel & ImageTag;
 type UiActions = { paginate: boolean };
 
 @Component({
@@ -60,7 +57,9 @@ type UiActions = { paginate: boolean };
           This avoids bootstrap and template evaluation time and reduces scripting time in general.
           -->
         <img
-          [ngSrc]="movie?.imgUrl || 'assets/images/no_poster_available.jpg'"
+          [ngSrc]="movie.imgSrc"
+          [ngSrcset]="movie.imgSrcset"
+          [sizes]="movie.imgSizes"
           [priority]="idx < numPriority()"
           class="aspectRatio-2-3 gradient"
           [width]="movie.imgWidth"
@@ -99,7 +98,7 @@ export class MovieListComponent {
 
   @Input()
   set withImgPriority(p: number | boolean) {
-    if(p) {
+    if (p) {
       this.state.set({numPriority: p === true ? 2 : p})
     } else {
       this.state.set({numPriority: 0})
@@ -109,7 +108,7 @@ export class MovieListComponent {
   readonly movies$ = this.state.select(
     map((state) =>
       (state.movies || []).map((m: TMDBMovieModel) =>
-        addImageTag(m, { pathProp: 'poster_path', dims: W300H450 })
+        addImageTag(m, {pathProp: 'poster_path', dims: W300H450})
       )
     )
   );

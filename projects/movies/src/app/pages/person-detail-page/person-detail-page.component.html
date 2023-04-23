@@ -5,9 +5,11 @@
         <img
           class="aspectRatio-2-3 fit-cover"
           [ngSrc]="person.imgSrc"
-          priority="high"
+          [ngSrcset]="person.imgSrcset"
+          [sizes]="person.imgSizes"
           [width]="person.imgWidth"
           [height]="person.imgHeight"
+          priority="high"
           alt="poster movie"
           [title]="person?.name"
           data-uf="hero-img"

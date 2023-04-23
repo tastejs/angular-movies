@@ -15,7 +15,7 @@ import {
   TMDBPaginateResult,
 } from '../../data-access/api/paginate/paginate.interface';
 import { DiscoverState } from '../../shared/state/discover.state';
-import { MovieState } from '../../shared/state/movie.state';
+import {Movie, MovieState} from '../../shared/state/movie.state';
 import { RouterState } from '../../shared/router/router.state';
 import { RouterParams } from '../../shared/router/router.model';
 import { infiniteScroll } from '../../shared/cdk/infinite-scroll/infiniteScroll';
@@ -26,6 +26,9 @@ import { DiscoverResource } from '../../data-access/api/resources/discover.resou
 import { MovieResource } from '../../data-access/api/resources/movie.resource';
 import { SearchResource } from '../../data-access/api/resources/search.resource';
 import { GenreResource } from '../../data-access/api/resources/genre.resource';
+import {BREAKPOINTS} from "../../shared/utils/breakpoints";
+import {SIZES, W154H205} from "../../data-access/api/constants/image-sizes";
+import {addImageTag} from "../../shared/utils/image/image-tag.transform";
 
 const emptyResult$ = EMPTY as unknown as Observable<
   TMDBPaginateResult<TMDBMovieModel>
@@ -33,11 +36,41 @@ const emptyResult$ = EMPTY as unknown as Observable<
 
 type Actions = { paginate: void };
 
+/**
+ * Movie List - List Img
+ *
+ * Screen: xs
+ * <img>
+ *  __
+ * <p>
+ *
+ * Screen: s
+ * <img>
+ * __
+ * <p>
+ *
+ * Screen: m
+ * <img> | <p>
+ *
+ * Screen: l
+ * <img> | <p>
+ *
+ * Screen: xl
+ * <img> | <p>
+ *
+ */
+export const MOVIE_LIST_LIST_IMG_SIZE = `(${BREAKPOINTS.xSmall}) ${SIZES["154w"]}, (${BREAKPOINTS.small}) ${SIZES["185w"]}, (${BREAKPOINTS.mobile}) ${SIZES["342w"]}, (${BREAKPOINTS.isLargeDesktop}) ${SIZES["342w"]}`;
+function transformToMovieModel(_res: TMDBMovieModel): Movie {
+  return addImageTag(_res as Movie, { pathProp: 'poster_path', dims: W154H205, sizes: MOVIE_LIST_LIST_IMG_SIZE });
+}
+
+
 @Injectable({
   providedIn: 'root',
 })
 export class MovieListPageAdapter extends RxState<MovieListPageModel> {
   private readonly actions = new RxActionFactory<Actions>().create();
+  readonly movies$ = this.select(map(({results}) => results?.map(transformToMovieModel)));
 
   getInitialFetchByType({
     type,

@@ -72,7 +72,9 @@
                 [attr.aria-label]="c.name"
               >
                 <img
-                  [ngSrc]="c.imgUrl"
+                  [ngSrc]="c.imgSrc"
+                  [sizes]="c.imgSizes"
+                  [ngSrcset]="c.imgSrcset"
                   width="44"
                   height="44"
                   [alt]="c.name"

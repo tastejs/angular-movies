@@ -1,5 +1,6 @@
 import {IMAGE_LOADER, ImageLoaderConfig} from '@angular/common';
 import {W154H205} from '../constants/image-sizes';
+import {POSTER_FALLBACK} from "../../../shared/utils/image/constants";
 
 
 const baseUrl = `https://image.tmdb.org/t/p/w`;
@@ -9,6 +10,9 @@ export function provideMovieDbImageLoader() {
     provide: IMAGE_LOADER,
     useValue: (config: ImageLoaderConfig) => {
       config.width || (config.width = W154H205.WIDTH);
+      if(config.src === POSTER_FALLBACK) {
+        return POSTER_FALLBACK
+      }
       return `${baseUrl}${config.width}${config.src}`;
     }
   }
