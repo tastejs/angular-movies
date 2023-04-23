@@ -4,14 +4,9 @@
       <div detailGridMedia>
         <img
           class="aspectRatio-2-3 fit-cover"
-          [ngSrc]="
-            person?.profile_path
-              ? 'https://image.tmdb.org/t/p/w' +
-                person.imgWidth +
-                '/' +
-                person.profile_path
-              : 'assets/images/no_poster_available.jpg'
-          "
+          [ngSrc]="person.imgSrc"
+          [ngSrcSet]="person.imgSrcset"
+          [ngSize]="person.imgSize"
           priority="high"
           [width]="person.imgWidth"
           [height]="person.imgHeight"

@@ -4,7 +4,9 @@
       <div detailGridMedia>
         <img
           class="aspectRatio-2-3 fit-cover"
-          [ngSrc]="movie.imgUrl"
+          [ngSrc]="movie.imgSrc"
+          [ngSrcset]="movie.imgSrcset"
+          [sizes]="movie.imgSizes"
           priority="high"
           [width]="movie.imgWidth"
           [height]="movie.imgHeight"
