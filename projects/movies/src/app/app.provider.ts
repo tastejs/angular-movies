@@ -1,8 +1,8 @@
 import { RxActionFactory } from '@rx-angular/state/actions';
 import { TMDB_HTTP_INTERCEPTORS_PROVIDER } from './shared/auth/tmdb-http-interceptor.providers';
 import { GLOBAL_STATE_APP_INITIALIZER_PROVIDER } from './state/state-app-initializer.provider';
-import { SCHEDULED_APP_INITIALIZER_PROVIDER } from './shared/app-initializer/chunk-app-initializer.provider';
-import { RXA_PROVIDER } from './shared/rxa-custom/rxa.provider';
+import { SCHEDULED_APP_INITIALIZER_PROVIDER } from './configuration/chunk-app-initializer.provider';
+import { RXA_PROVIDER } from './configuration/rxa.provider';
 import {
   provideRouter,
   withDisabledInitialNavigation,
