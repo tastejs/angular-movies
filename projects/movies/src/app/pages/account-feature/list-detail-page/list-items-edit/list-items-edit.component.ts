@@ -2,7 +2,7 @@ import { LetModule } from '@rx-angular/template/let';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { TMDBMovieDetailsModel } from '../../../../data-access/api/model/movie-details.model';
 
-import { trackByProp } from '../../../../shared/utils/track-by';
+import { trackByProp } from '../../../../shared/cdk/track-by';
 import {
   ListItemsEditAdapter,
   MovieSearchResult,

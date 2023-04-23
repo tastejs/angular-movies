@@ -2,17 +2,17 @@ import { RxState } from '@rx-angular/state';
 import { patch, toDictionary } from '@rx-angular/cdk/transformations';
 import { Injectable } from '@angular/core';
 import { map } from 'rxjs';
-import { optimizedFetch } from '../cdk/optimized-fetch';
+import { optimizedFetch } from '../shared/cdk/optimized-fetch';
 import { RxActionFactory } from '@rx-angular/state/actions';
-import { withLoadingEmission } from '../cdk/loading/withLoadingEmissions';
+import { withLoadingEmission } from '../shared/cdk/loading/withLoadingEmissions';
 import {
   PersonResource,
   PersonResponse,
-} from '../../data-access/api/resources/person.resource';
-import { AppInitializer } from '../rxa-custom/app-initializer';
-import { WithContext } from '../cdk/context/context.interface';
-import { pluck } from '../rxa-custom/get';
-import { TMDBSortOptions } from '../../data-access/api/sort/sort.interface';
+} from '../data-access/api/resources/person.resource';
+import { AppInitializer } from '../shared/cdk/app-initializer';
+import { WithContext } from '../shared/cdk/context/context.interface';
+import { pluck } from '../shared/cdk/get';
+import { TMDBSortOptions } from '../data-access/api/sort/sort.interface';
 
 export interface State {
   person: WithContext<Record<string, PersonResponse>>;

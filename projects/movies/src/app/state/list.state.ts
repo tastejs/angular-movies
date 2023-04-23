@@ -1,16 +1,16 @@
 import { Injectable } from '@angular/core';
 import { RxState } from '@rx-angular/state';
-import { AppInitializer } from '../rxa-custom/app-initializer';
+import { AppInitializer } from '../shared/cdk/app-initializer';
 import { RxActionFactory } from '@rx-angular/state/actions';
 import { concatMap, filter, merge, tap } from 'rxjs';
-import { ListResource } from '../../data-access/api/resources/list.resource';
+import { ListResource } from '../data-access/api/resources/list.resource';
 import {
   TMDBListCreateUpdateParams,
   TMDBListModel,
-} from '../../data-access/api/model/list.model';
+} from '../data-access/api/model/list.model';
 import { Router } from '@angular/router';
-import { MovieResponse } from '../../data-access/api/resources/movie.resource';
-import { TMDBMovieDetailsModel } from '../../data-access/api/model/movie-details.model';
+import { MovieResponse } from '../data-access/api/resources/movie.resource';
+import { TMDBMovieDetailsModel } from '../data-access/api/model/movie-details.model';
 import { deleteProp, patch } from '@rx-angular/cdk/transformations';
 
 export interface ListModel {

@@ -23,7 +23,7 @@ import {
 } from '../../../../data-access/api/resources/movie.resource';
 import { ListDetailAdapter } from '../../../../pages/account-feature/list-detail-page/list-detail-page.adapter';
 import { RxActionFactory } from '@rx-angular/state/actions';
-import { ListState } from '../../../../shared/state/list.state';
+import { ListState } from '../../../../state/list.state';
 
 interface Actions {
   search: string;

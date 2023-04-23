@@ -12,7 +12,7 @@ import {TMDBMovieModel} from '../../../data-access/api/model/movie.model';
 import {addImageTag} from '../../../shared/cdk/image/image-tag.transform';
 import {RxActionFactory} from '@rx-angular/state/actions';
 import {coerceObservable} from '../../../shared/cdk/coerceObservable';
-import {RxInputType} from '../../../shared/rxa-custom/input-type.typing';
+import {RxInputType} from '../../../shared/cdk/input-type.typing';
 import {RouterModule} from '@angular/router';
 import {StarRatingComponent} from '../star-rating/star-rating.component';
 import {ForModule} from '@rx-angular/template/for';
@@ -21,7 +21,7 @@ import {FastSvgModule} from '@push-based/ngx-fast-svg';
 import {GridListComponent} from '../../component/grid-list/grid-list.component';
 import {IfModule} from '@rx-angular/template/if';
 import {W300H450} from "../../../data-access/api/constants/image-sizes";
-import {Movie} from "../../../shared/state/movie.state";
+import {Movie} from "../../../state/movie.state";
 
 type UiActions = { paginate: boolean };
 

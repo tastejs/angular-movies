@@ -1,8 +1,8 @@
 import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
 import { exhaustMap, filter, map, Observable, take } from 'rxjs';
-import { AuthState } from './auth.state';
-import { isAuthenticationInProgress } from './utils';
+import { AuthState } from '../../state/auth.state';
+import { isAuthenticationInProgress } from '../auth/utils';
 import {
   Authv4Resource,
   Token,

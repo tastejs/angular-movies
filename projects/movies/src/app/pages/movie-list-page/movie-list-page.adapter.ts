@@ -14,8 +14,8 @@ import {
   TMDBPaginateOptions,
   TMDBPaginateResult,
 } from '../../data-access/api/paginate/paginate.interface';
-import { DiscoverState } from '../../shared/state/discover.state';
-import {Movie, MovieState} from '../../shared/state/movie.state';
+import { DiscoverState } from '../../state/discover.state';
+import {Movie, MovieState} from '../../state/movie.state';
 import { RouterState } from '../../shared/router/router.state';
 import { RouterParams } from '../../shared/router/router.model';
 import { infiniteScroll } from '../../shared/cdk/infinite-scroll/infiniteScroll';
@@ -26,7 +26,7 @@ import { DiscoverResource } from '../../data-access/api/resources/discover.resou
 import { MovieResource } from '../../data-access/api/resources/movie.resource';
 import { SearchResource } from '../../data-access/api/resources/search.resource';
 import { GenreResource } from '../../data-access/api/resources/genre.resource';
-import {BREAKPOINTS} from "../../shared/utils/breakpoints";
+import {BREAKPOINTS} from "../../configuration/breakpoints";
 import {SIZES, W154H205} from "../../data-access/api/constants/image-sizes";
 import {addImageTag} from "../../shared/cdk/image/image-tag.transform";
 

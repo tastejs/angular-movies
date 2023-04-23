@@ -2,19 +2,19 @@ import {RxState} from '@rx-angular/state';
 import {patch, toDictionary} from '@rx-angular/cdk/transformations';
 import {Injectable} from '@angular/core';
 import {filter, map} from 'rxjs';
-import {optimizedFetch} from '../cdk/optimized-fetch';
-import {AppInitializer} from '../rxa-custom/app-initializer';
+import {optimizedFetch} from '../shared/cdk/optimized-fetch';
+import {AppInitializer} from '../shared/cdk/app-initializer';
 import {RxActionFactory} from '@rx-angular/state/actions';
-import {withLoadingEmission} from '../cdk/loading/withLoadingEmissions';
+import {withLoadingEmission} from '../shared/cdk/loading/withLoadingEmissions';
 import {
   CategoryResponse,
   MovieResource,
   MovieResponse,
-} from '../../data-access/api/resources/movie.resource';
-import {WithContext} from '../cdk/context/context.interface';
-import {pluck} from '../rxa-custom/get';
-import {TMDBMovieModel} from "../../data-access/api/model/movie.model";
-import {ImageTag} from "../cdk/image/image-tag.interface";
+} from '../data-access/api/resources/movie.resource';
+import {WithContext} from '../shared/cdk/context/context.interface';
+import {pluck} from '../shared/cdk/get';
+import {TMDBMovieModel} from "../data-access/api/model/movie.model";
+import {ImageTag} from "../shared/cdk/image/image-tag.interface";
 //import {TMDBMovieModel} from "../../data-access/api/model/movie.model";
 
 export type Movie = TMDBMovieModel & ImageTag;

@@ -3,7 +3,7 @@ import {
   Component,
   ViewEncapsulation,
 } from '@angular/core';
-import { trackByProp } from '../../../shared/utils/track-by';
+import { trackByProp } from '../../../shared/cdk/track-by';
 import {
   AccountListPageAdapter,
   ListWithPoster,

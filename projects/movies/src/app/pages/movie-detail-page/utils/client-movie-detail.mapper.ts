@@ -10,8 +10,8 @@ import { MovieDetail } from './movie-detail.model';
 import { addLinkTag } from '../../../shared/cdk/link/a-tag.transform';
 import { TMDBMovieCastModel } from '../../../data-access/api/model/movie-credits.model';
 import { MovieCast } from './movie-cast.model';
-import {BREAKPOINTS} from "../../../shared/utils/breakpoints";
-import {Movie} from "../../../shared/state/movie.state";
+import {BREAKPOINTS} from "../../../configuration/breakpoints";
+import {Movie} from "../../../state/movie.state";
 
 /**
  * Person Detail Page - Hero img
