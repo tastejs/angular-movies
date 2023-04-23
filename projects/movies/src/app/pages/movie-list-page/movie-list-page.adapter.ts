@@ -36,29 +36,6 @@ const emptyResult$ = EMPTY as unknown as Observable<
 
 type Actions = { paginate: void };
 
-/**
- * Movie List - List Img
- *
- * Screen: xs
- * <img>
- *  __
- * <p>
- *
- * Screen: s
- * <img>
- * __
- * <p>
- *
- * Screen: m
- * <img> | <p>
- *
- * Screen: l
- * <img> | <p>
- *
- * Screen: xl
- * <img> | <p>
- *
- */
 export const MOVIE_LIST_LIST_IMG_SIZE = `(${BREAKPOINTS.xSmall}) ${SIZES["154w"]}, (${BREAKPOINTS.small}) ${SIZES["185w"]}, (${BREAKPOINTS.mobile}) ${SIZES["342w"]}, (${BREAKPOINTS.isLargeDesktop}) ${SIZES["342w"]}`;
 function transformToMovieModel(_res: TMDBMovieModel): Movie {
   return addImageTag(_res as Movie, { pathProp: 'poster_path', dims: W154H205, sizes: MOVIE_LIST_LIST_IMG_SIZE });
