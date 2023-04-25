@@ -18,7 +18,7 @@ import {
   W154H205,
   W300H450,
   W92H138,
-} from '../../data-access/api/constants/image-sizes';
+} from '../../data-access/images/image-sizes';
 import { addLinkTag } from '../../shared/cdk/link/a-tag.transform';
 import { TMDBMovieCastModel } from '../../data-access/api/model/movie-credits.model';
 import { Movie } from "../../state/movie.state";

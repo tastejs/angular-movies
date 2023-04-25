@@ -1,12 +1,12 @@
 import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
 import { exhaustMap, filter, map, Observable, take } from 'rxjs';
-import { AuthState } from '../../state/auth.state';
+import { AuthState } from '../state/auth.state';
 import { isAuthenticationInProgress } from '../auth/utils';
 import {
   Authv4Resource,
   Token,
-} from '../../data-access/api/resources/authv4.resource';
+} from '../data-access/api/resources/authv4.resource';
 
 @Injectable({
   providedIn: 'root',

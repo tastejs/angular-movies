@@ -1,15 +1,5 @@
 // @Notice: This information could get fetched from the TMDB API
 import { ImageDimensions } from './image-dimensions.interface';
-
-export const SIZES = {
-  "92w": `92w`,
-  "154w": `154w`,
-  "185w": `185w`,
-  "342w":  `342w`,
-  "500w":  `500w`,
-  "780w": `780w`
-};
-
 export const W92H138: ImageDimensions = {
   SIZE: '92w',
   WIDTH: 92,

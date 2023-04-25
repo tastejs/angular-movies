@@ -25,7 +25,7 @@ import { DiscoverResource } from '../../data-access/api/resources/discover.resou
 import { MovieResource } from '../../data-access/api/resources/movie.resource';
 import { SearchResource } from '../../data-access/api/resources/search.resource';
 import { GenreResource } from '../../data-access/api/resources/genre.resource';
-import {W154H205} from "../../data-access/api/constants/image-sizes";
+import {W154H205} from "../../data-access/images/image-sizes";
 import {addImageTag} from "../../shared/cdk/image/image-tag.transform";
 import {TMDBMovieGenreModel} from "../../data-access/api/model/movie-genre.model";
 

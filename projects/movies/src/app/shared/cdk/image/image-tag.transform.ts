@@ -1,6 +1,6 @@
 import {ImageTag} from './image-tag.interface';
-import {ImageDimensions} from '../../../data-access/api/constants/image-dimensions.interface';
-import {POSTER_FALLBACK} from "./constants";
+import {ImageDimensions} from '../../../data-access/images/image-dimensions.interface';
+import {POSTER_FALLBACK} from "../../../constants";
 
 export function addImageTag<T extends Object>(
   _res: T,

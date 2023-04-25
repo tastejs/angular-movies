@@ -2,7 +2,8 @@ import { FastSvgModule } from '@push-based/ngx-fast-svg';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { TransferHttpCacheModule } from '@nguniversal/common';
-import { SERVICE_WORKER_IMPORTS } from './configuration/service-worker.imports';
+import {ServiceWorkerModule} from "@angular/service-worker";
+import {environment} from "../environments/environment";
 
 export const APP_IMPORTS = [
   FastSvgModule.forRoot({
@@ -24,5 +25,10 @@ export const APP_IMPORTS = [
    *
    * Setup serviceworker to get caching for HTTP requests and assets as well as better offline experience.
    */
-  SERVICE_WORKER_IMPORTS,
+  ServiceWorkerModule.register('ngsw-worker.js', {
+    enabled: environment.production,
+    // Register the ServiceWorker as soon as the app is stable
+    // or after 30 seconds (whichever comes first).
+    registrationStrategy: 'registerWhenStable:30000'
+  })
 ];

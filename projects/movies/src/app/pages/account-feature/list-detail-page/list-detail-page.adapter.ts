@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { RxState } from '@rx-angular/state';
 import { selectSlice, select } from '@rx-angular/state/selections';
 import { map, Observable, startWith, switchMap, withLatestFrom } from 'rxjs';
-import {W154H205, W300H450, W500H282, W92H138} from '../../../data-access/api/constants/image-sizes';
+import {W154H205, W300H450, W500H282, W92H138} from '../../../data-access/images/image-sizes';
 import { TMDBListCreateUpdateParams } from '../../../data-access/api/model/list.model';
 import { TMDBMovieModel } from '../../../data-access/api/model/movie.model';
 import { RxActionFactory } from '@rx-angular/state/actions';

@@ -2,7 +2,7 @@ import { LetModule } from '@rx-angular/template/let';
 import { RxState } from '@rx-angular/state';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RxActionFactory } from '@rx-angular/state/actions';
-import { AuthEffects } from '../../shared/auth/auth.effects';
+import { AuthEffects } from '../../auth/auth.effects';
 import { AuthState } from '../../state/auth.state';
 import { map } from 'rxjs';
 import { RouterModule } from '@angular/router';

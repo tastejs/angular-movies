@@ -6,7 +6,7 @@ import { infiniteScroll } from '../../shared/cdk/infinite-scroll/infiniteScroll'
 import { RxActionFactory } from '@rx-angular/state/actions';
 import { RouterState } from '../../shared/router/router.state';
 import { combineLatestWith, map, switchMap, withLatestFrom } from 'rxjs';
-import { W300H450} from '../../data-access/api/constants/image-sizes';
+import { W300H450} from '../../data-access/images/image-sizes';
 import { ImageTag } from '../../shared/cdk/image/image-tag.interface';
 import { addImageTag } from '../../shared/cdk/image/image-tag.transform';
 import { getIdentifierOfTypeAndLayoutUtil } from '../../shared/router/get-identifier-of-type-and-layout.util';
