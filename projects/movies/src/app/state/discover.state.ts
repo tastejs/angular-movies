@@ -10,7 +10,7 @@ import {
   TMDBDiscoverResponse,
 } from '../data-access/api/resources/discover.resource';
 import { AppInitializer } from '../shared/cdk/app-initializer';
-import { WithContext } from '../shared/cdk/context/context.interface';
+import { WithContext } from '../shared/cdk/loading/context.interface';
 import { pluck } from '../shared/cdk/get';
 
 export interface State {

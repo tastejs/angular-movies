@@ -16,10 +16,9 @@ import {
   switchMap,
 } from 'rxjs';
 import { TMDBMovieGenreModel } from '../data-access/api/model/movie-genre.model';
-import { fallbackRouteToDefault } from '../shared/router/routing-default.util';
 import { trackByProp } from '../shared/cdk/track-by';
 import { RxActionFactory } from '@rx-angular/state/actions';
-import { RouterState } from '../shared/router/router.state';
+import { RouterState, fallbackRouteToDefault } from '../shared/router/router.state';
 import { getIdentifierOfTypeAndLayoutUtil } from '../shared/router/get-identifier-of-type-and-layout.util';
 import { GenreResource } from '../data-access/api/resources/genre.resource';
 import { RxEffects } from '@rx-angular/state/effects';

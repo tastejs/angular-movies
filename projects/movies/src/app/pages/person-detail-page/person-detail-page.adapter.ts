@@ -12,7 +12,7 @@ import { addImageTag } from '../../shared/cdk/image/image-tag.transform';
 import { getIdentifierOfTypeAndLayoutUtil } from '../../shared/router/get-identifier-of-type-and-layout.util';
 import { TMDBPersonModel } from '../../data-access/api/model/person.model';
 import { PersonState } from '../../state/person.state';
-import { WithContext } from '../../shared/cdk/context/context.interface';
+import { WithContext } from '../../shared/cdk/loading/context.interface';
 import { MoviesSortValue } from '../../data-access/api/sort/sort.data';
 import { DiscoverResource } from '../../data-access/api/resources/discover.resource';
 

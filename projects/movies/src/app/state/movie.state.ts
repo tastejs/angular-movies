@@ -11,7 +11,7 @@ import {
   MovieResource,
   MovieResponse,
 } from '../data-access/api/resources/movie.resource';
-import {WithContext} from '../shared/cdk/context/context.interface';
+import {WithContext} from '../shared/cdk/loading/context.interface';
 import {pluck} from '../shared/cdk/get';
 import {TMDBMovieModel} from "../data-access/api/model/movie.model";
 import {ImageTag} from "../shared/cdk/image/image-tag.interface";

@@ -19,7 +19,7 @@ import { DetailGridComponent } from '../../ui/component/detail-grid/detail-grid.
 import { StarRatingComponent } from '../../ui/pattern/star-rating/star-rating.component';
 import { MovieListComponent } from '../../ui/pattern/movie-list/movie-list.component';
 import { LetModule } from '@rx-angular/template/let';
-import { BypassSrcDirective } from '../../shared/bypass-src/bypass-src.directive';
+import { BypassSrcDirective } from '../../shared/cdk/bypass-src.directive';
 import { ForModule } from '@rx-angular/template/for';
 import { FastSvgModule } from '@push-based/ngx-fast-svg';
 import { IfModule } from '@rx-angular/template/if';

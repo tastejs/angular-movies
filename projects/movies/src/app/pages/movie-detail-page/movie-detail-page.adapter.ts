@@ -9,7 +9,7 @@ import { MovieResource } from '../../data-access/api/resources/movie.resource';
 import { RxActionFactory } from '@rx-angular/state/actions';
 import { infiniteScroll } from '../../shared/cdk/infinite-scroll/infiniteScroll';
 
-import { WithContext } from '../../shared/cdk/context/context.interface';
+import { WithContext } from '../../shared/cdk/loading/context.interface';
 import { withLoadingEmission } from '../../shared/cdk/loading/withLoadingEmissions';
 import { TMDBMovieModel } from '../../data-access/api/model/movie.model';
 import { addVideoTag } from '../../shared/cdk/video/video-tag.transform';
