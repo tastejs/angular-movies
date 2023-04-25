@@ -33,13 +33,12 @@ export interface PersonDetailPageAdapterState {
   activeSorting: string;
 }
 
-
 function transformToPersonDetail(_res: TMDBPersonModel): MoviePerson {
   return addImageTag(_res, { pathProp: 'profile_path', dims: W300H450, sizes: `(min-width: 900px) 400px, 65vw`,  srcset: '154w, 185w, 342w, 500w, 780w' });
 }
 
 function transformToMovieModel(_res: TMDBMovieModel): Movie {
-  return addImageTag(_res as Movie, { pathProp: 'poster_path', dims: W300H450, sizes: '(min-width: 900px) 20vw, 70vw', srcset: '154w, 185w, 342w, 500w, 780w' });
+  return addImageTag(_res, { pathProp: 'poster_path', dims: W300H450, sizes: '(min-width: 900px) 20vw, 70vw', srcset: '154w, 185w, 342w, 500w, 780w' });
 }
 
 @Injectable({

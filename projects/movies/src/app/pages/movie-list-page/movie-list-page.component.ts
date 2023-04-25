@@ -5,8 +5,7 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import { map, Observable } from 'rxjs';
-import { MovieListPageAdapter } from './movie-list-page.adapter';
-import { MovieListPageModel } from './movie-list-page-adapter.model';
+import { MovieListPageAdapter, MovieListPageModel } from './movie-list-page.adapter';
 import { NgOptimizedImage } from '@angular/common';
 import { LetModule } from '@rx-angular/template/let';
 import { IfModule } from '@rx-angular/template/if';
