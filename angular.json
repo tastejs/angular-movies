@@ -102,7 +102,8 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "movies:build:production"
+              "browserTarget": "movies:build:production",
+              "port":4201
             },
             "development": {
               "browserTarget": "movies:build:development"
@@ -164,11 +165,12 @@
             "development": {
               "browserTarget": "movies:build:development",
               "serverTarget": "movies:build-server:development",
-              "port":4201
+              "port":4210
             },
             "production": {
               "browserTarget": "movies:build:production",
-              "serverTarget": "movies:build-server:production"
+              "serverTarget": "movies:build-server:production",
+              "port":4211
             }
           },
           "defaultConfiguration": "development"
