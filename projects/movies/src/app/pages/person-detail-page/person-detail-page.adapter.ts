@@ -6,7 +6,7 @@ import { infiniteScroll } from '../../shared/cdk/infinite-scroll/infiniteScroll'
 import { RxActionFactory } from '@rx-angular/state/actions';
 import { RouterState } from '../../shared/router/router.state';
 import { combineLatestWith, map, switchMap, withLatestFrom } from 'rxjs';
-import {SIZES, W300H450} from '../../data-access/api/constants/image-sizes';
+import { W300H450} from '../../data-access/api/constants/image-sizes';
 import { ImageTag } from '../../shared/cdk/image/image-tag.interface';
 import { addImageTag } from '../../shared/cdk/image/image-tag.transform';
 import { getIdentifierOfTypeAndLayoutUtil } from '../../shared/router/get-identifier-of-type-and-layout.util';
@@ -15,7 +15,7 @@ import { PersonState } from '../../state/person.state';
 import { WithContext } from '../../shared/cdk/context/context.interface';
 import { MoviesSortValue } from '../../data-access/api/sort/sort.data';
 import { DiscoverResource } from '../../data-access/api/resources/discover.resource';
-import {BREAKPOINTS} from "../../configuration/breakpoints";
+
 import {Movie} from "../../state/movie.state";
 
 export type MoviePerson = TMDBPersonModel & ImageTag;
@@ -34,63 +34,12 @@ export interface PersonDetailPageAdapterState {
 }
 
 
-/**
- * Person Detail Page - Hero img
- *
- * Screen: xs
- * <img>
- *  __
- * <p>
- *
- * Screen: s
- * <img>
- * __
- * <p>
- *
- * Screen: m
- * <img> | <p>
- *
- * Screen: l
- * <img> | <p>
- *
- * Screen: xl
- * <img> | <p>
- *
- */
-
-export const PERSON_DETAIL_HERO_IMG_SIZE = `${BREAKPOINTS.xSmall} ${SIZES["342w"]}, ${BREAKPOINTS.small} ${SIZES["342w"]}, ${BREAKPOINTS.mobile} ${SIZES["185w"]}, ${BREAKPOINTS.isLargeDesktop} ${SIZES["500w"]}`;
-/**
- * Pattern: Movie List - List Img
- *
- * Screen: xs
- * <img>
- *  __
- * <p>
- *
- * Screen: s
- * <img>
- * __
- * <p>
- *
- * Screen: m
- * <img> | <p>
- *
- * Screen: l
- * <img> | <p>
- *
- * Screen: xl
- * <img> | <p>
- *
- */
-export const PERSON_DETAIL_RECOMMENDATION_LIST_IMG_SIZE = `${BREAKPOINTS.xSmall} ${SIZES["154w"]}, ${BREAKPOINTS.small} ${SIZES["185w"]}, ${BREAKPOINTS.mobile} ${SIZES["342w"]}, ${BREAKPOINTS.isLargeDesktop} ${SIZES["342w"]}`;
-
-
 function transformToPersonDetail(_res: TMDBPersonModel): MoviePerson {
-  return addImageTag(_res, { pathProp: 'profile_path', dims: W300H450, sizes: PERSON_DETAIL_HERO_IMG_SIZE });
+  return addImageTag(_res, { pathProp: 'profile_path', dims: W300H450, sizes: `(min-width: 900px) 400px, 65vw`,  srcset: '154w, 185w, 342w, 500w, 780w' });
 }
 
 function transformToMovieModel(_res: TMDBMovieModel): Movie {
-  return addImageTag(_res as Movie, { pathProp: 'poster_path', dims: W300H450, sizes: PERSON_DETAIL_RECOMMENDATION_LIST_IMG_SIZE });
+  return addImageTag(_res as Movie, { pathProp: 'poster_path', dims: W300H450, sizes: '(min-width: 900px) 20vw, 70vw', srcset: '154w, 185w, 342w, 500w, 780w' });
 }
 
 @Injectable({
@@ -149,7 +98,8 @@ export class PersonDetailAdapter extends RxState<PersonDetailPageAdapterState> {
           sort_by: value,
         })
       );
-    })
+    }),
+    map((v) => ({...v, results:  v.results?.map(transformToMovieModel)}))
   );
 
   constructor(

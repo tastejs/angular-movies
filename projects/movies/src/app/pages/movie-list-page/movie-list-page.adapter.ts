@@ -26,8 +26,7 @@ import { DiscoverResource } from '../../data-access/api/resources/discover.resou
 import { MovieResource } from '../../data-access/api/resources/movie.resource';
 import { SearchResource } from '../../data-access/api/resources/search.resource';
 import { GenreResource } from '../../data-access/api/resources/genre.resource';
-import {BREAKPOINTS} from "../../configuration/breakpoints";
-import {SIZES, W154H205} from "../../data-access/api/constants/image-sizes";
+import {W154H205} from "../../data-access/api/constants/image-sizes";
 import {addImageTag} from "../../shared/cdk/image/image-tag.transform";
 
 const emptyResult$ = EMPTY as unknown as Observable<
@@ -35,10 +34,8 @@ const emptyResult$ = EMPTY as unknown as Observable<
 >;
 
 type Actions = { paginate: void };
-
-export const MOVIE_LIST_LIST_IMG_SIZE = `(${BREAKPOINTS.xSmall}) ${SIZES["154w"]}, (${BREAKPOINTS.small}) ${SIZES["185w"]}, (${BREAKPOINTS.mobile}) ${SIZES["342w"]}, (${BREAKPOINTS.isLargeDesktop}) ${SIZES["342w"]}`;
 function transformToMovieModel(_res: TMDBMovieModel): Movie {
-  return addImageTag(_res as Movie, { pathProp: 'poster_path', dims: W154H205, sizes: MOVIE_LIST_LIST_IMG_SIZE });
+  return addImageTag(_res as Movie, { pathProp: 'poster_path', dims: W154H205, sizes: '(min-width: 900px) 20vw, 70vw', srcset: '154w, 185w, 342w, 500w, 780w' });
 }
 
 

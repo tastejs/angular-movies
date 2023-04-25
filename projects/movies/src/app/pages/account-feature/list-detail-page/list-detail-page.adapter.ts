@@ -11,6 +11,7 @@ import { ListState } from '../../../state/list.state';
 import { RouterState } from '../../../shared/router/router.state';
 import { ImageTag } from '../../../shared/cdk/image/image-tag.interface';
 import { addImageTag } from '../../../shared/cdk/image/image-tag.transform';
+import {transformToMovieModel} from "../../movie-detail-page/utils/client-movie-detail.mapper";
 
 type Actions = {
   listInfoUpdate: TMDBListCreateUpdateParams;
@@ -44,7 +45,7 @@ export class ListDetailAdapter extends RxState<{
     switchMap((id) => this.listState.select('lists', id))
   );
 
-  readonly movies$ = this.listDetails$.pipe(select('results'));
+  readonly movies$ = this.listDetails$.pipe(select('results'), map((r) => r !== undefined ? r.map(transformToMovieModel) : []))
 
   readonly posters$: Observable<ListPoster[] | undefined> =
     this.listDetails$.pipe(
