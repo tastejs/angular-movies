@@ -8,8 +8,6 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import {filter, map, Observable} from 'rxjs';
-import {TMDBMovieModel} from '../../../data-access/api/model/movie.model';
-import {addImageTag} from '../../../shared/cdk/image/image-tag.transform';
 import {RxActionFactory} from '@rx-angular/state/actions';
 import {coerceObservable} from '../../../shared/cdk/coerceObservable';
 import {RxInputType} from '../../../shared/cdk/input-type.typing';
@@ -20,7 +18,6 @@ import {ElementVisibilityDirective} from '../../../shared/cdk/element-visibility
 import {FastSvgModule} from '@push-based/ngx-fast-svg';
 import {GridListComponent} from '../../component/grid-list/grid-list.component';
 import {IfModule} from '@rx-angular/template/if';
-import {W300H450} from "../../../data-access/api/constants/image-sizes";
 import {Movie} from "../../../state/movie.state";
 
 type UiActions = { paginate: boolean };
@@ -105,13 +102,7 @@ export class MovieListComponent {
     }
   }
 
-  readonly movies$ = this.state.select(
-    map((state) =>
-      (state.movies || []).map((m: TMDBMovieModel) =>
-        addImageTag(m, {pathProp: 'poster_path', dims: W300H450})
-      )
-    )
-  );
+  readonly movies$ = this.state.select('movies') as Observable<Movie[]>;
 
   // if no movies are given we don't need to render nor listen for the infinite scroll trigger
   readonly moviesListVisible$ = this.state.select(
@@ -119,7 +110,7 @@ export class MovieListComponent {
   );
 
   @Input()
-  set movies(movies$: RxInputType<TMDBMovieModel[] | null | undefined>) {
+  set movies(movies$: RxInputType<Movie[]>) {
     this.state.connect('movies', coerceObservable(movies$));
   }
 
@@ -129,7 +120,7 @@ export class MovieListComponent {
   );
 
   constructor(
-    private state: RxState<{ movies?: TMDBMovieModel[] | null | undefined, numPriority: number }>,
+    private state: RxState<{ movies?: Movie[], numPriority: number }>,
     private actions: RxActionFactory<UiActions>
   ) {
     this.state.set({numPriority: 2})

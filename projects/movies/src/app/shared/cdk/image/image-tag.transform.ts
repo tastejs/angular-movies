@@ -8,19 +8,18 @@ export function addImageTag<T extends Object>(
     pathProp: keyof T;
     dims: ImageDimensions;
     fallback?: string;
-    sizes?: string | string[]
+    sizes?: string;
+    srcset?: string;
   }
 ): T & ImageTag {
-  let {pathProp, fallback, dims, sizes} = options;
+  let {pathProp, fallback, dims, sizes, srcset} = options;
   fallback = fallback || POSTER_FALLBACK;
 
   const res = _res as T & ImageTag;
 
   if (sizes !== undefined) {
-    sizes = Array.isArray(sizes) ? sizes : [sizes];
-    res.imgSizes = sizes.join(', ');
-    // unique set of src sources
-    res.imgSrcset = Array.from(new Set(res.imgSizes.split(', ').map(s => s.match(/(\d{1,3}w)/)?.shift()))).join(', ');
+    res.imgSizes = sizes || '';
+    res.imgSrcset = srcset || '';
   }
 
 

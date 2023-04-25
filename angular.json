@@ -163,7 +163,8 @@
           "configurations": {
             "development": {
               "browserTarget": "movies:build:development",
-              "serverTarget": "movies:build-server:development"
+              "serverTarget": "movies:build-server:development",
+              "port":4201
             },
             "production": {
               "browserTarget": "movies:build:production",
