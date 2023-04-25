@@ -4,17 +4,12 @@
       <div detailGridMedia>
         <img
           class="aspectRatio-2-3 fit-cover"
-          [ngSrc]="
-            person?.profile_path
-              ? 'https://image.tmdb.org/t/p/w' +
-                person.imgWidth +
-                '/' +
-                person.profile_path
-              : 'assets/images/no_poster_available.jpg'
-          "
-          priority="high"
+          [ngSrc]="person.imgSrc"
+          [ngSrcset]="person.imgSrcset"
+          [sizes]="person.imgSizes"
           [width]="person.imgWidth"
           [height]="person.imgHeight"
+          priority="high"
           alt="poster movie"
           [title]="person?.name"
           data-uf="hero-img"

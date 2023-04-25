@@ -6,8 +6,8 @@ import {
 import { RxState } from '@rx-angular/state';
 import { selectSlice } from '@rx-angular/state/selections';
 import { W92H138 } from 'projects/movies/src/app/data-access/api/constants/image-sizes';
-import { ImageTag } from 'projects/movies/src/app/shared/utils/image/image-tag.interface';
-import { addImageTag } from 'projects/movies/src/app/shared/utils/image/image-tag.transform';
+import { ImageTag } from 'projects/movies/src/app/shared/cdk/image/image-tag.interface';
+import { addImageTag } from 'projects/movies/src/app/shared/cdk/image/image-tag.transform';
 import {
   distinctUntilChanged,
   exhaustMap,
@@ -23,7 +23,7 @@ import {
 } from '../../../../data-access/api/resources/movie.resource';
 import { ListDetailAdapter } from '../../../../pages/account-feature/list-detail-page/list-detail-page.adapter';
 import { RxActionFactory } from '@rx-angular/state/actions';
-import { ListState } from '../../../../shared/state/list.state';
+import { ListState } from '../../../../state/list.state';
 
 interface Actions {
   search: string;

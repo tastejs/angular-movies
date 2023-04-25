@@ -4,7 +4,9 @@
       <div detailGridMedia>
         <img
           class="aspectRatio-2-3 fit-cover"
-          [ngSrc]="movie.imgUrl"
+          [ngSrc]="movie.imgSrc"
+          [ngSrcset]="movie.imgSrcset"
+          [sizes]="movie.imgSizes"
           priority="high"
           [width]="movie.imgWidth"
           [height]="movie.imgHeight"
@@ -70,7 +72,9 @@
                 [attr.aria-label]="c.name"
               >
                 <img
-                  [ngSrc]="c.imgUrl"
+                  [ngSrc]="c.imgSrc"
+                  [ngSrcset]="c.imgSrcset"
+                  [sizes]="c.imgSizes"
                   width="44"
                   height="44"
                   [alt]="c.name"

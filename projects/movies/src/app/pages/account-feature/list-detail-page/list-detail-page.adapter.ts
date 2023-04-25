@@ -6,11 +6,11 @@ import { W500H282 } from '../../../data-access/api/constants/image-sizes';
 import { TMDBListCreateUpdateParams } from '../../../data-access/api/model/list.model';
 import { TMDBMovieModel } from '../../../data-access/api/model/movie.model';
 import { RxActionFactory } from '@rx-angular/state/actions';
-import { ListState } from '../../../shared/state/list.state';
+import { ListState } from '../../../state/list.state';
 
 import { RouterState } from '../../../shared/router/router.state';
-import { ImageTag } from '../../../shared/utils/image/image-tag.interface';
-import { addImageTag } from '../../../shared/utils/image/image-tag.transform';
+import { ImageTag } from '../../../shared/cdk/image/image-tag.interface';
+import { addImageTag } from '../../../shared/cdk/image/image-tag.transform';
 
 type Actions = {
   listInfoUpdate: TMDBListCreateUpdateParams;

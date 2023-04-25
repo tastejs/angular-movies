@@ -4,10 +4,10 @@ import { map } from 'rxjs';
 import { W500H282 } from '../../../data-access/api/constants/image-sizes';
 
 import { TMDBAccountList } from '../../../data-access/api/model/list.model';
-import { AccountState } from '../../../shared/state/account.state';
-import { ListState } from '../../../shared/state/list.state';
-import { ImageTag } from '../../../shared/utils/image/image-tag.interface';
-import { addImageTag } from '../../../shared/utils/image/image-tag.transform';
+import { AccountState } from '../../../state/account.state';
+import { ListState } from '../../../state/list.state';
+import { ImageTag } from '../../../shared/cdk/image/image-tag.interface';
+import { addImageTag } from '../../../shared/cdk/image/image-tag.transform';
 
 export type ListWithPoster = TMDBAccountList & ImageTag;
 

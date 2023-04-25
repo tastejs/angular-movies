@@ -29,7 +29,7 @@ type Heading = { main: string; sub: string };
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MovieListPageComponent {
-  readonly movies$ = this.adapter.select('results');
+  readonly movies$ = this.adapter.movies$;
   readonly loading$ = this.adapter.select('loading');
   readonly headings$: Observable<Heading> = this.adapter.select(
     selectSlice(['identifier', 'type', 'genres']),

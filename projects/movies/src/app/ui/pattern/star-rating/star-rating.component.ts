@@ -5,7 +5,7 @@ import {
   TrackByFunction,
   ViewEncapsulation,
 } from '@angular/core';
-import { trackByIndex } from '../../../shared/utils/track-by';
+import { trackByIndex } from '../../../shared/cdk/track-by';
 import { NgFor, NgIf, NgClass} from '@angular/common';
 
 const range = 10;

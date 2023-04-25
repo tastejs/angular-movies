@@ -2,7 +2,7 @@ import { FastSvgModule } from '@push-based/ngx-fast-svg';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { TransferHttpCacheModule } from '@nguniversal/common';
-import { SERVICE_WORKER_IMPORTS } from './shared/pwa/service-worker.imports';
+import { SERVICE_WORKER_IMPORTS } from './configuration/service-worker.imports';
 
 export const APP_IMPORTS = [
   FastSvgModule.forRoot({

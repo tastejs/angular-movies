@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { trackByProp } from 'projects/movies/src/app/shared/utils/track-by';
+import { trackByProp } from 'projects/movies/src/app/shared/cdk/track-by';
 import { ListDetailAdapter, ListPoster } from '../list-detail-page.adapter';
 import { ForModule } from '@rx-angular/template/for';
 import { GridListComponent } from '../../../../ui/component/grid-list/grid-list.component';

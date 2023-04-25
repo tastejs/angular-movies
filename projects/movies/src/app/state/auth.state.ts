@@ -2,8 +2,13 @@ import { RxState } from '@rx-angular/state';
 import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
 import { map } from 'rxjs';
-import { isAuthenticationInProgress } from './utils';
-import { AuthStateModel } from './auth-state.model';
+
+export interface AuthStateModel {
+  requestToken: string | null;
+  accessToken: string | null;
+  accountId: string | null;
+}
+
 
 @Injectable({
   providedIn: 'root',
@@ -51,4 +56,38 @@ export class AuthState extends RxState<AuthStateModel> {
       this.localStorage.removeItem('accountId');
     }
   }
+}
+
+export function isAuthenticationInProgress({
+                                             requestToken,
+                                             accessToken,
+                                             accountId,
+                                           }: Partial<AuthStateModel>): boolean {
+  if (
+    isLoggedIn(requestToken, accessToken, accountId) ||
+    isGuest(requestToken)
+  ) {
+    return false;
+  }
+
+  // Authentication process in progress
+  return true;
+}
+
+export function isGuest(requestToken?: string | null): boolean {
+  // Guest user:
+  // Authentication process not in progress
+  // No request requestToken and user
+  return !requestToken;
+}
+
+export function isLoggedIn(
+  requestToken?: string | null,
+  accessToken?: string | null,
+  accountId?: string | null
+): boolean {
+  const userPresent = !!accessToken && !!accountId;
+  // Already logged in:
+  // No requestToken given and user data are present user is authed
+  return !requestToken && userPresent;
 }
