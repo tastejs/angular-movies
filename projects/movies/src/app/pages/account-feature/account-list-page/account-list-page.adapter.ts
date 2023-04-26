@@ -8,6 +8,7 @@ import { AccountState } from '../../../state/account.state';
 import { ListState } from '../../../state/list.state';
 import { ImageTag } from '../../../shared/cdk/image/image-tag.interface';
 import { addImageTag } from '../../../shared/cdk/image/image-tag.transform';
+import {MY_LIST_FALLBACK} from "../../../constants";
 
 export type ListWithPoster = TMDBAccountList & ImageTag;
 
@@ -29,7 +30,7 @@ export class AccountListPageAdapter extends RxState<AccountListPageAdapterState>
             addImageTag(l, {
               pathProp: 'backdrop_path',
               dims: W500H282,
-              fallback: 'assets/images/nothing.svg',
+              fallback: MY_LIST_FALLBACK,
             })
           )
         )
