@@ -17,4 +17,7 @@ jobs:
       - name: install
         run: npm ci
       - name: Executing user-flow CLI
-        run: npx @push-based/user-flow --verbose --rcPath ./projects/movies-user-flows/.user-flowrc.ci-csr.json
+        uses: push-based/user-flow-gh-action@v0.2.0
+        with:
+          verbose: 'on'
+          rcPath: ./projects/movies-user-flows/.user-flowrc.ci-csr.json
