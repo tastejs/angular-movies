@@ -6,13 +6,13 @@ import { infiniteScroll } from '../../shared/cdk/infinite-scroll/infiniteScroll'
 import { RxActionFactory } from '@rx-angular/state/actions';
 import { RouterState } from '../../shared/router/router.state';
 import { combineLatestWith, map, switchMap, withLatestFrom } from 'rxjs';
-import { W300H450} from '../../data-access/api/constants/image-sizes';
+import { W300H450} from '../../data-access/images/image-sizes';
 import { ImageTag } from '../../shared/cdk/image/image-tag.interface';
 import { addImageTag } from '../../shared/cdk/image/image-tag.transform';
 import { getIdentifierOfTypeAndLayoutUtil } from '../../shared/router/get-identifier-of-type-and-layout.util';
 import { TMDBPersonModel } from '../../data-access/api/model/person.model';
 import { PersonState } from '../../state/person.state';
-import { WithContext } from '../../shared/cdk/context/context.interface';
+import { WithContext } from '../../shared/cdk/loading/context.interface';
 import { MoviesSortValue } from '../../data-access/api/sort/sort.data';
 import { DiscoverResource } from '../../data-access/api/resources/discover.resource';
 
@@ -33,13 +33,12 @@ export interface PersonDetailPageAdapterState {
   activeSorting: string;
 }
 
-
 function transformToPersonDetail(_res: TMDBPersonModel): MoviePerson {
   return addImageTag(_res, { pathProp: 'profile_path', dims: W300H450, sizes: `(min-width: 900px) 400px, 65vw`,  srcset: '154w, 185w, 342w, 500w, 780w' });
 }
 
 function transformToMovieModel(_res: TMDBMovieModel): Movie {
-  return addImageTag(_res as Movie, { pathProp: 'poster_path', dims: W300H450, sizes: '(min-width: 900px) 20vw, 70vw', srcset: '154w, 185w, 342w, 500w, 780w' });
+  return addImageTag(_res, { pathProp: 'poster_path', dims: W300H450, sizes: '(min-width: 900px) 20vw, 70vw', srcset: '154w, 185w, 342w, 500w, 780w' });
 }
 
 @Injectable({

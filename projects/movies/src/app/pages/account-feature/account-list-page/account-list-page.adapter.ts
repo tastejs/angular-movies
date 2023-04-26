@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { RxState } from '@rx-angular/state';
 import { map } from 'rxjs';
-import { W500H282 } from '../../../data-access/api/constants/image-sizes';
+import { W500H282 } from '../../../data-access/images/image-sizes';
 
 import { TMDBAccountList } from '../../../data-access/api/model/list.model';
 import { AccountState } from '../../../state/account.state';

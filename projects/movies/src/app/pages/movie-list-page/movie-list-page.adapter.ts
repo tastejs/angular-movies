@@ -20,14 +20,20 @@ import { RouterState } from '../../shared/router/router.state';
 import { RouterParams } from '../../shared/router/router.model';
 import { infiniteScroll } from '../../shared/cdk/infinite-scroll/infiniteScroll';
 import { RxActionFactory } from '@rx-angular/state/actions';
-import { InfiniteScrollOptions } from '../../shared/cdk/infinite-scroll/infinite-scroll.interface';
-import { MovieListPageModel } from './movie-list-page-adapter.model';
+import {InfiniteScrollOptions, InfiniteScrollState} from '../../shared/cdk/infinite-scroll/infinite-scroll.interface';
 import { DiscoverResource } from '../../data-access/api/resources/discover.resource';
 import { MovieResource } from '../../data-access/api/resources/movie.resource';
 import { SearchResource } from '../../data-access/api/resources/search.resource';
 import { GenreResource } from '../../data-access/api/resources/genre.resource';
-import {W154H205} from "../../data-access/api/constants/image-sizes";
+import {W154H205} from "../../data-access/images/image-sizes";
 import {addImageTag} from "../../shared/cdk/image/image-tag.transform";
+import {TMDBMovieGenreModel} from "../../data-access/api/model/movie-genre.model";
+
+type MovieListRouterParams = Pick<RouterParams, 'type' | 'identifier'>;
+export type MovieListPageModel = InfiniteScrollState<TMDBMovieModel> &
+  MovieListRouterParams & { genres: Record<string, TMDBMovieGenreModel> };
+
+
 
 const emptyResult$ = EMPTY as unknown as Observable<
   TMDBPaginateResult<TMDBMovieModel>
@@ -37,7 +43,6 @@ type Actions = { paginate: void };
 function transformToMovieModel(_res: TMDBMovieModel): Movie {
   return addImageTag(_res as Movie, { pathProp: 'poster_path', dims: W154H205, sizes: '(min-width: 900px) 20vw, 70vw', srcset: '154w, 185w, 342w, 500w, 780w' });
 }
-
 
 @Injectable({
   providedIn: 'root',

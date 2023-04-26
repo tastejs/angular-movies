@@ -5,7 +5,7 @@ import {
 } from '@rx-angular/cdk/transformations';
 import { RxState } from '@rx-angular/state';
 import { selectSlice } from '@rx-angular/state/selections';
-import { W92H138 } from 'projects/movies/src/app/data-access/api/constants/image-sizes';
+import { W92H138 } from 'projects/movies/src/app/data-access/images/image-sizes';
 import { ImageTag } from 'projects/movies/src/app/shared/cdk/image/image-tag.interface';
 import { addImageTag } from 'projects/movies/src/app/shared/cdk/image/image-tag.transform';
 import {

@@ -4,10 +4,13 @@ import { DOCUMENT } from '@angular/common';
 import { Inject, Injectable } from '@angular/core';
 import { filter, map, Observable, startWith } from 'rxjs';
 import { NavigationEnd, Router } from '@angular/router';
-import { fallbackRouteToDefault } from './routing-default.util';
 import { RxInputType } from '../cdk/input-type.typing';
 import { coerceObservable } from '../cdk/coerceObservable';
 import { RouterParams } from './router.model';
+import {defaultRedirectRoute} from "../../constants";
+
+
+export const fallbackRouteToDefault = (route: string) => route !== '/' ? route : defaultRedirectRoute;
 
 /**
  * This service maintains the router state and repopulates it to its subscriber.

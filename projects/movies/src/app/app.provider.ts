@@ -1,8 +1,6 @@
 import { RxActionFactory } from '@rx-angular/state/actions';
-import { TMDB_HTTP_INTERCEPTORS_PROVIDER } from './shared/auth/tmdb-http-interceptor.providers';
+import { TMDB_HTTP_INTERCEPTORS_PROVIDER } from './auth/tmdb-http-interceptor.providers';
 import { GLOBAL_STATE_APP_INITIALIZER_PROVIDER } from './state/state-app-initializer.provider';
-import { SCHEDULED_APP_INITIALIZER_PROVIDER } from './configuration/chunk-app-initializer.provider';
-import { RXA_PROVIDER } from './configuration/rxa.provider';
 import {
   provideRouter,
   withDisabledInitialNavigation,
@@ -10,7 +8,9 @@ import {
 } from '@angular/router';
 import {provideClientHydration} from '@angular/platform-browser';
 import { ROUTES } from './app.routing';
-import {provideMovieDbImageLoader} from "./configuration/image-loader";
+import {RX_RENDER_STRATEGIES_CONFIG} from "@rx-angular/cdk/render-strategies";
+import {APP_INITIALIZER} from "@angular/core";
+import {provideMovieDbImageLoader} from "./data-access/images/image-loader";
 
 export const APP_PROVIDERS = [
   provideRouter(
@@ -47,13 +47,35 @@ export const APP_PROVIDERS = [
    *
    * Chunk app bootstrap over APP_INITIALIZER.
    */
-  SCHEDULED_APP_INITIALIZER_PROVIDER,
+  {
+    provide: APP_INITIALIZER,
+    useFactory: () =>
+      (): Promise<void> =>
+        new Promise<void>((resolve) => {
+          setTimeout(() =>
+            resolve()
+          );
+        }),
+    deps: [],
+    multi: true
+  },
   /**
    * **🚀 Perf Tip for TBT, LCP, CLS:**
    *
    * Configure RxAngular to get maximum performance.
    */
-  RXA_PROVIDER,
+  {
+    provide: RX_RENDER_STRATEGIES_CONFIG,
+    useValue: {
+      /**
+       * **🚀 Perf Tip for TTI:**
+       *
+       * Configure RxAngular's default behaviour to avoid any additional zone-logic to run.
+       * This could en up in missing view updates for template projection, but can be applied by directive to fix it granulary.
+       */
+      patchZone: false,
+    },
+  },
 
   /**
    *

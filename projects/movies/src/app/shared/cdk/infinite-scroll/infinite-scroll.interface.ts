@@ -2,7 +2,7 @@ import {
   TMDBPaginateOptions,
   TMDBPaginateResult,
 } from '../../../data-access/api/paginate/paginate.interface';
-import { WithContext } from '../context/context.interface';
+import { WithContext } from '../loading/context.interface';
 
 export type InfiniteScrollState<T extends {}> = TMDBPaginateResult<T> &
   WithContext<TMDBPaginateResult<T>>;
