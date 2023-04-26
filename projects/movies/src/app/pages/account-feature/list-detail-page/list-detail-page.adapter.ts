@@ -18,6 +18,7 @@ import {Movie} from "../../../state/movie.state";
 import {TMDBMovieDetailsModel} from "../../../data-access/api/model/movie-details.model";
 import {LinkTag} from "../../../shared/cdk/link/a-tag.interface";
 import {VideoTag} from "../../../shared/cdk/video/video.interface";
+import {MY_LIST_FALLBACK} from "../../../constants";
 
 type Actions = {
   listInfoUpdate: TMDBListCreateUpdateParams;
@@ -69,7 +70,7 @@ export class ListDetailAdapter extends RxState<{
           ...addImageTag(m, {
             pathProp: 'backdrop_path',
             dims: W500H282,
-            fallback: 'assets/images/nothing.svg',
+            fallback: MY_LIST_FALLBACK,
           }),
           selected: m.backdrop_path === backdrop_path,
         }))
