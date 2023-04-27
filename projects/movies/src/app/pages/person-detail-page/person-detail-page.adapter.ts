@@ -35,7 +35,7 @@ export interface PersonDetailPageAdapterState {
 
 function transformToPersonDetail(_res: TMDBPersonModel): MoviePerson {
   return addImageTag(_res, { pathProp: 'profile_path', dims: W300H450,
-    sizes: `(min-width: 900px) 400px, 65vw`,
+    sizes: `(min-width: 901px) 15vw, 42vw`,
     srcset: '154w, 185w, 342w, 500w, 780w'
   });
 }

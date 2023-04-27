@@ -102,7 +102,7 @@ export function transformToMovieDetail(_res: TMDBMovieModel): MovieDetail {
 
   addVideoTag(res, { pathPropFn: (r: any) => r?.videos?.results[0]?.key + '' });
   addImageTag(res, { pathProp: 'poster_path', dims: W300H450,
-    sizes: `(min-width: 900px) 400px, 65vw`,
+    sizes: `(min-width: 901px) 15vw, 42vw`,
     srcset: '154w, 185w, 342w, 500w, 780w'
   });
   addLinkTag(res, 'imdb_id', {});
