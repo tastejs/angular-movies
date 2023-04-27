@@ -101,7 +101,10 @@ export function transformToMovieDetail(_res: TMDBMovieModel): MovieDetail {
   } MIN. / ${new Date(res.release_date).getFullYear()}`;
 
   addVideoTag(res, { pathPropFn: (r: any) => r?.videos?.results[0]?.key + '' });
-  addImageTag(res, { pathProp: 'poster_path', dims: W300H450, sizes: `(min-width: 900px) 400px, 65vw`,  srcset: '154w, 185w, 342w, 500w, 780w' });
+  addImageTag(res, { pathProp: 'poster_path', dims: W300H450,
+    sizes: `(min-width: 901px) 15vw, 42vw`,
+    srcset: '154w, 185w, 342w, 500w, 780w'
+  });
   addLinkTag(res, 'imdb_id', {});
   return res as MovieDetail;
 }
@@ -111,5 +114,8 @@ export function transformToCastList(_res: TMDBMovieCastModel): MovieCast {
   return res;
 }
 export function transformToMovieModel(_res: TMDBMovieModel): Movie {
-  return addImageTag(_res as Movie, { pathProp: 'poster_path', dims: W154H205, sizes: '(min-width: 900px) 20vw, 70vw', srcset: '154w, 185w, 342w, 500w, 780w' });
+  return addImageTag(_res as Movie, { pathProp: 'poster_path', dims: W154H205,
+    sizes: '(min-width: 600px) 21vw, (min-width: 500px) 19vw, 15vw',
+    srcset: '154w, 185w, 342w'
+  });
 }

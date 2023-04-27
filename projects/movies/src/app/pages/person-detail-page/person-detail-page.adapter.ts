@@ -34,11 +34,17 @@ export interface PersonDetailPageAdapterState {
 }
 
 function transformToPersonDetail(_res: TMDBPersonModel): MoviePerson {
-  return addImageTag(_res, { pathProp: 'profile_path', dims: W300H450, sizes: `(min-width: 900px) 400px, 65vw`,  srcset: '154w, 185w, 342w, 500w, 780w' });
+  return addImageTag(_res, { pathProp: 'profile_path', dims: W300H450,
+    sizes: `(min-width: 901px) 15vw, 42vw`,
+    srcset: '154w, 185w, 342w, 500w, 780w'
+  });
 }
 
 function transformToMovieModel(_res: TMDBMovieModel): Movie {
-  return addImageTag(_res, { pathProp: 'poster_path', dims: W300H450, sizes: '(min-width: 900px) 20vw, 70vw', srcset: '154w, 185w, 342w, 500w, 780w' });
+  return addImageTag(_res, { pathProp: 'poster_path', dims: W300H450,
+    sizes: '(min-width: 600px) 21vw, (min-width: 500px) 19vw, 15vw',
+    srcset: '154w, 185w, 342w'
+  });
 }
 
 @Injectable({
