@@ -129,11 +129,19 @@
   contain-intrinsic-size: 50px;
   flex-shrink: 0;
 
-  img {
-    display: block;
+  picture {
+    display: inline-flex;
+    align-items: center;
     width: 44px;
     height: 44px;
+    position: relative;
+    overflow: hidden;
     border-radius: var(--theme-borderRadius-circle);
+  }
+
+  img {
+    display: inline;
+    margin: 0 auto;
     object-fit: cover;
     margin: 0 auto;
   }

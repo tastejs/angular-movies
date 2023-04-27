@@ -71,15 +71,17 @@
                 class="movie-detail--cast-actor"
                 [attr.aria-label]="c.name"
               >
+                <picture>
                 <img
                   [ngSrc]="c.imgSrc"
                   [ngSrcset]="c.imgSrcset"
                   [sizes]="c.imgSizes"
-                  width="44"
-                  height="66"
+                  [width]="c.imgWidth"
+                  [height]="c.imgHeight"
                   [alt]="c.name"
                   [title]="c.name"
                 />
+                </picture>
               </a>
               <div *ngIf="ctx.loading" class="loader"></div>
             </div>
