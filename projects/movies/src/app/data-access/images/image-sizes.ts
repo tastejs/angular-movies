@@ -1,5 +1,10 @@
 // @Notice: This information could get fetched from the TMDB API
 import { ImageDimensions } from './image-dimensions.interface';
+export const W44H66: ImageDimensions = {
+  SIZE: '44w',
+  WIDTH: 44,
+  HEIGHT: 66,
+} as const;
 export const W92H138: ImageDimensions = {
   SIZE: '92w',
   WIDTH: 92,

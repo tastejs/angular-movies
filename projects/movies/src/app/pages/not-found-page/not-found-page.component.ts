@@ -15,7 +15,6 @@ import { FastSvgModule } from '@push-based/ngx-fast-svg';
     <a class="btn" routerLink="/list/category/popular">See popular</a>
   </div>`,
   styles: [`
-    @import '../../ui/component/button/button';
     @import '../../ui/token/mixins/flex';
 
     :host {
