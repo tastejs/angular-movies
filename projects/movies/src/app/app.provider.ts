@@ -8,10 +8,11 @@ import {provideClientHydration} from '@angular/platform-browser';
 import {ROUTES} from './app.routing';
 import {RX_RENDER_STRATEGIES_CONFIG} from "@rx-angular/cdk/render-strategies";
 import {APP_INITIALIZER} from "@angular/core";
-import {provideMovieDbImageLoader} from "./data-access/images/image-loader";
+import {provideTmdbImageLoader} from "./data-access/images/image-loader";
 import {provideFastSVG} from "@push-based/ngx-fast-svg";
 import {provideHttpClient} from "@angular/common/http";
-import {withTmdbInterceptors} from "./auth/tmdb-http-interceptor.feature";
+import {withTmdbReadAccessInterceptors} from "./auth/tmdb-http-interceptor.feature";
+import {withTmdbContentTypeInterceptors} from "./data-access/api/interceptor.feature";
 
 export const APP_PROVIDERS = [
   provideRouter(
@@ -75,12 +76,12 @@ export const APP_PROVIDERS = [
       patchZone: false,
     },
   },
-
   provideHttpClient(
-    withTmdbInterceptors()
+    withTmdbReadAccessInterceptors(),
+    withTmdbContentTypeInterceptors()
   ),
   provideClientHydration(),
-  provideMovieDbImageLoader(),
+  provideTmdbImageLoader(),
   provideFastSVG({
     url: (name: string): string => {
       return `assets/svg-icons/${name}.svg`;
