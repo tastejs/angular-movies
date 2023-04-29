@@ -1,10 +1,10 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
-import { ListDetailAdapter } from './list-detail-page.adapter';
+import {Component, ChangeDetectionStrategy, inject} from '@angular/core';
 import { LetModule } from '@rx-angular/template/let';
 import { ForModule } from '@rx-angular/template/for';
 import { MovieListComponent } from '../../../ui/pattern/movie-list/movie-list.component';
-import { FastSvgModule } from '@push-based/ngx-fast-svg';
+import { FastSvgComponent } from '@push-based/ngx-fast-svg';
 import { RouterModule } from '@angular/router';
+import {ListDetailAdapter} from "./list-detail-page.adapter";
 
 @Component({
   standalone: true,
@@ -13,7 +13,7 @@ import { RouterModule } from '@angular/router';
     LetModule,
     ForModule,
     MovieListComponent,
-    FastSvgModule,
+    FastSvgComponent,
   ],
   selector: 'ct-list-detail-page',
   templateUrl: './list-detail-page.component.html',
@@ -21,6 +21,7 @@ import { RouterModule } from '@angular/router';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ListDetailPageComponent {
+  public readonly adapter = inject(ListDetailAdapter)
   readonly tabs = [
     {
       name: 'View List',
@@ -44,5 +45,4 @@ export class ListDetailPageComponent {
     },
   ];
 
-  constructor(public adapter: ListDetailAdapter) {}
 }

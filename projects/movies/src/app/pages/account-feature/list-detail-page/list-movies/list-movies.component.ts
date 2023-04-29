@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import {Component, ChangeDetectionStrategy, inject} from '@angular/core';
 import { ListDetailAdapter } from '../list-detail-page.adapter';
 import { MovieListComponent } from '../../../../ui/pattern/movie-list/movie-list.component';
 
@@ -10,5 +10,5 @@ import { MovieListComponent } from '../../../../ui/pattern/movie-list/movie-list
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ListMoviesComponent {
-  constructor(public adapter: ListDetailAdapter) {}
+  public readonly adapter = inject(ListDetailAdapter);
 }

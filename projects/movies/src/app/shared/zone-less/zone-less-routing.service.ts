@@ -1,7 +1,6 @@
 import { isPlatformBrowser } from '@angular/common';
 import {
-  ErrorHandler,
-  Inject,
+  ErrorHandler, inject,
   Injectable,
   NgZone,
   PLATFORM_ID,
@@ -18,10 +17,11 @@ import { RxEffects } from '@rx-angular/state/effects';
   deps: [RxEffects],
 })
 export class ZonelessRouting extends RxEffects {
+  private readonly router = inject(Router);
+  private readonly platformId = inject(PLATFORM_ID);
+  private readonly ngZone = inject(NgZone);
+
   constructor(
-    private router: Router,
-    private ngZone: NgZone,
-    @Inject(PLATFORM_ID) private platformId: Object,
     errorHandler: ErrorHandler
   ) {
     super(errorHandler);
@@ -50,4 +50,5 @@ export class ZonelessRouting extends RxEffects {
       );
     }
   }
+
 }

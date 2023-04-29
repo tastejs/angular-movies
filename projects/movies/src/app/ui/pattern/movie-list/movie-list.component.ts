@@ -15,7 +15,7 @@ import {RouterModule} from '@angular/router';
 import {StarRatingComponent} from '../star-rating/star-rating.component';
 import {ForModule} from '@rx-angular/template/for';
 import {ElementVisibilityDirective} from '../../../shared/cdk/element-visibility/element-visibility.directive';
-import {FastSvgModule} from '@push-based/ngx-fast-svg';
+import {FastSvgComponent} from '@push-based/ngx-fast-svg';
 import {GridListComponent} from '../../component/grid-list/grid-list.component';
 import {IfModule} from '@rx-angular/template/if';
 import {Movie} from "../../../state/movie.state";
@@ -29,7 +29,7 @@ type UiActions = { paginate: boolean };
     StarRatingComponent,
     ForModule,
     ElementVisibilityDirective,
-    FastSvgModule,
+    FastSvgComponent,
     GridListComponent,
     IfModule,
     NgOptimizedImage

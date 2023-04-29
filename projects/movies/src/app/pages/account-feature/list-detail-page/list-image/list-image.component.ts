@@ -1,9 +1,9 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { trackByProp } from 'projects/movies/src/app/shared/cdk/track-by';
-import { ListDetailAdapter, ListPoster } from '../list-detail-page.adapter';
-import { ForModule } from '@rx-angular/template/for';
-import { GridListComponent } from '../../../../ui/component/grid-list/grid-list.component';
-import { NgOptimizedImage } from '@angular/common';
+import {ChangeDetectionStrategy, Component, inject} from '@angular/core';
+import {trackByProp} from 'projects/movies/src/app/shared/cdk/track-by';
+import {ListDetailAdapter, ListPoster} from '../list-detail-page.adapter';
+import {ForModule} from '@rx-angular/template/for';
+import {GridListComponent} from '../../../../ui/component/grid-list/grid-list.component';
+import {NgOptimizedImage} from '@angular/common';
 
 @Component({
   standalone: true,
@@ -14,7 +14,7 @@ import { NgOptimizedImage } from '@angular/common';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ListImageComponent {
-  constructor(public adapter: ListDetailAdapter) {}
+  public adapter = inject(ListDetailAdapter);
 
   trackByPosterId = trackByProp<ListPoster>('id');
 }

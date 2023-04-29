@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {inject, Injectable} from '@angular/core';
 import { RxState } from '@rx-angular/state';
 import { AppInitializer } from '../shared/cdk/app-initializer';
 import { RxActionFactory } from '@rx-angular/state/actions';
@@ -30,6 +30,7 @@ interface Actions {
   providedIn: 'root',
 })
 export class ListState extends RxState<ListModel> implements AppInitializer {
+  private readonly router = inject(Router);
   private actions = this.actionsF.create();
 
   readonly createList = this.actions.createList;
@@ -71,7 +72,6 @@ export class ListState extends RxState<ListModel> implements AppInitializer {
   );
 
   constructor(
-    private router: Router,
     private actionsF: RxActionFactory<Actions>,
     private listResource: ListResource
   ) {

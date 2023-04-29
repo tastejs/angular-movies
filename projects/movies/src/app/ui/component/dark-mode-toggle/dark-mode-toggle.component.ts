@@ -1,8 +1,7 @@
 import { DOCUMENT } from '@angular/common';
 import {
   ChangeDetectionStrategy,
-  Component,
-  Inject,
+  Component, inject,
   ViewEncapsulation,
 } from '@angular/core';
 import { RxState } from '@rx-angular/state';
@@ -52,8 +51,8 @@ import { LetModule } from '@rx-angular/template/let';
 })
 export class DarkModeToggleComponent extends RxState<{isLightTheme: boolean}> {
   isLightTheme$ = this.select('isLightTheme');
-
-  constructor(@Inject(DOCUMENT) private document: Document) {
+  private readonly document = inject(DOCUMENT);
+  constructor() {
     super()
     this.set({isLightTheme: true})
     this.hold(this.isLightTheme$, this.toggleTheme);

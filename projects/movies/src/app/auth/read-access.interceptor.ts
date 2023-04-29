@@ -4,7 +4,7 @@ import {
   HttpRequest,
 } from '@angular/common/http';
 
-import { Injectable } from '@angular/core';
+import {inject, Injectable} from '@angular/core';
 import { environment } from '../../environments/environment';
 import { AuthState } from '../state/auth.state';
 
@@ -12,7 +12,7 @@ import { AuthState } from '../state/auth.state';
   providedIn: 'root',
 })
 export class ReadAccessInterceptor implements HttpInterceptor {
-  constructor(private authService: AuthState) {}
+  private readonly authService = inject(AuthState);
 
   intercept(req: HttpRequest<any>, next: HttpHandler) {
     const token = this.authService.get().accessToken;
