@@ -31,6 +31,7 @@ interface Actions {
 })
 export class ListState extends RxState<ListModel> implements AppInitializer {
   private readonly router = inject(Router);
+  private readonly listResource = inject(ListResource);
   private actions = this.actionsF.create();
 
   readonly createList = this.actions.createList;
@@ -72,8 +73,7 @@ export class ListState extends RxState<ListModel> implements AppInitializer {
   );
 
   constructor(
-    private actionsF: RxActionFactory<Actions>,
-    private listResource: ListResource
+    private actionsF: RxActionFactory<Actions>
   ) {
     super();
 

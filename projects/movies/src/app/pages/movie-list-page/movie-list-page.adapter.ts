@@ -1,6 +1,6 @@
 import { RxState } from '@rx-angular/state';
 import { selectSlice } from '@rx-angular/state/selections';
-import { Injectable } from '@angular/core';
+import {inject, Injectable} from '@angular/core';
 import {
   distinctUntilKeyChanged,
   EMPTY,
@@ -52,6 +52,13 @@ function transformToMovieModel(_res: TMDBMovieModel): Movie {
   providedIn: 'root',
 })
 export class MovieListPageAdapter extends RxState<MovieListPageModel> {
+  private readonly movieState = inject(MovieState);
+  private readonly discoverState = inject(DiscoverState);
+  private readonly routerState = inject(RouterState);
+  private readonly discoverResource = inject(DiscoverResource);
+  private readonly movieResource = inject(MovieResource);
+  private readonly searchResource = inject(SearchResource);
+  private readonly genreResource = inject(GenreResource);
   private readonly actions = new RxActionFactory<Actions>().create();
   readonly movies$ = this.select(map(({results}) => results?.map(transformToMovieModel)));
 
@@ -78,15 +85,7 @@ export class MovieListPageAdapter extends RxState<MovieListPageModel> {
 
   readonly paginate = this.actions.paginate;
 
-  constructor(
-    private movieState: MovieState,
-    private discoverState: DiscoverState,
-    private routerState: RouterState,
-    private discoverResource: DiscoverResource,
-    private movieResource: MovieResource,
-    private searchResource: SearchResource,
-    private genreResource: GenreResource
-  ) {
+  constructor() {
     super();
 
     const routerParamsFromPaginationTrigger$ = this.actions.paginate$.pipe(

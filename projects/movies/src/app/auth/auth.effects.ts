@@ -14,10 +14,10 @@ import {
 export class AuthEffects {
   private readonly document = inject(DOCUMENT);
   private readonly platformId = inject(PLATFORM_ID);
-  constructor(
-    private authState: AuthState,
-    private authResource: Authv4Resource
-  ) {
+  private readonly authState = inject(AuthState);
+  private readonly authResource = inject(Authv4Resource);
+
+  constructor() {
     if (isPlatformBrowser(this.platformId)) {
       this.restoreLogin();
     }

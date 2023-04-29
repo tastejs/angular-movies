@@ -2,7 +2,7 @@ import {NgOptimizedImage} from '@angular/common';
 import {RxState} from '@rx-angular/state';
 import {
   ChangeDetectionStrategy,
-  Component,
+  Component, inject,
   Input,
   Output,
   ViewEncapsulation,
@@ -87,6 +87,7 @@ type UiActions = { paginate: boolean };
   encapsulation: ViewEncapsulation.Emulated,
 })
 export class MovieListComponent {
+  private readonly state = inject<RxState<{ movies?: Movie[], numPriority: number }>>(RxState);
   ui = this.actions.create();
 
   numPriority() {
@@ -120,7 +121,6 @@ export class MovieListComponent {
   );
 
   constructor(
-    private state: RxState<{ movies?: Movie[], numPriority: number }>,
     private actions: RxActionFactory<UiActions>
   ) {
     this.state.set({numPriority: 2})

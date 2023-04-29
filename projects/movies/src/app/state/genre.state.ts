@@ -1,5 +1,5 @@
 import { RxState } from '@rx-angular/state';
-import { Injectable } from '@angular/core';
+import {inject, Injectable} from '@angular/core';
 import { exhaustMap } from 'rxjs';
 import { RxActionFactory } from '@rx-angular/state/actions';
 import {
@@ -7,6 +7,7 @@ import {
   GenresResponse,
 } from '../../data-access/api/resources/genre.resource';
 import { AppInitializer } from '../rxa-custom/app-initializer';
+import {ListResource} from "../data-access/api/resources/list.resource";
 
 export interface State {
   genres: GenresResponse;
@@ -20,6 +21,7 @@ interface Actions {
   providedIn: 'root',
 })
 export class GenreState extends RxState<State> implements AppInitializer {
+  private readonly genreResource = inject(GenreResource);
   private actions = this.actionsF.create();
 
   readonly genresNames$ = this.select('genres');
@@ -27,8 +29,7 @@ export class GenreState extends RxState<State> implements AppInitializer {
   readonly refreshGenres = this.actions.refreshGenres;
 
   constructor(
-    private actionsF: RxActionFactory<Actions>,
-    private genreResource: GenreResource
+    private actionsF: RxActionFactory<Actions>
   ) {
     super();
 

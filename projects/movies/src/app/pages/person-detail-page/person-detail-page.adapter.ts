@@ -1,7 +1,7 @@
 import { RxState } from '@rx-angular/state';
 import { selectSlice } from '@rx-angular/state/selections';
 import { TMDBMovieModel } from '../../data-access/api/model/movie.model';
-import { Injectable } from '@angular/core';
+import {inject, Injectable} from '@angular/core';
 import { infiniteScroll } from '../../shared/cdk/infinite-scroll/infiniteScroll';
 import { RxActionFactory } from '@rx-angular/state/actions';
 import { RouterState } from '../../shared/router/router.state';
@@ -51,6 +51,9 @@ function transformToMovieModel(_res: TMDBMovieModel): Movie {
   providedIn: 'root',
 })
 export class PersonDetailAdapter extends RxState<PersonDetailPageAdapterState> {
+  private readonly routerState = inject(RouterState);
+  private readonly personState = inject(PersonState);
+  private readonly discoverResource = inject(DiscoverResource);
   private readonly actions = new RxActionFactory<Actions>().create();
   readonly paginate = this.actions.paginate;
   readonly toggleSorting = this.actions.toggleSorting;
@@ -107,11 +110,7 @@ export class PersonDetailAdapter extends RxState<PersonDetailPageAdapterState> {
     map((v) => ({...v, results:  v.results?.map(transformToMovieModel)}))
   );
 
-  constructor(
-    private routerState: RouterState,
-    private personState: PersonState,
-    private discoverResource: DiscoverResource
-  ) {
+  constructor() {
     super();
 
     this.connect('showSorting', this.actions.toggleSorting$);

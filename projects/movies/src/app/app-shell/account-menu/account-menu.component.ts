@@ -1,6 +1,6 @@
 import { LetModule } from '@rx-angular/template/let';
 import { RxState } from '@rx-angular/state';
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import {ChangeDetectionStrategy, Component, inject} from '@angular/core';
 import { RxActionFactory } from '@rx-angular/state/actions';
 import { AuthEffects } from '../../auth/auth.effects';
 import { AuthState } from '../../state/auth.state';
@@ -27,13 +27,13 @@ type Actions = {
   providers: [RxState, RxEffects],
 })
 export class AccountMenuComponent {
+  private readonly authEffects = inject(AuthEffects);
+  private readonly authState = inject(AuthState);
   ui = this.actionsF.create();
 
   loggedIn$ = this.state.select('loggedIn');
 
   constructor(
-    private authEffects: AuthEffects,
-    private authState: AuthState,
     private state: RxState<{ loggedIn: boolean }>,
     private effects: RxEffects,
     private actionsF: RxActionFactory<Actions>

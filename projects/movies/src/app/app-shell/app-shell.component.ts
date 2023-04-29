@@ -58,6 +58,8 @@ type Actions = {
 export class AppShellComponent {
   private readonly router = inject(Router);
   private readonly document = inject(DOCUMENT);
+  public readonly routerState = inject(RouterState);
+  public genreResource = inject(GenreResource);
   readonly ui = this.actionsF.create();
 
   search$ = this.routerState.select(
@@ -76,8 +78,6 @@ export class AppShellComponent {
       sideDrawerOpen: boolean;
     }>,
     public effects: RxEffects,
-    public routerState: RouterState,
-    public genreResource: GenreResource,
     private actionsF: RxActionFactory<Actions>
   ) {
     this.init();

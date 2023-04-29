@@ -13,7 +13,6 @@ const URL_GUEST_SESSION = [baseUrl, 'guest_session', 'new'].join('/');
 })
 export class GuestSessionResource {
   private readonly http: HttpClient = inject(HttpClient);
-  constructor() {}
   getGuestSession = (): Observable<GuestSession> => {
     return this.http.get<GuestSession>(URL_GUEST_SESSION);
   };

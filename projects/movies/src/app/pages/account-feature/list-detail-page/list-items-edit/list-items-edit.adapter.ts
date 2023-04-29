@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {inject, Injectable} from '@angular/core';
 import {
   dictionaryToArray,
   toDictionary,
@@ -45,6 +45,9 @@ export class ListItemsEditAdapter extends RxState<{
   searchValue: string;
   latestSelectedTitle: string;
 }> {
+  private state = inject(ListState);
+  private detailsAdapter = inject(ListDetailAdapter);
+  private moviesResource = inject(MovieResource);
   readonly ui = new RxActionFactory<Actions>().create();
 
   readonly vm$ = this.select(
@@ -79,11 +82,7 @@ export class ListItemsEditAdapter extends RxState<{
     )
   );
 
-  constructor(
-    private state: ListState,
-    private detailsAdapter: ListDetailAdapter,
-    private moviesResource: MovieResource
-  ) {
+  constructor() {
     super();
 
     this.set({

@@ -29,7 +29,6 @@ export type TMDBAccountListResponse = TMDBPaginateResult<TMDBAccountList>;
 })
 export class AccountResource {
   private readonly http: HttpClient = inject(HttpClient);
-  constructor() {}
   getAccountList = (
     accountId: string,
     params: TMDBPaginateOptions = {} as TMDBPaginateOptions

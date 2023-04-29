@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {inject, Injectable} from '@angular/core';
 import { patch } from '@rx-angular/cdk/transformations';
 import { RxState } from '@rx-angular/state';
 import { map, startWith, withLatestFrom } from 'rxjs';
@@ -31,6 +31,8 @@ export class ListCreatePageAdapter extends RxState<{
   mode: FormMode;
   request: TMDBListCreateUpdateParams;
 }> {
+  private readonly state = inject(ListState);
+  private readonly detailsAdapter = inject(ListDetailAdapter);
   readonly ui = new RxActionFactory<Actions>().create();
 
   readonly showHeader$ = this.select(
@@ -45,10 +47,7 @@ export class ListCreatePageAdapter extends RxState<{
     withLatestFrom(this.select())
   );
 
-  constructor(
-    private state: ListState,
-    private detailsAdapter: ListDetailAdapter
-  ) {
+  constructor() {
     super();
 
     this.connect('request', this.ui.update$, (state, update) => {

@@ -3,7 +3,7 @@ import {Location, NgFor, NgIf, NgOptimizedImage} from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
-  ElementRef,
+  ElementRef, inject,
   TrackByFunction,
   ViewChild,
   ViewEncapsulation,
@@ -48,6 +48,8 @@ import { RouterModule } from '@angular/router';
   providers: [RxEffects],
 })
 export class MovieDetailPageComponent {
+  private readonly location = inject(Location);
+  private readonly adapter = inject(MovieDetailAdapter);
   readonly ui = this.actionsF.create();
   private readonly movieCtx$ = this.adapter.routedMovieCtx$;
   readonly loadIframe$ = this.ui.iframe$.pipe(
@@ -78,8 +80,6 @@ export class MovieDetailPageComponent {
 
   constructor(
     private effects: RxEffects,
-    private location: Location,
-    private adapter: MovieDetailAdapter,
     private actionsF: RxActionFactory<{
       dialog: 'show' | 'close';
       iframe: 'load' | 'unload';
