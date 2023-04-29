@@ -11,7 +11,6 @@ import { APP_ID, APP_INITIALIZER } from '@angular/core';
 import { provideTmdbImageLoader } from './data-access/images/image-loader';
 import { provideFastSVG } from '@push-based/ngx-fast-svg';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
-import { tmdbReadAccessInterceptor } from './auth/tmdb-http-interceptor.feature';
 import { tmdbContentTypeInterceptor } from './data-access/api/tmdbContentTypeInterceptor';
 
 export const APP_PROVIDERS = [
@@ -78,7 +77,7 @@ export const APP_PROVIDERS = [
     },
   },
   provideHttpClient(
-    withInterceptors([tmdbReadAccessInterceptor, tmdbContentTypeInterceptor])
+    withInterceptors([tmdbContentTypeInterceptor])
   ),
   provideClientHydration(),
   provideTmdbImageLoader(),
