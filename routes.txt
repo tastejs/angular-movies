@@ -31,6 +31,7 @@
 /detail/movie/1048300
 /detail/movie/315162
 /detail/movie/603692
+/detail/movie/868759
 /detail/movie/934433
 /detail/movie/804150
 /detail/movie/946310
@@ -41,7 +42,6 @@
 /detail/movie/849869
 /detail/movie/842945
 /detail/movie/1033219
-/detail/movie/868759
 /detail/movie/736790
 /detail/movie/1084225
 /detail/movie/505642
