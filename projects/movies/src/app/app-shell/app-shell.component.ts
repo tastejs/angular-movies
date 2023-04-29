@@ -56,9 +56,11 @@ type Actions = {
   providers: [RxState, RxEffects, RxActionFactory],
 })
 export class AppShellComponent {
+  private readonly state = inject<RxState<{sideDrawerOpen: boolean}>>(RxState);
   private readonly router = inject(Router);
   private readonly document = inject(DOCUMENT);
   public readonly routerState = inject(RouterState);
+  public readonly effects = inject(RxEffects);
   public genreResource = inject(GenreResource);
   readonly ui = this.actionsF.create();
 
@@ -74,10 +76,6 @@ export class AppShellComponent {
   );
 
   constructor(
-    private readonly state: RxState<{
-      sideDrawerOpen: boolean;
-    }>,
-    public effects: RxEffects,
     private actionsF: RxActionFactory<Actions>
   ) {
     this.init();

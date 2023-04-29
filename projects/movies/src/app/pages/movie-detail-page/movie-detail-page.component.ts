@@ -50,6 +50,7 @@ import { RouterModule } from '@angular/router';
 export class MovieDetailPageComponent {
   private readonly location = inject(Location);
   private readonly adapter = inject(MovieDetailAdapter);
+  private readonly effects = inject(RxEffects);
   readonly ui = this.actionsF.create();
   private readonly movieCtx$ = this.adapter.routedMovieCtx$;
   readonly loadIframe$ = this.ui.iframe$.pipe(
@@ -79,7 +80,6 @@ export class MovieDetailPageComponent {
   castListWrapper: ElementRef<HTMLElement> | undefined = undefined;
 
   constructor(
-    private effects: RxEffects,
     private actionsF: RxActionFactory<{
       dialog: 'show' | 'close';
       iframe: 'load' | 'unload';

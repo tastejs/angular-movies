@@ -27,15 +27,16 @@ type Actions = {
   providers: [RxState, RxEffects],
 })
 export class AccountMenuComponent {
+  private readonly effects = inject(RxEffects);
   private readonly authEffects = inject(AuthEffects);
   private readonly authState = inject(AuthState);
+  private readonly state = inject<RxState<{ loggedIn: boolean }>>(RxState);
+
   ui = this.actionsF.create();
 
   loggedIn$ = this.state.select('loggedIn');
 
   constructor(
-    private state: RxState<{ loggedIn: boolean }>,
-    private effects: RxEffects,
     private actionsF: RxActionFactory<Actions>
   ) {
     this.state.connect(
