@@ -3,8 +3,7 @@ import { DOCUMENT } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
-  ElementRef,
-  Inject,
+  ElementRef, inject,
   Input,
   OnInit,
   Output,
@@ -71,6 +70,8 @@ type UiActions = {
   providers: [RxState],
 })
 export class SearchBarComponent implements OnInit {
+  private readonly document = inject(DOCUMENT);
+  private readonly elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
   @ViewChild('searchInput') inputRef!: ElementRef<HTMLInputElement>;
   @ViewChild('form') formRef!: ElementRef<HTMLFormElement>;
 
@@ -123,9 +124,7 @@ export class SearchBarComponent implements OnInit {
 
   constructor(
     private state: RxState<{ search: string; open: boolean }>,
-    private actions: RxActionFactory<UiActions>,
-    @Inject(ElementRef) private elementRef: ElementRef,
-    @Inject(DOCUMENT) private document: Document
+    private actions: RxActionFactory<UiActions>
   ) {
     this.state.set({ open: false });
   }

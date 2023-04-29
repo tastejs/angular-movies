@@ -1,7 +1,7 @@
 import { select, selectSlice } from '@rx-angular/state/selections';
 import { RxState } from '@rx-angular/state';
 import { DOCUMENT } from '@angular/common';
-import { Inject, Injectable } from '@angular/core';
+import {inject, Injectable} from '@angular/core';
 import { filter, map, Observable, startWith } from 'rxjs';
 import { NavigationEnd, Router } from '@angular/router';
 import { RxInputType } from '../cdk/input-type.typing';
@@ -19,6 +19,7 @@ export const fallbackRouteToDefault = (route: string) => route !== '/' ? route :
   providedIn: 'root',
 })
 export class RouterState extends RxState<RouterParams> {
+  private readonly document = inject(DOCUMENT);
   private _routerParams$: Observable<RouterParams> = this.router.events.pipe(
     select(
       filter((event): event is NavigationEnd => event instanceof NavigationEnd),
@@ -61,8 +62,7 @@ export class RouterState extends RxState<RouterParams> {
   }
 
   constructor(
-    private router: Router,
-    @Inject(DOCUMENT) private document: Document
+    private router: Router
   ) {
     super();
     this.connect(this._routerParams$);
