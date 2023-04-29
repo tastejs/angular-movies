@@ -1,6 +1,6 @@
-import { LetModule } from '@rx-angular/template/let';
+import { LetDirective } from '@rx-angular/template/let';
 import { RxState } from '@rx-angular/state';
-import {ChangeDetectionStrategy, Component, inject} from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { RxActionFactory } from '@rx-angular/state/actions';
 import { AuthEffects } from '../../auth/auth.effects';
 import { AuthState } from '../../state/auth.state';
@@ -8,9 +8,9 @@ import { map } from 'rxjs';
 import { RouterLink } from '@angular/router';
 
 import { RxEffects } from '@rx-angular/state/effects';
-import { IfModule } from '@rx-angular/template/if';
+import { RxIf } from '@rx-angular/template/if';
 
-export const imports = [RouterLink, LetModule, IfModule];
+export const imports = [RouterLink, LetDirective, RxIf];
 
 type Actions = {
   signOut: Event;
@@ -19,7 +19,7 @@ type Actions = {
 
 @Component({
   standalone: true,
-  imports: [RouterLink, LetModule, IfModule],
+  imports: [RouterLink, RxIf, LetDirective],
   selector: 'ct-account-menu',
   templateUrl: './account-menu.component.html',
   styleUrls: ['./account-menu.component.scss'],
@@ -36,9 +36,7 @@ export class AccountMenuComponent {
 
   loggedIn$ = this.state.select('loggedIn');
 
-  constructor(
-    private actionsF: RxActionFactory<Actions>
-  ) {
+  constructor(private actionsF: RxActionFactory<Actions>) {
     this.state.connect(
       'loggedIn',
       this.authState.accountId$.pipe(map((s) => s !== null))

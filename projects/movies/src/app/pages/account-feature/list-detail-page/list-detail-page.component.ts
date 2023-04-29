@@ -1,17 +1,18 @@
-import {Component, ChangeDetectionStrategy, inject} from '@angular/core';
-import { LetModule } from '@rx-angular/template/let';
-import { ForModule } from '@rx-angular/template/for';
+import { Component, ChangeDetectionStrategy, inject } from '@angular/core';
+import { LetDirective } from '@rx-angular/template/let';
+import { RxFor } from '@rx-angular/template/for';
 import { MovieListComponent } from '../../../ui/pattern/movie-list/movie-list.component';
 import { FastSvgComponent } from '@push-based/ngx-fast-svg';
 import { RouterLink, RouterOutlet } from '@angular/router';
-import {ListDetailAdapter} from "./list-detail-page.adapter";
+import { ListDetailAdapter } from './list-detail-page.adapter';
 
 @Component({
   standalone: true,
   imports: [
-    RouterLink,RouterOutlet,
-    LetModule,
-    ForModule,
+    RouterLink,
+    RouterOutlet,
+    LetDirective,
+    RxFor,
     MovieListComponent,
     FastSvgComponent,
   ],
@@ -21,7 +22,7 @@ import {ListDetailAdapter} from "./list-detail-page.adapter";
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ListDetailPageComponent {
-  public readonly adapter = inject(ListDetailAdapter)
+  public readonly adapter = inject(ListDetailAdapter);
   readonly tabs = [
     {
       name: 'View List',
@@ -44,5 +45,4 @@ export class ListDetailPageComponent {
       link: 'delete',
     },
   ];
-
 }

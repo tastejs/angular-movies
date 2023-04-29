@@ -2,7 +2,8 @@ import { RxState } from '@rx-angular/state';
 import { DOCUMENT } from '@angular/common';
 import {
   ChangeDetectionStrategy,
-  Component, inject,
+  Component,
+  inject,
   TrackByFunction,
   ViewEncapsulation,
 } from '@angular/core';
@@ -17,16 +18,19 @@ import {
 import { TMDBMovieGenreModel } from '../data-access/api/model/movie-genre.model';
 import { trackByProp } from '../shared/cdk/track-by';
 import { RxActionFactory } from '@rx-angular/state/actions';
-import { RouterState, fallbackRouteToDefault } from '../shared/router/router.state';
+import {
+  RouterState,
+  fallbackRouteToDefault,
+} from '../shared/router/router.state';
 import { getIdentifierOfTypeAndLayoutUtil } from '../shared/router/get-identifier-of-type-and-layout.util';
 import { GenreResource } from '../data-access/api/resources/genre.resource';
 import { RxEffects } from '@rx-angular/state/effects';
 import { HamburgerButtonComponent } from '../ui/component/hamburger-button/hamburger-button.component';
-import { LetModule } from '@rx-angular/template/let';
+import { LetDirective } from '@rx-angular/template/let';
 import { SideDrawerComponent } from '../ui/component/side-drawer/side-drawer.component';
 import { SearchBarComponent } from '../ui/component/search-bar/search-bar.component';
 import { DarkModeToggleComponent } from '../ui/component/dark-mode-toggle/dark-mode-toggle.component';
-import { ForModule } from '@rx-angular/template/for';
+import { RxFor } from '@rx-angular/template/for';
 import { LazyDirective } from '../shared/cdk/lazy/lazy.directive';
 import { FastSvgComponent } from '@push-based/ngx-fast-svg';
 
@@ -39,8 +43,8 @@ type Actions = {
   standalone: true,
   imports: [
     RouterLink,
-    LetModule,
-    ForModule,
+    LetDirective,
+    RxFor,
     FastSvgComponent,
     HamburgerButtonComponent,
     SideDrawerComponent,
@@ -56,7 +60,8 @@ type Actions = {
   providers: [RxState, RxEffects, RxActionFactory],
 })
 export class AppShellComponent {
-  private readonly state = inject<RxState<{sideDrawerOpen: boolean}>>(RxState);
+  private readonly state =
+    inject<RxState<{ sideDrawerOpen: boolean }>>(RxState);
   private readonly router = inject(Router);
   private readonly document = inject(DOCUMENT);
   public readonly routerState = inject(RouterState);
@@ -75,9 +80,7 @@ export class AppShellComponent {
     shareReplay(1)
   );
 
-  constructor(
-    private actionsF: RxActionFactory<Actions>
-  ) {
+  constructor(private actionsF: RxActionFactory<Actions>) {
     this.init();
     /**
      * **🚀 Perf Tip for TBT:**

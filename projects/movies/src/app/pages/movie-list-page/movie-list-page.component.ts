@@ -1,26 +1,25 @@
 import { selectSlice } from '@rx-angular/state/selections';
 import {
   ChangeDetectionStrategy,
-  Component, inject,
+  Component,
+  inject,
   ViewEncapsulation,
 } from '@angular/core';
 import { map, Observable } from 'rxjs';
-import { MovieListPageAdapter, MovieListPageModel } from './movie-list-page.adapter';
+import {
+  MovieListPageAdapter,
+  MovieListPageModel,
+} from './movie-list-page.adapter';
 import { NgOptimizedImage } from '@angular/common';
-import { LetModule } from '@rx-angular/template/let';
-import { IfModule } from '@rx-angular/template/if';
+import { LetDirective } from '@rx-angular/template/let';
+import { RxIf } from '@rx-angular/template/if';
 import { MovieListComponent } from '../../ui/pattern/movie-list/movie-list.component';
 
 type Heading = { main: string; sub: string };
 
 @Component({
   standalone: true,
-  imports: [
-    NgOptimizedImage,
-    LetModule,
-    IfModule,
-    MovieListComponent,
-  ],
+  imports: [NgOptimizedImage, LetDirective, RxIf, MovieListComponent],
   selector: 'ct-movies-list',
   templateUrl: './movie-list-page.component.html',
   styleUrls: ['./movie-list-page.component.scss'],

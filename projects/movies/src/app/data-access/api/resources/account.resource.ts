@@ -9,7 +9,7 @@ import { baseUrlApiV4 } from './internal/base-urls.constant';
 import { getTMDBSortOptions } from '../sort/utils';
 import { TMDBDiscoverOptions } from './discover.resource';
 import { HttpClient } from '@angular/common/http';
-import {inject, Injectable} from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 
 const URL_ACCOUNT_LIST = (uid: string) =>
   [baseUrlApiV4, 'account', uid, 'lists'].join('/');
