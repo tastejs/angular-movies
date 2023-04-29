@@ -3,13 +3,13 @@ import { LetModule } from '@rx-angular/template/let';
 import { ForModule } from '@rx-angular/template/for';
 import { MovieListComponent } from '../../../ui/pattern/movie-list/movie-list.component';
 import { FastSvgComponent } from '@push-based/ngx-fast-svg';
-import { RouterOutlet } from '@angular/router';
+import { RouterLink, RouterOutlet } from '@angular/router';
 import {ListDetailAdapter} from "./list-detail-page.adapter";
 
 @Component({
   standalone: true,
   imports: [
-    RouterOutlet,
+    RouterLink,RouterOutlet,
     LetModule,
     ForModule,
     MovieListComponent,

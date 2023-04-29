@@ -10,12 +10,12 @@ import {
 } from './account-list-page.adapter';
 import { ForModule } from '@rx-angular/template/for';
 import { GridListComponent } from '../../../ui/component/grid-list/grid-list.component';
-import { RouterOutlet } from '@angular/router';
+import { RouterLink } from '@angular/router';
 import { NgOptimizedImage } from '@angular/common';
 
 @Component({
   standalone: true,
-  imports: [RouterOutlet, ForModule, GridListComponent, NgOptimizedImage],
+  imports: [RouterLink, ForModule, GridListComponent, NgOptimizedImage],
   selector: 'ct-person',
   templateUrl: './account-list-page.component.html',
   styleUrls: ['./account-list-page.component.scss'],

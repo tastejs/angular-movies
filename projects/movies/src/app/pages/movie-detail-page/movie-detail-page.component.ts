@@ -23,13 +23,13 @@ import { BypassSrcDirective } from '../../shared/cdk/bypass-src.directive';
 import { ForModule } from '@rx-angular/template/for';
 import { FastSvgComponent } from '@push-based/ngx-fast-svg';
 import { IfModule } from '@rx-angular/template/if';
-import { RouterOutlet } from '@angular/router';
+import { RouterLink } from '@angular/router';
 
 @Component({
   standalone: true,
   imports: [
     NgIf,NgFor,
-    RouterOutlet,
+    RouterLink,
     NgOptimizedImage,
     DetailGridComponent,
     StarRatingComponent,

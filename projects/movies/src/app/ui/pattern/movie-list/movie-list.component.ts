@@ -11,7 +11,7 @@ import {filter, map, Observable} from 'rxjs';
 import {RxActionFactory} from '@rx-angular/state/actions';
 import {coerceObservable} from '../../../shared/cdk/coerceObservable';
 import {RxInputType} from '../../../shared/cdk/input-type.typing';
-import {RouterOutlet} from '@angular/router';
+import {RouterLink} from '@angular/router';
 import {StarRatingComponent} from '../star-rating/star-rating.component';
 import {ForModule} from '@rx-angular/template/for';
 import {ElementVisibilityDirective} from '../../../shared/cdk/element-visibility/element-visibility.directive';
@@ -25,7 +25,7 @@ type UiActions = { paginate: boolean };
 @Component({
   standalone: true,
   imports: [
-    RouterOutlet,
+    RouterLink,
     StarRatingComponent,
     ForModule,
     ElementVisibilityDirective,

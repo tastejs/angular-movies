@@ -6,7 +6,7 @@ import {
   TrackByFunction,
   ViewEncapsulation,
 } from '@angular/core';
-import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
+import { NavigationEnd, Router, RouterLink } from '@angular/router';
 import {
   distinctUntilChanged,
   filter,
@@ -38,7 +38,7 @@ type Actions = {
 @Component({
   standalone: true,
   imports: [
-    RouterOutlet,
+    RouterLink,
     LetModule,
     ForModule,
     FastSvgComponent,
