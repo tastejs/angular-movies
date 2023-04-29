@@ -44,6 +44,7 @@ For now you can search the codebase for "Perf Tip" later on there will be proppe
 
 
 
+
 <!-- bundle-stats-start -->
 | Names             |       Size |
 | ---               | ---        |
@@ -67,6 +68,7 @@ For now you can search the codebase for "Perf Tip" later on there will be proppe
 | app_pages_account-feature_account-featuer-page_routes_ts.7e615fae79e24c01.js           | 841 Bytes |
 | app_pages_account-feature_list-detail-page_list-movies_list-movies_component_ts.fed1af72a730bc1b.js           | 667 Bytes |
 <!-- bundle-stats-end -->
+
 
 
 
