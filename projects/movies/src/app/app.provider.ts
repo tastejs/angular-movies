@@ -1,4 +1,4 @@
-import {GLOBAL_STATE_APP_INITIALIZER_PROVIDER} from './state/state-app-initializer.provider';
+import {withGobalStateInitializer} from './state/state-app-initializer.provider';
 import {
   provideRouter,
   withDisabledInitialNavigation,
@@ -11,7 +11,7 @@ import {APP_INITIALIZER} from "@angular/core";
 import {provideMovieDbImageLoader} from "./data-access/images/image-loader";
 import {provideFastSVG} from "@push-based/ngx-fast-svg";
 import {provideHttpClient} from "@angular/common/http";
-import {withTmdbInterceptors} from "./auth/tmdb-http-interceptor.providers";
+import {withTmdbInterceptors} from "./auth/tmdb-http-interceptor.feature";
 
 export const APP_PROVIDERS = [
   provideRouter(
@@ -40,7 +40,7 @@ export const APP_PROVIDERS = [
    *
    * Fetch data visible in viewport on app bootstrap instead of component initialization.
    */
-  GLOBAL_STATE_APP_INITIALIZER_PROVIDER,
+  withGobalStateInitializer(),
   /**
    * **🚀 Perf Tip for TBT:**
    *
