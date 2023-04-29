@@ -11,6 +11,7 @@ import { ROUTES } from './app.routing';
 import {RX_RENDER_STRATEGIES_CONFIG} from "@rx-angular/cdk/render-strategies";
 import {APP_INITIALIZER} from "@angular/core";
 import {provideMovieDbImageLoader} from "./data-access/images/image-loader";
+import {provideFastSVG} from "@push-based/ngx-fast-svg";
 
 export const APP_PROVIDERS = [
   provideRouter(
@@ -81,5 +82,10 @@ export const APP_PROVIDERS = [
    *
    */
   provideClientHydration(),
-  provideMovieDbImageLoader()
+  provideMovieDbImageLoader(),
+  provideFastSVG({
+    url: (name: string): string => {
+      return `assets/svg-icons/${name}.svg`;
+    },
+  })
 ];

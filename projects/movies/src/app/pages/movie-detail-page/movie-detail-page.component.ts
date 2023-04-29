@@ -21,7 +21,7 @@ import { MovieListComponent } from '../../ui/pattern/movie-list/movie-list.compo
 import { LetModule } from '@rx-angular/template/let';
 import { BypassSrcDirective } from '../../shared/cdk/bypass-src.directive';
 import { ForModule } from '@rx-angular/template/for';
-import { FastSvgModule } from '@push-based/ngx-fast-svg';
+import { FastSvgComponent } from '@push-based/ngx-fast-svg';
 import { IfModule } from '@rx-angular/template/if';
 import { RouterModule } from '@angular/router';
 
@@ -37,7 +37,7 @@ import { RouterModule } from '@angular/router';
     LetModule,
     BypassSrcDirective,
     ForModule,
-    FastSvgModule,
+    FastSvgComponent,
     IfModule,
   ],
   selector: 'ct-movie',

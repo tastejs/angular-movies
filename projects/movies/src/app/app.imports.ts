@@ -1,4 +1,3 @@
-import { FastSvgModule } from '@push-based/ngx-fast-svg';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { TransferHttpCacheModule } from '@nguniversal/common';
@@ -6,11 +5,6 @@ import {ServiceWorkerModule} from "@angular/service-worker";
 import {environment} from "../environments/environment";
 
 export const APP_IMPORTS = [
-  FastSvgModule.forRoot({
-    url: (name: string): string => {
-      return `assets/svg-icons/${name}.svg`;
-    },
-  }),
   BrowserModule.withServerTransition({ appId: 'moviesApp' }),
   HttpClientModule,
   /**

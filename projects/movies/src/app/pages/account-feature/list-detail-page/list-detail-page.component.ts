@@ -3,7 +3,7 @@ import { ListDetailAdapter } from './list-detail-page.adapter';
 import { LetModule } from '@rx-angular/template/let';
 import { ForModule } from '@rx-angular/template/for';
 import { MovieListComponent } from '../../../ui/pattern/movie-list/movie-list.component';
-import { FastSvgModule } from '@push-based/ngx-fast-svg';
+import { FastSvgComponent } from '@push-based/ngx-fast-svg';
 import { RouterModule } from '@angular/router';
 
 @Component({
@@ -13,7 +13,7 @@ import { RouterModule } from '@angular/router';
     LetModule,
     ForModule,
     MovieListComponent,
-    FastSvgModule,
+    FastSvgComponent,
   ],
   selector: 'ct-list-detail-page',
   templateUrl: './list-detail-page.component.html',

@@ -8,11 +8,11 @@ import {
   MovieSearchResult,
 } from './list-items-edit.adapter';
 import { ForModule } from '@rx-angular/template/for';
-import { FastSvgModule } from '@push-based/ngx-fast-svg';
+import { FastSvgComponent } from '@push-based/ngx-fast-svg';
 import { NgOptimizedImage } from '@angular/common';
 @Component({
   standalone: true,
-  imports: [NgOptimizedImage, ForModule, LetModule, FastSvgModule],
+  imports: [NgOptimizedImage, ForModule, LetModule, FastSvgComponent],
   selector: 'ct-list-items-edit',
   templateUrl: './list-items-edit.component.html',
   styleUrls: ['./list-items-edit.component.scss'],

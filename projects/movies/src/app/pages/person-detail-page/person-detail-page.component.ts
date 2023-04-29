@@ -11,7 +11,7 @@ import { DetailGridComponent } from '../../ui/component/detail-grid/detail-grid.
 import { StarRatingComponent } from '../../ui/pattern/star-rating/star-rating.component';
 import { MovieListComponent } from '../../ui/pattern/movie-list/movie-list.component';
 import { LetModule } from '@rx-angular/template/let';
-import { FastSvgModule } from '@push-based/ngx-fast-svg';
+import { FastSvgComponent } from '@push-based/ngx-fast-svg';
 
 @Component({
   standalone: true,
@@ -22,7 +22,7 @@ import { FastSvgModule } from '@push-based/ngx-fast-svg';
     StarRatingComponent,
     MovieListComponent,
     LetModule,
-    FastSvgModule,
+    FastSvgComponent,
   ],
   selector: 'ct-person',
   templateUrl: './person-detail-page.component.html',

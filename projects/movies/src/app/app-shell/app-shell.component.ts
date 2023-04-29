@@ -28,7 +28,8 @@ import { SearchBarComponent } from '../ui/component/search-bar/search-bar.compon
 import { DarkModeToggleComponent } from '../ui/component/dark-mode-toggle/dark-mode-toggle.component';
 import { ForModule } from '@rx-angular/template/for';
 import { LazyDirective } from '../shared/cdk/lazy/lazy.directive';
-import { FastSvgModule } from '@push-based/ngx-fast-svg';
+import { FastSvgComponent } from '@push-based/ngx-fast-svg';
+
 type Actions = {
   sideDrawerOpenToggle: boolean;
   loadAccountMenu: void;
@@ -40,7 +41,7 @@ type Actions = {
     RouterModule,
     LetModule,
     ForModule,
-    FastSvgModule,
+    FastSvgComponent,
     HamburgerButtonComponent,
     SideDrawerComponent,
     SearchBarComponent,
