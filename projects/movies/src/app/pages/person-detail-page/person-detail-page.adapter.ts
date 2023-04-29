@@ -42,8 +42,8 @@ function transformToPersonDetail(_res: TMDBPersonModel): MoviePerson {
 
 function transformToMovieModel(_res: TMDBMovieModel): Movie {
   return addImageTag(_res, { pathProp: 'poster_path', dims: W300H450,
-    sizes: '(min-width: 600px) 21vw, (min-width: 500px) 19vw, 15vw',
-    srcset: '154w, 185w, 342w'
+    sizes: '(min-width: 600px) 21vw, 15vw',
+    srcset: '185w, 342w'
   });
 }
 
