@@ -74,9 +74,7 @@ export class AppShellComponent {
   );
 
   accountMenuComponent$ = this.ui.loadAccountMenu$.pipe(
-    switchMap(() =>
-      import('./account-menu/account-menu.component.lazy').then(({ c }) => c)
-    ),
+    switchMap(() => import('./account-menu/account-menu.component').then(x => x.default)),
     shareReplay(1)
   );
 

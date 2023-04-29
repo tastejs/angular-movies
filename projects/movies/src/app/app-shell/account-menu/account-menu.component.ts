@@ -26,7 +26,7 @@ type Actions = {
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [RxState, RxEffects],
 })
-export class AccountMenuComponent {
+export default class AccountMenuComponent {
   private readonly effects = inject(RxEffects);
   private readonly authEffects = inject(AuthEffects);
   private readonly authState = inject(AuthState);
