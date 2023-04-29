@@ -23,7 +23,7 @@ import { NgOptimizedImage } from '@angular/common';
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.Emulated,
 })
-export class AccountListPageComponent {
+export default class AccountListPageComponent {
   private readonly adapter = inject(AccountListPageAdapter);
   readonly lists$ = this.adapter.select('lists');
   readonly trackById = trackByProp<ListWithPoster>('id');

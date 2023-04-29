@@ -18,7 +18,7 @@ import { NgOptimizedImage } from '@angular/common';
   styleUrls: ['./list-items-edit.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ListItemsEditComponent {
+export default class ListItemsEditComponent {
   public readonly adapter = inject(ListItemsEditAdapter);
 
   trackByMovieId = trackByProp<MovieSearchResult>('id');

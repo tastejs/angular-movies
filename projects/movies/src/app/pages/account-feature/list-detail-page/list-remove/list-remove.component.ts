@@ -24,7 +24,7 @@ type Actions = {
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [RxActionFactory],
 })
-export class ListRemoveComponent
+export default class ListRemoveComponent
   extends RxState<never>
   implements AfterViewInit, OnDestroy
 {

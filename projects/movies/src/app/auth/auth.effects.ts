@@ -19,28 +19,24 @@ export class AuthEffects {
 
   constructor() {
     if (isPlatformBrowser(this.platformId)) {
-      this.restoreLogin();
+      if (isAuthenticationInProgress(this.authState.get())) {
+        this.createAccessToken$().subscribe((accessTokenResult) => {
+          // delete in local storage
+          window.localStorage.removeItem('requestToken');
+          // store in local storage for the next page load
+          window.localStorage.setItem(
+            'accessToken',
+            accessTokenResult.accessToken
+          );
+          window.localStorage.setItem('accountId', accessTokenResult.accountId);
+          this.authState.set({
+            ...this.authState.get(),
+            ...accessTokenResult,
+          });
+        });
+      }
     }
   }
-
-  restoreLogin = (): void => {
-    if (isAuthenticationInProgress(this.authState.get())) {
-      this.createAccessToken$().subscribe((accessTokenResult) => {
-        // delete in local storage
-        window.localStorage.removeItem('requestToken');
-        // store in local storage for the next page load
-        window.localStorage.setItem(
-          'accessToken',
-          accessTokenResult.accessToken
-        );
-        window.localStorage.setItem('accountId', accessTokenResult.accountId);
-        this.authState.set({
-          ...this.authState.get(),
-          ...accessTokenResult,
-        });
-      });
-    }
-  };
 
   createAccessToken$ = (): Observable<{
     accessToken: string;

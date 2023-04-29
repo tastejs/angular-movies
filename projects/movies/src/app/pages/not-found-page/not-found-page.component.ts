@@ -18,4 +18,4 @@ import { FastSvgComponent } from '@push-based/ngx-fast-svg';
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.Emulated,
 })
-export class NotFoundPageComponent {}
+export default class NotFoundPageComponent {}

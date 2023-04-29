@@ -21,7 +21,7 @@ import { ListDetailAdapter } from './list-detail-page.adapter';
   styleUrls: ['./list-detail-page.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ListDetailPageComponent {
+export default class ListDetailPageComponent {
   public readonly adapter = inject(ListDetailAdapter);
   readonly tabs = [
     {

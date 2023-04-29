@@ -26,7 +26,7 @@ type Heading = { main: string; sub: string };
   encapsulation: ViewEncapsulation.Emulated,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class MovieListPageComponent {
+export default class MovieListPageComponent {
   private readonly adapter = inject(MovieListPageAdapter);
 
   readonly movies$ = this.adapter.movies$;

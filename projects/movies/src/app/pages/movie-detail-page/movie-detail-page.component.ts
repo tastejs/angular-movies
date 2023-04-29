@@ -49,7 +49,7 @@ import { RouterLink } from '@angular/router';
   encapsulation: ViewEncapsulation.Emulated,
   providers: [RxEffects],
 })
-export class MovieDetailPageComponent {
+export default class MovieDetailPageComponent {
   private readonly location = inject(Location);
   private readonly adapter = inject(MovieDetailAdapter);
   private readonly effects = inject(RxEffects);

@@ -72,7 +72,7 @@ import { ListCreatePageAdapter } from './list-create-page.adapter';
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ListCreateEditPageComponent implements OnDestroy {
+export default class ListCreateEditPageComponent implements OnDestroy {
   public readonly adapter = inject(ListCreatePageAdapter);
 
   ngOnDestroy(): void {
