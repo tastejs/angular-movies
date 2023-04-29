@@ -1,16 +1,17 @@
-import { LetModule } from '@rx-angular/template/let';
+import { LetDirective } from '@rx-angular/template/let';
 import {
   ChangeDetectionStrategy,
-  Component, inject,
+  Component,
+  inject,
   OnDestroy,
   OnInit,
 } from '@angular/core';
 import { ListDetailAdapter } from '../list-detail-page.adapter';
-import {DOCUMENT} from "@angular/common";
+import { DOCUMENT } from '@angular/common';
 // TODO
 @Component({
   standalone: true,
-  imports: [LetModule],
+  imports: [LetDirective],
   selector: 'ct-list-share',
   templateUrl: './list-share.component.html',
   styleUrls: ['./list-share.component.scss'],

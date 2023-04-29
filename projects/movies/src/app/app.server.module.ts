@@ -1,17 +1,15 @@
-import {NgModule} from '@angular/core';
-import {APP_COMPONENT_IMPORTS, AppComponent} from './app.component';
-import {APP_IMPORTS} from "./app.imports";
-import {ServerModule} from "@angular/platform-server";
-import {RX_RENDER_STRATEGIES_CONFIG} from "@rx-angular/cdk/render-strategies";
-import {provideFastSVG} from "@push-based/ngx-fast-svg";
-import {IconLoadStrategySsr} from "./ui/component/icons/icon-load.ssr.strategy";
-import {APP_PROVIDERS} from "./app.provider";
+import { NgModule } from '@angular/core';
+import { APP_COMPONENT_IMPORTS, AppComponent } from './app.component';
+import { ServerModule } from '@angular/platform-server';
+import { RX_RENDER_STRATEGIES_CONFIG } from '@rx-angular/cdk/render-strategies';
+import { provideFastSVG } from '@push-based/ngx-fast-svg';
+import { IconLoadStrategySsr } from './ui/component/icons/icon-load.ssr.strategy';
+import { APP_PROVIDERS } from './app.provider';
 
 @NgModule({
   declarations: [AppComponent],
   imports: [
     APP_COMPONENT_IMPORTS,
-    APP_IMPORTS,
     /**
      * **🚀 Perf Tip for LCP, CLS:**
      *
@@ -28,13 +26,10 @@ import {APP_PROVIDERS} from "./app.provider";
       },
     },
     provideFastSVG({
-      url: (name: string): string => {
-        return `assets/svg-icons/${name}.svg`;
-      },
       svgLoadStrategy: IconLoadStrategySsr,
+      url: (name: string): string => `assets/svg-icons/${name}.svg`,
     }),
   ],
   bootstrap: [AppComponent],
 })
-export class AppServerModule {
-}
+export class AppServerModule {}

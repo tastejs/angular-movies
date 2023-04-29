@@ -1,20 +1,24 @@
-import {withGobalStateInitializer} from './state/state-app-initializer.provider';
+import { withGobalStateInitializer } from './state/state-app-initializer.provider';
 import {
   provideRouter,
   withDisabledInitialNavigation,
   withInMemoryScrolling,
 } from '@angular/router';
-import {provideClientHydration} from '@angular/platform-browser';
-import {ROUTES} from './app.routing';
-import {RX_RENDER_STRATEGIES_CONFIG} from "@rx-angular/cdk/render-strategies";
-import {APP_INITIALIZER} from "@angular/core";
-import {provideTmdbImageLoader} from "./data-access/images/image-loader";
-import {provideFastSVG} from "@push-based/ngx-fast-svg";
-import {provideHttpClient} from "@angular/common/http";
-import {withTmdbReadAccessInterceptors} from "./auth/tmdb-http-interceptor.feature";
-import {withTmdbContentTypeInterceptors} from "./data-access/api/interceptor.feature";
+import { provideClientHydration } from '@angular/platform-browser';
+import { ROUTES } from './app.routing';
+import { RX_RENDER_STRATEGIES_CONFIG } from '@rx-angular/cdk/render-strategies';
+import { APP_ID, APP_INITIALIZER } from '@angular/core';
+import { provideTmdbImageLoader } from './data-access/images/image-loader';
+import { provideFastSVG } from '@push-based/ngx-fast-svg';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
+import { tmdbReadAccessInterceptor } from './auth/tmdb-http-interceptor.feature';
+import { tmdbContentTypeInterceptor } from './data-access/api/tmdbContentTypeInterceptor';
 
 export const APP_PROVIDERS = [
+  {
+    provide: APP_ID,
+    useValue: 'moviesApp',
+  },
   provideRouter(
     ROUTES,
     // withDebugTracing(),
@@ -49,15 +53,12 @@ export const APP_PROVIDERS = [
    */
   {
     provide: APP_INITIALIZER,
-    useFactory: () =>
-      (): Promise<void> =>
-        new Promise<void>((resolve) => {
-          setTimeout(() =>
-            resolve()
-          );
-        }),
+    useFactory: () => (): Promise<void> =>
+      new Promise<void>((resolve) => {
+        setTimeout(() => resolve());
+      }),
     deps: [],
-    multi: true
+    multi: true,
   },
   /**
    * **🚀 Perf Tip for TBT, LCP, CLS:**
@@ -77,14 +78,11 @@ export const APP_PROVIDERS = [
     },
   },
   provideHttpClient(
-    withTmdbReadAccessInterceptors(),
-    withTmdbContentTypeInterceptors()
+    withInterceptors([tmdbReadAccessInterceptor, tmdbContentTypeInterceptor])
   ),
   provideClientHydration(),
   provideTmdbImageLoader(),
   provideFastSVG({
-    url: (name: string): string => {
-      return `assets/svg-icons/${name}.svg`;
-    },
-  })
+    url: (name: string): string => `assets/svg-icons/${name}.svg`,
+  }),
 ];

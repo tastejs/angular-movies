@@ -1,24 +1,17 @@
 import { NgModule } from '@angular/core';
 import { APP_COMPONENT_IMPORTS, AppComponent } from './app.component';
 import { APP_PROVIDERS } from './app.provider';
-import {CUSTOM_ZONE_PROVIDER} from "./shared/zone-less/noop-zone";
-import {BrowserModule} from "@angular/platform-browser";
-import {HttpClientModule} from "@angular/common/http";
-import {TransferHttpCacheModule} from "@nguniversal/common";
-import {ServiceWorkerModule} from "@angular/service-worker";
-import {environment} from "../environments/environment";
+import { CUSTOM_ZONE_PROVIDER } from './shared/zone-less/noop-zone';
+import { BrowserModule } from '@angular/platform-browser';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [AppComponent],
   imports: [
-    BrowserModule.withServerTransition({ appId: 'moviesApp' }),
-    HttpClientModule,
-    /**
-     * **🚀 Perf Tip for LCP, CLS:**
-     *
-     * Data from HTTP requests performed at SSR are transferred to FE & reused to avoid over-fetching and blink on app bootstrap.
-     */
-    TransferHttpCacheModule,
+    APP_COMPONENT_IMPORTS,
+
+    BrowserModule,
 
     /**
      * **🚀 Perf Tip for UX:**
@@ -30,16 +23,13 @@ import {environment} from "../environments/environment";
       enabled: environment.production,
       // Register the ServiceWorker as soon as the app is stable
       // or after 30 seconds (whichever comes first).
-      registrationStrategy: 'registerWhenStable:30000'
+      registrationStrategy: 'registerWhenStable:30000',
     }),
-    APP_COMPONENT_IMPORTS
   ],
   providers: [
     ...APP_PROVIDERS,
-    CUSTOM_ZONE_PROVIDER // browser only
+    CUSTOM_ZONE_PROVIDER, // browser only
   ],
-  bootstrap: [
-    AppComponent
-  ],
+  bootstrap: [AppComponent],
 })
 export class AppModule {}

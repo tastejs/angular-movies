@@ -3,7 +3,8 @@ import { DOCUMENT } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
-  ElementRef, inject,
+  ElementRef,
+  inject,
   Input,
   OnInit,
   Output,
@@ -23,7 +24,7 @@ import {
 } from 'rxjs';
 import { RxActionFactory, preventDefault } from '@rx-angular/state/actions';
 import { coerceObservable } from '@rx-angular/cdk/coercing';
-import { LetModule } from '@rx-angular/template/let';
+import { LetDirective } from '@rx-angular/template/let';
 import { FastSvgComponent } from '@push-based/ngx-fast-svg';
 
 type UiActions = {
@@ -35,7 +36,7 @@ type UiActions = {
 
 @Component({
   standalone: true,
-  imports: [LetModule, FastSvgComponent],
+  imports: [LetDirective, FastSvgComponent],
   selector: 'ui-search-bar',
   template: `
     <form
