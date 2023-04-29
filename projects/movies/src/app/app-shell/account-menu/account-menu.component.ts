@@ -5,12 +5,12 @@ import { RxActionFactory } from '@rx-angular/state/actions';
 import { AuthEffects } from '../../auth/auth.effects';
 import { AuthState } from '../../state/auth.state';
 import { map } from 'rxjs';
-import { RouterModule } from '@angular/router';
+import { RouterOutlet } from '@angular/router';
 
 import { RxEffects } from '@rx-angular/state/effects';
 import { IfModule } from '@rx-angular/template/if';
 
-export const imports = [RouterModule, LetModule, IfModule];
+export const imports = [RouterOutlet, LetModule, IfModule];
 
 type Actions = {
   signOut: Event;
@@ -19,7 +19,7 @@ type Actions = {
 
 @Component({
   standalone: true,
-  imports: [RouterModule, LetModule, IfModule],
+  imports: [RouterOutlet, LetModule, IfModule],
   selector: 'ct-account-menu',
   templateUrl: './account-menu.component.html',
   styleUrls: ['./account-menu.component.scss'],

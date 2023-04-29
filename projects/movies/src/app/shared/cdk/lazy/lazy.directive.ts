@@ -8,7 +8,7 @@ import { distinctUntilChanged } from 'rxjs';
  * @example
  * Component: (any-component.ts)
  *
- * export const imports = [RouterModule, CommonModule, ...];
+ * export const imports = [RouterOutlet, CommonModule, ...];
  * @Component({
  * ...
  * })

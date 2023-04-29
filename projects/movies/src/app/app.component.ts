@@ -1,10 +1,10 @@
 import {ChangeDetectionStrategy, Component, inject} from '@angular/core';
 import { ZonelessRouting } from './shared/zone-less/zone-less-routing.service';
-import { RouterModule } from '@angular/router';
+import { RouterOutlet } from '@angular/router';
 import { LetModule } from '@rx-angular/template/let';
 import { AppShellComponent } from './app-shell/app-shell.component';
 export const APP_COMPONENT_IMPORTS = [
-  RouterModule,
+  RouterOutlet,
   AppShellComponent,
   LetModule,
 ];

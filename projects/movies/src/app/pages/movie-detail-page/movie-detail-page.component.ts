@@ -23,22 +23,22 @@ import { BypassSrcDirective } from '../../shared/cdk/bypass-src.directive';
 import { ForModule } from '@rx-angular/template/for';
 import { FastSvgComponent } from '@push-based/ngx-fast-svg';
 import { IfModule } from '@rx-angular/template/if';
-import { RouterModule } from '@angular/router';
+import { RouterOutlet } from '@angular/router';
 
 @Component({
   standalone: true,
   imports: [
     NgIf,NgFor,
-    RouterModule,
+    RouterOutlet,
     NgOptimizedImage,
     DetailGridComponent,
     StarRatingComponent,
     MovieListComponent,
     LetModule,
-    BypassSrcDirective,
     ForModule,
-    FastSvgComponent,
     IfModule,
+    BypassSrcDirective,
+    FastSvgComponent,
   ],
   selector: 'ct-movie',
   templateUrl: './movie-detail-page.component.html',
