@@ -39,7 +39,7 @@ import { FastSvgComponent } from '@push-based/ngx-fast-svg';
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.Emulated,
 })
-export class PersonDetailPageComponent {
+export default class PersonDetailPageComponent {
   private readonly adapter = inject(PersonDetailAdapter);
   private readonly location = inject(Location);
   sortOptions = SORT_VALUES;

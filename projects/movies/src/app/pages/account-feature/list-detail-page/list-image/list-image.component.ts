@@ -13,7 +13,7 @@ import { NgOptimizedImage } from '@angular/common';
   styleUrls: ['./list-image.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ListImageComponent {
+export default class ListImageComponent {
   public adapter = inject(ListDetailAdapter);
 
   trackByPosterId = trackByProp<ListPoster>('id');

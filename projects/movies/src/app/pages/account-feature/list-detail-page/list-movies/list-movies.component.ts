@@ -9,6 +9,6 @@ import { MovieListComponent } from '../../../../ui/pattern/movie-list/movie-list
   template: `<ui-movie-list [movies]="adapter.movies$"></ui-movie-list>`,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ListMoviesComponent {
+export default class ListMoviesComponent {
   public readonly adapter = inject(ListDetailAdapter);
 }
