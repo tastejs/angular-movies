@@ -1,6 +1,6 @@
 import { Observable } from 'rxjs';
 import { baseUrlApiV4 } from './internal/base-urls.constant';
-import { Injectable } from '@angular/core';
+import {inject, Injectable} from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 export type Token = {
@@ -17,7 +17,7 @@ const URL_ACCESS_TOKEN = [baseUrl, 'access_token'].join('/');
   providedIn: 'root',
 })
 export class Authv4Resource {
-  constructor(private http: HttpClient) {}
+  private readonly http: HttpClient = inject(HttpClient);
 
   createRequestToken = (redirectTo: string): Observable<Token> =>
     this.http.post<any>(URL_REQUEST_TOKEN, {

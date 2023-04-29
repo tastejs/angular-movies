@@ -19,9 +19,9 @@ import { RxEffects } from '@rx-angular/state/effects';
 export class ZonelessRouting extends RxEffects {
   private readonly router = inject(Router);
   private readonly platformId = inject(PLATFORM_ID);
+  private readonly ngZone = inject(NgZone);
 
   constructor(
-    private ngZone: NgZone,
     errorHandler: ErrorHandler
   ) {
     super(errorHandler);
@@ -50,4 +50,5 @@ export class ZonelessRouting extends RxEffects {
       );
     }
   }
+
 }
