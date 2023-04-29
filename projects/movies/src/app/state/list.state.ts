@@ -1,7 +1,6 @@
-import {inject, Injectable} from '@angular/core';
+import {DestroyRef, inject, Injectable} from '@angular/core';
 import { RxState } from '@rx-angular/state';
 import { AppInitializer } from '../shared/cdk/app-initializer';
-import { RxActionFactory } from '@rx-angular/state/actions';
 import { concatMap, filter, merge, tap } from 'rxjs';
 import { ListResource } from '../data-access/api/resources/list.resource';
 import {
@@ -12,6 +11,7 @@ import { Router } from '@angular/router';
 import { MovieResponse } from '../data-access/api/resources/movie.resource';
 import { TMDBMovieDetailsModel } from '../data-access/api/model/movie-details.model';
 import { deleteProp, patch } from '@rx-angular/cdk/transformations';
+import {RxActionFactory} from "@rx-angular/state/actions";
 
 export interface ListModel {
   lists: Record<string, TMDBListModel>;
@@ -31,6 +31,7 @@ interface Actions {
 })
 export class ListState extends RxState<ListModel> implements AppInitializer {
   private readonly router = inject(Router);
+  private readonly actionsF = new RxActionFactory<Actions>();
   private readonly listResource = inject(ListResource);
   private actions = this.actionsF.create();
 
@@ -72,9 +73,8 @@ export class ListState extends RxState<ListModel> implements AppInitializer {
     )
   );
 
-  constructor(
-    private actionsF: RxActionFactory<Actions>
-  ) {
+  constructor() {
+    inject(DestroyRef).onDestroy(() => this.actionsF.destroy());
     super();
 
     this.connect(

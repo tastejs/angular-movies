@@ -75,6 +75,7 @@ export const APP_PROVIDERS = [
       patchZone: false,
     },
   },
+
   provideHttpClient(
     withTmdbInterceptors()
   ),

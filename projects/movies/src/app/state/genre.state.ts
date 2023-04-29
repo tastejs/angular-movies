@@ -1,13 +1,13 @@
 import { RxState } from '@rx-angular/state';
-import {inject, Injectable} from '@angular/core';
+import {DestroyRef, inject, Injectable} from '@angular/core';
 import { exhaustMap } from 'rxjs';
 import { RxActionFactory } from '@rx-angular/state/actions';
 import {
   GenreResource,
   GenresResponse,
-} from '../../data-access/api/resources/genre.resource';
-import { AppInitializer } from '../rxa-custom/app-initializer';
-import {ListResource} from "../data-access/api/resources/list.resource";
+} from '../data-access/api/resources/genre.resource';
+import {AppInitializer} from "../shared/cdk/app-initializer";
+
 
 export interface State {
   genres: GenresResponse;
@@ -21,16 +21,16 @@ interface Actions {
   providedIn: 'root',
 })
 export class GenreState extends RxState<State> implements AppInitializer {
-  private readonly genreResource = inject(GenreResource);
+  private readonly actionsF = new RxActionFactory<Actions>();
   private actions = this.actionsF.create();
+  private readonly genreResource = inject(GenreResource);
 
   readonly genresNames$ = this.select('genres');
 
   readonly refreshGenres = this.actions.refreshGenres;
 
-  constructor(
-    private actionsF: RxActionFactory<Actions>
-  ) {
+  constructor() {
+    inject(DestroyRef).onDestroy(() => this.actionsF.destroy());
     super();
 
     this.connect(

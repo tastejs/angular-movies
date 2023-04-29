@@ -1,6 +1,6 @@
 import { RxState } from '@rx-angular/state';
 import { patch } from '@rx-angular/cdk/transformations';
-import {inject, Injectable} from '@angular/core';
+import {DestroyRef, inject, Injectable} from '@angular/core';
 import { map } from 'rxjs';
 import { optimizedFetch } from '../shared/cdk/optimized-fetch';
 import { RxActionFactory } from '@rx-angular/state/actions';
@@ -27,6 +27,7 @@ interface Actions {
   providedIn: 'root',
 })
 export class DiscoverState extends RxState<State> implements AppInitializer {
+  private readonly actionsF = new RxActionFactory<Actions>();
   private readonly discoverResource = inject(DiscoverResource);
   private actions = this.actionsF.create({
     fetchDiscoverGenreMovies: String,
@@ -43,11 +44,9 @@ export class DiscoverState extends RxState<State> implements AppInitializer {
       }))
     );
 
-  constructor(
-    private actionsF: RxActionFactory<Actions>
-  ) {
+  constructor() {
     super();
-
+    inject(DestroyRef).onDestroy(() => this.actionsF.destroy());
     this.connect(
       'genreMovies',
       this.actions.fetchDiscoverGenreMovies$.pipe(

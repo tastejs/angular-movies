@@ -1,6 +1,6 @@
 import {RxState} from '@rx-angular/state';
 import {patch, toDictionary} from '@rx-angular/cdk/transformations';
-import {inject, Injectable} from '@angular/core';
+import {DestroyRef, inject, Injectable} from '@angular/core';
 import {filter, map} from 'rxjs';
 import {optimizedFetch} from '../shared/cdk/optimized-fetch';
 import {AppInitializer} from '../shared/cdk/app-initializer';
@@ -33,8 +33,9 @@ interface Actions {
   providedIn: 'root',
 })
 export class MovieState extends RxState<MovieModel> implements AppInitializer {
-  private movieResource = inject(MovieResource);
-  private actions = this.actionsF.create();
+  private readonly movieResource = inject(MovieResource);
+  private readonly actionsF = new RxActionFactory<Actions>();
+  private readonly  actions = this.actionsF.create();
 
   fetchMovie = this.actions.fetchMovie;
   fetchCategoryMovies = this.actions.fetchCategoryMovies;
@@ -56,10 +57,9 @@ export class MovieState extends RxState<MovieModel> implements AppInitializer {
       }))
     );
 
-  constructor(
-    private actionsF: RxActionFactory<Actions>
-  ) {
+  constructor() {
     super();
+    inject(DestroyRef).onDestroy(() => this.actionsF.destroy());
 
     this.connect(
       'movies',
