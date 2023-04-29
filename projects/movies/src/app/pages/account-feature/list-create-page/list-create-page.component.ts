@@ -1,5 +1,5 @@
 import { LetModule } from '@rx-angular/template/let';
-import { Component, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
+import {Component, ChangeDetectionStrategy, OnDestroy, inject} from '@angular/core';
 import { ListCreatePageAdapter } from './list-create-page.adapter';
 
 @Component({
@@ -68,7 +68,7 @@ import { ListCreatePageAdapter } from './list-create-page.adapter';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ListCreateEditPageComponent implements OnDestroy {
-  constructor(public adapter: ListCreatePageAdapter) {}
+  public readonly adapter = inject(ListCreatePageAdapter);
 
   ngOnDestroy(): void {
     this.adapter.resetForm();

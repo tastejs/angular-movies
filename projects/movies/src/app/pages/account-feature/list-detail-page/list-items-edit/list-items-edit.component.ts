@@ -1,5 +1,5 @@
 import { LetModule } from '@rx-angular/template/let';
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import {ChangeDetectionStrategy, Component, inject} from '@angular/core';
 import { TMDBMovieDetailsModel } from '../../../../data-access/api/model/movie-details.model';
 
 import { trackByProp } from '../../../../shared/cdk/track-by';
@@ -19,7 +19,7 @@ import { NgOptimizedImage } from '@angular/common';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ListItemsEditComponent {
-  constructor(public adapter: ListItemsEditAdapter) {}
+  public readonly adapter = inject(ListItemsEditAdapter);
 
   trackByMovieId = trackByProp<MovieSearchResult>('id');
   trackByResultId = trackByProp<Partial<TMDBMovieDetailsModel>>('id');

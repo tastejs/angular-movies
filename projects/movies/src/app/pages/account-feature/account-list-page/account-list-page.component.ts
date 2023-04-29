@@ -1,6 +1,6 @@
 import {
   ChangeDetectionStrategy,
-  Component,
+  Component, inject,
   ViewEncapsulation,
 } from '@angular/core';
 import { trackByProp } from '../../../shared/cdk/track-by';
@@ -23,8 +23,7 @@ import { NgOptimizedImage } from '@angular/common';
   encapsulation: ViewEncapsulation.Emulated,
 })
 export class AccountListPageComponent {
+  private readonly adapter = inject(AccountListPageAdapter);
   readonly lists$ = this.adapter.select('lists');
   readonly trackById = trackByProp<ListWithPoster>('id');
-
-  constructor(private adapter: AccountListPageAdapter) {}
 }

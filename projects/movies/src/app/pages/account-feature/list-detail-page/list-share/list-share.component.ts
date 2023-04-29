@@ -1,11 +1,12 @@
 import { LetModule } from '@rx-angular/template/let';
 import {
   ChangeDetectionStrategy,
-  Component,
+  Component, inject,
   OnDestroy,
   OnInit,
 } from '@angular/core';
 import { ListDetailAdapter } from '../list-detail-page.adapter';
+import {DOCUMENT} from "@angular/common";
 // TODO
 @Component({
   standalone: true,
@@ -16,10 +17,10 @@ import { ListDetailAdapter } from '../list-detail-page.adapter';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ListShareComponent implements OnInit, OnDestroy {
-  private body = document.body;
-
+  public readonly body = inject(DOCUMENT).body;
+  public readonly adapter = inject(ListDetailAdapter);
   listRef = location.href;
-  constructor(public adapter: ListDetailAdapter) {}
+
   ngOnInit(): void {
     this.body.classList.add('modal-visible');
   }
