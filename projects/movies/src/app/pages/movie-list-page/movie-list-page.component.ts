@@ -1,7 +1,7 @@
 import { selectSlice } from '@rx-angular/state/selections';
 import {
   ChangeDetectionStrategy,
-  Component,
+  Component, inject,
   ViewEncapsulation,
 } from '@angular/core';
 import { map, Observable } from 'rxjs';
@@ -28,6 +28,8 @@ type Heading = { main: string; sub: string };
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MovieListPageComponent {
+  private readonly adapter = inject(MovieListPageAdapter);
+
   readonly movies$ = this.adapter.movies$;
   readonly loading$ = this.adapter.select('loading');
   readonly headings$: Observable<Heading> = this.adapter.select(
@@ -35,7 +37,7 @@ export class MovieListPageComponent {
     map(toHeading)
   );
 
-  constructor(private adapter: MovieListPageAdapter) {
+  constructor() {
     this.adapter.set({ loading: true });
   }
 

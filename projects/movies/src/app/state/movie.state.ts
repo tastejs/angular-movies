@@ -1,6 +1,6 @@
 import {RxState} from '@rx-angular/state';
 import {patch, toDictionary} from '@rx-angular/cdk/transformations';
-import {Injectable} from '@angular/core';
+import {DestroyRef, inject, Injectable} from '@angular/core';
 import {filter, map} from 'rxjs';
 import {optimizedFetch} from '../shared/cdk/optimized-fetch';
 import {AppInitializer} from '../shared/cdk/app-initializer';
@@ -15,7 +15,7 @@ import {WithContext} from '../shared/cdk/loading/context.interface';
 import {pluck} from '../shared/cdk/get';
 import {TMDBMovieModel} from "../data-access/api/model/movie.model";
 import {ImageTag} from "../shared/cdk/image/image-tag.interface";
-//import {TMDBMovieModel} from "../../data-access/api/model/movie.model";
+
 
 export type Movie = TMDBMovieModel & ImageTag;
 
@@ -33,7 +33,9 @@ interface Actions {
   providedIn: 'root',
 })
 export class MovieState extends RxState<MovieModel> implements AppInitializer {
-  private actions = this.actionsF.create();
+  private readonly movieResource = inject(MovieResource);
+  private readonly actionsF = new RxActionFactory<Actions>();
+  private readonly  actions = this.actionsF.create();
 
   fetchMovie = this.actions.fetchMovie;
   fetchCategoryMovies = this.actions.fetchCategoryMovies;
@@ -55,11 +57,9 @@ export class MovieState extends RxState<MovieModel> implements AppInitializer {
       }))
     );
 
-  constructor(
-    private actionsF: RxActionFactory<Actions>,
-    private movieResource: MovieResource
-  ) {
+  constructor() {
     super();
+    inject(DestroyRef).onDestroy(() => this.actionsF.destroy());
 
     this.connect(
       'movies',

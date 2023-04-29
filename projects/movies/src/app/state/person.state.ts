@@ -1,6 +1,6 @@
 import { RxState } from '@rx-angular/state';
 import { patch, toDictionary } from '@rx-angular/cdk/transformations';
-import { Injectable } from '@angular/core';
+import {DestroyRef, inject, Injectable} from '@angular/core';
 import { map } from 'rxjs';
 import { optimizedFetch } from '../shared/cdk/optimized-fetch';
 import { RxActionFactory } from '@rx-angular/state/actions';
@@ -27,8 +27,10 @@ interface Actions {
   providedIn: 'root',
 })
 export class PersonState extends RxState<State> implements AppInitializer {
-  private actions = this.actionsF.create();
+  private readonly actionsF = new RxActionFactory<Actions>();
 
+  private personResource = inject(PersonResource);
+  private actions = this.actionsF.create();
   fetchPerson = this.actions.fetchPerson;
   sortMovies = this.actions.sortMovies;
 
@@ -40,10 +42,8 @@ export class PersonState extends RxState<State> implements AppInitializer {
       }))
     );
 
-  constructor(
-    private actionsF: RxActionFactory<Actions>,
-    private personResource: PersonResource
-  ) {
+  constructor() {
+    inject(DestroyRef).onDestroy(() => this.actionsF.destroy());
     super();
     this.connect(
       'person',

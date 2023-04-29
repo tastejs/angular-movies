@@ -3,7 +3,7 @@ import {Location, NgFor, NgIf, NgOptimizedImage} from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
-  ElementRef,
+  ElementRef, inject,
   TrackByFunction,
   ViewChild,
   ViewEncapsulation,
@@ -21,24 +21,24 @@ import { MovieListComponent } from '../../ui/pattern/movie-list/movie-list.compo
 import { LetModule } from '@rx-angular/template/let';
 import { BypassSrcDirective } from '../../shared/cdk/bypass-src.directive';
 import { ForModule } from '@rx-angular/template/for';
-import { FastSvgModule } from '@push-based/ngx-fast-svg';
+import { FastSvgComponent } from '@push-based/ngx-fast-svg';
 import { IfModule } from '@rx-angular/template/if';
-import { RouterModule } from '@angular/router';
+import { RouterLink } from '@angular/router';
 
 @Component({
   standalone: true,
   imports: [
     NgIf,NgFor,
-    RouterModule,
+    RouterLink,
     NgOptimizedImage,
     DetailGridComponent,
     StarRatingComponent,
     MovieListComponent,
     LetModule,
-    BypassSrcDirective,
     ForModule,
-    FastSvgModule,
     IfModule,
+    BypassSrcDirective,
+    FastSvgComponent,
   ],
   selector: 'ct-movie',
   templateUrl: './movie-detail-page.component.html',
@@ -48,6 +48,9 @@ import { RouterModule } from '@angular/router';
   providers: [RxEffects],
 })
 export class MovieDetailPageComponent {
+  private readonly location = inject(Location);
+  private readonly adapter = inject(MovieDetailAdapter);
+  private readonly effects = inject(RxEffects);
   readonly ui = this.actionsF.create();
   private readonly movieCtx$ = this.adapter.routedMovieCtx$;
   readonly loadIframe$ = this.ui.iframe$.pipe(
@@ -77,9 +80,6 @@ export class MovieDetailPageComponent {
   castListWrapper: ElementRef<HTMLElement> | undefined = undefined;
 
   constructor(
-    private effects: RxEffects,
-    private location: Location,
-    private adapter: MovieDetailAdapter,
     private actionsF: RxActionFactory<{
       dialog: 'show' | 'close';
       iframe: 'load' | 'unload';

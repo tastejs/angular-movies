@@ -1,5 +1,5 @@
 import {RxState} from '@rx-angular/state';
-import {Injectable} from '@angular/core';
+import {inject, Injectable} from '@angular/core';
 import {map, Observable, switchMap} from 'rxjs';
 import {RouterState} from '../../shared/router/router.state';
 import {MovieState} from '../../state/movie.state';
@@ -32,6 +32,9 @@ type Actions = { paginateRecommendations: void };
   providedIn: 'root',
 })
 export class MovieDetailAdapter extends RxState<any> {
+  private readonly movieState = inject(MovieState);
+  private readonly routerState = inject(RouterState);
+  private readonly movieResource = inject(MovieResource);
   private readonly actions = new RxActionFactory<Actions>().create();
   readonly paginateRecommendations = this.actions.paginateRecommendations;
 
@@ -69,11 +72,7 @@ export class MovieDetailAdapter extends RxState<any> {
     map((v) => ({...v, results: v?.results?.map(transformToMovieModel)}))
   );
 
-  constructor(
-    private movieState: MovieState,
-    private routerState: RouterState,
-    private movieResource: MovieResource
-  ) {
+  constructor() {
     super();
     this.hold(this.routerMovieId$, this.movieState.fetchMovie);
   }

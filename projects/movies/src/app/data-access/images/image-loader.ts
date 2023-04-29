@@ -4,7 +4,7 @@ import {MY_LIST_FALLBACK, POSTER_FALLBACK} from "../../constants";
 
 const baseUrl = `https://image.tmdb.org/t/p/w`;
 
-export function provideMovieDbImageLoader() {
+export function provideTmdbImageLoader() {
   return {
     provide: IMAGE_LOADER,
     useValue: (config: ImageLoaderConfig) => {

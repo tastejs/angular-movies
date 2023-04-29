@@ -2,7 +2,7 @@ import {NgOptimizedImage} from '@angular/common';
 import {RxState} from '@rx-angular/state';
 import {
   ChangeDetectionStrategy,
-  Component,
+  Component, inject,
   Input,
   Output,
   ViewEncapsulation,
@@ -11,11 +11,11 @@ import {filter, map, Observable} from 'rxjs';
 import {RxActionFactory} from '@rx-angular/state/actions';
 import {coerceObservable} from '../../../shared/cdk/coerceObservable';
 import {RxInputType} from '../../../shared/cdk/input-type.typing';
-import {RouterModule} from '@angular/router';
+import {RouterLink} from '@angular/router';
 import {StarRatingComponent} from '../star-rating/star-rating.component';
 import {ForModule} from '@rx-angular/template/for';
 import {ElementVisibilityDirective} from '../../../shared/cdk/element-visibility/element-visibility.directive';
-import {FastSvgModule} from '@push-based/ngx-fast-svg';
+import {FastSvgComponent} from '@push-based/ngx-fast-svg';
 import {GridListComponent} from '../../component/grid-list/grid-list.component';
 import {IfModule} from '@rx-angular/template/if';
 import {Movie} from "../../../state/movie.state";
@@ -25,11 +25,11 @@ type UiActions = { paginate: boolean };
 @Component({
   standalone: true,
   imports: [
-    RouterModule,
+    RouterLink,
     StarRatingComponent,
     ForModule,
     ElementVisibilityDirective,
-    FastSvgModule,
+    FastSvgComponent,
     GridListComponent,
     IfModule,
     NgOptimizedImage
@@ -87,6 +87,7 @@ type UiActions = { paginate: boolean };
   encapsulation: ViewEncapsulation.Emulated,
 })
 export class MovieListComponent {
+  private readonly state = inject<RxState<{ movies?: Movie[], numPriority: number }>>(RxState);
   ui = this.actions.create();
 
   numPriority() {
@@ -120,7 +121,6 @@ export class MovieListComponent {
   );
 
   constructor(
-    private state: RxState<{ movies?: Movie[], numPriority: number }>,
     private actions: RxActionFactory<UiActions>
   ) {
     this.state.set({numPriority: 2})

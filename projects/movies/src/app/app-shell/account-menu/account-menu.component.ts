@@ -1,16 +1,16 @@
 import { LetModule } from '@rx-angular/template/let';
 import { RxState } from '@rx-angular/state';
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import {ChangeDetectionStrategy, Component, inject} from '@angular/core';
 import { RxActionFactory } from '@rx-angular/state/actions';
 import { AuthEffects } from '../../auth/auth.effects';
 import { AuthState } from '../../state/auth.state';
 import { map } from 'rxjs';
-import { RouterModule } from '@angular/router';
+import { RouterLink } from '@angular/router';
 
 import { RxEffects } from '@rx-angular/state/effects';
 import { IfModule } from '@rx-angular/template/if';
 
-export const imports = [RouterModule, LetModule, IfModule];
+export const imports = [RouterLink, LetModule, IfModule];
 
 type Actions = {
   signOut: Event;
@@ -19,7 +19,7 @@ type Actions = {
 
 @Component({
   standalone: true,
-  imports: [RouterModule, LetModule, IfModule],
+  imports: [RouterLink, LetModule, IfModule],
   selector: 'ct-account-menu',
   templateUrl: './account-menu.component.html',
   styleUrls: ['./account-menu.component.scss'],
@@ -27,15 +27,16 @@ type Actions = {
   providers: [RxState, RxEffects],
 })
 export class AccountMenuComponent {
+  private readonly effects = inject(RxEffects);
+  private readonly authEffects = inject(AuthEffects);
+  private readonly authState = inject(AuthState);
+  private readonly state = inject<RxState<{ loggedIn: boolean }>>(RxState);
+
   ui = this.actionsF.create();
 
   loggedIn$ = this.state.select('loggedIn');
 
   constructor(
-    private authEffects: AuthEffects,
-    private authState: AuthState,
-    private state: RxState<{ loggedIn: boolean }>,
-    private effects: RxEffects,
     private actionsF: RxActionFactory<Actions>
   ) {
     this.state.connect(

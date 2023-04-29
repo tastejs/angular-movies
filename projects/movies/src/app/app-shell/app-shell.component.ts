@@ -2,12 +2,11 @@ import { RxState } from '@rx-angular/state';
 import { DOCUMENT } from '@angular/common';
 import {
   ChangeDetectionStrategy,
-  Component,
-  Inject,
+  Component, inject,
   TrackByFunction,
   ViewEncapsulation,
 } from '@angular/core';
-import { NavigationEnd, Router, RouterModule } from '@angular/router';
+import { NavigationEnd, Router, RouterLink } from '@angular/router';
 import {
   distinctUntilChanged,
   filter,
@@ -29,7 +28,8 @@ import { SearchBarComponent } from '../ui/component/search-bar/search-bar.compon
 import { DarkModeToggleComponent } from '../ui/component/dark-mode-toggle/dark-mode-toggle.component';
 import { ForModule } from '@rx-angular/template/for';
 import { LazyDirective } from '../shared/cdk/lazy/lazy.directive';
-import { FastSvgModule } from '@push-based/ngx-fast-svg';
+import { FastSvgComponent } from '@push-based/ngx-fast-svg';
+
 type Actions = {
   sideDrawerOpenToggle: boolean;
   loadAccountMenu: void;
@@ -38,10 +38,10 @@ type Actions = {
 @Component({
   standalone: true,
   imports: [
-    RouterModule,
+    RouterLink,
     LetModule,
     ForModule,
-    FastSvgModule,
+    FastSvgComponent,
     HamburgerButtonComponent,
     SideDrawerComponent,
     SearchBarComponent,
@@ -56,6 +56,12 @@ type Actions = {
   providers: [RxState, RxEffects, RxActionFactory],
 })
 export class AppShellComponent {
+  private readonly state = inject<RxState<{sideDrawerOpen: boolean}>>(RxState);
+  private readonly router = inject(Router);
+  private readonly document = inject(DOCUMENT);
+  public readonly routerState = inject(RouterState);
+  public readonly effects = inject(RxEffects);
+  public genreResource = inject(GenreResource);
   readonly ui = this.actionsF.create();
 
   search$ = this.routerState.select(
@@ -70,14 +76,6 @@ export class AppShellComponent {
   );
 
   constructor(
-    private readonly state: RxState<{
-      sideDrawerOpen: boolean;
-    }>,
-    public effects: RxEffects,
-    public routerState: RouterState,
-    public genreResource: GenreResource,
-    @Inject(DOCUMENT) document: Document,
-    private router: Router,
     private actionsF: RxActionFactory<Actions>
   ) {
     this.init();
@@ -91,7 +89,7 @@ export class AppShellComponent {
       this.router.navigate([
         // The pathname route seems to work correctly on SSR but when pre-rendering it is an empty string.
         // We have to fall back to document URL as a fix.
-        fallbackRouteToDefault(document.location.pathname || document.URL),
+        fallbackRouteToDefault(this.document.location.pathname || document.URL),
       ]);
     });
   }

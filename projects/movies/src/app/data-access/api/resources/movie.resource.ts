@@ -10,7 +10,7 @@ import { baseUrlApiV3 } from './internal/base-urls.constant';
 import { TMDBAppendOptions } from './model/append-options';
 import { TMDBDiscoverOptions } from './discover.resource';
 import { getTMDBSortOptions } from '../sort/utils';
-import { Injectable } from '@angular/core';
+import {inject, Injectable} from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 const base = [baseUrlApiV3, 'movie'].join('/');
@@ -33,7 +33,8 @@ export type CategoryResponse = TMDBPaginateResult<TMDBMovieModel>;
   providedIn: 'root',
 })
 export class MovieResource {
-  constructor(private http: HttpClient) {}
+  private readonly http: HttpClient = inject(HttpClient);
+
   getMoviesRecommendations = (
     id: string,
     params: TMDBPaginateOptions = {} as TMDBPaginateOptions

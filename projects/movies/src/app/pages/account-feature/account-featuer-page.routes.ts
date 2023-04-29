@@ -20,6 +20,6 @@ export const ROUTES: Routes = [
     loadChildren: () =>
       import(
         'projects/movies/src/app/pages/account-feature/list-detail-page/list-detail-page.routes'
-      ).then((c) => c.ROUTES),
+      ).then((c) => c.ROUTES)
   },
 ];

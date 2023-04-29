@@ -1,5 +1,5 @@
 import { DOCUMENT, isPlatformBrowser } from '@angular/common';
-import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
+import {inject, Injectable, PLATFORM_ID} from '@angular/core';
 import { exhaustMap, filter, map, Observable, take } from 'rxjs';
 import { AuthState } from '../state/auth.state';
 import { isAuthenticationInProgress } from '../auth/utils';
@@ -12,13 +12,13 @@ import {
   providedIn: 'root',
 })
 export class AuthEffects {
-  constructor(
-    private authState: AuthState,
-    private authResource: Authv4Resource,
-    @Inject(PLATFORM_ID) platformId: Object,
-    @Inject(DOCUMENT) private document: Document
-  ) {
-    if (isPlatformBrowser(platformId)) {
+  private readonly document = inject(DOCUMENT);
+  private readonly platformId = inject(PLATFORM_ID);
+  private readonly authState = inject(AuthState);
+  private readonly authResource = inject(Authv4Resource);
+
+  constructor() {
+    if (isPlatformBrowser(this.platformId)) {
       this.restoreLogin();
     }
   }

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {inject, Injectable} from '@angular/core';
 import { RxState } from '@rx-angular/state';
 import { selectSlice, select } from '@rx-angular/state/selections';
 import { map, Observable, startWith, switchMap, withLatestFrom } from 'rxjs';
@@ -40,6 +40,8 @@ export type MovieCast = TMDBMovieCastModel & ImageTag;
 export class ListDetailAdapter extends RxState<{
   id: string;
 }> {
+  private readonly listState = inject(ListState);
+  private readonly routerState = inject(RouterState);
   readonly ui = new RxActionFactory<Actions>().create();
 
   readonly routerListId$ = this.routerState.select(map((state) => state?.type));
@@ -82,7 +84,7 @@ export class ListDetailAdapter extends RxState<{
     startWith('Loading...')
   );
 
-  constructor(private listState: ListState, private routerState: RouterState) {
+  constructor() {
     super();
 
     this.connect('id', this.routerListId$);

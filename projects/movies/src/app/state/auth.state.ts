@@ -1,6 +1,6 @@
 import { RxState } from '@rx-angular/state';
 import { DOCUMENT, isPlatformBrowser } from '@angular/common';
-import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
+import {inject, Injectable, PLATFORM_ID} from '@angular/core';
 import { map } from 'rxjs';
 
 export interface AuthStateModel {
@@ -14,6 +14,9 @@ export interface AuthStateModel {
   providedIn: 'root',
 })
 export class AuthState extends RxState<AuthStateModel> {
+  private readonly document = inject(DOCUMENT);
+  private readonly platformId = inject(PLATFORM_ID);
+
   private localStorage = this.document.defaultView?.localStorage ?? {
     getItem: () => null,
     removeItem: () => {},
@@ -28,12 +31,9 @@ export class AuthState extends RxState<AuthStateModel> {
     map(isAuthenticationInProgress)
   );
 
-  constructor(
-    @Inject(DOCUMENT) private document: Document,
-    @Inject(PLATFORM_ID) platformId: Object
-  ) {
+  constructor() {
     super();
-    if (isPlatformBrowser(platformId)) {
+    if (isPlatformBrowser(this.platformId)) {
       this.rebootStore();
     }
     this.set({

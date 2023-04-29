@@ -1,16 +1,18 @@
-import { RxActionFactory } from '@rx-angular/state/actions';
-import { TMDB_HTTP_INTERCEPTORS_PROVIDER } from './auth/tmdb-http-interceptor.providers';
-import { GLOBAL_STATE_APP_INITIALIZER_PROVIDER } from './state/state-app-initializer.provider';
+import {withGobalStateInitializer} from './state/state-app-initializer.provider';
 import {
   provideRouter,
   withDisabledInitialNavigation,
   withInMemoryScrolling,
 } from '@angular/router';
 import {provideClientHydration} from '@angular/platform-browser';
-import { ROUTES } from './app.routing';
+import {ROUTES} from './app.routing';
 import {RX_RENDER_STRATEGIES_CONFIG} from "@rx-angular/cdk/render-strategies";
 import {APP_INITIALIZER} from "@angular/core";
-import {provideMovieDbImageLoader} from "./data-access/images/image-loader";
+import {provideTmdbImageLoader} from "./data-access/images/image-loader";
+import {provideFastSVG} from "@push-based/ngx-fast-svg";
+import {provideHttpClient} from "@angular/common/http";
+import {withTmdbReadAccessInterceptors} from "./auth/tmdb-http-interceptor.feature";
+import {withTmdbContentTypeInterceptors} from "./data-access/api/interceptor.feature";
 
 export const APP_PROVIDERS = [
   provideRouter(
@@ -34,14 +36,12 @@ export const APP_PROVIDERS = [
       scrollPositionRestoration: 'top',
     })
   ),
-  RxActionFactory,
-  TMDB_HTTP_INTERCEPTORS_PROVIDER,
   /**
    * **🚀 Perf Tip for LCP, TTI:**
    *
    * Fetch data visible in viewport on app bootstrap instead of component initialization.
    */
-  GLOBAL_STATE_APP_INITIALIZER_PROVIDER,
+  withGobalStateInitializer(),
   /**
    * **🚀 Perf Tip for TBT:**
    *
@@ -76,10 +76,15 @@ export const APP_PROVIDERS = [
       patchZone: false,
     },
   },
-
-  /**
-   *
-   */
+  provideHttpClient(
+    withTmdbReadAccessInterceptors(),
+    withTmdbContentTypeInterceptors()
+  ),
   provideClientHydration(),
-  provideMovieDbImageLoader()
+  provideTmdbImageLoader(),
+  provideFastSVG({
+    url: (name: string): string => {
+      return `assets/svg-icons/${name}.svg`;
+    },
+  })
 ];

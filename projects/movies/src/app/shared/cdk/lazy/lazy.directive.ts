@@ -1,5 +1,5 @@
 import { RxState } from '@rx-angular/state';
-import { Directive, Input, Type, ViewContainerRef } from '@angular/core';
+import {Directive, inject, Input, Type, ViewContainerRef} from '@angular/core';
 import { RxInputType } from '../../cdk/input-type.typing';
 import { coerceObservable } from '../../cdk/coerceObservable';
 import { distinctUntilChanged } from 'rxjs';
@@ -8,7 +8,7 @@ import { distinctUntilChanged } from 'rxjs';
  * @example
  * Component: (any-component.ts)
  *
- * export const imports = [RouterModule, CommonModule, ...];
+ * export const imports = [RouterOutlet, CommonModule, ...];
  * @Component({
  * ...
  * })
@@ -33,20 +33,22 @@ import { distinctUntilChanged } from 'rxjs';
 export class LazyDirective extends RxState<{
   component: Type<any>;
 }> {
+  private readonly vCR: ViewContainerRef = inject(ViewContainerRef);
+
   @Input()
   set lazy(component: RxInputType<Type<any>>) {
     this.connect('component', coerceObservable(component));
   }
 
-  constructor(vCR: ViewContainerRef) {
+  constructor() {
     super();
 
     this.hold(
       // avoid recreation of a component with the same class (distinctUntilChanged)
       this.select('component').pipe(distinctUntilChanged()),
       (c) => {
-        vCR.clear();
-        vCR.createComponent(c);
+        this.vCR.clear();
+        this.vCR.createComponent(c);
       }
     );
   }

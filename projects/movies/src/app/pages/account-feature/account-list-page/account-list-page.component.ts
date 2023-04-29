@@ -1,6 +1,6 @@
 import {
   ChangeDetectionStrategy,
-  Component,
+  Component, inject,
   ViewEncapsulation,
 } from '@angular/core';
 import { trackByProp } from '../../../shared/cdk/track-by';
@@ -10,12 +10,12 @@ import {
 } from './account-list-page.adapter';
 import { ForModule } from '@rx-angular/template/for';
 import { GridListComponent } from '../../../ui/component/grid-list/grid-list.component';
-import { RouterModule } from '@angular/router';
+import { RouterLink } from '@angular/router';
 import { NgOptimizedImage } from '@angular/common';
 
 @Component({
   standalone: true,
-  imports: [RouterModule, ForModule, GridListComponent, NgOptimizedImage],
+  imports: [RouterLink, ForModule, GridListComponent, NgOptimizedImage],
   selector: 'ct-person',
   templateUrl: './account-list-page.component.html',
   styleUrls: ['./account-list-page.component.scss'],
@@ -23,8 +23,7 @@ import { NgOptimizedImage } from '@angular/common';
   encapsulation: ViewEncapsulation.Emulated,
 })
 export class AccountListPageComponent {
+  private readonly adapter = inject(AccountListPageAdapter);
   readonly lists$ = this.adapter.select('lists');
   readonly trackById = trackByProp<ListWithPoster>('id');
-
-  constructor(private adapter: AccountListPageAdapter) {}
 }

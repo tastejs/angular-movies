@@ -1,7 +1,7 @@
 import {Location, NgClass, NgFor, NgIf, NgOptimizedImage} from '@angular/common';
 import {
   ChangeDetectionStrategy,
-  Component,
+  Component, inject,
   ViewEncapsulation,
 } from '@angular/core';
 import { PersonDetailAdapter } from './person-detail-page.adapter';
@@ -11,7 +11,7 @@ import { DetailGridComponent } from '../../ui/component/detail-grid/detail-grid.
 import { StarRatingComponent } from '../../ui/pattern/star-rating/star-rating.component';
 import { MovieListComponent } from '../../ui/pattern/movie-list/movie-list.component';
 import { LetModule } from '@rx-angular/template/let';
-import { FastSvgModule } from '@push-based/ngx-fast-svg';
+import { FastSvgComponent } from '@push-based/ngx-fast-svg';
 
 @Component({
   standalone: true,
@@ -22,7 +22,7 @@ import { FastSvgModule } from '@push-based/ngx-fast-svg';
     StarRatingComponent,
     MovieListComponent,
     LetModule,
-    FastSvgModule,
+    FastSvgComponent,
   ],
   selector: 'ct-person',
   templateUrl: './person-detail-page.component.html',
@@ -31,6 +31,8 @@ import { FastSvgModule } from '@push-based/ngx-fast-svg';
   encapsulation: ViewEncapsulation.Emulated,
 })
 export class PersonDetailPageComponent {
+  private readonly adapter = inject(PersonDetailAdapter);
+  private readonly location = inject(Location);
   sortOptions = SORT_VALUES;
   readonly personCtx$ = this.adapter.routedPersonCtx$;
   readonly sortingModel$ = this.adapter.sortingModel$;
@@ -42,10 +44,7 @@ export class PersonDetailPageComponent {
     this.adapter.sortingEvent$
   );
 
-  constructor(
-    private location: Location,
-    private adapter: PersonDetailAdapter
-  ) {
+  constructor() {
     this.adapter.set({
       activeSorting: this.sortOptions[0].name,
       showSorting: false,

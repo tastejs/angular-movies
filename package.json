@@ -59,7 +59,7 @@
     "@angular/platform-server": "^16.0.0-rc.3",
     "@angular/router": "^16.0.0-rc.3",
     "@angular/service-worker": "^16.0.0-rc.3",
-    "@push-based/ngx-fast-svg": "^0.2.4",
+    "@push-based/ngx-fast-svg": "^0.2.5",
     "@rx-angular/cdk": "^15.0.0",
     "@rx-angular/state": "^15.0.0",
     "@rx-angular/template": "^15.2.0",
