@@ -20,6 +20,7 @@ export const fallbackRouteToDefault = (route: string) => route !== '/' ? route :
 })
 export class RouterState extends RxState<RouterParams> {
   private readonly document = inject(DOCUMENT);
+  private readonly router = inject(Router);
   private _routerParams$: Observable<RouterParams> = this.router.events.pipe(
     select(
       filter((event): event is NavigationEnd => event instanceof NavigationEnd),
@@ -61,9 +62,7 @@ export class RouterState extends RxState<RouterParams> {
     );
   }
 
-  constructor(
-    private router: Router
-  ) {
+  constructor() {
     super();
     this.connect(this._routerParams$);
   }

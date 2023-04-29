@@ -55,6 +55,7 @@ type Actions = {
   providers: [RxState, RxEffects, RxActionFactory],
 })
 export class AppShellComponent {
+  private readonly router = inject(Router);
   private readonly document = inject(DOCUMENT);
   readonly ui = this.actionsF.create();
 
@@ -76,7 +77,6 @@ export class AppShellComponent {
     public effects: RxEffects,
     public routerState: RouterState,
     public genreResource: GenreResource,
-    private router: Router,
     private actionsF: RxActionFactory<Actions>
   ) {
     this.init();
