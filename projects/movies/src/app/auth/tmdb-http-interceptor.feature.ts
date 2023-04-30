@@ -3,23 +3,29 @@ import {
   HttpInterceptorFn,
   HttpRequest,
 } from '@angular/common/http';
-import { inject } from '@angular/core';
-import { AuthState } from '../state/auth.state';
 import { environment } from '../../environments/environment';
+import { lazyInject } from '../shared/lazy-inject';
+import { switchMap } from 'rxjs';
+
+const LazyAuthState = () => import('../state/auth.state').then(x => x.AuthState);
 
 export const tmdbReadAccessInterceptor: HttpInterceptorFn = (
   req: HttpRequest<unknown>,
   next: HttpHandlerFn
 ) => {
-  const token = inject(AuthState).get().accessToken;
+  return lazyInject(LazyAuthState).pipe(
+    switchMap((authState) => {
+      const token = authState.get('accessToken');
 
-  return next(
-    req.clone({
-      setHeaders: {
-        Authorization: token
-          ? `Bearer ${token}`
-          : `Bearer ${environment.tmdbApiReadAccessKey}`,
-      },
+      return next(
+        req.clone({
+          setHeaders: {
+            Authorization: token
+              ? `Bearer ${token}`
+              : `Bearer ${environment.tmdbApiReadAccessKey}`,
+          },
+        })
+      );
     })
   );
 };

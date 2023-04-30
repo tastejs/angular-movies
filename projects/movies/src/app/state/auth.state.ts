@@ -10,9 +10,7 @@ export interface AuthStateModel {
 }
 
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable({ providedIn: 'root' })
 export class AuthState extends RxState<AuthStateModel> {
   private readonly document = inject(DOCUMENT);
   private readonly platformId = inject(PLATFORM_ID);
@@ -58,11 +56,9 @@ export class AuthState extends RxState<AuthStateModel> {
   }
 }
 
-export function isAuthenticationInProgress({
-                                             requestToken,
-                                             accessToken,
-                                             accountId,
-                                           }: Partial<AuthStateModel>): boolean {
+export function isAuthenticationInProgress(state: Partial<AuthStateModel>): boolean {
+  const { requestToken, accessToken, accountId } = state;
+
   if (
     isLoggedIn(requestToken, accessToken, accountId) ||
     isGuest(requestToken)
