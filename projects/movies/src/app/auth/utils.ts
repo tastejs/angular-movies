@@ -1,10 +1,11 @@
 import { AuthStateModel } from '../state/auth.state';
 
-export function isAuthenticationInProgress({
-  requestToken,
-  accessToken,
-  accountId,
-}: Partial<AuthStateModel>): boolean {
+export function isAuthenticationInProgress(st: Partial<AuthStateModel>): boolean {
+  const {
+    requestToken,
+    accessToken,
+    accountId,
+  } = st || {};
   if (
     isLoggedIn(requestToken, accessToken, accountId) ||
     isGuest(requestToken)

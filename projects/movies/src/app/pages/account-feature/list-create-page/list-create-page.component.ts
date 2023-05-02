@@ -6,10 +6,11 @@ import {
   inject,
 } from '@angular/core';
 import { ListCreatePageAdapter } from './list-create-page.adapter';
+import {RxIf} from "@rx-angular/template/if";
 
 @Component({
   standalone: true,
-  imports: [LetDirective],
+  imports: [LetDirective, RxIf],
   template: `
     <article>
       <header *rxIf="adapter.showHeader$">

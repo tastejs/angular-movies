@@ -39,7 +39,7 @@ export default class AccountMenuComponent {
   constructor(private actionsF: RxActionFactory<Actions>) {
     this.state.connect(
       'loggedIn',
-      this.authState.accountId$.pipe(map((s) => s !== null))
+      this.authState.requestToken$.pipe(map((s) => !!s))
     );
     this.effects.register(this.ui.signOut$, this.authEffects.signOut);
     this.effects.register(
