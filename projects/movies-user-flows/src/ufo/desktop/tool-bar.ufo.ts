@@ -2,11 +2,13 @@ import {CwvInterface} from '../typings/cwv.interface';
 import * as fixtures from '../../fixtures/toolbar.fixtures';
 import {GenreIds} from '../../internals/typings';
 import {Ufo, UserFlowContext} from '@push-based/user-flow';
-
+import {TmdbUfo} from "./tmdb.ufo";
 
 export class ToolBarUfo extends Ufo implements CwvInterface {
+  tmdbPage: TmdbUfo;
   constructor(private ctx: UserFlowContext) {
     super(ctx);
+    this.tmdbPage = new TmdbUfo(ctx);
   }
 
   async sendSearchForm() {
@@ -28,44 +30,25 @@ export class ToolBarUfo extends Ufo implements CwvInterface {
     await this.page.waitForSelector(fixtures.profileMenuContent);
   }
 
-
-  async fillLoginForm(): Promise<any> {
-    await this.page.waitForSelector(fixtures.TmdbUsernameInput);
-    await this.page.type(fixtures.TmdbUsernameInput, fixtures.TmdbUser);
-    await this.page.waitForSelector(fixtures.TmdbPasswordInput);
-    await this.page.type(fixtures.TmdbPasswordInput, fixtures.TmdbPassword);
-    await this.page.click(fixtures.TmdbLoginSubmitBtn)
-  }
-
   async login(): Promise<any> {
     // open menu
     await this.openProfileMenu();
     // navigate to tmdb
     await this.page.waitForSelector(fixtures.profileMenuLoginItem);
     await this.page.click(fixtures.profileMenuLoginItem);
-    await this.page.waitForNavigation()
-    if (!this.page.url().includes(fixtures.TmdbAuthUrl)) {
-      throw new Error('Login page not open')
-    }
-    // navigate to login
-    await this.page.click(fixtures.TmdbLoginBtn);
-    await this.page.waitForNavigation()
-    if (!this.page.url().includes('angular')) {
-      throw new Error('redirect from login back not working')
-    }
-    // fill and send form
-    await this.page.waitForSelector(fixtures.TmdbUsernameInput);
-    await this.page.type(fixtures.TmdbUsernameInput, fixtures.TmdbUser);
-    await this.page.waitForSelector(fixtures.TmdbPasswordInput);
-    await this.page.type(fixtures.TmdbPasswordInput, fixtures.TmdbPassword);
-    await this.page.click(fixtures.TmdbLoginSubmitBtn)
-    // navigate back
-    await this.page.waitForNavigation()
-    if (!this.page.url().includes(fixtures.TmdbAuthUrl)) {
-      throw new Error('Login page not open')
-    }
-    // check login state
 
+    await this.page.waitForNavigation().catch(() => {
+      throw new Error('Navigation to tmdb failed')
+    });
+    if (!this.page.url().includes(fixtures.TmdbAuthUrl)) {
+      throw new Error('Login page not open')
+    }
+
+    await this.tmdbPage.login();
+
+    if (!this.page.url().includes('angular-movies')) {
+      throw new Error('Navigation mack to movies app failed')
+    }
   }
 
   async awaitLCPContent(): Promise<any> {
