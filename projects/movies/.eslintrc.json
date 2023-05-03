@@ -20,7 +20,7 @@
                 "importNames": [
                   "CommonModule"
                 ],
-                "message": "Use the componen or directve directly e.g. `NgFor`."
+                "message": "Use the componen or directve directly e.g. `import {NgFor} from '@angular/common`'."
               }
             ]
           }
