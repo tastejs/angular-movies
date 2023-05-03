@@ -5,7 +5,7 @@ import {
   TMDBPaginateOptions,
 } from '../paginate/paginate.interface';
 import { baseUrlApiV3 } from './internal/base-urls.constant';
-import {inject, Injectable} from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 export type TMDBSearchOptions = TMDBPaginateOptions & {

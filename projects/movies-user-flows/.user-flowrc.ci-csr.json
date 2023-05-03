@@ -7,8 +7,6 @@
   },
   "persist": {
     "outPath": "./projects/movies-user-flows/src/measures",
-    "format": [
-      "md"
-    ]
+    "format": ["md"]
   }
 }

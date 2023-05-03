@@ -29,7 +29,9 @@ export const ROUTES: Routes = [
   {
     path: 'list/:type/:identifier',
     loadComponent: () =>
-      import('projects/movies/src/app/pages/movie-list-page/movie-list-page.component')
+      import(
+        'projects/movies/src/app/pages/movie-list-page/movie-list-page.component'
+      ),
   },
   {
     path: 'detail/movie/:identifier',

@@ -11,7 +11,7 @@ import { BackdropComponent } from '../backdrop/backdrop.component';
 
 @Component({
   standalone: true,
-  imports: [ BackdropComponent],
+  imports: [BackdropComponent],
   selector: 'ui-side-drawer',
   template: `
     <ui-backdrop

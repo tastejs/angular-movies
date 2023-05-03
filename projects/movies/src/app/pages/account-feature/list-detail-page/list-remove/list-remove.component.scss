@@ -27,7 +27,7 @@ dialog {
 }
 
 dialog::backdrop {
-  background: var(--palette-background-backdrop, rgba(0,0,0,.5));
+  background: var(--palette-background-backdrop, rgba(0, 0, 0, 0.5));
 }
 
 .secondary-button {

@@ -1,6 +1,6 @@
 import { RxState } from '@rx-angular/state';
 import { patch } from '@rx-angular/cdk/transformations';
-import {DestroyRef, inject, Injectable} from '@angular/core';
+import { DestroyRef, inject, Injectable } from '@angular/core';
 import { map } from 'rxjs';
 import { optimizedFetch } from '../shared/cdk/optimized-fetch';
 import { RxActionFactory } from '@rx-angular/state/actions';

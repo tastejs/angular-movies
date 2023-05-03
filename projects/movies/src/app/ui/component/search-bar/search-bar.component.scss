@@ -1,4 +1,4 @@
-@import "../../token/mixins/flex";
+@import '../../token/mixins/flex';
 
 :host {
   display: contents;
@@ -19,7 +19,8 @@
   contain: strict;
   transform: translateZ(0px);
   will-change: width;
-  transition: width var(--theme-anim-duration-standard) var(--theme-anim-easing-easeInOut);
+  transition: width var(--theme-anim-duration-standard)
+    var(--theme-anim-easing-easeInOut);
 }
 
 .magnifier-button {
@@ -41,7 +42,7 @@
   color: var(--palette-secondary-contrast-text);
   border: none;
   transition: margin-left var(--theme-anim-duration-standard)
-  var(--theme-anim-easing-easeInOut);
+    var(--theme-anim-easing-easeInOut);
 }
 
 input:focus,

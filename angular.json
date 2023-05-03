@@ -35,9 +35,7 @@
               "projects/movies/src/manifest.webmanifest",
               "projects/movies/src/assets"
             ],
-            "styles": [
-              "projects/movies/src/styles.scss"
-            ],
+            "styles": ["projects/movies/src/styles.scss"],
             "scripts": []
           },
           "configurations": {

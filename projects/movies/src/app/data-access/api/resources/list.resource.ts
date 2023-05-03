@@ -5,7 +5,7 @@ import {
   TMDBListCreateUpdateParams,
   TMDBListModel,
 } from '../model/list.model';
-import {inject, Injectable} from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 export type ListCreateResponse = { id: number };

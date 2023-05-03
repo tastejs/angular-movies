@@ -7,8 +7,6 @@
   },
   "persist": {
     "outPath": "./tmp/user-flows",
-    "format": [
-      "json"
-    ]
+    "format": ["json"]
   }
 }

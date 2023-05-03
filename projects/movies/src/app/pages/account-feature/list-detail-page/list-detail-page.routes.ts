@@ -15,8 +15,7 @@ const ROUTES: Routes = [
       },
       {
         path: 'view',
-        loadComponent: () =>
-          import('./list-movies/list-movies.component')
+        loadComponent: () => import('./list-movies/list-movies.component'),
       },
       {
         path: 'edit',
@@ -28,17 +27,15 @@ const ROUTES: Routes = [
       {
         path: 'add-remove-items',
         loadComponent: () =>
-          import('./list-items-edit/list-items-edit.component')
+          import('./list-items-edit/list-items-edit.component'),
       },
       {
         path: 'image',
-        loadComponent: () =>
-          import('./list-image/list-image.component'),
+        loadComponent: () => import('./list-image/list-image.component'),
       },
       {
         path: 'delete',
-        loadComponent: () =>
-          import('./list-remove/list-remove.component')
+        loadComponent: () => import('./list-remove/list-remove.component'),
       },
     ],
   },

@@ -1,4 +1,4 @@
-import {Directive, ElementRef, inject, Input} from '@angular/core';
+import { Directive, ElementRef, inject, Input } from '@angular/core';
 
 @Directive({
   standalone: true,
@@ -6,7 +6,7 @@ import {Directive, ElementRef, inject, Input} from '@angular/core';
   selector: 'iframe[bypassSrc]',
 })
 export class BypassSrcDirective {
-  private readonly element: ElementRef = inject(ElementRef)
+  private readonly element: ElementRef = inject(ElementRef);
   @Input()
   set bypassSrc(src: any) {
     if (typeof src === 'string') {

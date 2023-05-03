@@ -1,16 +1,16 @@
 import { select, selectSlice } from '@rx-angular/state/selections';
 import { RxState } from '@rx-angular/state';
 import { DOCUMENT } from '@angular/common';
-import {inject, Injectable} from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { filter, map, Observable, startWith } from 'rxjs';
 import { NavigationEnd, Router } from '@angular/router';
 import { RxInputType } from '../cdk/input-type.typing';
 import { coerceObservable } from '../cdk/coerceObservable';
 import { RouterParams } from './router.model';
-import {defaultRedirectRoute} from "../../constants";
+import { defaultRedirectRoute } from '../../constants';
 
-
-export const fallbackRouteToDefault = (route: string) => route !== '/' ? route : defaultRedirectRoute;
+export const fallbackRouteToDefault = (route: string) =>
+  route !== '/' ? route : defaultRedirectRoute;
 
 /**
  * This service maintains the router state and repopulates it to its subscriber.

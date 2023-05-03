@@ -2,7 +2,7 @@ import { Observable } from 'rxjs';
 import { TMDBPersonModel } from '../model/person.model';
 import { baseUrlApiV3 } from './internal/base-urls.constant';
 import { TMDBAppendOptions } from './model/append-options';
-import {inject, Injectable} from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 export type PersonResponse = TMDBPersonModel;

@@ -2,7 +2,8 @@ import {
   AfterViewInit,
   ChangeDetectionStrategy,
   Component,
-  ElementRef, inject,
+  ElementRef,
+  inject,
   OnDestroy,
   ViewChild,
 } from '@angular/core';
@@ -37,9 +38,7 @@ export default class ListRemoveComponent
 
   readonly ui = this.actionsF.create();
 
-  constructor(
-    private actionsF: RxActionFactory<Actions>
-  ) {
+  constructor(private actionsF: RxActionFactory<Actions>) {
     super();
     this.hold(this.ui.confirm$, this.adapter.ui.deleteList);
   }

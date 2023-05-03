@@ -1,4 +1,4 @@
-import {DestroyRef, inject, Injectable} from '@angular/core';
+import { DestroyRef, inject, Injectable } from '@angular/core';
 import { RxState } from '@rx-angular/state';
 import { AppInitializer } from '../shared/cdk/app-initializer';
 import { concatMap, filter, merge, tap } from 'rxjs';
@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
 import { MovieResponse } from '../data-access/api/resources/movie.resource';
 import { TMDBMovieDetailsModel } from '../data-access/api/model/movie-details.model';
 import { deleteProp, patch } from '@rx-angular/cdk/transformations';
-import {RxActionFactory} from "@rx-angular/state/actions";
+import { RxActionFactory } from '@rx-angular/state/actions';
 
 export interface ListModel {
   lists: Record<string, TMDBListModel>;

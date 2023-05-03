@@ -1,4 +1,4 @@
-import {inject, Injectable} from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { patch } from '@rx-angular/cdk/transformations';
 import { RxState } from '@rx-angular/state';
 import { map, startWith, withLatestFrom } from 'rxjs';

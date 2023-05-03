@@ -1,25 +1,17 @@
 {
   "extends": "../../.eslintrc.json",
-  "ignorePatterns": [
-    "!**/*"
-  ],
+  "ignorePatterns": ["!**/*"],
   "overrides": [
     {
-      "files": [
-        "*.ts"
-      ],
+      "files": ["*.ts"],
       "rules": {
         "no-restricted-imports": [
           "error",
           {
             "patterns": [
               {
-                "group": [
-                  "@angular/common"
-                ],
-                "importNames": [
-                  "CommonModule"
-                ],
+                "group": ["@angular/common"],
+                "importNames": ["CommonModule"],
                 "message": "Use the componen or directve directly e.g. `import {NgFor} from '@angular/common`'."
               }
             ]
@@ -29,10 +21,7 @@
           "error",
           {
             "type": "attribute",
-            "prefix": [
-              "app",
-              "ct"
-            ],
+            "prefix": ["app", "ct"],
             "style": "camelCase"
           }
         ],
@@ -40,10 +29,7 @@
           "error",
           {
             "type": "element",
-            "prefix": [
-              "app",
-              "ct"
-            ],
+            "prefix": ["app", "ct"],
             "style": "kebab-case"
           }
         ]

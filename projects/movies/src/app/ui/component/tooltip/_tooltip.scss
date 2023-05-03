@@ -10,7 +10,8 @@
   border-radius: var(--theme-borderRadius-sm);
   padding: 1rem;
   z-index: var(--theme-tooptip-zIndex);
-  transition: visibility var(--theme-anim-duration-short) var(--theme-anim-easing-easeOut);
+  transition: visibility var(--theme-anim-duration-short)
+    var(--theme-anim-easing-easeOut);
 }
 
 .tooltip::after {

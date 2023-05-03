@@ -72,15 +72,15 @@
                 [attr.aria-label]="c.name"
               >
                 <picture>
-                <img
-                  [ngSrc]="c.imgSrc"
-                  [ngSrcset]="c.imgSrcset"
-                  [sizes]="c.imgSizes"
-                  [width]="c.imgWidth"
-                  [height]="c.imgHeight"
-                  [alt]="c.name"
-                  [title]="c.name"
-                />
+                  <img
+                    [ngSrc]="c.imgSrc"
+                    [ngSrcset]="c.imgSrcset"
+                    [sizes]="c.imgSizes"
+                    [width]="c.imgWidth"
+                    [height]="c.imgHeight"
+                    [alt]="c.name"
+                    [title]="c.name"
+                  />
                 </picture>
               </a>
               <div *ngIf="ctx.loading" class="loader"></div>
@@ -160,7 +160,8 @@
             class="btn primary-button"
             (click)="back()"
           >
-            <fast-svg class="btn__icon" name="back" size="1em"></fast-svg>&nbsp;Back
+            <fast-svg class="btn__icon" name="back" size="1em"></fast-svg
+            >&nbsp;Back
           </button>
         </section>
       </div>

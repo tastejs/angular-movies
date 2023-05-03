@@ -16,7 +16,8 @@ div {
   &:hover {
     background-color: var(--palette-action-hover);
   }
-  a, p {
+  a,
+  p {
     color: var(--palette-text-primary);
     height: 100%;
     display: inline-block;
