@@ -30,23 +30,28 @@ export class ToolBarUfo extends Ufo implements CwvInterface {
     await this.page.waitForSelector(fixtures.profileMenuContent);
   }
 
-  async login(): Promise<any> {
+
+  async goToTmDbLogin(): Promise<any> {
     // open menu
     await this.openProfileMenu();
     // navigate to tmdb
     await this.page.waitForSelector(fixtures.profileMenuLoginItem);
     await this.page.click(fixtures.profileMenuLoginItem);
 
-    await this.page.waitForRequest((req) => req.url().includes(fixtures.TmdbAuthUrl))
+    await this.page.waitForNavigation()
       .catch(() => {
         throw new Error('Navigation to tmdb failed')
       });
+  }
 
-    await this.tmdbPage.login();
+  async ensureLoginDone(): Promise<any> {
+    // open menu
 
-    if (!this.page.url().includes('angular-movies')) {
-      throw new Error('Navigation mack to movies app failed')
-    }
+    await this.page.waitForNavigation()
+      .catch(() => {
+        throw new Error('Navigation back to movies app failed')
+      });
+
   }
 
   async awaitLCPContent(): Promise<any> {
