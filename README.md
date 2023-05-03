@@ -51,31 +51,33 @@ For now you can search the codebase for "Perf Tip" later on there will be proppe
 
 
 
+
 <!-- bundle-stats-start -->
 | Names             |       Size |
 | ---               | ---        |
-| main.d3ea83101b3d7839.js           | 339.55 KB |
-| styles.599b610bd1f0a4a0.css           | 6.17 KB |
-| runtime.4b639f72e5c66ded.js           | 4.27 KB |
-  | **Initial Total** | **349.99 KB** |
+| main.js           | 339.52 KB |
+| styles.css           | 6.21 KB |
+| runtime.js           | 2.65 KB |
+  | **Initial Total** | **348.38 KB** |
   | Names             |       Size |
-| app_pages_movie-detail-page_movie-detail-page_component_ts.e17389ba1875f3d9.js           | 16.47 KB |
-| a-4d8953.349fba989c46042c.js           | 12.87 KB |
-| app_pages_person-detail-page_person-detail-page_component_ts.64985374cb6c4f7b.js           | 11.48 KB |
-| app_pages_account-feature_list-create-page_list-create-page_component_ts--1f481e.1c2cf615ca6af1bf.js           | 9.09 KB |
-| app_app-shell_account-menu_account-menu_component_ts.77977795c78cff18.js           | 8.21 KB |
-| common.5199ece5cc4e99ca.js           | 7.2 KB |
-| app_pages_account-feature_list-detail-page_list-items-edit_list-items-edi-13eb42.a870ce70a99e0ccb.js           | 6.98 KB |
-| app_pages_movie-list-page_movie-list-page_component_ts.022db873e0727104.js           | 5.8 KB |
-| app_pages_account-feature_account-list-page_account-list-page_component_ts.86cea586f611ae1b.js           | 5.61 KB |
-| app_pages_account-feature_list-detail-page_list-image_list-image_componen-cb4b89.df4a127d92d09533.js           | 4.28 KB |
-| app_pages_account-feature_list-detail-page_list-remove_list-remove_compon-a10eb2.bcb9ffb8caf8099c.js           | 3.39 KB |
-| app_pages_account-feature_list-detail-page_list-detail-page_component_ts--a2c81d.264e9b588f53f6c7.js           | 3.1 KB |
-| app_pages_not-found-page_not-found-page_component_ts.ed5bb019cc4798bb.js           | 1.65 KB |
-| app_pages_account-feature_list-detail-page_list-detail-page_routes_ts.5b1869fe0562a45f.js           | 1.5 KB |
-| app_pages_account-feature_account-feature-page_routes_ts.20b77bf6427b5dcd.js           | 851 Bytes |
-| app_pages_account-feature_list-detail-page_list-movies_list-movies_component_ts.5b118c0a340f91cd.js           | 657 Bytes |
+| app_pages_movie-detail-page_movie-detail-page_component_ts.js           | 16.57 KB |
+| a-4d8953.js           | 12.99 KB |
+| app_pages_person-detail-page_person-detail-page_component_ts.js           | 11.59 KB |
+| app_pages_account-feature_list-create-page_list-create-page_component_ts--1f481e.js           | 9.21 KB |
+| app_app-shell_account-menu_account-menu_component_ts.js           | 8.3 KB |
+| common.js           | 7.23 KB |
+| app_pages_account-feature_list-detail-page_list-items-edit_list-items-edi-13eb42.js           | 7.1 KB |
+| app_pages_movie-list-page_movie-list-page_component_ts.js           | 5.9 KB |
+| app_pages_account-feature_account-list-page_account-list-page_component_ts.js           | 5.72 KB |
+| app_pages_account-feature_list-detail-page_list-image_list-image_componen-cb4b89.js           | 4.41 KB |
+| app_pages_account-feature_list-detail-page_list-remove_list-remove_compon-a10eb2.js           | 3.52 KB |
+| app_pages_account-feature_list-detail-page_list-detail-page_component_ts--a2c81d.js           | 3.23 KB |
+| app_pages_not-found-page_not-found-page_component_ts.js           | 1.75 KB |
+| app_pages_account-feature_list-detail-page_list-detail-page_routes_ts.js           | 1.62 KB |
+| app_pages_account-feature_account-feature-page_routes_ts.js           | 956 Bytes |
+| app_pages_account-feature_list-detail-page_list-movies_list-movies_component_ts.js           | 785 Bytes |
 <!-- bundle-stats-end -->
+
 
 
 
