@@ -89,6 +89,7 @@
             },
             "production-stats": {
               "namedChunks": true,
+              "statsJson": true,
               "sourceMap": true,
               "buildOptimizer": true,
               "optimization": true,
