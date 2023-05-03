@@ -28,18 +28,44 @@ export class ToolBarUfo extends Ufo implements CwvInterface {
     await this.page.waitForSelector(fixtures.profileMenuContent);
   }
 
+
+  async fillLoginForm(): Promise<any> {
+    await this.page.waitForSelector(fixtures.TmdbUsernameInput);
+    await this.page.type(fixtures.TmdbUsernameInput, fixtures.TmdbUser);
+    await this.page.waitForSelector(fixtures.TmdbPasswordInput);
+    await this.page.type(fixtures.TmdbPasswordInput, fixtures.TmdbPassword);
+    await this.page.click(fixtures.TmdbLoginSubmitBtn)
+  }
+
   async login(): Promise<any> {
-    await this.page.waitForSelector(fixtures.profileMenuContent);
+    // open menu
+    await this.openProfileMenu();
+    // navigate to tmdb
+    await this.page.waitForSelector(fixtures.profileMenuLoginItem);
     await this.page.click(fixtures.profileMenuLoginItem);
     await this.page.waitForNavigation()
     if (!this.page.url().includes(fixtures.TmdbAuthUrl)) {
       throw new Error('Login page not open')
     }
-    await this.page.click(fixtures.TmdbApproveBtn);
+    // navigate to login
+    await this.page.click(fixtures.TmdbLoginBtn);
     await this.page.waitForNavigation()
     if (!this.page.url().includes('angular')) {
       throw new Error('redirect from login back not working')
     }
+    // fill and send form
+    await this.page.waitForSelector(fixtures.TmdbUsernameInput);
+    await this.page.type(fixtures.TmdbUsernameInput, fixtures.TmdbUser);
+    await this.page.waitForSelector(fixtures.TmdbPasswordInput);
+    await this.page.type(fixtures.TmdbPasswordInput, fixtures.TmdbPassword);
+    await this.page.click(fixtures.TmdbLoginSubmitBtn)
+    // navigate back
+    await this.page.waitForNavigation()
+    if (!this.page.url().includes(fixtures.TmdbAuthUrl)) {
+      throw new Error('Login page not open')
+    }
+    // check login state
+
   }
 
   async awaitLCPContent(): Promise<any> {

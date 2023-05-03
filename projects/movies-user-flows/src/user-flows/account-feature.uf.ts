@@ -31,7 +31,7 @@ const interactions: UserFlowInteractionsFn = async (
   await flow.startTimespan({
     stepName: '🔑 Log in',
   });
-  await toolbar.openProfileMenu();
+
   await toolbar.login();
 
   await flow.endTimespan();
