@@ -1,16 +1,14 @@
-import { LetDirective } from '@rx-angular/template/let';
-import { RxState } from '@rx-angular/state';
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { RxActionFactory } from '@rx-angular/state/actions';
-import { AuthEffects } from '../../auth/auth.effects';
-import { AuthState } from '../../state/auth.state';
-import { map } from 'rxjs';
-import { RouterLink } from '@angular/router';
+import {LetDirective} from '@rx-angular/template/let';
+import {RxState} from '@rx-angular/state';
+import {ChangeDetectionStrategy, Component, inject} from '@angular/core';
+import {RxActionFactory} from '@rx-angular/state/actions';
+import {AuthEffects} from '../../auth/auth.effects';
+import {AuthState} from '../../state/auth.state';
+import {map} from 'rxjs';
+import {RouterLink} from '@angular/router';
 
-import { RxEffects } from '@rx-angular/state/effects';
-import { RxIf } from '@rx-angular/template/if';
-
-export const imports = [RouterLink, LetDirective, RxIf];
+import {RxEffects} from '@rx-angular/state/effects';
+import {RxIf} from '@rx-angular/template/if';
 
 type Actions = {
   signOut: Event;

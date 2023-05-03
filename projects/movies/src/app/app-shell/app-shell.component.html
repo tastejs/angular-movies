@@ -93,6 +93,7 @@
         <ui-dark-mode-toggle></ui-dark-mode-toggle>
         <div class="account-menu-dropdown">
           <button
+            data-uf="profile-menu-button"
             type="button"
             aria-label="Toggle profile menu"
             name="profile"
@@ -102,13 +103,13 @@
             <div class="focus-overlay"></div>
             <fast-svg name="account"></fast-svg>
           </button>
-          <div class="account-menu-content">
+          <div class="profile-menu-content" data-uf="profile-menu-content">
             <ng-container
               *rxLet="accountMenuComponent$; suspense: loading"
               [lazy]="accountMenuComponent$"
             >
             </ng-container>
-            <ng-template #loading> Loading... </ng-template>
+            <ng-template #loading> Loading...</ng-template>
           </div>
         </div>
       </div>

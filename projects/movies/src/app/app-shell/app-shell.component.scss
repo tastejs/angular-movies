@@ -39,13 +39,13 @@
   }
 
   &:hover {
-    .account-menu-content {
+    .profile-menu-content {
       visibility: visible;
       pointer-events: auto;
     }
   }
 
-  .account-menu-content {
+  .profile-menu-content {
     visibility: hidden;
     width: 200px;
     background: var(--palette-background-default);
