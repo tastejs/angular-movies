@@ -21,7 +21,9 @@ export class TmdbUfo extends Ufo {
     }
     // navigate to tmdb login form
     await this.page.click(fixtures.TmdbLoginBtn);
-
+    await this.page.waitForNavigation().catch(() => {
+      throw new Error('Navigation to tmdb app failed')
+    });
     if (!this.page.url().includes(fixtures.TmdbAuthUrl)) {
       throw new Error('navigate to login form failed')
     }
