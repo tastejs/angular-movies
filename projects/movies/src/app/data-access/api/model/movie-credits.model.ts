@@ -1,7 +1,7 @@
 export interface TMDBMovieCreditsModel {
-    id: number;
-    cast: TMDBMovieCastModel[];
-    crew: TMDBMovieCrewModel[];
+  id: number;
+  cast: TMDBMovieCastModel[];
+  crew: TMDBMovieCrewModel[];
 }
 
 export interface TMDBMovieCrewModel {

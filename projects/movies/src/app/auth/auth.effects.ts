@@ -1,5 +1,5 @@
 import { DOCUMENT, isPlatformBrowser } from '@angular/common';
-import {inject, Injectable, PLATFORM_ID} from '@angular/core';
+import { inject, Injectable, PLATFORM_ID } from '@angular/core';
 import { exhaustMap, filter, map, Observable, take } from 'rxjs';
 import { AuthState } from '../state/auth.state';
 import { isAuthenticationInProgress } from '../auth/utils';

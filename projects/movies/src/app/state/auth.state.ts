@@ -1,15 +1,14 @@
 import { RxState } from '@rx-angular/state';
 import { DOCUMENT, isPlatformBrowser } from '@angular/common';
-import {inject, Injectable, PLATFORM_ID} from '@angular/core';
+import { inject, Injectable, PLATFORM_ID } from '@angular/core';
 import { map } from 'rxjs';
-import {isAuthenticationInProgress} from "../auth/utils";
+import { isAuthenticationInProgress } from '../auth/utils';
 
 export interface AuthStateModel {
   requestToken: string | null;
   accessToken: string | null;
   accountId: string | null;
 }
-
 
 @Injectable({
   providedIn: 'root',

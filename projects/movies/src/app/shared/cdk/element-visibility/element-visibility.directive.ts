@@ -1,7 +1,8 @@
 import { isPlatformBrowser } from '@angular/common';
 import {
   Directive,
-  ElementRef, inject,
+  ElementRef,
+  inject,
   OnDestroy,
   Output,
   PLATFORM_ID,
@@ -25,10 +26,7 @@ export class ElementVisibilityDirective implements OnDestroy {
   @Output()
   elementVisibility = this.signals.visible$;
 
-  constructor(
-    private actionsF: RxActionFactory<Actions>,
-    elRef: ElementRef
-  ) {
+  constructor(private actionsF: RxActionFactory<Actions>, elRef: ElementRef) {
     if (isPlatformBrowser(this.platformId)) {
       observeElementVisibility(elRef.nativeElement)
         .pipe(takeUntil(this.signals.onDestroy$))

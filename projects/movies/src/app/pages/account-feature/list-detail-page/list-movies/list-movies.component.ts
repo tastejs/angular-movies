@@ -1,4 +1,4 @@
-import {Component, ChangeDetectionStrategy, inject} from '@angular/core';
+import { Component, ChangeDetectionStrategy, inject } from '@angular/core';
 import { ListDetailAdapter } from '../list-detail-page.adapter';
 import { MovieListComponent } from '../../../../ui/pattern/movie-list/movie-list.component';
 

@@ -87,6 +87,21 @@
               "ngswConfigPath": "projects/movies/src/ngsw-config.json",
               "outputHashing": "all"
             },
+            "production-stats": {
+              "namedChunks": true,
+              "statsJson": true,
+              "sourceMap": true,
+              "buildOptimizer": true,
+              "optimization": true,
+              "serviceWorker": false,
+              "outputHashing": "none",
+              "fileReplacements": [
+                {
+                  "replace": "projects/movies/src/environments/environment.ts",
+                  "with": "projects/movies/src/environments/environment.prod.ts"
+                }
+              ]
+            },
             "development": {
               "buildOptimizer": false,
               "optimization": false,
@@ -103,7 +118,7 @@
           "configurations": {
             "production": {
               "browserTarget": "movies:build:production",
-              "port":4201
+              "port": 4201
             },
             "development": {
               "browserTarget": "movies:build:development"
@@ -165,12 +180,12 @@
             "development": {
               "browserTarget": "movies:build:development",
               "serverTarget": "movies:build-server:development",
-              "port":4210
+              "port": 4210
             },
             "production": {
               "browserTarget": "movies:build:production",
               "serverTarget": "movies:build-server:production",
-              "port":4211
+              "port": 4211
             }
           },
           "defaultConfiguration": "development"

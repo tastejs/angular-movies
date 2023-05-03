@@ -1,6 +1,6 @@
 import { RxState } from '@rx-angular/state';
 import { selectSlice } from '@rx-angular/state/selections';
-import {inject, Injectable} from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import {
   distinctUntilKeyChanged,
   EMPTY,
@@ -15,25 +15,26 @@ import {
   TMDBPaginateResult,
 } from '../../data-access/api/paginate/paginate.interface';
 import { DiscoverState } from '../../state/discover.state';
-import {Movie, MovieState} from '../../state/movie.state';
+import { Movie, MovieState } from '../../state/movie.state';
 import { RouterState } from '../../shared/router/router.state';
 import { RouterParams } from '../../shared/router/router.model';
 import { infiniteScroll } from '../../shared/cdk/infinite-scroll/infiniteScroll';
 import { RxActionFactory } from '@rx-angular/state/actions';
-import {InfiniteScrollOptions, InfiniteScrollState} from '../../shared/cdk/infinite-scroll/infinite-scroll.interface';
+import {
+  InfiniteScrollOptions,
+  InfiniteScrollState,
+} from '../../shared/cdk/infinite-scroll/infinite-scroll.interface';
 import { DiscoverResource } from '../../data-access/api/resources/discover.resource';
 import { MovieResource } from '../../data-access/api/resources/movie.resource';
 import { SearchResource } from '../../data-access/api/resources/search.resource';
 import { GenreResource } from '../../data-access/api/resources/genre.resource';
-import {W154H205} from "../../data-access/images/image-sizes";
-import {addImageTag} from "../../shared/cdk/image/image-tag.transform";
-import {TMDBMovieGenreModel} from "../../data-access/api/model/movie-genre.model";
+import { W154H205 } from '../../data-access/images/image-sizes';
+import { addImageTag } from '../../shared/cdk/image/image-tag.transform';
+import { TMDBMovieGenreModel } from '../../data-access/api/model/movie-genre.model';
 
 type MovieListRouterParams = Pick<RouterParams, 'type' | 'identifier'>;
 export type MovieListPageModel = InfiniteScrollState<TMDBMovieModel> &
   MovieListRouterParams & { genres: Record<string, TMDBMovieGenreModel> };
-
-
 
 const emptyResult$ = EMPTY as unknown as Observable<
   TMDBPaginateResult<TMDBMovieModel>
@@ -42,9 +43,10 @@ const emptyResult$ = EMPTY as unknown as Observable<
 type Actions = { paginate: void };
 function transformToMovieModel(_res: TMDBMovieModel): Movie {
   return addImageTag(_res as Movie, {
-    pathProp: 'poster_path', dims: W154H205,
+    pathProp: 'poster_path',
+    dims: W154H205,
     sizes: '(min-width: 600px) 21vw, 15vw',
-    srcset: '185w, 342w'
+    srcset: '185w, 342w',
   });
 }
 
@@ -60,7 +62,9 @@ export class MovieListPageAdapter extends RxState<MovieListPageModel> {
   private readonly searchResource = inject(SearchResource);
   private readonly genreResource = inject(GenreResource);
   private readonly actions = new RxActionFactory<Actions>().create();
-  readonly movies$ = this.select(map(({results}) => results?.map(transformToMovieModel)));
+  readonly movies$ = this.select(
+    map(({ results }) => results?.map(transformToMovieModel))
+  );
 
   getInitialFetchByType({
     type,
@@ -81,7 +85,6 @@ export class MovieListPageAdapter extends RxState<MovieListPageModel> {
     }
     return emptyResult$;
   }
-
 
   readonly paginate = this.actions.paginate;
 

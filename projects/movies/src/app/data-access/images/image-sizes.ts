@@ -38,5 +38,3 @@ export const W780H1170: ImageDimensions = {
   WIDTH: 780,
   HEIGHT: 1170,
 } as const;
-
-

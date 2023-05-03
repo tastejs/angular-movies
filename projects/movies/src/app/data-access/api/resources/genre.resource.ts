@@ -3,7 +3,7 @@ import { TMDBMovieGenreModel } from '../model/movie-genre.model';
 import { baseUrlApiV3 } from './internal/base-urls.constant';
 import { staticRequest } from '../staticRequest';
 import { toDictionary } from '@rx-angular/cdk/transformations';
-import {inject, Injectable} from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 export type GenresResponse = TMDBMovieGenreModel[];

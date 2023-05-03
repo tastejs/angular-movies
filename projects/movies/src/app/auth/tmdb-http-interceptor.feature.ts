@@ -1,11 +1,7 @@
-import {
-  HttpHandlerFn,
-  HttpInterceptorFn,
-  HttpRequest,
-} from '@angular/common/http';
-import { inject } from '@angular/core';
-import { AuthState } from '../state/auth.state';
-import { environment } from '../../environments/environment';
+import {HttpHandlerFn, HttpInterceptorFn, HttpRequest,} from '@angular/common/http';
+import {inject} from '@angular/core';
+import {AuthState} from '../state/auth.state';
+import {environment} from '../../environments/environment';
 
 export const tmdbReadAccessInterceptor: HttpInterceptorFn = (
   req: HttpRequest<unknown>,

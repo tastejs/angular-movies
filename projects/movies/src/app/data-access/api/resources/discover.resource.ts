@@ -8,7 +8,7 @@ import {
 import { Observable } from 'rxjs';
 import { TMDBSortOptions } from '../sort/sort.interface';
 import { getTMDBSortOptions } from '../sort/utils';
-import {inject, Injectable} from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 const URL_DISCOVER_MOVIE = [baseUrlApiV3, 'discover', 'movie'].join('/');

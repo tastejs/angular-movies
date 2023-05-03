@@ -7,7 +7,7 @@ import { FastSvgComponent } from '@push-based/ngx-fast-svg';
 
 @Component({
   standalone: true,
-  imports:  [FastSvgComponent],
+  imports: [FastSvgComponent],
   selector: 'ct-not-found',
   template: ` <div class="not-found-container">
     <fast-svg size="350px" name="error"></fast-svg>

@@ -1,8 +1,13 @@
-import {inject, Injectable} from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { RxState } from '@rx-angular/state';
 import { selectSlice, select } from '@rx-angular/state/selections';
 import { map, Observable, startWith, switchMap, withLatestFrom } from 'rxjs';
-import {W154H205, W300H450, W500H282, W92H138} from '../../../data-access/images/image-sizes';
+import {
+  W154H205,
+  W300H450,
+  W500H282,
+  W92H138,
+} from '../../../data-access/images/image-sizes';
 import { TMDBListCreateUpdateParams } from '../../../data-access/api/model/list.model';
 import { TMDBMovieModel } from '../../../data-access/api/model/movie.model';
 import { RxActionFactory } from '@rx-angular/state/actions';
@@ -11,14 +16,14 @@ import { ListState } from '../../../state/list.state';
 import { RouterState } from '../../../shared/router/router.state';
 import { ImageTag } from '../../../shared/cdk/image/image-tag.interface';
 import { addImageTag } from '../../../shared/cdk/image/image-tag.transform';
-import {addVideoTag} from "../../../shared/cdk/video/video-tag.transform";
-import {addLinkTag} from "../../../shared/cdk/link/a-tag.transform";
-import {TMDBMovieCastModel} from "../../../data-access/api/model/movie-credits.model";
-import {Movie} from "../../../state/movie.state";
-import {TMDBMovieDetailsModel} from "../../../data-access/api/model/movie-details.model";
-import {LinkTag} from "../../../shared/cdk/link/a-tag.interface";
-import {VideoTag} from "../../../shared/cdk/video/video.interface";
-import {MY_LIST_FALLBACK} from "../../../constants";
+import { addVideoTag } from '../../../shared/cdk/video/video-tag.transform';
+import { addLinkTag } from '../../../shared/cdk/link/a-tag.transform';
+import { TMDBMovieCastModel } from '../../../data-access/api/model/movie-credits.model';
+import { Movie } from '../../../state/movie.state';
+import { TMDBMovieDetailsModel } from '../../../data-access/api/model/movie-details.model';
+import { LinkTag } from '../../../shared/cdk/link/a-tag.interface';
+import { VideoTag } from '../../../shared/cdk/video/video.interface';
+import { MY_LIST_FALLBACK } from '../../../constants';
 
 type Actions = {
   listInfoUpdate: TMDBListCreateUpdateParams;
@@ -62,7 +67,10 @@ export class ListDetailAdapter extends RxState<{
     switchMap((id) => this.listState.select('lists', id))
   );
 
-  readonly movies$ = this.listDetails$.pipe(select('results'), map((r) => r !== undefined ? r.map(transformToMovieModel) : []))
+  readonly movies$ = this.listDetails$.pipe(
+    select('results'),
+    map((r) => (r !== undefined ? r.map(transformToMovieModel) : []))
+  );
 
   readonly posters$: Observable<ListPoster[] | undefined> =
     this.listDetails$.pipe(
@@ -104,7 +112,6 @@ export class ListDetailAdapter extends RxState<{
   }
 }
 
-
 export function transformToMovieDetail(_res: TMDBMovieModel): MovieDetail {
   const res = _res as unknown as MovieDetail;
   let language: string | boolean = false;
@@ -119,16 +126,30 @@ export function transformToMovieDetail(_res: TMDBMovieModel): MovieDetail {
   } MIN. / ${new Date(res.release_date).getFullYear()}`;
 
   addVideoTag(res, { pathPropFn: (r: any) => r?.videos?.results[0]?.key + '' });
-  addImageTag(res, { pathProp: 'poster_path', dims: W300H450, sizes: `(min-width: 900px) 400px, 65vw`,  srcset: '154w, 185w, 342w, 500w, 780w' });
+  addImageTag(res, {
+    pathProp: 'poster_path',
+    dims: W300H450,
+    sizes: `(min-width: 900px) 400px, 65vw`,
+    srcset: '154w, 185w, 342w, 500w, 780w',
+  });
   addLinkTag(res, 'imdb_id', {});
   return res as MovieDetail;
 }
 export function transformToCastList(_res: TMDBMovieCastModel): MovieCast {
   const res = _res as unknown as MovieCast;
-  addImageTag(res, { pathProp: 'profile_path', dims: W92H138, sizes: `44px`,  srcset: '154w' });
+  addImageTag(res, {
+    pathProp: 'profile_path',
+    dims: W92H138,
+    sizes: `44px`,
+    srcset: '154w',
+  });
   return res;
 }
 export function transformToMovieModel(_res: TMDBMovieModel): Movie {
-  return addImageTag(_res as Movie, { pathProp: 'poster_path', dims: W154H205, sizes: '(min-width: 900px) 20vw, 70vw', srcset: '154w, 185w, 342w, 500w, 780w' });
+  return addImageTag(_res as Movie, {
+    pathProp: 'poster_path',
+    dims: W154H205,
+    sizes: '(min-width: 900px) 20vw, 70vw',
+    srcset: '154w, 185w, 342w, 500w, 780w',
+  });
 }
-

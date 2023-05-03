@@ -1,30 +1,31 @@
-import {RxState} from '@rx-angular/state';
-import {inject, Injectable} from '@angular/core';
-import {map, Observable, switchMap} from 'rxjs';
-import {RouterState} from '../../shared/router/router.state';
-import {MovieState} from '../../state/movie.state';
-import {getIdentifierOfTypeAndLayoutUtil} from '../../shared/router/get-identifier-of-type-and-layout.util';
-import {MovieResource} from '../../data-access/api/resources/movie.resource';
+import { RxState } from '@rx-angular/state';
+import { inject, Injectable } from '@angular/core';
+import { map, Observable, switchMap } from 'rxjs';
+import { RouterState } from '../../shared/router/router.state';
+import { MovieState } from '../../state/movie.state';
+import { getIdentifierOfTypeAndLayoutUtil } from '../../shared/router/get-identifier-of-type-and-layout.util';
+import { MovieResource } from '../../data-access/api/resources/movie.resource';
 
-import {RxActionFactory} from '@rx-angular/state/actions';
-import {infiniteScroll} from '../../shared/cdk/infinite-scroll/infiniteScroll';
+import { RxActionFactory } from '@rx-angular/state/actions';
+import { infiniteScroll } from '../../shared/cdk/infinite-scroll/infiniteScroll';
 
-import {WithContext} from '../../shared/cdk/loading/context.interface';
-import {withLoadingEmission} from '../../shared/cdk/loading/withLoadingEmissions';
-import {TMDBMovieModel} from '../../data-access/api/model/movie.model';
-import {addVideoTag} from '../../shared/cdk/video/video-tag.transform';
-import {addImageTag} from '../../shared/cdk/image/image-tag.transform';
+import { WithContext } from '../../shared/cdk/loading/context.interface';
+import { withLoadingEmission } from '../../shared/cdk/loading/withLoadingEmissions';
+import { TMDBMovieModel } from '../../data-access/api/model/movie.model';
+import { addVideoTag } from '../../shared/cdk/video/video-tag.transform';
+import { addImageTag } from '../../shared/cdk/image/image-tag.transform';
 import {
   W154H205,
-  W300H450, W44H66,
+  W300H450,
+  W44H66,
 } from '../../data-access/images/image-sizes';
-import {addLinkTag} from '../../shared/cdk/link/a-tag.transform';
-import {TMDBMovieCastModel} from '../../data-access/api/model/movie-credits.model';
-import {Movie} from "../../state/movie.state";
-import {TMDBMovieDetailsModel} from "../../data-access/api/model/movie-details.model";
-import {LinkTag} from "../../shared/cdk/link/a-tag.interface";
-import {ImageTag} from "../../shared/cdk/image/image-tag.interface";
-import {VideoTag} from "../../shared/cdk/video/video.interface";
+import { addLinkTag } from '../../shared/cdk/link/a-tag.transform';
+import { TMDBMovieCastModel } from '../../data-access/api/model/movie-credits.model';
+import { Movie } from '../../state/movie.state';
+import { TMDBMovieDetailsModel } from '../../data-access/api/model/movie-details.model';
+import { LinkTag } from '../../shared/cdk/link/a-tag.interface';
+import { ImageTag } from '../../shared/cdk/image/image-tag.interface';
+import { VideoTag } from '../../shared/cdk/video/video.interface';
 
 type Actions = { paginateRecommendations: void };
 
@@ -55,7 +56,7 @@ export class MovieDetailAdapter extends RxState<any> {
       switchMap((id) =>
         this.movieResource
           .getCredits(id)
-          .pipe(map(({cast}) => ({value: cast.map(transformToCastList)})))
+          .pipe(map(({ cast }) => ({ value: cast.map(transformToCastList) })))
       ),
       withLoadingEmission()
     );
@@ -66,10 +67,10 @@ export class MovieDetailAdapter extends RxState<any> {
         (incrementedParams) =>
           this.movieResource.getMoviesRecommendations(id, incrementedParams),
         this.actions.paginateRecommendations$,
-        this.movieResource.getMoviesRecommendations(id, {page: 1})
+        this.movieResource.getMoviesRecommendations(id, { page: 1 })
       )
     ),
-    map((v) => ({...v, results: v?.results?.map(transformToMovieModel)}))
+    map((v) => ({ ...v, results: v?.results?.map(transformToMovieModel) }))
   );
 
   constructor() {
@@ -98,11 +99,12 @@ export function transformToMovieDetail(_res: TMDBMovieModel): MovieDetail {
     res.runtime
   } MIN. / ${new Date(res.release_date).getFullYear()}`;
 
-  addVideoTag(res, {pathPropFn: (r: any) => r?.videos?.results[0]?.key + ''});
+  addVideoTag(res, { pathPropFn: (r: any) => r?.videos?.results[0]?.key + '' });
   addImageTag(res, {
-    pathProp: 'poster_path', dims: W300H450,
+    pathProp: 'poster_path',
+    dims: W300H450,
     sizes: `(min-width: 901px) 15vw, 42vw`,
-    srcset: '154w, 185w, 342w, 500w, 780w'
+    srcset: '154w, 185w, 342w, 500w, 780w',
   });
   addLinkTag(res, 'imdb_id', {});
   return res as MovieDetail;
@@ -110,14 +112,20 @@ export function transformToMovieDetail(_res: TMDBMovieModel): MovieDetail {
 
 export function transformToCastList(_res: TMDBMovieCastModel): MovieCast {
   const res = _res as unknown as MovieCast;
-  addImageTag(res, {pathProp: 'profile_path', dims: W44H66, sizes: `44px`, srcset: '154w'});
+  addImageTag(res, {
+    pathProp: 'profile_path',
+    dims: W44H66,
+    sizes: `44px`,
+    srcset: '154w',
+  });
   return res;
 }
 
 export function transformToMovieModel(_res: TMDBMovieModel): Movie {
   return addImageTag(_res as Movie, {
-    pathProp: 'poster_path', dims: W154H205,
+    pathProp: 'poster_path',
+    dims: W154H205,
     sizes: '(min-width: 600px) 21vw, 15vw',
-    srcset: '185w, 342w'
+    srcset: '185w, 342w',
   });
 }

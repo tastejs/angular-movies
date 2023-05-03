@@ -6,7 +6,7 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import { trackByIndex } from '../../../shared/cdk/track-by';
-import { NgFor, NgIf, NgClass} from '@angular/common';
+import { NgFor, NgIf, NgClass } from '@angular/common';
 
 const range = 10;
 const numStars = 5;
@@ -59,9 +59,10 @@ export class StarRatingComponent {
     const full = Math.floor(scaledRating);
     const half = scaledRating % 1 > 0.5 ? 1 : 0;
     const empty = this.numStars - full - half;
-    this.stars = new Array(full).fill(1)
-        .concat(new Array(half).fill(0))
-        .concat(new Array(empty).fill(-1));
+    this.stars = new Array(full)
+      .fill(1)
+      .concat(new Array(half).fill(0))
+      .concat(new Array(empty).fill(-1));
   }
   get rating(): number {
     return this._rating;
