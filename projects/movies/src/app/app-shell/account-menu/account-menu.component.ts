@@ -9,6 +9,7 @@ import { RouterLink } from '@angular/router';
 
 import { RxEffects } from '@rx-angular/state/effects';
 import { RxIf } from '@rx-angular/template/if';
+import {AUTH_STATE_LOADED} from "../../auth/auth-state-available.token";
 
 export const imports = [RouterLink, LetDirective, RxIf];
 
@@ -31,12 +32,15 @@ export default class AccountMenuComponent {
   private readonly authEffects = inject(AuthEffects);
   private readonly authState = inject(AuthState);
   private readonly state = inject<RxState<{ loggedIn: boolean }>>(RxState);
+  private readonly isAuthStateLoaded$ = inject(AUTH_STATE_LOADED);
 
   ui = this.actionsF.create();
 
   loggedIn$ = this.state.select('loggedIn');
 
   constructor(private actionsF: RxActionFactory<Actions>) {
+    this.isAuthStateLoaded$.next(true);
+
     this.state.connect(
       'loggedIn',
       this.authState.requestToken$.pipe(map((s) => !!s))
