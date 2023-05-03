@@ -16,6 +16,8 @@ const interactions: UserFlowInteractionsFn = async (
   const toolbar = new ToolBarUfo(ctx);
   const tmdpPage = new TmdbUfo(ctx);
 
+  await page.setCacheEnabled(false);
+
   await flow.navigate(url, {
     stepName: '🧭 Initial navigation',
     config: {
@@ -48,6 +50,11 @@ const interactions: UserFlowInteractionsFn = async (
 const userFlowProvider: UserFlowProvider = {
   flowOptions,
   interactions,
+  launchOptions: {
+    headless: false,
+    defaultViewport: {width: 1280, height: 1600},
+    userDataDir: "./tmp"
+  }
 };
 
 module.exports = userFlowProvider;
