@@ -37,12 +37,10 @@ export class ToolBarUfo extends Ufo implements CwvInterface {
     await this.page.waitForSelector(fixtures.profileMenuLoginItem);
     await this.page.click(fixtures.profileMenuLoginItem);
 
-    await this.page.waitForNavigation().catch(() => {
-      throw new Error('Navigation to tmdb failed')
-    });
-    if (!this.page.url().includes(fixtures.TmdbAuthUrl)) {
-      throw new Error('Login page not open')
-    }
+    await this.page.waitForRequest((req) => req.url().includes(fixtures.TmdbAuthUrl))
+      .catch(() => {
+        throw new Error('Navigation to tmdb failed')
+      });
 
     await this.tmdbPage.login();
 

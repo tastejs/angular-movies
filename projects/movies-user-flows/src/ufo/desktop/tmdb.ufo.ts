@@ -16,14 +16,6 @@ export class TmdbUfo extends Ufo {
   }
 
   async login(): Promise<any> {
-    if (!this.page.url().includes(fixtures.TmdbAuthUrl)) {
-      throw new Error('Login page not open')
-    }
-    // navigate to tmdb login form
-    await this.page.click(fixtures.TmdbLoginBtn);
-    await this.page.waitForRequest((req) => req.url().includes(fixtures.TmdbAuthUrl)).catch(() => {
-      throw new Error('Navigation to tmdb app failed')
-    });
     // fill and send form
     await this.page.waitForSelector(fixtures.TmdbUsernameInput);
     await this.page.type(fixtures.TmdbUsernameInput, fixtures.TmdbUser);

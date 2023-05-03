@@ -2,7 +2,6 @@ import {UserFlowContext, UserFlowInteractionsFn, UserFlowOptions, UserFlowProvid
 
 import {mergeBudgets} from '../internals/test-sets';
 import {ToolBarUfo} from "../ufo/desktop/tool-bar.ufo";
-import {TmdbUfo} from "../ufo/desktop/tmdb.ufo";
 
 const flowOptions: UserFlowOptions = {
   name: 'Basic user flow to ensure basic functionality',
@@ -14,7 +13,6 @@ const interactions: UserFlowInteractionsFn = async (
   const {page, flow, collectOptions} = ctx;
   const url = `${collectOptions.url}/list/category/popular`;
   const toolbar = new ToolBarUfo(ctx);
-  const tmdbPage = new TmdbUfo(ctx);
 
   await flow.navigate(url, {
     stepName: '🧭 Initial navigation',
