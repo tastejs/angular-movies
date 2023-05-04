@@ -8,7 +8,7 @@ export class TmdbUfo extends Ufo {
   }
 
   async fillLoginForm(): Promise<any> {
-    await this.page.waitForSelector(fixtures.TmdbUsernameInput, {timeout: 15000});
+    await this.page.waitForSelector(fixtures.TmdbUsernameInput);
     await this.page.type(fixtures.TmdbUsernameInput, fixtures.TmdbUser);
 
     await this.page.waitForSelector(fixtures.TmdbPasswordInput);
@@ -19,6 +19,7 @@ export class TmdbUfo extends Ufo {
   }
 
   async login(): Promise<any> {
+
     await this.page.waitForSelector(fixtures.TmdbLoginBtn);
     await this.page.click(fixtures.TmdbLoginBtn);
 

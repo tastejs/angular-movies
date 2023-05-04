@@ -107,7 +107,7 @@
     "firebase-tools": "^9.16.2",
     "http-server": "^0.11.1",
     "husky": "^7.0.4",
-    "lighthouse": "^9.0.0",
+    "lighthouse": "^9.6.8",
     "lint-staged": "^11.2.3",
     "open": "^8.4.0",
     "prettier": "^2.5.1",

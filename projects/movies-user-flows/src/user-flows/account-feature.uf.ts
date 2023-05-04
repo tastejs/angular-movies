@@ -11,12 +11,14 @@ const flowOptions: UserFlowOptions = {
 const interactions: UserFlowInteractionsFn = async (
   ctx: UserFlowContext
 ): Promise<any> => {
-  const {page, flow, collectOptions} = ctx;
+  const {browser, page, flow, collectOptions} = ctx;
   const url = `${collectOptions.url}/list/category/popular`;
   const toolbar = new ToolBarUfo(ctx);
   const tmdpPage = new TmdbUfo(ctx);
 
-  await page.setCacheEnabled(false);
+  await page.setUserAgent('Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36')
+  browser.userAgent().then(console.log);
+
 
   await flow.navigate(url, {
     stepName: '🧭 Initial navigation',
@@ -35,6 +37,7 @@ const interactions: UserFlowInteractionsFn = async (
   await flow.startTimespan({
     stepName: '🔑 Log in',
   });
+
   await toolbar.goToTmDbLogin();
 
   await flow.endTimespan();
@@ -43,7 +46,6 @@ const interactions: UserFlowInteractionsFn = async (
 
   await toolbar.ensureLoginDone();
 
-
   return Promise.resolve();
 };
 
@@ -51,9 +53,7 @@ const userFlowProvider: UserFlowProvider = {
   flowOptions,
   interactions,
   launchOptions: {
-    headless: false,
-    defaultViewport: {width: 1280, height: 1600},
-    userDataDir: "./tmp"
+    headless: true
   }
 };
 

@@ -1,5 +1,6 @@
 import {CwvInterface} from '../typings/cwv.interface';
 import * as fixtures from '../../fixtures/toolbar.fixtures';
+import * as tmdbfixtures from '../../fixtures/tmdb.fixtures';
 import {GenreIds} from '../../internals/typings';
 import {Ufo, UserFlowContext} from '@push-based/user-flow';
 import {TmdbUfo} from "./tmdb.ufo";
@@ -38,7 +39,7 @@ export class ToolBarUfo extends Ufo implements CwvInterface {
     await this.page.waitForSelector(fixtures.profileMenuLoginItem);
     await this.page.click(fixtures.profileMenuLoginItem);
 
-    await this.page.waitForNavigation()
+    await this.page.waitForResponse(r => r.url().includes(tmdbfixtures.TmdbAuthUrl))
       .catch(() => {
         throw new Error('Navigation to tmdb failed')
       });
@@ -46,12 +47,10 @@ export class ToolBarUfo extends Ufo implements CwvInterface {
 
   async ensureLoginDone(): Promise<any> {
     // open menu
-
-    await this.page.waitForNavigation()
+    await this.page.waitForResponse(r => r.url().includes('angular'))
       .catch(() => {
         throw new Error('Navigation back to movies app failed')
       });
-
   }
 
   async awaitLCPContent(): Promise<any> {
