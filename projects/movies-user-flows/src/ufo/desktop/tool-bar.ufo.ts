@@ -1,7 +1,7 @@
-import { CwvInterface } from '../typings/cwv.interface';
+import {CwvInterface} from '../typings/cwv.interface';
 import * as fixtures from '../../fixtures/toolbar.fixtures';
-import { GenreIds, CategoryNames } from '../../internals/typings';
-import { Ufo, UserFlowContext } from '@push-based/user-flow';
+import {GenreIds} from '../../internals/typings';
+import {Ufo, UserFlowContext} from '@push-based/user-flow';
 
 export class ToolBarUfo extends Ufo implements CwvInterface {
   constructor(private ctx: UserFlowContext) {
@@ -26,6 +26,10 @@ export class ToolBarUfo extends Ufo implements CwvInterface {
   }
 
   async awaitLCPContent(): Promise<any> {
+    throw new Error('not implemented');
+  }
+
+  awaitAllContent(): Promise<any> {
     throw new Error('not implemented');
   }
 }
