@@ -51,6 +51,7 @@ export class ToolBarUfo extends Ufo implements CwvInterface {
       .catch(() => {
         throw new Error('Navigation back to movies app failed')
       });
+    await this.openProfileMenu()
     await this.page.waitForSelector(fixtures.profileMenuSignoutItem);
   }
 
