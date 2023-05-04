@@ -149,7 +149,8 @@
             "tsConfig": "projects/movies/tsconfig.server.json",
             "optimization": false,
             "sourceMap": true,
-            "extractLicenses": false
+            "extractLicenses": false,
+            "buildOptimizer": false
           },
           "configurations": {
             "development": {
@@ -157,7 +158,8 @@
               "optimization": false,
               "sourceMap": true,
               "extractLicenses": true,
-              "vendorChunk": true
+              "vendorChunk": true,
+              "buildOptimizer": false
             },
             "production": {
               "outputHashing": "media",
@@ -169,7 +171,8 @@
               ],
               "optimization": true,
               "sourceMap": false,
-              "extractLicenses": true
+              "extractLicenses": true,
+              "buildOptimizer": true
             }
           },
           "defaultConfiguration": "production"
