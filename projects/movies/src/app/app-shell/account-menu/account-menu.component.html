@@ -3,6 +3,7 @@
   <div><a [routerLink]="['account/my-lists']">My Lists</a></div>
   <div>
     <a
+      data-uf="profile-menu-item-signout"
       (click)="ui.signOut($event)"
       title="sign out"
       [routerLink]="'/list/category/popular'"
