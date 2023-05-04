@@ -1,4 +1,5 @@
 import * as fixtures from '../../fixtures/tmdb.fixtures';
+import * as tmdbfixtures from '../../fixtures/tmdb.fixtures';
 import {Ufo, UserFlowContext} from '@push-based/user-flow';
 
 
@@ -25,9 +26,12 @@ export class TmdbUfo extends Ufo {
 
     // fill and send form
     await this.fillLoginForm();
-    await this.page.waitForNavigation().catch(() => {
-      throw new Error('Navigation to approve app failed')
-    });
+    await this.page.waitForResponse(r => {
+      return r.url().includes(tmdbfixtures.TmdbAuthUrl)
+    })
+      .catch(() => {
+        throw new Error('Navigation to approve app failed')
+      });
     // approve access
     await this.page.waitForSelector(fixtures.TmdbApproveBtn);
     await this.page.click(fixtures.TmdbApproveBtn);
