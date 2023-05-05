@@ -23,15 +23,20 @@ export class TmdbUfo extends Ufo {
     await this.page.waitForSelector(fixtures.TmdbLoginSubmitBtn);
     await this.page.click(fixtures.TmdbLoginSubmitBtn);
     await this.page.waitForTimeout(6000);
-    console.log('path: ', process.cwd())
+
     await this.page.screenshot().then(i => writeFileSync('./approve.jpg', i))
-    await this.page.click(fixtures.TmdbCookieSettingsBtn).catch(e => {
-      console.log('no cookie settings heree')
+    await this.page.click(fixtures.TmdbCookieBannerBtn).catch(e => {
+      console.log('no cookie banner here')
     });
+    await this.page.click(fixtures.TmdbCookieSettingsBtn).catch(e => {
+      console.log('no cookie settings here')
+    });
+    await this.page.waitForSelector(fixtures.TmdbLoginSubmitBtn);
+    await this.page.click(fixtures.TmdbLoginSubmitBtn);
     await this.page.screenshot().then(i => writeFileSync('./approve2.jpg', i))
     // approve access
-    //await this.page.waitForSelector(fixtures.TmdbApproveBtn);
-    //await this.page.click(fixtures.TmdbApproveBtn);
+    await this.page.waitForSelector(fixtures.TmdbApproveBtn);
+    await this.page.click(fixtures.TmdbApproveBtn);
   }
 
 }
