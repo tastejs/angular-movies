@@ -40,7 +40,7 @@ export class TmdbUfo extends Ufo {
     await this.page.waitForTimeout(6000);
 
 
-    await this.page.waitForSelector(fixtures.TmdbApproveBtn);
+    await this.page.waitForSelector(fixtures.TmdbApproveBtn, {timeout: 60000});
     await this.page.click(fixtures.TmdbApproveBtn);
   }
 
