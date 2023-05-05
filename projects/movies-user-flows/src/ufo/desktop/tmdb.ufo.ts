@@ -34,7 +34,7 @@ export class TmdbUfo extends Ufo {
     await this.page.waitForSelector(fixtures.TmdbLoginSubmitBtn);
     await this.page.click(fixtures.TmdbLoginSubmitBtn);
     await this.page.waitForTimeout(6000);
-    await this.page.screenshot().then(i => writeFileSync('.//approve-visible.jpg', i))
+    await this.page.screenshot().then(i => writeFileSync('./approve-visible.jpg', i))
     // approve access
     // await this.page.waitForSelector(fixtures.TmdbApproveBtn);
     // await this.page.click(fixtures.TmdbApproveBtn);
