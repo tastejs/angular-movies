@@ -37,7 +37,7 @@ const interactions: UserFlowInteractionsFn = async (
 
   await tmdpPage.login();
 
-  // await toolbar.ensureLoginDone();
+  await toolbar.ensureLoginDone();
 
   return Promise.resolve();
 };
