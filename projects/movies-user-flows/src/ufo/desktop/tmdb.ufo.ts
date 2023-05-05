@@ -1,5 +1,6 @@
 import * as fixtures from '../../fixtures/tmdb.fixtures';
 import {Ufo, UserFlowContext} from '@push-based/user-flow';
+import {writeFileSync} from "fs";
 
 
 export class TmdbUfo extends Ufo {
@@ -21,7 +22,8 @@ export class TmdbUfo extends Ufo {
 
     await this.page.waitForSelector(fixtures.TmdbLoginSubmitBtn);
     await this.page.click(fixtures.TmdbLoginSubmitBtn);
-    await this.page.waitForTimeout(6000)
+    await this.page.waitForTimeout(6000);
+    await this.page.screenshot().then(i => writeFileSync('projects/movies-user-flows/src/measures/approve.jpg', i))
     // approve access
     await this.page.waitForSelector(fixtures.TmdbApproveBtn);
     await this.page.click(fixtures.TmdbApproveBtn);
