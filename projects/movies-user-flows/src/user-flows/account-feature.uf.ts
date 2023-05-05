@@ -29,16 +29,10 @@ const interactions: UserFlowInteractionsFn = async (
           "./projects/movies-user-flows/src/configs/movie-list.budgets.json"
         ]),
       },
-    },
-  });
-
-  await flow.startTimespan({
-    stepName: '🔑 Log in',
+    }
   });
 
   await toolbar.goToTmDbLogin();
-
-  await flow.endTimespan();
 
   await tmdpPage.login();
 
