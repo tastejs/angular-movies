@@ -45,7 +45,7 @@ const userFlowProvider: UserFlowProvider = {
   flowOptions,
   interactions,
   launchOptions: {
-    headless: false
+    headless: true
   }
 };
 
