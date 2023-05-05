@@ -33,15 +33,12 @@ const interactions: UserFlowInteractionsFn = async (
     }
   });
 
-  await flow.startTimespan('go to tmdb');
   await toolbar.goToTmDbLogin();
-  await flow.endTimespan();
 
   await tmdpPage.login();
 
-  await flow.startTimespan('go to angular movies');
   await toolbar.ensureLoginDone();
-  await flow.endTimespan();
+
 
   return Promise.resolve();
 };
