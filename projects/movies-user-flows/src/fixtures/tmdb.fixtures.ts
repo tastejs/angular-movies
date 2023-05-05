@@ -1,6 +1,6 @@
 export const TmdbAuthUrl = 'www.themoviedb.org/auth/access';
 export const TmdbLoginUrl = 'www.themoviedb.org/login';
-export const TmdbApproveBtn = '#main > section > div > div > form > input.k-button.k-primary';
+export const TmdbApproveBtn = 'input[value="Approve"]';
 export const TmdbLoginBtn = '#main > section > div > div > div:nth-child(2) > a';
 export const TmdbUsernameInput = '#username';
 export const TmdbUser = 'angular-movies';
