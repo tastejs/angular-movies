@@ -3,6 +3,7 @@
   <div><a [routerLink]="['account/my-lists']">My Lists</a></div>
   <div>
     <a
+      data-uf="profile-menu-item-signout"
       (click)="ui.signOut($event)"
       title="sign out"
       [routerLink]="'/list/category/popular'"
@@ -14,6 +15,6 @@
 <ng-template #guest>
   <div><p>Guest Profile</p></div>
   <div>
-    <a (click)="ui.signIn($event)" title="sign in"> Login </a>
+    <a data-uf="profile-menu-item-login" (click)="ui.signIn($event)" title="sign in">Login</a>
   </div>
 </ng-template>
