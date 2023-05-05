@@ -18,6 +18,7 @@ const interactions: UserFlowInteractionsFn = async (
 
   await page.setUserAgent('Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36')
 
+  await page.setViewport({width: 700, height: 700});
   await flow.navigate(url, {
     stepName: '🧭 Initial navigation',
     config: {
@@ -36,17 +37,14 @@ const interactions: UserFlowInteractionsFn = async (
 
   await tmdpPage.login();
 
-  await toolbar.ensureLoginDone();
+  // await toolbar.ensureLoginDone();
 
   return Promise.resolve();
 };
 
 const userFlowProvider: UserFlowProvider = {
   flowOptions,
-  interactions,
-  launchOptions: {
-    headless: true
-  }
+  interactions
 };
 
 module.exports = userFlowProvider;
