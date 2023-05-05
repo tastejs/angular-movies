@@ -12,7 +12,6 @@ export class TmdbUfo extends Ufo {
       console.log('no cookie banner here')
     });
   }
-
   async closeCookieSettings(): Promise<any> {
     await this.page.click(fixtures.TmdbCookieSettingsBtn).catch(e => {
       console.log('no cookie settings here')
@@ -35,6 +34,7 @@ export class TmdbUfo extends Ufo {
     await this.page.click(fixtures.TmdbLoginSubmitBtn);
 
     // approve access
+    await this.page.waitForTimeout(6000);
     await this.page.waitForSelector(fixtures.TmdbApproveBtn, {timeout: 60000});
     await this.page.click(fixtures.TmdbApproveBtn);
   }
