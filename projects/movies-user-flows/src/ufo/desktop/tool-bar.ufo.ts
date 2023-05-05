@@ -46,11 +46,9 @@ export class ToolBarUfo extends Ufo implements CwvInterface {
   }
 
   async ensureLoginDone(): Promise<any> {
+    // navigate back to movies app
+    await this.page.waitForResponse(r => r.url().includes('angular'));
     // open menu
-    await this.page.waitForResponse(r => r.url().includes('angular'))
-      .catch(() => {
-        throw new Error('Navigation back to movies app failed')
-      });
     await this.openProfileMenu()
     await this.page.waitForSelector(fixtures.profileMenuSignoutItem);
   }

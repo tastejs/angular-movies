@@ -25,16 +25,14 @@ export class TmdbUfo extends Ufo {
 
     // fill and send form
     await this.fillLoginForm();
+    await this.page.waitForNavigation().catch(() => {
+      throw new Error('Navigation to approve app failed')
+    });
+
 
     // approve access
     await this.page.waitForSelector(fixtures.TmdbApproveBtn);
     await this.page.click(fixtures.TmdbApproveBtn);
-
-    // navigate back to movies app
-    await this.page.waitForNavigation().catch(() => {
-      throw new Error('Navigation to movies app failed')
-    });
-    // check login state
 
   }
 
