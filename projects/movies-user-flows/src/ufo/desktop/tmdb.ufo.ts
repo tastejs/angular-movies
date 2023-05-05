@@ -30,11 +30,13 @@ export class TmdbUfo extends Ufo {
     await this.page.waitForSelector(fixtures.TmdbPasswordInput);
     await this.page.type(fixtures.TmdbPasswordInput, fixtures.TmdbPassword);
 
+    await this.page.waitForTimeout(6000);
     await this.page.waitForSelector(fixtures.TmdbLoginSubmitBtn, {timeout: 60000});
     await this.page.click(fixtures.TmdbLoginSubmitBtn);
 
     // approve access
     await this.page.waitForTimeout(6000);
+
     await this.page.waitForSelector(fixtures.TmdbApproveBtn, {timeout: 60000});
     await this.page.click(fixtures.TmdbApproveBtn);
   }
