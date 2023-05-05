@@ -1,21 +1,11 @@
 import * as fixtures from '../../fixtures/tmdb.fixtures';
 import {Ufo, UserFlowContext} from '@push-based/user-flow';
+import {writeFileSync} from "fs";
 
 
 export class TmdbUfo extends Ufo {
   constructor(private ctx: UserFlowContext) {
     super(ctx);
-  }
-
-  async closeCookieBanner(): Promise<any> {
-    await this.page.click(fixtures.TmdbCookieBannerBtn).catch(e => {
-      console.log('no cookie banner here')
-    });
-  }
-  async closeCookieSettings(): Promise<any> {
-    await this.page.click(fixtures.TmdbCookieSettingsBtn).catch(e => {
-      console.log('no cookie settings here')
-    });
   }
 
   async login(): Promise<any> {
@@ -30,17 +20,25 @@ export class TmdbUfo extends Ufo {
     await this.page.waitForSelector(fixtures.TmdbPasswordInput);
     await this.page.type(fixtures.TmdbPasswordInput, fixtures.TmdbPassword);
 
+    await this.page.waitForSelector(fixtures.TmdbLoginSubmitBtn);
+    await this.page.click(fixtures.TmdbLoginSubmitBtn);
     await this.page.waitForTimeout(6000);
+
+    await this.page.screenshot().then(i => writeFileSync('./login-btn-clicked.jpg', i))
+    /*await this.page.click(fixtures.TmdbCookieBannerBtn).catch(e => {
+      console.log('no cookie banner here')
+    });
+    await this.page.click(fixtures.TmdbCookieSettingsBtn).catch(e => {
+      console.log('no cookie settings here')
+    });*/
     await this.page.waitForSelector(fixtures.TmdbLoginSubmitBtn);
     await this.page.click(fixtures.TmdbLoginSubmitBtn);
+    await this.page.waitForTimeout(6000);
 
-    await this.closeCookieBanner();
-    await this.closeCookieSettings();
-
-    await this.page.waitForSelector(fixtures.TmdbLoginSubmitBtn);
-    await this.page.click(fixtures.TmdbLoginSubmitBtn);
+    await this.page.screenshot().then(i => writeFileSync('./approve-visible.jpg', i))
     // approve access
     await this.page.waitForTimeout(6000);
+
 
     await this.page.waitForSelector(fixtures.TmdbApproveBtn, {timeout: 60000});
     await this.page.click(fixtures.TmdbApproveBtn);
