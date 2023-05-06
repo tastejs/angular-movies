@@ -4,9 +4,8 @@ import {
   HttpRequest,
 } from '@angular/common/http';
 import { inject, Injector } from '@angular/core';
-import { AuthState } from '../state/auth.state';
 import { environment } from '../../environments/environment';
-import { first, map, switchMap } from 'rxjs';
+import { first, of, switchMap } from 'rxjs';
 import { AUTH_STATE_LOADED } from './auth-state-available.token';
 
 export const tmdbReadAccessInterceptor: HttpInterceptorFn = (
@@ -16,13 +15,21 @@ export const tmdbReadAccessInterceptor: HttpInterceptorFn = (
   const isAuthStateLoaded$ = inject(AUTH_STATE_LOADED);
   const injector = inject(Injector);
 
-  return isAuthStateLoaded$.pipe(
+  const getToken$ = isAuthStateLoaded$.pipe(
     first(),
-    map(
-      (isAuthStateLoaded) =>
-        (isAuthStateLoaded && injector.get(AuthState).get().accessToken) ||
-        environment.tmdbApiReadAccessKey
-    ),
+    switchMap((isAuthStateLoaded) =>
+      !isAuthStateLoaded
+        ? of(environment.tmdbApiReadAccessKey)
+        : import('../state/auth.state')
+            .then((m) => injector.get(m.AuthState))
+            .then(
+              (authState) =>
+                authState.get().accessToken || environment.tmdbApiReadAccessKey
+            )
+    )
+  );
+
+  return getToken$.pipe(
     switchMap((token) =>
       next(
         req.clone({
