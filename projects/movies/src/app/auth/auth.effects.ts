@@ -7,6 +7,7 @@ import {
   Authv4Resource,
   Token,
 } from '../data-access/api/resources/authv4.resource';
+import {AccessTokenFacade} from "./access-token-facade.service";
 
 @Injectable({
   providedIn: 'root',
@@ -16,6 +17,7 @@ export class AuthEffects {
   private readonly platformId = inject(PLATFORM_ID);
   private readonly authState = inject(AuthState);
   private readonly authResource = inject(Authv4Resource);
+  private readonly accessTokenFacade = inject(AccessTokenFacade);
 
   constructor() {
     if (isPlatformBrowser(this.platformId)) {
@@ -29,10 +31,13 @@ export class AuthEffects {
             accessTokenResult.accessToken
           );
           window.localStorage.setItem('accountId', accessTokenResult.accountId);
+
           this.authState.set({
             ...this.authState.get(),
             ...accessTokenResult,
           });
+
+          this.accessTokenFacade.updateAccessToken(accessTokenResult.accessToken);
         });
       }
     }
@@ -78,6 +83,9 @@ export class AuthEffects {
       accountId: undefined,
       requestToken: undefined,
     });
+
+    this.accessTokenFacade.resetAccessToken();
+
     if (accessToken) {
       this.authResource.deleteAccessToken(accessToken).subscribe();
     }
