@@ -1,14 +1,8 @@
-import { RxState } from '@rx-angular/state';
-import {
-  Directive,
-  inject,
-  Input,
-  Type,
-  ViewContainerRef,
-} from '@angular/core';
-import { RxInputType } from '../../cdk/input-type.typing';
-import { coerceObservable } from '../../cdk/coerceObservable';
-import { distinctUntilChanged } from 'rxjs';
+import {RxState} from '@rx-angular/state';
+import {Directive, inject, Input, Type, ViewContainerRef,} from '@angular/core';
+import {RxInputType} from '../../cdk/input-type.typing';
+import {coerceObservable} from '../../cdk/coerceObservable';
+import {distinctUntilChanged} from 'rxjs';
 
 /**
  * @example
@@ -41,7 +35,7 @@ export class LazyDirective extends RxState<{
 }> {
   private readonly vCR: ViewContainerRef = inject(ViewContainerRef);
 
-  @Input()
+  @Input({required: true})
   set lazy(component: RxInputType<Type<any>>) {
     this.connect('component', coerceObservable(component));
   }

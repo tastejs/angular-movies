@@ -14,11 +14,11 @@ const interactions: UserFlowInteractionsFn = async (
   const {browser, page, flow, collectOptions} = ctx;
   const url = `${collectOptions.url}/list/category/popular`;
   const toolbar = new ToolBarUfo(ctx);
-  const tmdpPage = new TmdbUfo(ctx);
+  const tmdbPage = new TmdbUfo(ctx);
 
+  //This is needed to have it working in headless : true
   await page.setUserAgent('Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36')
 
-  await page.setViewport({width: 700, height: 700});
   await flow.navigate(url, {
     stepName: '🧭 Initial navigation',
     config: {
@@ -35,7 +35,7 @@ const interactions: UserFlowInteractionsFn = async (
 
   await toolbar.goToTmDbLogin();
 
-  await tmdpPage.login();
+  await tmdbPage.login();
 
   await toolbar.ensureLoginDone();
 
