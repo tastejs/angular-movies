@@ -1,4 +1,4 @@
-import { Directive, ElementRef, inject, Input } from '@angular/core';
+import {Directive, ElementRef, inject, Input} from '@angular/core';
 
 @Directive({
   standalone: true,
@@ -7,8 +7,9 @@ import { Directive, ElementRef, inject, Input } from '@angular/core';
 })
 export class BypassSrcDirective {
   private readonly element: ElementRef = inject(ElementRef);
-  @Input()
-  set bypassSrc(src: any) {
+
+  @Input({required: true})
+  set bypassSrc(src: string | false) {
     if (typeof src === 'string') {
       this.element.nativeElement.src = src;
     }
