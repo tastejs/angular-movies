@@ -3,7 +3,7 @@ import { TMDBMovieGenreModel } from '../model/movie-genre.model';
 import { baseUrlApiV3 } from './internal/base-urls.constant';
 import { staticRequest } from '../staticRequest';
 import { toDictionary } from '@rx-angular/cdk/transformations';
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 export type GenresResponse = TMDBMovieGenreModel[];
@@ -15,7 +15,7 @@ const URL_GENRE_MOVIE_LIST = [baseUrlApiV3, 'genre', 'movie', 'list'].join('/');
   providedIn: 'root',
 })
 export class GenreResource {
-  constructor(private http: HttpClient) {}
+  private readonly http: HttpClient = inject(HttpClient);
 
   getGenres = (): Observable<GenresResponse> =>
     this.http

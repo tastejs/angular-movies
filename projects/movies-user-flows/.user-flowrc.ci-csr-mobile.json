@@ -3,12 +3,10 @@
     "url": "http://localhost:4200",
     "ufPath": "./projects/movies-user-flows/src/user-flows/ci-flow-mobile.uf.ts",
     "serveCommand": "npm run start",
-    "awaitServeStdout": "Angular Live Development"
+    "awaitServeStdout": "Angular Live Development Server is listening on localhost:4200"
   },
   "persist": {
     "outPath": "./projects/movies-user-flows/src/measures",
-    "format": [
-      "md"
-    ]
+    "format": ["md"]
   }
 }

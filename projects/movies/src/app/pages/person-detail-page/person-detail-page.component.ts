@@ -1,7 +1,14 @@
-import { CommonModule, Location } from '@angular/common';
+import {
+  Location,
+  NgClass,
+  NgFor,
+  NgIf,
+  NgOptimizedImage,
+} from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
+  inject,
   ViewEncapsulation,
 } from '@angular/core';
 import { PersonDetailAdapter } from './person-detail-page.adapter';
@@ -10,18 +17,21 @@ import { merge } from 'rxjs';
 import { DetailGridComponent } from '../../ui/component/detail-grid/detail-grid.component';
 import { StarRatingComponent } from '../../ui/pattern/star-rating/star-rating.component';
 import { MovieListComponent } from '../../ui/pattern/movie-list/movie-list.component';
-import { LetModule } from '@rx-angular/template/let';
-import { FastSvgModule } from '@push-based/ngx-fast-svg';
+import { LetDirective } from '@rx-angular/template/let';
+import { FastSvgComponent } from '@push-based/ngx-fast-svg';
 
 @Component({
   standalone: true,
   imports: [
-    CommonModule,
+    NgFor,
+    NgIf,
+    NgClass,
+    NgOptimizedImage,
     DetailGridComponent,
     StarRatingComponent,
     MovieListComponent,
-    LetModule,
-    FastSvgModule,
+    LetDirective,
+    FastSvgComponent,
   ],
   selector: 'ct-person',
   templateUrl: './person-detail-page.component.html',
@@ -29,7 +39,9 @@ import { FastSvgModule } from '@push-based/ngx-fast-svg';
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.Emulated,
 })
-export class PersonDetailPageComponent {
+export default class PersonDetailPageComponent {
+  private readonly adapter = inject(PersonDetailAdapter);
+  private readonly location = inject(Location);
   sortOptions = SORT_VALUES;
   readonly personCtx$ = this.adapter.routedPersonCtx$;
   readonly sortingModel$ = this.adapter.sortingModel$;
@@ -41,10 +53,7 @@ export class PersonDetailPageComponent {
     this.adapter.sortingEvent$
   );
 
-  constructor(
-    private location: Location,
-    private adapter: PersonDetailAdapter
-  ) {
+  constructor() {
     this.adapter.set({
       activeSorting: this.sortOptions[0].name,
       showSorting: false,

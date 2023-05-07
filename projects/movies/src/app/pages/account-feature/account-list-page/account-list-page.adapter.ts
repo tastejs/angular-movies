@@ -1,13 +1,14 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { RxState } from '@rx-angular/state';
 import { map } from 'rxjs';
-import { W500H282 } from '../../../data-access/api/constants/image-sizes';
+import { W500H282 } from '../../../data-access/images/image-sizes';
 
 import { TMDBAccountList } from '../../../data-access/api/model/list.model';
-import { AccountState } from '../../../shared/state/account.state';
-import { ListState } from '../../../shared/state/list.state';
-import { ImageTag } from '../../../shared/utils/image/image-tag.interface';
-import { addImageTag } from '../../../shared/utils/image/image-tag.transform';
+import { AccountState } from '../../../state/account.state';
+import { ListState } from '../../../state/list.state';
+import { ImageTag } from '../../../shared/cdk/image/image-tag.interface';
+import { addImageTag } from '../../../shared/cdk/image/image-tag.transform';
+import { MY_LIST_FALLBACK } from '../../../constants';
 
 export type ListWithPoster = TMDBAccountList & ImageTag;
 
@@ -19,8 +20,11 @@ export interface AccountListPageAdapterState {
   providedIn: 'root',
 })
 export class AccountListPageAdapter extends RxState<AccountListPageAdapterState> {
-  constructor(accountState: AccountState, private list: ListState) {
+  private readonly list = inject(ListState);
+
+  constructor() {
     super();
+    const accountState = inject(AccountState);
     this.connect(
       'lists',
       accountState.accountLists$.pipe(
@@ -29,7 +33,7 @@ export class AccountListPageAdapter extends RxState<AccountListPageAdapterState>
             addImageTag(l, {
               pathProp: 'backdrop_path',
               dims: W500H282,
-              fallback: 'assets/images/nothing.svg',
+              fallback: MY_LIST_FALLBACK,
             })
           )
         )

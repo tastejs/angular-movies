@@ -4,11 +4,13 @@
       <div detailGridMedia>
         <img
           class="aspectRatio-2-3 fit-cover"
-          [src]="movie.imgUrl"
+          [ngSrc]="movie.imgSrc"
+          [ngSrcset]="movie.imgSrcset"
+          [sizes]="movie.imgSizes"
+          priority="high"
           [width]="movie.imgWidth"
           [height]="movie.imgHeight"
           alt="poster movie"
-          fetchpriority="high"
           [title]="movie.title"
           data-uf="hero-img"
         />
@@ -69,12 +71,17 @@
                 class="movie-detail--cast-actor"
                 [attr.aria-label]="c.name"
               >
-                <img
-                  loading="lazy"
-                  [src]="c.imgUrl"
-                  [alt]="c.name"
-                  [title]="c.name"
-                />
+                <picture>
+                  <img
+                    [ngSrc]="c.imgSrc"
+                    [ngSrcset]="c.imgSrcset"
+                    [sizes]="c.imgSizes"
+                    [width]="c.imgWidth"
+                    [height]="c.imgHeight"
+                    [alt]="c.name"
+                    [title]="c.name"
+                  />
+                </picture>
               </a>
               <div *ngIf="ctx.loading" class="loader"></div>
             </div>
@@ -91,6 +98,7 @@
         </section>
         <section class="movie-detail--ad-section-links">
           <a
+            *ngIf="movie.homepage"
             class="btn"
             target="_blank"
             rel="noopener noreferrer"
@@ -152,7 +160,8 @@
             class="btn primary-button"
             (click)="back()"
           >
-            <fast-svg class="btn__icon" name="back" size="1em"></fast-svg>&nbsp;Back
+            <fast-svg class="btn__icon" name="back" size="1em"></fast-svg
+            >&nbsp;Back
           </button>
         </section>
       </div>
@@ -171,6 +180,7 @@
     <ui-movie-list
       (paginate)="paginateRecommendations()"
       [movies]="ctx.results"
+      [withImgPriority]="0"
     >
     </ui-movie-list>
     <div *ngIf="ctx.loading" class="loader"></div>

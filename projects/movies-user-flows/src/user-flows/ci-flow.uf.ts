@@ -1,30 +1,20 @@
-import {
-  UserFlowProvider,
-  UserFlowOptions,
-  UserFlowInteractionsFn,
-  UserFlowContext,
-} from '@push-based/user-flow';
-import { readBudgets } from '@push-based/user-flow/src/lib/commands/assert/utils/budgets';
+import {UserFlowContext, UserFlowInteractionsFn, UserFlowOptions, UserFlowProvider,} from '@push-based/user-flow';
 
-import { MovieDetailPageUFO } from '../ufo/desktop/movie-detail-page.ufo';
-import { MovieListPageUFO } from '../ufo/desktop/movie-list-page.ufo';
-import { SidebarUFO } from '../ufo/mobile/side-bar.ufo';
-import { SidebarUFO as DesktopSidebarUFO } from '../ufo/desktop/side-bar.ufo';
+import {mergeBudgets} from '../internals/test-sets';
+import {MovieDetailPageUFO} from '../ufo/desktop/movie-detail-page.ufo';
+import {MovieListPageUFO} from '../ufo/desktop/movie-list-page.ufo';
+import {SidebarUFO} from '../ufo/mobile/side-bar.ufo';
 
 const flowOptions: UserFlowOptions = {
   name: 'Basic user flow to ensure basic functionality',
 };
 
-const listBudgets = readBudgets(
-  './projects/movies-user-flows/src/configs/list.budgets.json'
-);
-
 const interactions: UserFlowInteractionsFn = async (
   ctx: UserFlowContext
 ): Promise<any> => {
-  const { page, flow, collectOptions } = ctx;
+  const {flow, collectOptions} = ctx;
   const url = `${collectOptions.url}/list/category/popular`;
-  const sidebar = new DesktopSidebarUFO(ctx);
+  const sidebar = new SidebarUFO(ctx);
   const movieListPage = new MovieListPageUFO(ctx);
   const topRatedName = 'topRated';
   const movieDetailPage = new MovieDetailPageUFO(ctx);
@@ -34,26 +24,27 @@ const interactions: UserFlowInteractionsFn = async (
     config: {
       extends: 'lighthouse:default',
       settings: {
-        budgets: listBudgets,
+        budgets: mergeBudgets([
+          './projects/movies-user-flows/src/configs/angular.budgets.json',
+          './projects/movies-user-flows/src/configs/general-timing.budgets.json',
+          './projects/movies-user-flows/src/configs/movie-list.budgets.json',
+        ]),
       },
     },
   });
   await flow.snapshot({
     stepName: '✔ Initial navigation done',
   });
-
   await flow.startTimespan({
     stepName: '🧭 Navigate to popular',
   });
-
+  await sidebar.clickSideMenuBtn();
   await sidebar.navigateToCategory(topRatedName);
   await movieListPage.awaitLCPContent();
   await flow.endTimespan();
-
   await flow.snapshot({
     stepName: '✔ Navigation to popular done',
   });
-
   await flow.startTimespan({
     stepName: '🧭 Navigate to detail page',
   });

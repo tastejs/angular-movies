@@ -15,14 +15,16 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
       - name: install
-        run: npm ci -f
-      - name: Executing user-flow CLI - Mobile
-        uses: push-based/user-flow-gh-action@v0.1.2
+        run: npm ci
+      - name: Executing user-flow CLI
+        uses: push-based/user-flow-gh-action@v0.2.0
         with:
           verbose: 'on'
-          rcPath: ./projects/movies-user-flows/.user-flowrc.ci-csr-mobile.json
-      - name: Executing user-flow CLI - Desktop
-        uses: push-based/user-flow-gh-action@v0.1.2
+          rcPath: ./projects/movies-user-flows/.user-flowrc.ci-csr.json
+      - name: Commit measures
+        uses: EndBug/add-and-commit@v7
         with:
-          verbose: 'on'
-          rcPath: ./projects/movies-user-flows/.user-flowrc.ci-csr-desktop.json
+          author_name: push-based.io
+          author_email: opensource@push-based.io
+          message: 'Persist user-flow results'
+          add: '*'

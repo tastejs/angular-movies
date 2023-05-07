@@ -1,16 +1,24 @@
-import { RxActionFactory } from '@rx-angular/state/actions';
-import { TMDB_HTTP_INTERCEPTORS_PROVIDER } from './shared/auth/tmdb-http-interceptor.providers';
-import { GLOBAL_STATE_APP_INITIALIZER_PROVIDER } from './shared/state/state-app-initializer.provider';
-import { SCHEDULED_APP_INITIALIZER_PROVIDER } from './shared/app-initializer/chunk-app-initializer.provider';
-import { RXA_PROVIDER } from './shared/rxa-custom/rxa.provider';
+import { withGobalStateInitializer } from './state/state-app-initializer.provider';
 import {
   provideRouter,
   withDisabledInitialNavigation,
   withInMemoryScrolling,
 } from '@angular/router';
+import { provideClientHydration } from '@angular/platform-browser';
 import { ROUTES } from './app.routing';
+import { RX_RENDER_STRATEGIES_CONFIG } from '@rx-angular/cdk/render-strategies';
+import { APP_ID, APP_INITIALIZER } from '@angular/core';
+import { provideTmdbImageLoader } from './data-access/images/image-loader';
+import { provideFastSVG } from '@push-based/ngx-fast-svg';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
+import { tmdbContentTypeInterceptor } from './data-access/api/tmdbContentTypeInterceptor';
+import { tmdbReadAccessInterceptor } from './auth/tmdb-http-interceptor.feature';
 
 export const APP_PROVIDERS = [
+  {
+    provide: APP_ID,
+    useValue: 'moviesApp',
+  },
   provideRouter(
     ROUTES,
     // withDebugTracing(),
@@ -32,24 +40,49 @@ export const APP_PROVIDERS = [
       scrollPositionRestoration: 'top',
     })
   ),
-  RxActionFactory,
-  TMDB_HTTP_INTERCEPTORS_PROVIDER,
   /**
    * **🚀 Perf Tip for LCP, TTI:**
    *
    * Fetch data visible in viewport on app bootstrap instead of component initialization.
    */
-  GLOBAL_STATE_APP_INITIALIZER_PROVIDER,
+  withGobalStateInitializer(),
   /**
    * **🚀 Perf Tip for TBT:**
    *
    * Chunk app bootstrap over APP_INITIALIZER.
    */
-  SCHEDULED_APP_INITIALIZER_PROVIDER,
+  {
+    provide: APP_INITIALIZER,
+    useFactory: () => (): Promise<void> =>
+      new Promise<void>((resolve) => {
+        setTimeout(() => resolve());
+      }),
+    deps: [],
+    multi: true,
+  },
   /**
    * **🚀 Perf Tip for TBT, LCP, CLS:**
    *
    * Configure RxAngular to get maximum performance.
    */
-  RXA_PROVIDER,
+  {
+    provide: RX_RENDER_STRATEGIES_CONFIG,
+    useValue: {
+      /**
+       * **🚀 Perf Tip for TTI:**
+       *
+       * Configure RxAngular's default behaviour to avoid any additional zone-logic to run.
+       * This could en up in missing view updates for template projection, but can be applied by directive to fix it granulary.
+       */
+      patchZone: false,
+    },
+  },
+  provideHttpClient(
+    withInterceptors([tmdbContentTypeInterceptor, tmdbReadAccessInterceptor])
+  ),
+  provideClientHydration(),
+  provideTmdbImageLoader(),
+  provideFastSVG({
+    url: (name: string): string => `assets/svg-icons/${name}.svg`,
+  }),
 ];

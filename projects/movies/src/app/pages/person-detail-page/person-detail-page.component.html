@@ -4,18 +4,13 @@
       <div detailGridMedia>
         <img
           class="aspectRatio-2-3 fit-cover"
-          [src]="
-            person?.profile_path
-              ? 'https://image.tmdb.org/t/p/w' +
-                person.imgWidth +
-                '/' +
-                person.profile_path
-              : 'assets/images/no_poster_available.jpg'
-          "
+          [ngSrc]="person.imgSrc"
+          [ngSrcset]="person.imgSrcset"
+          [sizes]="person.imgSizes"
           [width]="person.imgWidth"
           [height]="person.imgHeight"
+          priority="high"
           alt="poster movie"
-          fetchpriority="high"
           [title]="person?.name"
           data-uf="hero-img"
         />
@@ -56,8 +51,10 @@
     <h1>{{ p?.value?.name || '...' }} in</h1>
     <h2>Movies</h2>
   </header>
+  <label for="sort">Sort</label>
   <div class="select-wrapper" *rxLet="sortingModel$; let sorting">
     <input
+      id="sort"
       type="text"
       readonly
       class="select"

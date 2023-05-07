@@ -5,7 +5,7 @@
 
 div {
   font-size: var(--text-md);
-  padding: 0 16px;
+  padding: 0;
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -16,8 +16,13 @@ div {
   &:hover {
     background-color: var(--palette-action-hover);
   }
-  a {
-    color: var(--palette-text-primary)
+  a,
+  p {
+    color: var(--palette-text-primary);
+    height: 100%;
+    display: inline-block;
+    width: 100%;
+    padding: 6px 16px;
   }
 }
 

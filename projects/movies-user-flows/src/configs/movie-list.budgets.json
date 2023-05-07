@@ -1,0 +1,32 @@
+[
+  {
+    "resourceCounts": [
+      {
+        "resourceType": "image",
+        "budget": 16
+      },
+      {
+        "resourceType": "media",
+        "budget": 0
+      },
+      {
+        "resourceType": "font",
+        "budget": 0
+      },
+      {
+        "resourceType": "other",
+        "budget": 0
+      },
+      {
+        "resourceType": "third-party",
+        "budget": 0
+      }
+    ],
+    "resourceSizes": [
+      {
+        "resourceType": "image",
+        "budget": 3959
+      }
+    ]
+  }
+]

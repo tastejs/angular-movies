@@ -1,11 +1,16 @@
-import { LetModule } from '@rx-angular/template/let';
-import { Component, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
+import { LetDirective } from '@rx-angular/template/let';
+import {
+  Component,
+  ChangeDetectionStrategy,
+  OnDestroy,
+  inject,
+} from '@angular/core';
 import { ListCreatePageAdapter } from './list-create-page.adapter';
-import { CommonModule } from '@angular/common';
+import { RxIf } from '@rx-angular/template/if';
 
 @Component({
   standalone: true,
-  imports: [LetModule, CommonModule],
+  imports: [LetDirective, RxIf],
   template: `
     <article>
       <header *rxIf="adapter.showHeader$">
@@ -68,8 +73,8 @@ import { CommonModule } from '@angular/common';
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ListCreateEditPageComponent implements OnDestroy {
-  constructor(public adapter: ListCreatePageAdapter) {}
+export default class ListCreateEditPageComponent implements OnDestroy {
+  public readonly adapter = inject(ListCreatePageAdapter);
 
   ngOnDestroy(): void {
     this.adapter.resetForm();

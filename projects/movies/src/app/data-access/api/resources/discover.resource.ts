@@ -8,7 +8,7 @@ import {
 import { Observable } from 'rxjs';
 import { TMDBSortOptions } from '../sort/sort.interface';
 import { getTMDBSortOptions } from '../sort/utils';
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 const URL_DISCOVER_MOVIE = [baseUrlApiV3, 'discover', 'movie'].join('/');
@@ -37,7 +37,7 @@ function getTMDBDiscoverOptions(options: any): TMDBDiscoverOptions {
   providedIn: 'root',
 })
 export class DiscoverResource {
-  constructor(private http: HttpClient) {}
+  private readonly http: HttpClient = inject(HttpClient);
 
   /**
    * This endpoint returns related movies for genres and cast actors

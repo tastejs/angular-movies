@@ -1,10 +1,10 @@
 import { RxState } from '@rx-angular/state';
-import { CommonModule, DOCUMENT } from '@angular/common';
+import { DOCUMENT } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
   ElementRef,
-  Inject,
+  inject,
   Input,
   OnInit,
   Output,
@@ -24,8 +24,8 @@ import {
 } from 'rxjs';
 import { RxActionFactory, preventDefault } from '@rx-angular/state/actions';
 import { coerceObservable } from '@rx-angular/cdk/coercing';
-import { LetModule } from '@rx-angular/template/let';
-import { FastSvgModule } from '@push-based/ngx-fast-svg';
+import { LetDirective } from '@rx-angular/template/let';
+import { FastSvgComponent } from '@push-based/ngx-fast-svg';
 
 type UiActions = {
   searchChange: string;
@@ -36,7 +36,7 @@ type UiActions = {
 
 @Component({
   standalone: true,
-  imports: [CommonModule, LetModule, FastSvgModule],
+  imports: [LetDirective, FastSvgComponent],
   selector: 'ui-search-bar',
   template: `
     <form
@@ -71,6 +71,8 @@ type UiActions = {
   providers: [RxState],
 })
 export class SearchBarComponent implements OnInit {
+  private readonly document = inject(DOCUMENT);
+  private readonly elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
   @ViewChild('searchInput') inputRef!: ElementRef<HTMLInputElement>;
   @ViewChild('form') formRef!: ElementRef<HTMLFormElement>;
 
@@ -123,9 +125,7 @@ export class SearchBarComponent implements OnInit {
 
   constructor(
     private state: RxState<{ search: string; open: boolean }>,
-    private actions: RxActionFactory<UiActions>,
-    @Inject(ElementRef) private elementRef: ElementRef,
-    @Inject(DOCUMENT) private document: Document
+    private actions: RxActionFactory<UiActions>
   ) {
     this.state.set({ open: false });
   }

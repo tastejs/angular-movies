@@ -21,7 +21,7 @@
 
   &:hover {
     .focus-overlay {
-      background-color: rgba(var(--palette-secondary-main-rgb), .05);
+      background-color: rgba(var(--palette-secondary-main-rgb), 0.05);
     }
   }
 }
@@ -39,13 +39,13 @@
   }
 
   &:hover {
-    .account-menu-content {
+    .profile-menu-content {
       visibility: visible;
       pointer-events: auto;
     }
   }
 
-  .account-menu-content {
+  .profile-menu-content {
     visibility: hidden;
     width: 200px;
     background: var(--palette-background-default);
@@ -199,7 +199,7 @@ ui-side-drawer {
   overflow: auto;
   font-size: var(--text-md);
   font-weight: bold;
-  contain:content;
+  contain: content;
 
   a {
     outline: none;

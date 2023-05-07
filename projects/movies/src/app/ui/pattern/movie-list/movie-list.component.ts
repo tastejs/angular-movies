@@ -1,40 +1,29 @@
-import { RxState } from '@rx-angular/state';
-import {
-  ChangeDetectionStrategy,
-  Component,
-  Input,
-  Output,
-  ViewEncapsulation,
-} from '@angular/core';
-import { filter, map, Observable } from 'rxjs';
-import { TMDBMovieModel } from '../../../data-access/api/model/movie.model';
-import { W300H450 } from '../../../data-access/api/constants/image-sizes';
-import { ImageTag } from '../../../shared/utils/image/image-tag.interface';
-import { addImageTag } from '../../../shared/utils/image/image-tag.transform';
-import { RxActionFactory } from '@rx-angular/state/actions';
-import { coerceObservable } from '../../../shared/utils/coerceObservable';
-import { RxInputType } from '../../../shared/rxa-custom/input-type.typing';
-import { CommonModule, NgOptimizedImage } from '@angular/common';
-import { RouterModule } from '@angular/router';
-import { StarRatingComponent } from '../star-rating/star-rating.component';
-import { ForModule } from '@rx-angular/template/for';
-import { ElementVisibilityDirective } from '../../../shared/cdk/element-visibility/element-visibility.directive';
-import { FastSvgModule } from '@push-based/ngx-fast-svg';
-import { GridListComponent } from '../../component/grid-list/grid-list.component';
-import { IfModule } from '../../../shared/rxa-custom/if/src';
+import {NgOptimizedImage} from '@angular/common';
+import {RxState} from '@rx-angular/state';
+import {ChangeDetectionStrategy, Component, inject, Input, Output, ViewEncapsulation,} from '@angular/core';
+import {filter, map, Observable} from 'rxjs';
+import {RxActionFactory} from '@rx-angular/state/actions';
+import {coerceObservable} from '../../../shared/cdk/coerceObservable';
+import {RxInputType} from '../../../shared/cdk/input-type.typing';
+import {RouterLink} from '@angular/router';
+import {StarRatingComponent} from '../star-rating/star-rating.component';
+import {ForModule} from '@rx-angular/template/for';
+import {ElementVisibilityDirective} from '../../../shared/cdk/element-visibility/element-visibility.directive';
+import {FastSvgComponent} from '@push-based/ngx-fast-svg';
+import {GridListComponent} from '../../component/grid-list/grid-list.component';
+import {IfModule} from '@rx-angular/template/if';
+import {Movie} from '../../../state/movie.state';
 
-type Movie = TMDBMovieModel & ImageTag;
 type UiActions = { paginate: boolean };
 
 @Component({
   standalone: true,
   imports: [
-    CommonModule,
-    RouterModule,
+    RouterLink,
     StarRatingComponent,
     ForModule,
     ElementVisibilityDirective,
-    FastSvgModule,
+    FastSvgComponent,
     GridListComponent,
     IfModule,
     NgOptimizedImage,
@@ -59,8 +48,11 @@ type UiActions = { paginate: boolean };
           This avoids bootstrap and template evaluation time and reduces scripting time in general.
           -->
         <img
+          [ngSrc]="movie.imgSrc"
+          [ngSrcset]="movie.imgSrcset"
+          [sizes]="movie.imgSizes"
+          [priority]="idx < numPriority()"
           class="aspectRatio-2-3 gradient"
-          [ngSrc]="movie?.imgUrl || 'assets/images/no_poster_available.jpg'"
           [width]="movie.imgWidth"
           [height]="movie.imgHeight"
           alt="poster movie"
@@ -89,23 +81,32 @@ type UiActions = { paginate: boolean };
   encapsulation: ViewEncapsulation.Emulated,
 })
 export class MovieListComponent {
+  private readonly state =
+    inject<RxState<{ movies?: Movie[]; numPriority: number }>>(RxState);
   ui = this.actions.create();
 
-  readonly movies$ = this.state.select(
-    map((state) =>
-      (state.movies || []).map((m: TMDBMovieModel) =>
-        addImageTag(m, { pathProp: 'poster_path', dims: W300H450 })
-      )
-    )
-  );
+  numPriority() {
+    return this.state.get('numPriority');
+  }
+
+  @Input()
+  set withImgPriority(p: number) {
+    if (p) {
+      this.state.set({numPriority: p});
+    } else {
+      this.state.set({numPriority: 0});
+    }
+  }
+
+  readonly movies$ = this.state.select('movies') as Observable<Movie[]>;
 
   // if no movies are given we don't need to render nor listen for the infinite scroll trigger
   readonly moviesListVisible$ = this.state.select(
     map((state) => !!state.movies && state.movies.length > 0)
   );
 
-  @Input()
-  set movies(movies$: RxInputType<TMDBMovieModel[] | null | undefined>) {
+  @Input({required: true})
+  set movies(movies$: RxInputType<Movie[]>) {
     this.state.connect('movies', coerceObservable(movies$));
   }
 
@@ -114,10 +115,9 @@ export class MovieListComponent {
     filter(Boolean)
   );
 
-  constructor(
-    private state: RxState<{ movies?: TMDBMovieModel[] | null | undefined }>,
-    private actions: RxActionFactory<UiActions>
-  ) {}
+  constructor(private actions: RxActionFactory<UiActions>) {
+    this.state.set({ numPriority: 2 });
+  }
 
   trackByMovieId(_: number, movie: Movie) {
     return movie.id;

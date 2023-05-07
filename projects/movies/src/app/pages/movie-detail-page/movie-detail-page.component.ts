@@ -1,9 +1,10 @@
 import { select, selectSlice } from '@rx-angular/state/selections';
-import { CommonModule, Location } from '@angular/common';
+import { Location, NgFor, NgIf, NgOptimizedImage } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
   ElementRef,
+  inject,
   TrackByFunction,
   ViewChild,
   ViewEncapsulation,
@@ -18,26 +19,28 @@ import { RxEffects } from '@rx-angular/state/effects';
 import { DetailGridComponent } from '../../ui/component/detail-grid/detail-grid.component';
 import { StarRatingComponent } from '../../ui/pattern/star-rating/star-rating.component';
 import { MovieListComponent } from '../../ui/pattern/movie-list/movie-list.component';
-import { LetModule } from '@rx-angular/template/let';
-import { BypassSrcDirective } from '../../shared/bypass-src/bypass-src.directive';
-import { ForModule } from '@rx-angular/template/for';
-import { FastSvgModule } from '@push-based/ngx-fast-svg';
-import { IfModule } from '../../shared/rxa-custom/if/src';
-import { RouterModule } from '@angular/router';
+import { LetDirective } from '@rx-angular/template/let';
+import { BypassSrcDirective } from '../../shared/cdk/bypass-src.directive';
+import { RxFor } from '@rx-angular/template/for';
+import { FastSvgComponent } from '@push-based/ngx-fast-svg';
+import { RxIf } from '@rx-angular/template/if';
+import { RouterLink } from '@angular/router';
 
 @Component({
   standalone: true,
   imports: [
-    CommonModule,
-    RouterModule,
+    NgIf,
+    NgFor,
+    RouterLink,
+    NgOptimizedImage,
     DetailGridComponent,
     StarRatingComponent,
     MovieListComponent,
-    LetModule,
+    RxFor,
+    RxIf,
+    LetDirective,
     BypassSrcDirective,
-    ForModule,
-    FastSvgModule,
-    IfModule,
+    FastSvgComponent,
   ],
   selector: 'ct-movie',
   templateUrl: './movie-detail-page.component.html',
@@ -46,7 +49,10 @@ import { RouterModule } from '@angular/router';
   encapsulation: ViewEncapsulation.Emulated,
   providers: [RxEffects],
 })
-export class MovieDetailPageComponent {
+export default class MovieDetailPageComponent {
+  private readonly location = inject(Location);
+  private readonly adapter = inject(MovieDetailAdapter);
+  private readonly effects = inject(RxEffects);
   readonly ui = this.actionsF.create();
   private readonly movieCtx$ = this.adapter.routedMovieCtx$;
   readonly loadIframe$ = this.ui.iframe$.pipe(
@@ -76,9 +82,6 @@ export class MovieDetailPageComponent {
   castListWrapper: ElementRef<HTMLElement> | undefined = undefined;
 
   constructor(
-    private effects: RxEffects,
-    private location: Location,
-    private adapter: MovieDetailAdapter,
     private actionsF: RxActionFactory<{
       dialog: 'show' | 'close';
       iframe: 'load' | 'unload';

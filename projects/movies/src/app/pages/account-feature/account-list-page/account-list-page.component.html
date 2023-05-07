@@ -21,8 +21,8 @@
         -->
         <img
           class="aspectRatio-16-9 gradient"
-          [attr.loading]="idx === 0 ? '' : 'lazy'"
-          [src]="list.imgUrl"
+          [ngSrc]="list.imgSrc"
+          [ngSrcset]="'154w, 185w'"
           [width]="list.imgWidth"
           [height]="list.imgHeight"
           [alt]="list.name"

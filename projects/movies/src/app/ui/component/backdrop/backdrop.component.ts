@@ -1,10 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  HostBinding,
-  Input,
-  ViewEncapsulation,
-} from '@angular/core';
+import {ChangeDetectionStrategy, Component, HostBinding, Input, ViewEncapsulation,} from '@angular/core';
 
 @Component({
   standalone: true,
@@ -16,6 +10,6 @@ import {
 })
 export class BackdropComponent {
   @HostBinding('class.opened')
-  @Input()
+  @Input({required: true})
   opened = false;
 }

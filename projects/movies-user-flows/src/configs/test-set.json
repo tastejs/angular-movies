@@ -1,0 +1,56 @@
+[
+  {
+    "name": "Landing Page",
+    "urls": ["/list/category/popular"],
+    "ufs": ["src/user-flows/ci-flow.uf.ts"],
+    "lhBudget": [
+      "./projects/movies-user-flows/src/configs/angular.budgets.json",
+      "./projects/movies-user-flows/src/configs/general-timing.budgets.json",
+      "./projects/movies-user-flows/src/configs/movie-list.budgets.json"
+    ]
+  },
+  {
+    "name": "Movie Category List",
+    "urls": [
+      "/list/category/popular",
+      "/list/category/top_rated",
+      "/list/category/upcoming"
+    ],
+    "lhBudget": [
+      "./projects/movies-user-flows/src/configs/angular.budgets.json",
+      "./projects/movies-user-flows/src/configs/general-timing.budgets.json",
+      "./projects/movies-user-flows/src/configs/movie-list.budgets.json"
+    ],
+    "ufs": ["src/user-flows/navigation.uf.ts"]
+  },
+  {
+    "name": "Movie Genre List",
+    "urls": ["/list/genre/28"],
+    "lhBudget": [
+      "./projects/movies-user-flows/src/configs/angular.budgets.json",
+      "./projects/movies-user-flows/src/configs/general-timing.budgets.json",
+      "./projects/movies-user-flows/src/configs/movie-list.budgets.json"
+    ],
+    "ufs": ["src/user-flows/navigation.uf.ts"]
+  },
+  {
+    "name": "Movie Detail",
+    "urls": ["/detail/movie/594767"],
+    "lhBudget": [
+      "./projects/movies-user-flows/src/configs/angular.budgets.json",
+      "./projects/movies-user-flows/src/configs/general-timing.budgets.json",
+      "./projects/movies-user-flows/src/configs/movie-detail.budgets.json"
+    ],
+    "ufs": ["src/user-flows/navigation.uf.ts"]
+  },
+  {
+    "name": "Person Detail",
+    "urls": ["/detail/person/1023139"],
+    "lhBudget": [
+      "./projects/movies-user-flows/src/configs/angular.budgets.json",
+      "./projects/movies-user-flows/src/configs/general-timing.budgets.json",
+      "./projects/movies-user-flows/src/configs/person-detail.budgets.json"
+    ],
+    "ufs": ["src/user-flows/navigation.uf.ts"]
+  }
+]

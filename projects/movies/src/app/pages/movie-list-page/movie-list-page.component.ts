@@ -2,36 +2,41 @@ import { selectSlice } from '@rx-angular/state/selections';
 import {
   ChangeDetectionStrategy,
   Component,
+  inject,
   ViewEncapsulation,
 } from '@angular/core';
 import { map, Observable } from 'rxjs';
-import { MovieListPageAdapter } from './movie-list-page.adapter';
-import { MovieListPageModel } from './movie-list-page-adapter.model';
-import { CommonModule } from '@angular/common';
-import { LetModule } from '@rx-angular/template/let';
-import { IfModule } from '../../shared/rxa-custom/if/src';
+import {
+  MovieListPageAdapter,
+  MovieListPageModel,
+} from './movie-list-page.adapter';
+import { NgOptimizedImage } from '@angular/common';
+import { LetDirective } from '@rx-angular/template/let';
+import { RxIf } from '@rx-angular/template/if';
 import { MovieListComponent } from '../../ui/pattern/movie-list/movie-list.component';
 
 type Heading = { main: string; sub: string };
 
 @Component({
   standalone: true,
-  imports: [CommonModule, LetModule, IfModule, MovieListComponent],
+  imports: [NgOptimizedImage, LetDirective, RxIf, MovieListComponent],
   selector: 'ct-movies-list',
   templateUrl: './movie-list-page.component.html',
   styleUrls: ['./movie-list-page.component.scss'],
   encapsulation: ViewEncapsulation.Emulated,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class MovieListPageComponent {
-  readonly movies$ = this.adapter.select('results');
+export default class MovieListPageComponent {
+  private readonly adapter = inject(MovieListPageAdapter);
+
+  readonly movies$ = this.adapter.movies$;
   readonly loading$ = this.adapter.select('loading');
   readonly headings$: Observable<Heading> = this.adapter.select(
     selectSlice(['identifier', 'type', 'genres']),
     map(toHeading)
   );
 
-  constructor(private adapter: MovieListPageAdapter) {
+  constructor() {
     this.adapter.set({ loading: true });
   }
 

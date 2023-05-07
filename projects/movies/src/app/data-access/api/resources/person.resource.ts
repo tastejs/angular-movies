@@ -2,7 +2,7 @@ import { Observable } from 'rxjs';
 import { TMDBPersonModel } from '../model/person.model';
 import { baseUrlApiV3 } from './internal/base-urls.constant';
 import { TMDBAppendOptions } from './model/append-options';
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 export type PersonResponse = TMDBPersonModel;
@@ -13,7 +13,7 @@ const URL_PERSON = (id: string) => `${[baseUrlApiV3, 'person', id].join('/')}`;
   providedIn: 'root',
 })
 export class PersonResource {
-  constructor(private http: HttpClient) {}
+  private readonly http: HttpClient = inject(HttpClient);
 
   getPerson = (
     id: string,

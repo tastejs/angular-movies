@@ -20,8 +20,4 @@ if (environment.production) {
   enableProdMode();
 }
 
-export { AppServerModule } from './app/ssr/app.server.module';
-export {
-  renderModuleFactory,
-  renderApplication,
-} from '@angular/platform-server';
+export { AppServerModule } from './app/app.server.module';

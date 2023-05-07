@@ -3,6 +3,7 @@ import {
   ChangeDetectionStrategy,
   Component,
   ElementRef,
+  inject,
   OnDestroy,
   ViewChild,
 } from '@angular/core';
@@ -24,10 +25,12 @@ type Actions = {
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [RxActionFactory],
 })
-export class ListRemoveComponent
+export default class ListRemoveComponent
   extends RxState<never>
   implements AfterViewInit, OnDestroy
 {
+  public adapter = inject(ListDetailAdapter);
+
   @ViewChild('dialog', { static: true }) dialog!: ElementRef<{
     showModal: () => void;
     close: () => void;
@@ -35,10 +38,7 @@ export class ListRemoveComponent
 
   readonly ui = this.actionsF.create();
 
-  constructor(
-    public adapter: ListDetailAdapter,
-    private actionsF: RxActionFactory<Actions>
-  ) {
+  constructor(private actionsF: RxActionFactory<Actions>) {
     super();
     this.hold(this.ui.confirm$, this.adapter.ui.deleteList);
   }

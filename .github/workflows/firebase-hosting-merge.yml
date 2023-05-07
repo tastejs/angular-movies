@@ -20,7 +20,7 @@ jobs:
           cache: 'npm'
 
       - name: Install dependencies
-        run: npm ci -f
+        run: npm ci
 
       - name: Deploy to Firebase hosting and functions production (live)
         run: |

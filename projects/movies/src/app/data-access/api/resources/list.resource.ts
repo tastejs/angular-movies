@@ -5,7 +5,7 @@ import {
   TMDBListCreateUpdateParams,
   TMDBListModel,
 } from '../model/list.model';
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 export type ListCreateResponse = { id: number };
@@ -19,7 +19,7 @@ const URL_ADD_MOVIE_TO_LIST = (id: number) =>
   providedIn: 'root',
 })
 export class ListResource {
-  constructor(private http: HttpClient) {}
+  private readonly http: HttpClient = inject(HttpClient);
 
   createList = (params: TMDBListCreateUpdateParams): Observable<number> =>
     this.http

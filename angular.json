@@ -44,25 +44,25 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "310kb",
-                  "maximumError": "370KB"
+                  "maximumWarning": "349.9kb",
+                  "maximumError": "350KB"
                 },
                 {
                   "type": "anyComponentStyle",
                   "maximumWarning": "3000b",
-                  "maximumError": "4.2kb"
+                  "maximumError": "4.5kb"
                 },
                 {
                   "type": "bundle",
                   "name": "main",
-                  "maximumWarning": "310kb",
-                  "maximumError": "360kb"
+                  "maximumWarning": "338.74KB",
+                  "maximumError": "340KB"
                 },
                 {
                   "type": "bundle",
                   "name": "styles",
-                  "maximumWarning": "5000b",
-                  "maximumError": "6.29KB"
+                  "maximumWarning": "6320b",
+                  "maximumError": "6.18KB"
                 },
                 {
                   "type": "bundle",
@@ -87,6 +87,21 @@
               "ngswConfigPath": "projects/movies/src/ngsw-config.json",
               "outputHashing": "all"
             },
+            "production-stats": {
+              "namedChunks": true,
+              "statsJson": true,
+              "sourceMap": true,
+              "buildOptimizer": true,
+              "optimization": true,
+              "serviceWorker": false,
+              "outputHashing": "none",
+              "fileReplacements": [
+                {
+                  "replace": "projects/movies/src/environments/environment.ts",
+                  "with": "projects/movies/src/environments/environment.prod.ts"
+                }
+              ]
+            },
             "development": {
               "buildOptimizer": false,
               "optimization": false,
@@ -102,7 +117,8 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "movies:build:production"
+              "browserTarget": "movies:build:production",
+              "port": 4201
             },
             "development": {
               "browserTarget": "movies:build:development"
@@ -133,7 +149,8 @@
             "tsConfig": "projects/movies/tsconfig.server.json",
             "optimization": false,
             "sourceMap": true,
-            "extractLicenses": false
+            "extractLicenses": false,
+            "buildOptimizer": false
           },
           "configurations": {
             "development": {
@@ -141,7 +158,8 @@
               "optimization": false,
               "sourceMap": true,
               "extractLicenses": true,
-              "vendorChunk": true
+              "vendorChunk": true,
+              "buildOptimizer": false
             },
             "production": {
               "outputHashing": "media",
@@ -153,7 +171,8 @@
               ],
               "optimization": true,
               "sourceMap": false,
-              "extractLicenses": true
+              "extractLicenses": true,
+              "buildOptimizer": true
             }
           },
           "defaultConfiguration": "production"
@@ -163,11 +182,13 @@
           "configurations": {
             "development": {
               "browserTarget": "movies:build:development",
-              "serverTarget": "movies:build-server:development"
+              "serverTarget": "movies:build-server:development",
+              "port": 4210
             },
             "production": {
               "browserTarget": "movies:build:production",
-              "serverTarget": "movies:build-server:production"
+              "serverTarget": "movies:build-server:production",
+              "port": 4211
             }
           },
           "defaultConfiguration": "development"

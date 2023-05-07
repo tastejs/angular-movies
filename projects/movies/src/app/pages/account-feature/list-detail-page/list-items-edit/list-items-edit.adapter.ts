@@ -1,13 +1,13 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import {
   dictionaryToArray,
   toDictionary,
 } from '@rx-angular/cdk/transformations';
 import { RxState } from '@rx-angular/state';
 import { selectSlice } from '@rx-angular/state/selections';
-import { W92H138 } from 'projects/movies/src/app/data-access/api/constants/image-sizes';
-import { ImageTag } from 'projects/movies/src/app/shared/utils/image/image-tag.interface';
-import { addImageTag } from 'projects/movies/src/app/shared/utils/image/image-tag.transform';
+import { W92H138 } from 'projects/movies/src/app/data-access/images/image-sizes';
+import { ImageTag } from 'projects/movies/src/app/shared/cdk/image/image-tag.interface';
+import { addImageTag } from 'projects/movies/src/app/shared/cdk/image/image-tag.transform';
 import {
   distinctUntilChanged,
   exhaustMap,
@@ -23,7 +23,7 @@ import {
 } from '../../../../data-access/api/resources/movie.resource';
 import { ListDetailAdapter } from '../../../../pages/account-feature/list-detail-page/list-detail-page.adapter';
 import { RxActionFactory } from '@rx-angular/state/actions';
-import { ListState } from '../../../../shared/state/list.state';
+import { ListState } from '../../../../state/list.state';
 
 interface Actions {
   search: string;
@@ -45,6 +45,9 @@ export class ListItemsEditAdapter extends RxState<{
   searchValue: string;
   latestSelectedTitle: string;
 }> {
+  private state = inject(ListState);
+  private detailsAdapter = inject(ListDetailAdapter);
+  private moviesResource = inject(MovieResource);
   readonly ui = new RxActionFactory<Actions>().create();
 
   readonly vm$ = this.select(
@@ -79,11 +82,7 @@ export class ListItemsEditAdapter extends RxState<{
     )
   );
 
-  constructor(
-    private state: ListState,
-    private detailsAdapter: ListDetailAdapter,
-    private moviesResource: MovieResource
-  ) {
+  constructor() {
     super();
 
     this.set({

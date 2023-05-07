@@ -1,16 +1,16 @@
-import { CommonModule, DOCUMENT } from '@angular/common';
-import { RxState } from '@rx-angular/state';
+import { DOCUMENT } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
-  Inject,
+  inject,
   ViewEncapsulation,
 } from '@angular/core';
-import { LetModule } from '@rx-angular/template/let';
+import { RxState } from '@rx-angular/state';
+import { LetDirective } from '@rx-angular/template/let';
 
 @Component({
   standalone: true,
-  imports: [CommonModule, LetModule],
+  imports: [LetDirective],
   selector: 'ui-dark-mode-toggle',
   template: `
     <div class="dark-mode-toggle">
@@ -25,12 +25,12 @@ import { LetModule } from '@rx-angular/template/let';
 
       <span class="toggle">
         <input
-          *rxLet="isLightTheme$; let checked; strategy: 'immediate'"
+          *rxLet="isLightTheme$; let isLightTheme"
           class="toggle-track"
           type="checkbox"
           id="dark-mode"
-          [checked]="checked"
-          (change)="setChecked(!checked)"
+          [checked]="isLightTheme"
+          (change)="setChecked(!isLightTheme)"
         />
         <label style="color: transparent" for="dark-mode">
           Toggle Switch
@@ -55,8 +55,8 @@ export class DarkModeToggleComponent extends RxState<{
   isLightTheme: boolean;
 }> {
   isLightTheme$ = this.select('isLightTheme');
-
-  constructor(@Inject(DOCUMENT) private document: Document) {
+  private readonly document = inject(DOCUMENT);
+  constructor() {
     super();
     this.set({ isLightTheme: true });
     this.hold(this.isLightTheme$, this.toggleTheme);

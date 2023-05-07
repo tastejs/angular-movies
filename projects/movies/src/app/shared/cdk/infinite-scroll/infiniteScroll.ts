@@ -14,7 +14,7 @@ import {
   InfiniteScrollResult,
   InfiniteScrollState,
 } from './infinite-scroll.interface';
-import { coerceObservable } from '../../utils/coerceObservable';
+import { coerceObservable } from '../coerceObservable';
 
 type PartialInfiniteScrollState<T extends {}> = Partial<InfiniteScrollState<T>>;
 

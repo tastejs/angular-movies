@@ -3,12 +3,11 @@ import {
   Component,
   ViewEncapsulation,
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FastSvgModule } from '@push-based/ngx-fast-svg';
+import { FastSvgComponent } from '@push-based/ngx-fast-svg';
 
 @Component({
   standalone: true,
-  imports: [CommonModule, FastSvgModule],
+  imports: [FastSvgComponent],
   selector: 'ct-not-found',
   template: ` <div class="not-found-container">
     <fast-svg size="350px" name="error"></fast-svg>
@@ -19,4 +18,4 @@ import { FastSvgModule } from '@push-based/ngx-fast-svg';
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.Emulated,
 })
-export class NotFoundPageComponent {}
+export default class NotFoundPageComponent {}

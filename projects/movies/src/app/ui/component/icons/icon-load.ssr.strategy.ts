@@ -6,8 +6,6 @@ import { readFileSync } from 'fs';
 
 @Injectable()
 export class IconLoadStrategySsr implements SvgLoadStrategy {
-  constructor() {}
-
   load(url: string): Observable<string> {
     const iconPath = join(process.cwd(), 'dist', 'movies', 'browser', url);
     const iconSVG = readFileSync(iconPath, 'utf8');

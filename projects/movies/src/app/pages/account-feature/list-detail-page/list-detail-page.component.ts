@@ -1,26 +1,28 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
-import { ListDetailAdapter } from './list-detail-page.adapter';
-import { LetModule } from '@rx-angular/template/let';
-import { ForModule } from '@rx-angular/template/for';
+import { Component, ChangeDetectionStrategy, inject } from '@angular/core';
+import { LetDirective } from '@rx-angular/template/let';
+import { RxFor } from '@rx-angular/template/for';
 import { MovieListComponent } from '../../../ui/pattern/movie-list/movie-list.component';
-import { FastSvgModule } from '@push-based/ngx-fast-svg';
-import { RouterModule } from '@angular/router';
+import { FastSvgComponent } from '@push-based/ngx-fast-svg';
+import { RouterLink, RouterOutlet } from '@angular/router';
+import { ListDetailAdapter } from './list-detail-page.adapter';
 
 @Component({
   standalone: true,
   imports: [
-    RouterModule,
-    LetModule,
-    ForModule,
+    RouterLink,
+    RouterOutlet,
+    LetDirective,
+    RxFor,
     MovieListComponent,
-    FastSvgModule,
+    FastSvgComponent,
   ],
   selector: 'ct-list-detail-page',
   templateUrl: './list-detail-page.component.html',
   styleUrls: ['./list-detail-page.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ListDetailPageComponent {
+export default class ListDetailPageComponent {
+  public readonly adapter = inject(ListDetailAdapter);
   readonly tabs = [
     {
       name: 'View List',
@@ -43,6 +45,4 @@ export class ListDetailPageComponent {
       link: 'delete',
     },
   ];
-
-  constructor(public adapter: ListDetailAdapter) {}
 }

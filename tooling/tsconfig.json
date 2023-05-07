@@ -10,9 +10,7 @@
 
     "files": true,
 
-    "compilerOptions": {
-    }
+    "compilerOptions": {}
   },
-  "compilerOptions": {
-  }
+  "compilerOptions": {}
 }
