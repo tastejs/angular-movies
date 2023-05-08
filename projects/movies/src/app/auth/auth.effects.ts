@@ -67,6 +67,5 @@ export class AuthEffects {
     window.localStorage.clear();
     this.accountState.set({ accountId: null });
     this.accessTokenFacade.resetToReadAccessToken();
-    // TODO if on my list page, should we redirect ????
   };
 }
