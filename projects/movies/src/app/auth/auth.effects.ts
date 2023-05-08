@@ -1,13 +1,12 @@
 import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { inject, Injectable, PLATFORM_ID } from '@angular/core';
-import { exhaustMap, filter, map, Observable, take } from 'rxjs';
-import { AuthState } from '../state/auth.state';
-import { isAuthenticationInProgress } from './utils';
 import {
+  AccessTokenResponse,
   Authv4Resource,
-  Token,
+  RequestTokenResponse,
 } from '../data-access/api/resources/authv4.resource';
-import {AccessTokenFacade} from "./access-token-facade.service";
+import { AccessTokenFacade } from './access-token-facade.service';
+import { AccountState } from '../state/account.state';
 
 @Injectable({
   providedIn: 'root',
@@ -15,79 +14,59 @@ import {AccessTokenFacade} from "./access-token-facade.service";
 export class AuthEffects {
   private readonly document = inject(DOCUMENT);
   private readonly platformId = inject(PLATFORM_ID);
-  private readonly authState = inject(AuthState);
   private readonly authResource = inject(Authv4Resource);
   private readonly accessTokenFacade = inject(AccessTokenFacade);
+  private readonly accountState = inject(AccountState);
+  // TODO shouldn't we redirect to my list when signIn ??? Otherwise, we see a small glitch when hovering again the menu... OR redirect to the current page instead
+  readonly redirectUrl = `${this.document.location.protocol}//${this.document.location.hostname}:${this.document.location.port}/list/category/popular`;
 
   constructor() {
     if (isPlatformBrowser(this.platformId)) {
-      if (isAuthenticationInProgress(this.authState.get())) {
-        this.createAccessToken$().subscribe((accessTokenResult) => {
-          // delete in local storage
-          window.localStorage.removeItem('requestToken');
-          // store in local storage for the next page load
-          window.localStorage.setItem(
-            'accessToken',
-            accessTokenResult.accessToken
-          );
-          window.localStorage.setItem('accountId', accessTokenResult.accountId);
-
-          this.authState.set({
-            ...this.authState.get(),
-            ...accessTokenResult,
-          });
-
-          this.accessTokenFacade.updateAccessToken(accessTokenResult.accessToken);
-        });
-      }
+      //TODO this is happening only when hovering the menu, I think we should make that initialization in APP_INIT or After some delay OR on My list page.
+      // should we finish the signIn ?
+      const requestToken = window.localStorage.getItem('requestToken');
+      requestToken && this.signInFinish(requestToken);
     }
   }
 
-  createAccessToken$ = (): Observable<{
-    accessToken: string;
-    accountId: string;
-  }> => {
-    return this.authState.requestToken$.pipe(
-      take(1),
-      filter(<T>(v: T | null): v is T => v != null),
-      exhaustMap((requestToken) =>
-        this.authResource.createAccessToken(requestToken)
-      ),
-      map(({ access_token, account_id }: Token) => ({
-        accessToken: access_token,
-        accountId: account_id,
-      }))
-    );
-  };
-
-  approveRequestToken = (): void => {
+  signInStart = (): void => {
     this.authResource
-      .createRequestToken(this.authState.redirectUrl)
-      .subscribe((res: Token) => {
-        // store in local storage for the next page load
-        window.localStorage.setItem('requestToken', res.request_token);
+      .createRequestToken(this.redirectUrl)
+      .subscribe(({ request_token }: RequestTokenResponse) => {
+        if (isPlatformBrowser(this.platformId)) {
+          // after redirecting to the redirectUrl, the requestToken in localStorage will indicate that an accessToken should be requested
+          window.localStorage.setItem('requestToken', request_token);
+        }
         this.document.location.replace(
-          `https://www.themoviedb.org/auth/access?request_token=${res.request_token}`
+          `https://www.themoviedb.org/auth/access?request_token=${request_token}`
         );
       });
   };
 
-  signOut = () => {
-    const accessToken = this.authState.get()?.accessToken;
-    // store in local storage for the next page load
-    window.localStorage.removeItem('accessToken');
-    window.localStorage.removeItem('accountId');
-    window.localStorage.removeItem('requestToken');
-    this.authState.set({
-      accessToken: undefined,
-      accountId: undefined,
-      requestToken: undefined,
-    });
+  signInFinish = (requestToken: string): void => {
+    this.authResource
+      .createAccessToken(requestToken)
+      .subscribe(({ access_token, account_id }: AccessTokenResponse) => {
+        if (isPlatformBrowser(this.platformId)) {
+          window.localStorage.removeItem('requestToken');
 
-    this.accessTokenFacade.resetAccessToken();
+          window.localStorage.setItem('accountId', account_id);
+          this.accountState.set({ accountId: account_id });
 
+          window.localStorage.setItem('accessToken', access_token);
+          this.accessTokenFacade.setUserAccessToken(access_token);
+        }
+      });
+  };
+
+  signOut = (): void => {
+    const accessToken = window.localStorage.getItem('accessToken');
     if (accessToken) {
       this.authResource.deleteAccessToken(accessToken).subscribe();
     }
+    window.localStorage.clear();
+    this.accountState.set({ accountId: null });
+    this.accessTokenFacade.resetToReadAccessToken();
+    // TODO if on my list page, should we redirect ????
   };
 }

@@ -3,11 +3,10 @@ import { RxState } from '@rx-angular/state';
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { RxActionFactory } from '@rx-angular/state/actions';
 import { AuthEffects } from '../../auth/auth.effects';
-import { AuthState } from '../../state/auth.state';
-import { map } from 'rxjs';
 import { RouterLink } from '@angular/router';
 import { RxEffects } from '@rx-angular/state/effects';
 import { RxIf } from '@rx-angular/template/if';
+import { AccountState } from '../../state/account.state';
 
 export const imports = [RouterLink, LetDirective, RxIf];
 
@@ -28,7 +27,7 @@ type Actions = {
 export default class AccountMenuComponent {
   private readonly effects = inject(RxEffects);
   private readonly authEffects = inject(AuthEffects);
-  private readonly authState = inject(AuthState);
+  private readonly accountState = inject(AccountState);
   private readonly state = inject<RxState<{ loggedIn: boolean }>>(RxState);
 
   ui = this.actionsF.create();
@@ -36,14 +35,8 @@ export default class AccountMenuComponent {
   loggedIn$ = this.state.select('loggedIn');
 
   constructor(private actionsF: RxActionFactory<Actions>) {
-    this.state.connect(
-      'loggedIn',
-      this.authState.requestToken$.pipe(map((s) => !!s))
-    );
+    this.state.connect('loggedIn', this.accountState.loggedIn$);
     this.effects.register(this.ui.signOut$, this.authEffects.signOut);
-    this.effects.register(
-      this.ui.signIn$,
-      this.authEffects.approveRequestToken
-    );
+    this.effects.register(this.ui.signIn$, this.authEffects.signInStart);
   }
 }
