@@ -21,14 +21,13 @@
       "sourceRoot": "projects/movies/src",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:browser",
+          "builder": "@angular-devkit/build-angular:browser-esbuild",
           "options": {
             "outputPath": "dist/movies/browser",
             "index": "projects/movies/src/index.original.html",
             "main": "projects/movies/src/main.ts",
             "tsConfig": "projects/movies/tsconfig.app.json",
             "inlineStyleLanguage": "scss",
-            "namedChunks": true,
             "assets": [
               "projects/movies/src/favicon.ico",
               "projects/movies/src/manifest.json",
@@ -40,7 +39,6 @@
           },
           "configurations": {
             "production": {
-              "namedChunks": true,
               "budgets": [
                 {
                   "type": "initial",
@@ -88,7 +86,6 @@
               "outputHashing": "all"
             },
             "production-stats": {
-              "namedChunks": true,
               "statsJson": true,
               "sourceMap": true,
               "buildOptimizer": true,
@@ -105,10 +102,8 @@
             "development": {
               "buildOptimizer": false,
               "optimization": false,
-              "vendorChunk": true,
               "extractLicenses": false,
-              "sourceMap": true,
-              "namedChunks": true
+              "sourceMap": true
             }
           },
           "defaultConfiguration": "production"
@@ -158,7 +153,6 @@
               "optimization": false,
               "sourceMap": true,
               "extractLicenses": true,
-              "vendorChunk": true,
               "buildOptimizer": false
             },
             "production": {
