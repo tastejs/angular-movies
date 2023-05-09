@@ -3,8 +3,17 @@ import { baseUrlApiV4 } from './internal/base-urls.constant';
 import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-export type Token = {
+export type SuccessTokenResponse = {
+  status_message: string;
+  success: boolean;
+  status_code: number;
+};
+
+export type RequestTokenResponse = SuccessTokenResponse & {
   request_token: string;
+};
+
+export type AccessTokenResponse = SuccessTokenResponse & {
   access_token: string;
   account_id: string;
 };
@@ -17,12 +26,16 @@ const URL_ACCESS_TOKEN = [baseUrl, 'access_token'].join('/');
 export class Authv4Resource {
   private readonly http: HttpClient = inject(HttpClient);
 
-  createRequestToken = (redirect_to: string): Observable<Token> =>
+  createRequestToken = (
+    redirect_to: string
+  ): Observable<RequestTokenResponse> =>
     this.http.post<any>(URL_REQUEST_TOKEN, { redirect_to });
 
-  createAccessToken = (requestToken: string): Observable<Token> =>
+  createAccessToken = (requestToken: string): Observable<AccessTokenResponse> =>
     this.http.post<any>(URL_ACCESS_TOKEN, { request_token: requestToken });
 
-  deleteAccessToken = (access_token: string): Observable<Token> =>
+  deleteAccessToken = (
+    access_token: string
+  ): Observable<SuccessTokenResponse> =>
     this.http.delete<any>(URL_ACCESS_TOKEN, { body: { access_token } });
 }
