@@ -33,7 +33,8 @@
               "projects/movies/src/favicon.ico",
               "projects/movies/src/manifest.json",
               "projects/movies/src/manifest.webmanifest",
-              "projects/movies/src/assets"
+              "projects/movies/src/assets",
+              "projects/movies/src/_routes.json"
             ],
             "styles": ["projects/movies/src/styles.scss"],
             "scripts": []
@@ -208,6 +209,56 @@
             "development": {
               "browserTarget": "movies:build:development",
               "serverTarget": "movies:build-server:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "build-server-cf": {
+          "builder": "@angular-devkit/build-angular:server",
+          "options": {
+            "outputPath": "dist/movies/server",
+            "main": "projects/movies/src/main.server.cloudflare.ts",
+            "tsConfig": "projects/movies/tsconfig.server.cloudflare.json",
+            "optimization": false,
+            "buildOptimizer": false
+          },
+          "configurations": {
+            "development": {
+              "outputHashing": "none",
+              "optimization": false,
+              "sourceMap": true,
+              "extractLicenses": true,
+              "vendorChunk": true,
+              "buildOptimizer": false
+            },
+            "production": {
+              "outputHashing": "media",
+              "fileReplacements": [
+                {
+                  "replace": "projects/movies/src/environments/environment.ts",
+                  "with": "projects/movies/src/environments/environment.prod.ts"
+                }
+              ],
+              "sourceMap": false,
+              "extractLicenses": true,
+              "optimization": true,
+              "buildOptimizer": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve-ssr-cf": {
+          "builder": "@nguniversal/builders:ssr-dev-server",
+          "configurations": {
+            "development": {
+              "browserTarget": "movies:build:development",
+              "serverTarget": "movies:build-server-cf:development",
+              "port": 4210
+            },
+            "production": {
+              "browserTarget": "movies:build:production",
+              "serverTarget": "movies:build-server-cf:production",
+              "port": 4211
             }
           },
           "defaultConfiguration": "development"
