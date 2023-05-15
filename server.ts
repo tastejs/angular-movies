@@ -6,9 +6,11 @@ import { join } from 'path';
 import * as compressionModule from 'compression';
 import { default as serverTiming } from 'server-timing';
 
-import { AppServerModule } from './projects/movies/src/main.server';
-import { APP_BASE_HREF } from '@angular/common';
 import { existsSync } from 'fs';
+import { ISRHandler } from 'ngx-isr';
+import { environment } from 'projects/movies/src/environments/environment';
+
+import bootstrap from './projects/movies/src/main.server';
 
 // The Express app is exported so that it can be used by serverless Functions.
 export function app(): express.Express {
@@ -19,6 +21,12 @@ export function app(): express.Express {
     ? 'index.original.html'
     : 'index';
 
+  const isr = new ISRHandler({
+    indexHtml,
+    invalidateSecretToken: 'MY_TOKEN',
+    enableLogging: !environment.production,
+  });
+
   // patchWindow(indexHtml);
 
   // **🚀 Perf Tip:**
@@ -28,12 +36,7 @@ export function app(): express.Express {
   server.use(serverTiming());
 
   // Our Universal express-engine (found @ https://github.com/angular/universal/tree/master/modules/express-engine)
-  server.engine(
-    'html',
-    ngExpressEngine({
-      bootstrap: AppServerModule,
-    })
-  );
+  server.engine('html', ngExpressEngine({ bootstrap }));
 
   server.set('view engine', 'html');
   server.set('views', distFolder);
@@ -51,28 +54,13 @@ export function app(): express.Express {
     })
   );
 
-  // All regular routes use the Universal engine
-  server.get('*', (req, res) => {
-    // return rendered HTML including Angular generated DOM
-    console.log('SSR for route', req.url);
-    res.startTime('SSR', 'Total SSR Time');
-    res.render(
-      indexHtml,
-      {
-        req,
-        providers: [
-          {
-            provide: APP_BASE_HREF,
-            useValue: req.baseUrl,
-          },
-        ],
-      },
-      (_, html) => {
-        res.endTime('SSR');
-        res.send(html);
-      }
-    );
-  });
+  server.get(
+    '*',
+    // Serve page if it exists in cache
+    async (req, res, next) => await isr.serveFromCache(req, res, next),
+    // Server side render the page and add to cache if needed
+    async (req, res, next) => await isr.render(req, res, next)
+  );
 
   return server;
 }

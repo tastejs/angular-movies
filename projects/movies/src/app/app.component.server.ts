@@ -1,5 +1,8 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { ZonelessRouting } from './shared/zone-less/zone-less-routing.service';
+import { RouterOutlet } from '@angular/router';
+import { LetDirective } from '@rx-angular/template/let';
+import { AppShellComponent } from './app-shell/app-shell.component';
 
 @Component({
   selector: 'app-root',
@@ -8,9 +11,15 @@ import { ZonelessRouting } from './shared/zone-less/zone-less-routing.service';
       <router-outlet></router-outlet>
     </app-shell>
   `,
+  standalone: true,
+  imports: [
+    RouterOutlet,
+    AppShellComponent,
+    LetDirective,
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AppComponent {
+export class AppServerComponent {
   /**
    *  **🚀 Perf Tip:**
    *
@@ -19,12 +28,12 @@ export class AppComponent {
 
    import { ZonelessRouting } from './shared/zone-agnostic/zone-less-routing.service';
 
-   constructor() {
-    inject(ZonelessRouting).init();
-  }
+   constructor(private zonelessRouting: ZonelessRouting) {
+       this.zonelessRouting.init();
+     }
    *
    */
-  constructor() {
-    inject(ZonelessRouting).init();
+  constructor(private zonelessRouting: ZonelessRouting) {
+    this.zonelessRouting.init();
   }
 }

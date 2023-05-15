@@ -47,14 +47,14 @@
   },
   "main": "dist/movies/server/index.js",
   "dependencies": {
-    "@angular/animations": "^16.0.0",
-    "@angular/common": "^16.0.0",
-    "@angular/core": "^16.0.0",
-    "@angular/platform-browser": "^16.0.0",
-    "@angular/platform-browser-dynamic": "^16.0.0",
-    "@angular/platform-server": "^16.0.0",
-    "@angular/router": "^16.0.0",
-    "@angular/service-worker": "^16.0.0",
+    "@angular/animations": "^16.0.1",
+    "@angular/common": "^16.0.1",
+    "@angular/core": "^16.0.1",
+    "@angular/platform-browser": "^16.0.1",
+    "@angular/platform-browser-dynamic": "^16.0.1",
+    "@angular/platform-server": "^16.0.1",
+    "@angular/router": "^16.0.1",
+    "@angular/service-worker": "^16.0.1",
     "@push-based/ngx-fast-svg": "^0.2.5",
     "@rx-angular/cdk": "^15.0.0",
     "@rx-angular/state": "^15.0.0",
@@ -62,27 +62,28 @@
     "core-js": "^2.6.12",
     "express": "^4.18.2",
     "firebase-functions": "^3.15.7",
+    "ngx-isr": "^0.5.5",
     "rxjs": "^7.8.1",
     "server-timing": "^3.3.3",
     "zone.js": "~0.13.0"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "^16.0.0",
+    "@angular-devkit/build-angular": "^16.0.1",
     "@angular-eslint/builder": "^16.0.1",
     "@angular-eslint/eslint-plugin": "^16.0.1",
     "@angular-eslint/eslint-plugin-template": "^16.0.1",
     "@angular-eslint/schematics": "^16.0.1",
     "@angular-eslint/template-parser": "^16.0.1",
-    "@angular/cli": "^16.0.0",
-    "@angular/compiler": "^16.0.0",
-    "@angular/compiler-cli": "^16.0.0",
-    "@angular/language-service": "^16.0.0",
+    "@angular/cli": "^16.0.1",
+    "@angular/compiler": "^16.0.1",
+    "@angular/compiler-cli": "^16.0.1",
+    "@angular/language-service": "^16.0.1",
     "@commitlint/cli": "^12.1.4",
     "@commitlint/config-conventional": "^12.1.4",
     "@commitlint/cz-commitlint": "^12.1.4",
-    "@nguniversal/builders": "^16.0.0",
-    "@nguniversal/common": "^16.0.0",
-    "@nguniversal/express-engine": "^16.0.0",
+    "@nguniversal/builders": "^16.0.1",
+    "@nguniversal/common": "^16.0.1",
+    "@nguniversal/express-engine": "^16.0.1",
     "@push-based/user-flow": "^0.19.2",
     "@rx-angular/import-graph-visualizer": "^0.2.0",
     "@size-limit/file": "^7.0.8",
@@ -122,25 +123,5 @@
     "typescript": "5.0.4",
     "webpack-bundle-analyzer": "^3.3.2",
     "yargs": "^17.3.1"
-  },
-  "overrides": {
-    "@push-based/ngx-fast-svg": {
-      "@angular/core": "^16.0.0-rc.3"
-    },
-    "@rx-angular/cdk": {
-      "@angular/core": "^16.0.0-rc.3"
-    },
-    "@rx-angular/state": {
-      "@angular/core": "^16.0.0-rc.3"
-    },
-    "@rx-angular/template": {
-      "@angular/core": "^16.0.0-rc.3"
-    },
-    "@push-based/user-flow": {
-      "rxjs": "^7.5.7"
-    },
-    "@angular-eslint/schematics": {
-      "@angular/cli": "^16.0.0-rc.3"
-    }
   }
 }
