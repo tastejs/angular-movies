@@ -238,17 +238,16 @@ export class FetchBackend implements HttpBackend {
   private createRequestInit(req: HttpRequest<any>): RequestInit {
     // We could share some of this logic with the XhrBackend
 
-    const headers: Record<string, string> = {};
+    const headers = {};
+
     const credentials: RequestCredentials | undefined = req.withCredentials
       ? 'include'
       : undefined;
 
     // Setting all the requested headers.
-    // This won't work.
-    /*
     (req.headers as any).forEach(
-      (name:any, values:any) => (headers[name] = values.join(','))
-    );*/
+      (name: any, values: any) => (headers[name] = values.join(','))
+    );
 
     // Add an Accept header if one isn't present already.
     headers['Accept'] ??= 'application/json, text/plain, */*';
@@ -261,7 +260,7 @@ export class FetchBackend implements HttpBackend {
         headers['Content-Type'] = detectedType;
       }
     }
-
+    console.log(headers);
     return {
       body: req.body,
       method: req.method,
