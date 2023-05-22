@@ -132,7 +132,7 @@
     "webpack-bundle-analyzer": "^3.3.2",
     "yargs": "^17.3.1",
 
-    "wrangler": "^0.0.0-d8f8f3d2",
+    "wrangler": "^3.0.1",
     "@cloudflare/workers-types": "^4.20230511.0",
     "@esbuild-plugins/node-globals-polyfill": "^0.2.3",
     "@esbuild-plugins/node-modules-polyfill": "^0.2.2",
