@@ -147,6 +147,7 @@ Measures:
 - [Julian Jandl](https://github.com/HoebbelsB)
 - [Vojtech Mašek](https://github.com/vmasek)
 - [Enea Jahollari](https://github.com/eneajaho)
+- [Matthieu Riegler](https://github.com/jeanmeche)
 
 
 Based on the original `angular-movies` foundation by [@clamarque](https://github.com/clamarque/angular-movies).
