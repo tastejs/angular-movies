@@ -1,28 +1,31 @@
-import { enableProdMode } from '@angular/core';
+import { AppComponent } from './app/app.component';
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+import { appConfig } from './app/app.config';
+import { RouterOutlet } from '@angular/router';
+import { AppShellComponent } from './app/app-shell/app-shell.component';
+import { LetDirective } from '@rx-angular/template/let';
 
-import { AppModule } from './app/app.module';
-import { environment } from './environments/environment';
-
-if (environment.production) {
-  enableProdMode();
-}
+@NgModule({
+  declarations: [ AppComponent ],
+  imports: [
+    BrowserModule,
+    RouterOutlet,
+    AppShellComponent,
+    LetDirective,
+    // ServiceWorkerModule.register('ngsw-worker.js', {
+    //   enabled: environment.production,
+    //   // Register the ServiceWorker as soon as the app is stable
+    //   // or after 30 seconds (whichever comes first).
+    //   registrationStrategy: 'registerWhenStable:30000'
+    // })
+  ],
+  providers: [ ...appConfig.providers ],
+  bootstrap: [ AppComponent ],
+})
+export class AppModule {}
 
 platformBrowserDynamic()
-  /**
-   * **🚀 Perf Tip for LCP, TTI, TBT:**
-   *
-   * Disable zone.js as change detection system.
-   * Add { ngZone: 'noop' } to the bootstrap options
-   *
-   * ⚠ Notice:
-   * Don't forget to:
-   * - remove `zone.js` import from the `polyfills.ts` file
-   * - trigger change detection manually after NavigationEnd (or use the provided helper `ZonelessRouting`)
-   *
-   * 💡 Additional Optimization:
-   * Remove the `polyfills` option from your `angular.json` to save 1 request and 118b
-   *
-   */
   .bootstrapModule(AppModule, { ngZone: 'noop' })
-  .catch((err) => console.error(err));
+  .catch((err) => console.error(err))

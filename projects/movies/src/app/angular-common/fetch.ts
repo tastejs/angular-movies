@@ -100,6 +100,8 @@ export class FetchBackend implements HttpBackend {
     signal: AbortSignal,
     reportEvent: (event: HttpEvent<any>) => void
   ): Promise<HttpResponse<any>> {
+    console.log('Request: ', request.url);
+
     const init = this.createRequestInit(request);
     let response;
 
