@@ -55,6 +55,7 @@ For now you can search the codebase for "Perf Tip" later on there will be proppe
 
 
 
+
 <!-- bundle-stats-start -->
 | Names             |       Size |
 | ---               | ---        |
@@ -80,6 +81,7 @@ For now you can search the codebase for "Perf Tip" later on there will be proppe
 | app_pages_account-feature_account-feature-page_routes_ts.js           | 956 Bytes |
 | app_pages_account-feature_list-detail-page_list-movies_list-movies_component_ts.js           | 785 Bytes |
 <!-- bundle-stats-end -->
+
 
 
 
@@ -170,6 +172,7 @@ Measures:
 - [Kirill Karnaukhov](https://github.com/Karnaukhov-kh)
 - [Julian Jandl](https://github.com/HoebbelsB)
 - [Vojtech Mašek](https://github.com/vmasek)
+- [Enea Jahollari](https://github.com/eneajaho)
 
 
 Based on the original `angular-movies` foundation by [@clamarque](https://github.com/clamarque/angular-movies).
