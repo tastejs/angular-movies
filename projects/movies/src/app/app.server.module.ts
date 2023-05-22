@@ -1,10 +1,12 @@
+import { provideHttpClient } from '@angular/common/http';
 import { NgModule } from '@angular/core';
-import { APP_COMPONENT_IMPORTS, AppComponent } from './app.component';
 import { ServerModule } from '@angular/platform-server';
-import { RX_RENDER_STRATEGIES_CONFIG } from '@rx-angular/cdk/render-strategies';
 import { provideFastSVG } from '@push-based/ngx-fast-svg';
-import { IconLoadStrategySsr } from './ui/component/icons/icon-load.ssr.strategy';
+import { RX_RENDER_STRATEGIES_CONFIG } from '@rx-angular/cdk/render-strategies';
+import { withFetch } from './angular-common/fetch';
+import { APP_COMPONENT_IMPORTS, AppComponent } from './app.component';
 import { APP_PROVIDERS } from './app.provider';
+import { IconLoadStrategySsr } from './ui/component/icons/icon-load.ssr.strategy';
 
 @NgModule({
   declarations: [AppComponent],
@@ -29,6 +31,7 @@ import { APP_PROVIDERS } from './app.provider';
       svgLoadStrategy: IconLoadStrategySsr,
       url: (name: string): string => `assets/svg-icons/${name}.svg`,
     }),
+    provideHttpClient(withFetch()),
   ],
   bootstrap: [AppComponent],
 })
