@@ -238,7 +238,7 @@ export class FetchBackend implements HttpBackend {
   private createRequestInit(req: HttpRequest<any>): RequestInit {
     // We could share some of this logic with the XhrBackend
 
-    const headers = {};
+    const headers: any = {};
 
     const credentials: RequestCredentials | undefined = req.withCredentials
       ? 'include'
