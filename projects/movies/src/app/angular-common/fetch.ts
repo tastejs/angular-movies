@@ -6,9 +6,9 @@
  * found in the LICENSE file at https://angular.io/license
  */
 
-import { inject, Injectable, Provider } from '@angular/core';
-import { BehaviorSubject, from, merge, Observable } from 'rxjs';
-import { finalize } from 'rxjs/operators';
+import {inject, Injectable, Provider} from '@angular/core';
+import {BehaviorSubject, from, merge, Observable} from 'rxjs';
+import {finalize} from 'rxjs/operators';
 
 import {
   HttpBackend,
@@ -238,7 +238,7 @@ export class FetchBackend implements HttpBackend {
   private createRequestInit(req: HttpRequest<any>): RequestInit {
     // We could share some of this logic with the XhrBackend
 
-    const headers = {};
+    const headers: any = {};
 
     const credentials: RequestCredentials | undefined = req.withCredentials
       ? 'include'
