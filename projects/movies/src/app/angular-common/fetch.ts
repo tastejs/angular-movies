@@ -100,8 +100,6 @@ export class FetchBackend implements HttpBackend {
     signal: AbortSignal,
     reportEvent: (event: HttpEvent<any>) => void
   ): Promise<HttpResponse<any>> {
-    console.log('Request: ', request.url);
-
     const init = this.createRequestInit(request);
     let response;
 
@@ -260,7 +258,7 @@ export class FetchBackend implements HttpBackend {
         headers['Content-Type'] = detectedType;
       }
     }
-    console.log(headers);
+
     return {
       body: req.body,
       method: req.method,

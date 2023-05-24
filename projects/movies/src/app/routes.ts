@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { RouteISRConfig } from 'ngx-isr';
+// import { RouteISRConfig } from 'ngx-isr';
 
 export const ROUTES: Routes = [
   /**
@@ -33,7 +33,7 @@ export const ROUTES: Routes = [
       import(
         'projects/movies/src/app/pages/movie-list-page/movie-list-page.component'
       ),
-    data: { revalidate: 10 } as RouteISRConfig
+    // data: { revalidate: 10 } as RouteISRConfig
   },
   {
     path: 'detail/movie/:identifier',

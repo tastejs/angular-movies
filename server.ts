@@ -17,8 +17,8 @@ export function app(): express.Express {
   const server = express();
 
   const distFolder = join(process.cwd(), 'dist/movies/browser');
-  const indexHtml = existsSync(join(distFolder, 'index.original.html'))
-    ? 'index.original.html'
+  const indexHtml = existsSync(join(distFolder, 'index.html'))
+    ? 'index.html'
     : 'index';
 
   const isr = new ISRHandler({
