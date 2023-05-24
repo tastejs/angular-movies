@@ -92,7 +92,9 @@ export class AppShellComponent {
       this.router.navigate([
         // The pathname route seems to work correctly on SSR but when pre-rendering it is an empty string.
         // We have to fall back to document URL as a fix.
-        fallbackRouteToDefault(this.document.location.pathname || document.URL),
+        fallbackRouteToDefault(
+          this.document.location.pathname || this.document.URL
+        ),
       ]);
     });
   }

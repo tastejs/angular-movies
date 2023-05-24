@@ -1,19 +1,19 @@
-import { RxActionFactory } from '@rx-angular/state/actions';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
+import { APP_INITIALIZER, ApplicationConfig } from '@angular/core';
+import { provideClientHydration } from '@angular/platform-browser';
 import {
   provideRouter,
   withDisabledInitialNavigation,
   withInMemoryScrolling,
 } from '@angular/router';
-import { ROUTES } from './routes';
-import { APP_INITIALIZER, ApplicationConfig } from '@angular/core';
-import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { provideFastSVG } from '@push-based/ngx-fast-svg';
-import { provideClientHydration } from '@angular/platform-browser';
+import { RxActionFactory } from '@rx-angular/state/actions';
+import { ROUTES } from './routes';
 import { withGobalStateInitializer } from './state/state-app-initializer.provider';
-import { tmdbContentTypeInterceptor } from './data-access/api/tmdbContentTypeInterceptor';
-import { tmdbReadAccessInterceptor } from './auth/tmdb-http-interceptor.feature';
-import { provideTmdbImageLoader } from './data-access/images/image-loader';
 import { RX_RENDER_STRATEGIES_CONFIG } from '@rx-angular/cdk/render-strategies';
+import { tmdbReadAccessInterceptor } from './auth/tmdb-http-interceptor.feature';
+import { tmdbContentTypeInterceptor } from './data-access/api/tmdbContentTypeInterceptor';
+import { provideTmdbImageLoader } from './data-access/images/image-loader';
 
 export const appConfig: ApplicationConfig = {
   providers: [

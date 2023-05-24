@@ -38,12 +38,11 @@
     "prerender": "npm run gen:routes && ng run movies:prerender:production",
 
     "cf-start": "wrangler pages dev dist/movies/cloudflare --compatibility-date=2021-09-20 --experimental-local",
-    "cf-dev:ssr": "ng run movies:serve-ssr-cf",
     "cf-build:ssr": "npm run build:prod && ng run movies:build-server-cf",
     "cf-process": "node ./cf-tools/copy-worker-files.mjs && node ./cf-tools/copy-client-files.mjs && node ./cf-tools/bundle.mjs",
     "precf-start": "npm run cf-build:ssr && npm run cf-process",
     "precf-deploy": "npm run cf-build:ssr && npm run cf-process",
-    "cf-deploy": "wrangler pages publish dist/movies/cloudflare"
+    "cf-deploy": "wrangler pages deploy dist/movies/cloudflare --skip-caching"
   },
   "config": {
     "commitizen": {
@@ -97,7 +96,7 @@
     "@size-limit/file": "^7.0.8",
     "@types/compression": "^1.7.2",
     "@types/express": "^4.17.17",
-    "@types/node": "^16.11.7",
+    "@types/node": "^18.11.7",
     "@types/yargs": "^17.0.24",
     "@typescript-eslint/eslint-plugin": "^5.59.2",
     "@typescript-eslint/parser": "^5.59.2",

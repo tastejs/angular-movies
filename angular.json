@@ -24,7 +24,7 @@
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
             "outputPath": "dist/movies/browser",
-            "index": "projects/movies/src/index.original.html",
+            "index": "projects/movies/src/index.html",
             "main": "projects/movies/src/main.ts",
             "tsConfig": "projects/movies/tsconfig.app.json",
             "inlineStyleLanguage": "scss",
@@ -246,22 +246,6 @@
             }
           },
           "defaultConfiguration": "production"
-        },
-        "serve-ssr-cf": {
-          "builder": "@nguniversal/builders:ssr-dev-server",
-          "configurations": {
-            "development": {
-              "browserTarget": "movies:build:development",
-              "serverTarget": "movies:build-server-cf:development",
-              "port": 4210
-            },
-            "production": {
-              "browserTarget": "movies:build:production",
-              "serverTarget": "movies:build-server-cf:production",
-              "port": 4211
-            }
-          },
-          "defaultConfiguration": "development"
         }
       }
     }

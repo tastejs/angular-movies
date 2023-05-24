@@ -1,14 +1,15 @@
 import { AppComponent } from './app/app.component';
-import { NgModule } from '@angular/core';
+import { NgModule, NgZone } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { appConfig } from './app/app.config';
 import { RouterOutlet } from '@angular/router';
 import { AppShellComponent } from './app/app-shell/app-shell.component';
 import { LetDirective } from '@rx-angular/template/let';
+import { CustomNgZone } from './app/shared/zone-less/custom-zone';
 
 @NgModule({
-  declarations: [ AppComponent ],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     RouterOutlet,
@@ -21,11 +22,17 @@ import { LetDirective } from '@rx-angular/template/let';
     //   registrationStrategy: 'registerWhenStable:30000'
     // })
   ],
-  providers: [ ...appConfig.providers ],
-  bootstrap: [ AppComponent ],
+  providers: [
+    ...appConfig.providers,
+    {
+      provide: NgZone,
+      useClass: CustomNgZone,
+    },
+  ],
+  bootstrap: [AppComponent],
 })
 export class AppModule {}
 
 platformBrowserDynamic()
   .bootstrapModule(AppModule, { ngZone: 'noop' })
-  .catch((err) => console.error(err))
+  .catch((err) => console.error(err));
