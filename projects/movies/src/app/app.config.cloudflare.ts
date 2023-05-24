@@ -17,6 +17,7 @@ const cloudflareServerConfig = (
   return {
     providers: [
       provideServerRendering(),
+      // order is strict requirement for withFetch!
       provideHttpClient(withFetch()),
       provideFastSVG({
         url: (name: string) => `assets/svg-icons/${name}.svg`,

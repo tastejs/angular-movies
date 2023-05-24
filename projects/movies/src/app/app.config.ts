@@ -1,5 +1,5 @@
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
-import { APP_INITIALIZER, ApplicationConfig, NgZone } from '@angular/core';
+import { APP_INITIALIZER, ApplicationConfig } from '@angular/core';
 import { provideClientHydration } from '@angular/platform-browser';
 import {
   provideRouter,
@@ -14,7 +14,6 @@ import { RX_RENDER_STRATEGIES_CONFIG } from '@rx-angular/cdk/render-strategies';
 import { tmdbReadAccessInterceptor } from './auth/tmdb-http-interceptor.feature';
 import { tmdbContentTypeInterceptor } from './data-access/api/tmdbContentTypeInterceptor';
 import { provideTmdbImageLoader } from './data-access/images/image-loader';
-import { CustomNgZone } from './shared/zone-less/custom-zone';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -76,14 +75,6 @@ export const appConfig: ApplicationConfig = {
     {
       provide: RX_RENDER_STRATEGIES_CONFIG,
       useValue: { patchZone: false },
-    },
-    {
-      provide: NgZone,
-      /**
-       * Normally `ɵNoopNgZone` is used here but we need to overwrite a bit of the logic to make TransferState work in a zone-less app
-       * Provide hacks for Zone#isStable as it causes problems for HTTP cache to work
-       */
-      useClass: CustomNgZone,
     },
   ],
 };

@@ -50,7 +50,7 @@ import { provideEdgeEnv, EdgeEnv } from './env.token';
   // Cache API respects Cache-Control headers. Setting s-max-age to 10
   // will limit the response to be in cache for 10 seconds max
   // Any changes made to the response here will be reflected in the cached value
-  response.headers.append('Cache-Control', 's-maxage=100');
+  response.headers.append('Cache-Control', 's-maxage=200');
 
   ctx.waitUntil(cache.put(cacheKey, response.clone()));
   // console.log("rendered SSR", content);

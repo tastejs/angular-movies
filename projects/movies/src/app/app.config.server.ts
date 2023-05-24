@@ -1,8 +1,4 @@
-import {
-  mergeApplicationConfig,
-  ApplicationConfig,
-  NgZone,
-} from '@angular/core';
+import { mergeApplicationConfig, ApplicationConfig } from '@angular/core';
 import { provideServerRendering } from '@angular/platform-server';
 import { appConfig } from './app.config';
 import { provideFastSVG } from '@push-based/ngx-fast-svg';
@@ -24,10 +20,6 @@ const serverConfig: ApplicationConfig = {
     {
       provide: RX_RENDER_STRATEGIES_CONFIG,
       useValue: { primaryStrategy: 'native' },
-    },
-    {
-      provide: NgZone,
-      useFactory: () => new NgZone({}),
     },
   ],
 };
