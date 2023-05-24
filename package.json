@@ -42,7 +42,7 @@
     "cf-process": "node ./cf-tools/copy-worker-files.mjs && node ./cf-tools/copy-client-files.mjs && node ./cf-tools/bundle.mjs",
     "precf-start": "npm run cf-build:ssr && npm run cf-process",
     "precf-deploy": "npm run cf-build:ssr && npm run cf-process",
-    "cf-deploy": "wrangler pages publish dist/movies/cloudflare"
+    "cf-deploy": "wrangler pages deploy dist/movies/cloudflare --skip-caching"
   },
   "config": {
     "commitizen": {

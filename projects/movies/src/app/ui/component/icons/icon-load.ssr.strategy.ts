@@ -1,8 +1,9 @@
 import { Injectable, inject } from '@angular/core';
-import { Observable, from } from 'rxjs';
+import { Observable, finalize, from } from 'rxjs';
 import { SvgLoadStrategy } from '@push-based/ngx-fast-svg';
 import { EdgeEnvToken } from '../../../../env.token';
 import { HttpClient } from '@angular/common/http';
+import { createBackgroundMacroTask } from '../../../angular-common/fetch';
 
 // @Injectable()
 // export class IconLoadStrategySsr implements SvgLoadStrategy {
@@ -20,18 +21,17 @@ export class IconLoadStrategyWorker implements SvgLoadStrategy {
 
   load(url: string): Observable<string> {
     const hostname = new URL(this.edgeEnv.request.url).hostname;
-    const assetUrl = `http://${hostname}/${url}`;
+    const assetUrl = `https://${hostname}/${url}`;
 
-    const init: RequestInit = {
-      headers: {
-        'Content-Type': 'text/plain;charset=UTF-8',
-      },
-    };
+    const macroTaskCanceller = createBackgroundMacroTask();
 
     return from(
-      this.edgeEnv.env.ASSETS.fetch(new Request(assetUrl), init).then((res) =>
-        !res.ok ? '' : res.text()
-      )
-    );
+      this.edgeEnv.env.ASSETS.fetch(new Request(assetUrl)).then((res) => {
+        if (!res.ok) {
+          throw new Error(res.statusText);
+        }
+        return res.text();
+      })
+    ).pipe(finalize(() => macroTaskCanceller()));
   }
 }
