@@ -57,13 +57,14 @@ For now you can search the codebase for "Perf Tip" later on there will be proppe
 
 
 
+
 <!-- bundle-stats-start -->
 | Names             |       Size |
 | ---               | ---        |
-| main.js           | 338.67 KB |
+| main.js           | 338.84 KB |
 | styles.css           | 6.21 KB |
 | runtime.js           | 2.65 KB |
-  | **Initial Total** | **347.53 KB** |
+  | **Initial Total** | **347.7 KB** |
   | Names             |       Size |
 | app_pages_movie-detail-page_movie-detail-page_component_ts.js           | 16.57 KB |
 | a-4d8953.js           | 12.98 KB |
@@ -82,6 +83,7 @@ For now you can search the codebase for "Perf Tip" later on there will be proppe
 | app_pages_account-feature_account-feature-page_routes_ts.js           | 956 Bytes |
 | app_pages_account-feature_list-detail-page_list-movies_list-movies_component_ts.js           | 785 Bytes |
 <!-- bundle-stats-end -->
+
 
 ## Comparison to next and nuxt
 
