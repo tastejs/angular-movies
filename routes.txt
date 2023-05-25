@@ -23,9 +23,9 @@
 /detail/movie/502356
 /detail/movie/385687
 /detail/movie/840326
-/detail/movie/603692
 /detail/movie/713704
 /detail/movie/640146
+/detail/movie/603692
 /detail/movie/552688
 /detail/movie/842675
 /detail/movie/882569
@@ -41,9 +41,9 @@
 /detail/movie/649609
 /detail/movie/934433
 /detail/movie/325358
-/detail/movie/447277
 /detail/movie/916224
 /detail/movie/1037644
+/detail/movie/447277
 /detail/movie/315162
 /detail/movie/948713
 /detail/movie/727340
