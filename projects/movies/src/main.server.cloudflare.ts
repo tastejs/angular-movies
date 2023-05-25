@@ -13,28 +13,28 @@ import { provideEdgeEnv, EdgeEnv } from './env.token';
 // See tools/bundle.mjs
 (globalThis as any).__workerFetchHandler = async function fetch(
   request: Request,
-  env: EdgeEnv,
-  ctx: any
+  env: EdgeEnv
 ) {
-  const cacheUrl = new URL(request.url);
-  // Construct the cache key from the cache URL
-  const cacheKey = new Request(cacheUrl.toString(), request);
-  // @ts-ignore
-  const cache = caches.default;
-  // Check whether the value is already available in the cache
-  // if not, you will need to fetch it from origin, and store it in the cache
-  let response = await cache.match(cacheKey);
-  if (response) {
-    console.log(`Cache hit for: ${request.url}.`);
-    return response;
-  }
-
   const url = new URL(request.url);
+
+  const cacheKey = new Request(url.toString(), request);
+
+  console.log(JSON.stringify(env, null, 2));
+
+  const contentFromKV = await env['ngmovies'].get(cacheKey, {
+    type: 'text',
+  });
 
   // Get the root `index.html` content.
   const indexUrl = new URL('/', url);
   const indexResponse = await env.ASSETS.fetch(new Request(indexUrl));
   const document = await indexResponse.text();
+
+  if (contentFromKV) {
+    let response = new Response(contentFromKV, indexResponse);
+    response.headers.append('Cache-Control', 's-maxage=200');
+    return response;
+  }
 
   const content = await renderApplication(
     () =>
@@ -45,14 +45,11 @@ import { provideEdgeEnv, EdgeEnv } from './env.token';
     { document, url: url.pathname }
   );
 
-  response = new Response(content, indexResponse);
+  await env['ngmovies'].put(cacheKey, content, {
+    expirationTtl: 1000,
+  });
 
-  // Cache API respects Cache-Control headers. Setting s-max-age to 10
-  // will limit the response to be in cache for 10 seconds max
-  // Any changes made to the response here will be reflected in the cached value
+  let response = new Response(content, indexResponse);
   response.headers.append('Cache-Control', 's-maxage=200');
-
-  ctx.waitUntil(cache.put(cacheKey, response.clone()));
-  // console.log("rendered SSR", content);
   return response;
 };
