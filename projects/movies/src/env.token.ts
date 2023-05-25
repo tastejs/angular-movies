@@ -2,7 +2,7 @@ import { InjectionToken, Provider } from '@angular/core';
 
 export interface EdgeEnv {
   ASSETS: { fetch: typeof fetch };
-  [key: string]: any; // namespace
+  NGMOVIES: any; // namespace
 }
 
 export interface EdgeEnvData {

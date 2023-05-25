@@ -21,7 +21,7 @@ import { provideEdgeEnv, EdgeEnv } from './env.token';
 
   console.log(JSON.stringify(env, null, 2));
 
-  const contentFromKV = await env['ngmovies'].get(cacheKey, {
+  const contentFromKV = await env.NGMOVIES.get(cacheKey, {
     type: 'text',
   });
 
@@ -45,7 +45,7 @@ import { provideEdgeEnv, EdgeEnv } from './env.token';
     { document, url: url.pathname }
   );
 
-  await env['ngmovies'].put(cacheKey, content, {
+  await env.NGMOVIES.put(cacheKey, content, {
     expirationTtl: 1000,
   });
 
