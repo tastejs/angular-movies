@@ -16,8 +16,7 @@ import { provideEdgeEnv, EdgeEnv } from './env.token';
   env: EdgeEnv
 ) {
   const url = new URL(request.url);
-
-  const cacheKey = new Request(url.toString(), request);
+  const cacheKey = new Request(url.toString(), request).url;
 
   console.log(JSON.stringify(env, null, 2));
 
