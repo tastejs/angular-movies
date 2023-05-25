@@ -88,4 +88,4 @@ if (moduleFilename === __filename || moduleFilename.includes('iisnode')) {
   run();
 }
 
-export * from './projects/movies/src/main.server';
+export default bootstrap;
