@@ -36,7 +36,10 @@ export function app(): express.Express {
   server.use(serverTiming());
 
   // Our Universal express-engine (found @ https://github.com/angular/universal/tree/master/modules/express-engine)
-  server.engine('html', ngExpressEngine({ bootstrap }));
+  server.engine(
+    'html',
+    ngExpressEngine({ bootstrap, inlineCriticalCss: false })
+  );
 
   server.set('view engine', 'html');
   server.set('views', distFolder);
