@@ -13,7 +13,6 @@ A [live deployment](https://angular-movies-a12d3.web.app/list/category/popular) 
 
 ## Performance Optimizations 
 
-
 [![angular-movies--after-before](https://user-images.githubusercontent.com/10064416/155904454-f70b5bb5-6591-497a-9d21-dca0e2940566.gif)](https://www.webpagetest.org/video/compare.php?tests=220216_BiDcPP_CVM,220216_AiDcBN_ETK)
 
 
