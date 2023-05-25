@@ -159,7 +159,7 @@
       "@angular/cli": "^16.0.0"
     },
     "ngx-isr": {
-      "@types/node@": "^16.0.0"
+      "@types/node": "^18.16.14"
     }
   }
 }
