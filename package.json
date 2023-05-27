@@ -150,9 +150,6 @@
     "@push-based/user-flow": {
       "rxjs": "^7.5.7"
     },
-    "@angular-eslint/schematics": {
-      "@angular/cli": "^16.0.0"
-    },
     "ngx-isr": {
       "@types/node": "^18.16.14"
     }
