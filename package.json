@@ -36,7 +36,6 @@
     "commit": "git-cz",
     "gen:routes": "npx ts-node -P tooling/tsconfig.json ./tooling/generate-routes/generate-routes.ts",
     "prerender": "npm run gen:routes && ng run movies:prerender:production",
-
     "cf-start": "wrangler pages dev dist/movies/cloudflare --compatibility-date=2021-09-20 --experimental-local",
     "cf-build:ssr": "npm run build:prod && ng run movies:build-server-cf",
     "cf-process": "node ./cf-tools/copy-worker-files.mjs && node ./cf-tools/copy-client-files.mjs && node ./cf-tools/bundle.mjs",
@@ -54,15 +53,15 @@
   },
   "main": "dist/movies/server/index.js",
   "dependencies": {
-    "@angular/animations": "^16.0.1",
-    "@angular/common": "^16.0.1",
-    "@angular/core": "^16.0.1",
-    "@angular/platform-browser": "^16.0.1",
-    "@angular/platform-browser-dynamic": "^16.0.1",
-    "@angular/platform-server": "^16.0.1",
-    "@angular/router": "^16.0.1",
-    "@angular/service-worker": "^16.0.1",
-    "@push-based/ngx-fast-svg": "^0.2.5",
+    "@angular/animations": "^16.0.3",
+    "@angular/common": "^16.0.3",
+    "@angular/core": "^16.0.3",
+    "@angular/platform-browser": "^16.0.3",
+    "@angular/platform-browser-dynamic": "^16.0.3",
+    "@angular/platform-server": "^16.0.3",
+    "@angular/router": "^16.0.3",
+    "@angular/service-worker": "^16.0.3",
+    "@push-based/ngx-fast-svg": "^0.3.0",
     "@rx-angular/cdk": "^15.0.0",
     "@rx-angular/state": "^15.0.0",
     "@rx-angular/template": "^15.2.0",
@@ -75,22 +74,22 @@
     "zone.js": "~0.13.0"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "^16.0.1",
-    "@angular-eslint/builder": "^16.0.1",
-    "@angular-eslint/eslint-plugin": "^16.0.1",
-    "@angular-eslint/eslint-plugin-template": "^16.0.1",
-    "@angular-eslint/schematics": "^16.0.1",
-    "@angular-eslint/template-parser": "^16.0.1",
-    "@angular/cli": "^16.0.1",
-    "@angular/compiler": "^16.0.1",
-    "@angular/compiler-cli": "^16.0.1",
-    "@angular/language-service": "^16.0.1",
+    "@angular-devkit/build-angular": "^16.0.3",
+    "@angular-eslint/builder": "^16.0.2",
+    "@angular-eslint/eslint-plugin": "^16.0.2",
+    "@angular-eslint/eslint-plugin-template": "^16.0.2",
+    "@angular-eslint/schematics": "^16.0.2",
+    "@angular-eslint/template-parser": "^16.0.2",
+    "@angular/cli": "^16.0.3",
+    "@angular/compiler": "^16.0.3",
+    "@angular/compiler-cli": "^16.0.3",
+    "@angular/language-service": "^16.0.3",
     "@commitlint/cli": "^12.1.4",
     "@commitlint/config-conventional": "^12.1.4",
     "@commitlint/cz-commitlint": "^12.1.4",
-    "@nguniversal/builders": "^16.0.1",
-    "@nguniversal/common": "^16.0.1",
-    "@nguniversal/express-engine": "^16.0.1",
+    "@nguniversal/builders": "^16.0.2",
+    "@nguniversal/common": "^16.0.2",
+    "@nguniversal/express-engine": "^16.0.2",
     "@push-based/user-flow": "^0.19.2",
     "@rx-angular/import-graph-visualizer": "^0.2.0",
     "@size-limit/file": "^7.0.8",
@@ -130,7 +129,6 @@
     "typescript": "5.0.4",
     "webpack-bundle-analyzer": "^3.3.2",
     "yargs": "^17.3.1",
-
     "wrangler": "^3.0.1",
     "@cloudflare/workers-types": "^4.20230511.0",
     "@esbuild-plugins/node-globals-polyfill": "^0.2.3",
@@ -140,9 +138,6 @@
     "fast-glob": "^3.2.12"
   },
   "overrides": {
-    "@push-based/ngx-fast-svg": {
-      "@angular/core": "^16.0.0"
-    },
     "@rx-angular/cdk": {
       "@angular/core": "^16.0.0"
     },
@@ -154,9 +149,6 @@
     },
     "@push-based/user-flow": {
       "rxjs": "^7.5.7"
-    },
-    "@angular-eslint/schematics": {
-      "@angular/cli": "^16.0.0"
     },
     "ngx-isr": {
       "@types/node": "^18.16.14"
