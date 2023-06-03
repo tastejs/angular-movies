@@ -2,6 +2,11 @@
   "name": "angular-movies",
   "version": "1.0.1",
   "license": "MIT",
+  "engines": {
+    "node": "^16.13.0 || ^18.10.0",
+    "npm": "^9.5.0",
+    "yarn": "^1.22.0"
+  },
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -47,9 +52,6 @@
     "commitizen": {
       "path": "@commitlint/cz-commitlint"
     }
-  },
-  "engines": {
-    "node": "18"
   },
   "main": "dist/movies/server/index.js",
   "dependencies": {
