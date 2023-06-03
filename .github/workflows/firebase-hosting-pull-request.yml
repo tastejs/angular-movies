@@ -35,9 +35,8 @@ jobs:
         uses: cloudflare/wrangler-action@2.0.0
         with:
           preCommands: npm run precf-deploy
-          workingDirectory: './dist/movies/cloudflare'
           apiToken: ${{ secrets.CF_API_TOKEN }}
-          command: pages deploy --project-name=ng-movies
+          command: pages deploy dist/movies/cloudflare --project-name=ng-movies
 
       - name: Deploy to firebase preview channel hosting
         id: previewDeployStep
