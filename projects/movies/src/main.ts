@@ -1,14 +1,14 @@
-import { AppComponent } from './app/app.component';
-import { NgModule, NgZone } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
-import { appConfig } from './app/app.config';
-import { RouterOutlet } from '@angular/router';
-import { AppShellComponent } from './app/app-shell/app-shell.component';
-import { LetDirective } from '@rx-angular/template/let';
-import { CustomNgZone } from './app/shared/zone-less/custom-zone';
-import { ServiceWorkerModule } from '@angular/service-worker';
-import { environment } from './environments/environment';
+import {AppComponent} from './app/app.component';
+import {NgModule, NgZone} from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
+import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
+import {appConfig} from './app/app.config';
+import {RouterOutlet} from '@angular/router';
+import {AppShellComponent} from './app/app-shell/app-shell.component';
+import {LetDirective} from '@rx-angular/template/let';
+import {CustomNgZone} from './app/shared/zone-less/custom-zone';
+// import { ServiceWorkerModule } from '@angular/service-worker';
+// import { environment } from './environments/environment';
 
 @NgModule({
   declarations: [AppComponent],
@@ -17,12 +17,12 @@ import { environment } from './environments/environment';
     RouterOutlet,
     AppShellComponent,
     LetDirective,
-    ServiceWorkerModule.register('ngsw-worker.js', {
+    /*ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,
       // Register the ServiceWorker as soon as the app is stable
       // or after 30 seconds (whichever comes first).
       registrationStrategy: 'registerWhenStable:30000',
-    }),
+    }),*/
   ],
   providers: [
     ...appConfig.providers,
