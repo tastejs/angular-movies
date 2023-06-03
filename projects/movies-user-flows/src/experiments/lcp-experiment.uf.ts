@@ -1,9 +1,4 @@
-import {
-  UserFlowProvider,
-  UserFlowOptions,
-  UserFlowInteractionsFn,
-  UserFlowContext,
-} from '@push-based/user-flow';
+import {UserFlowContext, UserFlowInteractionsFn, UserFlowOptions, UserFlowProvider,} from '@push-based/user-flow';
 
 const flowOptions: UserFlowOptions = {
   name: 'LCP Audit',

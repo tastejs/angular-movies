@@ -2,6 +2,11 @@
   "name": "angular-movies",
   "version": "1.0.1",
   "license": "MIT",
+  "engines": {
+    "node": "^16.13.0 || ^18.10.0",
+    "npm": "^9.5.0",
+    "yarn": "^1.22.0"
+  },
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -48,9 +53,6 @@
       "path": "@commitlint/cz-commitlint"
     }
   },
-  "engines": {
-    "node": "18"
-  },
   "main": "dist/movies/server/index.js",
   "dependencies": {
     "@angular/animations": "^16.0.3",
@@ -90,7 +92,7 @@
     "@nguniversal/builders": "^16.0.2",
     "@nguniversal/common": "^16.0.2",
     "@nguniversal/express-engine": "^16.0.2",
-    "@push-based/user-flow": "^0.19.2",
+    "@push-based/user-flow": "^0.19.3",
     "@rx-angular/import-graph-visualizer": "^0.2.0",
     "@size-limit/file": "^7.0.8",
     "@types/compression": "^1.7.2",
@@ -146,9 +148,6 @@
     },
     "@rx-angular/template": {
       "@angular/core": "^16.0.0"
-    },
-    "@push-based/user-flow": {
-      "rxjs": "^7.5.7"
     },
     "ngx-isr": {
       "@types/node": "^18.16.14"
