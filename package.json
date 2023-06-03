@@ -90,7 +90,7 @@
     "@nguniversal/builders": "^16.0.2",
     "@nguniversal/common": "^16.0.2",
     "@nguniversal/express-engine": "^16.0.2",
-    "@push-based/user-flow": "^0.19.2",
+    "@push-based/user-flow": "^0.19.3",
     "@rx-angular/import-graph-visualizer": "^0.2.0",
     "@size-limit/file": "^7.0.8",
     "@types/compression": "^1.7.2",
@@ -146,9 +146,6 @@
     },
     "@rx-angular/template": {
       "@angular/core": "^16.0.0"
-    },
-    "@push-based/user-flow": {
-      "rxjs": "^7.5.7"
     },
     "ngx-isr": {
       "@types/node": "^18.16.14"
