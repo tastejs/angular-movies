@@ -2,7 +2,7 @@ import {AppComponent} from './app/app.component';
 import {NgModule, NgZone} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
-import {appConfig} from './app/app.config';
+import {appConfig} from './app/app.config.browser';
 import {RouterOutlet} from '@angular/router';
 import {AppShellComponent} from './app/app-shell/app-shell.component';
 import {LetDirective} from '@rx-angular/template/let';
