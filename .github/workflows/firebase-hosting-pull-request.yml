@@ -21,10 +21,8 @@ jobs:
         run: npm ci
 
       - name: Production build (without SSR)
-        run: npm run cf-build:ssr
-
-      - name: Production build (CF)
         run: npm run build:prod:preview
+
 
       - name: Commit measures
         uses: EndBug/add-and-commit@v7
@@ -33,13 +31,6 @@ jobs:
           author_email: opensource@push-based.io
           message: 'Persist stats.json bundle-size report and readme'
           add: '*'
-
-      - name: Deploy to Cloudflare hosting (live)
-        uses: cloudflare/wrangler-action@2.0.0
-        with:
-          preCommands: npm run precf-deploy
-          apiToken: ${{ secrets.CF_API_TOKEN }}
-          command: pages deploy ./dist/movies/cloudflare --project-name=ng-movies
 
       - name: Deploy to firebase preview channel hosting
         id: previewDeployStep
