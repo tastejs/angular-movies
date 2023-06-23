@@ -21,6 +21,9 @@ jobs:
         run: npm ci
 
       - name: Production build (without SSR)
+        run: npm run cf-build:ssr
+
+      - name: Production build (CF)
         run: npm run build:prod:preview
 
       - name: Commit measures
@@ -36,7 +39,7 @@ jobs:
         with:
           preCommands: npm run precf-deploy
           apiToken: ${{ secrets.CF_API_TOKEN }}
-          command: pages deploy dist/movies/cloudflare --project-name=ng-movies
+          command: pages deploy ./dist/movies/cloudflare --project-name=ng-movies
 
       - name: Deploy to firebase preview channel hosting
         id: previewDeployStep
