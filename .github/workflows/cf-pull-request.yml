@@ -24,5 +24,5 @@ jobs:
         uses: cloudflare/wrangler-action@2.0.0
         with:
           preCommands: npm run precf-deploy
-          apiToken: ${{ secrets.CF_API_TOKEN }}
+          apiToken: ${{ secrets.CF_API_TOKEN_NEW }}
           command: pages deploy ./dist/movies/cloudflare --project-name=ng-movies
