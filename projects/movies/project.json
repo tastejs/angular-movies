@@ -16,7 +16,7 @@
     "build": {
       "executor": "@angular-devkit/build-angular:browser",
       "options": {
-        "outputPath": "dist/movies/browser/browser",
+        "outputPath": "dist/movies/browser",
         "index": "projects/movies/src/index.html",
         "main": "projects/movies/src/main.ts",
         "tsConfig": "projects/movies/tsconfig.app.json",
