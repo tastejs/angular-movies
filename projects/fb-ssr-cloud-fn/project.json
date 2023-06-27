@@ -4,27 +4,30 @@
   "projectType": "application",
   "targets": {
     "build": {
+      "dependsOn": [
+        "^prerender"
+      ],
       "executor": "nx:run-commands",
       "options": {
-        "command": "echo Build succeeded."
+        "command": "tsc --build ./projects/fb-ssr-cloud-fn/tsconfig.json"
       }
     },
     "watch": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "nx run-many --targets=build --projects=tag:firebase:dep:projects-fb-ssr-cloud-fn --parallel=100 --watch"
+        "command": "nx run-many --targets=build --projects=tag:firebase:dep:fb-ssr-cloud-fn --parallel=100 --watch"
       }
     },
     "lint": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "nx run-many --targets=lint --projects=tag:firebase:dep:projects-fb-ssr-cloud-fn --parallel=100"
+        "command": "nx run-many --targets=lint --projects=tag:firebase:dep:fb-ssr-cloud-fn --parallel=100"
       }
     },
     "test": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "nx run-many --targets=test --projects=tag:firebase:dep:projects-fb-ssr-cloud-fn --parallel=100"
+        "command": "nx run-many --targets=test --projects=tag:firebase:dep:fb-ssr-cloud-fn --parallel=100"
       }
     },
     "deploy": {
@@ -33,7 +36,7 @@
         "build"
       ],
       "options": {
-        "command": "firebase --config=projects/fb-ssr-cloud-fn/firebase.json deploy"
+        "command": "firebase --config=projects/fb-ssr-cloud-fn/firebase.json deploy --project angular-movies"
       }
     }
   },
