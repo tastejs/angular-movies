@@ -173,7 +173,7 @@
       ],
       "options": {
         "commands": [
-          "npx cpx ./dist/projects/movies/browser/stats.json dist/measures/movies",
+          "npx cpx ./dist/projects/movies/browser/stats.json dist/measures/movies --verbose",
           "npx webpack-bundle-analyzer ./dist/projects/movies/browser/stats.json -m static -r dist/measures/movies/bundle-size-report.prod.html"
         ],
         "parallel": false
