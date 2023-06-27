@@ -4,10 +4,14 @@
     "source": "."
   },
   "hosting": {
-    "public": "dist/movies/browser",
+    "public": "dist/projects/movies/browser",
     "cleanUrls": true,
     "trailingSlash": false,
-    "ignore": ["!dist", "*", "**/**"],
+    "ignore": [
+      "!dist",
+      "*",
+      "**/**"
+    ],
     "headers": [
       {
         "source": "**/*.html",

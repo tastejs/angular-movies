@@ -21,9 +21,9 @@ jobs:
         run: npm ci
 
       - name: Production build (client only)
-        run: npm run nx build movies -- --configuration production-stats
+        run: npm run nx build movies
       - name: Update readme with bundle stats
-        run: npm run report:bundlesize
+        run: npm run nx update-readme movies
 
       - name: Commit measures
         uses: EndBug/add-and-commit@v7
