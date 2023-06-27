@@ -6,7 +6,8 @@
         "cacheableOperations": [
           "build",
           "lint",
-          "build-server-cf"
+          "build-server-cf",
+          "server"
         ],
         "accessToken": "OTI0YWJiN2ItNTI2MC00M2RmLTlmM2EtOWRiODZkYmVjZTAyfHJlYWQtd3JpdGU="
       }

@@ -1,6 +1,6 @@
 {
-  "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "name": "movies",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "application",
   "generators": {
     "@schematics/angular:component": {
@@ -16,7 +16,7 @@
     "build": {
       "executor": "@angular-devkit/build-angular:browser",
       "options": {
-        "outputPath": "dist/movies/browser",
+        "outputPath": "dist/movies/browser/browser",
         "index": "projects/movies/src/index.html",
         "main": "projects/movies/src/main.ts",
         "tsConfig": "projects/movies/tsconfig.app.json",
@@ -187,13 +187,11 @@
       "configurations": {
         "development": {
           "browserTarget": "movies:build:development",
-          "serverTarget": "movies:build-server:development",
-          "port": 4210
+          "serverTarget": "movies:server:development"
         },
         "production": {
           "browserTarget": "movies:build:production",
-          "serverTarget": "movies:build-server:production",
-          "port": 4211
+          "serverTarget": "movies:server:production"
         }
       },
       "defaultConfiguration": "development"
@@ -201,21 +199,21 @@
     "prerender": {
       "executor": "@nguniversal/builders:prerender",
       "options": {
-        "browserTarget": "movies:build:production",
-        "serverTarget": "movies:build-server:production",
-        "routesFile": "routes.txt"
+        "routes": [
+          "/"
+        ]
       },
       "configurations": {
-        "production": {
-          "browserTarget": "movies:build:production",
-          "serverTarget": "movies:build-server:production"
-        },
         "development": {
           "browserTarget": "movies:build:development",
-          "serverTarget": "movies:build-server:development"
+          "serverTarget": "movies:server:development"
+        },
+        "production": {
+          "browserTarget": "movies:build:production",
+          "serverTarget": "movies:server:production"
         }
       },
-      "defaultConfiguration": "development"
+      "defaultConfiguration": "production"
     },
     "build-server-cf": {
       "executor": "@angular-devkit/build-angular:server",
@@ -253,6 +251,49 @@
       "outputs": [
         "{options.outputPath}"
       ]
+    },
+    "server": {
+      "dependsOn": [
+        "build"
+      ],
+      "executor": "@angular-devkit/build-angular:server",
+      "options": {
+        "outputPath": "dist/movies/browser/server",
+        "main": "projects/movies/server.ts",
+        "tsConfig": "projects/movies/tsconfig.server.json",
+        "inlineStyleLanguage": "scss"
+      },
+      "configurations": {
+        "production": {
+          "outputHashing": "media",
+          "fileReplacements": [
+            {
+              "replace": "projects/movies/src/environments/environment.ts",
+              "with": "projects/movies/src/environments/environment.prod.ts"
+            }
+          ]
+        },
+        "production-stats": {
+          "buildOptimizer": true,
+          "outputHashing": "none",
+          "fileReplacements": [
+            {
+              "replace": "projects/movies/src/environments/environment.ts",
+              "with": "projects/movies/src/environments/environment.prod.ts"
+            }
+          ],
+          "optimization": true,
+          "sourceMap": true
+        },
+        "development": {
+          "buildOptimizer": false,
+          "optimization": false,
+          "sourceMap": true,
+          "extractLicenses": false,
+          "vendorChunk": true
+        }
+      },
+      "defaultConfiguration": "production"
     }
   }
 }
