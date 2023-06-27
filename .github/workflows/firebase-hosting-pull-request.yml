@@ -21,7 +21,7 @@ jobs:
         run: npm ci
 
       - name: Production build (without SSR)
-        run: npm run nx build:prod:preview
+        run: npm run build:prod:preview
 
 
       - name: Commit measures
