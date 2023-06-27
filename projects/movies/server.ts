@@ -1,27 +1,44 @@
 import 'zone.js/dist/zone-node';
 
-import {APP_BASE_HREF} from '@angular/common';
 import {ngExpressEngine} from '@nguniversal/express-engine';
 import * as express from 'express';
-import {existsSync} from 'fs';
 import {join} from 'path';
+import * as compressionModule from 'compression';
+import {default as serverTiming} from 'server-timing';
 
-import {AppServerModule} from './src/main.server';
+import {existsSync} from 'fs';
+import {ISRHandler} from 'ngx-isr';
+import {environment} from 'projects/movies/src/environments/environment';
+
+import bootstrap from './src/main.server';
 
 // The Express app is exported so that it can be used by serverless Functions.
 export function app(): express.Express {
   const server = express();
-  const distFolder = join(process.cwd(), 'dist/movies/browser/browser');
-  const indexHtml = existsSync(join(distFolder, 'index.original.html'))
-    ? 'index.original.html'
+
+  const distFolder = join(process.cwd(), 'dist/movies/browser');
+  const indexHtml = existsSync(join(distFolder, 'index.html'))
+    ? 'index.html'
     : 'index';
 
-  // Our Universal express-engine (found @ https://github.com/angular/universal/tree/main/modules/express-engine)
+  const isr = new ISRHandler({
+    indexHtml,
+    invalidateSecretToken: 'MY_TOKEN',
+    enableLogging: !environment.production,
+  });
+
+  // patchWindow(indexHtml);
+
+  // **🚀 Perf Tip:**
+  // Serve gzip for faster load
+  server.use(compressionModule());
+
+  server.use(serverTiming());
+
+  // Our Universal express-engine (found @ https://github.com/angular/universal/tree/master/modules/express-engine)
   server.engine(
     'html',
-    ngExpressEngine({
-      bootstrap: AppServerModule,
-    })
+    ngExpressEngine({bootstrap, inlineCriticalCss: false})
   );
 
   server.set('view engine', 'html');
@@ -34,22 +51,25 @@ export function app(): express.Express {
     '*.*',
     express.static(distFolder, {
       maxAge: '1y',
+
+      // missing assets results in 404 instead of continuing to next route handler (and rendering route)
+      fallthrough: false,
     })
   );
 
-  // All regular routes use the Universal engine
-  server.get('*', (req, res) => {
-    res.render(indexHtml, {
-      req,
-      providers: [{provide: APP_BASE_HREF, useValue: req.baseUrl}],
-    });
-  });
+  server.get(
+    '*',
+    // Serve page if it exists in cache
+    async (req, res, next) => await isr.serveFromCache(req, res, next),
+    // Server side render the page and add to cache if needed
+    async (req, res, next) => await isr.render(req, res, next)
+  );
 
   return server;
 }
 
 function run(): void {
-  const port = process.env['PORT'] || 4000;
+  const port = process.env.PORT || 4000;
 
   // Start up the Node server
   const server = app();
@@ -68,4 +88,4 @@ if (moduleFilename === __filename || moduleFilename.includes('iisnode')) {
   run();
 }
 
-export * from './src/main.server';
+export default bootstrap;
