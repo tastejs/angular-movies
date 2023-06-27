@@ -36,7 +36,7 @@
         "build"
       ],
       "options": {
-        "command": "firebase --config=projects/fb-ssr-cloud-fn/firebase.json deploy --project angular-movies"
+        "command": "firebase --config=projects/fb-ssr-cloud-fn/firebase.json deploy"
       }
     }
   },

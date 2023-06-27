@@ -24,7 +24,7 @@ jobs:
 
       - name: Deploy to Firebase hosting and functions production (live)
         run: |
-          npx firebase deploy
+          npm run nx deploy fb-ssr-cloud-fn
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
       - name: Commit measures
