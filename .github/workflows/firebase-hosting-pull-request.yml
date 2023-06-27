@@ -21,7 +21,7 @@ jobs:
         run: npm ci
 
       - name: Production build (client only)
-        run: npm run nx build movies --configuration production-stats
+        run: npm run nx build movies -- --configuration production-stats
       - name: Update readme with bundle stats
         run: npm run report:bundlesize
 
