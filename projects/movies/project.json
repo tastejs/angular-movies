@@ -156,7 +156,7 @@
     "update-readme": {
       "executor": "nx:run-commands",
       "outputs": [
-        "{workspaceRoot}"
+        "./"
       ],
       "options": {
         "commands": [
@@ -169,7 +169,7 @@
     "bundle-report": {
       "executor": "nx:run-commands",
       "outputs": [
-        "{workspaceRoot}/dist/measures/movies"
+        "./dist/measures/movies"
       ],
       "options": {
         "commands": [
