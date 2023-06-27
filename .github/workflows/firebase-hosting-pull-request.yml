@@ -23,6 +23,7 @@ jobs:
       - name: Production build (without SSR)
         run: npm run build:prod:preview
 
+
       - name: Commit measures
         uses: EndBug/add-and-commit@v7
         with:
@@ -30,6 +31,7 @@ jobs:
           author_email: opensource@push-based.io
           message: 'Persist stats.json bundle-size report and readme'
           add: '*'
+
       - name: Deploy to firebase preview channel hosting
         id: previewDeployStep
         uses: FirebaseExtended/action-hosting-deploy@v0.6-alpha

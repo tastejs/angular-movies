@@ -43,7 +43,7 @@
     "prerender": "npm run gen:routes && ng run movies:prerender:production",
     "cf-start": "wrangler pages dev dist/movies/cloudflare --compatibility-date=2021-09-20 --experimental-local",
     "cf-build:ssr": "npm run build:prod && ng run movies:build-server-cf",
-    "cf-process": "node ./cf-tools/copy-worker-files.mjs && node ./cf-tools/copy-client-files.mjs && node ./cf-tools/bundle.mjs",
+    "cf-process": "node ./cf-tools/clean-output-folder.mjs && node ./cf-tools/copy-worker-files.mjs && node ./cf-tools/copy-client-files.mjs && node ./cf-tools/bundle.mjs",
     "precf-start": "npm run cf-build:ssr && npm run cf-process",
     "precf-deploy": "npm run cf-build:ssr && npm run cf-process",
     "cf-deploy": "wrangler pages deploy dist/movies/cloudflare --skip-caching"

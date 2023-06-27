@@ -1,12 +1,12 @@
 import 'zone.js/dist/zone-node';
 import '@angular/platform-server/init';
 
-import { bootstrapApplication } from '@angular/platform-browser';
-import { renderApplication } from '@angular/platform-server';
+import {bootstrapApplication} from '@angular/platform-browser';
+import {renderApplication} from '@angular/platform-server';
 
-import { cloudlfareAppConfig } from './app/app.config.cloudflare';
-import { AppServerComponent } from './app/app.component.server';
-import { provideEdgeEnv, EdgeEnv } from './env.token';
+import {cloudlfareAppConfig} from './app/app.config.cloudflare';
+import {AppServerComponent} from './app/app.component.server';
+import {EdgeEnv, provideEdgeEnv} from './env.token';
 
 // We attach the Cloudflare `fetch()` handler to the global scope
 // so that we can export it when we process the Angular output.
@@ -29,6 +29,7 @@ import { provideEdgeEnv, EdgeEnv } from './env.token';
   const indexResponse = await env.ASSETS.fetch(new Request(indexUrl));
   const document = await indexResponse.text();
 
+  // return directly from CF KV if given
   if (contentFromKV) {
     let response = new Response(contentFromKV, indexResponse);
     response.headers.append('Cache-Control', 's-maxage=200');
@@ -45,6 +46,7 @@ import { provideEdgeEnv, EdgeEnv } from './env.token';
   );
 
   await env.NGMOVIES.put(cacheKey, content, {
+    // seconds
     expirationTtl: 1000,
   });
 

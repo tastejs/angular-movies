@@ -1,10 +1,10 @@
-import { bootstrapApplication } from '@angular/platform-browser';
-import { AppServerComponent } from './app/app.component.server';
-import { serverAppConfig } from './app/app.config.server';
+import {bootstrapApplication} from '@angular/platform-browser';
+import {AppServerComponent} from './app/app.component.server';
+import {appConfig} from './app/app.config.firebase';
 
 import 'zone.js';
 
 const bootstrap = () =>
-  bootstrapApplication(AppServerComponent, serverAppConfig);
+  bootstrapApplication(AppServerComponent, appConfig);
 
 export default bootstrap;
