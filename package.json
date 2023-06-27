@@ -20,7 +20,7 @@
     "build:prod:ssr-update": "npm run build:prod:artefacts && npm run update:bundle-stats && nx run movies:build-server && npm run build:functions",
     "build+prerender:prod:ssr-update": "npm run build:prod:artefacts && npm run update:bundle-stats && npm run prerender && npm run build:functions",
     "build:prod:artefacts": "nx build movies --configuration production-stats && npm run report:bundlesize",
-    "build:prod:preview": "nx build:prod:artefacts && npx cpy-cli dist/movies/browser/index.html dist/movies/browser --rename=index.html",
+    "build:prod:preview": "npm run build:prod:artefacts && npx cpy-cli dist/movies/browser/index.html dist/movies/browser --rename=index.html",
     "copy:prod:ssr:artefacts": "npx cpx \"dist/movies/browser/stats.json\" measures/bundle-size",
     "build:artefacts": "nx build movies --configuration production-stats",
     "build:functions": "tsc --build functions/tsconfig.json",
