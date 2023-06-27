@@ -155,15 +155,13 @@
     },
     "update-readme": {
       "executor": "nx:run-commands",
-      "dependsOn": [
-        "build"
-      ],
       "outputs": [
         "{workspaceRoot}"
       ],
       "options": {
         "commands": [
-          "npx ts-node -P tooling/tsconfig.json  ./tooling/bundle-stats/index.ts update-bundle-stats --stats=dist/measures/movies/stats.json --target=./README.md"
+          "nx build movies",
+          "npx ts-node -P tooling/tsconfig.json  ./tooling/bundle-stats/index.ts update-bundle-stats --stats=./dist/measures/movies/stats.json --target=./README.md"
         ],
         "parallel": false
       }
