@@ -10,7 +10,7 @@
   "scripts": {
     "nx": "nx",
     "ng": "ng",
-    "start": "nx serve moviyes",
+    "start": "nx serve movies",
     "start:prod": "nx serve movies --configuration production",
     "start:ssr:dev": "nx serve-ssr movies",
     "start:ssr:prod": "nx serve-ssr movies --configuration production",
