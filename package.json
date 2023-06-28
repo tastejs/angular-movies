@@ -2,6 +2,7 @@
   "name": "angular-movies",
   "version": "1.0.1",
   "license": "MIT",
+  "main": "dist/projects/movies/server/index.js",
   "engines": {
     "node": "16"
   },
@@ -48,7 +49,6 @@
       "path": "@commitlint/cz-commitlint"
     }
   },
-  "main": "dist/movies/server/index.js",
   "dependencies": {
     "@angular/animations": "^16.0.3",
     "@angular/common": "^16.0.3",
