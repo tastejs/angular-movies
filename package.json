@@ -2,11 +2,6 @@
   "name": "angular-movies",
   "version": "1.0.1",
   "license": "MIT",
-  "engines": {
-    "node": "^16.13.0 || ^18.10.0",
-    "npm": "^9.5.0",
-    "yarn": "^1.22.0"
-  },
   "scripts": {
     "nx": "nx",
     "ng": "ng",
