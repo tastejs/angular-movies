@@ -8,7 +8,7 @@
     ],
     "module": "commonjs",
     "noImplicitReturns": true,
-    "outDir": "../dist/movies/projects/server",
+    "outDir": "../dist/projects/movies/server",
     "sourceMap": false,
     "target": "es2019",
     "allowJs": true,
