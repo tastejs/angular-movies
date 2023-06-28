@@ -2,9 +2,6 @@
   "name": "angular-movies",
   "version": "1.0.1",
   "license": "MIT",
-  "engines": {
-    "node": "16 || 18"
-  },
   "scripts": {
     "nx": "nx",
     "ng": "ng",
