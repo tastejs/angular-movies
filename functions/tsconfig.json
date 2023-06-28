@@ -1,9 +1,14 @@
 {
   "compilerOptions": {
-    "lib": ["es6", "dom", "es2015", "es2017"],
+    "lib": [
+      "es6",
+      "dom",
+      "es2015",
+      "es2017"
+    ],
     "module": "commonjs",
     "noImplicitReturns": true,
-    "outDir": "../dist/movies/server",
+    "outDir": "../dist/movies/projects/server",
     "sourceMap": false,
     "target": "es2019",
     "allowJs": true,
