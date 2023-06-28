@@ -296,7 +296,7 @@
       ],
       "executor": "@angular-devkit/build-angular:server",
       "options": {
-        "outputPath": "dist/projects/movies/browser/server",
+        "outputPath": "dist/projects/movies/server",
         "main": "projects/movies/server.ts",
         "tsConfig": "projects/movies/tsconfig.server.json",
         "inlineStyleLanguage": "scss"
