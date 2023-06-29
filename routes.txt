@@ -52,11 +52,11 @@
 /detail/movie/647250
 /detail/movie/324857
 /detail/movie/677179
+/detail/movie/335977
 /detail/movie/884605
 /detail/movie/228150
 /detail/movie/568124
 /detail/movie/1131438
 /detail/movie/799379
-/detail/movie/335977
 /detail/movie/879444
 /detail/movie/634649

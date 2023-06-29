@@ -228,7 +228,22 @@
       },
       "defaultConfiguration": "development"
     },
+    "pre-prerender": {
+      "outputs": [
+        "{workspaceRoot}"
+      ],
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          "npx ts-node -P tooling/tsconfig.json ./tooling/generate-routes/generate-routes.ts"
+        ],
+        "parallel": false
+      }
+    },
     "prerender": {
+      "dependsOn": [
+        "pre-prerender"
+      ],
       "executor": "@nguniversal/builders:prerender",
       "options": {
         "routes": [
@@ -326,6 +341,21 @@
         }
       },
       "defaultConfiguration": "production"
+    },
+    "deploy-fb": {
+      "executor": "nx:run-commands",
+      "dependsOn": [
+        "prerender"
+      ],
+      "outputs": [
+        "{workspaceRoot}"
+      ],
+      "options": {
+        "commands": [
+          "npx firebase deploy"
+        ],
+        "parallel": false
+      }
     }
   }
 }
