@@ -4,7 +4,7 @@
     "source": "."
   },
   "hosting": {
-    "public": "dist/projects/movies/browser",
+    "public": "./dist/projects/movies/browser",
     "cleanUrls": true,
     "trailingSlash": false,
     "ignore": [

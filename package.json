@@ -13,7 +13,7 @@
     "start:prod": "nx serve movies --configuration production",
     "start:ssr:dev": "nx serve-ssr movies",
     "start:ssr:prod": "nx serve-ssr movies --configuration production",
-    "build:functions": "nx build projects-firebase-function",
+    "build:functions": "nx build firebase-function",
     "lint": "nx lint",
     "ngsw-config": "node_modules/.bin/ngsw-config dist ./src/ngsw-config.json",
     "serve:ngsw": "npm run ngsw-config && http-server dist -p 8080",

@@ -21,7 +21,7 @@ jobs:
 
       - name: Deploy to Firebase hosting and functions production (live)
         run: |
-          npm run nx deploy-fb movies
+          npm run nx deploy firebase-function
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
 

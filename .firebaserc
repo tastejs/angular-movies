@@ -1,5 +1,6 @@
 {
   "projects": {
-    "default": "angular-movies-a12d3"
+    "default": "angular-movies-a12d3",
+    "angular-movies": "angular-movies-a12d3"
   }
 }
