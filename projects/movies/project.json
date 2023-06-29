@@ -237,11 +237,11 @@
       },
       "configurations": {
         "development": {
-          "browserTarget": "movies:build-browser:development",
+          "browserTarget": "movies:build:development",
           "serverTarget": "movies:server:development"
         },
         "production": {
-          "browserTarget": "movies:build-browser:production",
+          "browserTarget": "movies:build:production",
           "serverTarget": "movies:server:production"
         }
       },
