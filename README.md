@@ -30,6 +30,7 @@ For now you can search the codebase for "Perf Tip" later on there will be proppe
 
 **Bundle Stats**
 
+
 <!-- bundle-stats-start -->
 | Names             |       Size |
 | ---               | ---        |
@@ -55,6 +56,7 @@ For now you can search the codebase for "Perf Tip" later on there will be proppe
 | app_pages_account-feature_account-feature-page_routes_ts.3866fe3055bd5ca7.js           | 853 Bytes |
 | app_pages_account-feature_list-detail-page_list-movies_list-movies_component_ts.5c77ff971f0c9240.js           | 657 Bytes |
 <!-- bundle-stats-end -->
+
 
 ## Comparison to next and nuxt
 
