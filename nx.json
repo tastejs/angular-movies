@@ -5,7 +5,7 @@
       "options": {
         "cacheableOperations": [
           "build",
-          "build-browser",
+          "build-report",
           "lint",
           "build-server-cf",
           "server"
