@@ -1,0 +1,31 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "outDir": "../../dist/out-tsc",
+    "module": "commonjs",
+    "types": [
+      "node"
+    ],
+    "lib": [
+      "es6",
+      "dom",
+      "es2015",
+      "es2017"
+    ],
+    "noImplicitReturns": true,
+    "sourceMap": false,
+    "target": "es2019",
+    "allowJs": true,
+    "noImplicitAny": false,
+    "strict": true,
+    "esModuleInterop": true
+  },
+  "exclude": [
+    "jest.config.ts",
+    "src/**/*.spec.ts",
+    "src/**/*.test.ts"
+  ],
+  "include": [
+    "src/**/*.ts"
+  ]
+}
