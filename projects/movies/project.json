@@ -14,16 +14,6 @@
   "sourceRoot": "projects/movies/src",
   "targets": {
     "build": {
-      "executor": "nx:run-commands",
-      "options": {
-        "commands": [
-          "nx build-browser movies --configuration production-stats",
-          "nx bundle-report movies"
-        ],
-        "parallel": false
-      }
-    },
-    "build-browser": {
       "executor": "@angular-devkit/build-angular:browser",
       "options": {
         "outputPath": "dist/projects/movies/browser",
@@ -47,6 +37,7 @@
       "configurations": {
         "production": {
           "namedChunks": true,
+          "statsJson": true,
           "budgets": [
             {
               "type": "initial",
@@ -126,11 +117,11 @@
       "executor": "@angular-devkit/build-angular:dev-server",
       "configurations": {
         "production": {
-          "browserTarget": "movies:build-browser:production",
+          "browserTarget": "movies:build:production",
           "port": 4200
         },
         "development": {
-          "browserTarget": "movies:build-browser:development"
+          "browserTarget": "movies:build:development"
         }
       },
       "defaultConfiguration": "development"
@@ -156,7 +147,7 @@
     "update-readme": {
       "executor": "nx:run-commands",
       "dependsOn": [
-        "build"
+        "build-report"
       ],
       "outputs": [
         "{workspaceRoot}"
@@ -168,15 +159,18 @@
         "parallel": false
       }
     },
-    "bundle-report": {
+    "build-report": {
+      "dependsOn": [
+        "build"
+      ],
       "executor": "nx:run-commands",
       "outputs": [
-        "{workspaceRoot}/dist/measures/movies"
+        "dist/measures/movies"
       ],
       "options": {
         "commands": [
-          "npx webpack-bundle-analyzer dist/projects/movies/browser/stats.json -m static -r dist/measures/movies/bundle-size-report.prod.html",
-          "npx cpx \"dist/projects/movies/browser/stats.json\" dist/measures/movies"
+          "npx cpx \"dist/projects/movies/browser/stats.json\" dist/measures/movies",
+          "npx webpack-bundle-analyzer dist/projects/movies/browser/stats.json -m static -r dist/measures/movies/bundle-size-report.prod.html"
         ],
         "parallel": false
       }
@@ -258,11 +252,11 @@
       },
       "configurations": {
         "development": {
-          "browserTarget": "movies:build-browser:development",
+          "browserTarget": "movies:build:development",
           "serverTarget": "movies:server:development"
         },
         "production": {
-          "browserTarget": "movies:build-browser:production",
+          "browserTarget": "movies:build:production",
           "serverTarget": "movies:server:production"
         }
       },
