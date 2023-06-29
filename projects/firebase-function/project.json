@@ -1,5 +1,5 @@
 {
-  "name": "projects-firebase-function",
+  "name": "firebase-function",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "projects/firebase-function/src",
   "projectType": "application",
@@ -82,6 +82,17 @@
           "ci": true,
           "codeCoverage": true
         }
+      }
+    },
+    "deploy": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          "npm --prefix \"$RESOURCE_DIR\" run nx build movies && nx prerender movies",
+          "nx build firebase-function",
+          "npx firebase deploy -c firebase.angular-movies.json --project angular-movies"
+        ],
+        "parallel": false
       }
     }
   },
