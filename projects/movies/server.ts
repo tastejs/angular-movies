@@ -8,7 +8,7 @@ import {default as serverTiming} from 'server-timing';
 
 import {existsSync} from 'fs';
 import {ISRHandler} from 'ngx-isr';
-import {environment} from 'projects/movies/src/environments/environment';
+import {environment} from './src/environments/environment';
 
 import bootstrap from './src/main.server';
 
@@ -16,7 +16,7 @@ import bootstrap from './src/main.server';
 export function app(): express.Express {
   const server = express();
 
-  const distFolder = join(process.cwd(), 'dist/movies/browser');
+  const distFolder = join(process.cwd(), 'dist/projects/movies/browser');
   const indexHtml = existsSync(join(distFolder, 'index.html'))
     ? 'index.html'
     : 'index';

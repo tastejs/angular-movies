@@ -24,9 +24,13 @@ jobs:
 
       - name: Deploy to Firebase hosting and functions production (live)
         run: |
-          npm run nx deploy fb-ssr-cloud-fn
+          npm run nx deploy-fb movies
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+
+      - name: Update readme with bundle stats
+        run: npm run nx update-readme movies
+
       - name: Commit measures
         uses: EndBug/add-and-commit@v7
         with:
