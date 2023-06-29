@@ -2,10 +2,9 @@
   "name": "angular-movies",
   "version": "1.0.1",
   "license": "MIT",
+  "main": "dist/projects/movies/server/index.js",
   "engines": {
-    "node": "^16.13.0 || ^18.10.0",
-    "npm": "^9.5.0",
-    "yarn": "^1.22.0"
+    "node": "16"
   },
   "scripts": {
     "nx": "nx",
@@ -17,8 +16,8 @@
     "build": "nx build movies",
     "build:prod": "nx build movies --configuration=production",
     "build:prod:ssr": "npm run build:prod:artefacts && nx run movies:build-server && npm run build:functions",
-    "build:prod:ssr-update": "npm run build:prod:artefacts && npm run update:bundle-stats && nx run movies:build-server && npm run build:functions",
-    "build+prerender:prod:ssr-update": "nx build movies && nx update-readme movies && npm run prerender && npm run build:functions",
+    "build:prod:ssr-update": "npm run build:prod:artefacts && nx run movies:build-server && npm run build:functions",
+    "build+prerender:prod:ssr-update": "nx build movies && npm run prerender && npm run build:functions",
     "build:prod:artefacts": "nx build movies && npm run report:bundlesize",
     "build:prod:preview": "nx build movies",
     "build:artefacts": "nx build movies --configuration production-stats",
@@ -50,7 +49,6 @@
       "path": "@commitlint/cz-commitlint"
     }
   },
-  "main": "dist/movies/server/index.js",
   "dependencies": {
     "@angular/animations": "^16.0.3",
     "@angular/common": "^16.0.3",
