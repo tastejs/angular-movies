@@ -341,6 +341,21 @@
         }
       },
       "defaultConfiguration": "production"
+    },
+    "deploy-fb": {
+      "executor": "nx:run-commands",
+      "dependsOn": [
+        "prerender"
+      ],
+      "outputs": [
+        "{workspaceRoot}"
+      ],
+      "options": {
+        "commands": [
+          "npx firebase deploy"
+        ],
+        "parallel": false
+      }
     }
   }
 }
