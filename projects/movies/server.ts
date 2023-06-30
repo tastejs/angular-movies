@@ -1,14 +1,14 @@
 import 'zone.js/dist/zone-node';
 
-import {ngExpressEngine} from '@nguniversal/express-engine';
+import { ngExpressEngine } from '@nguniversal/express-engine';
 import * as express from 'express';
-import {join} from 'path';
+import { join } from 'path';
 import * as compressionModule from 'compression';
-import {default as serverTiming} from 'server-timing';
+import { default as serverTiming } from 'server-timing';
 
-import {existsSync} from 'fs';
-import {ISRHandler} from 'ngx-isr';
-import {environment} from './src/environments/environment';
+import { existsSync, readdirSync, statSync } from 'fs';
+import { ISRHandler } from 'ngx-isr';
+import { environment } from './src/environments/environment';
 
 import bootstrap from './src/main.server';
 
@@ -17,6 +17,13 @@ export function app(): express.Express {
   const server = express();
 
   const distFolder = join(process.cwd(), 'dist/projects/movies/browser');
+
+  console.log(
+    distFolder,
+    statSync(distFolder).isDirectory(),
+    readdirSync(distFolder)
+  );
+
   const indexHtml = existsSync(join(distFolder, 'index.html'))
     ? 'index.html'
     : 'index';
@@ -38,7 +45,7 @@ export function app(): express.Express {
   // Our Universal express-engine (found @ https://github.com/angular/universal/tree/master/modules/express-engine)
   server.engine(
     'html',
-    ngExpressEngine({bootstrap, inlineCriticalCss: false})
+    ngExpressEngine({ bootstrap, inlineCriticalCss: false })
   );
 
   server.set('view engine', 'html');
