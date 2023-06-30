@@ -5,6 +5,9 @@
   "projectType": "application",
   "targets": {
     "build": {
+      "outputs": [
+        "{options.outputPath}"
+      ],
       "executor": "nx:run-commands",
       "options": {
         "commands": [
