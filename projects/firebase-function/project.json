@@ -6,7 +6,7 @@
   "targets": {
     "build": {
       "outputs": [
-        "{options.outputPath}"
+        "dist/projects/movies/server"
       ],
       "executor": "nx:run-commands",
       "options": {
