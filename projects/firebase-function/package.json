@@ -4,5 +4,8 @@
   "main": "./index.js",
   "engines": {
     "node": "16"
+  },
+  "dependencies": {
+    "firebase-functions": "^4.4.0"
   }
 }
