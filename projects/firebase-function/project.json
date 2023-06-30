@@ -97,12 +97,20 @@
         }
       }
     },
+    "pre-deploy": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          "nx pre-deploy movies",
+          "nx build firebase-function"
+        ],
+        "parallel": false
+      }
+    },
     "deploy": {
       "executor": "nx:run-commands",
       "options": {
         "commands": [
-          "npm --prefix \"$RESOURCE_DIR\" run nx build movies && nx prerender movies",
-          "nx build firebase-function",
           "npx firebase deploy --project angular-movies"
         ],
         "parallel": false

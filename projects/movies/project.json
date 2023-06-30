@@ -342,17 +342,12 @@
       },
       "defaultConfiguration": "production"
     },
-    "deploy-fb": {
+    "pre-deploy": {
       "executor": "nx:run-commands",
-      "dependsOn": [
-        "prerender"
-      ],
-      "outputs": [
-        "{workspaceRoot}"
-      ],
       "options": {
         "commands": [
-          "npx firebase deploy"
+          "nx build movies",
+          "nx prerender movies"
         ],
         "parallel": false
       }

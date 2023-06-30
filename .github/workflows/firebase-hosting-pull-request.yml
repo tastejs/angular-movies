@@ -21,7 +21,7 @@ jobs:
         run: npm ci
 
       - name: Production build (client only)
-        run: npm run nx build movies
+        run: npm run nx pre-deploy movies
       - name: Update readme with bundle stats
         run: npm run nx update-readme movies
 
