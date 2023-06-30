@@ -1,9 +1,6 @@
 {
   "collect": {
-    "url": "http://localhost:4200",
-    "ufPath": "./projects/movies-user-flows/src/user-flows",
-    "serveCommand": "npm run nx serve movies",
-    "awaitServeStdout": "Angular Live Development Server is listening on localhost:4200"
+    "ufPath": "./projects/movies-user-flows/src/user-flows"
   },
   "persist": {
     "outPath": "./projects/movies-user-flows/src/measures",
