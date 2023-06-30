@@ -46,7 +46,7 @@ jobs:
           FIREBASE_CLI_PREVIEWS: hostingchannels
 
       - name: test preview channel hosting
-        uses: push-based/user-flow-gh-action@v0.2.0
+        uses: push-based/user-flow-gh-action@v0.3.2
         with:
           verbose: 'on'
           rcPath: ./projects/movies-user-flows/.user-flowrc.ci-csr.json
