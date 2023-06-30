@@ -102,7 +102,7 @@
         "commands": [
           "npm --prefix \"$RESOURCE_DIR\" run nx build movies && nx prerender movies",
           "nx build firebase-function",
-          "npx firebase deploy -c firebase.angular-movies.json --project angular-movies"
+          "npx firebase deploy --project angular-movies"
         ],
         "parallel": false
       }
