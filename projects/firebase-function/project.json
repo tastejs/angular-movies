@@ -109,6 +109,9 @@
     },
     "deploy": {
       "executor": "nx:run-commands",
+      "dependsOn": [
+        "pre-deploy"
+      ],
       "options": {
         "commands": [
           "npx firebase deploy --project angular-movies"
