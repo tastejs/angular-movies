@@ -49,5 +49,5 @@ jobs:
         uses: push-based/user-flow-gh-action@v0.3.2
         with:
           verbose: 'on'
+          url: '${{ steps.previewDeployStep.outputs.url }}'
           rcPath: ./projects/movies-user-flows/.user-flowrc.ci-csr.json
-          url: ${{ steps.previewDeployStep.outputs.url }}
