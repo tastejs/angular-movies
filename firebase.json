@@ -1,6 +1,6 @@
 {
   "functions": {
-    "source": "./dist"
+    "source": "./dist/projects/movies/server"
   },
   "hosting": {
     "public": "./dist/projects/movies/browser",

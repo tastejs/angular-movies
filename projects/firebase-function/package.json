@@ -1,0 +1,8 @@
+{
+  "name": "angular-movies",
+  "version": "1.0.1",
+  "main": "./index.js",
+  "engines": {
+    "node": "16"
+  }
+}
