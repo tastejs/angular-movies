@@ -4,12 +4,6 @@
       "runner": "nx-cloud",
       "options": {
         "cacheableOperations": [
-          "build",
-          "lint",
-          "build-report",
-          "build-server",
-          "pre-deploy",
-          "server"
         ],
         "accessToken": "OTI0YWJiN2ItNTI2MC00M2RmLTlmM2EtOWRiODZkYmVjZTAyfHJlYWQtd3JpdGU="
       }
