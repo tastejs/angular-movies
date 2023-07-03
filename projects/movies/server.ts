@@ -6,7 +6,7 @@ import { join } from 'path';
 import * as compressionModule from 'compression';
 import { default as serverTiming } from 'server-timing';
 
-import { existsSync, readdirSync, statSync } from 'fs';
+import { existsSync } from 'fs';
 import { ISRHandler } from 'ngx-isr';
 import { environment } from './src/environments/environment';
 
