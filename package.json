@@ -20,15 +20,15 @@
     "ci-csr:user-flows": "user-flow collect -p=./projects/movies-user-flows/.user-flowrc.ci-csr.json -v",
     "ci-ssr:user-flows": "user-flow collect -p=./projects/movies-user-flows/.user-flowrc.ci-ssr.json -v",
     "husky": "husky",
-    "serve:dist": "npx http-server -p 8080 -c-1 dist/movies/browser",
+    "serve:dist": "npx http-server -p 8080 -c-1 dist/projects/movies/browser",
     "format:all": "prettier --write .",
     "commit": "git-cz",
-    "cf-start": "wrangler pages dev dist/movies/cloudflare --compatibility-date=2021-09-20 --experimental-local",
+    "cf-start": "wrangler pages dev dist/projects/movies/cloudflare --compatibility-date=2021-09-20 --experimental-local",
     "cf-build:ssr": "npm run nx build --configuration production && nx run movies:build-server-cf",
     "cf-process": "node ./cf-tools/clean-output-folder.mjs && node ./cf-tools/copy-worker-files.mjs && node ./cf-tools/copy-client-files.mjs && node ./cf-tools/bundle.mjs",
     "precf-start": "npm run cf-build:ssr && npm run cf-process",
     "precf-deploy": "npm run cf-build:ssr && npm run cf-process",
-    "cf-deploy": "wrangler pages deploy dist/movies/cloudflare --skip-caching"
+    "cf-deploy": "wrangler pages deploy dist/projects/movies/cloudflare --skip-caching"
   },
   "config": {
     "commitizen": {
