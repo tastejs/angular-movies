@@ -7,8 +7,6 @@
 
 # dependencies
 /node_modules
-/projects/firebase-function/node_modules
-/projects/firebase-function/package-lock.json
 
 # IDEs and editors
 /.idea

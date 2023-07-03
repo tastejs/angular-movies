@@ -9,8 +9,7 @@
       "executor": "nx:run-commands",
       "options": {
         "commands": [
-          "tsc --build projects/firebase-function/tsconfig.app.json",
-          "npx cpx projects/firebase-function/package.json dist/projects/movies/server"
+          "tsc --build projects/firebase-function/tsconfig.app.json"
         ],
         "parallel": false
       }

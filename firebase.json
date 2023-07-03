@@ -1,12 +1,35 @@
 {
   "functions": {
-    "source": "dist/projects/movies/server"
+    "source": ".",
+    "ignore": [
+      "./cf-tools",
+      "./docs",
+      "./projects",
+      "./tooling",
+      "./*.{js,ts,md,log,jpg,toml,yaml}",
+      "./nx.json",
+      "./tsconfig.json",
+      "./firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ]
   },
   "hosting": {
-    "public": "dist/projects/movies/browser",
+    "public": "./dist/projects/movies/browser",
     "cleanUrls": true,
     "trailingSlash": false,
-    "ignore": ["!dist", "*", "**/**"],
+    "ignore": [
+      "./cf-tools",
+      "./docs",
+      "./projects",
+      "./tooling",
+      "./*.{js,ts,md,log,jpg,toml,yaml}",
+      "./nx.json",
+      "./tsconfig.json",
+      "./firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
     "headers": [
       {
         "source": "**/*.html",
