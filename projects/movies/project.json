@@ -29,9 +29,7 @@
           "projects/movies/src/assets",
           "projects/movies/src/_routes.json"
         ],
-        "styles": [
-          "projects/movies/src/styles.scss"
-        ],
+        "styles": ["projects/movies/src/styles.scss"],
         "scripts": []
       },
       "configurations": {
@@ -109,9 +107,7 @@
         }
       },
       "defaultConfiguration": "production",
-      "outputs": [
-        "{options.outputPath}"
-      ]
+      "outputs": ["{options.outputPath}"]
     },
     "serve": {
       "executor": "@angular-devkit/build-angular:dev-server",
@@ -140,18 +136,12 @@
           "projects/movies/src/app/**/*.html"
         ]
       },
-      "outputs": [
-        "{options.outputFile}"
-      ]
+      "outputs": ["{options.outputFile}"]
     },
     "update-readme": {
       "executor": "nx:run-commands",
-      "dependsOn": [
-        "build-report"
-      ],
-      "outputs": [
-        "{workspaceRoot}"
-      ],
+      "dependsOn": ["build-report"],
+      "outputs": ["{workspaceRoot}"],
       "options": {
         "commands": [
           "npx ts-node -P tooling/tsconfig.json  ./tooling/bundle-stats/index.ts update-bundle-stats --stats=dist/measures/movies/stats.json --target=./README.md"
@@ -160,13 +150,9 @@
       }
     },
     "build-report": {
-      "dependsOn": [
-        "build"
-      ],
+      "dependsOn": ["build"],
       "executor": "nx:run-commands",
-      "outputs": [
-        "dist/measures/movies"
-      ],
+      "outputs": ["dist/measures/movies"],
       "options": {
         "commands": [
           "npx cpx \"dist/projects/movies/browser/stats.json\" dist/measures/movies",
@@ -210,9 +196,7 @@
         }
       },
       "defaultConfiguration": "production",
-      "outputs": [
-        "{options.outputPath}"
-      ]
+      "outputs": ["{options.outputPath}"]
     },
     "serve-ssr": {
       "executor": "@nguniversal/builders:ssr-dev-server",
@@ -229,9 +213,7 @@
       "defaultConfiguration": "development"
     },
     "pre-prerender": {
-      "outputs": [
-        "{workspaceRoot}"
-      ],
+      "outputs": ["{workspaceRoot}"],
       "executor": "nx:run-commands",
       "options": {
         "commands": [
@@ -241,14 +223,10 @@
       }
     },
     "prerender": {
-      "dependsOn": [
-        "pre-prerender"
-      ],
+      "dependsOn": ["pre-prerender"],
       "executor": "@nguniversal/builders:prerender",
       "options": {
-        "routes": [
-          "/"
-        ]
+        "routes": ["/"]
       },
       "configurations": {
         "development": {
@@ -295,14 +273,10 @@
         }
       },
       "defaultConfiguration": "production",
-      "outputs": [
-        "{options.outputPath}"
-      ]
+      "outputs": ["{options.outputPath}"]
     },
     "server": {
-      "dependsOn": [
-        "build"
-      ],
+      "dependsOn": ["build"],
       "executor": "@angular-devkit/build-angular:server",
       "options": {
         "outputPath": "dist/projects/movies/server",
@@ -345,10 +319,7 @@
     "pre-deploy": {
       "executor": "nx:run-commands",
       "options": {
-        "commands": [
-          "nx build movies",
-          "nx prerender movies"
-        ],
+        "commands": ["nx build movies", "nx prerender movies"],
         "parallel": false
       }
     }
