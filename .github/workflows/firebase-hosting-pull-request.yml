@@ -46,7 +46,7 @@ jobs:
           FIREBASE_CLI_PREVIEWS: hostingchannels
 
       - name: LOG FB logs
-        run: echo ${{ steps.previewDeployStep.outputs.result.angular-movies-a12d3.url }}
+        run: node -e "console.log(JSON.stringify(${{ steps.previewDeployStep.outputs}});"
 
       - name: test preview channel hosting
         uses: push-based/user-flow-gh-action@v0.3.2
