@@ -23,7 +23,7 @@ jobs:
       - name: Production build (client only)
         run: npm run nx pre-deploy movies
 
-      - name: Deploy to firebase preview channel hosting
+      - name: Deploy firebase preview channel hosting
         id: previewDeployStep
         uses: FirebaseExtended/action-hosting-deploy@v0.6-alpha
         with:
@@ -35,7 +35,7 @@ jobs:
         env:
           FIREBASE_CLI_PREVIEWS: hostingchannels
 
-      - name: Test preview channel hosting
+      - name: Test firebase preview channel hosting
         uses: push-based/user-flow-gh-action@v0.3.2
         with:
           verbose: on

@@ -22,7 +22,7 @@ jobs:
       - name: Production build (client & server)
         run: npm run nx pre-deploy firebase-function
 
-      - name: Deploy to firebase live hosting
+      - name: Deploy firebase live hosting
         id: deployStep
         uses: FirebaseExtended/action-hosting-deploy@v0.6-alpha
         with:
@@ -31,10 +31,10 @@ jobs:
           projectId: angular-movies-a12d3
           channelId: ${{ github.head_ref }}
 
-      - name: test preview channel hosting
+      - name: Test firebase live hosting
         uses: push-based/user-flow-gh-action@v0.3.2
         with:
-          verbose: 'on'
+          verbose: on
           url: ${{ fromJson(steps.deployStep.outputs.urls)[0] }}
           rcPath: ./projects/movies-user-flows/.user-flowrc.json
 
