@@ -16,7 +16,7 @@ import bootstrap from './src/main.server';
 export function app(): express.Express {
   const server = express();
 
-  const distFolder = join(process.cwd(), 'dist/projects/movies/browser');
+  const distFolder = process.cwd().replace('/server', '/browser');
 
   const indexHtml = existsSync(join(distFolder, 'index.html'))
     ? 'index.html'
