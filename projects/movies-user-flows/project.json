@@ -22,12 +22,7 @@
         "{options.outputPath}"
       ],
       "options": {
-        "rcPath": "projects/movies-user-flows/.user-flowrc.json",
-        "outputPath": "dist/user-flow/projects/movies-user-flows",
-        "ufPath": "projects/movies-user-flows/src/user-flows",
-        "format": [
-          "md"
-        ]
+        "rcPath": "projects/movies-user-flows/.user-flowrc.json"
       },
       "configurations": {
         "development": {

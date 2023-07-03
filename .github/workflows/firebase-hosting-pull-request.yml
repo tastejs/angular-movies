@@ -36,7 +36,11 @@ jobs:
           FIREBASE_CLI_PREVIEWS: hostingchannels
 
       - name: Test preview channel hosting
-        run: npm run nx run movies-user-flows:user-flow -- --url=${{ fromJson(steps.previewDeployStep.outputs.urls)[0] }}
+        uses: push-based/user-flow-gh-action@v0.3.2
+        with:
+          verbose: 'on'
+          url: ${{ fromJson(steps.previewDeployStep.outputs.urls)[0] }}
+          rcPath: ./projects/movies-user-flows/.user-flowrc.json
 
       - name: Update readme with bundle stats
         run: npm run nx update-readme movies

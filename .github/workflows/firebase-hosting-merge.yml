@@ -26,10 +26,12 @@ jobs:
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
 
-      - name: test live hosting
+
+      - name: Test live hosting
         uses: push-based/user-flow-gh-action@v0.3.2
         with:
           verbose: 'on'
+          url: ${{ fromJson(steps.previewDeployStep.outputs.urls)[0] }}
           rcPath: ./projects/movies-user-flows/.user-flowrc.json
 
       - name: Update readme with bundle stats
