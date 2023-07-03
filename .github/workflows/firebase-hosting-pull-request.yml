@@ -39,16 +39,12 @@ jobs:
         run: echo ${{ fromJson(steps.previewDeployStep.outputs.urls) }}
       - name: LOG FB logs1
         run: echo ${{ fromJson(steps.previewDeployStep.outputs.urls)[0] }}
-      - name: LOG FB logs2
-        run: echo ${{ toJson(steps.previewDeployStep.outputs.urls) }}
-      - name: LOG FB logs3
-        run: echo ${{ toJson(steps.previewDeployStep.outputs.urls)[0] }}
 
       - name: test preview channel hosting
         uses: push-based/user-flow-gh-action@v0.3.2
         with:
           verbose: 'on'
-          url: ${{ steps.previewDeployStep.outputs.urls }}
+          url: ${{ fromJson(steps.previewDeployStep.outputs.urls)[0] }}
           rcPath: ./projects/movies-user-flows/.user-flowrc.ci-csr.json
 
 
