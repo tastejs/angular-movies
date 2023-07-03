@@ -36,13 +36,15 @@ jobs:
           FIREBASE_CLI_PREVIEWS: hostingchannels
 
       - name: LOG FB logs
-        run: node -e "console.log(${{ JSON.parse(steps.previewDeployStep.outputs.urls)[0] }});"
+        run: echo ${{ steps.previewDeployStep.outputs.urls }}
+      - name: LOG FB logs2
+        run: echo ${{ steps.previewDeployStep.outputs.urls[0] }}
 
       - name: test preview channel hosting
         uses: push-based/user-flow-gh-action@v0.3.2
         with:
           verbose: 'on'
-          url: ${{ toJSON(steps.previewDeployStep.outputs.urls) }}
+          url: ${{ steps.previewDeployStep.outputs.urls }}
           rcPath: ./projects/movies-user-flows/.user-flowrc.ci-csr.json
 
 
