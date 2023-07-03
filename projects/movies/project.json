@@ -165,7 +165,7 @@
       "executor": "@angular-devkit/build-angular:server",
       "options": {
         "outputPath": "dist/projects/movies/server",
-        "main": "server.ts",
+        "main": "projects/movies/server.ts",
         "tsConfig": "projects/movies/tsconfig.server.json",
         "optimization": false,
         "sourceMap": true,
