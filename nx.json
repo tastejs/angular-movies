@@ -44,5 +44,10 @@
         "{workspaceRoot}/.eslintrc.json"
       ]
     }
+  },
+  "generators": {
+    "@push-based/user-flow-nx-plugin:target": {
+      "targetName": "user-flow"
+    }
   }
 }
