@@ -4,7 +4,7 @@
     "ufPath": "./projects/movies-user-flows/src/user-flows"
   },
   "persist": {
-    "outPath": "./dist/user-flow/projects/movies-user-flows",
+    "outPath": "./dist/user-flows/movies-user-flows",
     "format": [
       "md",
       "json"

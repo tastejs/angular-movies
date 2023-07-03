@@ -80,6 +80,7 @@
     "@nguniversal/common": "^16.0.2",
     "@nguniversal/express-engine": "^16.0.2",
     "@nx/angular": "16.4.0",
+    "@nx/devkit": "^16.0.0",
     "@nx/workspace": "16.4.0",
     "@push-based/user-flow": "^0.20.0",
     "@push-based/user-flow-nx-plugin": "^0.1.0",

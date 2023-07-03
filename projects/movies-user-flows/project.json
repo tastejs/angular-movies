@@ -18,11 +18,9 @@
     },
     "user-flow": {
       "executor": "@push-based/user-flow-nx-plugin:user-flow",
-      "outputs": [
-        "{options.outputPath}"
-      ],
       "options": {
-        "rcPath": "projects/movies-user-flows/.user-flowrc.json"
+        "rcPath": "projects/movies-user-flows/.user-flowrc.json",
+        "outputPath": "dist/user-flows/movies-user-flows"
       },
       "configurations": {
         "development": {

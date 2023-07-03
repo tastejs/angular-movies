@@ -8,7 +8,8 @@
           "build-report",
           "lint",
           "build-server-cf",
-          "server"
+          "server",
+          "user-flow"
         ],
         "accessToken": "OTI0YWJiN2ItNTI2MC00M2RmLTlmM2EtOWRiODZkYmVjZTAyfHJlYWQtd3JpdGU="
       }
@@ -43,6 +44,11 @@
         "default",
         "{workspaceRoot}/.eslintrc.json"
       ]
+    }
+  },
+  "generators": {
+    "@push-based/user-flow-nx-plugin:target": {
+      "targetName": "user-flow"
     }
   }
 }
