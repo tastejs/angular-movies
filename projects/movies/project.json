@@ -223,10 +223,17 @@
       }
     },
     "prerender": {
-      "dependsOn": ["pre-prerender"],
+      "dependsOn": [
+        "pre-prerender"
+      ],
+      "outputs": [
+        "dist/projects/movies/browser"
+      ],
       "executor": "@nguniversal/builders:prerender",
       "options": {
-        "routes": ["/"]
+        "routes": [
+          "/"
+        ]
       },
       "configurations": {
         "development": {
