@@ -1,5 +1,6 @@
 {
   "collect": {
+    "url": "https://angular-movies-a12d3.web.app",
     "ufPath": "./projects/movies-user-flows/src/user-flows"
   },
   "persist": {

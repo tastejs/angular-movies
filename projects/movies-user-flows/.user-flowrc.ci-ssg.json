@@ -1,9 +1,7 @@
 {
   "collect": {
-    "url": "http://localhost:4200",
-    "ufPath": "./projects/movies-user-flows/src/user-flows",
-    "serveCommand": "npm run prerender",
-    "awaitServeStdout": "Angular Universal Live Development Server is listening on"
+    "url": "https://angular-movies-a12d3.web.app",
+    "ufPath": "./projects/movies-user-flows/src/user-flows"
   },
   "persist": {
     "outPath": "./projects/movies-user-flows/src/measures",
