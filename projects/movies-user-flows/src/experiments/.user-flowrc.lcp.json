@@ -1,7 +1,7 @@
 {
   "collect": {
     "url": "http://localhost:4200",
-    "ufPath": "./projects/movies-user-flows/src/user-flows/lcp-experiment.uf.ts",
+    "ufPath": "./projects/movies-user-flows/src/experiments/lcp-experiment.uf.ts",
     "serveCommand": "npm run start:ssr:prod",
     "awaitServeStdout": "Angular Universal Live Development Server is listening on"
   },

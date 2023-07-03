@@ -49,5 +49,10 @@
         "{workspaceRoot}/jest.preset.js"
       ]
     }
+  },
+  "generators": {
+    "@push-based/user-flow-nx-plugin:target": {
+      "targetName": "user-flow"
+    }
   }
 }
