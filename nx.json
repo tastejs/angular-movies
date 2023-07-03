@@ -5,9 +5,10 @@
       "options": {
         "cacheableOperations": [
           "build",
-          "build-report",
           "lint",
-          "build-server-cf",
+          "build-report",
+          "build-server",
+          "pre-deploy",
           "server"
         ],
         "accessToken": "OTI0YWJiN2ItNTI2MC00M2RmLTlmM2EtOWRiODZkYmVjZTAyfHJlYWQtd3JpdGU="
