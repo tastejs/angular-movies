@@ -15,7 +15,7 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '18'
-          cache: 'npm'
+          cache: npm
 
       - name: Install dependencies
         run: npm ci
@@ -45,9 +45,12 @@ jobs:
         env:
           FIREBASE_CLI_PREVIEWS: hostingchannels
 
+      - name: LOG FB logs
+        run: echo ${{ steps.previewDeployStep.outputs }}
+
       - name: test preview channel hosting
         uses: push-based/user-flow-gh-action@v0.3.2
         with:
           verbose: 'on'
-          url: '${{ steps.previewDeployStep.outputs.url }}'
+          url: ${{ steps.previewDeployStep.outputs.url }}
           rcPath: ./projects/movies-user-flows/.user-flowrc.ci-csr.json
