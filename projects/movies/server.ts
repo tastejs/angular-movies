@@ -18,12 +18,6 @@ export function app(): express.Express {
 
   const distFolder = join(process.cwd(), 'dist/projects/movies/browser');
 
-  console.log(
-    distFolder,
-    statSync(distFolder).isDirectory(),
-    readdirSync(distFolder)
-  );
-
   const indexHtml = existsSync(join(distFolder, 'index.html'))
     ? 'index.html'
     : 'index';
