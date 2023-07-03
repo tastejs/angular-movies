@@ -36,9 +36,13 @@ jobs:
           FIREBASE_CLI_PREVIEWS: hostingchannels
 
       - name: LOG FB logs
-        run: echo ${{ steps.previewDeployStep.outputs.urls }}
+        run: echo ${{ toJson(steps.previewDeployStep.outputs.urls) }}
+      - name: LOG FB logs1
+        run: echo ${{ fromJson(steps.previewDeployStep.outputs.urls) }}
       - name: LOG FB logs2
-        run: echo ${{ steps.previewDeployStep.outputs.urls[0] }}
+        run: echo ${{ fromJson(steps.previewDeployStep.outputs.urls[0]) }}
+      - name: LOG FB logs3
+        run: echo ${{ fromJson(toJson(steps.previewDeployStep.outputs.urls)[0]) }}
 
       - name: test preview channel hosting
         uses: push-based/user-flow-gh-action@v0.3.2
