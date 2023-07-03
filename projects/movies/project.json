@@ -319,7 +319,7 @@
     "pre-deploy": {
       "executor": "nx:run-commands",
       "options": {
-        "commands": ["nx build movies", "nx prerender movies"],
+        "commands": ["nx build movies"],
         "parallel": false
       }
     }
