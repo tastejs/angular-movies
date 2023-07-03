@@ -8,8 +8,7 @@
           "build-report",
           "lint",
           "build-server-cf",
-          "server",
-          "user-flow"
+          "server"
         ],
         "accessToken": "OTI0YWJiN2ItNTI2MC00M2RmLTlmM2EtOWRiODZkYmVjZTAyfHJlYWQtd3JpdGU="
       }
