@@ -1,16 +1,12 @@
 {
   "functions": {
-    "source": "./dist/projects/movies/server"
+    "source": "dist/projects/movies/server"
   },
   "hosting": {
-    "public": "./dist/projects/movies/browser",
+    "public": "dist/projects/movies/browser",
     "cleanUrls": true,
     "trailingSlash": false,
-    "ignore": [
-      "!dist",
-      "*",
-      "**/**"
-    ],
+    "ignore": ["!dist", "*", "**/**"],
     "headers": [
       {
         "source": "**/*.html",
