@@ -19,6 +19,9 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Production build (client & server)
+        run: npm run nx pre-deploy firebase-function
+
       - name: Deploy to firebase live hosting
         id: deployStep
         uses: FirebaseExtended/action-hosting-deploy@v0.6-alpha
