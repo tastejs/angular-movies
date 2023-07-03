@@ -21,6 +21,7 @@ jobs:
         run: npm ci
 
       - name: Production build (client only)
+        run: npm run nx pre-deploy movies
 
       - name: Deploy to firebase preview channel hosting
         id: previewDeployStep
@@ -40,7 +41,6 @@ jobs:
           verbose: 'on'
           url: ${{ fromJson(steps.previewDeployStep.outputs.urls)[0] }}
           rcPath: ./projects/movies-user-flows/.user-flowrc.ci-csr.json
-
 
       - name: Update readme with bundle stats
         run: npm run nx update-readme movies
