@@ -7,6 +7,8 @@
 
 # dependencies
 /node_modules
+/projects/firebase-function/node_modules
+/projects/firebase-function/package-lock.json
 
 # IDEs and editors
 /.idea
@@ -32,6 +34,8 @@
 /libpeerconnection.log
 npm-debug.log
 yarn-error.log
+firebase-debug.log
+ui-debug.log
 testem.log
 /typings
 
