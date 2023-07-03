@@ -25,4 +25,4 @@ jobs:
         with:
           preCommands: npm run precf-deploy
           apiToken: ${{ secrets.CF_API_TOKEN_NEW }}
-          command: pages deploy ./dist/movies/cloudflare --project-name=ng-movies
+          command: pages deploy ./dist/projects/movies/cloudflare --project-name=ng-movies
