@@ -22,16 +22,6 @@ jobs:
 
       - name: Production build (client only)
         run: npm run nx build movies
-      - name: Update readme with bundle stats
-        run: npm run nx update-readme movies
-
-      - name: Commit measures
-        uses: EndBug/add-and-commit@v7
-        with:
-          author_name: push-based.io
-          author_email: opensource@push-based.io
-          message: 'Persist stats.json bundle-size report and readme'
-          add: '*'
 
       - name: Deploy to firebase preview channel hosting
         id: previewDeployStep
@@ -46,11 +36,23 @@ jobs:
           FIREBASE_CLI_PREVIEWS: hostingchannels
 
       - name: LOG FB logs
-        run: node -e "console.log(${{ toJSON(steps.previewDeployStep.outputs.urls)[0] }});"
+        run: node -e "console.log(${{ toJSON(steps.previewDeployStep.outputs.urls) }});"
 
       - name: test preview channel hosting
         uses: push-based/user-flow-gh-action@v0.3.2
         with:
           verbose: 'on'
-          url: ${{ toJSON(steps.previewDeployStep.outputs.urls)[0] }}
+          url: ${{ toJSON(steps.previewDeployStep.outputs.urls) }}
           rcPath: ./projects/movies-user-flows/.user-flowrc.ci-csr.json
+
+
+      - name: Update readme with bundle stats
+        run: npm run nx update-readme movies
+
+      - name: Commit measures
+        uses: EndBug/add-and-commit@v7
+        with:
+          author_name: push-based.io
+          author_email: opensource@push-based.io
+          message: 'Persist stats.json bundle-size report and readme'
+          add: '*'
