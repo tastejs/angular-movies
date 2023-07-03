@@ -27,8 +27,8 @@ jobs:
         id: previewDeployStep
         uses: FirebaseExtended/action-hosting-deploy@v0.6-alpha
         with:
-          repoToken: '${{ secrets.GITHUB_TOKEN }}'
-          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_ANGULAR_MOVIES_A12D3 }}'
+          repoToken: ${{ secrets.GITHUB_TOKEN }}
+          firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_ANGULAR_MOVIES_A12D3 }}
           projectId: angular-movies-a12d3
           channelId: ${{ github.head_ref }}
           expires: 30d
