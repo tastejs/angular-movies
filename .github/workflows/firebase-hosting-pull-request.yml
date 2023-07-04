@@ -11,6 +11,12 @@ jobs:
       - name: Checkout the repository
         uses: actions/checkout@v3
 
+      - name: Log deploy output
+        run: |
+          if [ "${{ secrets.ACTIONS_STEP_DEBUG }}" = "true" ]
+            then
+              echo "XXXXXXXXXXXX"
+
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
@@ -34,12 +40,6 @@ jobs:
           expires: 30d
         env:
           FIREBASE_CLI_PREVIEWS: hostingchannels
-
-      - name: Log deploy output
-        run: |
-          if [ "${{ secrets.ACTIONS_STEP_DEBUG }}" = "true" ]
-          then
-            echo ${{fromJson(steps.previewDeployStep.outputs)}}
 
       - name: Test firebase preview channel hosting
         uses: push-based/user-flow-gh-action@v0.3.2
