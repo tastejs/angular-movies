@@ -35,8 +35,8 @@ jobs:
         uses: push-based/user-flow-gh-action@v0.3.2
         with:
           verbose: on
-          # url: https://angular-movies-a12d3.web.app # @TODO figure out why outputs urls are different
-          url: ${{ fromJson(steps.deployStep.outputs.urls)[0] }}
+          url: https://angular-movies-a12d3.web.app # @TODO figure out why outputs urls are different
+          # url: ${{ fromJson(steps.deployStep.outputs.urls)[0] }} // @TODO figure out why outputs urls are different
           rcPath: ./projects/movies-user-flows/.user-flowrc.json
 
       - name: Update readme with bundle stats
