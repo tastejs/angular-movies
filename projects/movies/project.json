@@ -207,11 +207,11 @@
       "configurations": {
         "development": {
           "browserTarget": "movies:build:development",
-          "serverTarget": "movies:server:development"
+          "serverTarget": "movies:build-server-fb:development"
         },
         "production": {
           "browserTarget": "movies:build:production",
-          "serverTarget": "movies:server:production"
+          "serverTarget": "movies:build-server-fb:production"
         }
       },
       "defaultConfiguration": "production"
@@ -253,7 +253,7 @@
         "{options.outputPath}"
       ]
     },
-    "build-server": {
+    "build-server-fb": {
       "outputs": [
         "dist/projects/movies/server"
       ],

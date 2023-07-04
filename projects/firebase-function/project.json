@@ -48,7 +48,7 @@
       "options": {
         "commands": [
           "nx pre-deploy movies",
-          "nx build-server movies",
+          "nx build-server-fb movies",
           "nx build firebase-function"
         ],
         "parallel": false
