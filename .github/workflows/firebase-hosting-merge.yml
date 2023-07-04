@@ -31,9 +31,6 @@ jobs:
           projectId: angular-movies-a12d3
           channelId: ${{ github.head_ref }}
 
-      - name: Production build (client & server)
-        run: npm run nx pre-deploy firebase-function
-
       - name: Log deploy output
         run: echo ${{fromJson(steps.deployStep.outputs)}}
 
