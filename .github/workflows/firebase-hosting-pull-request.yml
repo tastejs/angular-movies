@@ -36,8 +36,10 @@ jobs:
           FIREBASE_CLI_PREVIEWS: hostingchannels
 
       - name: Log deploy output
-        if: secrets.ACTIONS_STEP_DEBUG == 'true'
-        run: echo ${{fromJson(steps.previewDeployStep.outputs)}}
+        run: |
+          if [ "${{ secrets.ACTIONS_STEP_DEBUG }}" = "true" ]
+          then
+            echo ${{fromJson(steps.previewDeployStep.outputs)}}
 
       - name: Test firebase preview channel hosting
         uses: push-based/user-flow-gh-action@v0.3.2

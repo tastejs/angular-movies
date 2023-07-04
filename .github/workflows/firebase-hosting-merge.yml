@@ -32,8 +32,10 @@ jobs:
           channelId: ${{ github.head_ref }}
 
       - name: Log deploy output
-        if: secrets.ACTIONS_STEP_DEBUG == 'true'
-        run: echo ${{fromJson(steps.deployStep.outputs)}}
+        run: |
+          if [ "${{ secrets.ACTIONS_STEP_DEBUG }}" = "true" ]
+          then
+            echo ${{fromJson(steps.deployStep.outputs)}}
 
       - name: Test firebase preview channel hosting
         uses: push-based/user-flow-gh-action@v0.3.2
