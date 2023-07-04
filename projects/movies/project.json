@@ -94,7 +94,7 @@
           "fileReplacements": [
             {
               "replace": "projects/movies/src/environments/environment.ts",
-              "with": "projects/movies/src/environments/environment.prod.ts"
+              "with": "projects/movies/src/environments/environment.production.ts"
             }
           ]
         },
@@ -185,7 +185,7 @@
           "fileReplacements": [
             {
               "replace": "projects/movies/src/environments/environment.ts",
-              "with": "projects/movies/src/environments/environment.prod.ts"
+              "with": "projects/movies/src/environments/environment.production.ts"
             }
           ],
           "sourceMap": false,

@@ -26,18 +26,6 @@
             }
           ]
         },
-        "production-stats": {
-          "buildOptimizer": true,
-          "outputHashing": "none",
-          "fileReplacements": [
-            {
-              "replace": "projects/movies/src/environments/environment.ts",
-              "with": "projects/movies/src/environments/environment.production.ts"
-            }
-          ],
-          "optimization": true,
-          "sourceMap": true
-        },
         "serve-production": {
           "outputHashing": "media",
           "fileReplacements": [
