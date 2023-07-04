@@ -30,6 +30,16 @@
             }
           ]
         },
+        "serve-ssr-production": {
+          "outputHashing": "media",
+          "fileReplacements": [
+            {
+              "replace": "projects/movies/src/environments/environment.ts",
+              "with": "projects/movies/src/environments/environment.prod.ts"
+            }
+          ],
+          "tsConfig": "projects/ng-universal-express/tsconfig.serve-ssr.json"
+        },
         "development": {
           "outputHashing": "media",
           "buildOptimizer": false,
