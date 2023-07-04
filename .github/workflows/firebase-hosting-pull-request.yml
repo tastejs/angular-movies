@@ -13,7 +13,7 @@ jobs:
 
       - name: Log deploy output
         run: |
-          if [ "${{ secrets.ACTIONS_STEP_DEBUG }}" = "true" ]
+          if "${{ secrets.ACTIONS_STEP_DEBUG }}" = "true"
           then
             echo XXXXXXXXXXXX
 
