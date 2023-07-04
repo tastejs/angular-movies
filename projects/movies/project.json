@@ -196,14 +196,6 @@
       },
       "defaultConfiguration": "production",
       "outputs": ["{options.outputPath}"]
-    },
-    "pre-deploy": {
-      "executor": "nx:run-commands",
-      "outputs": ["dist/projects/movies"],
-      "options": {
-        "commands": ["nx build movies", "nx prerender movies"],
-        "parallel": false
-      }
     }
   }
 }
