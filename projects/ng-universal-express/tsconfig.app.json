@@ -1,18 +1,18 @@
+/* To learn more about this file see: https://angular.io/config/tsconfig. */
 {
   "extends": "./tsconfig.json",
+  "include": [
+    "src/**/*.d.ts"
+  ],
   "compilerOptions": {
-    "outDir": "../../dist/out-tsc",
-    "module": "commonjs",
+    "outDir": "../../out-tsc/server",
+    "target": "es2019",
     "types": [
       "node"
     ]
   },
-  "exclude": [
-    "jest.config.ts",
-    "src/**/*.spec.ts",
-    "src/**/*.test.ts"
-  ],
-  "include": [
-    "src/**/*.ts"
+  "files": [
+    "../movies/src/main.server.ts",
+    "src/index.ts"
   ]
 }
