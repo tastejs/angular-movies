@@ -37,9 +37,11 @@ jobs:
       - name: Log deploy output
         run: echo ${{fromJson(steps.deployStep.outputs)}}
 
+      - name: Test firebase preview channel hosting
+        uses: push-based/user-flow-gh-action@v0.3.2
         with:
           verbose: on
-          #url: https://angular-movies-a12d3.web.app #
+          # url: https://angular-movies-a12d3.web.app # @TODO figure out why outputs urls are different
           url: ${{ fromJson(steps.deployStep.outputs.urls)[0] }}
           rcPath: ./projects/movies-user-flows/.user-flowrc.json
 
