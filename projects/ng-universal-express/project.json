@@ -39,7 +39,8 @@
       "executor": "nx:run-commands",
       "options": {
         "commands": [
-          "nx run movies:build:production"
+          "nx run movies:build:production",
+          "nx run movies:generate-routes"
         ],
         "parallel": false
       },
@@ -89,18 +90,6 @@
           "ci": true,
           "codeCoverage": true
         }
-      }
-    },
-    "generate-routes": {
-      "outputs": [
-        "dist/projects/movies/browser"
-      ],
-      "executor": "nx:run-commands",
-      "options": {
-        "commands": [
-          "npx ts-node -P tooling/tsconfig.json ./tooling/generate-routes/generate-routes.ts --source-file=./projects/movies/routes.txt --target-file=./dist/projects/movies/browser/routes.txt"
-        ],
-        "parallel": false
       }
     },
     "prerender": {

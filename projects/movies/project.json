@@ -122,12 +122,6 @@
       },
       "defaultConfiguration": "development"
     },
-    "extract-i18n": {
-      "executor": "@angular-devkit/build-angular:extract-i18n",
-      "options": {
-        "browserTarget": "movies:build"
-      }
-    },
     "lint": {
       "executor": "@angular-eslint/builder:lint",
       "options": {
@@ -136,7 +130,31 @@
           "projects/movies/src/app/**/*.html"
         ]
       },
-      "outputs": ["{options.outputFile}"]
+      "outputs": [
+        "{options.outputFile}"
+      ]
+    },
+    "extract-i18n": {
+      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "options": {
+        "browserTarget": "movies:build"
+      }
+    },
+    "build-report": {
+      "dependsOn": [
+        "build"
+      ],
+      "executor": "nx:run-commands",
+      "outputs": [
+        "dist/measures/movies"
+      ],
+      "options": {
+        "commands": [
+          "npx cpx \"dist/projects/movies/browser/stats.json\" dist/measures/movies",
+          "npx webpack-bundle-analyzer dist/projects/movies/browser/stats.json -m static -r dist/measures/movies/bundle-size-report.prod.html"
+        ],
+        "parallel": false
+      }
     },
     "update-readme": {
       "executor": "nx:run-commands",
@@ -149,18 +167,6 @@
       "options": {
         "commands": [
           "npx ts-node -P tooling/tsconfig.json  ./tooling/bundle-stats/index.ts update-bundle-stats --stats=dist/measures/movies/stats.json --target=./README.md"
-        ],
-        "parallel": false
-      }
-    },
-    "build-report": {
-      "dependsOn": ["build"],
-      "executor": "nx:run-commands",
-      "outputs": ["dist/measures/movies"],
-      "options": {
-        "commands": [
-          "npx cpx \"dist/projects/movies/browser/stats.json\" dist/measures/movies",
-          "npx webpack-bundle-analyzer dist/projects/movies/browser/stats.json -m static -r dist/measures/movies/bundle-size-report.prod.html"
         ],
         "parallel": false
       }
@@ -179,7 +185,7 @@
       },
       "defaultConfiguration": "development"
     },
-    "pre-prerender": {
+    "generate-routes": {
       "outputs": [
         "dist/projects/movies/browser"
       ],
@@ -193,7 +199,7 @@
     },
     "prerender": {
       "dependsOn": [
-        "pre-prerender"
+        "generate-routes"
       ],
       "outputs": [
         "dist/projects/movies/browser"
