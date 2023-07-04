@@ -31,12 +31,6 @@ jobs:
           projectId: angular-movies-a12d3
           channelId: ${{ github.head_ref }}
 
-      - name: Log deploy output
-        run: |
-          if [ "${{ secrets.ACTIONS_STEP_DEBUG }}" = "true" ]
-          then
-            echo ${{fromJson(steps.deployStep.outputs)}}
-
       - name: Test firebase preview channel hosting
         uses: push-based/user-flow-gh-action@v0.3.2
         with:

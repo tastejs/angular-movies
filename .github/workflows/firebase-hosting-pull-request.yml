@@ -11,10 +11,6 @@ jobs:
       - name: Checkout the repository
         uses: actions/checkout@v3
 
-      - name: Log deploy output
-        run: echo "XXXXXXXXXXXX"
-        if: [ "${{secrets.ACTIONS_STEP_DEBUG}}" == 'true' ]
-
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
