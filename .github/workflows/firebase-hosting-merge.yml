@@ -31,7 +31,7 @@ jobs:
           projectId: angular-movies-a12d3
           channelId: ${{ github.head_ref }}
 
-      - name: Test firebase preview channel hosting
+      - name: Test firebase live hosting
         uses: push-based/user-flow-gh-action@v0.3.2
         with:
           verbose: on
