@@ -8,6 +8,8 @@ import {GenresResponse} from '../../projects/movies/src/app/data-access/api/reso
 import {environment} from '../../projects/movies/src/environments/environment';
 
 // PARAMS
+const mutation = !getArgv('no-mutation');
+
 const targetFile = getArgv('target-file');
 if (!targetFile) {
   throw new Error('CLI param --targetFile is required');
@@ -59,8 +61,8 @@ Promise.all([
   ...moviesPopularRoutes({pages: 2}),
 ])
   .then((routes) => {
-    console.log('write to target: ', targetFile);
-    writeFileSyncRecursive(targetFile, routes.flat().join(EOL));
+    console.log('write to target ' + (mutation ? 'with' : 'without') + ' mutations', targetFile);
+    writeFileSyncRecursive(targetFile, mutation ? defaultRoutes.flat().join(EOL) : routes.flat().join(EOL));
   })
   .catch((e) => console.error(e));
 

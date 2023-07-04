@@ -80,8 +80,7 @@
             }
           ],
           "serviceWorker": true,
-          "ngswConfigPath": "projects/movies/src/ngsw-config.json",
-          "outputHashing": "all"
+          "ngswConfigPath": "projects/movies/src/ngsw-config.json"
         },
         "production-stats": {
           "namedChunks": true,
@@ -90,7 +89,6 @@
           "buildOptimizer": true,
           "optimization": true,
           "serviceWorker": false,
-          "outputHashing": "none",
           "fileReplacements": [
             {
               "replace": "projects/movies/src/environments/environment.ts",
@@ -108,7 +106,21 @@
         }
       },
       "defaultConfiguration": "production",
-      "outputs": ["{options.outputPath}"]
+      "outputs": [
+        "{options.outputPath}"
+      ]
+    },
+    "emulate-firebase-hosting": {
+      "executor": "nx:run-commands",
+      "dependsOn": [
+        "build"
+      ],
+      "options": {
+        "commands": [
+          "firebase emulators:start --only hosting --project angular-movies"
+        ],
+        "parallel": false
+      }
     },
     "serve": {
       "executor": "@angular-devkit/build-angular:dev-server",

@@ -9,6 +9,7 @@
       "outputs": ["dist/projects/movies/server"],
       "executor": "@angular-devkit/build-angular:server",
       "options": {
+        "deleteOutputPath": false,
         "outputHashing": "media",
         "sourceMap": true,
         "outputPath": "dist/projects/movies/server",
@@ -18,6 +19,7 @@
       },
       "configurations": {
         "production": {
+          "deleteOutputPath": false,
           "sourceMap": false,
           "fileReplacements": [
             {
@@ -27,7 +29,8 @@
           ]
         },
         "serve-production": {
-          "outputHashing": "media",
+          "deleteOutputPath": false,
+          "sourceMap": false,
           "fileReplacements": [
             {
               "replace": "projects/movies/src/environments/environment.ts",
@@ -38,6 +41,7 @@
           "tsConfig": "projects/ng-universal-express/tsconfig.serve.json"
         },
         "development": {
+          "deleteOutputPath": false,
           "buildOptimizer": false,
           "optimization": false,
           "sourceMap": true,
@@ -45,6 +49,7 @@
           "vendorChunk": true
         },
         "serve-development": {
+          "deleteOutputPath": false,
           "buildOptimizer": false,
           "optimization": false,
           "sourceMap": true,
@@ -58,6 +63,9 @@
     },
     "serve": {
       "executor": "@nguniversal/builders:ssr-dev-server",
+      "options": {
+        "port": 4300
+      },
       "configurations": {
         "development": {
           "browserTarget": "movies:build:development",
@@ -70,16 +78,33 @@
       },
       "defaultConfiguration": "development"
     },
+    "emulate-firebase-hosting": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          "nx prerender ng-universal-express",
+          "nx prerender ng-universal-express",
+          "firebase emulators:start --only hosting --project angular-movies"
+        ],
+        "parallel": false
+      }
+    },
     "lint": {
       "executor": "@nx/linter:eslint",
-      "outputs": ["{options.outputFile}"],
+      "outputs": [
+        "{options.outputFile}"
+      ],
       "options": {
-        "lintFilePatterns": ["projects/ng-universal-express/**/*.ts"]
+        "lintFilePatterns": [
+          "projects/ng-universal-express/**/*.ts"
+        ]
       }
     },
     "test": {
       "executor": "@nx/jest:jest",
-      "outputs": ["{workspaceRoot}/dist/coverage/ng-universal-express"],
+      "outputs": [
+        "{workspaceRoot}/dist/coverage/ng-universal-express"
+      ],
       "options": {
         "jestConfig": "projects/ng-universal-express/jest.config.ts",
         "passWithNoTests": true
