@@ -11,7 +11,7 @@
       "executor": "@angular-devkit/build-angular:server",
       "options": {
         "outputPath": "dist/projects/movies/server",
-        "main": "projects/ng-universal-express/src/index.ts",
+        "main": "projects/ng-universal-express/src/main.ts",
         "tsConfig": "projects/ng-universal-express/tsconfig.app.json",
         "inlineStyleLanguage": "scss"
       },
@@ -50,6 +50,8 @@
     },
     "serve": {
       "executor": "@nguniversal/builders:ssr-dev-server",
+      "options": {
+      },
       "configurations": {
         "development": {
           "browserTarget": "ng-universal-express:build-browser",
@@ -89,7 +91,7 @@
         }
       }
     },
-    "pre-prerender": {
+    "generate-routes": {
       "outputs": [
         "dist/projects/movies/browser"
       ],
@@ -102,9 +104,6 @@
       }
     },
     "prerender": {
-      "dependsOn": [
-        "pre-prerender"
-      ],
       "outputs": [
         "./dist/projects/movies/browser"
       ],
@@ -120,8 +119,8 @@
           "serverTarget": "ng-universal-express:build:development"
         },
         "production": {
-          "browserTarget": "ng-universal-express:build-browser:production",
-          "serverTarget": "ng-universal-express:build:production"
+          "browserTarget": "ng-universal-express:build-browser",
+          "serverTarget": "ng-universal-express:build"
         }
       },
       "defaultConfiguration": "production"

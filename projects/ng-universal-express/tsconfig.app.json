@@ -13,6 +13,7 @@
   },
   "files": [
     "../movies/src/main.server.ts",
-    "src/index.ts"
+    "src/app.ts",
+    "src/main.ts"
   ]
 }
