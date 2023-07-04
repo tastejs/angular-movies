@@ -74,11 +74,11 @@
       "configurations": {
         "development": {
           "browserTarget": "ng-universal-express:build-browser",
-          "serverTarget": "ng-universal-express:build:development"
+          "serverTarget": "ng-universal-express:build-server"
         },
         "production": {
-          "browserTarget": "ng-universal-express:build-browser:production",
-          "serverTarget": "ng-universal-express:build:production"
+          "browserTarget": "ng-universal-express:build-browser",
+          "serverTarget": "ng-universal-express:build-server"
         }
       },
       "defaultConfiguration": "development"
@@ -111,20 +111,14 @@
       }
     },
     "prerender": {
+      "dependsOn": [
+        "generate-routes"
+      ],
       "executor": "@nguniversal/builders:prerender",
-      "options": {
-        "routes": [
-          "dist/projects/movies/browser"
-        ]
-      },
       "configurations": {
-        "development": {
-          "browserTarget": "ng-universal-express:build-browser",
-          "serverTarget": "ng-universal-express:build"
-        },
         "production": {
           "browserTarget": "ng-universal-express:build-browser",
-          "serverTarget": "ng-universal-express:build"
+          "serverTarget": "ng-universal-express:build-server"
         }
       },
       "defaultConfiguration": "production"
