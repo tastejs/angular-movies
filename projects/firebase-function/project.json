@@ -1,0 +1,67 @@
+{
+  "name": "firebase-function",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "projects/firebase-function/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "outputs": ["dist/projects/movies/server"],
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          "tsc --build projects/firebase-function/tsconfig.app.json"
+        ],
+        "parallel": false
+      }
+    },
+    "serve": {
+      "executor": "@nx/js:node",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "projects/firebase-function:build"
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "projects/firebase-function:build:development"
+        },
+        "production": {
+          "buildTarget": "projects/firebase-function:build:production"
+        }
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "projects/firebase-function/jest.config.ts",
+        "passWithNoTests": true
+      },
+      "configurations": {
+        "ci": {
+          "ci": true,
+          "codeCoverage": true
+        }
+      }
+    },
+    "pre-deploy": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          "nx pre-deploy movies",
+          "nx build-server-fb movies",
+          "nx build firebase-function"
+        ],
+        "parallel": false
+      }
+    },
+    "deploy": {
+      "executor": "nx:run-commands",
+      "dependsOn": ["pre-deploy"],
+      "options": {
+        "commands": ["npx firebase deploy --project angular-movies"],
+        "parallel": false
+      }
+    }
+  },
+  "tags": []
+}

@@ -22,18 +22,24 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Deploy to Firebase hosting and functions production (live)
-        run: |
-          npm run nx deploy-fb movies
-        env:
-          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+      - name: Production build (client & server)
+        run: npm run nx pre-deploy firebase-function
 
+      - name: Deploy firebase live hosting
+        id: deployStep
+        uses: FirebaseExtended/action-hosting-deploy@v0.6-alpha
+        with:
+          repoToken: ${{ secrets.GITHUB_TOKEN }}
+          firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_ANGULAR_MOVIES_A12D3 }}
+          projectId: angular-movies-a12d3
+          channelId: ${{ github.head_ref }}
 
-      - name: Test live hosting
+      - name: Test firebase live hosting
         uses: push-based/user-flow-gh-action@v0.3.2
         with:
-          verbose: 'on'
-          url: ${{ fromJson(steps.previewDeployStep.outputs.urls)[0] }}
+          verbose: on
+          url: https://angular-movies-a12d3.web.app
+          # url: ${{ fromJson(steps.deployStep.outputs.urls)[0] }} // @TODO figure out why outputs urls are different from `https://angular-movies-a12d3.web.app`
           rcPath: ./projects/movies-user-flows/.user-flowrc.json
 
       - name: Update readme with bundle stats

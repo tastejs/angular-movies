@@ -13,7 +13,7 @@ const serverConfig: ApplicationConfig = {
     provideHttpClient(),
     provideISR(),
     provideFastSVG({
-      url: (name: string) => `assets/svg-icons/${name}.svg`,
+      url: (name: string) => `dist/projects/movies/browser/assets/svg-icons/${name}.svg`,
       svgLoadStrategy: IconLoadStrategySsr,
     }),
     {

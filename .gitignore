@@ -29,9 +29,12 @@
 /.sass-cache
 /connect.lock
 /coverage
+/.firebase
 /libpeerconnection.log
 npm-debug.log
 yarn-error.log
+firebase-debug.log
+ui-debug.log
 testem.log
 /typings
 

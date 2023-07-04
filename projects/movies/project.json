@@ -29,9 +29,7 @@
           "projects/movies/src/assets",
           "projects/movies/src/_routes.json"
         ],
-        "styles": [
-          "projects/movies/src/styles.scss"
-        ],
+        "styles": ["projects/movies/src/styles.scss"],
         "scripts": []
       },
       "configurations": {
@@ -109,9 +107,7 @@
         }
       },
       "defaultConfiguration": "production",
-      "outputs": [
-        "{options.outputPath}"
-      ]
+      "outputs": ["{options.outputPath}"]
     },
     "serve": {
       "executor": "@angular-devkit/build-angular:dev-server",
@@ -140,9 +136,7 @@
           "projects/movies/src/app/**/*.html"
         ]
       },
-      "outputs": [
-        "{options.outputFile}"
-      ]
+      "outputs": ["{options.outputFile}"]
     },
     "update-readme": {
       "executor": "nx:run-commands",
@@ -150,7 +144,7 @@
         "build-report"
       ],
       "outputs": [
-        "{workspaceRoot}"
+        "README.md"
       ],
       "options": {
         "commands": [
@@ -160,13 +154,9 @@
       }
     },
     "build-report": {
-      "dependsOn": [
-        "build"
-      ],
+      "dependsOn": ["build"],
       "executor": "nx:run-commands",
-      "outputs": [
-        "dist/measures/movies"
-      ],
+      "outputs": ["dist/measures/movies"],
       "options": {
         "commands": [
           "npx cpx \"dist/projects/movies/browser/stats.json\" dist/measures/movies",
@@ -174,45 +164,6 @@
         ],
         "parallel": false
       }
-    },
-    "build-server": {
-      "executor": "@angular-devkit/build-angular:server",
-      "options": {
-        "outputPath": "dist/projects/movies/server",
-        "main": "server.ts",
-        "tsConfig": "projects/movies/tsconfig.server.json",
-        "optimization": false,
-        "sourceMap": true,
-        "extractLicenses": false,
-        "buildOptimizer": false
-      },
-      "configurations": {
-        "development": {
-          "outputHashing": "none",
-          "optimization": false,
-          "sourceMap": true,
-          "extractLicenses": true,
-          "vendorChunk": true,
-          "buildOptimizer": false
-        },
-        "production": {
-          "outputHashing": "media",
-          "fileReplacements": [
-            {
-              "replace": "projects/movies/src/environments/environment.ts",
-              "with": "projects/movies/src/environments/environment.prod.ts"
-            }
-          ],
-          "optimization": true,
-          "sourceMap": false,
-          "extractLicenses": true,
-          "buildOptimizer": true
-        }
-      },
-      "defaultConfiguration": "production",
-      "outputs": [
-        "{options.outputPath}"
-      ]
     },
     "serve-ssr": {
       "executor": "@nguniversal/builders:ssr-dev-server",
@@ -230,12 +181,12 @@
     },
     "pre-prerender": {
       "outputs": [
-        "{workspaceRoot}"
+        "dist/projects/movies/browser"
       ],
       "executor": "nx:run-commands",
       "options": {
         "commands": [
-          "npx ts-node -P tooling/tsconfig.json ./tooling/generate-routes/generate-routes.ts"
+          "npx ts-node -P tooling/tsconfig.json ./tooling/generate-routes/generate-routes.ts --source-file=./projects/movies/routes.txt --target-file=./dist/projects/movies/browser/routes.txt"
         ],
         "parallel": false
       }
@@ -243,6 +194,9 @@
     "prerender": {
       "dependsOn": [
         "pre-prerender"
+      ],
+      "outputs": [
+        "dist/projects/movies/browser"
       ],
       "executor": "@nguniversal/builders:prerender",
       "options": {
@@ -253,11 +207,11 @@
       "configurations": {
         "development": {
           "browserTarget": "movies:build:development",
-          "serverTarget": "movies:server:development"
+          "serverTarget": "movies:build-server-fb:development"
         },
         "production": {
           "browserTarget": "movies:build:production",
-          "serverTarget": "movies:server:production"
+          "serverTarget": "movies:build-server-fb:production"
         }
       },
       "defaultConfiguration": "production"
@@ -299,7 +253,10 @@
         "{options.outputPath}"
       ]
     },
-    "server": {
+    "build-server-fb": {
+      "outputs": [
+        "dist/projects/movies/server"
+      ],
       "dependsOn": [
         "build"
       ],
@@ -342,17 +299,15 @@
       },
       "defaultConfiguration": "production"
     },
-    "deploy-fb": {
+    "pre-deploy": {
       "executor": "nx:run-commands",
-      "dependsOn": [
-        "prerender"
-      ],
       "outputs": [
-        "{workspaceRoot}"
+        "dist/projects/movies"
       ],
       "options": {
         "commands": [
-          "npx firebase deploy"
+          "nx build movies",
+          "nx prerender movies"
         ],
         "parallel": false
       }
