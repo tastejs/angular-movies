@@ -213,11 +213,13 @@
       "defaultConfiguration": "development"
     },
     "pre-prerender": {
-      "outputs": ["{workspaceRoot}"],
+      "outputs": [
+        "dist/projects/movies/browser"
+      ],
       "executor": "nx:run-commands",
       "options": {
         "commands": [
-          "npx ts-node -P tooling/tsconfig.json ./tooling/generate-routes/generate-routes.ts"
+          "npx ts-node -P tooling/tsconfig.json ./tooling/generate-routes/generate-routes.ts --source-file=./projects/movies/routes.txt --target-file=./dist/projects/movies/browser/routes.txt"
         ],
         "parallel": false
       }
