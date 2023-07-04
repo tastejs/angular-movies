@@ -16,6 +16,7 @@
     "build": {
       "executor": "@angular-devkit/build-angular:browser",
       "options": {
+        "deleteOutputPath": false,
         "outputPath": "dist/projects/movies/browser",
         "index": "projects/movies/src/index.html",
         "main": "projects/movies/src/main.ts",

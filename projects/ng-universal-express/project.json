@@ -45,7 +45,19 @@
       "executor": "nx:run-commands",
       "options": {
         "commands": [
-          "nx run movies:build",
+          "nx run movies:build:production"
+        ],
+        "parallel": false
+      },
+      "configurations": {
+        "development": {},
+        "production": {}
+      }
+    },
+    "generate-routes": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
           "nx run movies:generate-routes"
         ],
         "parallel": false
@@ -113,6 +125,31 @@
         "production": {
           "browserTarget": "ng-universal-express:build-browser",
           "serverTarget": "ng-universal-express:build"
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "_prerender": {
+      "dependsOn": [
+        "generate-routes"
+      ],
+      "outputs": [
+        "dist/projects/movies/browser"
+      ],
+      "executor": "@nguniversal/builders:prerender",
+      "options": {
+        "routes": [
+          "/"
+        ]
+      },
+      "configurations": {
+        "development": {
+          "browserTarget": "movies:build:development",
+          "serverTarget": "movies:build-server-fb:development"
+        },
+        "production": {
+          "browserTarget": "movies:build:production",
+          "serverTarget": "movies:build-server-fb:production"
         }
       },
       "defaultConfiguration": "production"

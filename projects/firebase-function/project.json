@@ -52,8 +52,7 @@
       "executor": "nx:run-commands",
       "options": {
         "commands": [
-          "nx pre-deploy movies",
-          "nx build ng-universal-express",
+          "nx prerender ng-universal-express",
           "nx build firebase-function"
         ],
         "parallel": false
