@@ -76,7 +76,7 @@
           "fileReplacements": [
             {
               "replace": "projects/movies/src/environments/environment.ts",
-              "with": "projects/movies/src/environments/environment.prod.ts"
+              "with": "projects/movies/src/environments/environment.production.ts"
             }
           ],
           "serviceWorker": true,

@@ -27,33 +27,7 @@ For now you can search the codebase for "Perf Tip" later on there will be proppe
 [Measures after optimization](https://lighthouse-metrics.com/checks/6a888a17-b17b-46a6-abc9-e605b73a530c/runs/503701ad-36aa-43ad-8de3-cb40e775c770)
 ![angular-movies-after-optimization_michael-hladky](https://user-images.githubusercontent.com/10064416/146446241-ad9eeed4-b0a4-44a2-a88e-4ea7c97e1acf.PNG)
 
-
 **Bundle Stats**
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <!-- bundle-stats-start -->
 | Names             |       Size |
 | ---               | ---        |
@@ -78,33 +52,8 @@ For now you can search the codebase for "Perf Tip" later on there will be proppe
 | app_pages_account-feature_list-detail-page_list-detail-page_routes_ts.0575dae169ed942d.js           | 1.5 KB |
 | app_pages_account-feature_account-feature-page_routes_ts.3866fe3055bd5ca7.js           | 853 Bytes |
 | app_pages_account-feature_list-detail-page_list-movies_list-movies_component_ts.5c77ff971f0c9240.js           | 657 Bytes |
+
 <!-- bundle-stats-end -->
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ## Comparison to next and nuxt
 
 - [angular](https://angular-movies-a12d3.web.app/list/category/popular)
@@ -131,10 +80,11 @@ Clone and install the dependencies for `angular-movies` locally:
 
 ## Quick setup
 
-1. Take a copy of `src/environments/environment.local.example.ts` and re-name to `src/environments/environment.prod.ts` 
+1. Take a copy of `src/environments/environment.local.example.ts` and re-name
+   to `src/environments/environment.production.ts`
 2. Get your TMDb API key
 3. Get your TMDB API read access token
-4. Enter the details into the `src/environments/environment.prod.ts` file
+4. Enter the details into the `src/environments/environment.production.ts` file
     
 ## Running locally
 

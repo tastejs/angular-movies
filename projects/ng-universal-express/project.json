@@ -9,6 +9,8 @@
       "outputs": ["dist/projects/movies/server"],
       "executor": "@angular-devkit/build-angular:server",
       "options": {
+        "outputHashing": "media",
+        "sourceMap": true,
         "outputPath": "dist/projects/movies/server",
         "main": "projects/ng-universal-express/src/app.ts",
         "tsConfig": "projects/ng-universal-express/tsconfig.app.json",
@@ -16,11 +18,11 @@
       },
       "configurations": {
         "production": {
-          "outputHashing": "media",
+          "sourceMap": false,
           "fileReplacements": [
             {
               "replace": "projects/movies/src/environments/environment.ts",
-              "with": "projects/movies/src/environments/environment.prod.ts"
+              "with": "projects/movies/src/environments/environment.production.ts"
             }
           ]
         },
@@ -30,7 +32,7 @@
           "fileReplacements": [
             {
               "replace": "projects/movies/src/environments/environment.ts",
-              "with": "projects/movies/src/environments/environment.prod.ts"
+              "with": "projects/movies/src/environments/environment.production.ts"
             }
           ],
           "optimization": true,
@@ -41,7 +43,7 @@
           "fileReplacements": [
             {
               "replace": "projects/movies/src/environments/environment.ts",
-              "with": "projects/movies/src/environments/environment.prod.ts"
+              "with": "projects/movies/src/environments/environment.production.ts"
             }
           ],
           "main": "projects/ng-universal-express/src/start-app.ts",

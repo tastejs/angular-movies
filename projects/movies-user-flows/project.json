@@ -4,9 +4,7 @@
   "projectType": "application",
   "sourceRoot": "projects/movies-user-flows/src",
   "implicitDependencies": [
-    "movies",
-    "ng-universal-express",
-    "firebase-function"
+    "movies"
   ],
   "targets": {
     "serve": {
