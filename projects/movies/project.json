@@ -140,8 +140,12 @@
     },
     "update-readme": {
       "executor": "nx:run-commands",
-      "dependsOn": ["build-report"],
-      "outputs": ["{workspaceRoot}"],
+      "dependsOn": [
+        "build-report"
+      ],
+      "outputs": [
+        "README.md"
+      ],
       "options": {
         "commands": [
           "npx ts-node -P tooling/tsconfig.json  ./tooling/bundle-stats/index.ts update-bundle-stats --stats=dist/measures/movies/stats.json --target=./README.md"
@@ -160,43 +164,6 @@
         ],
         "parallel": false
       }
-    },
-    "build-server": {
-      "executor": "@angular-devkit/build-angular:server",
-      "options": {
-        "outputPath": "dist/projects/movies/server",
-        "main": "projects/movies/server.ts",
-        "tsConfig": "projects/movies/tsconfig.server.json",
-        "optimization": false,
-        "sourceMap": true,
-        "extractLicenses": false,
-        "buildOptimizer": false
-      },
-      "configurations": {
-        "development": {
-          "outputHashing": "none",
-          "optimization": false,
-          "sourceMap": true,
-          "extractLicenses": true,
-          "vendorChunk": true,
-          "buildOptimizer": false
-        },
-        "production": {
-          "outputHashing": "media",
-          "fileReplacements": [
-            {
-              "replace": "projects/movies/src/environments/environment.ts",
-              "with": "projects/movies/src/environments/environment.prod.ts"
-            }
-          ],
-          "optimization": true,
-          "sourceMap": false,
-          "extractLicenses": true,
-          "buildOptimizer": true
-        }
-      },
-      "defaultConfiguration": "production",
-      "outputs": ["{options.outputPath}"]
     },
     "serve-ssr": {
       "executor": "@nguniversal/builders:ssr-dev-server",
@@ -282,10 +249,17 @@
         }
       },
       "defaultConfiguration": "production",
-      "outputs": ["{options.outputPath}"]
+      "outputs": [
+        "{options.outputPath}"
+      ]
     },
-    "server": {
-      "dependsOn": ["build"],
+    "build-server": {
+      "outputs": [
+        "dist/projects/movies/server"
+      ],
+      "dependsOn": [
+        "build"
+      ],
       "executor": "@angular-devkit/build-angular:server",
       "options": {
         "outputPath": "dist/projects/movies/server",
@@ -327,6 +301,9 @@
     },
     "pre-deploy": {
       "executor": "nx:run-commands",
+      "outputs": [
+        "dist/projects/movies"
+      ],
       "options": {
         "commands": [
           "nx build movies",

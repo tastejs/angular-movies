@@ -8,9 +8,8 @@
           "build",
           "build-report",
           "build-server",
-          "prerender",
-          "server",
-          "pre-deploy"
+          "pre-deploy",
+          "prerender"
         ],
         "accessToken": "OTI0YWJiN2ItNTI2MC00M2RmLTlmM2EtOWRiODZkYmVjZTAyfHJlYWQtd3JpdGU="
       }

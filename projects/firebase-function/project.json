@@ -14,38 +14,6 @@
         "parallel": false
       }
     },
-    "_build": {
-      "executor": "@nx/esbuild:esbuild",
-      "outputs": ["{options.outputPath}"],
-      "defaultConfiguration": "production",
-      "options": {
-        "platform": "node",
-        "outputPath": "dist/projects/movies/server",
-        "format": ["cjs"],
-        "bundle": true,
-        "main": "projects/firebase-function/src/main.ts",
-        "tsConfig": "projects/firebase-function/tsconfig.app.json",
-        "assets": ["projects/firebase-function/src/assets"],
-        "generatePackageJson": true,
-        "esbuildOptions": {
-          "sourcemap": true,
-          "outExtension": {
-            ".js": ".js"
-          }
-        }
-      },
-      "configurations": {
-        "development": {},
-        "production": {
-          "esbuildOptions": {
-            "sourcemap": false,
-            "outExtension": {
-              ".js": ".js"
-            }
-          }
-        }
-      }
-    },
     "serve": {
       "executor": "@nx/js:node",
       "defaultConfiguration": "development",
@@ -59,13 +27,6 @@
         "production": {
           "buildTarget": "projects/firebase-function:build:production"
         }
-      }
-    },
-    "lint": {
-      "executor": "@nx/linter:eslint",
-      "outputs": ["{options.outputFile}"],
-      "options": {
-        "lintFilePatterns": ["projects/firebase-function/**/*.ts"]
       }
     },
     "test": {
