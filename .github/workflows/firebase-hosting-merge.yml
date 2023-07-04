@@ -32,7 +32,7 @@ jobs:
           channelId: ${{ github.head_ref }}
 
       - name: Log deploy output
-        if: ${{secrets.ACTIONS_STEP_DEBUG}}
+        if: "${{secrets.ACTIONS_STEP_DEBUG}}"
         run: echo ${{fromJson(steps.deployStep.outputs)}}
 
       - name: Test firebase preview channel hosting
