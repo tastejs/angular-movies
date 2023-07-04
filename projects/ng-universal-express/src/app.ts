@@ -1,19 +1,19 @@
 import 'zone.js/dist/zone-node';
 
 // The Express app is exported so that it can be used by serverless Functions.
-import express from "express";
-import {existsSync} from "fs";
-import {join} from "path";
-import {ISRHandler} from "ngx-isr";
-import {environment} from "../../movies/src/environments/environment";
-import compressionModule from "compression";
-import {ngExpressEngine} from "@nguniversal/express-engine";
-import bootstrap from "../../movies/src/main.server";
+import express from 'express';
+import { existsSync } from 'fs';
+import { join } from 'path';
+import { ISRHandler } from 'ngx-isr';
+import { environment } from '../../movies/src/environments/environment';
+import compressionModule from 'compression';
+import { ngExpressEngine } from '@nguniversal/express-engine';
+import bootstrap from '../../movies/src/main.server';
 
 export function app(): express.Express {
   const server = express();
 
-  const distFolder = process.cwd().replace('/server', '/browser');
+  const distFolder = join(process.cwd(), 'dist/projects/movies/browser');
 
   const indexHtml = existsSync(join(distFolder, 'index.html'))
     ? 'index.html'
@@ -36,7 +36,7 @@ export function app(): express.Express {
   // Our Universal express-engine (found @ https://github.com/angular/universal/tree/master/modules/express-engine)
   server.engine(
     'html',
-    ngExpressEngine({bootstrap, inlineCriticalCss: false})
+    ngExpressEngine({ bootstrap, inlineCriticalCss: false })
   );
 
   server.set('view engine', 'html');

@@ -14,7 +14,6 @@ pre-rendered pages or `routes.txt`
 
 Custom Tasks:
 
-- generate-routes ???
 - build-report
 - update-readme
 
@@ -24,7 +23,7 @@ The ng-universal application is needed to run SSR in different environments e.g.
 
 Custom Tasks:
 
-- build-browser
+- pre-prerender
 - prerender
 
 ## Cloud Function

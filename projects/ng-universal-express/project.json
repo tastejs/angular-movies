@@ -3,20 +3,14 @@
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "projects/ng-universal-express/src",
   "projectType": "application",
-  "implicitDependencies": [
-    "movies"
-  ],
+  "implicitDependencies": ["movies"],
   "targets": {
     "build": {
-      "outputs": [
-        "{options.outputPath}"
-      ],
+      "outputs": ["dist/projects/movies/server"],
       "executor": "@angular-devkit/build-angular:server",
       "options": {
-        "deleteOutputPath": false,
         "outputPath": "dist/projects/movies/server",
-        "outputHashing": "media",
-        "main": "projects/ng-universal-express/src/main.ts",
+        "main": "projects/ng-universal-express/src/app.ts",
         "tsConfig": "projects/ng-universal-express/tsconfig.app.json",
         "inlineStyleLanguage": "scss"
       },
@@ -30,7 +24,19 @@
             }
           ]
         },
-        "serve-ssr-production": {
+        "production-stats": {
+          "buildOptimizer": true,
+          "outputHashing": "none",
+          "fileReplacements": [
+            {
+              "replace": "projects/movies/src/environments/environment.ts",
+              "with": "projects/movies/src/environments/environment.prod.ts"
+            }
+          ],
+          "optimization": true,
+          "sourceMap": true
+        },
+        "serve-production": {
           "outputHashing": "media",
           "fileReplacements": [
             {
@@ -38,77 +44,52 @@
               "with": "projects/movies/src/environments/environment.prod.ts"
             }
           ],
-          "tsConfig": "projects/ng-universal-express/tsconfig.serve-ssr.json"
+          "main": "projects/ng-universal-express/src/start-app.ts",
+          "tsConfig": "projects/ng-universal-express/tsconfig.serve.json"
         },
         "development": {
-          "outputHashing": "media",
           "buildOptimizer": false,
           "optimization": false,
           "sourceMap": true,
           "extractLicenses": false,
           "vendorChunk": true
+        },
+        "serve-development": {
+          "buildOptimizer": false,
+          "optimization": false,
+          "sourceMap": true,
+          "extractLicenses": false,
+          "vendorChunk": true,
+          "main": "projects/ng-universal-express/src/start-app.ts",
+          "tsConfig": "projects/ng-universal-express/tsconfig.serve.json"
         }
       },
       "defaultConfiguration": "production"
     },
-    "build-browser": {
-      "executor": "nx:run-commands",
-      "options": {
-        "commands": [
-          "nx run movies:build:production"
-        ],
-        "parallel": false
-      },
-      "configurations": {
-        "development": {},
-        "production": {}
-      }
-    },
-    "generate-routes": {
-      "executor": "nx:run-commands",
-      "options": {
-        "commands": [
-          "nx run movies:generate-routes"
-        ],
-        "parallel": false
-      },
-      "configurations": {
-        "development": {},
-        "production": {}
-      }
-    },
     "serve": {
       "executor": "@nguniversal/builders:ssr-dev-server",
-      "options": {
-      },
       "configurations": {
         "development": {
-          "browserTarget": "ng-universal-express:build-browser",
-          "serverTarget": "ng-universal-express:build-server"
+          "browserTarget": "movies:build:development",
+          "serverTarget": "ng-universal-express:build:serve-development"
         },
         "production": {
-          "browserTarget": "ng-universal-express:build-browser",
-          "serverTarget": "ng-universal-express:build-server"
+          "browserTarget": "movies:build:production",
+          "serverTarget": "ng-universal-express:build:serve-production"
         }
       },
       "defaultConfiguration": "development"
     },
     "lint": {
       "executor": "@nx/linter:eslint",
-      "outputs": [
-        "{options.outputFile}"
-      ],
+      "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": [
-          "projects/ng-universal-express/**/*.ts"
-        ]
+        "lintFilePatterns": ["projects/ng-universal-express/**/*.ts"]
       }
     },
     "test": {
       "executor": "@nx/jest:jest",
-      "outputs": [
-        "{workspaceRoot}/dist/coverage/ng-universal-express"
-      ],
+      "outputs": ["{workspaceRoot}/dist/coverage/ng-universal-express"],
       "options": {
         "jestConfig": "projects/ng-universal-express/jest.config.ts",
         "passWithNoTests": true
@@ -120,40 +101,31 @@
         }
       }
     },
-    "prerender": {
-      "dependsOn": [
-        "generate-routes"
-      ],
-      "executor": "@nguniversal/builders:prerender",
-      "configurations": {
-        "production": {
-          "browserTarget": "ng-universal-express:build-browser",
-          "serverTarget": "ng-universal-express:build-server"
-        }
-      },
-      "defaultConfiguration": "production"
+    "pre-prerender": {
+      "outputs": ["dist/projects/movies/server"],
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          "npx ts-node -P tooling/tsconfig.json ./tooling/generate-routes/generate-routes.ts --source-file=./projects/ng-universal-express/routes.txt --target-file=./dist/projects/movies/server/routes.txt"
+        ],
+        "parallel": false
+      }
     },
-    "_prerender": {
-      "dependsOn": [
-        "generate-routes"
-      ],
-      "outputs": [
-        "dist/projects/movies/browser"
-      ],
+    "prerender": {
+      "dependsOn": ["pre-prerender"],
+      "outputs": ["dist/projects/movies/browser"],
       "executor": "@nguniversal/builders:prerender",
       "options": {
-        "routes": [
-          "/"
-        ]
+        "routes": ["dist/projects/movies/server/routes.txt"]
       },
       "configurations": {
         "development": {
           "browserTarget": "movies:build:development",
-          "serverTarget": "movies:build-server-fb:development"
+          "serverTarget": "ng-universal-express:build:development"
         },
         "production": {
           "browserTarget": "movies:build:production",
-          "serverTarget": "movies:build-server-fb:production"
+          "serverTarget": "ng-universal-express:build:production"
         }
       },
       "defaultConfiguration": "production"

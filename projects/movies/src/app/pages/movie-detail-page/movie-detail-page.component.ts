@@ -10,10 +10,9 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import { filter, map, mergeWith } from 'rxjs';
-import { TMDBMovieCastModel } from '../../data-access/api/model/movie-credits.model';
 import { TMDBMovieGenreModel } from '../../data-access/api/model/movie-genre.model';
 
-import { MovieDetailAdapter } from './movie-detail-page.adapter';
+import { MovieCast, MovieDetailAdapter } from './movie-detail-page.adapter';
 import { RxActionFactory } from '@rx-angular/state/actions';
 import { RxEffects } from '@rx-angular/state/effects';
 import { DetailGridComponent } from '../../ui/component/detail-grid/detail-grid.component';
@@ -119,5 +118,5 @@ export default class MovieDetailPageComponent {
   }
 
   trackByGenre: TrackByFunction<TMDBMovieGenreModel> = (_, genre) => genre.name;
-  trackByCast: TrackByFunction<TMDBMovieCastModel> = (_, cast) => cast.cast_id;
+  trackByCast: TrackByFunction<MovieCast> = (_, cast) => cast.cast_id;
 }
