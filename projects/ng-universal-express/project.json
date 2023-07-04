@@ -1,0 +1,89 @@
+{
+  "name": "ng-universal-express",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "projects/ng-universal-express/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nx/esbuild:esbuild",
+      "outputs": [
+        "{options.outputPath}"
+      ],
+      "defaultConfiguration": "production",
+      "options": {
+        "platform": "node",
+        "outputPath": "dist/projects/ng-universal-express",
+        "format": [
+          "cjs"
+        ],
+        "bundle": false,
+        "main": "projects/ng-universal-express/src/main.ts",
+        "tsConfig": "projects/ng-universal-express/tsconfig.app.json",
+        "assets": [
+          "projects/ng-universal-express/src/assets"
+        ],
+        "generatePackageJson": true,
+        "esbuildOptions": {
+          "sourcemap": true,
+          "outExtension": {
+            ".js": ".js"
+          }
+        }
+      },
+      "configurations": {
+        "development": {},
+        "production": {
+          "esbuildOptions": {
+            "sourcemap": false,
+            "outExtension": {
+              ".js": ".js"
+            }
+          }
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nx/js:node",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "ng-universal-express:build"
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "ng-universal-express:build:development"
+        },
+        "production": {
+          "buildTarget": "ng-universal-express:build:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": [
+        "{options.outputFile}"
+      ],
+      "options": {
+        "lintFilePatterns": [
+          "projects/ng-universal-express/**/*.ts"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": [
+        "{workspaceRoot}/dist/coverage/ng-universal-express"
+      ],
+      "options": {
+        "jestConfig": "projects/ng-universal-express/jest.config.ts",
+        "passWithNoTests": true
+      },
+      "configurations": {
+        "ci": {
+          "ci": true,
+          "codeCoverage": true
+        }
+      }
+    }
+  },
+  "tags": []
+}
