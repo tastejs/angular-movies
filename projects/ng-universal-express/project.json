@@ -8,9 +8,14 @@
   ],
   "targets": {
     "build": {
+      "outputs": [
+        "{options.outputPath}"
+      ],
       "executor": "@angular-devkit/build-angular:server",
       "options": {
+        "deleteOutputPath": false,
         "outputPath": "dist/projects/movies/server",
+        "outputHashing": "media",
         "main": "projects/ng-universal-express/src/main.ts",
         "tsConfig": "projects/ng-universal-express/tsconfig.app.json",
         "inlineStyleLanguage": "scss"
@@ -26,6 +31,7 @@
           ]
         },
         "development": {
+          "outputHashing": "media",
           "buildOptimizer": false,
           "optimization": false,
           "sourceMap": true,
@@ -39,7 +45,7 @@
       "executor": "nx:run-commands",
       "options": {
         "commands": [
-          "nx run movies:build:production",
+          "nx run movies:build",
           "nx run movies:generate-routes"
         ],
         "parallel": false
@@ -93,9 +99,6 @@
       }
     },
     "prerender": {
-      "outputs": [
-        "./dist/projects/movies/browser"
-      ],
       "executor": "@nguniversal/builders:prerender",
       "options": {
         "routes": [
@@ -104,8 +107,8 @@
       },
       "configurations": {
         "development": {
-          "browserTarget": "ng-universal-express:build-browser:development",
-          "serverTarget": "ng-universal-express:build:development"
+          "browserTarget": "ng-universal-express:build-browser",
+          "serverTarget": "ng-universal-express:build"
         },
         "production": {
           "browserTarget": "ng-universal-express:build-browser",
