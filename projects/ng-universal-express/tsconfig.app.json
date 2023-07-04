@@ -1,19 +1,18 @@
 /* To learn more about this file see: https://angular.io/config/tsconfig. */
 {
   "extends": "./tsconfig.json",
-  "include": [
-    "src/**/*.d.ts"
-  ],
   "compilerOptions": {
     "outDir": "../../out-tsc/server",
-    "target": "es2022",
+    "target": "es2019",
     "types": [
       "node"
     ]
   },
   "files": [
     "../movies/src/main.server.ts",
-    "src/app.ts",
     "src/main.ts"
+  ],
+  "include": [
+    "src/**/*.d.ts"
   ]
 }
