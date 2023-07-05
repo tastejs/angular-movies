@@ -82,7 +82,7 @@
       "options": {
         "commands": [
           "node projects/cloudflare-worker/tooling/copy-files.mjs --source=dist/projects/movies/browser --target=dist/projects/movies/worker",
-          "node projects/cloudflare-worker/tooling/bundle.mjs"
+          "node projects/cloudflare-worker/tooling/bundle.mjs --target=dist/projects/movies/worker/_worker.js"
         ],
         "parallel": false
       }

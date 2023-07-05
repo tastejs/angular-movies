@@ -2,21 +2,12 @@
 // uploaded along with the main Worker module.
 import fs from "node:fs";
 import path from "node:path";
+import {resolvePath} from "./paths.mjs";
+import {setupArgv} from "./utils.mjs";
 
-function getArgv(propName) {
-  return process.argv.find((i) => i.includes(`--${propName}`))?.split(/[=]/).pop() || '';
-}
+let ssr = resolvePath(setupArgv('ssr'));
+let worker = resolvePath(setupArgv('worker'));
 
-let worker = getArgv('worker');
-let ssr = getArgv('ssr');
-
-if (!ssr) {
-  throw new Error('Param --ssr is required');
-}
-
-if (!worker) {
-  throw new Error('Param --worker is required');
-}
 console.log(`Copy ${ssr} to ${worker} and rename main.js to index.js`);
 
 

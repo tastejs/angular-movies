@@ -1,8 +1,9 @@
 import fs from "node:fs";
 import {setupArgv} from "./utils.mjs";
 import {existsSync} from "fs";
+import {resolvePath} from "./paths.mjs";
 
-let target = setupArgv('target', {success: () => `Remove folder ${target}`});
+let target = resolvePath(setupArgv('target', {success: () => `Remove folder ${target}`}));
 
 if (existsSync(target)) {
   try {

@@ -1,13 +1,16 @@
 import fs from "node:fs/promises";
 import path from "node:path";
-import {worker as workerPath} from "./paths.mjs";
+import {resolvePath} from "./paths.mjs";
 import * as esbuild from "esbuild";
 import {NodeGlobalsPolyfillPlugin} from "@esbuild-plugins/node-globals-polyfill";
 import {NodeModulesPolyfillPlugin} from "@esbuild-plugins/node-modules-polyfill";
 import fg from "fast-glob";
+import {setupArgv} from "./utils.mjs";
+
+let target = resolvePath(setupArgv('target', {success: (v) => `Remove folder ${v}`}));
 
 // Process each of the JS files in the `_worker.js` directory
-for (const entry of await fg("**/*.js", {cwd: workerPath, onlyFiles: true})) {
+for (const entry of await fg("**/*.js", {cwd: target, onlyFiles: true})) {
   if (entry === "index.js") {
     // This is the main bundle and gets special treatment
     await bundleMain();
@@ -27,7 +30,7 @@ async function bundleMain() {
     bundle: true,
     format: "iife",
     write: false,
-    absWorkingDir: workerPath,
+    absWorkingDir: target,
     define: {
       global: "globalThis",
     },
@@ -47,7 +50,7 @@ async function bundleMain() {
   // Export the fetch handler (grabbing it from the global).
   main += "\nexport default { fetch : globalThis.__workerFetchHandler };";
 
-  await fs.writeFile(path.resolve(workerPath, "index.js"), main);
+  await fs.writeFile(path.resolve(target, "index.js"), main);
 }
 
 // Use esbuild to process the lazy load modules
@@ -58,7 +61,7 @@ async function bundleLazyModule(filePath) {
     bundle: true,
     format: "cjs",
     write: false,
-    absWorkingDir: workerPath,
+    absWorkingDir: target,
     define: {
       global: "globalThis",
     },
@@ -70,5 +73,5 @@ async function bundleLazyModule(filePath) {
   // Export the fetch handler (grabbing it from the global).
   content = "const exports = {};\n" + content + "\nexport default exports";
 
-  await fs.writeFile(path.resolve(workerPath, filePath), content);
+  await fs.writeFile(path.resolve(target, filePath), content);
 }

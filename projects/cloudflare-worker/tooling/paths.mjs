@@ -8,6 +8,6 @@ export const ssr = path.resolve(root, "dist/projects/movies/server");
 export const cloudflare = path.resolve(root, "dist/projects/movies/worker");
 export const worker = path.resolve(cloudflare, "_worker.js");
 
-export function resolvePath(path) {
-  return path.resolve(root, path);
+export function resolvePath(pathToResolve) {
+  return path.resolve(root, pathToResolve);
 }
