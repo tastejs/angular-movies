@@ -1,8 +1,8 @@
-import { Injectable } from '@angular/core';
-import { SvgLoadStrategy } from '@push-based/ngx-fast-svg';
-import { readFileSync } from 'node:fs';
-import { join } from 'node:path';
-import { Observable, of } from 'rxjs';
+import {Injectable} from '@angular/core';
+import {SvgLoadStrategy} from '@push-based/ngx-fast-svg';
+import {readFileSync} from 'node:fs';
+import {join} from 'node:path';
+import {Observable, of} from 'rxjs';
 
 @Injectable()
 export class IconLoadStrategySsr implements SvgLoadStrategy {
