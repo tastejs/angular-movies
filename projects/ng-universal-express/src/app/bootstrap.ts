@@ -1,10 +1,7 @@
-import {bootstrapApplication} from '@angular/platform-browser';
-import {AppServerComponent} from '../../movies/src/app/app.component.server';
-import {appConfig} from './app.config';
-
+import bootstrapMovies from '../../../movies/src/index'
 import 'zone.js';
+import {appConfig} from "./app.config";
 
-const bootstrap = () =>
-  bootstrapApplication(AppServerComponent, appConfig);
+const bootstrap = () => bootstrapMovies(appConfig);
 
 export default bootstrap;

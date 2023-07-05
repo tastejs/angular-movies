@@ -1,6 +1,5 @@
-import {ApplicationConfig, mergeApplicationConfig} from '@angular/core';
+import {ApplicationConfig} from '@angular/core';
 import {provideServerRendering} from '@angular/platform-server';
-import {baseAppConfig} from '../../../movies/src/app/app.base.config';
 import {provideFastSVG} from '@push-based/ngx-fast-svg';
 import {RX_RENDER_STRATEGIES_CONFIG} from '@rx-angular/cdk/render-strategies';
 import {provideHttpClient} from '@angular/common/http';
@@ -23,4 +22,4 @@ const serverConfig: ApplicationConfig = {
   ],
 };
 
-export const appConfig = mergeApplicationConfig(baseAppConfig, serverConfig);
+export const appConfig = serverConfig;
