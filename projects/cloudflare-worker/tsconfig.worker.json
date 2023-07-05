@@ -1,0 +1,26 @@
+{
+  "compilerOptions": {
+    "lib": [
+      "es6",
+      "dom",
+      "es2015",
+      "es2017"
+    ],
+    "module": "commonjs",
+    "noImplicitReturns": true,
+    "outDir": "../../dist/projects/movies/cloudflare-worker",
+    "sourceMap": false,
+    "target": "es2019",
+    "allowJs": true,
+    "noImplicitAny": false,
+    "baseUrl": ".",
+    "strict": true,
+    "esModuleInterop": true
+  },
+  "files": [
+    "src/worker.ts"
+  ],
+  "include": [
+    "src/**/*.d.ts"
+  ]
+}

@@ -1,0 +1,98 @@
+{
+  "name": "cloudflare-worker",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "projects/cloudflare-worker/src",
+  "projectType": "application",
+  "implicitDependencies": [
+    "movies"
+  ],
+  "targets": {
+    "build": {
+      "executor": "@angular-devkit/build-angular:server",
+      "options": {
+        "outputPath": "dist/projects/cloudflare-worker",
+        "main": "projects/cloudflare-worker/src/worker.ts",
+        "tsConfig": "projects/cloudflare-worker/tsconfig.worker.json",
+        "optimization": false,
+        "buildOptimizer": false
+      },
+      "configurations": {
+        "development": {
+          "outputHashing": "none",
+          "optimization": false,
+          "sourceMap": true,
+          "extractLicenses": true,
+          "vendorChunk": true,
+          "buildOptimizer": false
+        },
+        "production": {
+          "outputHashing": "media",
+          "fileReplacements": [
+            {
+              "replace": "projects/movies/src/environments/environment.ts",
+              "with": "projects/movies/src/environments/environment.production.ts"
+            }
+          ],
+          "sourceMap": false,
+          "extractLicenses": true,
+          "optimization": true,
+          "buildOptimizer": true
+        }
+      },
+      "defaultConfiguration": "production",
+      "outputs": [
+        "{options.outputPath}"
+      ]
+    },
+    "serve": {
+      "executor": "nx:run-commands",
+      "dependsOn": [
+        "build"
+      ],
+      "options": {
+        "commands": [
+        ],
+        "parallel": false
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": [
+        "{workspaceRoot}/dist/coverage/cloudflare-worker"
+      ],
+      "options": {
+        "jestConfig": "projects/cloudflare-worker/jest.config.ts",
+        "passWithNoTests": true
+      },
+      "configurations": {
+        "ci": {
+          "ci": true,
+          "codeCoverage": true
+        }
+      }
+    },
+    "pre-deploy": {
+      "dependsOn": [
+        "build"
+      ],
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          "node ./cf-tools/clean-output-folder.mjs && node ./cf-tools/copy-worker-files.mjs && node ./cf-tools/copy-client-files.mjs && node ./cf-tools/bundle.mjs"
+        ],
+        "parallel": false
+      }
+    },
+    "deploy-cloudflare-worker": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          "npm run cf-build:ssr && npm run cf-process",
+          "wrangler pages deploy dist/projects/movies/cloudflare --skip-caching"
+        ],
+        "parallel": false
+      }
+    }
+  },
+  "tags": []
+}

@@ -1,12 +1,11 @@
 import {AppComponent} from './app/app.component';
-import {NgModule, NgZone} from '@angular/core';
+import {NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
 import {appConfig} from './app/app.config.browser';
 import {RouterOutlet} from '@angular/router';
 import {AppShellComponent} from './app/app-shell/app-shell.component';
 import {LetDirective} from '@rx-angular/template/let';
-import {CustomNgZone} from './app/shared/zone-less/custom-zone';
 // import { ServiceWorkerModule } from '@angular/service-worker';
 // import { environment } from './environments/environment';
 
@@ -24,13 +23,7 @@ import {CustomNgZone} from './app/shared/zone-less/custom-zone';
       registrationStrategy: 'registerWhenStable:30000',
     }),*/
   ],
-  providers: [
-    ...appConfig.providers,
-    {
-      provide: NgZone,
-      useClass: CustomNgZone,
-    },
-  ],
+  providers: appConfig().providers,
   bootstrap: [AppComponent],
 })
 export class AppModule {}

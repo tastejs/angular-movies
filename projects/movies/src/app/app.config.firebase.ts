@@ -1,11 +1,11 @@
-import {ApplicationConfig, mergeApplicationConfig} from '@angular/core';
+import {ApplicationConfig} from '@angular/core';
 import {provideServerRendering} from '@angular/platform-server';
-import {baseAppConfig} from './app.base.config';
 import {provideFastSVG} from '@push-based/ngx-fast-svg';
 import {RX_RENDER_STRATEGIES_CONFIG} from '@rx-angular/cdk/render-strategies';
 import {provideHttpClient} from '@angular/common/http';
 import {provideISR} from 'ngx-isr';
 import {IconLoadStrategySsr} from './ui/component/icons/icon-load.ssr.strategy';
+import {mergeBaseConfig} from "./app.config";
 
 const serverConfig: ApplicationConfig = {
   providers: [
@@ -18,9 +18,10 @@ const serverConfig: ApplicationConfig = {
     }),
     {
       provide: RX_RENDER_STRATEGIES_CONFIG,
-      useValue: { primaryStrategy: 'native' },
+      useValue: {primaryStrategy: 'native'},
     },
   ],
 };
 
-export const appConfig = mergeApplicationConfig(baseAppConfig, serverConfig);
+// We provide the config function as closure to be able to inject configuration from the consuming end
+export const appConfig = (outerConfig: ApplicationConfig = {} as ApplicationConfig) => mergeBaseConfig(serverConfig, outerConfig);

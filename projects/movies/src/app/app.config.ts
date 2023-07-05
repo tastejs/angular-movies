@@ -1,21 +1,17 @@
-import { provideHttpClient, withInterceptors } from '@angular/common/http';
-import { APP_INITIALIZER, ApplicationConfig } from '@angular/core';
-import { provideClientHydration } from '@angular/platform-browser';
-import {
-  provideRouter,
-  withDisabledInitialNavigation,
-  withInMemoryScrolling,
-} from '@angular/router';
-import { provideFastSVG } from '@push-based/ngx-fast-svg';
-import { RxActionFactory } from '@rx-angular/state/actions';
-import { ROUTES } from './routes';
-import { withGobalStateInitializer } from './state/state-app-initializer.provider';
-import { RX_RENDER_STRATEGIES_CONFIG } from '@rx-angular/cdk/render-strategies';
-import { tmdbReadAccessInterceptor } from './auth/tmdb-http-interceptor.feature';
-import { tmdbContentTypeInterceptor } from './data-access/api/tmdbContentTypeInterceptor';
-import { provideTmdbImageLoader } from './data-access/images/image-loader';
+import {provideHttpClient, withInterceptors} from '@angular/common/http';
+import {APP_INITIALIZER, ApplicationConfig, mergeApplicationConfig} from '@angular/core';
+import {provideClientHydration} from '@angular/platform-browser';
+import {provideRouter, withDisabledInitialNavigation, withInMemoryScrolling,} from '@angular/router';
+import {provideFastSVG} from '@push-based/ngx-fast-svg';
+import {RxActionFactory} from '@rx-angular/state/actions';
+import {ROUTES} from './routes';
+import {withGobalStateInitializer} from './state/state-app-initializer.provider';
+import {RX_RENDER_STRATEGIES_CONFIG} from '@rx-angular/cdk/render-strategies';
+import {tmdbReadAccessInterceptor} from './auth/tmdb-http-interceptor.feature';
+import {tmdbContentTypeInterceptor} from './data-access/api/tmdbContentTypeInterceptor';
+import {provideTmdbImageLoader} from './data-access/images/image-loader';
 
-export const appConfig: ApplicationConfig = {
+const appConfig: ApplicationConfig = {
   providers: [
     provideClientHydration(),
     provideHttpClient(
@@ -74,7 +70,11 @@ export const appConfig: ApplicationConfig = {
      */
     {
       provide: RX_RENDER_STRATEGIES_CONFIG,
-      useValue: { patchZone: false },
+      useValue: {patchZone: false},
     },
   ],
 };
+
+export function mergeBaseConfig(...configs: ApplicationConfig[]) {
+  return mergeApplicationConfig(appConfig, ...configs);
+}

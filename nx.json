@@ -52,6 +52,15 @@
         "{workspaceRoot}/jest.preset.js"
       ]
     },
+    "serve-static": {
+      "dependsOn": [
+        "build"
+      ],
+      "inputs": [
+        "development",
+        "^development"
+      ]
+    },
     "emulate-firebase-hosting": {
       "dependsOn": [
         "build"

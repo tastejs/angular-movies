@@ -35,7 +35,7 @@ Tasks:
 - **test**
 - **e2e-* ** - e2e tests with optional postfix (if no postfix is needed use just `e2e`)
 - **emulate-* ** - emulated environments
-- **deploy--* ** - deployment targets
+- **deploy-* ** - deployment targets
 
 ### Browser Application
 
@@ -76,6 +76,7 @@ Custom Tasks:
 - **serve** - the executor `ssr-dev-server` from the package `@nguniversal/builders` is used
   - production
   - development
+- **serve-ngsw** - TODO
 - **test**
 - **e2e**
 - **pre-prerender** - precondition logic prerender e.g. preparation of `routs.txt`

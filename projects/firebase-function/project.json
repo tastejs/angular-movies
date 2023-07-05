@@ -14,16 +14,22 @@
       "executor": "nx:run-commands",
       "options": {
         "commands": [
-          "tsc --build projects/firebase-function/tsconfig.app.json"
+          "tsc --build projects/firebase-function/tsconfig.function.json"
         ],
         "parallel": false
       }
     },
-    "serve": {
+    "emulate-firebase-function": {
       "executor": "nx:run-commands",
-      "dependsOn": [
-        "build"
-      ],
+      "options": {
+        "commands": [
+          "firebase emulators:start --project angular-movies"
+        ],
+        "parallel": false
+      }
+    },
+    "emulate-firebase-all": {
+      "executor": "nx:run-commands",
       "options": {
         "commands": [
           "firebase emulators:start --project angular-movies"
@@ -55,6 +61,18 @@
       "options": {
         "commands": [
           "nx prerender ng-universal-express"
+        ],
+        "parallel": false
+      }
+    },
+    "deploy-firebase-function": {
+      "executor": "nx:run-commands",
+      "dependsOn": [
+        "pre-deploy"
+      ],
+      "options": {
+        "commands": [
+          "npx firebase deploy --project angular-movies"
         ],
         "parallel": false
       }

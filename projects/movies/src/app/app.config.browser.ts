@@ -1,11 +1,12 @@
-import {ApplicationConfig, mergeApplicationConfig} from '@angular/core';
-import {baseAppConfig} from './app.base.config';
+import {ApplicationConfig, NgZone} from '@angular/core';
 import {provideFastSVG} from '@push-based/ngx-fast-svg';
 import {provideHttpClient, withInterceptors} from '@angular/common/http';
 import {provideClientHydration} from "@angular/platform-browser";
 import {RX_RENDER_STRATEGIES_CONFIG} from "@rx-angular/cdk/render-strategies";
 import {tmdbContentTypeInterceptor} from "./data-access/api/tmdbContentTypeInterceptor";
 import {tmdbReadAccessInterceptor} from "./auth/tmdb-http-interceptor.feature";
+import {CustomNgZone} from "./shared/zone-less/custom-zone";
+import {mergeBaseConfig} from "./app.config";
 
 const browserConfig: ApplicationConfig = {
   providers: [
@@ -24,8 +25,13 @@ const browserConfig: ApplicationConfig = {
     {
       provide: RX_RENDER_STRATEGIES_CONFIG,
       useValue: {patchZone: false},
+    },
+    {
+      provide: NgZone,
+      useClass: CustomNgZone,
     }
   ],
 };
 
-export const appConfig = mergeApplicationConfig(baseAppConfig, browserConfig);
+// We provide the config function as closure to be able to inject configuration from the consuming end
+export const appConfig = (outerConfig: ApplicationConfig = {} as ApplicationConfig) => mergeBaseConfig(browserConfig, outerConfig);

@@ -23,7 +23,7 @@
       "executor": "@push-based/user-flow-nx-plugin:user-flow",
       "options": {
         "rcPath": "projects/movies-user-flows/.user-flowrc.json",
-        "outputPath": "dist/user-flows/movies-user-flows"
+        "outputPath": "dist/user-flows/angular-movies"
       },
       "configurations": {
         "development": {

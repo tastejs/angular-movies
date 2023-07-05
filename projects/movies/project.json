@@ -30,7 +30,9 @@
           "projects/movies/src/assets",
           "projects/movies/src/_routes.json"
         ],
-        "styles": ["projects/movies/src/styles.scss"],
+        "styles": [
+          "projects/movies/src/styles.scss"
+        ],
         "scripts": []
       },
       "configurations": {
@@ -118,6 +120,15 @@
       },
       "defaultConfiguration": "development"
     },
+    "serve-ngsw": {
+      "executor": "nx:run-command",
+      "options": {
+        "commands": [
+          "node_modules/.bin/ngsw-config dist ./src/ngsw-config.json",
+          "npm run ngsw-config && http-server dist -p 8080"
+        ]
+      }
+    },
     "lint": {
       "executor": "@angular-eslint/builder:lint",
       "options": {
@@ -163,8 +174,12 @@
     },
     "update-readme": {
       "executor": "nx:run-commands",
-      "dependsOn": ["build-report"],
-      "outputs": ["README.md"],
+      "dependsOn": [
+        "build-report"
+      ],
+      "outputs": [
+        "README.md"
+      ],
       "options": {
         "commands": [
           "npx ts-node -P tooling/tsconfig.json  ./tooling/bundle-stats/index.ts update-bundle-stats --stats=dist/measures/movies/stats.json --target=./README.md"
@@ -203,9 +218,7 @@
           "optimization": true,
           "buildOptimizer": true
         }
-      },
-      "defaultConfiguration": "production",
-      "outputs": ["{options.outputPath}"]
+      }
     }
   }
 }

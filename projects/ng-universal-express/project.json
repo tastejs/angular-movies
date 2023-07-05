@@ -79,7 +79,6 @@
       "options": {
         "commands": [
           "nx prerender ng-universal-express",
-          "nx prerender ng-universal-express",
           "firebase emulators:start --only hosting --project angular-movies"
         ],
         "parallel": false
