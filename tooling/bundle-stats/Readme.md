@@ -7,7 +7,7 @@ In this folder structure lives the bundlestats codebase to perform the following
 Add mark a section in your readme with `<!-- bundle-stats-start -->` & `<!-- bundle-stats-end -->`.
 
 run
-`npx ts-node -P ./tooling/tsconfig.json  ./tooling/bundle-stats/index.ts update-bundle-stats --stats=<path> --target=<path>`
+`npx ts-node -P ./tooling/tsconfig.json ./tooling/bundle-stats/main.ts update-bundle-stats --stats=<path> --target=<path>`
 
 **Expected output:**
 

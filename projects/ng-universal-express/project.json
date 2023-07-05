@@ -1,0 +1,160 @@
+{
+  "name": "ng-universal-express",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "projects/ng-universal-express/src",
+  "projectType": "application",
+  "implicitDependencies": ["movies"],
+  "targets": {
+    "build": {
+      "outputs": ["dist/projects/movies/server"],
+      "executor": "@angular-devkit/build-angular:server",
+      "options": {
+        "deleteOutputPath": false,
+        "outputHashing": "media",
+        "sourceMap": true,
+        "outputPath": "dist/projects/movies/server",
+        "main": "projects/ng-universal-express/src/app.ts",
+        "tsConfig": "projects/ng-universal-express/tsconfig.app.json",
+        "inlineStyleLanguage": "scss"
+      },
+      "configurations": {
+        "production": {
+          "sourceMap": false,
+          "fileReplacements": [
+            {
+              "replace": "projects/movies/src/environments/environment.ts",
+              "with": "projects/movies/src/environments/environment.production.ts"
+            }
+          ]
+        },
+        "serve-production": {
+          "sourceMap": false,
+          "fileReplacements": [
+            {
+              "replace": "projects/movies/src/environments/environment.ts",
+              "with": "projects/movies/src/environments/environment.production.ts"
+            }
+          ],
+          "main": "projects/ng-universal-express/src/start-app.ts",
+          "tsConfig": "projects/ng-universal-express/tsconfig.serve.json"
+        },
+        "development": {
+          "buildOptimizer": false,
+          "optimization": false,
+          "sourceMap": true,
+          "extractLicenses": false,
+          "vendorChunk": true
+        },
+        "serve-development": {
+          "buildOptimizer": false,
+          "optimization": false,
+          "sourceMap": true,
+          "extractLicenses": false,
+          "vendorChunk": true,
+          "main": "projects/ng-universal-express/src/start-app.ts",
+          "tsConfig": "projects/ng-universal-express/tsconfig.serve.json"
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve": {
+      "executor": "@nguniversal/builders:ssr-dev-server",
+      "options": {
+        "port": 4300
+      },
+      "configurations": {
+        "development": {
+          "browserTarget": "movies:build:development",
+          "serverTarget": "ng-universal-express:build:serve-development"
+        },
+        "production": {
+          "browserTarget": "movies:build:production",
+          "serverTarget": "ng-universal-express:build:serve-production"
+        }
+      },
+      "defaultConfiguration": "development"
+    },
+    "emulate-firebase-hosting": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          "nx prerender ng-universal-express",
+          "nx prerender ng-universal-express",
+          "firebase emulators:start --only hosting --project angular-movies"
+        ],
+        "parallel": false
+      }
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": [
+        "{options.outputFile}"
+      ],
+      "options": {
+        "lintFilePatterns": [
+          "projects/ng-universal-express/**/*.ts"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": [
+        "{workspaceRoot}/dist/coverage/ng-universal-express"
+      ],
+      "options": {
+        "jestConfig": "projects/ng-universal-express/jest.config.ts",
+        "passWithNoTests": true
+      },
+      "configurations": {
+        "ci": {
+          "ci": true,
+          "codeCoverage": true
+        }
+      }
+    },
+    "pre-prerender": {
+      "outputs": ["dist/projects/movies/server"],
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          "npx ts-node -P tooling/tsconfig.json ./tooling/generate-routes/generate-routes.ts --source-file=./projects/ng-universal-express/routes.txt --target-file=./dist/tmp/projects/movies/server/routes.txt"
+        ],
+        "parallel": false
+      }
+    },
+    "prerender": {
+      "dependsOn": ["pre-prerender"],
+      "outputs": ["dist/projects/movies/browser"],
+      "executor": "@nguniversal/builders:prerender",
+      "options": {
+        "routes": [
+          "dist/tmp/projects/movies/server/routes.txt"
+        ]
+      },
+      "configurations": {
+        "development": {
+          "browserTarget": "movies:build:development",
+          "serverTarget": "ng-universal-express:build:development"
+        },
+        "production": {
+          "browserTarget": "movies:build:production",
+          "serverTarget": "ng-universal-express:build:production"
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "deploy-firebase-hosting": {
+      "executor": "nx:run-commands",
+      "dependsOn": [
+        "prerender"
+      ],
+      "options": {
+        "commands": [
+          "npx firebase deploy --only hosting --project angular-movies"
+        ],
+        "parallel": false
+      }
+    }
+  },
+  "tags": []
+}

@@ -3,9 +3,14 @@
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "projects/firebase-function/src",
   "projectType": "application",
+  "implicitDependencies": [
+    "ng-universal-express"
+  ],
   "targets": {
     "build": {
-      "outputs": ["dist/projects/movies/server"],
+      "outputs": [
+        "dist/projects/movies/server"
+      ],
       "executor": "nx:run-commands",
       "options": {
         "commands": [
@@ -15,23 +20,22 @@
       }
     },
     "serve": {
-      "executor": "@nx/js:node",
-      "defaultConfiguration": "development",
+      "executor": "nx:run-commands",
+      "dependsOn": [
+        "build"
+      ],
       "options": {
-        "buildTarget": "projects/firebase-function:build"
-      },
-      "configurations": {
-        "development": {
-          "buildTarget": "projects/firebase-function:build:development"
-        },
-        "production": {
-          "buildTarget": "projects/firebase-function:build:production"
-        }
+        "commands": [
+          "firebase emulators:start --project angular-movies"
+        ],
+        "parallel": false
       }
     },
     "test": {
       "executor": "@nx/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "outputs": [
+        "{workspaceRoot}/dist/coverage/firebase-function"
+      ],
       "options": {
         "jestConfig": "projects/firebase-function/jest.config.ts",
         "passWithNoTests": true
@@ -44,21 +48,26 @@
       }
     },
     "pre-deploy": {
+      "dependsOn": [
+        "build"
+      ],
       "executor": "nx:run-commands",
       "options": {
         "commands": [
-          "nx pre-deploy movies",
-          "nx build-server-fb movies",
-          "nx build firebase-function"
+          "nx prerender ng-universal-express"
         ],
         "parallel": false
       }
     },
-    "deploy": {
+    "deploy-firebase-all": {
       "executor": "nx:run-commands",
-      "dependsOn": ["pre-deploy"],
+      "dependsOn": [
+        "pre-deploy"
+      ],
       "options": {
-        "commands": ["npx firebase deploy --project angular-movies"],
+        "commands": [
+          "npx firebase deploy --project angular-movies"
+        ],
         "parallel": false
       }
     }

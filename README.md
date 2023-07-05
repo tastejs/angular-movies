@@ -27,73 +27,35 @@ For now you can search the codebase for "Perf Tip" later on there will be proppe
 [Measures after optimization](https://lighthouse-metrics.com/checks/6a888a17-b17b-46a6-abc9-e605b73a530c/runs/503701ad-36aa-43ad-8de3-cb40e775c770)
 ![angular-movies-after-optimization_michael-hladky](https://user-images.githubusercontent.com/10064416/146446241-ad9eeed4-b0a4-44a2-a88e-4ea7c97e1acf.PNG)
 
-
 **Bundle Stats**
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
 <!-- bundle-stats-start -->
 | Names             |       Size |
 | ---               | ---        |
-| main.3a7d3803c4af3b4a.js           | 332.38 KB |
-| styles.599b610bd1f0a4a0.css           | 6.17 KB |
-| runtime.726cad246039b3d4.js           | 4.27 KB |
-  | **Initial Total** | **342.83 KB** |
+| main.js           | 332.38 KB |
+| styles.css           | 6.17 KB |
+| runtime.js           | 2.61 KB |
+  | **Initial Total** | **341.17 KB** |
   | Names             |       Size |
-| app_pages_movie-detail-page_movie-detail-page_component_ts.bc54bee79639bc2b.js           | 16.47 KB |
-| a-4d8953.16e47ce3661c55d5.js           | 12.86 KB |
-| app_pages_person-detail-page_person-detail-page_component_ts.e719492d23da9836.js           | 11.49 KB |
-| app_pages_account-feature_list-create-page_list-create-page_component_ts--1f481e.9ed46295caa4aafe.js           | 9.09 KB |
-| common.3dc81ee64cf3e615.js           | 8.26 KB |
-| app_app-shell_account-menu_account-menu_component_ts.271825cb33bd0e11.js           | 8.25 KB |
-| app_pages_account-feature_list-detail-page_list-items-edit_list-items-edi-13eb42.16cb30ab0409058d.js           | 6.98 KB |
-| app_pages_movie-list-page_movie-list-page_component_ts.694ec9cefd95281c.js           | 5.8 KB |
-| app_pages_account-feature_account-list-page_account-list-page_component_ts.32e0d6fd2971e61c.js           | 4.84 KB |
-| app_pages_account-feature_list-detail-page_list-image_list-image_componen-cb4b89.0ca219d636a08a24.js           | 4.28 KB |
-| app_pages_account-feature_list-detail-page_list-remove_list-remove_compon-a10eb2.1bb15b9aa67062ef.js           | 3.39 KB |
-| app_pages_account-feature_list-detail-page_list-detail-page_component_ts--a2c81d.820bf2975489a85d.js           | 3.1 KB |
-| app_pages_not-found-page_not-found-page_component_ts.6d136e8ec91c06c5.js           | 1.65 KB |
-| app_pages_account-feature_list-detail-page_list-detail-page_routes_ts.0575dae169ed942d.js           | 1.5 KB |
-| app_pages_account-feature_account-feature-page_routes_ts.3866fe3055bd5ca7.js           | 853 Bytes |
-| app_pages_account-feature_list-detail-page_list-movies_list-movies_component_ts.5c77ff971f0c9240.js           | 657 Bytes |
+| app_pages_movie-detail-page_movie-detail-page_component_ts.js           | 16.47 KB |
+| a-4d8953.js           | 12.86 KB |
+| app_pages_person-detail-page_person-detail-page_component_ts.js           | 11.49 KB |
+| app_pages_account-feature_list-create-page_list-create-page_component_ts--1f481e.js           | 9.09 KB |
+| common.js           | 8.26 KB |
+| app_app-shell_account-menu_account-menu_component_ts.js           | 8.25 KB |
+| app_pages_account-feature_list-detail-page_list-items-edit_list-items-edi-13eb42.js           | 6.98 KB |
+| app_pages_movie-list-page_movie-list-page_component_ts.js           | 5.8 KB |
+| app_pages_account-feature_account-list-page_account-list-page_component_ts.js           | 4.84 KB |
+| app_pages_account-feature_list-detail-page_list-image_list-image_componen-cb4b89.js           | 4.28 KB |
+| app_pages_account-feature_list-detail-page_list-remove_list-remove_compon-a10eb2.js           | 3.39 KB |
+| app_pages_account-feature_list-detail-page_list-detail-page_component_ts--a2c81d.js           | 3.1 KB |
+| app_pages_not-found-page_not-found-page_component_ts.js           | 1.65 KB |
+| app_pages_account-feature_list-detail-page_list-detail-page_routes_ts.js           | 1.5 KB |
+| app_pages_account-feature_account-feature-page_routes_ts.js           | 853 Bytes |
+| app_pages_account-feature_list-detail-page_list-movies_list-movies_component_ts.js           | 657 Bytes |
 <!-- bundle-stats-end -->
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -123,10 +85,11 @@ Clone and install the dependencies for `angular-movies` locally:
 
 ## Quick setup
 
-1. Take a copy of `src/environments/environment.local.example.ts` and re-name to `src/environments/environment.prod.ts` 
+1. Take a copy of `src/environments/environment.local.example.ts` and re-name
+   to `src/environments/environment.production.ts`
 2. Get your TMDb API key
 3. Get your TMDB API read access token
-4. Enter the details into the `src/environments/environment.prod.ts` file
+4. Enter the details into the `src/environments/environment.production.ts` file
     
 ## Running locally
 

@@ -2,9 +2,10 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
-    "outDir": "../../out-tsc/movies",
-    "types": []
+    "outDir": "../../out-tsc/server",
+    "target": "es2022",
+    "types": ["node"]
   },
-  "files": ["src/main.ts"],
+  "files": ["../movies/src/main.server.ts", "./src/app.ts"],
   "include": ["src/**/*.d.ts"]
 }
