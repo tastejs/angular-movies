@@ -19,7 +19,6 @@
       },
       "configurations": {
         "production": {
-          "deleteOutputPath": false,
           "sourceMap": false,
           "fileReplacements": [
             {
@@ -29,7 +28,6 @@
           ]
         },
         "serve-production": {
-          "deleteOutputPath": false,
           "sourceMap": false,
           "fileReplacements": [
             {
@@ -41,7 +39,6 @@
           "tsConfig": "projects/ng-universal-express/tsconfig.serve.json"
         },
         "development": {
-          "deleteOutputPath": false,
           "buildOptimizer": false,
           "optimization": false,
           "sourceMap": true,
@@ -49,7 +46,6 @@
           "vendorChunk": true
         },
         "serve-development": {
-          "deleteOutputPath": false,
           "buildOptimizer": false,
           "optimization": false,
           "sourceMap": true,
@@ -146,6 +142,18 @@
         }
       },
       "defaultConfiguration": "production"
+    },
+    "deploy-firebase-hosting": {
+      "executor": "nx:run-commands",
+      "dependsOn": [
+        "prerender"
+      ],
+      "options": {
+        "commands": [
+          "npx firebase deploy --only hosting --project angular-movies"
+        ],
+        "parallel": false
+      }
     }
   },
   "tags": []

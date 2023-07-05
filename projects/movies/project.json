@@ -82,20 +82,6 @@
           "serviceWorker": true,
           "ngswConfigPath": "projects/movies/src/ngsw-config.json"
         },
-        "production-stats": {
-          "namedChunks": true,
-          "statsJson": true,
-          "sourceMap": true,
-          "buildOptimizer": true,
-          "optimization": true,
-          "serviceWorker": false,
-          "fileReplacements": [
-            {
-              "replace": "projects/movies/src/environments/environment.ts",
-              "with": "projects/movies/src/environments/environment.production.ts"
-            }
-          ]
-        },
         "development": {
           "buildOptimizer": false,
           "optimization": false,
@@ -112,9 +98,6 @@
     },
     "emulate-firebase-hosting": {
       "executor": "nx:run-commands",
-      "dependsOn": [
-        "build"
-      ],
       "options": {
         "commands": [
           "firebase emulators:start --only hosting --project angular-movies"
@@ -143,7 +126,9 @@
           "projects/movies/src/app/**/*.html"
         ]
       },
-      "outputs": ["{options.outputFile}"]
+      "outputs": [
+        "{options.outputFile}"
+      ]
     },
     "extract-i18n": {
       "executor": "@angular-devkit/build-angular:extract-i18n",
@@ -151,10 +136,23 @@
         "browserTarget": "movies:build"
       }
     },
-    "build-report": {
-      "dependsOn": ["build"],
+    "deploy-firebase-hosting": {
       "executor": "nx:run-commands",
-      "outputs": ["dist/measures/movies"],
+      "options": {
+        "commands": [
+          "npx firebase deploy --only hosting --project angular-movies"
+        ],
+        "parallel": false
+      }
+    },
+    "build-report": {
+      "dependsOn": [
+        "build"
+      ],
+      "executor": "nx:run-commands",
+      "outputs": [
+        "dist/measures/movies"
+      ],
       "options": {
         "commands": [
           "npx cpx \"dist/projects/movies/browser/stats.json\" dist/measures/movies",

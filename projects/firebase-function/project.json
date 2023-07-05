@@ -48,20 +48,26 @@
       }
     },
     "pre-deploy": {
+      "dependsOn": [
+        "build"
+      ],
       "executor": "nx:run-commands",
       "options": {
         "commands": [
-          "nx prerender ng-universal-express",
-          "nx build firebase-function"
+          "nx prerender ng-universal-express"
         ],
         "parallel": false
       }
     },
-    "deploy": {
+    "deploy-firebase-all": {
       "executor": "nx:run-commands",
-      "dependsOn": ["pre-deploy"],
+      "dependsOn": [
+        "pre-deploy"
+      ],
       "options": {
-        "commands": ["npx firebase deploy --project angular-movies"],
+        "commands": [
+          "npx firebase deploy --project angular-movies"
+        ],
         "parallel": false
       }
     }

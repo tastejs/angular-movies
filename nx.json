@@ -51,6 +51,16 @@
         "^production",
         "{workspaceRoot}/jest.preset.js"
       ]
+    },
+    "emulate-firebase-hosting": {
+      "dependsOn": [
+        "build"
+      ]
+    },
+    "deploy-firebase-hosting": {
+      "dependsOn": [
+        "build"
+      ]
     }
   },
   "generators": {
