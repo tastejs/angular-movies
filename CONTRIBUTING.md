@@ -28,14 +28,14 @@ In this mono repository we agree on a set of tasks that need to be consistent ac
 
 Tasks:
 
-- format
-- lint - defaults to `eslint`
-- build
-- serve
-- test
-- e2e-* - e2e tests with optional postfix (if no postfix is needed use just `e2e`)
-- emulate-* - emulated environments
-- deploy--* - deployment targets
+- **format**
+- **lint** - defaults to `eslint`
+- **build**
+- **serve**
+- **test**
+- **e2e-* ** - e2e tests with optional postfix (if no postfix is needed use just `e2e`)
+- **emulate-* ** - emulated environments
+- **deploy--* ** - deployment targets
 
 ### Browser Application
 
@@ -44,18 +44,18 @@ pre-rendered pages or `routes.txt`
 
 Custom Tasks:
 
-- format
-- lint
-- build - the executor `browser` from the package `@angular-devkit/build-angular` is used
+- **format**
+- **lint**
+- **build** - the executor `browser` from the package `@angular-devkit/build-angular` is used
   - production
   - development
-- serve - the executor `dev-server` from the package `@angular-devkit/build-angular` is used
+- **serve** - the executor `dev-server` from the package `@angular-devkit/build-angular` is used
   - production
   - development
-- test
-- e2e
-- emulate-firebase-hosting - firebase hosting emulation over `firebase` CLI
-- deploy-firebase-hosting - We deploy over a GH action. This is be used optionally.  
+- **test**
+- **e2e**
+- **emulate-firebase-hosting** - firebase hosting emulation over `firebase` CLI
+- **deploy-firebase-hosting** - We deploy over a GH action. This is be used optionally.  
   It deploys the CSR version of the application excluding the pre-generated sites.
 - build-report - `state.json` and bundle analyzer generation
 - update-readme - update the main readme (`./README.md`) with data from our builds and reports
@@ -66,22 +66,22 @@ The ng-universal application is needed to run SSR in different environments e.g.
 
 Custom Tasks:
 
-- format
-- lint
-- build - the executor `server` from the package `@angular-devkit/build-angular` is used
+- **format**
+- **lint**
+- **build** - the executor `server` from the package `@angular-devkit/build-angular` is used
   - production
   - development
   - serve-production - includes the automatic startup logic needed for `@nguniversal/builders:ssr-dev-server`
   - serve-development - includes the automatic startup logic needed for `@nguniversal/builders:ssr-dev-server`
-- serve - the executor `ssr-dev-server` from the package `@nguniversal/builders` is used
+- **serve** - the executor `ssr-dev-server` from the package `@nguniversal/builders` is used
   - production
   - development
-- test
-- e2e
-- pre-prerender - precondition logic prerender e.g. preparation of `routs.txt`
-- prerender - the executor `prerender` from the package `@nguniversal/builders` is used
-- emulate-firebase-hosting - firebase hosting emulation over `firebase` CLI
-- deploy-firebase-hosting - we deploy over a GH action. This is be used optionally.
+- **test**
+- **e2e**
+- **pre-prerender** - precondition logic prerender e.g. preparation of `routs.txt`
+- **prerender** - the executor `prerender` from the package `@nguniversal/builders` is used
+- **emulate-firebase-hosting** - firebase hosting emulation over `firebase` CLI
+- **deploy-firebase-hosting** - we deploy over a GH action. This is be used optionally.
   It deploys the CSR version including all pre-rendered pages of the application.
 
 ### Cloud Function
@@ -90,13 +90,13 @@ The firebase-function application is needed to execute the ng-universal express 
 
 Custom Tasks:
 
-- format
-- lint
-- build - `tsc` is used directly
-- test
-- serve
-- emulate-firebase-function - firebase function emulation over `firebase` CLI
-- deploy-firebase-all - We deploy over a GH action. This can be used optionally
+- **format**
+- **lint**
+- **build** - `tsc` is used directly
+- **test**
+- **serve**
+- **emulate-firebase-function** - firebase function emulation over `firebase` CLI
+- **deploy-firebase-all** - We deploy over a GH action. This can be used optionally
   It deploys the firebase function as well as the CSR version including all pre-rendered pages of the application.
   The firebase CLI deploys hosting and functions.
 
@@ -108,7 +108,7 @@ The user-flows application is needed to execute e2e tests against the different 
 
 Custom Tasks and configuration sets:
 
-- user-flow
+- **user-flow**
   - CRS+SSG - over angular dev server
   - CRS+SSG - over ng-universal dev serve
   - CSR+SSG - over firebase hosting emulator
