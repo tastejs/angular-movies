@@ -121,7 +121,7 @@
       "executor": "nx:run-commands",
       "options": {
         "commands": [
-          "npx ts-node -P tooling/tsconfig.json ./tooling/generate-routes/generate-routes.ts --source-file=./projects/ng-universal-express/routes.txt --target-file=./dist/projects/movies/server/routes.txt"
+          "npx ts-node -P tooling/tsconfig.json ./tooling/generate-routes/generate-routes.ts --source-file=./projects/ng-universal-express/routes.txt --target-file=./dist/tmp/projects/movies/server/routes.txt"
         ],
         "parallel": false
       }
@@ -131,7 +131,9 @@
       "outputs": ["dist/projects/movies/browser"],
       "executor": "@nguniversal/builders:prerender",
       "options": {
-        "routes": ["dist/projects/movies/server/routes.txt"]
+        "routes": [
+          "dist/tmp/projects/movies/server/routes.txt"
+        ]
       },
       "configurations": {
         "development": {
