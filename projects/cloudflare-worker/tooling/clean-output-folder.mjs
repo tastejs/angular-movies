@@ -1,19 +1,13 @@
 import fs from "node:fs";
+import {setupArgv} from "./utils.mjs";
+import {existsSync} from "fs";
 
+let target = setupArgv('target', {success: () => `Remove folder ${target}`});
 
-function getArgv(propName) {
-  return process.argv.find((i) => i.includes(`--${propName}`))?.split(/[=]/).pop() || '';
-}
-
-let outputPath = getArgv('outputPath');
-
-if (!outputPath) {
-  throw new Error('Param --outputPath is required');
-}
-console.log(`Clean output folder ${outputPath}`);
-
-try {
-  fs.rmdirSync(outputPath, {recursive: true});
-} catch (e) {
-  console.log(e.message)
+if (existsSync(target)) {
+  try {
+    fs.rmdirSync(target, {recursive: true});
+  } catch (e) {
+    console.log(e.message)
+  }
 }

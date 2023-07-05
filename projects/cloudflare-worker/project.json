@@ -72,27 +72,29 @@
       }
     },
     "pre-deploy": {
+      "outputs": [
+        "dist/projects/movies/worker"
+      ],
       "dependsOn": [
         "build"
       ],
       "executor": "nx:run-commands",
       "options": {
-        "cwd": "projects/cloudflare-worker/tooling",
         "commands": [
-          "node clean-output-folder.mjs --outputPath=./dist/projects/movies/worker",
-          "node copy-worker-files.mjs --ssr=./projects/cloudflare-worker/_worker.js --worker=dist/projects/movies/worker",
-          "node copy-client-files.mjs --outputPath=./dist/projects/movies/browser --source=dist/projects/movies/worker",
-          "node bundle.mjs"
+          "node projects/cloudflare-worker/tooling/copy-files.mjs --source=dist/projects/movies/browser --target=dist/projects/movies/worker",
+          "node projects/cloudflare-worker/tooling/bundle.mjs"
         ],
         "parallel": false
       }
     },
     "deploy-cloudflare-worker": {
+      "dependsOn": [
+        "pre-deploy"
+      ],
       "executor": "nx:run-commands",
       "options": {
         "commands": [
-          "npm run cf-build:ssr && npm run cf-process",
-          "wrangler pages deploy dist/projects/movies/cloudflare --skip-caching"
+          "wrangler pages deploy dist/projects/movies/worker --skip-caching"
         ],
         "parallel": false
       }

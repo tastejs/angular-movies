@@ -1,26 +1,6 @@
 {
-  "compilerOptions": {
-    "lib": [
-      "es6",
-      "dom",
-      "es2015",
-      "es2017"
-    ],
-    "module": "commonjs",
-    "noImplicitReturns": true,
-    "sourceMap": false,
-    "target": "es2019",
-    "allowJs": true,
-    "noImplicitAny": false,
-    "baseUrl": ".",
-    "strict": true,
-    "esModuleInterop": true
-  },
+  "extends": "./tsconfig.json",
   "files": [
-    "../movies/src/main.server.ts",
-    ",./src/worker.ts"
-  ],
-  "include": [
-    "src/**/*.d.ts"
+    "./src/worker.ts"
   ]
 }

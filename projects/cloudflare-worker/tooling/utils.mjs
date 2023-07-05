@@ -3,13 +3,13 @@ export function getArgv(propName) {
 }
 
 export function setupArgv(name, cbs) {
-  if (!name) {
+  const value = getArgv(name);
+  if (!value) {
     throw new Error(cbs?.error() || `Param ${name} not given`);
   }
 
   if (cbs?.success) {
     console.log(cbs.success(name));
   }
-
-
+  return value;
 }
