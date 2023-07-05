@@ -2,7 +2,23 @@
 // uploaded along with the main Worker module.
 import fs from "node:fs";
 import path from "node:path";
-import {ssr, worker} from "./paths.mjs";
+
+function getArgv(propName) {
+  return process.argv.find((i) => i.includes(`--${propName}`))?.split(/[=]/).pop() || '';
+}
+
+let worker = getArgv('worker');
+let ssr = getArgv('ssr');
+
+if (!ssr) {
+  throw new Error('Param --ssr is required');
+}
+
+if (!worker) {
+  throw new Error('Param --worker is required');
+}
+console.log(`Copy ${ssr} to ${worker} and rename main.js to index.js`);
+
 
 fs.cpSync(ssr, worker, {recursive: true});
 fs.renameSync(
