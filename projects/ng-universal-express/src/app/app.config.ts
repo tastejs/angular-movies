@@ -1,11 +1,11 @@
 import {ApplicationConfig, mergeApplicationConfig} from '@angular/core';
 import {provideServerRendering} from '@angular/platform-server';
-import {baseAppConfig} from './app.base.config';
+import {baseAppConfig} from '../../../movies/src/app/app.base.config';
 import {provideFastSVG} from '@push-based/ngx-fast-svg';
 import {RX_RENDER_STRATEGIES_CONFIG} from '@rx-angular/cdk/render-strategies';
 import {provideHttpClient} from '@angular/common/http';
 import {provideISR} from 'ngx-isr';
-import {IconLoadStrategySsr} from './ui/component/icons/icon-load.ssr.strategy';
+import {IconLoadStrategySsr} from './icon-load.ssr.strategy';
 
 const serverConfig: ApplicationConfig = {
   providers: [

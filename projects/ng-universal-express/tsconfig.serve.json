@@ -2,6 +2,10 @@
 {
   "extends": "./tsconfig.app.json",
   "compilerOptions": {},
-  "files": ["../movies/src/main.server.ts", "src/start-app.ts"],
-  "include": ["src/**/*.d.ts"]
+  "files": [
+    "src/serve-index.ts"
+  ],
+  "include": [
+    "src/**/*.d.ts"
+  ]
 }
