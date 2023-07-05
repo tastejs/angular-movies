@@ -10,7 +10,7 @@
     "build": {
       "executor": "@angular-devkit/build-angular:server",
       "options": {
-        "outputPath": "dist/projects/cloudflare-worker",
+        "outputPath": "dist/projects/movies/worker",
         "main": "projects/cloudflare-worker/src/worker.ts",
         "tsConfig": "projects/cloudflare-worker/tsconfig.worker.json",
         "optimization": false,
@@ -77,8 +77,12 @@
       ],
       "executor": "nx:run-commands",
       "options": {
+        "cwd": "projects/cloudflare-worker/tooling",
         "commands": [
-          "node ./cf-tools/clean-output-folder.mjs && node ./cf-tools/copy-worker-files.mjs && node ./cf-tools/copy-client-files.mjs && node ./cf-tools/bundle.mjs"
+          "node clean-output-folder.mjs --outputPath=./dist/projects/movies/worker",
+          "node copy-worker-files.mjs --ssr=./projects/cloudflare-worker/_worker.js --worker=dist/projects/movies/worker",
+          "node copy-client-files.mjs --outputPath=./dist/projects/movies/browser --source=dist/projects/movies/worker",
+          "node bundle.mjs"
         ],
         "parallel": false
       }

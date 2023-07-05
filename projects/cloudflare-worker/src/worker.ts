@@ -1,11 +1,8 @@
 import 'zone.js/dist/zone-node';
 import '@angular/platform-server/init';
 import {renderApplication} from '@angular/platform-server';
-
-import {EdgeEnv, provideEdgeEnv} from '../../movies/src/env.token';
+import {EdgeEnv, provideEdgeEnv} from './env.token';
 import bootstrap from "../../movies/src/main.server";
-import {provideHttpClient} from "@angular/common/http";
-import {withFetch} from "../../movies/src/app/angular-common/fetch";
 
 // We attach the Cloudflare `fetch()` handler to the global scope
 // so that we can export it when we process the Angular output.
@@ -16,6 +13,9 @@ import {withFetch} from "../../movies/src/app/angular-common/fetch";
 ) {
   const url = new URL(request.url);
   const cacheKey = new Request(url.toString(), request).url;
+
+  console.log(JSON.stringify(env, null, 2));
+
   const contentFromKV = await env.NGMOVIES.get(cacheKey, {
     type: 'text',
   });
@@ -32,11 +32,10 @@ import {withFetch} from "../../movies/src/app/angular-common/fetch";
     return response;
   }
 
+
   const content = await renderApplication(
     () => bootstrap({
       providers: [
-        // order is strict requirement for withFetch!
-        provideHttpClient(withFetch()),
         provideEdgeEnv({env, request})
       ]
     }),
@@ -45,7 +44,7 @@ import {withFetch} from "../../movies/src/app/angular-common/fetch";
 
   await env.NGMOVIES.put(cacheKey, content, {
     // seconds
-    expirationTtl: 1000
+    expirationTtl: 1000,
   });
 
   let response = new Response(content, indexResponse);

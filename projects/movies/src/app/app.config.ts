@@ -42,6 +42,7 @@ const appConfig: ApplicationConfig = {
     provideFastSVG({
       url: (name: string) => `assets/svg-icons/${name}.svg`,
     }),
+    // global actions
     RxActionFactory,
     /**
      * **🚀 Perf Tip for LCP, TTI:**

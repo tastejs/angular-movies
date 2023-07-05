@@ -8,7 +8,6 @@
     ],
     "module": "commonjs",
     "noImplicitReturns": true,
-    "outDir": "../../dist/projects/movies/cloudflare-worker",
     "sourceMap": false,
     "target": "es2019",
     "allowJs": true,
@@ -18,7 +17,8 @@
     "esModuleInterop": true
   },
   "files": [
-    "src/worker.ts"
+    "../movies/src/main.server.ts",
+    ",./src/worker.ts"
   ],
   "include": [
     "src/**/*.d.ts"

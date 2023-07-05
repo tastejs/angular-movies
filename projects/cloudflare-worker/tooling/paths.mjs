@@ -7,3 +7,7 @@ export const client = path.resolve(root, "dist/projects/movies/browser");
 export const ssr = path.resolve(root, "dist/projects/movies/server");
 export const cloudflare = path.resolve(root, "dist/projects/movies/cloudflare");
 export const worker = path.resolve(cloudflare, "_worker.js");
+
+export function resolvePath(path) {
+  return path.resolve(root, path);
+}
