@@ -8,7 +8,7 @@ import {ISRHandler} from 'ngx-isr';
 import {environment} from '../../movies/src/environments/environment';
 import compressionModule from 'compression';
 import {ngExpressEngine} from '@nguniversal/express-engine';
-import bootstrap from '../../movies/src/main.server';
+import bootstrap from './app/bootstrap';
 
 
 export default bootstrap;

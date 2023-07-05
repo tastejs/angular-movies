@@ -13,7 +13,7 @@
         "outputHashing": "media",
         "sourceMap": true,
         "outputPath": "dist/projects/movies/server",
-        "main": "projects/ng-universal-express/src/app.ts",
+        "main": "projects/ng-universal-express/src/index.ts",
         "tsConfig": "projects/ng-universal-express/tsconfig.app.json",
         "inlineStyleLanguage": "scss"
       },
@@ -35,7 +35,7 @@
               "with": "projects/movies/src/environments/environment.production.ts"
             }
           ],
-          "main": "projects/ng-universal-express/src/start-app.ts",
+          "main": "projects/ng-universal-express/src/serve-index.ts",
           "tsConfig": "projects/ng-universal-express/tsconfig.serve.json"
         },
         "development": {
@@ -51,7 +51,7 @@
           "sourceMap": true,
           "extractLicenses": false,
           "vendorChunk": true,
-          "main": "projects/ng-universal-express/src/start-app.ts",
+          "main": "projects/ng-universal-express/src/serve-index.ts",
           "tsConfig": "projects/ng-universal-express/tsconfig.serve.json"
         }
       },
