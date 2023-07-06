@@ -4,8 +4,7 @@ import {provideFastSVG} from '@push-based/ngx-fast-svg';
 import {RX_RENDER_STRATEGIES_CONFIG} from '@rx-angular/cdk/render-strategies';
 import {provideHttpClient} from '@angular/common/http';
 import {provideISR} from 'ngx-isr';
-import {IconLoadStrategySsr} from './ui/component/icons/icon-load.ssr.strategy';
-import {mergeBaseConfig} from "./app.config";
+import {IconLoadStrategySsr} from './icon-load.ssr.strategy';
 
 const serverConfig: ApplicationConfig = {
   providers: [
@@ -23,5 +22,4 @@ const serverConfig: ApplicationConfig = {
   ],
 };
 
-// We provide the config function as closure to be able to inject configuration from the consuming end
-export const appConfig = (outerConfig: ApplicationConfig = {} as ApplicationConfig) => mergeBaseConfig(serverConfig, outerConfig);
+export const appConfig = serverConfig;

@@ -5,7 +5,7 @@ import {RX_RENDER_STRATEGIES_CONFIG} from '@rx-angular/cdk/render-strategies';
 import {provideHttpClient} from '@angular/common/http';
 import {withFetch} from './angular-common/fetch';
 import {IconLoadStrategyWorker} from './ui/component/icons/icon-load.worker.strategy';
-import {mergeBaseConfig} from "./app.config";
+import {mergeBaseConfig} from "./app.base.config";
 
 export const cloudflareServerConfig: ApplicationConfig = {
   providers: [
@@ -24,4 +24,4 @@ export const cloudflareServerConfig: ApplicationConfig = {
 };
 
 // We provide the config function as closure to be able to inject configuration from the consuming end
-export const appConfig = (outerConfig: ApplicationConfig = {} as ApplicationConfig) => mergeBaseConfig(cloudflareServerConfig, outerConfig);
+export const appConfig = (outerConfig: ApplicationConfig = {providers: []}) => mergeBaseConfig(cloudflareServerConfig, outerConfig);

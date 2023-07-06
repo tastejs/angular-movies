@@ -2,7 +2,7 @@ import 'zone.js/dist/zone-node';
 import '@angular/platform-server/init';
 import {renderApplication} from '@angular/platform-server';
 import {EdgeEnv, provideEdgeEnv} from './env.token';
-import bootstrap from "../../movies/src/main.server";
+import bootstrap from '../../movies/src/index';
 
 // We attach the Cloudflare `fetch()` handler to the global scope
 // so that we can export it when we process the Angular output.

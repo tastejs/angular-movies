@@ -8,6 +8,10 @@
       "node"
     ]
   },
-  "files": ["../movies/src/main.server.ts", "./src/app.ts"],
-  "include": ["src/**/*.d.ts"]
+  "files": [
+    "./src/index.ts"
+  ],
+  "include": [
+    "src/**/*.d.ts"
+  ]
 }
