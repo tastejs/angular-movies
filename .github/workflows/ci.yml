@@ -21,4 +21,4 @@ jobs:
         run: npm ci
 
       - name: Build affected projects
-        run: npm run nx -- affected -t build -c production
+        run: npm run nx -- build firebase-function -c production
