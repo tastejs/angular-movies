@@ -49,7 +49,7 @@
       "executor": "nx:run-commands",
       "options": {
         "commands": [
-          "nx pre-build cloudflare-worker",
+          "nx build movies",
           "nx pre-build cloudflare-worker",
           "node projects/cloudflare-worker/tooling/copy-files.mjs --source=dist/projects/movies/browser --target=dist/tmp/_worker",
           "node projects/cloudflare-worker/tooling/bundle.mjs --target=dist/projects/movies/worker"
