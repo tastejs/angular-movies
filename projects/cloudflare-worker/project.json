@@ -46,11 +46,9 @@
     },
     "serve": {
       "executor": "nx:run-commands",
-      "dependsOn": [
-        "build"
-      ],
       "options": {
         "commands": [
+          "wrangler pages dev dist/projects/movies/worker --compatibility-date=2021-09-20 --experimental-local"
         ],
         "parallel": false
       }

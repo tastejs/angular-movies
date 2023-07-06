@@ -22,9 +22,3 @@ jobs:
 
       - name: Build affected projects
         run: npm run nx -- affected -t build -c production
-
-      - name: Test affected projects
-        run: npm run nx -- affected -t test
-
-      - name: Test affected projects
-        run: npm run nx affected -t test

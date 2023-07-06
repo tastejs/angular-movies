@@ -21,7 +21,7 @@
     "serve:dist": "npx http-server -p 8080 -c-1 dist/projects/movies/browser",
     "format:all": "prettier --write .",
     "commit": "git-cz",
-    "cf-start": "wrangler pages dev dist/projects/movies/cloudflare --compatibility-date=2021-09-20 --experimental-local",
+    "cf-start": "wrangler pages dev dist/projects/movies/worker --compatibility-date=2021-09-20 --experimental-local",
     "cf-build:ssr": "npm run nx build movies --configuration production && nx run movies:build-server-cf",
     "cf-process": "node ./cf-tools/clean-output-folder.mjs && node ./cf-tools/copy-worker-files.mjs && node ./cf-tools/copy-client-files.mjs && node ./cf-tools/bundle.mjs",
     "precf-start": "npm run cf-build:ssr && npm run cf-process",
