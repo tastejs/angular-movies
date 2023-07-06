@@ -7,14 +7,20 @@
     "movies"
   ],
   "targets": {
-    "build": {
+    "pre-build": {
+      "outputs": [
+        "{options.outputPath}"
+      ],
       "executor": "@angular-devkit/build-angular:server",
       "options": {
-        "outputPath": "dist/projects/movies/worker",
+        "outputPath": "dist/tmp/_worker",
         "main": "projects/cloudflare-worker/src/worker.ts",
         "tsConfig": "projects/cloudflare-worker/tsconfig.worker.json",
-        "optimization": false,
-        "buildOptimizer": false
+        "outputHashing": "media",
+        "sourceMap": true,
+        "extractLicenses": true,
+        "optimization": true,
+        "buildOptimizer": true
       },
       "configurations": {
         "development": {
@@ -26,68 +32,46 @@
           "buildOptimizer": false
         },
         "production": {
-          "outputHashing": "media",
           "fileReplacements": [
             {
               "replace": "projects/movies/src/environments/environment.ts",
               "with": "projects/movies/src/environments/environment.production.ts"
             }
-          ],
-          "sourceMap": false,
-          "extractLicenses": true,
-          "optimization": true,
-          "buildOptimizer": true
+          ]
         }
       },
-      "defaultConfiguration": "production",
-      "outputs": [
-        "{options.outputPath}"
-      ]
+      "defaultConfiguration": "production"
     },
-    "serve": {
+    "build": {
+      "outputs": [
+        "dist/tmp/_worker"
+      ],
       "executor": "nx:run-commands",
       "options": {
         "commands": [
-          "wrangler pages dev dist/projects/movies/worker --compatibility-date=2021-09-20 --experimental-local"
+          "nx pre-build cloudflare-worker",
+          "nx pre-build cloudflare-worker",
+          "node projects/cloudflare-worker/tooling/copy-files.mjs --source=dist/projects/movies/browser --target=dist/tmp/_worker",
+          "node projects/cloudflare-worker/tooling/bundle.mjs --target=dist/projects/movies/worker"
         ],
         "parallel": false
       }
     },
-    "test": {
-      "executor": "@nx/jest:jest",
-      "outputs": [
-        "{workspaceRoot}/dist/coverage/cloudflare-worker"
-      ],
-      "options": {
-        "jestConfig": "projects/cloudflare-worker/jest.config.ts",
-        "passWithNoTests": true
-      },
-      "configurations": {
-        "ci": {
-          "ci": true,
-          "codeCoverage": true
-        }
-      }
-    },
-    "pre-deploy": {
-      "outputs": [
-        "dist/projects/movies/worker"
-      ],
+    "emulate": {
       "dependsOn": [
         "build"
       ],
       "executor": "nx:run-commands",
       "options": {
         "commands": [
-          "node projects/cloudflare-worker/tooling/copy-files.mjs --source=dist/projects/movies/browser --target=dist/projects/movies/worker",
-          "node projects/cloudflare-worker/tooling/bundle.mjs --target=dist/projects/movies/worker/_worker.js"
+          "wrangler pages dev dist/projects/movies/worker --compatibility-date=2021-09-20"
         ],
         "parallel": false
       }
     },
-    "deploy-cloudflare-worker": {
+    "deploy": {
       "dependsOn": [
-        "pre-deploy"
+        "build"
       ],
       "executor": "nx:run-commands",
       "options": {

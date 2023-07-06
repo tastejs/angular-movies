@@ -23,7 +23,7 @@
       "executor": "nx:run-commands",
       "options": {
         "commands": [
-          "firebase emulators:start --project angular-movies"
+          "firebase emulators:start --only function --project angular-movies"
         ],
         "parallel": false
       }
@@ -72,7 +72,7 @@
       ],
       "options": {
         "commands": [
-          "npx firebase deploy --project angular-movies"
+          "npx firebase deploy --only function --project angular-movies"
         ],
         "parallel": false
       }

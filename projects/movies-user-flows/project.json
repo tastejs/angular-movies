@@ -26,15 +26,15 @@
         "outputPath": "dist/user-flows/angular-movies"
       },
       "configurations": {
-        "development": {
+        "local": {
           "url": "http://localhost:4200",
           "serveCommand": "nx run movies-user-flows:serve:production",
           "awaitServeStdout": "Angular Universal Live Development Server is listening on"
         },
-        "development-ssr": {
-          "url": "http://localhost:4201",
-          "serveCommand": "nx run movies-user-flows:serve-ssr:production",
-          "awaitServeStdout": "Angular Universal Live Development Server is listening on"
+        "emulate-worker": {
+          "url": "http://127.0.0.1:8788/",
+          "serveCommand": "nx run cloudflare-worker:emulate",
+          "awaitServeStdout": "[mf:inf] Ready on http://127.0.0.1:8788/"
         }
       }
     }

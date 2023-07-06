@@ -7,7 +7,7 @@ import {NodeModulesPolyfillPlugin} from "@esbuild-plugins/node-modules-polyfill"
 import fg from "fast-glob";
 import {setupArgv} from "./utils.mjs";
 
-let target = resolvePath(setupArgv('target', {success: (v) => `Remove folder ${v}`}));
+let target = resolvePath(setupArgv('target', {success: (v) => `Build folder ${v}`}));
 
 // Process each of the JS files in the `_worker.js` directory
 for (const entry of await fg("**/*.js", {cwd: target, onlyFiles: true})) {
