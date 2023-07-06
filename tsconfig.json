@@ -31,8 +31,8 @@
       "angular-movies": [
         "projects/movies/src/index.ts"
       ],
-      "test-utils": [
-        "projects/movies-user-flows/src/index.ts"
+      "movies-user-flows": [
+        "movies-user-flows/src/index.ts"
       ]
     }
   },

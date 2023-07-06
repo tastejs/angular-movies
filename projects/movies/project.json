@@ -221,7 +221,7 @@
         "url": "http://localhost:4200",
         "rcPath": "projects/movies/.user-flowrc.json",
         "outputPath": "dist/user-flow/movies",
-        "ufPath": "projects/movies-user-flows/src/user-flows/navigation.uf.ts",
+        "ufPath": "projects/movies/user-flows",
         "format": [
           "html"
         ]

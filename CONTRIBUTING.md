@@ -1,5 +1,14 @@
 # General
 
+## Task Hierarchy
+
+```mermaid
+graph TD;
+    lint-->build2;
+    build2-->build1;
+    build1-->user-flow;
+```
+
 ## App Hierarchy
 
 The repository maintains the following projects:
@@ -29,7 +38,8 @@ In this mono repository we agree on a set of tasks that need to be consistent ac
 Tasks:
 
 - **format**
-- **lint** - defaults to `eslint`
+- **lint** - defaults project linting
+- **lint-* ** - defaults to `eslint`
 - **build**
 - **serve**
 - **test**
@@ -58,9 +68,17 @@ Custom Tasks:
   - development
 - **test**
 - **e2e**
-- **emulate-firebase-hosting** - firebase hosting emulation over `firebase` CLI
-- **deploy-firebase-hosting** - We deploy over a GH action. This is be used optionally.  
+- **emulate-firebase** - firebase hosting emulation over `firebase` CLI
+- **deploy-firebase** - We deploy over a GH action. This is be used optionally.  
   It deploys the CSR version of the application excluding the pre-generated sites.
+- **user-flow** - co-located e2e tests
+  - development - `build` for `development`. Serve it with the `server` executor.  
+    XY tests are executed.
+  - production - `build` for `pruduction`. Serve it with the `server` executor.  
+    XY tests are executed.
+  - emulated - `build` for `pruduction`. Serve it with the `emulate-firebase` task.  
+    XY tests are executed.
+
 - build-report - `state.json` and bundle analyzer generation
 - update-readme - update the main readme (`./README.md`) with data from our builds and reports
 
@@ -73,20 +91,25 @@ Custom Tasks:
 - **format**
 - **lint**
 - **build** - the executor `server` from the package `@angular-devkit/build-angular` is used
-  - production
   - development
+  - production
   - serve-production - includes the automatic startup logic needed for `@nguniversal/builders:ssr-dev-server`
   - serve-development - includes the automatic startup logic needed for `@nguniversal/builders:ssr-dev-server`
 - **serve** - the executor `ssr-dev-server` from the package `@nguniversal/builders` is used
-  - production
   - development
+  - production
 - **test**
 - **e2e**
 - **pre-prerender** - precondition logic prerender e.g. preparation of `routs.txt`
 - **prerender** - the executor `prerender` from the package `@nguniversal/builders` is used
-- **emulate-firebase-hosting** - firebase hosting emulation over `firebase` CLI
-- **deploy-firebase-hosting** - we deploy over a GH action. This is be used optionally.
-  It deploys the CSR version including all pre-rendered pages of the application.
+- **emulate-firebase** - firebase hosting emulation over `firebase` CLI
+- **user-flow** - co-located e2e tests
+  - development - `build` for `development`. `serve` it with the `serve-development` options  
+    XY tests are executed.
+  - production - `build` for `pruduction`. `serve` it with the `serve-pruduction` options.  
+    XY tests are executed.
+  - emulated - `build` for `pruduction` and run `prerender`. `serve` it with the `emulate-firebase` task.  
+    XY tests are executed.
 
 ### Cloud Function
 
@@ -94,19 +117,26 @@ The firebase-function application is needed to execute the ng-universal express 
 
 Custom Tasks:
 
-- **format**
-- **lint**
 - **build** - `tsc` is used directly
-- **test**
-- **serve**
-- **emulate-firebase-function** - firebase function emulation over `firebase` CLI
-- **deploy-firebase-all** - We deploy over a GH action. This can be used optionally
+- **emulate-firebase** - firebase function emulation over `firebase` CLI
+- **deploy-firebase** - We deploy over a GH action. This can be used optionally
   It deploys the firebase function as well as the CSR version including all pre-rendered pages of the application.
   The firebase CLI deploys hosting and functions.
+- **user-flow** - co-located e2e tests
+- emulated - `build` for `pruduction` and run `prerender`. Serve it with the `emulate-firebase` task.  
+  XY tests are executed.
 
 ### User Flows
 
-!!TODO!!
+To test a applications with user flow we consider the following libs/apps:
+
+- **<centralized>-user-flows** - globally shared user-flow logic or tests
+  - **test-data/index.ts** - global fixtures, data, budgets
+  - **/src/index.ts** - configurable UFO objects entry point
+  - **/user-flows** - folder for shared user flows
+- **<application>**
+  - **/test** - co-located user-flow tests logic
+  - **/user-flows** - co-located user-flow tests
 
 The user-flows application is needed to execute e2e tests against the different deployments.
 
