@@ -6,7 +6,11 @@
         "cacheableOperations": [
           "lint",
           "build",
-          "build-report"
+          "build-report",
+          "user-flow",
+          "user-flow",
+          "user-flow",
+          "user-flow"
         ],
         "accessToken": "OTI0YWJiN2ItNTI2MC00M2RmLTlmM2EtOWRiODZkYmVjZTAyfHJlYWQtd3JpdGU="
       }
@@ -52,7 +56,12 @@
         "{workspaceRoot}/jest.preset.js"
       ]
     },
-    "emulate-firebase-hosting": {
+    "emulate-firebase": {
+      "dependsOn": [
+        "build"
+      ]
+    },
+    "deploy-firebase-function": {
       "dependsOn": [
         "build"
       ]

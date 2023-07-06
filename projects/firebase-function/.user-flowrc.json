@@ -1,0 +1,10 @@
+{
+  "collect": {
+    "ufPath": "projects/firebase-function/user-flows"
+  },
+  "persist": {
+    "format": [
+      "md"
+    ]
+  }
+}

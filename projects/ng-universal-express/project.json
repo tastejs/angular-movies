@@ -74,17 +74,6 @@
       },
       "defaultConfiguration": "development"
     },
-    "emulate-firebase-hosting": {
-      "executor": "nx:run-commands",
-      "options": {
-        "commands": [
-          "nx prerender ng-universal-express",
-          "nx prerender ng-universal-express",
-          "firebase emulators:start --only hosting --project angular-movies"
-        ],
-        "parallel": false
-      }
-    },
     "lint": {
       "executor": "@nx/linter:eslint",
       "outputs": [
@@ -143,7 +132,17 @@
       },
       "defaultConfiguration": "production"
     },
-    "deploy-firebase-hosting": {
+    "emulate-firebase": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          "nx prerender ng-universal-express",
+          "firebase emulators:start --only hosting --project angular-movies"
+        ],
+        "parallel": false
+      }
+    },
+    "deploy-firebase": {
       "executor": "nx:run-commands",
       "dependsOn": [
         "prerender"
@@ -153,6 +152,34 @@
           "npx firebase deploy --only hosting --project angular-movies"
         ],
         "parallel": false
+      }
+    },
+    "user-flow": {
+      "executor": "@push-based/user-flow-nx-plugin:user-flow",
+      "outputs": [
+        "{options.outputPath}"
+      ],
+      "options": {
+        "url": "http://localhost:4300",
+        "rcPath": "projects/ng-universal-express/.user-flowrc.json",
+        "outputPath": "dist/user-flow/ng-universal-express",
+        "ufPath": "projects/movies-user-flows/src/user-flows/navigation.uf.ts"
+      },
+      "configurations": {
+        "emulated": {
+          "url": "http://127.0.0.1:5003",
+          "serveCommand": "nx run ng-universal-express:emulate-firebase",
+          "awaitServeStdout": "✔  hosting[angular-movies-a12d3]: Local server:"
+        },
+        "production": {
+          "serveCommand": "nx run ng-universal-express:serve:production",
+          "awaitServeStdout": "Angular Universal Live Development Server is listening on"
+        },
+        "development": {
+          "verbose": true,
+          "serveCommand": "nx run ng-universal-express:serve:development",
+          "awaitServeStdout": "Angular Universal Live Development Server is listening on"
+        }
       }
     }
   },

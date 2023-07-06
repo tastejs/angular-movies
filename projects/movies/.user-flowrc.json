@@ -1,0 +1,10 @@
+{
+  "collect": {
+    "ufPath": "projects/movies/user-flows"
+  },
+  "persist": {
+    "format": [
+      "md"
+    ]
+  }
+}

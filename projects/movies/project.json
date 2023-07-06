@@ -96,15 +96,6 @@
         "{options.outputPath}"
       ]
     },
-    "emulate-firebase-hosting": {
-      "executor": "nx:run-commands",
-      "options": {
-        "commands": [
-          "firebase emulators:start --only hosting --project angular-movies"
-        ],
-        "parallel": false
-      }
-    },
     "serve": {
       "executor": "@angular-devkit/build-angular:dev-server",
       "configurations": {
@@ -136,7 +127,16 @@
         "browserTarget": "movies:build"
       }
     },
-    "deploy-firebase-hosting": {
+    "emulate-firebase": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          "firebase emulators:start --only hosting --project angular-movies"
+        ],
+        "parallel": false
+      }
+    },
+    "deploy-firebase": {
       "executor": "nx:run-commands",
       "options": {
         "commands": [
@@ -205,7 +205,37 @@
         }
       },
       "defaultConfiguration": "production",
-      "outputs": ["{options.outputPath}"]
+      "outputs": [
+        "{options.outputPath}"
+      ]
+    },
+    "user-flow": {
+      "executor": "@push-based/user-flow-nx-plugin:user-flow",
+      "outputs": [
+        "{options.outputPath}"
+      ],
+      "options": {
+        "rcPath": "projects/movies/.user-flowrc.json",
+        "outputPath": "dist/user-flow/projects/movies",
+        "ufPath": "projects/movies-user-flows/src/user-flows/navigation.uf.ts",
+        "url": "http://localhost:4200"
+      },
+      "configurations": {
+        "emulated": {
+          "url": "http://127.0.0.1:5002",
+          "serveCommand": "nx run movies:emulate-firebase",
+          "awaitServeStdout": "✔  hosting[angular-movies-a12d3]: Local server:"
+        },
+        "production": {
+          "serveCommand": "nx run movies:serve:production",
+          "awaitServeStdout": "Angular Live Development Server is listening on"
+        },
+        "development": {
+          "verbose": true,
+          "serveCommand": "nx run movies:serve:development",
+          "awaitServeStdout": "Angular Live Development Server is listening on"
+        }
+      }
     }
   }
 }

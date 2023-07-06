@@ -1,17 +1,6 @@
-import {
-  UserFlowProvider,
-  UserFlowOptions,
-  UserFlowInteractionsFn,
-  UserFlowContext,
-} from '@push-based/user-flow';
-import { readBudgets } from '@push-based/user-flow/src/lib/commands/assert/utils/budgets';
+import {UserFlowContext, UserFlowInteractionsFn, UserFlowOptions, UserFlowProvider,} from '@push-based/user-flow';
 
-import { MovieDetailPageUFO } from '../ufo/desktop/movie-detail-page.ufo';
-import { MovieListPageUFO } from '../ufo/desktop/movie-list-page.ufo';
-import { SidebarUFO } from '../ufo/mobile/side-bar.ufo';
-import { readFileSync } from 'fs';
-import Budget from 'lighthouse/types/lhr/budget';
-import { getTestSets } from '../internals/test-sets';
+import {getTestSets} from '../internals/test-sets';
 
 const flowOptions: UserFlowOptions = {
   name: 'Initial Navigation of the Main Pages',

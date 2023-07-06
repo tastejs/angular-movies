@@ -36,6 +36,10 @@ Tasks:
 - **e2e-* ** - e2e tests with optional postfix (if no postfix is needed use just `e2e`)
 - **emulate-* ** - emulated environments
 - **deploy--* ** - deployment targets
+- **user-flow** - e2e tests inc lighthouse measures
+  - development
+  - production
+  - emulated
 
 ### Browser Application
 
