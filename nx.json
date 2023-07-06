@@ -61,12 +61,7 @@
         "build"
       ]
     },
-    "deploy-firebase-function": {
-      "dependsOn": [
-        "build"
-      ]
-    },
-    "deploy-firebase-hosting": {
+    "deploy-firebase": {
       "dependsOn": [
         "build"
       ]

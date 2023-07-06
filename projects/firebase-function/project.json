@@ -89,7 +89,10 @@
         "url": "http://127.0.0.1:5001/angular-movies-a12d3/us-central1/ssr",
         "rcPath": "projects/firebase-function/.user-flowrc.json",
         "outputPath": "dist/user-flow/firebase-function",
-        "ufPath": "projects/movies-user-flows/src/user-flows/navigation.uf.ts"
+        "ufPath": "projects/movies-user-flows/src/user-flows/navigation.uf.ts",
+        "format": [
+          "html"
+        ]
       },
       "configurations": {
         "emulated": {

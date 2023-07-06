@@ -1,7 +1,7 @@
 {
   "name": "movies-user-flows",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "projectType": "application",
+  "projectType": "library",
   "sourceRoot": "projects/movies-user-flows/src",
   "implicitDependencies": [
     "movies"
