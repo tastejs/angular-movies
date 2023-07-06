@@ -1,0 +1,34 @@
+{
+  "name": "_movies-user-flows",
+  "$schema": "../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "movies-user-flows/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": [
+        "{options.outputPath}"
+      ],
+      "options": {
+        "outputPath": "dist/movies-user-flows",
+        "main": "movies-user-flows/src/index.ts",
+        "tsConfig": "movies-user-flows/tsconfig.lib.json",
+        "assets": [
+          "movies-user-flows/*.md"
+        ]
+      }
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": [
+        "{options.outputFile}"
+      ],
+      "options": {
+        "lintFilePatterns": [
+          "movies-user-flows/**/*.ts"
+        ]
+      }
+    }
+  },
+  "tags": []
+}
