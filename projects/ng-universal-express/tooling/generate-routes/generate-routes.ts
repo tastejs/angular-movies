@@ -2,10 +2,11 @@ import {existsSync, mkdirSync, readFileSync, WriteFileOptions, writeFileSync} fr
 import {dirname} from 'path';
 import {EOL} from 'os';
 import axios from 'axios';
-import {TMDBMovieModel} from '../../projects/movies/src/app/data-access/api/model/movie.model';
-import {TMDBPaginateResult} from '../../projects/movies/src/app/data-access/api/paginate/paginate.interface';
-import {GenresResponse} from '../../projects/movies/src/app/data-access/api/resources/genre.resource';
-import {environment} from '../../projects/movies/src/environments/environment';
+
+import {TMDBMovieModel} from '../../../movies/src/app/data-access/api/model/movie.model';
+import {TMDBPaginateResult} from '../../../movies/src/app/data-access/api/paginate/paginate.interface';
+import {GenresResponse} from '../../../movies/src/app/data-access/api/resources/genre.resource';
+import {environment} from '../../../movies/src/environments/environment';
 
 // PARAMS
 const mutation = !getArgv('no-mutation');
@@ -37,20 +38,20 @@ const movieGenresRoutes = axios
   })
   .then(({data}) => data.genres.map(({id}) => genresListURL(id)));
 
-const moviesPopularRoutes = (options: {
-  pages: number; // how many page details of popular movies should be pre-rendered
-}) =>
-  [...Array(options.pages).keys()].map((_, i) =>
-    axios
-      .get<TMDBPaginateResult<TMDBMovieModel>>(moviesPopularURL, {
-        headers: getTmdbHeaders(),
-        params: {
-          sort_by: 'popularity.asc',
-          page: i + 1,
-        },
-      })
-      .then(({data}) => data.results.map(({id}) => movieDetailURL(id)))
-  );
+
+// how many page details of popular movies should be pre-rendered
+// @ts-ignore
+const moviesPopularRoutes = (options: { pages: number }) => [...Array(options.pages).keys()].map((_, i) =>
+  axios
+    .get<TMDBPaginateResult<TMDBMovieModel>>(moviesPopularURL, {
+      headers: getTmdbHeaders(),
+      params: {
+        sort_by: 'popularity.asc',
+        page: i + 1,
+      },
+    })
+    .then(({data}) => data.results.map(({id}) => movieDetailURL(id)))
+);
 
 
 // GENERATE

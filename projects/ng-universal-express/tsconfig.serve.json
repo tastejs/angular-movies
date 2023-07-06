@@ -4,8 +4,5 @@
   "compilerOptions": {},
   "files": [
     "src/serve-index.ts"
-  ],
-  "include": [
-    "src/**/*.d.ts"
   ]
 }

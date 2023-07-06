@@ -7,18 +7,6 @@
     "movies"
   ],
   "targets": {
-    "serve": {
-      "outputs": [
-        "{workspaceRoot}"
-      ],
-      "executor": "nx:run-commands",
-      "options": {
-        "commands": [
-          "nx serve movies"
-        ],
-        "parallel": false
-      }
-    },
     "user-flow": {
       "executor": "@push-based/user-flow-nx-plugin:user-flow",
       "options": {
