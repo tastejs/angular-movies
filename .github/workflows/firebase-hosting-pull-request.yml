@@ -41,7 +41,7 @@ jobs:
           verbose: on
           url: ${{ fromJson(steps.previewDeployStep.outputs.urls)[0] }}
           rcPath: ./projects/movies-user-flows/.user-flowrc.json
-          customScript: npm run nx -- run ng-universal-express:user-flow:firebase-preview --url ${{ fromJson(steps.previewDeployStep.outputs.urls)[0] }}
+          customScript: npm run nx -- run ng-universal-express:user-flow:firebase-preview
 
       - name: Update readme with bundle stats
         run: npm run nx update-readme movies
