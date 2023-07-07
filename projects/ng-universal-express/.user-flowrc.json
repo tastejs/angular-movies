@@ -1,6 +1,6 @@
 {
   "collect": {
-    "ufPath": "projects/movies-user-flows/user-flows"
+    "ufPath": "projects/ng-universal-express/user-flows"
   },
   "persist": {
     "format": [

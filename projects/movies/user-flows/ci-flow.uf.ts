@@ -1,9 +1,9 @@
 import {UserFlowContext, UserFlowInteractionsFn, UserFlowOptions, UserFlowProvider,} from '@push-based/user-flow';
 
-import {mergeBudgets} from '../internals/test-sets';
-import {MovieDetailPageUFO} from '../ufo/desktop/movie-detail-page.ufo';
-import {MovieListPageUFO} from '../ufo/desktop/movie-list-page.ufo';
-import {SidebarUFO} from '../ufo/mobile/side-bar.ufo';
+import {mergeBudgets} from '../../movies-user-flows/src';
+import {MovieDetailPageUFO} from '../../movies-user-flows/src';
+import {MovieListPageUFO} from '../../movies-user-flows/src';
+import {SidebarUFO} from '../../movies-user-flows/src';
 
 const flowOptions: UserFlowOptions = {
   name: 'Basic user flow to ensure basic functionality',
@@ -59,7 +59,7 @@ const interactions: UserFlowInteractionsFn = async (
   return Promise.resolve();
 };
 
-const userFlowProvider: UserFlowProvider = {
+export const userFlowProvider: UserFlowProvider = {
   flowOptions,
   interactions,
 };

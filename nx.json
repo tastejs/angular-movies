@@ -13,7 +13,7 @@
     }
   },
   "affected": {
-    "defaultBase": "origin/main"
+    "defaultBase": "main"
   },
   "namedInputs": {
     "sharedGlobals": [],
@@ -61,12 +61,12 @@
         "^development"
       ]
     },
-    "emulate-firebase-hosting": {
+    "emulate-firebase": {
       "dependsOn": [
         "build"
       ]
     },
-    "deploy-firebase-hosting": {
+    "deploy-firebase": {
       "dependsOn": [
         "build"
       ]

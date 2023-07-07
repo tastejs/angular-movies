@@ -98,24 +98,18 @@
         "{options.outputPath}"
       ]
     },
-    "emulate-firebase-hosting": {
-      "executor": "nx:run-commands",
-      "options": {
-        "commands": [
-          "firebase emulators:start --only hosting --project angular-movies"
-        ],
-        "parallel": false
-      }
-    },
     "serve": {
       "executor": "@angular-devkit/build-angular:dev-server",
+      "options": {
+        "port": 4200
+      },
       "configurations": {
-        "production": {
-          "browserTarget": "movies:build:production",
-          "port": 4200
-        },
         "development": {
           "browserTarget": "movies:build:development"
+        },
+        "production": {
+          "port": 4201,
+          "browserTarget": "movies:build:production"
         }
       },
       "defaultConfiguration": "development"
@@ -147,7 +141,16 @@
         "browserTarget": "movies:build"
       }
     },
-    "deploy-firebase-hosting": {
+    "emulate-firebase": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          "firebase emulators:start --only hosting --project angular-movies"
+        ],
+        "parallel": false
+      }
+    },
+    "deploy-firebase": {
       "executor": "nx:run-commands",
       "options": {
         "commands": [
@@ -207,6 +210,7 @@
           "buildOptimizer": false
         },
         "production": {
+          "outputHashing": "media",
           "fileReplacements": [
             {
               "replace": "projects/movies/src/environments/environment.ts",
@@ -218,7 +222,45 @@
           "optimization": true,
           "buildOptimizer": true
         }
-      }
+      },
+      "defaultConfiguration": "production",
+      "outputs": [
+        "{options.outputPath}"
+      ]
+    },
+    "user-flow": {
+      "executor": "@push-based/user-flow-nx-plugin:user-flow",
+      "outputs": [
+        "{options.outputPath}"
+      ],
+      "options": {
+        "url": "http://localhost:4200",
+        "rcPath": "projects/movies/.user-flowrc.json",
+        "outputPath": "dist/user-flow/movies",
+        "ufPath": "projects/movies/user-flows",
+        "format": [
+          "html"
+        ]
+      },
+      "configurations": {
+        "development": {
+          "verbose": true,
+          "dryRun": true,
+          "serveCommand": "nx run movies:serve:development",
+          "awaitServeStdout": "Angular Live Development Server is listening on"
+        },
+        "production": {
+          "url": "http://localhost:4201",
+          "serveCommand": "nx run movies:serve:production",
+          "awaitServeStdout": "Angular Live Development Server is listening on"
+        },
+        "emulated": {
+          "url": "http://127.0.0.1:5002",
+          "serveCommand": "nx run movies:emulate-firebase",
+          "awaitServeStdout": "✔  hosting[angular-movies-a12d3]: Local server:"
+        }
+      },
+      "defaultConfiguration": "development"
     }
   }
 }
