@@ -3,7 +3,6 @@
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "projects/ng-universal-express/src",
   "projectType": "application",
-  "implicitDependencies": ["movies"],
   "targets": {
     "build": {
       "outputs": ["dist/projects/movies/server"],

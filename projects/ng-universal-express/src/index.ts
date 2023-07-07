@@ -86,12 +86,3 @@ export function app(): express.Express {
   return server;
 }
 
-export function addBeforeSendHook(originalRes: any, cb: (res: any) => any): void {
-  const _send = originalRes.send;
-  originalRes.send = (...args: any[]) => {
-    cb(originalRes);
-    _send(...args);
-  }
-}
-
-
