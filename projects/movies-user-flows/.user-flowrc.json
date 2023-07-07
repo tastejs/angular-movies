@@ -1,6 +1,6 @@
 {
   "collect": {
-    "ufPath": "projects/firebase-function/user-flows"
+    "ufPath": "projects/movies-user-flows/user-flows"
   },
   "persist": {
     "format": [
