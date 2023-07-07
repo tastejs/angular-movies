@@ -40,7 +40,7 @@ jobs:
         with:
           verbose: on
           url: ${{ fromJson(steps.previewDeployStep.outputs.urls)[0] }}
-          rcPath: projects/ng-universal-express/.user-flowrc.json
+          rcPath: projects/movies-user-flows/.user-flowrc.json
           outPath: dist/user-flow/ng-universal-express
 
       - name: Update readme with bundle stats
