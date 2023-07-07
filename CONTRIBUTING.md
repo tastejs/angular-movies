@@ -67,6 +67,7 @@ pre-rendered pages or `routes.txt`
 - **serve** - the executor `dev-server` from the package `@angular-devkit/build-angular` is used
   - **production** - TODO
   - **development** - TODO
+- **serve-ngsw** - TODO
 - **test** - TODO
 - **e2e** - TODO
 - **emulate-firebase** - firebase hosting emulation over `firebase` CLI
