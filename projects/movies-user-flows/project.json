@@ -28,6 +28,27 @@
           "movies-user-flows/**/*.ts"
         ]
       }
+    },
+    "user-flow": {
+      "executor": "@push-based/user-flow-nx-plugin:user-flow",
+      "options": {
+        "rcPath": "projects/movies-user-flows/.user-flowrc.json",
+        "outputPath": "dist/user-flows/movies-user-flows"
+      },
+      "configurations": {
+        "prerender": {
+          "url": "http://localhost:4201",
+          "outputPath": "dist/user-flows/movies-user-flows",
+          "serveCommand": "nx run ng-universal-express:prerender:production",
+          "awaitServeStdout": "Angular Live Development Server is listening on"
+        },
+        "ng-universal-ssr": {
+          "url": "http://localhost:4201",
+          "outputPath": "dist/user-flows/movies-user-flows",
+          "serveCommand": "nx run movies:serve-ssr:production",
+          "awaitServeStdout": "Angular Live Development Server is listening on"
+        }
+      }
     }
   },
   "tags": []

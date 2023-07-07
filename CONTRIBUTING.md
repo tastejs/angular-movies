@@ -38,18 +38,17 @@ In this mono repository we agree on a set of tasks that need to be consistent ac
 ### Tasks (`nx.json#targetDefaults`)
 
 - **format** - global formatting
-- **lint** - defaults project linting
-- **lint-* ** - defaults to `eslint`
+- **lint** - global linting
 - **build** - TODO
 - **serve** - TODO
 - **test** - TODO
-- **e2e-* ** - e2e tests with optional postfix (if no postfix is needed use just `e2e`)
-- **emulate-* ** - emulated environments
-- **deploy--* ** - deployment targets
+- **e2e** - e2e tests with optional postfix (if no postfix is needed use just `e2e`)
+- **emulate-x** - emulated environments
+- **deploy-x** - deployment targets
 - **user-flow** - e2e tests inc lighthouse measures
-  - **development-* ** - environments
-  - **production-* ** - environments close to the released version
-  - **emulated-* ** - emulated environments
+  - **development-x** - environments fast to start and easy to debug. No perf measures.
+  - **production-x** - environments close to the released version
+  - **emulated-x** - emulated environments
 
 ## Projects (`nx.json#layout`)
 
@@ -74,11 +73,11 @@ pre-rendered pages or `routes.txt`
 - **deploy-firebase** - We deploy over a GH action. This is be used optionally.  
   It deploys the CSR version of the application excluding the pre-generated sites.
 - **user-flow** - co-located e2e tests
-  - **development** - `build` for `development`. Serve it with the `server` executor.  
+  - **development** - `build` for `development`. `serve` it with the `development` option.  
+    XY tests are executed with `--dryRun`.
+  - **production** - `build` for `pruduction`. `serve` it with the `pruduction` option.  
     XY tests are executed.
-  - **production** - `build` for `pruduction`. Serve it with the `server` executor.  
-    XY tests are executed.
-  - **emulated** - `build` for `pruduction`. Serve it with the `emulate-firebase` task.  
+  - **emulated** - `build` for `pruduction`. `serve` it with the `emulate-firebase` task.  
     XY tests are executed.
 - **build-report** - `state.json` and bundle analyzer generation
 - **update-readme** - update the main readme (`./README.md`) with data from our builds and reports
@@ -106,7 +105,7 @@ The ng-universal application is needed to run SSR in different environments e.g.
 - **emulate-firebase** - firebase hosting emulation over `firebase` CLI
 - **user-flow** - co-located e2e tests
   - **development** - `build` for `development`. `serve` it with the `serve-development` options  
-    XY tests are executed.
+    XY tests are executed with `--dryRun`.
   - **production** - `build` for `pruduction`. `serve` it with the `serve-pruduction` options.  
     XY tests are executed.
   - **emulated** - `build` for `pruduction` and run `prerender`. `serve` it with the `emulate-firebase` task.  
@@ -125,7 +124,7 @@ The firebase-function application is needed to execute the ng-universal express 
   It deploys the firebase function as well as the CSR version including all pre-rendered pages of the application.
   The firebase CLI deploys hosting and functions.
 - **user-flow** - co-located e2e tests
-  - **emulated** - `build` for `pruduction` and run `prerender`. Serve it with the `emulate-firebase` task.  
+  - **emulated** - `build` for `pruduction` and run `prerender`. `serve` it with the `emulate-firebase` task.  
     XY tests are executed.
 
 ### User Flows
