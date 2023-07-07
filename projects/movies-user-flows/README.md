@@ -1,13 +1,7 @@
-**Legend**
+# movies-user-flows
 
-- 🥶: cold navigation/bootstrap/interaction
-- 🥵: warm navigation/bootstrap/interaction
+This library was generated with [Nx](https://nx.dev).
 
-**Mobile**
+## Building
 
-- [Initial Load - 🥶](./flows/initial-load--cold.ts)
-- [Initial Load - 🥵](./flows/initial-load--cold.ts)
-- [Category to Category Navigation - 🥶](./flows/category-to-category-cold-navigation.ts)
-- [Category to Category Navigation - 🥵](./flows/category-to-category-cold-navigation.ts)
-- [Genre to Genre Navigation - 🥶](./flows/category-to-category-cold-navigation.ts)
-- [Genre to Genre Navigation - 🥵](./flows/category-to-category-cold-navigation.ts)
+Run `nx build movies-user-flows` to build the library.

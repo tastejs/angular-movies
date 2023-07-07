@@ -59,7 +59,7 @@
         "parallel": false
       }
     },
-    "deploy-firebase-all": {
+    "deploy-firebase": {
       "executor": "nx:run-commands",
       "dependsOn": [
         "pre-deploy"
@@ -69,6 +69,37 @@
           "npx firebase deploy --project angular-movies"
         ],
         "parallel": false
+      }
+    },
+    "emulate-firebase": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          "firebase emulators:start --project angular-movies"
+        ],
+        "parallel": false
+      }
+    },
+    "user-flow": {
+      "executor": "@push-based/user-flow-nx-plugin:user-flow",
+      "outputs": [
+        "{options.outputPath}"
+      ],
+      "options": {
+        "url": "http://127.0.0.1:5001/angular-movies-a12d3/us-central1/ssr",
+        "rcPath": "projects/firebase-function/.user-flowrc.json",
+        "outputPath": "dist/user-flow/firebase-function",
+        "ufPath": "projects/movies-user-flows/user-flows/navigation.uf.ts",
+        "format": [
+          "html"
+        ]
+      },
+      "configurations": {
+        "emulated": {
+          "verbose": true,
+          "serveCommand": "nx run firebase-function:emulate-firebase",
+          "awaitServeStdout": "functions[us-central1-ssr]: http function initialized"
+        }
       }
     }
   },

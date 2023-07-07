@@ -8,3 +8,4 @@ const bootstrap = (config: ApplicationConfig = {providers: []}) =>
   bootstrapApplication(AppServerComponent, mergeApplicationConfig(baseAppConfig, config));
 
 export default bootstrap;
+

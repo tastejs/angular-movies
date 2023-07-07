@@ -1,22 +1,32 @@
 {
-  "name": "movies-user-flows",
-  "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "projectType": "application",
-  "sourceRoot": "projects/movies-user-flows/src",
-  "implicitDependencies": [
-    "movies"
-  ],
+  "name": "_movies-user-flows",
+  "$schema": "../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "movies-user-flows/src",
+  "projectType": "library",
   "targets": {
-    "serve": {
+    "build": {
+      "executor": "@nx/js:tsc",
       "outputs": [
-        "{workspaceRoot}"
+        "{options.outputPath}"
       ],
-      "executor": "nx:run-commands",
       "options": {
-        "commands": [
-          "nx serve movies"
-        ],
-        "parallel": false
+        "outputPath": "dist/movies-user-flows",
+        "main": "movies-user-flows/src/index.ts",
+        "tsConfig": "movies-user-flows/tsconfig.lib.json",
+        "assets": [
+          "movies-user-flows/*.md"
+        ]
+      }
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": [
+        "{options.outputFile}"
+      ],
+      "options": {
+        "lintFilePatterns": [
+          "movies-user-flows/**/*.ts"
+        ]
       }
     },
     "user-flow": {
@@ -26,17 +36,20 @@
         "outputPath": "dist/user-flows/movies-user-flows"
       },
       "configurations": {
-        "development": {
-          "url": "http://localhost:4200",
-          "serveCommand": "nx run movies-user-flows:serve:production",
-          "awaitServeStdout": "Angular Universal Live Development Server is listening on"
-        },
-        "development-ssr": {
+        "prerender": {
           "url": "http://localhost:4201",
-          "serveCommand": "nx run movies-user-flows:serve-ssr:production",
-          "awaitServeStdout": "Angular Universal Live Development Server is listening on"
+          "outputPath": "dist/user-flows/movies-user-flows",
+          "serveCommand": "nx run ng-universal-express:prerender:production",
+          "awaitServeStdout": "Angular Live Development Server is listening on"
+        },
+        "ng-universal-ssr": {
+          "url": "http://localhost:4201",
+          "outputPath": "dist/user-flows/movies-user-flows",
+          "serveCommand": "nx run movies:serve-ssr:production",
+          "awaitServeStdout": "Angular Live Development Server is listening on"
         }
       }
     }
-  }
+  },
+  "tags": []
 }

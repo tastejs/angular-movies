@@ -1,9 +1,33 @@
 {
-  "extends": "ts-node/node12/tsconfig.json",
-  "ts-node": {
-    "transpileOnly": true,
-    "files": true,
-    "compilerOptions": {}
-  },
-  "compilerOptions": {}
+  "extends": [
+    "../.eslintrc.json"
+  ],
+  "ignorePatterns": [
+    "!**/*"
+  ],
+  "overrides": [
+    {
+      "files": [
+        "*.ts",
+        "*.tsx",
+        "*.js",
+        "*.jsx"
+      ],
+      "rules": {}
+    },
+    {
+      "files": [
+        "*.ts",
+        "*.tsx"
+      ],
+      "rules": {}
+    },
+    {
+      "files": [
+        "*.js",
+        "*.jsx"
+      ],
+      "rules": {}
+    }
+  ]
 }

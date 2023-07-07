@@ -1,4 +1,4 @@
-import bootstrapMovies from '../../../movies/src/index'
+import bootstrapMovies from 'angular-movies'
 import 'zone.js';
 import {appConfig} from "./app.config";
 
