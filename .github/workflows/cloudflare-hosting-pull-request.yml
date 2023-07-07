@@ -22,7 +22,7 @@ jobs:
         run: npm ci
 
       - name: Production build for static file hosting (client only)
-        run: npm run nx build cloudflare-worker
+        run: npm run nx emulate cloudflare-worker
 
       - name: Test cloudflare pages hosting
         uses: push-based/user-flow-gh-action@v0.3.2
