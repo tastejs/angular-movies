@@ -29,7 +29,9 @@
           "projects/movies/src/assets",
           "projects/movies/src/_routes.json"
         ],
-        "styles": ["projects/movies/src/styles.scss"],
+        "styles": [
+          "projects/movies/src/styles.scss"
+        ],
         "scripts": []
       },
       "configurations": {
@@ -115,6 +117,22 @@
         }
       },
       "defaultConfiguration": "development"
+    },
+    "ngsw-config": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          "node_modules/.bin/ngsw-config dist ./src/ngsw-config.json"
+        ]
+      }
+    },
+    "serve-ngsw": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          "npm run ngsw-config && http-server dist -p 8080"
+        ]
+      }
     },
     "lint": {
       "executor": "@angular-eslint/builder:lint",
