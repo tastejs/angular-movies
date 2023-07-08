@@ -22,7 +22,7 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Production build ( client )
+      - name: Production build ( client + bundle stats )
         run: npm run nx run docs:build
 
       - name: Update main readme file

@@ -5,7 +5,7 @@ import {bootstrapApplication} from '@angular/platform-browser';
 import {renderApplication} from '@angular/platform-server';
 
 import {cloudlfareAppConfig} from './app/app.config.cloudflare';
-import {AppServerComponent} from './app/app.component.server';
+import {AppStandaloneComponent} from './app/app.component.standlaone';
 import {EdgeEnv, provideEdgeEnv} from './env.token';
 
 // We attach the Cloudflare `fetch()` handler to the global scope
@@ -39,8 +39,8 @@ import {EdgeEnv, provideEdgeEnv} from './env.token';
   const content = await renderApplication(
     () =>
       bootstrapApplication(
-        AppServerComponent,
-        cloudlfareAppConfig([provideEdgeEnv({ env, request })])
+        AppStandaloneComponent,
+        cloudlfareAppConfig([provideEdgeEnv({env, request})])
       ),
     { document, url: url.pathname }
   );

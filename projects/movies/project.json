@@ -16,7 +16,6 @@
     "build": {
       "executor": "@angular-devkit/build-angular:browser",
       "options": {
-        "deleteOutputPath": false,
         "outputPath": "dist/projects/movies/browser",
         "index": "projects/movies/src/index.html",
         "main": "projects/movies/src/main.ts",
@@ -30,13 +29,22 @@
           "projects/movies/src/assets",
           "projects/movies/src/_routes.json"
         ],
-        "styles": ["projects/movies/src/styles.scss"],
+        "styles": [
+          "projects/movies/src/styles.scss"
+        ],
         "scripts": []
       },
       "configurations": {
         "production": {
           "namedChunks": true,
-          "statsJson": true,
+          "serviceWorker": true,
+          "ngswConfigPath": "projects/movies/src/ngsw-config.json",
+          "fileReplacements": [
+            {
+              "replace": "projects/movies/src/environments/environment.ts",
+              "with": "projects/movies/src/environments/environment.production.ts"
+            }
+          ],
           "budgets": [
             {
               "type": "initial",
@@ -72,21 +80,19 @@
               "maximumWarning": "118b",
               "maximumError": "118b"
             }
-          ],
-          "fileReplacements": [
-            {
-              "replace": "projects/movies/src/environments/environment.ts",
-              "with": "projects/movies/src/environments/environment.production.ts"
-            }
-          ],
-          "serviceWorker": true,
-          "ngswConfigPath": "projects/movies/src/ngsw-config.json"
+          ]
         },
         "development": {
           "buildOptimizer": false,
           "optimization": false,
           "vendorChunk": true,
           "extractLicenses": false,
+          "fileReplacements": [
+            {
+              "replace": "projects/movies/src/environments/environment.ts",
+              "with": "projects/movies/src/environments/environment.development.ts"
+            }
+          ],
           "sourceMap": true,
           "namedChunks": true
         }
@@ -111,6 +117,22 @@
         }
       },
       "defaultConfiguration": "development"
+    },
+    "ngsw-config": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          "node_modules/.bin/ngsw-config dist ./src/ngsw-config.json"
+        ]
+      }
+    },
+    "serve-ngsw": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          "npm run ngsw-config && http-server dist -p 8080"
+        ]
+      }
     },
     "lint": {
       "executor": "@angular-eslint/builder:lint",
