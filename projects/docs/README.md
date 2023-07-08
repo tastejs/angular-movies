@@ -24,33 +24,8 @@ For now you can search the codebase for "Perf Tip" later on there will be proppe
 
 **Bundle Stats**
 
-
 <!-- bundle-stats-start -->
-| Names             |       Size |
-| ---               | ---        |
-| main.js           | 338.33 KB |
-| styles.css           | 6.17 KB |
-| runtime.js           | 2.61 KB |
-  | **Initial Total** | **347.12 KB** |
-  | Names             |       Size |
-| app_pages_movie-detail-page_movie-detail-page_component_ts.js           | 16.47 KB |
-| a-4d8953.js           | 12.86 KB |
-| app_pages_person-detail-page_person-detail-page_component_ts.js           | 11.49 KB |
-| app_pages_account-feature_list-create-page_list-create-page_component_ts--1f481e.js           | 9.09 KB |
-| common.js           | 8.26 KB |
-| app_app-shell_account-menu_account-menu_component_ts.js           | 8.25 KB |
-| app_pages_account-feature_list-detail-page_list-items-edit_list-items-edi-13eb42.js           | 6.98 KB |
-| app_pages_movie-list-page_movie-list-page_component_ts.js           | 5.8 KB |
-| app_pages_account-feature_account-list-page_account-list-page_component_ts.js           | 4.84 KB |
-| app_pages_account-feature_list-detail-page_list-image_list-image_componen-cb4b89.js           | 4.28 KB |
-| app_pages_account-feature_list-detail-page_list-remove_list-remove_compon-a10eb2.js           | 3.39 KB |
-| app_pages_account-feature_list-detail-page_list-detail-page_component_ts--a2c81d.js           | 3.1 KB |
-| app_pages_not-found-page_not-found-page_component_ts.js           | 1.65 KB |
-| app_pages_account-feature_list-detail-page_list-detail-page_routes_ts.js           | 1.5 KB |
-| app_pages_account-feature_account-feature-page_routes_ts.js           | 853 Bytes |
-| app_pages_account-feature_list-detail-page_list-movies_list-movies_component_ts.js           | 657 Bytes |
 <!-- bundle-stats-end -->
-
 
 ## Comparison to next and nuxt
 

@@ -2,10 +2,10 @@ import {existsSync, mkdirSync, readFileSync, WriteFileOptions, writeFileSync} fr
 import {dirname} from 'path';
 import {EOL} from 'os';
 import axios from 'axios';
-import {TMDBMovieModel} from '../../projects/movies/src/app/data-access/api/model/movie.model';
-import {TMDBPaginateResult} from '../../projects/movies/src/app/data-access/api/paginate/paginate.interface';
-import {GenresResponse} from '../../projects/movies/src/app/data-access/api/resources/genre.resource';
-import {environment} from '../../projects/movies/src/environments/environment';
+import {TMDBMovieModel} from '../../../movies/src/app/data-access/api/model/movie.model';
+import {TMDBPaginateResult} from '../../../movies/src/app/data-access/api/paginate/paginate.interface';
+import {GenresResponse} from '../../../movies/src/app/data-access/api/resources/genre.resource';
+import {environment} from '../../../movies/src/environments/environment';
 
 // PARAMS
 const mutation = !getArgv('no-mutation');

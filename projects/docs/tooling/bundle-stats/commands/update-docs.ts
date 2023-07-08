@@ -1,14 +1,15 @@
-import { YargsCommandObject } from '../../cli/model';
-import { getCliParam } from '../../cli/utils';
-import { formatBytes, formatChunkName, readFile } from '../utils';
+import {YargsCommandObject} from '../../../../../tooling/cli/model';
+import {getCliParam} from '../../../../../tooling/cli/utils';
+import {formatBytes, formatChunkName, readFile} from '../utils';
 import * as fs from 'fs';
 
 export async function run(): Promise<void> {
-  const statsPath: string = getCliParam(['stats', 's']) || './stats.json';
-  const readmePath: string = getCliParam(['target', 't']) || './readme.md';
+  const statsPath: string = getCliParam(['stats', 's']) || '';
+  const sourcePath: string = getCliParam(['source', 'r']) || '';
+  const targetPath: string = getCliParam(['target', 't']) || '';
 
   const stats = readFile(statsPath);
-  const readme = readFile(readmePath, 'string');
+  const readme = readFile(sourcePath, 'string');
 
   const [top, rest] = readme.split('<!-- bundle-stats-start -->');
   if (rest === undefined) {
@@ -56,7 +57,7 @@ export async function run(): Promise<void> {
 <!-- bundle-stats-end -->
 ` + bottom;
 
-  fs.writeFileSync(readmePath, statsContent);
+  fs.writeFileSync(targetPath, statsContent);
 }
 
 const command = 'update-bundle-stats';

@@ -1,7 +1,7 @@
-import { Options } from 'yargs';
-import { YargsCommandObject } from '../cli/model';
-import { updateDocsCommand } from './commands/update-docs';
-import { runCli } from '../cli';
+import {Options} from 'yargs';
+import {YargsCommandObject} from '../../../../tooling/cli/model';
+import {updateDocsCommand} from './commands/update-docs';
+import {runCli} from '../../../../tooling/cli';
 
 const OPTIONS: { [key: string]: Options } = {
   verbose: {
