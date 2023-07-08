@@ -17,6 +17,22 @@
         "inlineStyleLanguage": "scss"
       },
       "configurations": {
+        "development": {
+          "buildOptimizer": false,
+          "optimization": false,
+          "sourceMap": true,
+          "extractLicenses": false,
+          "vendorChunk": true
+        },
+        "serve-development": {
+          "buildOptimizer": false,
+          "optimization": false,
+          "sourceMap": true,
+          "extractLicenses": false,
+          "vendorChunk": true,
+          "main": "projects/ng-universal-express/src/serve-index.ts",
+          "tsConfig": "projects/ng-universal-express/tsconfig.serve.json"
+        },
         "production": {
           "sourceMap": false,
           "fileReplacements": [
@@ -34,22 +50,6 @@
               "with": "projects/movies/src/environments/environment.production.ts"
             }
           ],
-          "main": "projects/ng-universal-express/src/serve-index.ts",
-          "tsConfig": "projects/ng-universal-express/tsconfig.serve.json"
-        },
-        "development": {
-          "buildOptimizer": false,
-          "optimization": false,
-          "sourceMap": true,
-          "extractLicenses": false,
-          "vendorChunk": true
-        },
-        "serve-development": {
-          "buildOptimizer": false,
-          "optimization": false,
-          "sourceMap": true,
-          "extractLicenses": false,
-          "vendorChunk": true,
           "main": "projects/ng-universal-express/src/serve-index.ts",
           "tsConfig": "projects/ng-universal-express/tsconfig.serve.json"
         }
@@ -188,12 +188,13 @@
         "development": {
           "verbose": true,
           "dryRun": true,
+          "url": "http://localhost:4310",
           "serveCommand": "nx run ng-universal-express:serve:development-prerender",
           "awaitServeStdout": "Angular Universal Live Development Server is listening on"
         },
         "production": {
-          "url": "http://localhost:4301",
-          "serveCommand": "nx run ng-universal-express:serve:production",
+          "url": "http://localhost:4311",
+          "serveCommand": "nx run ng-universal-express:serve:production-prerender",
           "awaitServeStdout": "Angular Universal Live Development Server is listening on"
         },
         "emulated": {

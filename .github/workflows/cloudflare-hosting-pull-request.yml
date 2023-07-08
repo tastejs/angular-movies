@@ -22,7 +22,7 @@ jobs:
         run: npm ci
 
       - name: Production build for static file hosting (client only)
-        run: npm run nx emulate cloudflare-worker
+        run: npm run nx build cloudflare-worker
 
       - name: Test cloudflare pages hosting
         uses: push-based/user-flow-gh-action@v0.3.2
@@ -30,6 +30,8 @@ jobs:
           verbose: on
           url: http://127.0.0.1:8788/
           rcPath: ./projects/movies-user-flows/.user-flowrc.json
+          serveCommand: "nx run cloudflare-worker:serve"
+          awaitServeStdout: "functions[us-central1-ssr]: http function initialized"
 
       - name: Update readme with bundle stats
         run: npm run nx update-readme movies

@@ -1,4 +1,5 @@
 {
+  "extends": "./tsconfig.json",
   "compilerOptions": {
     "lib": [
       "es6",
@@ -8,7 +9,7 @@
     ],
     "module": "commonjs",
     "noImplicitReturns": true,
-    "outDir": "../../dist/projects/movies/server",
+    "outDir": "../../dist/out-tsc",
     "sourceMap": false,
     "target": "es2019",
     "allowJs": true,
@@ -17,6 +18,9 @@
     "strict": true,
     "esModuleInterop": true
   },
+  "files": [
+    "src/index.ts"
+  ],
   "include": [
     "src"
   ]

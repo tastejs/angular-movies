@@ -57,6 +57,18 @@
         "parallel": false
       }
     },
+    "serve": {
+      "dependsOn": [
+        "build"
+      ],
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          "nx run cloudflare-worker:emulate "
+        ],
+        "parallel": false
+      }
+    },
     "emulate": {
       "dependsOn": [
         "build"
