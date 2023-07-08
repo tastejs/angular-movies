@@ -1,11 +1,11 @@
 import {bootstrapApplication} from '@angular/platform-browser';
-import {AppServerComponent} from './app/app.component.standlaone';
+import {AppStandaloneComponent} from './app/app.component.standlaone';
 import 'zone.js';
 import {ApplicationConfig, mergeApplicationConfig} from "@angular/core";
 import {baseAppConfig} from "./app/app.base.config";
 
 const bootstrap = (config: ApplicationConfig = {providers: []}) =>
-  bootstrapApplication(AppServerComponent, mergeApplicationConfig(baseAppConfig, config));
+  bootstrapApplication(AppStandaloneComponent, mergeApplicationConfig(baseAppConfig, config));
 
 export default bootstrap;
 

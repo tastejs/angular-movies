@@ -14,7 +14,6 @@
       "executor": "nx:run-commands",
       "options": {
         "commands": [
-          "npx cpx dist/projects/movies/browser/stats.json dist/measures/movies",
           "nx run docs:generate-bundle-audit",
           "nx run docs:update-readme"
         ],
@@ -25,6 +24,7 @@
       "executor": "nx:run-commands",
       "options": {
         "commands": [
+          "npx cpx dist/projects/movies/browser/stats.json dist/measures/movies",
           "npx webpack-bundle-analyzer dist/projects/movies/browser/stats.json -m static -r dist/measures/movies/bundle-size-report.prod.html"
         ],
         "parallel": false

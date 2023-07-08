@@ -1,8 +1,8 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { ZonelessRouting } from './shared/zone-less/zone-less-routing.service';
-import { RouterOutlet } from '@angular/router';
-import { LetDirective } from '@rx-angular/template/let';
-import { AppShellComponent } from './app-shell/app-shell.component';
+import {ChangeDetectionStrategy, Component} from '@angular/core';
+import {ZonelessRouting} from './shared/zone-less/zone-less-routing.service';
+import {RouterOutlet} from '@angular/router';
+import {LetDirective} from '@rx-angular/template/let';
+import {AppShellComponent} from './app-shell/app-shell.component';
 
 @Component({
   selector: 'app-root',
@@ -19,7 +19,7 @@ import { AppShellComponent } from './app-shell/app-shell.component';
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AppServerComponent {
+export class AppStandaloneComponent {
   /**
    *  **🚀 Perf Tip:**
    *
