@@ -14,7 +14,7 @@
       "executor": "@angular-devkit/build-angular:server",
       "options": {
         "outputPath": "dist/tmp/_worker",
-        "main": "projects/cloudflare-worker/src/worker.ts",
+        "main": "projects/cloudflare-worker/src/index.ts",
         "tsConfig": "projects/cloudflare-worker/tsconfig.worker.json",
         "outputHashing": "media",
         "sourceMap": true,

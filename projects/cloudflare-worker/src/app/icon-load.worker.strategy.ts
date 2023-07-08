@@ -1,9 +1,9 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable, inject } from '@angular/core';
-import { SvgLoadStrategy } from '@push-based/ngx-fast-svg';
-import { Observable, from, finalize } from 'rxjs';
-import { createBackgroundMacroTask } from '../../../angular-common/fetch';
-import { EdgeEnvToken } from '../../../../env.token';
+import {HttpClient} from '@angular/common/http';
+import {inject, Injectable} from '@angular/core';
+import {SvgLoadStrategy} from '@push-based/ngx-fast-svg';
+import {finalize, from, Observable} from 'rxjs';
+import {createBackgroundMacroTask} from '../../../angular-common/fetch';
+import {EdgeEnvToken} from '../../../../env.token';
 
 @Injectable()
 export class IconLoadStrategyWorker implements SvgLoadStrategy {

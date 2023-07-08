@@ -2,10 +2,8 @@ import {ApplicationConfig,} from '@angular/core';
 import {provideServerRendering} from '@angular/platform-server';
 import {provideFastSVG} from '@push-based/ngx-fast-svg';
 import {RX_RENDER_STRATEGIES_CONFIG} from '@rx-angular/cdk/render-strategies';
-import {provideHttpClient} from '@angular/common/http';
-import {withFetch} from './angular-common/fetch';
-import {IconLoadStrategyWorker} from './ui/component/icons/icon-load.worker.strategy';
-import {mergeBaseConfig} from "./app.base.config";
+import {provideHttpClient, withFetch} from '@angular/common/http';
+import {IconLoadStrategyWorker} from './icon-load.worker.strategy';
 
 export const cloudflareServerConfig: ApplicationConfig = {
   providers: [
@@ -24,4 +22,4 @@ export const cloudflareServerConfig: ApplicationConfig = {
 };
 
 // We provide the config function as closure to be able to inject configuration from the consuming end
-export const appConfig = (outerConfig: ApplicationConfig = {providers: []}) => mergeBaseConfig(cloudflareServerConfig, outerConfig);
+export const appConfig = cloudflareServerConfig;

@@ -2,5 +2,8 @@
   "extends": "./tsconfig.json",
   "files": [
     "./src/worker.ts"
+  ],
+  "include": [
+    "src"
   ]
 }
