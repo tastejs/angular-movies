@@ -1,12 +1,11 @@
 import 'zone.js/dist/zone-node';
 import '@angular/platform-server/init';
-
-import {bootstrapApplication} from '@angular/platform-browser';
 import {renderApplication} from '@angular/platform-server';
 
 import {cloudlfareAppConfig} from './app/app.config.cloudflare';
 import {AppStandaloneComponent} from './app/app.component.standlaone';
 import {EdgeEnv, provideEdgeEnv} from './env.token';
+import bootstrap from "./index";
 
 // We attach the Cloudflare `fetch()` handler to the global scope
 // so that we can export it when we process the Angular output.
@@ -36,13 +35,14 @@ import {EdgeEnv, provideEdgeEnv} from './env.token';
     return response;
   }
 
+
   const content = await renderApplication(
-    () =>
-      bootstrapApplication(
-        AppStandaloneComponent,
-        cloudlfareAppConfig([provideEdgeEnv({env, request})])
-      ),
-    { document, url: url.pathname }
+    () => bootstrap({
+      providers: [
+        provideEdgeEnv({env, request})
+      ]
+    }),
+    {document, url: url.pathname}
   );
 
   await env.NGMOVIES.put(cacheKey, content, {

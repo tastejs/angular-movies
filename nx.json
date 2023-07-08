@@ -6,11 +6,7 @@
         "cacheableOperations": [
           "lint",
           "build",
-          "build-report",
-          "user-flow",
-          "user-flow",
-          "user-flow",
-          "user-flow"
+          "build-report"
         ],
         "accessToken": "OTI0YWJiN2ItNTI2MC00M2RmLTlmM2EtOWRiODZkYmVjZTAyfHJlYWQtd3JpdGU="
       }
@@ -55,6 +51,15 @@
         "default",
         "^production",
         "{workspaceRoot}/jest.preset.js"
+      ]
+    },
+    "serve-static": {
+      "dependsOn": [
+        "build"
+      ],
+      "inputs": [
+        "development",
+        "^development"
       ]
     },
     "emulate-firebase": {

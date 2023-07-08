@@ -1,23 +1,28 @@
 # angular-movies
 
-This is a Movies App built using [Angular](https://angular.io)
-and [RxAngular](https://github.com/rx-angular/rx-angular).  
-As data source the [The Movie Database (TMDB)](https://www.themoviedb.org/) API is used.
+This is a Movies App built using [Angular](https://angular.io) and [RxAngular](https://github.com/rx-angular/rx-angular).  
+As data source the [The Movie Database (TMDB)](https://www.themoviedb.org/) API is used.  
 
 [![angular-and-rx-angular](https://user-images.githubusercontent.com/10064416/154189195-c32cbdec-b061-46a5-8590-a9e3d8dc050a.png)](https://www.rx-angular.io/)
+
 
 ## [Demo](https://angular-movies-a12d3.web.app/list/category/popular)
 
 A [live deployment](https://angular-movies-a12d3.web.app/list/category/popular) of this app is available to try it out.
 
-## Performance Optimizations
+
+## Performance Optimizations 
+
 
 [![angular-movies--after-before](https://user-images.githubusercontent.com/10064416/155904454-f70b5bb5-6591-497a-9d21-dca0e2940566.gif)](https://www.webpagetest.org/video/compare.php?tests=220216_BiDcPP_CVM,220216_AiDcBN_ETK)
 
+
 For now you can search the codebase for "Perf Tip" later on there will be propper documentation here.
+
 
 [Measures before optimization](https://lighthouse-metrics.com/checks/9ddeb46e-2c28-453c-b719-cf080a01b13c)
 [![angular-movies-before_michael-hladky](https://user-images.githubusercontent.com/10064416/137785051-1cf9f63a-e803-4d92-a952-c327b7628530.PNG)](https://lighthouse-metrics.com/checks/9ddeb46e-2c28-453c-b719-cf080a01b13c)
+
 
 [Measures after optimization](https://lighthouse-metrics.com/checks/6a888a17-b17b-46a6-abc9-e605b73a530c/runs/503701ad-36aa-43ad-8de3-cb40e775c770)
 ![angular-movies-after-optimization_michael-hladky](https://user-images.githubusercontent.com/10064416/146446241-ad9eeed4-b0a4-44a2-a88e-4ea7c97e1acf.PNG)
@@ -25,13 +30,22 @@ For now you can search the codebase for "Perf Tip" later on there will be proppe
 **Bundle Stats**
 
 
+
+
+
+
+
+
+
+
+
 <!-- bundle-stats-start -->
 | Names             |       Size |
 | ---               | ---        |
-| main.js           | 338.33 KB |
+| main.js           | 338.48 KB |
 | styles.css           | 6.17 KB |
 | runtime.js           | 2.61 KB |
-  | **Initial Total** | **347.12 KB** |
+  | **Initial Total** | **347.27 KB** |
   | Names             |       Size |
 | app_pages_movie-detail-page_movie-detail-page_component_ts.js           | 16.47 KB |
 | a-4d8953.js           | 12.86 KB |
@@ -52,6 +66,12 @@ For now you can search the codebase for "Perf Tip" later on there will be proppe
 <!-- bundle-stats-end -->
 
 
+
+
+
+
+
+
 ## Comparison to next and nuxt
 
 - [angular](https://angular-movies-a12d3.web.app/list/category/popular)
@@ -62,11 +82,11 @@ For now you can search the codebase for "Perf Tip" later on there will be proppe
 
 ## Contributing
 
-Contributions are always welcome!
+Contributions are always welcome! 
 
 For large changes, please file an issue to discuss your proposed changes with us before working on a PR :)
 
-## Installation
+## Installation 
 
 Clone and install the dependencies for `angular-movies` locally:
 
@@ -83,7 +103,7 @@ Clone and install the dependencies for `angular-movies` locally:
 2. Get your TMDb API key
 3. Get your TMDB API read access token
 4. Enter the details into the `src/environments/environment.production.ts` file
-
+    
 ## Running locally
 
 * `npm run build:dev`: dev build
@@ -92,11 +112,11 @@ Clone and install the dependencies for `angular-movies` locally:
 * `npm run start`: serve the project locally for development
 * `npm run start:ssr:dev`: serve the project locally SSR for development
 * `npm run start:ssr:prod`: serve the project locally SSR for production
-* `npm run analyze:bundlesize`: bundle size analysis
+* `npm run analyze:bundlesize`: bundle size analysis 
 
 ## Tech Stack
 
-Built with:
+Built with: 
 
 * [Angular](https://angular.io)
 * [rx-angular](https://github.com/rx-angular/rx-angular)
@@ -104,7 +124,6 @@ Built with:
 [![angular-and-rx-angular](https://user-images.githubusercontent.com/10064416/154189195-c32cbdec-b061-46a5-8590-a9e3d8dc050a.png)](https://www.rx-angular.io/)
 
 Measures:
-
 * Bundle sice listed fron dist
 * Comparison videos with [webpagetest](https://www.webpagetest.org)
 * Lighthoure reports with [lighthouse-metrics](https://lighthouse-metrics.com)
@@ -120,8 +139,9 @@ Measures:
 - [Enea Jahollari](https://github.com/eneajaho)
 - [Matthieu Riegler](https://github.com/jeanmeche)
 
-Based on the original `angular-movies` foundation by [@clamarque](https://github.com/clamarque/angular-movies).
 
+Based on the original `angular-movies` foundation by [@clamarque](https://github.com/clamarque/angular-movies).
+  
 ## License
 
 [MIT](https://choosealicense.com/licenses/mit/)

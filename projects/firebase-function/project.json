@@ -14,7 +14,7 @@
       "executor": "nx:run-commands",
       "options": {
         "commands": [
-          "tsc --build projects/firebase-function/tsconfig.app.json"
+          "tsc --build projects/firebase-function/tsconfig.function.json --outDir dist/projects/movies/server"
         ],
         "parallel": false
       }
@@ -59,7 +59,7 @@
         "parallel": false
       }
     },
-    "deploy-firebase": {
+    "deploy": {
       "executor": "nx:run-commands",
       "dependsOn": [
         "pre-deploy"
@@ -71,7 +71,7 @@
         "parallel": false
       }
     },
-    "emulate-firebase": {
+    "emulate": {
       "executor": "nx:run-commands",
       "options": {
         "commands": [
@@ -97,7 +97,7 @@
       "configurations": {
         "emulated": {
           "verbose": true,
-          "serveCommand": "nx run firebase-function:emulate-firebase",
+          "serveCommand": "nx run firebase-function:emulate",
           "awaitServeStdout": "functions[us-central1-ssr]: http function initialized"
         }
       }

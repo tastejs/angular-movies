@@ -54,7 +54,7 @@ You should see the results in directly the root.
 
 To organize the reporting artefacts better lighthouse-ci will introduce a `.lighthouseci` folder and automatically store the reports in this folder.
 
-## Setup & Connfigure Lighhouse-CI Server
+## Setup & Configure Lighhouse-CI Server
 
 ```bash
 npm i -D @lhci/server sqlite3

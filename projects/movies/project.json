@@ -173,7 +173,8 @@
     "build-server-cf": {
       "executor": "@angular-devkit/build-angular:server",
       "options": {
-        "outputPath": "dist/projects/movies/server",
+        "outputHashing": "media",
+        "outputPath": "dist/projects/movies/worker",
         "main": "projects/movies/src/main.server.cloudflare.ts",
         "tsConfig": "projects/movies/tsconfig.server.cloudflare.json",
         "optimization": false,

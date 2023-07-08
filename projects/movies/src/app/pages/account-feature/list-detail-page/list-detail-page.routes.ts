@@ -1,11 +1,11 @@
-import { Routes } from '@angular/router';
+import {Routes} from '@angular/router';
 
 const ROUTES: Routes = [
   {
     path: '',
     loadComponent: () =>
       import(
-        'projects/movies/src/app/pages/account-feature/list-detail-page/list-detail-page.component'
+        '../list-detail-page/list-detail-page.component'
       ),
     children: [
       {
@@ -21,7 +21,7 @@ const ROUTES: Routes = [
         path: 'edit',
         loadComponent: () =>
           import(
-            'projects/movies/src/app/pages/account-feature/list-create-page/list-create-page.component'
+            '../list-create-page/list-create-page.component'
           ),
       },
       {

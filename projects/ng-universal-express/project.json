@@ -188,12 +188,13 @@
         "development": {
           "verbose": true,
           "dryRun": true,
+          "url": "http://localhost:4310",
           "serveCommand": "nx run ng-universal-express:serve:development-prerender",
           "awaitServeStdout": "Angular Universal Live Development Server is listening on"
         },
         "production": {
-          "url": "http://localhost:4301",
-          "serveCommand": "nx run ng-universal-express:serve:production",
+          "url": "http://localhost:4311",
+          "serveCommand": "nx run ng-universal-express:serve:production-prerender",
           "awaitServeStdout": "Angular Universal Live Development Server is listening on"
         },
         "emulated": {
