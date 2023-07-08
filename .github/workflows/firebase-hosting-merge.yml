@@ -7,7 +7,7 @@ name: Deploy to Firebase Hosting on merge
     branches:
       - main
 jobs:
-  build_and_deploy:
+  deploy_firebase_function:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout the repository
@@ -41,14 +41,3 @@ jobs:
           url: https://angular-movies-a12d3.web.app
           # url: ${{ fromJson(steps.deployStep.outputs.urls)[0] }} // @TODO figure out why outputs urls are different from `https://angular-movies-a12d3.web.app`
           rcPath: ./projects/movies-user-flows/.user-flowrc.json
-
-      - name: Update readme with bundle stats
-        run: npm run nx update-readme movies
-
-      - name: Commit measures
-        uses: EndBug/add-and-commit@v7
-        with:
-          author_name: push-based.io
-          author_email: opensource@push-based.io
-          message: 'Persist stats.json bundle-size report and readme'
-          add: '*'

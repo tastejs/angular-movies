@@ -4,7 +4,7 @@
 name: Deploy to Firebase Preview Channel Hosting on PR
 'on': pull_request
 jobs:
-  build_and_preview:
+  deploy_firebase_preview:
     if: '${{ github.event.pull_request.head.repo.full_name == github.repository }}'
     runs-on: ubuntu-latest
     steps:
@@ -42,14 +42,3 @@ jobs:
           url: ${{ fromJson(steps.previewDeployStep.outputs.urls)[0] }}
           rcPath: projects/movies-user-flows/.user-flowrc.json
           outPath: dist/user-flow/ng-universal-express
-
-      - name: Update readme with bundle stats
-        run: npm run nx update-readme movies
-
-      - name: Commit measures
-        uses: EndBug/add-and-commit@v7
-        with:
-          author_name: push-based.io
-          author_email: opensource@push-based.io
-          message: 'Persist stats.json bundle-size report and readme'
-          add: '*'

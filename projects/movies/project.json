@@ -148,33 +148,6 @@
         "parallel": false
       }
     },
-    "build-report": {
-      "dependsOn": [
-        "build"
-      ],
-      "executor": "nx:run-commands",
-      "outputs": [
-        "dist/measures/movies"
-      ],
-      "options": {
-        "commands": [
-          "npx cpx \"dist/projects/movies/browser/stats.json\" dist/measures/movies",
-          "npx webpack-bundle-analyzer dist/projects/movies/browser/stats.json -m static -r dist/measures/movies/bundle-size-report.prod.html"
-        ],
-        "parallel": false
-      }
-    },
-    "update-readme": {
-      "executor": "nx:run-commands",
-      "dependsOn": ["build-report"],
-      "outputs": ["README.md"],
-      "options": {
-        "commands": [
-          "npx ts-node -P tooling/tsconfig.json  ./tooling/bundle-stats/index.ts update-bundle-stats --stats=dist/measures/movies/stats.json --target=./README.md"
-        ],
-        "parallel": false
-      }
-    },
     "build-server-cf": {
       "executor": "@angular-devkit/build-angular:server",
       "options": {
