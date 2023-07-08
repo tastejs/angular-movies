@@ -16,7 +16,6 @@
     "build": {
       "executor": "@angular-devkit/build-angular:browser",
       "options": {
-        "deleteOutputPath": false,
         "outputPath": "dist/projects/movies/browser",
         "index": "projects/movies/src/index.html",
         "main": "projects/movies/src/main.ts",
@@ -36,7 +35,14 @@
       "configurations": {
         "production": {
           "namedChunks": true,
-          "statsJson": true,
+          "serviceWorker": true,
+          "ngswConfigPath": "projects/movies/src/ngsw-config.json",
+          "fileReplacements": [
+            {
+              "replace": "projects/movies/src/environments/environment.ts",
+              "with": "projects/movies/src/environments/environment.production.ts"
+            }
+          ],
           "budgets": [
             {
               "type": "initial",
@@ -72,21 +78,19 @@
               "maximumWarning": "118b",
               "maximumError": "118b"
             }
-          ],
-          "fileReplacements": [
-            {
-              "replace": "projects/movies/src/environments/environment.ts",
-              "with": "projects/movies/src/environments/environment.production.ts"
-            }
-          ],
-          "serviceWorker": true,
-          "ngswConfigPath": "projects/movies/src/ngsw-config.json"
+          ]
         },
         "development": {
           "buildOptimizer": false,
           "optimization": false,
           "vendorChunk": true,
           "extractLicenses": false,
+          "fileReplacements": [
+            {
+              "replace": "projects/movies/src/environments/environment.ts",
+              "with": "projects/movies/src/environments/environment.development.ts"
+            }
+          ],
           "sourceMap": true,
           "namedChunks": true
         }

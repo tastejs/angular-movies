@@ -3,9 +3,6 @@
   "$schema": "../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "movies-user-flows/src",
   "projectType": "library",
-  "implicitDependencies": [
-    "movies"
-  ],
   "targets": {
     "build": {
       "outputs": [
@@ -24,6 +21,7 @@
       "executor": "nx:run-commands",
       "options": {
         "commands": [
+          "nx run movies:build:production --stats-json --source-map --no-budgets",
           "npx cpx dist/projects/movies/browser/stats.json dist/measures/movies",
           "npx webpack-bundle-analyzer dist/projects/movies/browser/stats.json -m static -r dist/measures/movies/bundle-size-report.prod.html"
         ],
