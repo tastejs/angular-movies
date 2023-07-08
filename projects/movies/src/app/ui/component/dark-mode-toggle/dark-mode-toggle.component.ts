@@ -29,7 +29,7 @@ import { LetDirective } from '@rx-angular/template/let';
           class="toggle-track"
           type="checkbox"
           id="dark-mode"
-          [checked]="isLightTheme"
+          [checked]="!isLightTheme"
           (change)="setChecked(!isLightTheme)"
         />
         <label style="color: transparent" for="dark-mode">
