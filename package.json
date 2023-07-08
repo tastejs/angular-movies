@@ -77,14 +77,14 @@
     "@nguniversal/builders": "^16.0.2",
     "@nguniversal/common": "^16.0.2",
     "@nguniversal/express-engine": "^16.0.2",
-    "@nx/angular": "16.4.0",
-    "@nx/devkit": "^16.0.0",
-    "@nx/esbuild": "16.4.2",
-    "@nx/jest": "16.4.2",
-    "@nx/js": "16.4.2",
-    "@nx/node": "16.4.2",
-    "@nx/webpack": "^16.4.1",
-    "@nx/workspace": "16.4.0",
+    "@nx/angular": "16.5.0",
+    "@nx/devkit": "16.5.0",
+    "@nx/esbuild": "16.5.0",
+    "@nx/jest": "16.5.0",
+    "@nx/js": "16.5.0",
+    "@nx/node": "16.5.0",
+    "@nx/webpack": "16.5.0",
+    "@nx/workspace": "16.5.0",
     "@push-based/user-flow": "^0.20.0",
     "@push-based/user-flow-nx-plugin": "^0.1.0",
     "@rx-angular/import-graph-visualizer": "^0.2.0",
@@ -118,7 +118,7 @@
     "jest-environment-node": "^29.4.1",
     "lighthouse": "^9.6.8",
     "lint-staged": "^11.2.3",
-    "nx": "16.4.0",
+    "nx": "16.5.0",
     "nx-cloud": "16.0.5",
     "open": "^8.4.0",
     "prettier": "^2.6.2",
@@ -151,3 +151,4 @@
     }
   }
 }
+
