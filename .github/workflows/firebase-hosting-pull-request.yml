@@ -20,7 +20,7 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Production build for static file hosting (client only)
+      - name: Production build for static file hosting (client + prerender)
         run: npm run nx prerender ng-universal-express
 
       - name: Deploy firebase preview channel hosting

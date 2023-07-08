@@ -22,7 +22,7 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Production build (client & server)
+      - name: Production build (client + prerender + server)
         run: npm run nx pre-deploy firebase-function
 
       - name: Deploy firebase live hosting
