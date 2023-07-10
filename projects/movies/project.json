@@ -35,6 +35,20 @@
         "scripts": []
       },
       "configurations": {
+        "development": {
+          "buildOptimizer": false,
+          "optimization": false,
+          "vendorChunk": true,
+          "extractLicenses": false,
+          "fileReplacements": [
+            {
+              "replace": "projects/movies/src/environments/environment.ts",
+              "with": "projects/movies/src/environments/environment.development.ts"
+            }
+          ],
+          "sourceMap": true,
+          "namedChunks": true
+        },
         "production": {
           "namedChunks": true,
           "serviceWorker": true,
@@ -82,19 +96,16 @@
             }
           ]
         },
-        "development": {
-          "buildOptimizer": false,
-          "optimization": false,
-          "vendorChunk": true,
-          "extractLicenses": false,
+        "production-no-budgets": {
+          "namedChunks": true,
+          "serviceWorker": true,
+          "ngswConfigPath": "projects/movies/src/ngsw-config.json",
           "fileReplacements": [
             {
               "replace": "projects/movies/src/environments/environment.ts",
-              "with": "projects/movies/src/environments/environment.development.ts"
+              "with": "projects/movies/src/environments/environment.production.ts"
             }
-          ],
-          "sourceMap": true,
-          "namedChunks": true
+          ]
         }
       },
       "defaultConfiguration": "production",
@@ -235,7 +246,7 @@
           "awaitServeStdout": "Angular Live Development Server is listening on"
         },
         "emulated": {
-          "url": "http://127.0.0.1:5002",
+          "url": "http://127.0.0.1:4202",
           "serveCommand": "nx run movies:emulate-firebase",
           "awaitServeStdout": "✔  hosting[angular-movies-a12d3]: Local server:"
         }
