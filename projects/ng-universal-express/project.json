@@ -202,7 +202,7 @@
           "serveCommand": "nx run ng-universal-express:emulate-firebase",
           "awaitServeStdout": "✔  hosting[angular-movies-a12d3]: Local server:"
         },
-        "defaultConfiguration": "development"
+        "defaultConfiguration": "production"
       }
     }
   },

@@ -23,3 +23,4 @@ HTTP Transfer State
 
 - Configure polyfills in the build configuration options
 - configure tags
+- modern app bootstrap

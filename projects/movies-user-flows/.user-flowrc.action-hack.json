@@ -1,0 +1,12 @@
+{
+  "collect": {
+    "ufPath": "projects/movies-user-flows/user-flows",
+    "serveCommand": "nx run cloudflare-worker:emulate",
+    "awaitServeStdout": "[ mf:inf ] Ready on "
+  },
+  "persist": {
+    "format": [
+      "md"
+    ]
+  }
+}

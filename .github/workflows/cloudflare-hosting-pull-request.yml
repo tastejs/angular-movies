@@ -30,7 +30,5 @@ jobs:
         with:
           verbose: on
           url: http://127.0.0.1:4501/
-          rcPath: projects/movies-user-flows/.user-flowrc.json
+          rcPath: projects/movies-user-flows/.user-flowrc.action-hack.json
           outPath: dist/user-flow/cloudflare-worker
-          serveCommand: '"nx run cloudflare-worker:emulate"'
-          awaitServeStdout: '"[ mf:inf ] Ready on "'
