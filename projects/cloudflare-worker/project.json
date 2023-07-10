@@ -52,6 +52,7 @@
           "nx build movies",
           "nx pre-build cloudflare-worker",
           "node projects/cloudflare-worker/tooling/copy-files.mjs --source=dist/projects/movies/browser --target=dist/tmp/_worker",
+          "node projects/cloudflare-worker/tooling/copy-files.mjs --source=dist/tmp/_worker --target=dist/projects/movies/worker",
           "node projects/cloudflare-worker/tooling/bundle.mjs --target=dist/projects/movies/worker"
         ],
         "parallel": false
@@ -64,7 +65,7 @@
       "executor": "nx:run-commands",
       "options": {
         "commands": [
-          "nx run cloudflare-worker:emulate "
+          "nx run cloudflare-worker:emulate:production"
         ],
         "parallel": false
       }
@@ -76,7 +77,7 @@
       "executor": "nx:run-commands",
       "options": {
         "commands": [
-          "wrangler pages dev dist/projects/movies/worker --compatibility-date=2021-09-20"
+          "wrangler pages dev dist/projects/movies/worker --compatibility-date=2021-09-20 --port=4501"
         ],
         "parallel": false
       }
@@ -99,7 +100,7 @@
         "{options.outputPath}"
       ],
       "options": {
-        "url": "????????",
+        "url": "http://127.0.0.1:4501/",
         "rcPath": "projects/cloudflare-worker/.user-flowrc.json",
         "outputPath": "dist/user-flow/cloudflare-worker",
         "ufPath": "projects/movies-user-flows/user-flows/navigation.uf.ts",
@@ -109,9 +110,9 @@
       },
       "configurations": {
         "emulated": {
-          "verbose": true,
+          "url": "http://127.0.0.1:4501/",
           "serveCommand": "nx run cloudflare-worker:emulate",
-          "awaitServeStdout": "functions[us-central1-ssr]: http function initialized"
+          "awaitServeStdout": "[mf:inf] Ready on http://127.0.0.1:4501/"
         }
       }
     }

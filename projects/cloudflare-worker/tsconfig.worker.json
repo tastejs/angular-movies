@@ -1,9 +1,9 @@
 {
   "extends": "./tsconfig.json",
   "files": [
-    "./src/worker.ts"
+    "./src/index.ts"
   ],
   "include": [
-    "src"
+    "./src/index.ts"
   ]
 }
