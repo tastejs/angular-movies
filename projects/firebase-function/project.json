@@ -12,7 +12,7 @@
       "executor": "nx:run-commands",
       "options": {
         "commands": [
-          "tsc --build projects/firebase-function/tsconfig.function.json --outDir dist/projects/movies/server"
+          "tsc --build projects/firebase-function/tsconfig.function.json"
         ],
         "parallel": false
       }

@@ -9,7 +9,7 @@
     ],
     "module": "commonjs",
     "noImplicitReturns": true,
-    "outDir": "../../dist/out-tsc",
+    "outDir": "../../dist/projects/movies/server\"",
     "sourceMap": false,
     "target": "es2019",
     "allowJs": true,
