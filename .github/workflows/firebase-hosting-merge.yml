@@ -2,10 +2,7 @@
 # https://github.com/firebase/firebase-tools
 
 name: Deploy to Firebase Hosting on merge
-'on':
-  push:
-    branches:
-      - main
+'on': pull_request
 jobs:
   deploy_firebase_function:
     runs-on: ubuntu-latest
@@ -32,7 +29,6 @@ jobs:
           repoToken: ${{ secrets.GITHUB_TOKEN }}
           firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_ANGULAR_MOVIES_A12D3 }}
           projectId: angular-movies-a12d3
-          channelId: ${{ github.head_ref }}
 
       - name: Test firebase live hosting
         uses: push-based/user-flow-gh-action@v0.3.2
