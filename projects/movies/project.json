@@ -36,21 +36,15 @@
       },
       "configurations": {
         "development": {
-          "buildOptimizer": false,
-          "optimization": false,
+          "namedChunks": true,
+          "sourceMap": true,
           "vendorChunk": true,
           "extractLicenses": false,
-          "fileReplacements": [
-            {
-              "replace": "projects/movies/src/environments/environment.ts",
-              "with": "projects/movies/src/environments/environment.development.ts"
-            }
-          ],
-          "sourceMap": true,
-          "namedChunks": true
+          "buildOptimizer": false,
+          "optimization": false,
+          "serviceWorker": false
         },
         "production": {
-          "namedChunks": true,
           "serviceWorker": true,
           "ngswConfigPath": "projects/movies/src/ngsw-config.json",
           "fileReplacements": [
@@ -97,7 +91,6 @@
           ]
         },
         "production-no-budgets": {
-          "namedChunks": true,
           "serviceWorker": true,
           "ngswConfigPath": "projects/movies/src/ngsw-config.json",
           "fileReplacements": [
@@ -184,7 +177,8 @@
     "build-server-cf": {
       "executor": "@angular-devkit/build-angular:server",
       "options": {
-        "outputPath": "dist/projects/movies/server",
+        "outputHashing": "media",
+        "outputPath": "dist/projects/movies/worker",
         "main": "projects/movies/src/main.server.cloudflare.ts",
         "tsConfig": "projects/movies/tsconfig.server.cloudflare.json",
         "optimization": false,

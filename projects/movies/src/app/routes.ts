@@ -1,4 +1,4 @@
-import { Routes } from '@angular/router';
+import {Routes} from '@angular/router';
 // import { RouteISRConfig } from 'ngx-isr';
 
 export const ROUTES: Routes = [
@@ -13,17 +13,17 @@ export const ROUTES: Routes = [
    * _Bad_
    *  {
    *  path: 'list-category/:category',
-   *  loadChildren: import('list.module').then((m) => m.ListModule)
+   *  loadComponent: import('list.component')
    *  },
    *  {
    *  path: 'list-genre/:genre',
-   *  loadChildren: import('list.module').then((m) => m.ListModule)
+   *  loadComponent: import('list.component')
    *  }
    *
    * _Good_
    * {
    *  path: 'list/:type/:identifier',
-   *  loadChildren: import('list.module').then((m) => m.ListModule)
+   *  loadComponent: import('list.component')
    *  }
    *
    */
@@ -31,7 +31,7 @@ export const ROUTES: Routes = [
     path: 'list/:type/:identifier',
     loadComponent: () =>
       import(
-        'projects/movies/src/app/pages/movie-list-page/movie-list-page.component'
+        './pages/movie-list-page/movie-list-page.component'
       ),
     // data: { revalidate: 10 } as RouteISRConfig
   },
@@ -39,35 +39,35 @@ export const ROUTES: Routes = [
     path: 'detail/movie/:identifier',
     loadComponent: () =>
       import(
-        'projects/movies/src/app/pages/movie-detail-page/movie-detail-page.component'
+        './pages/movie-detail-page/movie-detail-page.component'
       ),
   },
   {
     path: 'detail/list/:identifier',
     loadComponent: () =>
       import(
-        'projects/movies/src/app/pages/account-feature/list-detail-page/list-detail-page.component'
+        './pages/account-feature/list-detail-page/list-detail-page.component'
       ),
   },
   {
     path: 'detail/person/:identifier',
     loadComponent: () =>
       import(
-        'projects/movies/src/app/pages/person-detail-page/person-detail-page.component'
+        './pages/person-detail-page/person-detail-page.component'
       ),
   },
   {
     path: 'account',
     loadChildren: () =>
       import(
-        'projects/movies/src/app/pages/account-feature/account-feature-page.routes'
+        './pages/account-feature/account-feature-page.routes'
       ),
   },
   {
     path: 'page-not-found',
     loadComponent: () =>
       import(
-        'projects/movies/src/app/pages/not-found-page/not-found-page.component'
+        './pages/not-found-page/not-found-page.component'
       ),
   },
   {

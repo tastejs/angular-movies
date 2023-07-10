@@ -12,7 +12,7 @@
       "executor": "nx:run-commands",
       "options": {
         "commands": [
-          "tsc --build projects/firebase-function/tsconfig.app.json"
+          "tsc --build projects/firebase-function/tsconfig.function.json"
         ],
         "parallel": false
       }
@@ -57,7 +57,7 @@
         "parallel": false
       }
     },
-    "deploy-firebase": {
+    "deploy": {
       "executor": "nx:run-commands",
       "dependsOn": [
         "pre-deploy"
@@ -69,7 +69,7 @@
         "parallel": false
       }
     },
-    "emulate-firebase": {
+    "emulate": {
       "executor": "nx:run-commands",
       "options": {
         "commands": [
@@ -84,7 +84,6 @@
         "{options.outputPath}"
       ],
       "options": {
-        "url": "http://127.0.0.1:4402/angular-movies-a12d3/us-central1/ssr",
         "rcPath": "projects/firebase-function/.user-flowrc.json",
         "outputPath": "dist/user-flow/firebase-function",
         "ufPath": "projects/movies-user-flows/user-flows/navigation.uf.ts",
@@ -94,8 +93,9 @@
       },
       "configurations": {
         "emulated": {
+          "url": "http://127.0.0.1:4402/angular-movies-a12d3/us-central1/ssr",
           "verbose": true,
-          "serveCommand": "nx run firebase-function:emulate-firebase",
+          "serveCommand": "nx run firebase-function:emulate",
           "awaitServeStdout": "functions[us-central1-ssr]: http function initialized"
         }
       }

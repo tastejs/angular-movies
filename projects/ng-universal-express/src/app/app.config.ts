@@ -2,7 +2,7 @@ import {ApplicationConfig} from '@angular/core';
 import {provideServerRendering} from '@angular/platform-server';
 import {provideFastSVG} from '@push-based/ngx-fast-svg';
 import {RX_RENDER_STRATEGIES_CONFIG} from '@rx-angular/cdk/render-strategies';
-import {provideHttpClient, withFetch, withInterceptors} from '@angular/common/http';
+import {provideHttpClient, withInterceptors} from '@angular/common/http';
 import {provideISR} from 'ngx-isr';
 import {IconLoadStrategySsr} from './icon-load.ssr.strategy';
 import {tmdbContentTypeInterceptor} from "../../../movies/src/app/data-access/api/tmdbContentTypeInterceptor";
@@ -11,9 +11,7 @@ import {tmdbReadAccessInterceptor} from "../../../movies/src/app/auth/tmdb-http-
 const serverConfig: ApplicationConfig = {
   providers: [
     provideServerRendering(),
-    // order is strict requirement for withFetch!
     provideHttpClient(
-      withFetch(),
       withInterceptors([tmdbContentTypeInterceptor, tmdbReadAccessInterceptor]),
     ),
     provideISR(),
@@ -24,7 +22,7 @@ const serverConfig: ApplicationConfig = {
     {
       provide: RX_RENDER_STRATEGIES_CONFIG,
       useValue: {primaryStrategy: 'native'},
-    },
+    }
   ],
 };
 

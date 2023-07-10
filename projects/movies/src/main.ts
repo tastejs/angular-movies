@@ -16,7 +16,7 @@ import {LetDirective} from '@rx-angular/template/let';
     LetDirective
   ],
   providers: [
-    ...appConfig.providers
+    ...appConfig().providers
   ],
   bootstrap: [AppComponent],
 })

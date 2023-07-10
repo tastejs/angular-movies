@@ -2,7 +2,7 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
-    "outDir": "../../out-tsc/movies",
+    "outDir": "../../out-tsc",
     "types": []
   },
   "files": ["src/main.ts"],
