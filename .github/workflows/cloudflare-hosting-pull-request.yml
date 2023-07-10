@@ -22,12 +22,16 @@ jobs:
         run: npm ci
 
       - name: Production build for static file hosting (client only)
-        run: npm run nx build cloudflare-worker
+        run: npm run nx run cloudflare-worker:build:production
+
+      # use preview deployment
+      - name: Emulate to cloudflare pages
+        run: npm run nx run cloudflare-worker:emulate
 
       - name: Test cloudflare preview pages hosting
         uses: push-based/user-flow-gh-action@v0.3.2
         with:
           verbose: on
-          url: ${{ fromJson(steps.previewDeployStep.outputs.urls)[0] }}
+          url: http://127.0.0.1:4501/
           rcPath: projects/movies-user-flows/.user-flowrc.json
           outPath: dist/user-flow/cloudflare-worker

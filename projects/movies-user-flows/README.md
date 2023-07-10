@@ -1,7 +1,5 @@
 # movies-user-flows
 
-This library was generated with [Nx](https://nx.dev).
+## Todos
 
-## Building
-
-Run `nx build movies-user-flows` to build the library.
+- use existing tsconfig.json for ts-node.register
