@@ -1,10 +1,12 @@
 {
   "collect": {
-    "ufPath": "projects/movies-user-flows/user-flows",
+    "url": "http://127.0.0.1:4501/",
+    "ufPath": "./projects/movies-user-flows/user-flows",
     "serveCommand": "nx run cloudflare-worker:emulate",
-    "awaitServeStdout": "[ mf:inf ] Ready on "
+    "awaitServeStdout": "[mf:inf] Ready on"
   },
   "persist": {
+    "outPath": "./dist/user-flow/cloudflare-worker",
     "format": [
       "md"
     ]

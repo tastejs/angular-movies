@@ -29,6 +29,4 @@ jobs:
         uses: push-based/user-flow-gh-action@v0.3.2
         with:
           verbose: on
-          url: http://127.0.0.1:4501/
           rcPath: projects/movies-user-flows/.user-flowrc.action-hack.json
-          outPath: dist/user-flow/cloudflare-worker
