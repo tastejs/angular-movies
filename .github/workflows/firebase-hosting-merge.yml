@@ -7,7 +7,7 @@ name: E2E Firebase Preview Channel Hosting on push on main
     branches:
       - main
 jobs:
-deploy_firebase_function_and_hosting:
+  deploy_firebase_function_and_hosting:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout the repository
