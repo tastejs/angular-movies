@@ -1,4 +1,7 @@
-Todos:
+# Cloud Functions
+
+## Todos
 
 - use preview deployment in GH action
-- use nx executer to build
+- use nx executor to build
+- configure tags

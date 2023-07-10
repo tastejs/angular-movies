@@ -1,3 +1,5 @@
+# Movies
+
 The SSR setup builds 2 applications.
 One executed on the server to produce the static DOM, and one shipped to the client with all the interactivity.
 There are several thing to notice here:
@@ -18,4 +20,6 @@ HTTP Transfer State
 - On the client side the
 
 ## Todos
-- 
+
+- Configure polyfills in the build configuration options
+- configure tags
