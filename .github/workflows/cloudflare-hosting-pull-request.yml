@@ -29,8 +29,8 @@ jobs:
         uses: push-based/user-flow-gh-action@v0.3.2
         with:
           verbose: on
-          url: http://127.0.0.1:4501/
+          url: "http://127.0.0.1:4501/"
           rcPath: projects/movies-user-flows/.user-flowrc.json
-          outPath: dist/user-flow/cloudflare-worker
+          outPath: "dist/user-flow/cloudflare-worker"
           serveCommand: "nx run cloudflare-worker:emulate"
           awaitServeStdout: "[ mf:inf ] Ready on http://127.0.0.1:4501/"
