@@ -29,4 +29,4 @@ jobs:
         uses: push-based/user-flow-gh-action@v0.3.2
         with:
           verbose: on
-          rcPath: projects/movies-user-flows/.user-flowrc.action-hack.json
+          rcPath: projects/cloudflare-worker/.user-flowrc.action-hack.json
