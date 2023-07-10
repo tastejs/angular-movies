@@ -96,9 +96,6 @@
     },
     "user-flow": {
       "executor": "@push-based/user-flow-nx-plugin:user-flow",
-      "outputs": [
-        "{options.outputPath}"
-      ],
       "options": {
         "url": "http://127.0.0.1:4501/",
         "rcPath": "projects/cloudflare-worker/.user-flowrc.json",
