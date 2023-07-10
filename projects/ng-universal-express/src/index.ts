@@ -74,7 +74,6 @@ export function app(): express.Express {
     },*/
     // Serve page if it exists in cache
     async (req, res, next) => {
-      res.setMetric('isr-data--prop1', 100.0, 'ISR tracked data');
       return await isr.serveFromCache(req, res, next);
     },
     // Server side render the page and add to cache if needed

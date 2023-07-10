@@ -8,11 +8,6 @@ import {Observable, of} from 'rxjs';
 export class IconLoadStrategySsr implements SvgLoadStrategy {
   load(url: string): Observable<string> {
     const iconPath = join(
-      process.cwd(),
-      'dist',
-      'projects',
-      'movies',
-      'browser',
       url
     );
     const iconSVG = readFileSync(iconPath, 'utf8');
