@@ -1,4 +1,12 @@
 {
+  "emulators": {
+    "hosting": {
+      "port": "4202"
+    },
+    "functions": {
+      "port": "4402"
+    }
+  },
   "functions": {
     "source": ".",
     "ignore": [
