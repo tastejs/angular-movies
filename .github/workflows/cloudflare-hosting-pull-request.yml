@@ -25,9 +25,6 @@ jobs:
         run: npm run nx run cloudflare-worker:build:production
 
       # use preview deployment
-      - name: Emulate to cloudflare pages
-        run: npm run nx run cloudflare-worker:emulate
-
       - name: Test cloudflare preview pages hosting
         uses: push-based/user-flow-gh-action@v0.3.2
         with:
@@ -35,3 +32,5 @@ jobs:
           url: http://127.0.0.1:4501/
           rcPath: projects/movies-user-flows/.user-flowrc.json
           outPath: dist/user-flow/cloudflare-worker
+          serveCommand: nx run cloudflare-worker:emulate",
+          awaitServeStdout: [ mf:inf ] Ready on http://127.0.0.1:4501/
