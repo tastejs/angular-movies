@@ -16,12 +16,14 @@ The repository maintains the following projects:
 - angular-movies - a Angular application served in a web browser
 - ng-universal-express - a node express server using `@nguniversal` for SSR and SSG of the angular-movies
 - firebase-function - a firebase function used to execute SSR of the ng-universal-express in firebase functions
+- cloudflare-worker - a cloudflare worker used to execute SSR of the angular-movies app in a worker
+
 
 ```mermaid
 graph TD;
     ng-universal-express-->angular-movies;
     firebase-function-->ng-universal-express;
-    cloudflare-worker-->ng-universal-express;
+    cloudflare-worker-->angular-movies;
 ```
 
 ## Project Types
