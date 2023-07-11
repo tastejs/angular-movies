@@ -6,7 +6,11 @@
 graph TD;
     lint-->build;
     build-->test;
+    build-->prerender;
+    prerender-->test;
+    test-->deploy;
     test-->user-flow;
+    deploy-->user-flow;
 ```
 
 ## App Hierarchy
