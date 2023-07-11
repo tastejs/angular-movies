@@ -4,9 +4,9 @@
 
 ```mermaid
 graph TD;
-    lint-->build2;
-    build2-->build1;
-    build1-->user-flow;
+    lint-->build;
+    build-->test;
+    test-->user-flow;
 ```
 
 ## App Hierarchy
@@ -21,6 +21,7 @@ The repository maintains the following projects:
 graph TD;
     ng-universal-express-->angular-movies;
     firebase-function-->ng-universal-express;
+    cloudflare-worker-->ng-universal-express;
 ```
 
 ## Project Types
