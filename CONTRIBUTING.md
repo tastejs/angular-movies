@@ -28,6 +28,10 @@ graph TD;
     ng-universal-express-->angular-movies;
     firebase-function-->ng-universal-express;
     cloudflare-worker-->angular-movies;
+    user-flow-->angular-movies;
+    user-flow-->firebase-function;
+    user-flow-->cloudflare-worker;
+    docs
 ```
 
 ## Project Types
