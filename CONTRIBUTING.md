@@ -171,6 +171,12 @@ The user-flows application is needed to execute e2e tests against the different 
 - **format** - exception rules for the different code parts
 - TODO
 
+## Development
+
+- nx run movie:serve:development
+- nx run movie:serve:development
+- before commit --affected build,test,user-flow
+
 ## CI
 
 The CI has different actions:

@@ -2,7 +2,7 @@ import {UserFlowContext, UserFlowInteractionsFn, UserFlowOptions, UserFlowProvid
 import {MovieListPageUFO} from '../../movies-user-flows/src';
 
 const flowOptions: UserFlowOptions = {
-  name: 'Firebase Function Emulation',
+  name: 'Cloudflare Worker Emulation',
 };
 
 const interactions: UserFlowInteractionsFn = async (
