@@ -4,7 +4,8 @@
   "sourceRoot": "movies-user-flows/src",
   "projectType": "library",
   "targets": {
-    "build": {
+    "build-lib": {
+      "dependsOn": [],
       "executor": "@nx/js:tsc",
       "outputs": [
         "{options.outputPath}"
