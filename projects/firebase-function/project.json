@@ -73,22 +73,24 @@
         "{options.outputPath}"
       ],
       "options": {
+        "url": "http://127.0.0.1:4402/angular-movies-a12d3/us-central1/ssr",
         "rcPath": "projects/firebase-function/.user-flowrc.json",
         "outputPath": "dist/user-flow/firebase-function",
-        "ufPath": "projects/movies-user-flows/user-flows/navigation.uf.ts",
         "format": [
           "html"
         ]
       },
       "configurations": {
-        "emulated": {
-          "url": "http://127.0.0.1:4402/angular-movies-a12d3/us-central1/ssr",
+        "development": {
           "verbose": true,
-          "dryRun": true,
+          "dryRun": true
+        },
+        "emulated": {
           "serveCommand": "nx run firebase-function:serve",
-          "awaitServeStdout": "functions[us-central1-ssr]: http function initialized"
+          "awaitServeStdout": "Other reserved ports"
         }
-      }
+      },
+      "defaultConfiguration": "development"
     }
   },
   "tags": []
