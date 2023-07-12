@@ -18,7 +18,7 @@ jobs:
         run: npm ci
 
       - name: Production build for static file hosting (client + prerender + function)
-        run: npm run nx firebase-function:build:production
+        run: npm run nx run firebase-function:build:production
 
       - name: Test firebase function emulation
         uses: push-based/user-flow-gh-action@v0.3.2
