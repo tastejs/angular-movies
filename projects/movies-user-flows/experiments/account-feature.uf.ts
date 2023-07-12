@@ -1,8 +1,8 @@
 import {UserFlowContext, UserFlowInteractionsFn, UserFlowOptions, UserFlowProvider,} from '@push-based/user-flow';
 
-import {mergeBudgets} from '../internals/test-sets';
-import {ToolBarUfo} from "../ufo/desktop/tool-bar.ufo";
-import {TmdbUfo} from "../ufo/desktop/tmdb.ufo";
+import {mergeBudgets} from '../src/internals/test-sets';
+import {ToolBarUfo} from "../src/ufo/desktop/tool-bar.ufo";
+import {TmdbUfo} from "../src/ufo/desktop/tmdb.ufo";
 
 const flowOptions: UserFlowOptions = {
   name: 'Basic user flow to ensure basic functionality',
@@ -11,7 +11,7 @@ const flowOptions: UserFlowOptions = {
 const interactions: UserFlowInteractionsFn = async (
   ctx: UserFlowContext
 ): Promise<any> => {
-  const {browser, page, flow, collectOptions} = ctx;
+  const {page, flow, collectOptions} = ctx;
   const url = `${collectOptions.url}/list/category/popular`;
   const toolbar = new ToolBarUfo(ctx);
   const tmdbPage = new TmdbUfo(ctx);

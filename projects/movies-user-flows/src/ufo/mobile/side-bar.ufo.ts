@@ -9,12 +9,12 @@ export class SidebarUFO extends DesktopSidebarUFO {
     await this.page.waitForTimeout(ANIM_DURATION_SHORT);
   }
 
-  async navigateToCategory(c: CategoryNames = 'popular'): Promise<void> {
+  override async navigateToCategory(c: CategoryNames = 'popular'): Promise<void> {
     await this.ensureSidebarOpen();
     await super.navigateToCategory(c);
   }
 
-  async navigateToGenre(g: GenreIds): Promise<void> {
+  override async navigateToGenre(g: GenreIds): Promise<void> {
     await this.ensureSidebarOpen();
     await super.navigateToGenre(g);
   }
@@ -26,11 +26,11 @@ export class SidebarUFO extends DesktopSidebarUFO {
       .then(() => this.page.waitForSelector(anySideBarLink));
   }
 
-  async awaitAllContent(): Promise<any> {
+  override async awaitAllContent(): Promise<any> {
     await Promise.all([this.awaitLCPContent()]);
   }
 
-  async awaitLCPContent(): Promise<any> {
+  override async awaitLCPContent(): Promise<any> {
     await this.page.waitForSelector(sideMenuBtnSelector);
   }
 
