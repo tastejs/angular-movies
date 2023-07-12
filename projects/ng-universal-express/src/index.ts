@@ -9,9 +9,9 @@ import {environment} from '../../movies/src/environments/environment';
 import {ngExpressEngine} from '@nguniversal/express-engine';
 import bootstrap from './app/bootstrap';
 import {useCompression, useTiming} from "./app/utils";
-
+// bootstrap needs to get exported for the pre-render task
 export default bootstrap;
-
+// The Express app is exported so that it can be used by serverless Functions.
 export function app(): express.Express {
   const server = express();
 

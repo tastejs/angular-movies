@@ -2,5 +2,4 @@
 
 ## Todos
 
-- configure polyfills in the build configuration options
 - configure tags
