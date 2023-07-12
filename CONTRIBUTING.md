@@ -63,6 +63,15 @@ In this mono repository we agree on a set of tasks that need to be consistent ac
 
 ## Projects (`nx.json#layout`)
 
+### Docs
+
+#### Tasks
+
+- **format** - Markdown specific formatting
+- **lint** - TODO
+- **build-report** - `state.json` and bundle analyzer generation
+- **update-readme** - update the main readme (`./README.md`) with data from our builds and reports
+
 ### Browser Application
 
 The browser application is needed to run host a CRS version of the application as well as all static files e.g.
