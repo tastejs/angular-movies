@@ -60,23 +60,23 @@ In this mono repository we agree on a set of tasks that need to be consistent ac
   - **production-x** - environments close to the released version
   - **emulated-x** - emulated environments
 
-## Projects (`nx.json#layout`)
+# Projects (`nx.json#layout`)
 
-### Docs
+## Docs
 
-#### Tasks
+### Tasks
 
 - **format** - Markdown specific formatting
 - **lint** - TODO
 - **build-report** - `state.json` and bundle analyzer generation
 - **update-readme** - update the main readme (`./README.md`) with data from our builds and reports
 
-### Browser Application
+## Browser Application
 
 The browser application is needed to run host a CRS version of the application as well as all static files e.g.
 pre-rendered pages or `routes.txt`
 
-#### Tasks
+### Tasks
 
 - **format** - Angular specific formatting
 - **lint** - TODO
@@ -105,11 +105,11 @@ pre-rendered pages or `routes.txt`
 - **build-report** - `state.json` and bundle analyzer generation
 - **update-readme** - update the main readme (`./README.md`) with data from our builds and reports
 
-### Express Server
+## Express Server
 
 The ng-universal application is needed to run SSR in different environments e.g. function or edge.
 
-#### Tasks
+### Tasks
 
 - **format** - node specific formatting
 - **lint** - TODO
@@ -134,11 +134,11 @@ The ng-universal application is needed to run SSR in different environments e.g.
   - **emulated** - `build` for `pruduction` and run `prerender`. `serve` it with the `emulate-firebase` task.  
     XY tests are executed.
 
-### Cloud Function
+## Cloud Function
 
 The firebase-function application is needed to execute the ng-universal express server in a cloud function.
 
-#### Tasks
+#ß## Tasks
 
 - **format** - esm specific formatting
 - **build** - `tsc` is used directly
@@ -150,9 +150,9 @@ The firebase-function application is needed to execute the ng-universal express 
   - **emulated** - `build` for `pruduction` and run `prerender`. `serve` it with the `emulate-firebase` task.  
     XY tests are executed.
 
-### User Flows
+## User Flows
 
-#### ???
+### ???
 
 To test a applications with user flow we consider the following libs/apps:
 
@@ -166,7 +166,30 @@ To test a applications with user flow we consider the following libs/apps:
 
 The user-flows application is needed to execute e2e tests against the different deployments.
 
-#### Tasks
+### Tasks
 
 - **format** - exception rules for the different code parts
 - TODO
+
+## Development
+
+- nx run movie:serve:development
+- nx run movie:serve:development
+- before commit --affected build,test,user-flow
+
+## CI
+
+The CI has different actions:
+
+- `pr` - `pull_request` on `main`
+- `m` - `merge` on `main`
+-
+
+The CI has different actions:
+
+- `ci.yml` - runs on `pr` and `m` --affected build,test,lint
+- `docs-hosting-m.yml` - runs on `m`
+- `firebase-hosting-m.yml` - runs on `m`  firebase-function:deploy + movies:user-flow:production,
+- `cloudflare-hosting-pr.yml` - runs on `pr` cloudflare-worker:deploy + cloudflare-worker:user-flow:emulate,
+- `firebase-hosting-pr.yml` - runs on `pr` ng-universal-express:deploy + ng-universal-express:user-flow:preview
+- `firebase-function-pr.yml` - runs on `pr` firebase-function:build + firebase-function:user-flow:emulate, 

@@ -32,7 +32,7 @@
       "executor": "@push-based/user-flow-nx-plugin:user-flow",
       "options": {
         "rcPath": "projects/movies-user-flows/.user-flowrc.json",
-        "outputPath": "dist/user-flows/movies-user-flows"
+        "outputPath": "dist/user-flow/movies-user-flows"
       },
       "configurations": {
         "prerender": {
@@ -50,7 +50,7 @@
         "prerender+ng-universal-ssr+firebase-fn": {
           "url": "http://localhost:4201",
           "outputPath": "dist/user-flows/movies-user-flows",
-          "serveCommand": "nx run movies:serve-ssr:production",
+          "serveCommand": "nx run firebase-function:serve",
           "awaitServeStdout": "Angular Live Development Server is listening on"
         }
       }

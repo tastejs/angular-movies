@@ -1,0 +1,28 @@
+name: E2E Firebase Function on PR
+'on': pull_request
+jobs:
+  emulate_firebase_function_and_test:
+    if: '${{ github.event.pull_request.head.repo.full_name == github.repository }}'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the repository
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Production build for static file hosting (client + prerender + function)
+        run: npm run nx run firebase-function:build:production
+
+      - name: Test firebase function emulation
+        uses: push-based/user-flow-gh-action@v0.3.2
+        with:
+          verbose: on
+          url: http://127.0.0.1:4402/angular-movies-a12d3/us-central1/ssr
+          rcPath: projects/firebase-function/.user-flowrc.json

@@ -97,10 +97,9 @@
     "user-flow": {
       "executor": "@push-based/user-flow-nx-plugin:user-flow",
       "options": {
-        "url": "http://127.0.0.1:4501/",
-        "rcPath": "projects/cloudflare-worker/.user-flowrc.json",
+        "rcPath": "projects/cloudflare-worker/.user-flowrc.action-hack.json",
         "outputPath": "dist/user-flow/cloudflare-worker",
-        "ufPath": "projects/movies-user-flows/user-flows/navigation.uf.ts",
+        "ufPath": "projects/cloudflare-worker/user-flows/ci-flow.uf.ts",
         "format": [
           "html"
         ]
@@ -109,7 +108,7 @@
         "emulated": {
           "url": "http://127.0.0.1:4501/",
           "serveCommand": "nx run cloudflare-worker:emulate",
-          "awaitServeStdout": "[mf:inf] Ready on http://127.0.0.1:4501/"
+          "awaitServeStdout": "[mf:inf] Ready on"
         }
       }
     }
