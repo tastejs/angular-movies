@@ -3,7 +3,6 @@
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "projects/firebase-function/src",
   "projectType": "application",
-  "implicitDependencies": [],
   "targets": {
     "build": {
       "outputs": [
@@ -12,6 +11,7 @@
       "executor": "nx:run-commands",
       "options": {
         "commands": [
+          "nx prerender ng-universal-express",
           "tsc --build projects/firebase-function/tsconfig.function.json"
         ],
         "parallel": false
@@ -24,6 +24,7 @@
       ],
       "options": {
         "commands": [
+          "nx build firebase-function",
           "firebase emulators:start --project angular-movies"
         ],
         "parallel": false
@@ -45,22 +46,10 @@
         }
       }
     },
-    "pre-deploy": {
-      "dependsOn": [
-        "build"
-      ],
-      "executor": "nx:run-commands",
-      "options": {
-        "commands": [
-          "nx prerender ng-universal-express"
-        ],
-        "parallel": false
-      }
-    },
     "deploy": {
       "executor": "nx:run-commands",
       "dependsOn": [
-        "pre-deploy"
+        "build"
       ],
       "options": {
         "commands": [
