@@ -1,5 +1,7 @@
+import 'zone.js';
 import 'zone.js/dist/zone-node';
 import '@angular/platform-server/init';
+
 import {renderApplication} from '@angular/platform-server';
 import {EdgeEnv, provideEdgeEnv} from './app/env.token';
 import bootstrap from './app/bootstrap';
