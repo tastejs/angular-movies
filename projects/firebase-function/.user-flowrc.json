@@ -1,6 +1,8 @@
 {
   "collect": {
-    "ufPath": "projects/firebase-function/user-flows"
+    "ufPath": "./projects/firebase-function/user-flows",
+    "serveCommand": "nx run firebase-function:serve",
+    "awaitServeStdout": "Other reserved ports"
   },
   "persist": {
     "format": [
