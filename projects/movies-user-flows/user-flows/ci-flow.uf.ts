@@ -1,9 +1,6 @@
 import {UserFlowContext, UserFlowInteractionsFn, UserFlowOptions, UserFlowProvider,} from '@push-based/user-flow';
 
-import {mergeBudgets} from '../src';
-import {MovieDetailPageUFO} from '../src';
-import {MovieListPageUFO} from '../src';
-import {SidebarUFO} from '../src';
+import {mergeBudgets, MovieDetailPageUFO, MovieListPageUFO, SidebarUFO} from 'movies-ufo';
 
 const flowOptions: UserFlowOptions = {
   name: 'Basic user flow to ensure basic functionality',

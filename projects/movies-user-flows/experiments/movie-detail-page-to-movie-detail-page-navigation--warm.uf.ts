@@ -1,10 +1,5 @@
-import {
-  UserFlowProvider,
-  UserFlowOptions,
-  UserFlowInteractionsFn,
-  UserFlowContext,
-} from '@push-based/user-flow';
-import { MovieDetailPageUFO } from './ufo/desktop/movie-detail-page.ufo';
+import {UserFlowContext, UserFlowInteractionsFn, UserFlowOptions, UserFlowProvider,} from '@push-based/user-flow';
+import {MovieDetailPageUFO} from './ufo/desktop/movie-detail-page.ufo';
 
 const flowOptions: UserFlowOptions = {
   name: 'Movie detail page to detail page navigations - Warm',

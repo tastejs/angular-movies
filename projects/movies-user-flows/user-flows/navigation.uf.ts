@@ -1,6 +1,5 @@
 import {UserFlowContext, UserFlowInteractionsFn, UserFlowOptions, UserFlowProvider,} from '@push-based/user-flow';
-
-import {getTestSets} from '../src/internals/test-sets';
+import {getTestSets} from 'movies-ufo';
 
 const flowOptions: UserFlowOptions = {
   name: 'Initial Navigation of the Main Pages',
@@ -9,7 +8,7 @@ const flowOptions: UserFlowOptions = {
 const interactions: UserFlowInteractionsFn = async (
   ctx: UserFlowContext
 ): Promise<any> => {
-  const {page, flow, collectOptions} = ctx;
+  const {flow, collectOptions} = ctx;
   const baseUrl = `${collectOptions.url}`;
   const navigations = getTestSets(
     './projects/movies-user-flows/src/configs/test-set.json',

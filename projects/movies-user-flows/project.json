@@ -10,12 +10,10 @@
         "{options.outputPath}"
       ],
       "options": {
-        "outputPath": "dist/movies-user-flows",
+        "outputPath": "dist/projects/movies-user-flows",
         "main": "movies-user-flows/src/index.ts",
         "tsConfig": "movies-user-flows/tsconfig.lib.json",
-        "assets": [
-          "movies-user-flows/*.md"
-        ]
+        "assets": []
       }
     },
     "lint": {
