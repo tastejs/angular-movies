@@ -10,7 +10,7 @@ import {ngExpressEngine} from '@nguniversal/express-engine';
 import bootstrap from './app/bootstrap';
 import {useCompression, useTiming} from "./app/utils";
 
-
+export default bootstrap;
 // The Express app is exported so that it can be used by serverless Functions.
 export function app(): express.Express {
   const server = express();
