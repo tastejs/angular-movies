@@ -1,4 +1,4 @@
-name: E2E Firebase Preview Channel Hosting on push on main
+name: E2E Firebase Live Hosting on Merge
 'on':
   push:
     branches:
@@ -20,7 +20,7 @@ jobs:
         run: npm ci
 
       - name: Production build (client + prerender + server)
-        run: npm run nx pre-deploy firebase-function
+        run: npm run nx build firebase-function
 
       - name: Deploy firebase live hosting
         id: deployStep

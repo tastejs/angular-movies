@@ -1,4 +1,4 @@
-name: Deploy to GitHub README.md on merge
+name: Deploy to GitHub README.md on Merge
 'on':
   push:
     branches:

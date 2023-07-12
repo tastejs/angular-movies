@@ -1,5 +1,5 @@
+import 'zone.js';
 import 'zone.js/dist/zone-node';
-
 // The Express app is exported so that it can be used by serverless Functions.
 import express from 'express';
 import {existsSync} from 'fs';
