@@ -25,13 +25,11 @@ The repository maintains the following projects:
 
 ```mermaid
 graph TD;
-    ng-universal-express-->angular-movies;
-    firebase-function-->ng-universal-express;
-    cloudflare-worker-->angular-movies;
-    user-flow-->angular-movies;
-    user-flow-->firebase-function;
-    user-flow-->cloudflare-worker;
     docs
+    angular-movies-user-flow;
+    firebase-function-->ng-universal-express;
+    ng-universal-express-->angular-movies;
+    cloudflare-worker-->angular-movies;
 ```
 
 ## Project Types
@@ -50,7 +48,8 @@ In this mono repository we agree on a set of tasks that need to be consistent ac
 
 - **format** - global formatting
 - **lint** - global linting
-- **build** - TODO
+- **build** - build project for different reasond
+  - **development-x** - environments fast to build and easy to debug. No perf measures.
 - **serve** - TODO
 - **test** - TODO
 - **e2e** - e2e tests with optional postfix (if no postfix is needed use just `e2e`)
