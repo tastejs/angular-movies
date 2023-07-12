@@ -1,10 +1,9 @@
-import { Page } from 'puppeteer';
-import { CwvInterface } from '../typings/cwv.interface';
-import * as fixtures from '../../fixtures/ui-movie-list.fixtures';
-import { Ufo, UserFlowContext } from '@push-based/user-flow';
+import {CwvInterface} from '../typings/cwv.interface';
+import {movieImgSelector} from '../../../../movies/testing';
+import {Ufo, UserFlowContext} from '@push-based/user-flow';
 
 export class UiMovieListUFO extends Ufo implements CwvInterface {
-  protected itemSelector = fixtures.movieImgSelector;
+  protected itemSelector = movieImgSelector;
 
   async clickMovieListImage(idx: number = 0) {
     const selector = this.itemSelector(idx);
@@ -12,6 +11,7 @@ export class UiMovieListUFO extends Ufo implements CwvInterface {
     await this.page.click(selector);
   }
 
+  // @ts-ignore
   constructor(private ctx: UserFlowContext) {
     super(ctx);
   }

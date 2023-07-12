@@ -3,6 +3,6 @@
   "extends": "./tsconfig.app.json",
   "compilerOptions": {},
   "files": [
-    "src/serve-index.ts"
+    "src/main.ts"
   ]
 }

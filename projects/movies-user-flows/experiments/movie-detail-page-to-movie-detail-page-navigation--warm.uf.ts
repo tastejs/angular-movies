@@ -1,10 +1,5 @@
-import {
-  UserFlowProvider,
-  UserFlowOptions,
-  UserFlowInteractionsFn,
-  UserFlowContext,
-} from '@push-based/user-flow';
-import { MovieDetailPageUFO } from './ufo/desktop/movie-detail-page.ufo';
+import {UserFlowContext, UserFlowInteractionsFn, UserFlowOptions, UserFlowProvider,} from '@push-based/user-flow';
+import {MovieDetailPageUFO} from '../src/ufo/desktop/movie-detail-page.ufo';
 
 const flowOptions: UserFlowOptions = {
   name: 'Movie detail page to detail page navigations - Warm',
@@ -13,7 +8,7 @@ const flowOptions: UserFlowOptions = {
 const interactions: UserFlowInteractionsFn = async (
   ctx: UserFlowContext
 ): Promise<any> => {
-  const { flow, collectOptions, page } = ctx;
+  const {flow, collectOptions} = ctx;
 
   const testUrl = `${collectOptions.url}/detail/movie/634649`;
   const movieDetailPage = new MovieDetailPageUFO(ctx);

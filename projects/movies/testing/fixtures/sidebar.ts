@@ -1,4 +1,4 @@
-import { CategoryNames, GenreIds } from '../internals/typings';
+import {CategoryNames, GenreIds} from '../internals/typings';
 
 export const sideMenuBtnSelector = '*[data-uf="menu-btn"]';
 

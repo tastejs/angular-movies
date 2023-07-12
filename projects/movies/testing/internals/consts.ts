@@ -1,4 +1,4 @@
-import { CategoryNames, GenreIds } from './typings';
+import {CategoryNames, GenreIds} from './typings';
 
 export const categoryNames: CategoryNames[] = [
   'popular',

@@ -1,9 +1,7 @@
-import { Page } from 'puppeteer';
-import { UiMovieListUFO } from './ui-movie-list.ufo';
-import { CwvInterface } from '../typings/cwv.interface';
-import { BackNavigationInterface } from '../typings/back-navigation.interface';
-import * as fixtures from '../../fixtures/movie-list-page.fixtures';
-import { Ufo, UserFlowContext } from '@push-based/user-flow';
+import {UiMovieListUFO} from './ui-movie-list.ufo';
+import {CwvInterface} from '../typings/cwv.interface';
+import {heandlineSelector, subheandlineSelector} from '../../../../movies/testing';
+import {Ufo, UserFlowContext} from '@push-based/user-flow';
 
 export class MovieListPageUFO extends Ufo implements CwvInterface {
   movieList = new UiMovieListUFO(this.ctx);
@@ -14,8 +12,8 @@ export class MovieListPageUFO extends Ufo implements CwvInterface {
 
   async awaitHeadingContent(): Promise<void> {
     await Promise.all([
-      this.page.waitForSelector(fixtures.heandlineSelector),
-      this.page.waitForSelector(fixtures.subheandlineSelector),
+      this.page.waitForSelector(heandlineSelector),
+      this.page.waitForSelector(subheandlineSelector),
     ]);
   }
 
@@ -31,6 +29,6 @@ export class MovieListPageUFO extends Ufo implements CwvInterface {
   }
 
   async navigateToDetail(id: number = 0): Promise<any> {
-    await this.movieList.clickMovieListImage(0);
+    await this.movieList.clickMovieListImage(id);
   }
 }
