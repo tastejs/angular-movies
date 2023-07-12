@@ -76,6 +76,8 @@
         "url": "http://127.0.0.1:4402/angular-movies-a12d3/us-central1/ssr",
         "rcPath": "projects/firebase-function/.user-flowrc.json",
         "outputPath": "dist/user-flow/firebase-function",
+        "serveCommand": "nx run firebase-function:serve",
+        "awaitServeStdout": "Other reserved ports",
         "format": [
           "html"
         ]
@@ -86,8 +88,6 @@
           "dryRun": true
         },
         "emulated": {
-          "verbose": true,
-          "dryRun": true,
           "serveCommand": "nx run firebase-function:serve",
           "awaitServeStdout": "Other reserved ports"
         }
