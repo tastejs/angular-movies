@@ -24,7 +24,7 @@ const interactions: UserFlowInteractionsFn = async (
         budgets: mergeBudgets([
           './projects/movies-user-flows/budgets/angular.budgets.json',
           './projects/movies-user-flows/budgets/general-timing.budgets.json',
-          './projects/movies/testing/movie-list.budgets.json',
+          './projects/movies/testing/budgets/movie-list.budgets.json',
         ]),
       },
     },

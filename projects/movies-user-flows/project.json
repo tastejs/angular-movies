@@ -38,7 +38,7 @@
         "prerender": {
           "url": "http://localhost:4201",
           "outputPath": "dist/user-flows/movies-user-flows",
-          "serveCommand": "nx run ng-universal-express:prerender:production",
+          "serveCommand": "nx run ng-universal-express:serve:production",
           "awaitServeStdout": "Angular Live Development Server is listening on"
         },
         "prerender+ng-universal-ssr": {
