@@ -108,7 +108,7 @@
         "emulated": {
           "url": "http://127.0.0.1:4501/",
           "serveCommand": "nx run cloudflare-worker:emulate",
-          "awaitServeStdout": "[mf:inf] Ready on http://127.0.0.1:4501/"
+          "awaitServeStdout": "[mf:inf] Ready on"
         }
       }
     }
