@@ -2,7 +2,7 @@
 
 ## Todos
 
-- use nx executer to build
-- prod and dev configs for build and serve
+- use nx executor to build
+  - prod and dev configs for build
 - configure tags
 - resolve action hack by fixing gh action
