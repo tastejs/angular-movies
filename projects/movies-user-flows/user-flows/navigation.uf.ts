@@ -11,7 +11,7 @@ const interactions: UserFlowInteractionsFn = async (
   const {flow, collectOptions} = ctx;
   const baseUrl = `${collectOptions.url}`;
   const navigations = getTestSets(
-    './projects/movies-user-flows/src/configs/test-set.json',
+    './projects/movies-user-flows/budgets/test-set.json',
     {
       baseUrl,
       match: 'navigation',

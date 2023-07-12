@@ -22,9 +22,9 @@ const interactions: UserFlowInteractionsFn = async (
       extends: 'lighthouse:default',
       settings: {
         budgets: mergeBudgets([
-          './projects/movies-user-flows/src/configs/angular.budgets.json',
-          './projects/movies-user-flows/src/configs/general-timing.budgets.json',
-          './projects/movies-user-flows/src/configs/movie-list.budgets.json',
+          './projects/movies-user-flows/budgets/angular.budgets.json',
+          './projects/movies-user-flows/budgets/general-timing.budgets.json',
+          './projects/movies/testing/movie-list.budgets.json',
         ]),
       },
     },
