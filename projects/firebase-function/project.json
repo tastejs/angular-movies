@@ -86,6 +86,8 @@
           "dryRun": true
         },
         "emulated": {
+          "verbose": true,
+          "dryRun": true,
           "serveCommand": "nx run firebase-function:serve",
           "awaitServeStdout": "Other reserved ports"
         }
