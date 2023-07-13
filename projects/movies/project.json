@@ -192,21 +192,16 @@
         "development": {
           "verbose": true,
           "dryRun": true,
-          "serveCommand": "nx run movies:serve:development",
+          "serveCommand": "nx run movies:serve:production",
           "awaitServeStdout": "Angular Live Development Server is listening on"
         },
         "production": {
           "url": "http://localhost:4201",
           "serveCommand": "nx run movies:serve:production",
           "awaitServeStdout": "Angular Live Development Server is listening on"
-        },
-        "emulated": {
-          "url": "http://127.0.0.1:4202",
-          "serveCommand": "nx run movies:emulate-firebase",
-          "awaitServeStdout": "✔  hosting[angular-movies-a12d3]: Local server:"
         }
       },
-      "defaultConfiguration": "development"
+      "defaultConfiguration": "production"
     }
   }
 }
