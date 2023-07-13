@@ -24,4 +24,21 @@ HTTP Transfer State
 - configure tags
 - modern app bootstrap
 - service worker refactoring
-- user-flow tests
+
+## Features to test
+
+- Categories - popular, top_rated, upcoming
+  - with pagination or infinite scroll
+- Genres - fetched from server
+- Search - find, filter, sort movies. Paginated
+- Movie Details:
+  - hero, case, more
+- Actor Details:
+  - hero, more
+- Authentication with TMDB
+  - login - menu
+  - logout - menu
+- Account features - only accessible when logged in
+  - Lists - create new lists
+  - Lists - view all your saved lists
+  - Lists - add/remove/edit lists
