@@ -29,6 +29,7 @@ jobs:
           repoToken: ${{ secrets.GITHUB_TOKEN }}
           firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_ANGULAR_MOVIES_A12D3 }}
           projectId: angular-movies-a12d3
+          channelId: ${{ github.head_ref }}
 
       - name: Test firebase live hosting
         id: firebase-live-hosting
