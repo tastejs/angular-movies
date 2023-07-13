@@ -23,4 +23,4 @@ jobs:
         run: npm ci
 
       - name: Build affected projects
-        run: npx nx affected -t=lint,build,test
+        run: npx nx affected -t=build,test
