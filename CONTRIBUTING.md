@@ -183,13 +183,26 @@ The CI has different actions:
 
 - `pr` - `pull_request` on `main`
 - `m` - `merge` on `main`
--
 
-The CI has different actions:
+### Docs
+
+- `docs-hosting-m.yml` - runs on `m`
+
+### Test and Build
 
 - `ci.yml` - runs on `pr` and `m` --affected build,test,lint
-- `docs-hosting-m.yml` - runs on `m`
+
+#### Firebase Hosting
+
 - `firebase-hosting-m.yml` - runs on `m`  firebase-function:deploy + movies:user-flow:production,
-- `cloudflare-hosting-pr.yml` - runs on `pr` cloudflare-worker:deploy + cloudflare-worker:user-flow:emulate,
 - `firebase-hosting-pr.yml` - runs on `pr` ng-universal-express:deploy + ng-universal-express:user-flow:preview
-- `firebase-function-pr.yml` - runs on `pr` firebase-function:build + firebase-function:user-flow:emulate, 
+
+#### Firebase  Function
+
+As the build will not break because of require usage we need to test against function emulator
+
+- `firebase-function-pr.yml` - runs on `pr` firebase-function:build + firebase-function:user-flow:emulate,
+
+#### Cloudflare Hosting
+
+- `cloudflare-hosting-pr.yml` - runs on `pr` cloudflare-worker:deploy + cloudflare-worker:user-flow:emulate,
