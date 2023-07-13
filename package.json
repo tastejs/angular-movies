@@ -61,7 +61,7 @@
     "@nguniversal/builders": "^16.1.1",
     "@nguniversal/common": "^16.1.1",
     "@nguniversal/express-engine": "^16.1.1",
-    "@nx/angular": "16.6.0-beta.2",
+    "@nx/angular": "16.5.1",
     "@nx/devkit": "16.5.1",
     "@nx/esbuild": "16.5.1",
     "@nx/jest": "16.5.1",
@@ -123,16 +123,51 @@
   },
   "overrides": {
     "@rx-angular/cdk": {
-      "@angular/core": "^16.0.0"
+      "@angular/core": ">16.2.0-next.0"
     },
     "@rx-angular/state": {
-      "@angular/core": "^16.0.0"
+      "@angular/core": ">16.2.0-next.0"
     },
     "@rx-angular/template": {
-      "@angular/core": "^16.0.0"
+      "@angular/core": ">16.2.0-next.0"
+    },
+    "@nx/angular": {
+      "@angular-eslint/schematics": ">16.2.0-next.0",
+      "@angular/cli": ">16.2.0-next.0",
+      "@nguniversal/common": ">16.2.0-next.0",
+      "@angular-devkit/build-angular": ">16.2.0-next.0"
+    },
+    "@angular-eslint/schematics": {
+      "@angular/cli": ">16.2.0-next.0",
+      "@nguniversal/common": ">16.2.0-next.0",
+      "@angular-devkit/build-angular": ">16.2.0-next.0"
+    },
+    "@nguniversal/builders": {
+      "@angular-eslint/schematics": ">16.2.0-next.0",
+      "@angular/core": ">16.2.0-next.0",
+      "@angular/common": ">16.2.0-next.0",
+      "@angular-devkit/build-angular": ">16.2.0-next.0"
+    },
+    "@nguniversal/common": {
+      "@angular-eslint/schematics": ">16.2.0-next.0",
+      "@angular/core": ">16.2.0-next.0",
+      "@angular/common": ">16.2.0-next.0",
+      "@angular-devkit/build-angular": ">16.2.0-next.0"
+    },
+    "@nguniversal/express-engine": {
+      "@angular-eslint/schematics": ">16.2.0-next.0",
+      "@angular/core": ">16.2.0-next.0",
+      "@angular/common": ">16.2.0-next.0",
+      "@angular-devkit/build-angular": ">16.2.0-next.0"
+    },
+    "@push-based/ngx-fast-svg": {
+      "@angular/core": ">16.2.0-next.0",
+      "@angular/common": ">16.2.0-next.0"
     },
     "ngx-isr": {
-      "@types/node": "^18.16.14"
+      "@types/node": "^18.16.14",
+      "@angular/core": ">16.2.0-next.0",
+      "@angular/common": ">16.2.0-next.0"
     }
   }
 }
