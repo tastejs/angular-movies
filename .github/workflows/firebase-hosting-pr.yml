@@ -33,8 +33,10 @@ jobs:
           FIREBASE_CLI_PREVIEWS: hostingchannels
 
       - name: Test firebase preview channel hosting
-        uses: push-based/user-flow-gh-action@v0.3.2
+        id: firebase-preview-channel-hosting
+        uses: push-based/user-flow-gh-action@v0.4.0
         with:
+          commentId: firebase-preview-channel-hosting
           verbose: on
           url: ${{ fromJson(steps.previewDeployStep.outputs.urls)[0] }}
           rcPath: projects/movies-user-flows/.user-flowrc.json

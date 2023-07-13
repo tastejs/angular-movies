@@ -31,8 +31,10 @@ jobs:
           projectId: angular-movies-a12d3
 
       - name: Test firebase live hosting
-        uses: push-based/user-flow-gh-action@v0.3.2
+        id: firebase-live-hosting
+        uses: push-based/user-flow-gh-action@v0.4.0
         with:
+          commentId: firebase-live-hosting
           verbose: on
           url: https://angular-movies-a12d3.web.app
           # url: ${{ fromJson(steps.deployStep.outputs.urls)[0] }} // @TODO figure out why outputs urls are different from `https://angular-movies-a12d3.web.app`
