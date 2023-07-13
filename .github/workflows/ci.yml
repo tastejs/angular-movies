@@ -3,7 +3,6 @@ name: CI - build,test affected projects on Pr+Merge
   push:
     branches:
       - main
-  pull_request:
 
 jobs:
   ci:
