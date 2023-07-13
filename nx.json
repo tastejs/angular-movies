@@ -13,7 +13,7 @@
     }
   },
   "affected": {
-    "defaultBase": "main"
+    "defaultBase": "origin/main"
   },
   "namedInputs": {
     "sharedGlobals": [],

@@ -1,5 +1,5 @@
 name: E2E Firebase Function on PR
-'on': pull_request
+
 jobs:
   emulate_firebase_function_and_test:
     if: '${{ github.event.pull_request.head.repo.full_name == github.repository }}'
