@@ -28,6 +28,8 @@ jobs:
         # ${{ fromJson(steps.deployStep.outputs.urls)[0] }} // @TODO figure out why outputs urls are different from `https://angular-movies-a12d3.web.app`
         run: |
           npm run nx run firebase-function:deploy
+        env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
 
       - name: Test firebase live hosting
         id: firebase-live-hosting
@@ -36,4 +38,5 @@ jobs:
           commentId: firebase-live-hosting
           verbose: on
           url: https://angular-movies-a12d3.web.app
+          # url: ${{ fromJson(steps.deployStep.outputs.urls)[0] }} // @TODO figure out why outputs urls are different from `https://angular-movies-a12d3.web.app`
           rcPath: ./projects/movies-user-flows/.user-flowrc.json
