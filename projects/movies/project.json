@@ -89,8 +89,45 @@
               "maximumError": "118b"
             }
           ]
+        }
+      },
+      "defaultConfiguration": "production",
+      "outputs": [
+        "{options.outputPath}"
+      ]
+    },
+    "build-esbuild": {
+      "executor": "@angular-devkit/build-angular:browser-esbuild",
+      "options": {
+        "outputPath": "dist/projects/movies/browser",
+        "index": "projects/movies/src/index.html",
+        "main": "projects/movies/src/main.ts",
+        "tsConfig": "projects/movies/tsconfig.app.json",
+        "inlineStyleLanguage": "scss",
+        "namedChunks": true,
+        "assets": [
+          "projects/movies/src/favicon.ico",
+          "projects/movies/src/manifest.json",
+          "projects/movies/src/manifest.webmanifest",
+          "projects/movies/src/assets",
+          "projects/movies/src/_routes.json"
+        ],
+        "styles": [
+          "projects/movies/src/styles.scss"
+        ],
+        "scripts": []
+      },
+      "configurations": {
+        "development": {
+          "namedChunks": true,
+          "sourceMap": true,
+          "vendorChunk": true,
+          "extractLicenses": false,
+          "buildOptimizer": false,
+          "optimization": false,
+          "serviceWorker": false
         },
-        "production-no-budgets": {
+        "production": {
           "serviceWorker": true,
           "ngswConfigPath": "projects/movies/src/ngsw-config.json",
           "fileReplacements": [
