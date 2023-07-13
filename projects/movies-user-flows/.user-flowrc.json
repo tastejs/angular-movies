@@ -1,6 +1,6 @@
 {
   "collect": {
-    "ufPath": "projects/movies-user-flows/user-flows",
+    "ufPath": "./projects/movies-user-flows/user-flows",
     "outPath": "./dist/user-flow/movies-user-flows"
   },
   "persist": {

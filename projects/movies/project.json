@@ -174,44 +174,6 @@
         "parallel": false
       }
     },
-    "build-server-cf": {
-      "executor": "@angular-devkit/build-angular:server",
-      "options": {
-        "outputHashing": "media",
-        "outputPath": "dist/projects/movies/worker",
-        "main": "projects/movies/src/main.server.cloudflare.ts",
-        "tsConfig": "projects/movies/tsconfig.server.cloudflare.json",
-        "optimization": false,
-        "buildOptimizer": false
-      },
-      "configurations": {
-        "development": {
-          "outputHashing": "none",
-          "optimization": false,
-          "sourceMap": true,
-          "extractLicenses": true,
-          "vendorChunk": true,
-          "buildOptimizer": false
-        },
-        "production": {
-          "outputHashing": "media",
-          "fileReplacements": [
-            {
-              "replace": "projects/movies/src/environments/environment.ts",
-              "with": "projects/movies/src/environments/environment.production.ts"
-            }
-          ],
-          "sourceMap": false,
-          "extractLicenses": true,
-          "optimization": true,
-          "buildOptimizer": true
-        }
-      },
-      "defaultConfiguration": "production",
-      "outputs": [
-        "{options.outputPath}"
-      ]
-    },
     "user-flow": {
       "executor": "@push-based/user-flow-nx-plugin:user-flow",
       "outputs": [

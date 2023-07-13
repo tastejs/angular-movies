@@ -21,8 +21,10 @@ jobs:
         run: npm run nx run firebase-function:build:production
 
       - name: Test firebase function emulation
-        uses: push-based/user-flow-gh-action@v0.3.2
+        id: firebase-function-emulation
+        uses: push-based/user-flow-gh-action@v0.4.0
         with:
+          commentId: firebase-function-emulation
           verbose: on
           url: http://127.0.0.1:4402/angular-movies-a12d3/us-central1/ssr
           rcPath: projects/firebase-function/.user-flowrc.json

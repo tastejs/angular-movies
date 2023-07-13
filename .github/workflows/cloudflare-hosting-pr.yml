@@ -22,7 +22,9 @@ jobs:
 
       # use preview deployment
       - name: Test cloudflare preview pages hosting
-        uses: push-based/user-flow-gh-action@v0.3.2
+        id: cloudflare-preview-pages-hosting
+        uses: push-based/user-flow-gh-action@v0.4.0
         with:
+          commentId: cloudflare-preview-pages-hosting
           verbose: on
           rcPath: projects/cloudflare-worker/.user-flowrc.action-hack.json

@@ -10,10 +10,14 @@ export class MovieListPageUFO extends Ufo implements CwvInterface {
     await this.movieList.awaitLCPContent();
   }
 
-  async awaitHeadingContent(): Promise<void> {
+  async awaitHeadingContent(options: {
+    visible?: boolean;
+    hidden?: boolean;
+    timeout?: number;
+  } = {}): Promise<void> {
     await Promise.all([
-      this.page.waitForSelector(heandlineSelector),
-      this.page.waitForSelector(subheandlineSelector),
+      this.page.waitForSelector(heandlineSelector, options),
+      this.page.waitForSelector(subheandlineSelector, options),
     ]);
   }
 
