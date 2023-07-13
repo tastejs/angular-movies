@@ -20,7 +20,7 @@ jobs:
         run: npm ci
 
       - name: Production build (client + prerender + server)
-        run: npm run nx build firebase-function
+        run: npm run nx run firebase-function:build:production
 
       - name: Deploy firebase live hosting
         id: deployStep
