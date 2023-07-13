@@ -1,7 +1,7 @@
 import {ChangeDetectionStrategy, Component, inject} from '@angular/core';
 import {ZonelessRouting} from './shared/zone-less/zone-less-routing.service';
 import {RouterOutlet} from '@angular/router';
-import {LetDirective} from '@rx-angular/template/let';
+import {RxLet} from '@rx-angular/template/let';
 import {AppShellComponent} from './app-shell/app-shell.component';
 
 @Component({
@@ -15,7 +15,7 @@ import {AppShellComponent} from './app-shell/app-shell.component';
   imports: [
     RouterOutlet,
     AppShellComponent,
-    LetDirective,
+    RxLet,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

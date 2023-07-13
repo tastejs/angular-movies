@@ -1,5 +1,5 @@
-import { select, selectSlice } from '@rx-angular/state/selections';
-import { Location, NgFor, NgIf, NgOptimizedImage } from '@angular/common';
+import {select, selectSlice} from '@rx-angular/state/selections';
+import {Location, NgFor, NgIf, NgOptimizedImage} from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -9,21 +9,21 @@ import {
   ViewChild,
   ViewEncapsulation,
 } from '@angular/core';
-import { filter, map, mergeWith } from 'rxjs';
-import { TMDBMovieGenreModel } from '../../data-access/api/model/movie-genre.model';
+import {filter, map, mergeWith} from 'rxjs';
+import {TMDBMovieGenreModel} from '../../data-access/api/model/movie-genre.model';
 
-import { MovieCast, MovieDetailAdapter } from './movie-detail-page.adapter';
-import { RxActionFactory } from '@rx-angular/state/actions';
-import { RxEffects } from '@rx-angular/state/effects';
-import { DetailGridComponent } from '../../ui/component/detail-grid/detail-grid.component';
-import { StarRatingComponent } from '../../ui/pattern/star-rating/star-rating.component';
-import { MovieListComponent } from '../../ui/pattern/movie-list/movie-list.component';
-import { LetDirective } from '@rx-angular/template/let';
-import { BypassSrcDirective } from '../../shared/cdk/bypass-src.directive';
-import { RxFor } from '@rx-angular/template/for';
-import { FastSvgComponent } from '@push-based/ngx-fast-svg';
-import { RxIf } from '@rx-angular/template/if';
-import { RouterLink } from '@angular/router';
+import {MovieCast, MovieDetailAdapter} from './movie-detail-page.adapter';
+import {RxActionFactory} from '@rx-angular/state/actions';
+import {RxEffects} from '@rx-angular/state/effects';
+import {DetailGridComponent} from '../../ui/component/detail-grid/detail-grid.component';
+import {StarRatingComponent} from '../../ui/pattern/star-rating/star-rating.component';
+import {MovieListComponent} from '../../ui/pattern/movie-list/movie-list.component';
+import {RxLet} from '@rx-angular/template/let';
+import {BypassSrcDirective} from '../../shared/cdk/bypass-src.directive';
+import {RxFor} from '@rx-angular/template/for';
+import {FastSvgComponent} from '@push-based/ngx-fast-svg';
+import {RxIf} from '@rx-angular/template/if';
+import {RouterLink} from '@angular/router';
 
 @Component({
   standalone: true,
@@ -37,7 +37,7 @@ import { RouterLink } from '@angular/router';
     MovieListComponent,
     RxFor,
     RxIf,
-    LetDirective,
+    RxLet,
     BypassSrcDirective,
     FastSvgComponent,
   ],
