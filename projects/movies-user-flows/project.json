@@ -17,13 +17,28 @@
         "assets": []
       }
     },
-    "user-flow": {
+    "_user-flow": {
       "executor": "@push-based/user-flow-nx-plugin:user-flow",
       "options": {
         "rcPath": "projects/movies-user-flows/.user-flowrc.json",
         "outputPath": "dist/user-flow/movies-user-flows"
       },
       "configurations": {
+        "development": {
+          "verbose": true,
+          "dryRun": true,
+          "url": "http://localhost:4201",
+          "outputPath": "dist/user-flows/movies-user-flows",
+          "serveCommand": "nx run firebase-function:serve:production",
+          "awaitServeStdout": "Angular Live Development Server is listening on"
+        },
+        "production": {
+          "dryRun": false,
+          "url": "http://localhost:4201",
+          "outputPath": "dist/user-flows/movies-user-flows",
+          "serveCommand": "nx run ng-universal-express:serve:production",
+          "awaitServeStdout": "Angular Live Development Server is listening on"
+        },
         "prerender": {
           "url": "http://localhost:4201",
           "outputPath": "dist/user-flows/movies-user-flows",
@@ -42,7 +57,8 @@
           "serveCommand": "nx run firebase-function:serve",
           "awaitServeStdout": "Angular Live Development Server is listening on"
         }
-      }
+      },
+      "defaultConfiguration": "production"
     }
   },
   "tags": []
