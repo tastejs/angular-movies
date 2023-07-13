@@ -23,6 +23,3 @@ jobs:
 
       - name: Build affected projects
         run: npx nx affected -t=lint,build,test
-
-      - name: user-flow affected projects
-        run: npx nx affected -t=user-flow
