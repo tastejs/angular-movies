@@ -17,17 +17,6 @@
         "assets": []
       }
     },
-    "lint": {
-      "executor": "@nx/linter:eslint",
-      "outputs": [
-        "{options.outputFile}"
-      ],
-      "options": {
-        "lintFilePatterns": [
-          "movies-user-flows/**/*.ts"
-        ]
-      }
-    },
     "user-flow": {
       "executor": "@push-based/user-flow-nx-plugin:user-flow",
       "options": {
