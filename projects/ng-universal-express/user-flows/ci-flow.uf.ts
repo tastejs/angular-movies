@@ -1,8 +1,8 @@
 import {UserFlowContext, UserFlowInteractionsFn, UserFlowOptions, UserFlowProvider,} from '@push-based/user-flow';
-import {MovieListPageUFO} from '../../movies-user-flows/src';
+import {ensureRenderType} from "../../movies/testing";
 
 const flowOptions: UserFlowOptions = {
-  name: 'Ng Universal Pre-rendering',
+  name: 'Ng Universal Express - HTML is already rendered (SSR + Pre-render)',
 };
 
 // Verifies that the movies app is pre-rendered
@@ -11,32 +11,34 @@ const interactions: UserFlowInteractionsFn = async (
 ): Promise<void> => {
   const {flow, collectOptions, page} = ctx;
   const url = `${collectOptions.url}/list/category/popular`;
-  const movieListPage = new MovieListPageUFO(ctx);
-
   await page.setRequestInterception(true);
 
+  /**
+   * request interceptors to check content
+   */
+  let initialResponse: Promise<string>;
+  // listen to the first match, then stop
+  let indexHtmlArrived = false;
   page.on('request', req => req.continue());
 
-  let initialResponse: Promise<string>;
-  page.on('response', response => {
-    if (response.url() === url) {
+  function responseHandler(response) {
+    console.log('on', response.url());
+    if (response.url() === url && !indexHtmlArrived) {
+      indexHtmlArrived = true;
       initialResponse = response.text();
+      console.log('hit', response.url());
+      page.off('response', responseHandler);
     }
-  });
+  };
+  page.on('response', responseHandler);
+
 
   await flow.navigate(url, {
     stepName: '🧭 Initial navigation'
   });
-  const responseText = await initialResponse;
-
-  if (responseText.includes('loading-csr')) {
-    throw new Error('Loading Spinner is present in initial navigation');
-  }
-  if (!responseText.includes('data-uf="movie-0"')) {
-    throw new Error('Movie is not present in initial navigation');
-  }
-
-  await movieListPage.awaitHeadingContent();
+  // TODO remove await
+  const responseText = await initialResponse.then(v => v.toString());
+  ensureRenderType(responseText, 'pre-rendered');
 
   return Promise.resolve();
 };
@@ -47,3 +49,5 @@ export const userFlowProvider: UserFlowProvider = {
 };
 
 module.exports = userFlowProvider;
+
+
