@@ -1,0 +1,118 @@
+{
+  "name": "cloudflare-worker",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "projects/cloudflare-worker/src",
+  "projectType": "application",
+  "implicitDependencies": [
+    "movies"
+  ],
+  "targets": {
+    "pre-build": {
+      "outputs": [
+        "{options.outputPath}"
+      ],
+      "executor": "@angular-devkit/build-angular:server",
+      "options": {
+        "outputPath": "dist/tmp/_worker",
+        "main": "projects/cloudflare-worker/src/index.ts",
+        "tsConfig": "projects/cloudflare-worker/tsconfig.worker.json",
+        "outputHashing": "media",
+        "sourceMap": true,
+        "extractLicenses": true,
+        "optimization": true,
+        "buildOptimizer": true
+      },
+      "configurations": {
+        "development": {
+          "outputHashing": "none",
+          "optimization": false,
+          "sourceMap": true,
+          "extractLicenses": true,
+          "vendorChunk": true,
+          "buildOptimizer": false
+        },
+        "production": {
+          "fileReplacements": [
+            {
+              "replace": "projects/movies/src/environments/environment.ts",
+              "with": "projects/movies/src/environments/environment.production.ts"
+            }
+          ]
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "build": {
+      "outputs": [
+        "dist/tmp/_worker"
+      ],
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          "nx build movies",
+          "nx pre-build cloudflare-worker",
+          "node projects/cloudflare-worker/tooling/copy-files.mjs --source=dist/projects/movies/browser --target=dist/tmp/_worker",
+          "node projects/cloudflare-worker/tooling/copy-files.mjs --source=dist/tmp/_worker --target=dist/projects/movies/worker",
+          "node projects/cloudflare-worker/tooling/bundle.mjs --target=dist/projects/movies/worker"
+        ],
+        "parallel": false
+      }
+    },
+    "serve": {
+      "dependsOn": [
+        "build"
+      ],
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          "nx run cloudflare-worker:emulate:production"
+        ],
+        "parallel": false
+      }
+    },
+    "emulate": {
+      "dependsOn": [
+        "build"
+      ],
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          "wrangler pages dev dist/projects/movies/worker --compatibility-date=2021-09-20 --port=4501"
+        ],
+        "parallel": false
+      }
+    },
+    "deploy": {
+      "dependsOn": [
+        "build"
+      ],
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          "wrangler pages deploy dist/projects/movies/worker --skip-caching"
+        ],
+        "parallel": false
+      }
+    },
+    "user-flow": {
+      "executor": "@push-based/user-flow-nx-plugin:user-flow",
+      "options": {
+        "rcPath": "projects/cloudflare-worker/.user-flowrc.action-hack.json",
+        "outputPath": "dist/user-flow/cloudflare-worker",
+        "ufPath": "projects/cloudflare-worker/user-flows/ci-flow.uf.ts",
+        "format": [
+          "html"
+        ]
+      },
+      "configurations": {
+        "production": {
+          "url": "http://127.0.0.1:4501/",
+          "serveCommand": "nx run cloudflare-worker:emulate",
+          "awaitServeStdout": "[mf:inf] Ready on"
+        }
+      },
+      "defaultConfiguration": "production"
+    }
+  },
+  "tags": []
+}

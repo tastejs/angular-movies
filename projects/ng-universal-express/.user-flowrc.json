@@ -1,0 +1,11 @@
+{
+  "collect": {
+    "ufPath": "projects/ng-universal-express/user-flows",
+    "outPath": "./dist/user-flow/ng-universal-express"
+  },
+  "persist": {
+    "format": [
+      "md"
+    ]
+  }
+}

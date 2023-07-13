@@ -13,15 +13,28 @@
     "target": "ES2022",
     "allowSyntheticDefaultImports": true,
     "skipLibCheck": true,
-    "typeRoots": ["node_modules/@types"],
-    "lib": ["es2020", "dom"],
+    "typeRoots": [
+      "node_modules/@types"
+    ],
+    "lib": [
+      "es2020",
+      "dom"
+    ],
     "forceConsistentCasingInFileNames": true,
     "noImplicitReturns": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "strict": true,
     "strictNullChecks": true,
-    "useDefineForClassFields": false
+    "useDefineForClassFields": false,
+    "paths": {
+      "angular-movies": [
+        "projects/movies/src/index.ts"
+      ],
+      "movies-ufo": [
+        "projects/movies-user-flows/src/index.ts"
+      ]
+    }
   },
   "exclude": ["node_modules", "tmp"],
   "angularCompilerOptions": {
@@ -29,18 +42,9 @@
     "fullTemplateTypeCheck": true,
     "strictInjectionParameters": true
   },
-  // Most ts-node options can be specified here using their programmatic names.
   "ts-node": {
-    // It is faster to skip typechecking.
-    // Remove if you want ts-node to do typechecking.
     "transpileOnly": true,
-
     "files": true,
-
-    "compilerOptions": {
-      // compilerOptions specified here will override those declared below,
-      // but *only* in ts-node.  Useful if you want ts-node and tsc to use
-      // different options with a single tsconfig.json.
-    }
+    "compilerOptions": {}
   }
 }

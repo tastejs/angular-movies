@@ -1,0 +1,96 @@
+{
+  "name": "firebase-function",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "projects/firebase-function/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "outputs": [
+        "dist/projects/movies/server"
+      ],
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          "nx prerender ng-universal-express",
+          "tsc --build projects/firebase-function/tsconfig.function.json"
+        ],
+        "parallel": false
+      }
+    },
+    "serve": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          "nx build firebase-function",
+          "firebase emulators:start --project angular-movies"
+        ],
+        "parallel": false
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": [
+        "{workspaceRoot}/dist/coverage/firebase-function"
+      ],
+      "options": {
+        "jestConfig": "projects/firebase-function/jest.config.ts",
+        "passWithNoTests": true
+      },
+      "configurations": {
+        "ci": {
+          "ci": true,
+          "codeCoverage": true
+        }
+      }
+    },
+    "deploy": {
+      "executor": "nx:run-commands",
+      "dependsOn": [
+        "build"
+      ],
+      "options": {
+        "commands": [
+          "npx firebase deploy --project angular-movies"
+        ],
+        "parallel": false
+      }
+    },
+    "emulate": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          "firebase emulators:start --project angular-movies"
+        ],
+        "parallel": false
+      }
+    },
+    "user-flow": {
+      "executor": "@push-based/user-flow-nx-plugin:user-flow",
+      "outputs": [
+        "{options.outputPath}"
+      ],
+      "options": {
+        "url": "http://127.0.0.1:4402/angular-movies-a12d3/us-central1/ssr",
+        "rcPath": "projects/firebase-function/.user-flowrc.json",
+        "outputPath": "dist/user-flow/firebase-function",
+        "serveCommand": "nx run firebase-function:serve",
+        "awaitServeStdout": "Other reserved ports",
+        "format": [
+          "html"
+        ]
+      },
+      "development": {
+        "development": {
+          "verbose": true,
+          "dryRun": true
+        },
+        "production": {
+          "verbose": true,
+          "dryRun": false
+        }
+      },
+      "defaultConfiguration": "development"
+    }
+  },
+  "tags": []
+}

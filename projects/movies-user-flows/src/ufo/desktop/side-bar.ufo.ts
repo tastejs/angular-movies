@@ -1,20 +1,26 @@
-import { CwvInterface } from '../typings/cwv.interface';
-import * as fixtures from '../../fixtures/sidebar.fixtures';
-import { GenreIds, CategoryNames } from '../../internals/typings';
-import { Ufo, UserFlowContext } from '@push-based/user-flow';
-import { ANIM_DURATION_STANDARD } from '../../fixtures/animations';
+import {CwvInterface} from '../typings/cwv.interface';
+import {Ufo, UserFlowContext} from '@push-based/user-flow';
+import {
+  ANIM_DURATION_STANDARD,
+  CategoryNames,
+  categorySelector,
+  GenreIds,
+  genreSelector,
+  sideMenuBtnSelector
+} from '../../../../movies/testing';
 
 export class SidebarUFO extends Ufo implements CwvInterface {
-  protected categorySelector = fixtures.categorySelector;
-  protected genreSelector = fixtures.genreSelector;
+  protected categorySelector = categorySelector;
+  protected genreSelector = genreSelector;
 
+  // @ts-ignore
   constructor(private ctx: UserFlowContext) {
     super(ctx);
   }
 
   async clickSideMenuBtn() {
-    await this.page.waitForSelector(fixtures.sideMenuBtnSelector);
-    await this.page.click(fixtures.sideMenuBtnSelector);
+    await this.page.waitForSelector(sideMenuBtnSelector);
+    await this.page.click(sideMenuBtnSelector);
     await this.page.waitForTimeout(ANIM_DURATION_STANDARD);
   }
 
@@ -35,7 +41,7 @@ export class SidebarUFO extends Ufo implements CwvInterface {
 
   async awaitAllContent(): Promise<any> {
     return await Promise.all([
-      this.page.waitForSelector(fixtures.sideMenuBtnSelector),
+      this.page.waitForSelector(sideMenuBtnSelector),
     ]);
   }
 

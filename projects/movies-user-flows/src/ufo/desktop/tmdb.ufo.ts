@@ -3,6 +3,7 @@ import {Ufo, UserFlowContext} from '@push-based/user-flow';
 
 
 export class TmdbUfo extends Ufo {
+  // @ts-ignore
   constructor(private ctx: UserFlowContext) {
     super(ctx);
   }

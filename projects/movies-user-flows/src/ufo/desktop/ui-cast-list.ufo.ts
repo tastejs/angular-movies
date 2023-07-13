@@ -1,11 +1,11 @@
-import { Page } from 'puppeteer';
-import { CwvInterface } from '../typings/cwv.interface';
-import * as fixtures from '../../fixtures/ui-cast-list.fixtures';
-import { Ufo, UserFlowContext } from '@push-based/user-flow';
+import {CwvInterface} from '../typings/cwv.interface';
+import {castImgSelector} from '../../../../movies/testing';
+import {Ufo, UserFlowContext} from '@push-based/user-flow';
 
 export class UiCastListUFO extends Ufo implements CwvInterface {
-  protected itemSelector = fixtures.castImgSelector;
+  protected itemSelector = castImgSelector;
 
+  // @ts-ignore
   constructor(private ctx: UserFlowContext) {
     super(ctx);
   }
