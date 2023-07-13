@@ -6,7 +6,6 @@ name: CI - build,test affected projects on Pr+Merge
 
 jobs:
   ci:
-    if: '${{ github.event.pull_request.head.repo.full_name == github.repository }}'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout the repository
