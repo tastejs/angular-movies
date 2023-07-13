@@ -1,24 +1,13 @@
-import {
-  Location,
-  NgClass,
-  NgFor,
-  NgIf,
-  NgOptimizedImage,
-} from '@angular/common';
-import {
-  ChangeDetectionStrategy,
-  Component,
-  inject,
-  ViewEncapsulation,
-} from '@angular/core';
-import { PersonDetailAdapter } from './person-detail-page.adapter';
-import { SORT_VALUES } from '../../data-access/api/sort/sort.data';
-import { merge } from 'rxjs';
-import { DetailGridComponent } from '../../ui/component/detail-grid/detail-grid.component';
-import { StarRatingComponent } from '../../ui/pattern/star-rating/star-rating.component';
-import { MovieListComponent } from '../../ui/pattern/movie-list/movie-list.component';
-import { LetDirective } from '@rx-angular/template/let';
-import { FastSvgComponent } from '@push-based/ngx-fast-svg';
+import {Location, NgClass, NgFor, NgIf, NgOptimizedImage,} from '@angular/common';
+import {ChangeDetectionStrategy, Component, inject, ViewEncapsulation,} from '@angular/core';
+import {PersonDetailAdapter} from './person-detail-page.adapter';
+import {SORT_VALUES} from '../../data-access/api/sort/sort.data';
+import {merge} from 'rxjs';
+import {DetailGridComponent} from '../../ui/component/detail-grid/detail-grid.component';
+import {StarRatingComponent} from '../../ui/pattern/star-rating/star-rating.component';
+import {MovieListComponent} from '../../ui/pattern/movie-list/movie-list.component';
+import {RxLet} from '@rx-angular/template/let';
+import {FastSvgComponent} from '@push-based/ngx-fast-svg';
 
 @Component({
   standalone: true,
@@ -30,7 +19,7 @@ import { FastSvgComponent } from '@push-based/ngx-fast-svg';
     DetailGridComponent,
     StarRatingComponent,
     MovieListComponent,
-    LetDirective,
+    RxLet,
     FastSvgComponent,
   ],
   selector: 'ct-person',

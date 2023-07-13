@@ -5,7 +5,7 @@ import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
 import {appConfig} from './app/app.config';
 import {RouterOutlet} from '@angular/router';
 import {AppShellComponent} from './app/app-shell/app-shell.component';
-import {LetDirective} from '@rx-angular/template/let';
+import {RxLet} from '@rx-angular/template/let';
 
 @NgModule({
   declarations: [AppComponent],
@@ -13,7 +13,7 @@ import {LetDirective} from '@rx-angular/template/let';
     BrowserModule,
     RouterOutlet,
     AppShellComponent,
-    LetDirective
+    RxLet
   ],
   providers: [
     ...appConfig().providers

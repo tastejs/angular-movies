@@ -75,11 +75,6 @@
           "port": 4301,
           "browserTarget": "movies:build:production",
           "serverTarget": "ng-universal-express:build:serve-production"
-        },
-        "production-prerender": {
-          "port": 4311,
-          "browserTarget": "ng-universal-express:build:prerender:production",
-          "serverTarget": "ng-universal-express:build:serve-production"
         }
       },
       "defaultConfiguration": "development"
@@ -173,27 +168,33 @@
         "url": "http://localhost:4300",
         "rcPath": "projects/ng-universal-express/.user-flowrc.json",
         "outputPath": "dist/user-flow/ng-universal-express",
-        "ufPath": "projects/movies-user-flows/user-flows/navigation.uf.ts",
+        "ufPath": "projects/ng-universal-express/user-flows/ci-flow.uf.ts",
         "format": [
           "html"
         ]
       },
       "configurations": {
-        "firebase-preview": {
-          "ufPath": "projects/movies-user-flows/user-flows",
-          "format": [
-            "html"
-          ]
-        },
         "development": {
           "verbose": true,
           "dryRun": true,
+          "url": "http://127.0.0.1:4202",
+          "serveCommand": "nx run ng-universal-express:serve:production-prerender",
+          "awaitServeStdout": " Other reserved ports"
+        },
+        "production": {
+          "verbose": true,
+          "dryRun": false,
+          "url": "http://127.0.0.1:4301",
+          "serveCommand": "nx run ng-universal-express:serve:production",
+          "awaitServeStdout": "Angular Universal Live Development Server is listening on"
+        },
+        "development-serve-ssr": {
           "url": "http://localhost:4310",
           "serveCommand": "nx run ng-universal-express:serve:development-prerender",
           "awaitServeStdout": "Angular Universal Live Development Server is listening on"
         },
-        "production": {
-          "url": "http://localhost:4311",
+        "production-serve-ssr": {
+          "url": "http://localhost:4310",
           "serveCommand": "nx run ng-universal-express:serve:production-prerender",
           "awaitServeStdout": "Angular Universal Live Development Server is listening on"
         },
@@ -202,8 +203,14 @@
           "serveCommand": "nx run ng-universal-express:emulate-firebase",
           "awaitServeStdout": "✔  hosting[angular-movies-a12d3]: Local server:"
         },
-        "defaultConfiguration": "production"
-      }
+        "firebase-preview": {
+          "ufPath": "projects/movies-user-flows/user-flows",
+          "format": [
+            "html"
+          ]
+        }
+      },
+      "defaultConfiguration": "production"
     }
   },
   "tags": []

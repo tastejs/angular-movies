@@ -28,27 +28,28 @@ For now you can search the codebase for "Perf Tip" later on there will be proppe
 <!-- bundle-stats-start -->
 | Names             |       Size |
 | ---               | ---        |
-| main.js           | 338.48 KB |
+| main.js           | 341.12 KB |
 | styles.css           | 6.21 KB |
 | runtime.js           | 2.65 KB |
-  | **Initial Total** | **347.34 KB** |
+  | **Initial Total** | **349.98 KB** |
   | Names             |       Size |
 | app_pages_movie-detail-page_movie-detail-page_component_ts.js           | 16.57 KB |
-| a-4d8953.js           | 12.99 KB |
 | app_pages_person-detail-page_person-detail-page_component_ts.js           | 11.59 KB |
-| app_pages_account-feature_list-create-page_list-create-page_component_ts--1f481e.js           | 9.22 KB |
-| app_app-shell_account-menu_account-menu_component_ts.js           | 8.35 KB |
-| common.js           | 8.29 KB |
+| a-6a8199.js           | 10.15 KB |
+| app_pages_account-feature_list-detail-page_list-movies_list-movies_compon-d13d08.js           | 9.9 KB |
+| common.js           | 7.58 KB |
 | app_pages_account-feature_list-detail-page_list-items-edit_list-items-edi-13eb42.js           | 7.11 KB |
 | app_pages_movie-list-page_movie-list-page_component_ts.js           | 5.9 KB |
+| app_pages_account-feature_list-create-page_list-create-page_component_ts--1f481e.js           | 5.68 KB |
 | app_pages_account-feature_account-list-page_account-list-page_component_ts.js           | 4.96 KB |
+| app_app-shell_account-menu_account-menu_component_ts.js           | 4.81 KB |
 | app_pages_account-feature_list-detail-page_list-image_list-image_componen-cb4b89.js           | 4.41 KB |
+| default-node_modules_rx-angular_template_fesm2022_template-if_mjs.js           | 4.31 KB |
 | app_pages_account-feature_list-detail-page_list-remove_list-remove_compon-a10eb2.js           | 3.52 KB |
 | app_pages_account-feature_list-detail-page_list-detail-page_component_ts--a2c81d.js           | 3.23 KB |
 | app_pages_not-found-page_not-found-page_component_ts.js           | 1.75 KB |
-| app_pages_account-feature_list-detail-page_list-detail-page_routes_ts.js           | 1.62 KB |
-| app_pages_account-feature_account-feature-page_routes_ts.js           | 958 Bytes |
-| app_pages_account-feature_list-detail-page_list-movies_list-movies_component_ts.js           | 785 Bytes |
+| app_pages_account-feature_list-detail-page_list-detail-page_routes_ts.js           | 1.66 KB |
+| app_pages_account-feature_account-feature-page_routes_ts.js           | 1.01 KB |
 <!-- bundle-stats-end -->
 
 

@@ -6,3 +6,4 @@
   - prod and dev configs for build
 - configure tags
 - resolve action hack by fixing gh action
+- user-flow tests
