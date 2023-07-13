@@ -1,5 +1,6 @@
 name: E2E Firebase Live Hosting on Merge
 'on':
+  pull_request:
   push:
     branches:
       - main
