@@ -14,7 +14,7 @@
   "sourceRoot": "projects/movies/src",
   "targets": {
     "build": {
-      "executor": "@angular-devkit/build-angular:browser",
+      "executor": "@angular-devkit/build-angular:browser-esbuild",
       "options": {
         "outputPath": "dist/projects/movies/browser",
         "index": "projects/movies/src/index.html",
