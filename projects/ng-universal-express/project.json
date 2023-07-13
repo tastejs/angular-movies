@@ -168,7 +168,7 @@
         "url": "http://localhost:4300",
         "rcPath": "projects/ng-universal-express/.user-flowrc.json",
         "outputPath": "dist/user-flow/ng-universal-express",
-        "ufPath": "projects/ng-universal-express/user-flows/ci-flow.uf.ts",
+        "ufPath": "projects/ng-universal-express/user-flows",
         "format": [
           "html"
         ]
