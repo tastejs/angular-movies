@@ -1,6 +1,5 @@
 import * as fixtures from '../../fixtures/tmdb.fixtures';
-import {Ufo, UserFlowContext} from '@push-based/user-flow';
-
+import { Ufo, UserFlowContext } from '@push-based/user-flow';
 
 export class TmdbUfo extends Ufo {
   // @ts-ignore
@@ -13,6 +12,14 @@ export class TmdbUfo extends Ufo {
     await this.page.waitForSelector(fixtures.TmdbLoginBtn);
     await this.page.click(fixtures.TmdbLoginBtn);
 
+    // remove cookies panel
+    await this.page.waitForSelector(fixtures.TmdbCookieRejectAllBtn);
+    const rejectAllBtn = await this.page.$$(fixtures.TmdbCookieRejectAllBtn);
+    await rejectAllBtn[0].evaluate((b) => (b as HTMLButtonElement).click());
+    await this.page.waitForSelector(fixtures.TmdbCookieRejectAllBtn, {
+      hidden: true,
+    });
+
     // fill and send form
     await this.page.waitForSelector(fixtures.TmdbUsernameInput);
     await this.page.type(fixtures.TmdbUsernameInput, fixtures.TmdbUser);
@@ -22,22 +29,9 @@ export class TmdbUfo extends Ufo {
 
     await this.page.waitForSelector(fixtures.TmdbLoginSubmitBtn);
     await this.page.click(fixtures.TmdbLoginSubmitBtn);
-    /*
-    * All logic from here on is hacky.
-    * It is only needed to make the test pass in CI and the real problem is unclear for now.
-    * The whole section needs a refactor. Sry :)
-    * */
-    await this.page.waitForTimeout(6000);
-
-    await this.page.waitForSelector(fixtures.TmdbLoginSubmitBtn);
-    await this.page.click(fixtures.TmdbLoginSubmitBtn);
-    await this.page.waitForTimeout(6000);
 
     // approve access
-    await this.page.waitForTimeout(6000);
-
-    await this.page.waitForSelector(fixtures.TmdbApproveBtn, {timeout: 60000});
+    await this.page.waitForSelector(fixtures.TmdbApproveBtn);
     await this.page.click(fixtures.TmdbApproveBtn);
   }
-
 }
