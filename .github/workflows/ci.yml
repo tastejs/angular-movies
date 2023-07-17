@@ -9,8 +9,17 @@ jobs:
   ci:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout the repository
+        # needed for all cases
+      - if: github.event_name == 'push' && github.ref_name == 'main'
         uses: actions/checkout@v3
+      # needed for nx affected command
+      - if: github.event_name == 'pull_request'
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      # needed for nx affected command
+      - if: github.event_name == 'pull_request'
+        run: git fetch --no-tags --depth=1 origin $BASE_BRANCH
 
       - name: Setup Node.js
         uses: actions/setup-node@v3
@@ -21,17 +30,8 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: movies
-        run: npx nx run movies:build
-
-      - name: firebase-function
-        run: npx nx run firebase-function:build
-
-      - name: ng-universal-express
-        run: npx nx run ng-universal-express:build
-
-      - name: cloudflare-worker
-        run: npx nx run cloudflare-worker:build
+      - name: lint,build,test affected projects
+        run: npx nx affected --targets=lint,build,test
 
 
 
