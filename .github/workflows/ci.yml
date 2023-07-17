@@ -31,7 +31,7 @@ jobs:
         run: npm ci
 
       - name: movies
-        run: npx nx affected:build
+        run: npx nx affected --targets=lint,build,test
 
 
 
