@@ -44,10 +44,7 @@ export const ROUTES: Routes = [
   },
   {
     path: 'detail/list/:identifier',
-    loadComponent: () =>
-      import(
-        './pages/account-feature/list-detail-page/list-detail-page.component'
-      ),
+    loadChildren: () => import('./pages/account-feature/list-detail-page/list-detail-page.routes'),
   },
   {
     path: 'detail/person/:identifier',
