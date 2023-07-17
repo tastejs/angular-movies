@@ -2,7 +2,6 @@
   "extends": "../../tsconfig.json",
   "files": [],
   "include": [],
-  "resolveJsonModule": true,
   "references": [
     {
       "path": "./tsconfig.app.json"
