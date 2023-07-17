@@ -9,7 +9,6 @@ jobs:
   ci:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout the repository
         # needed for all cases
       - if: github.event_name == 'push' && github.ref_name == 'main'
         uses: actions/checkout@v3
