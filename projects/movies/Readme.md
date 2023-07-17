@@ -45,80 +45,72 @@ The shell has the following sections:
 ### Search Input
 - show search bar
   - open/collapse search input on focus/blur
+  - hide search only if empty
 
 ### Account menu
 
 **🖥️ The element can:**
 - open/close account menu
-  - login (list account menu options)
-  - logout (list guest menu options)
+  - login state (list account menu options)
+  - logout state (list guest menu options)
+
+### Movie list
+
+**🖥️ The element can:**
+    - infinite scroll
+
+### Movie card
+
+**🖥️ The element can:**
+    - show start
+    - tooltip
+    - rate click
 
 ## Features to test
 
-#### Sidebar
+#### About Page
 
 **🖥️ The element can:**
-
-- navigate to [Category list](#Category-list) (`popular`, `top_rated`, `upcoming`)
-- navigate to [Genre list](#Genre-list) (list of numeric id's)
-
-#### Toolbar
-
-**🖥️ The element can:**
-
-- show search bar
-  - search a movie (like search)
-    - list movie result
-    - list NO movie result
-    - (TODO) find, filter, sort movies. Paginated
-
-### Pages
-
-**--- guest user ---**
-
-- Page not found
-- About (TODO add contributors etc)
-- Category list
-  - Detail movie
-  - Detail person
-- Genre list
-
-**--- authenticated user ---**
-
-- My Lists
-  - Detail list
-  - Edit list
-- Create new list
-
-#### Page not found
-
-**🖥️ The page can:**
-
-- shows information
-
-#### About
-
-**🖥️ The page can:**
-
+- list contributors
 - shows description
 - backlink to movies app
-- shows contributors
 
-#### Category list
+### Navigation
 
-**Available categories are:**
+**🖥️ The element can:**
+- navigate to [Category list](#Category-list) (`popular`, `top_rated`, `upcoming`) over side menu
+- navigate to [Genre list](#Genre-list) (list of numeric id's) over side menu
+- navigate to [Movie detail](#Movie-detail) over recommended movies
+- navigate to [Actor detail](#Genre-list) over cast list movies
+- navigate to wrong path redirects to [Page not found](#Page-not-found)
+- navigate to main page from [Page not found](#Page-not-found)
 
-- `popular`
-- `top_rated`
-- `upcoming`
+### Search Movies
+
+**🖥️ The element can:**
+
+- search a movie (like search)
+  - list movie result
+    - (TODO) find, filter, sort movies. Paginated
+  - list NO movie result
+
+### List Movies per Category
 
 **🖥️ The page can:**
+- list movie category result
 
+### List Movies per Genre
+
+**🖥️ The page can:**
+- list movie genre result
+
+### Show Recommended Movies per Category/Genre/Actor
+
+**🖥️ The page can:**
 - list movies
-  - infinite scroll
-  - navigate to [Detail movie](#Detail-movie)
-
-#### Detail movie
+- sort movies
+    
+### Detail movie
 
 **🖥️ The page can:**
 
@@ -127,35 +119,31 @@ The shell has the following sections:
 - show links
 - show actor list
 - show recommended movies
-  - infinite scroll
-  - navigate to [Detail movie](#Detail-movie)
 
-#### Detail actor
+### Detail actor
 
 **🖥️ The page can:**
 
 - show hero image
 - show description
 - show recommended movies
-  - infinite scroll
-  - navigate to [Detail movie](#Detail-movie)
 
-#### Genre list
+### Account Freatures
 
-Available genres are fetched from the server (numeric values)
+- login as user and see authed menu options
+- logout as user ans see default menu options
 
-**🖥️ The page can:**
+### Account Freatures Navigations
+- navigate to [My lists](#My-lists) over account menu
+- navigate to [Lists detail](#List-detail) over my lists
+- navigate to [Create list](#Create-list) over account menu
 
-- list movies
-  - infinite scroll
-  - navigate to [Detail movie](#Detail-movie)
-
-#### My Lists 
+### Show my lists
 
 **🖥️ The page can:**
 - view all your saved lists
-
-#### Detail list 
+  
+### Show list details 
 
 **🖥️ The page can:**
 - show detail page
@@ -169,3 +157,4 @@ Available genres are fetched from the server (numeric values)
 
 **🖥️ The page can:**
 - create new lists
+- search movie and add to list
