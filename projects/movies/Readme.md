@@ -22,7 +22,7 @@ HTTP Transfer State
 - modern app bootstrap
 - service worker refactoring
 
-## Features to test
+## Components to test
 
 ### Shell
 
@@ -32,6 +32,29 @@ The shell has the following sections:
 - Toolbar
 - Content
   
+### Sidebar
+
+**📱 Mobile specific:**
+
+- shrink
+- open/close
+
+### Dark mode toggle
+- toggle dark mode
+
+### Search Input
+- show search bar
+  - open/collapse search input on focus/blur
+
+### Account menu
+
+**🖥️ The element can:**
+- open/close account menu
+  - login (list account menu options)
+  - logout (list guest menu options)
+
+## Features to test
+
 #### Sidebar
 
 **🖥️ The element can:**
@@ -39,25 +62,15 @@ The shell has the following sections:
 - navigate to [Category list](#Category-list) (`popular`, `top_rated`, `upcoming`)
 - navigate to [Genre list](#Genre-list) (list of numeric id's)
 
-**📱 Mobile specific:**
-
-- shrink
-- open/close
-
 #### Toolbar
 
 **🖥️ The element can:**
 
-- toggle dark mode
 - show search bar
-  - open/collapse search input on focus/blur
   - search a movie (like search)
     - list movie result
     - list NO movie result
     - (TODO) find, filter, sort movies. Paginated
-- open/close account menu
-  - login (list account menu options)
-  - logout (list guest menu options)
 
 ### Pages
 
