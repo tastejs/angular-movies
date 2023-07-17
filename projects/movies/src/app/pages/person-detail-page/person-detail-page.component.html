@@ -66,16 +66,19 @@
         [ngClass]="{ selected: option.name === sorting.activeSorting }"
         class="option"
         *ngFor="let option of sortOptions"
-        (click)="sortBy(option)"
       >
-        {{ option.name }}
+        <button
+          (click)="sortBy(option)"
+          (focus)="sortBy(option)"
+        >{{ option.name }}</button>
       </li>
     </ul>
-    <div
+    <button
       class="select-wrapper-overlay"
       (click)="toggleSorting(false)"
       [hidden]="!sorting.showSorting"
-    ></div>
+    >&nbsp;
+    </button>
   </div>
   <ng-container
     *rxLet="infiniteScrollRecommendations$; let ctx; strategy: 'immediate'"

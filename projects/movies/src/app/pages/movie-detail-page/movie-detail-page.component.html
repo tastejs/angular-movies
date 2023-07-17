@@ -121,6 +121,7 @@
             *ngIf="movie.videoUrl"
             class="btn"
             (mouseover)="ui.iframe('load')"
+            (focus)="ui.iframe('load')"
             (click)="
               $event.preventDefault(); ui({ dialog: 'show', iframe: 'load' })
             "
@@ -131,11 +132,13 @@
           </a>
 
           <dialog class="video" #trailerDialog id="trailer-dialog">
-            <span
+            <button
               aria-controls="trailer-dialog"
               class="close"
               (click)="ui.dialog('close')"
-            ></span>
+              (focus)="ui.dialog('close')"
+            >&nbsp;
+            </button>
             <!--
              **🚀 Perf Tip for less resource usage:**
             only render iframe if the user needs it (e.g. `*rxIf` or `*ngIf`)

@@ -1,10 +1,11 @@
-import { VideoTag } from './video.interface';
+import {VideoTag} from './video.interface';
 
-export function addVideoTag<T extends Object>(
+export function addVideoTag<T>(
   _res: T,
   options: { pathPropFn: (o: T) => string; baseUrl?: string }
 ): T & VideoTag {
-  let { pathPropFn, baseUrl } = options;
+  let {baseUrl} = options;
+  const {pathPropFn} = options;
   baseUrl = baseUrl || 'https://www.youtube.com/embed';
 
   const res = _res as T & VideoTag;

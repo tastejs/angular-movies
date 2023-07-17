@@ -1,5 +1,5 @@
 <ui-grid-list class="movies-list--grid">
-  <div
+  <button
     class="ui-grid-list-item"
     [class.selected]="movie.selected"
     *rxFor="
@@ -11,10 +11,10 @@
     (click)="adapter.ui.listPosterUpdate(movie.backdrop_path)"
   >
     <!--
-            **🚀 Perf Tip for LCP:**
-            To get out the best performance use the native HTML attribute loading="lazy" instead of a directive.
-            This avoids bootstrap and template evaluation time and reduces scripting time in general.
-            -->
+      **🚀 Perf Tip for LCP:**
+      To get out the best performance use the native HTML attribute loading="lazy" instead of a directive.
+      This avoids bootstrap and template evaluation time and reduces scripting time in general.
+    -->
     <img
       class="aspectRatio-4-3 gradient"
       [ngSrc]="movie.imgSrc"
@@ -31,5 +31,5 @@
         </h2>
       </h3>
     </div>
-  </div>
+  </button>
 </ui-grid-list>

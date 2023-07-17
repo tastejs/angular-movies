@@ -1,36 +1,23 @@
-import { RxState } from '@rx-angular/state';
-import { selectSlice } from '@rx-angular/state/selections';
-import { inject, Injectable } from '@angular/core';
-import {
-  distinctUntilKeyChanged,
-  EMPTY,
-  map,
-  Observable,
-  switchMap,
-  withLatestFrom,
-} from 'rxjs';
-import { TMDBMovieModel } from '../../data-access/api/model/movie.model';
-import {
-  TMDBPaginateOptions,
-  TMDBPaginateResult,
-} from '../../data-access/api/paginate/paginate.interface';
-import { DiscoverState } from '../../state/discover.state';
-import { Movie, MovieState } from '../../state/movie.state';
-import { RouterState } from '../../shared/router/router.state';
-import { RouterParams } from '../../shared/router/router.model';
-import { infiniteScroll } from '../../shared/cdk/infinite-scroll/infiniteScroll';
-import { RxActionFactory } from '@rx-angular/state/actions';
-import {
-  InfiniteScrollOptions,
-  InfiniteScrollState,
-} from '../../shared/cdk/infinite-scroll/infinite-scroll.interface';
-import { DiscoverResource } from '../../data-access/api/resources/discover.resource';
-import { MovieResource } from '../../data-access/api/resources/movie.resource';
-import { SearchResource } from '../../data-access/api/resources/search.resource';
-import { GenreResource } from '../../data-access/api/resources/genre.resource';
-import { W154H205 } from '../../data-access/images/image-sizes';
-import { addImageTag } from '../../shared/cdk/image/image-tag.transform';
-import { TMDBMovieGenreModel } from '../../data-access/api/model/movie-genre.model';
+import {RxState} from '@rx-angular/state';
+import {selectSlice} from '@rx-angular/state/selections';
+import {inject, Injectable} from '@angular/core';
+import {distinctUntilKeyChanged, EMPTY, map, Observable, switchMap, withLatestFrom,} from 'rxjs';
+import {TMDBMovieModel} from '../../data-access/api/model/movie.model';
+import {TMDBPaginateOptions, TMDBPaginateResult,} from '../../data-access/api/paginate/paginate.interface';
+import {DiscoverState} from '../../state/discover.state';
+import {Movie, MovieState} from '../../state/movie.state';
+import {RouterState} from '../../shared/router/router.state';
+import {RouterParams} from '../../shared/router/router.model';
+import {infiniteScroll} from '../../shared/cdk/infinite-scroll/infiniteScroll';
+import {RxActionFactory} from '@rx-angular/state/actions';
+import {InfiniteScrollOptions, InfiniteScrollState,} from '../../shared/cdk/infinite-scroll/infinite-scroll.interface';
+import {DiscoverResource} from '../../data-access/api/resources/discover.resource';
+import {MovieResource} from '../../data-access/api/resources/movie.resource';
+import {SearchResource} from '../../data-access/api/resources/search.resource';
+import {GenreResource} from '../../data-access/api/resources/genre.resource';
+import {W154H205} from '../../data-access/images/image-sizes';
+import {addImageTag} from '../../shared/cdk/image/image-tag.transform';
+import {TMDBMovieGenreModel} from '../../data-access/api/model/movie-genre.model';
 
 type MovieListRouterParams = Pick<RouterParams, 'type' | 'identifier'>;
 export type MovieListPageModel = InfiniteScrollState<TMDBMovieModel> &
@@ -93,7 +80,7 @@ export class MovieListPageAdapter extends RxState<MovieListPageModel> {
 
     const routerParamsFromPaginationTrigger$ = this.actions.paginate$.pipe(
       withLatestFrom(this.routerState.routerParams$),
-      map(([_, routerParams]) => routerParams)
+      map(([, routerParams]) => routerParams)
     );
 
     this.connect('genres', this.genreResource.getGenresDictionaryCached());
@@ -158,5 +145,5 @@ function getFetchByType(
       discoverResource.getDiscoverMovies({ ...options, with_genres });
   }
 
-  return (_: string, __?: TMDBPaginateOptions) => emptyResult$;
+  return () => emptyResult$;
 }

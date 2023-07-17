@@ -1,17 +1,14 @@
-import { RxState } from '@rx-angular/state';
-import { patch } from '@rx-angular/cdk/transformations';
-import { DestroyRef, inject, Injectable } from '@angular/core';
-import { map } from 'rxjs';
-import { optimizedFetch } from '../shared/cdk/optimized-fetch';
-import { RxActionFactory } from '@rx-angular/state/actions';
-import { withLoadingEmission } from '../shared/cdk/loading/withLoadingEmissions';
-import {
-  DiscoverResource,
-  TMDBDiscoverResponse,
-} from '../data-access/api/resources/discover.resource';
-import { AppInitializer } from '../shared/cdk/app-initializer';
-import { WithContext } from '../shared/cdk/loading/context.interface';
-import { pluck } from '../shared/cdk/get';
+import {RxState} from '@rx-angular/state';
+import {patch} from '@rx-angular/cdk/transformations';
+import {DestroyRef, inject, Injectable} from '@angular/core';
+import {map} from 'rxjs';
+import {optimizedFetch} from '../shared/cdk/optimized-fetch';
+import {RxActionFactory} from '@rx-angular/state/actions';
+import {withLoadingEmission} from '../shared/cdk/loading/withLoadingEmissions';
+import {DiscoverResource, TMDBDiscoverResponse,} from '../data-access/api/resources/discover.resource';
+import {AppInitializer} from '../shared/cdk/app-initializer';
+import {WithContext} from '../shared/cdk/loading/context.interface';
+import {pluck} from '../shared/cdk/get';
 
 export interface State {
   genreMovies: WithContext<Record<string, TMDBDiscoverResponse>>;
@@ -62,7 +59,7 @@ export class DiscoverState extends RxState<State> implements AppInitializer {
         )
       ),
       (oldState, newPartial) => {
-        let resultState = patch(oldState?.genreMovies, newPartial);
+        const resultState = patch(oldState?.genreMovies, newPartial);
         resultState.value = patch(
           oldState?.genreMovies?.value,
           resultState.value
@@ -86,7 +83,7 @@ export class DiscoverState extends RxState<State> implements AppInitializer {
         )
       ),
       (oldState, newPartial) => {
-        let resultState = patch(oldState?.personMovies, newPartial);
+        const resultState = patch(oldState?.personMovies, newPartial);
         resultState.value = patch(
           oldState?.personMovies?.value,
           resultState.value
