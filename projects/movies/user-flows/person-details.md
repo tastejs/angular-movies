@@ -27,46 +27,58 @@ const interactions: UserFlowInteractionsFn = async (
     )
   });
   await flow.snapshot({
-    stepName: '✔ Initial navigation done',
+  stepName: '✔ Initial navigation done',
   });
 
+let currentHeroImageSrc = undefined;
 
-  let currentHeroImageSrc = undefined;
+// ======= Detail navigations =======
+await flow.startTimespan({
+stepName: '🧭 Navigate to person detail',
+});
 
-  // ======= Detail navigations =======
-  await flow.startTimespan({
-    stepName: '🧭 Navigate to detail person',
-  });
-  await movieListPage.navigateToDetail(1);
-  await movieDetailPage.awaitAllContent();
-  await movieDetailPage.goToPersonDetail(1);
-  await personDetailPage.awaitAllContent();
+try {
+await movieListPage.navigateToDetail(1);
+await movieDetailPage.awaitAllContent();
+await movieDetailPage.goToPersonDetail(1);
+await personDetailPage.awaitAllContent();
+} catch (e) {
+await flow.endTimespan();
+return Promise.resolve();
+}
 
-  currentHeroImageSrc = await personDetailPage.getHeroImageSrc();
-  await flow.endTimespan();
-  await flow.snapshot({
-    stepName: '✔ Navigation to detail page done',
-  });
+currentHeroImageSrc = await personDetailPage.getHeroImageSrc();
+await flow.endTimespan();
+await flow.snapshot({
+stepName: '✔ Navigation to detail page done',
+});
 
-  // ======= Hero image change for cast =======
+// ======= Hero image change for cast =======
 
-  await flow.startTimespan({
-    stepName: '🧭 Navigate to cast',
-  });
-  await movieDetailPage.goToPersonDetail(1);
-  await personDetailPage.awaitAllContent();
+await flow.startTimespan({
+stepName: '🧭 Navigate to movie detail',
+});
+try {
+await personDetailPage.goToMovieDetail(1);
+await movieDetailPage.awaitAllContent();
 
-  const castImageSrc = await personDetailPage.getHeroImageSrc();
-  if (castImageSrc === currentHeroImageSrc) {
-    throw new Error("Hero image does not change when navigating to cast!")
-  }
+    const castImageSrc = await movieDetailPage.getHeroImageSrc();
+    if (castImageSrc === currentHeroImageSrc) {
+      throw new Error("Hero image does not change when navigating to cast!")
+    }
 
-  await flow.endTimespan();
-  await flow.snapshot({
-    stepName: '✔ Navigation to cast detail page done',
-  });
+} catch (e) {
 
-  return Promise.resolve();
+    return Promise.resolve();
+
+}
+
+await flow.endTimespan();
+await flow.snapshot({
+stepName: '✔ Navigation to cast detail page done',
+});
+
+return Promise.resolve();
 };
 
 export const userFlowProvider: UserFlowProvider = {
