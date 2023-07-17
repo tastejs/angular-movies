@@ -29,11 +29,6 @@ const interactions: UserFlowInteractionsFn = async (
     stepName: '🧭 Initial navigation',
     config: getLhConfig(
       mergeBudgets([angularBudgets, generalTimingBudget, movieListBudgets])
-      /*mergeBudgetPaths([
-        './projects/movies/testing/budgets/angular.budgets.json',
-        './projects/movies/testing/budgets/general-timing.budgets.json',
-        './projects/movies/testing/budgets/movie-list.budgets.json',
-      ]) */
     )
   });
   await flow.snapshot({
