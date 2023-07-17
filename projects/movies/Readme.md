@@ -69,7 +69,7 @@ The shell has the following sections:
   - Detail person
 - Genre list
 
-**--- authenticated user (marked with *) ---**
+**--- authenticated user ---**
 
 - My Lists
   - Detail list
@@ -136,18 +136,22 @@ Available genres are fetched from the server (numeric values)
   - infinite scroll
   - navigate to [Detail movie](#Detail-movie)
 
-#### My Lists *
+#### My Lists 
 
+**🖥️ The page can:**
 - view all your saved lists
 
-#### Detail list *
+#### Detail list 
 
+**🖥️ The page can:**
 - show detail page
 
-#### Edit list *
+#### Edit list 
 
+**🖥️ The page can:**
 - add/remove/edit lists
 
-#### Create new list *
+#### Create new list 
 
+**🖥️ The page can:**
 - create new lists
