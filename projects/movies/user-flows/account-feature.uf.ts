@@ -5,26 +5,26 @@ import {
   UserFlowProvider,
 } from '@push-based/user-flow';
 
-import {
-  mergeBudgets,
-  MovieDetailPageUFO,
-  MovieListPageUFO,
-  SidebarUFO,
-} from '../../movies-user-flows/src';
+import { mergeBudgets } from '../../movies-user-flows/src/internals/test-sets';
+import { ToolBarUfo } from '../../movies-user-flows/src/ufo/desktop/tool-bar.ufo';
+import { TmdbUfo } from '../../movies-user-flows/src/ufo/desktop/tmdb.ufo';
 
 const flowOptions: UserFlowOptions = {
-  name: 'Basic user flow to ensure basic functionality',
+  name: 'Login And Logout User Flow',
 };
 
 const interactions: UserFlowInteractionsFn = async (
   ctx: UserFlowContext
 ): Promise<any> => {
-  const { flow, collectOptions } = ctx;
+  const { page, flow, collectOptions } = ctx;
   const url = `${collectOptions.url}/list/category/popular`;
-  const sidebar = new SidebarUFO(ctx);
-  const movieListPage = new MovieListPageUFO(ctx);
-  const topRatedName = 'topRated';
-  const movieDetailPage = new MovieDetailPageUFO(ctx);
+  const toolbar = new ToolBarUfo(ctx);
+  const tmdbPage = new TmdbUfo(ctx);
+
+  //This is needed to have it working in headless : true
+  await page.setUserAgent(
+    'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36'
+  );
 
   await flow.navigate(url, {
     stepName: '🧭 Initial navigation',
@@ -42,31 +42,32 @@ const interactions: UserFlowInteractionsFn = async (
   await flow.snapshot({
     stepName: '✔ Initial navigation done',
   });
+
   await flow.startTimespan({
-    stepName: '🧭 Navigate to popular',
+    stepName: '🧭 Start Login',
   });
-  await sidebar.clickSideMenuBtn();
-  await sidebar.navigateToCategory(topRatedName);
-  await movieListPage.awaitLCPContent();
+  await toolbar.goToTmDbLogin();
+  await tmdbPage.login();
+  await toolbar.ensureLoginDone();
   await flow.endTimespan();
   await flow.snapshot({
-    stepName: '✔ Navigation to popular done',
-  });
-  await flow.startTimespan({
-    stepName: '🧭 Navigate to detail page',
+    stepName: '✔ Login Done',
   });
 
-  await movieListPage.navigateToDetail();
-  await movieDetailPage.awaitAllContent();
+  await flow.startTimespan({
+    stepName: '🧭 Start Logout',
+  });
+  await toolbar.logout();
+  await toolbar.ensureLogoutDone();
   await flow.endTimespan();
   await flow.snapshot({
-    stepName: '✔ Navigation to detail done',
+    stepName: '✔ Logout Done',
   });
 
   return Promise.resolve();
 };
 
-export const userFlowProvider: UserFlowProvider = {
+const userFlowProvider: UserFlowProvider = {
   flowOptions,
   interactions,
 };
