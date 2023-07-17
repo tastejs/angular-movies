@@ -1,15 +1,12 @@
-name: CI - build,test affected projects on Pr+Merge
+name: Deploy - deploy affected projects
 'on':
   pull_request:
-  push:
-    branches:
-      - main
 
 jobs:
-  ci:
+  delpoy:
     runs-on: ubuntu-latest
     steps:
-        # needed for all cases
+      # needed for all cases
       - if: github.event_name == 'push' && github.ref_name == 'main'
         uses: actions/checkout@v3
       # needed for nx affected command
@@ -30,8 +27,12 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: lint,build,test affected projects
-        run: npx nx affected --targets=lint,build,test
+      - name: deploy affected projects
+        id: deployStep
+        run: |
+          npm run nx affected --targets=deploy | grep -Eo "(http|https)://[a-zA-Z0-9./?=_%:-]*" | echo"deployurl=%B" >> "$GITHUB_OUTPUT"
+        env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
 
-
-
+      - name: echo outputs
+        run: echo ${{steps.deployStep.outputs}}
