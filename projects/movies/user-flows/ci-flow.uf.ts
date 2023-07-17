@@ -1,16 +1,6 @@
-import {
-  UserFlowContext,
-  UserFlowInteractionsFn,
-  UserFlowOptions,
-  UserFlowProvider,
-} from '@push-based/user-flow';
+import {UserFlowContext, UserFlowInteractionsFn, UserFlowOptions, UserFlowProvider,} from '@push-based/user-flow';
 
-import {
-  mergeBudgets,
-  MovieDetailPageUFO,
-  MovieListPageUFO,
-  SidebarUFO,
-} from '../../movies-user-flows/src';
+import {mergeBudgetPaths, MovieDetailPageUFO, MovieListPageUFO, SidebarUFO,} from '../../movies-user-flows/src';
 
 const flowOptions: UserFlowOptions = {
   name: 'Basic user flow to ensure basic functionality',
@@ -31,7 +21,7 @@ const interactions: UserFlowInteractionsFn = async (
     config: {
       extends: 'lighthouse:default',
       settings: {
-        budgets: mergeBudgets([
+        budgets: mergeBudgetPaths([
           './projects/movies/testing/budgets/angular.budgets.json',
           './projects/movies/testing/budgets/general-timing.budgets.json',
           './projects/movies/testing/budgets/movie-list.budgets.json',

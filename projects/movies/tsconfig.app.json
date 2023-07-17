@@ -3,7 +3,8 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "outDir": "../../out-tsc",
-    "types": []
+    "types": [],
+    "resolveJsonModule": true
   },
   "files": ["src/main.ts"],
   "include": ["src/**/*.d.ts"]
