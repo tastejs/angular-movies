@@ -8,7 +8,7 @@ import * as movieListBudgets from "../testing/budgets/movie-list.budgets.json";
 import {PersonDetailPageUFO} from "../../movies-user-flows/src/ufo/desktop/person-detail-page.ufo";
 
 const flowOptions: UserFlowOptions = {
-  name: 'Basic user flow to ensure basic functionality',
+  name: 'Movie Detail and Person Detail Tests',
 };
 
 const interactions: UserFlowInteractionsFn = async (
