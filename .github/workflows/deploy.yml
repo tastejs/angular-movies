@@ -30,7 +30,7 @@ jobs:
       - name: deploy affected projects
         id: deployStep
         run: |
-          npm run nx affected --targets=deploy | grep -Eo "(http|https)://[a-zA-Z0-9./?=_%:-]*" | echo"deployurl=%B" >> "$GITHUB_OUTPUT"
+          npx nx affected --targets=deploy | grep -Eo "(http|https)://[a-zA-Z0-9./?=_%:-]*" | echo"deployurl=%B" >> "$GITHUB_OUTPUT"
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
 
