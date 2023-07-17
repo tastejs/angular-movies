@@ -37,7 +37,7 @@ const interactions: UserFlowInteractionsFn = async (
     "/detail/person/1023139"
   ].map(
     url => ({
-      url,
+      url: baseUrl + url,
       cfg: {
         name: `Navigation ${url}`,
         config: getLhConfig(detailBudgets)
