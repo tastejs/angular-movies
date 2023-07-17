@@ -25,7 +25,7 @@ const interactions: UserFlowInteractionsFn = async (
     "/list/genre/28"
   ].map(
     url => ({
-      url,
+      url: baseUrl + url,
       cfg: {
         name: `Navigation ${url}`,
         config: getLhConfig(listBudgets)
