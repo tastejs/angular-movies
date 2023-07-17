@@ -21,6 +21,10 @@ export class MovieListPageUFO extends Ufo implements CwvInterface {
     ]);
   }
 
+  async awaitHeroImg() {
+    await this.movieList;
+  }
+
   async awaitAllContent() {
     await Promise.all([
       this.awaitHeadingContent(),
