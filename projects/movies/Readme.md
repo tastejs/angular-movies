@@ -10,9 +10,6 @@ There are several thing to notice here:
 - When javascript kick's in Angular takes over the site. It removes the existing DOM completely and renders Angular.
 - HTTP requests executed on the server are cached and replayed on the client
 
-On SSR the assets folder is accessible under `http://localhost:4200/assets/*`
-On CSR the assets folder is accessible under `assets/*`
-
 HTTP Transfer State
 
 - Is used on both sides to read or write to the DOM cache
@@ -27,18 +24,130 @@ HTTP Transfer State
 
 ## Features to test
 
-- Categories - popular, top_rated, upcoming
-  - with pagination or infinite scroll
-- Genres - fetched from server
-- Search - find, filter, sort movies. Paginated
-- Movie Details:
-  - hero, case, more
-- Actor Details:
-  - hero, more
-- Authentication with TMDB
-  - login - menu
-  - logout - menu
-- Account features - only accessible when logged in
-  - Lists - create new lists
-  - Lists - view all your saved lists
-  - Lists - add/remove/edit lists
+### Shell
+
+The shell has the following sections:
+
+- Sidebar
+- Toolbar
+
+#### Sidebar
+
+**🖥️ The element can:**
+
+- navigate to [Category list](#Category-list) (`popular`, `top_rated`, `upcoming`)
+- navigate to [Genre list](#Genre-list) (list of numeric id's)
+
+**📱 Mobile specific:**
+
+- shrink on mobile
+- open/close on mobile
+
+#### Toolbar
+
+**🖥️ The element can:**
+
+- toggle dark mode
+- show search bar
+  - open/collapse search input on focus/blur
+  - search a movie (like search)
+    - list movie result
+    - list NO movie result
+    - (TODO) find, filter, sort movies. Paginated
+- open/close account menu
+  - login (list account menu options)
+  - logout (list guest menu options)
+
+### Pages
+
+**--- guest user ---**
+
+- Page not found
+- About (TODO add contributors etc)
+- Category list
+  - Detail movie
+  - Detail person
+- Genre list
+
+**--- authenticated user (marked with *) ---**
+
+- My Lists
+  - Detail list
+  - Edit list
+- Create new list
+
+#### Page not found
+
+**🖥️ The page can:**
+
+- shows information
+
+#### About
+
+**🖥️ The page can:**
+
+- shows description
+- backlink to movies app
+- shows contributors
+
+#### Category list
+
+**Available categories are:**
+
+- `popular`
+- `top_rated`
+- `upcoming`
+
+**🖥️ The page can:**
+
+- list movies
+  - infinite scroll
+  - navigate to [Detail movie](#Detail-movie)
+
+#### Detail movie
+
+**🖥️ The page can:**
+
+- show hero image
+- show description
+- show links
+- show actor list
+- show recommended movies
+  - infinite scroll
+  - navigate to [Detail movie](#Detail-movie)
+
+#### Detail actor
+
+**🖥️ The page can:**
+
+- show hero image
+- show description
+- show recommended movies
+  - infinite scroll
+  - navigate to [Detail movie](#Detail-movie)
+
+#### Genre list
+
+Available genres are fetched from the server (numeric values)
+
+**🖥️ The page can:**
+
+- list movies
+  - infinite scroll
+  - navigate to [Detail movie](#Detail-movie)
+
+#### My Lists *
+
+- view all your saved lists
+
+#### Detail list *
+
+- show detail page
+
+#### Edit list *
+
+- add/remove/edit lists
+
+#### Create new list *
+
+- create new lists
