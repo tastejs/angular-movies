@@ -32,16 +32,7 @@ jobs:
         run: npm ci
 
       - name: movies
-        run: npx nx run movies:build
-
-      - name: firebase-function
-        run: npx nx run firebase-function:build
-
-      - name: ng-universal-express
-        run: npx nx run ng-universal-express:build
-
-      - name: cloudflare-worker
-        run: npx nx run cloudflare-worker:build
+        run: npx nx affected:build
 
 
 
