@@ -30,7 +30,8 @@ The shell has the following sections:
 
 - Sidebar
 - Toolbar
-
+- Content
+  
 #### Sidebar
 
 **🖥️ The element can:**
