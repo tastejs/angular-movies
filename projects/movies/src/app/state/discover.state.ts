@@ -93,7 +93,7 @@ export class DiscoverState extends RxState<State> implements AppInitializer {
     );
   }
 
-  initialize(category: string): void {
-    this.fetchDiscoverGenreMovies(category);
+  initialize(category: unknown): void {
+    this.fetchDiscoverGenreMovies(category as string);
   }
 }

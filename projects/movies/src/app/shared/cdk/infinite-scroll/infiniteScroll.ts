@@ -4,7 +4,7 @@ import {withLoadingEmission} from '../loading/withLoadingEmissions';
 import {InfiniteScrollOptions, InfiniteScrollResult, InfiniteScrollState,} from './infinite-scroll.interface';
 import {coerceObservable} from '../coerceObservable';
 
-type PartialInfiniteScrollState<T extends Record<string, unknown>> = Partial<InfiniteScrollState<T>>;
+type PartialInfiniteScrollState<T> = Partial<InfiniteScrollState<T>>;
 
 /**
  *
@@ -44,7 +44,7 @@ type PartialInfiniteScrollState<T extends Record<string, unknown>> = Partial<Inf
  * );
  *
  */
-export function infiniteScroll<T extends Record<string, unknown>>(
+export function infiniteScroll<T>(
   fetchFn: (
     incrementedOptions: InfiniteScrollOptions
   ) => Observable<PartialInfiniteScrollState<T>>,
@@ -87,7 +87,7 @@ export function infiniteScroll<T extends Record<string, unknown>>(
     )
   ).pipe(
     scan(
-      (acc: InfiniteScrollState<T>, response) => {
+      (acc: InfiniteScrollState<T>, response: PartialInfiniteScrollState<T>) => {
         // in case the initial value was no set we take total pages from the result
         if (response?.total_pages) {
           total_pages = response.total_pages;

@@ -5,7 +5,7 @@ import {TMDBAccountList} from '../model/list.model';
 import {baseUrlApiV4} from './internal/base-urls.constant';
 import {getTMDBSortOptions} from '../sort/utils';
 import {TMDBDiscoverOptions} from './discover.resource';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpParams} from '@angular/common/http';
 import {inject, Injectable} from '@angular/core';
 
 const URL_ACCOUNT_LIST = (uid: string) =>
@@ -30,9 +30,8 @@ export class AccountResource {
     accountId: string,
     params: TMDBPaginateOptions = {} as TMDBPaginateOptions
   ): Observable<TMDBAccountListResponse> => {
-    params = getTMDBAcountListOptions(params);
     return this.http.get<TMDBAccountListResponse>(URL_ACCOUNT_LIST(accountId), {
-      params,
+      params: new HttpParams({fromObject: getTMDBAcountListOptions(params) as Record<string, string>}),
     });
   };
 }

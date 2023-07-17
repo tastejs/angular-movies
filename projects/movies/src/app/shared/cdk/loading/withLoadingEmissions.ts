@@ -4,7 +4,7 @@ import {DefaultLoadingProp, LoadingState} from './loading-state.interface';
 const defaultLoadingProp: DefaultLoadingProp = 'loading';
 
 export function withLoadingEmission<
-  T extends Record<string, unknown>,
+  T,
   K extends string = DefaultLoadingProp
 >(property?: K) {
   const _property =

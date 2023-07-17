@@ -63,7 +63,7 @@ export class PersonState extends RxState<State> implements AppInitializer {
     );
   }
 
-  initialize(identifier: string): void {
-    this.fetchPerson(identifier);
+  initialize(identifier: unknown): void {
+    this.fetchPerson(identifier as string);
   }
 }
