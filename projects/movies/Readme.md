@@ -41,8 +41,8 @@ The shell has the following sections:
 
 **📱 Mobile specific:**
 
-- shrink on mobile
-- open/close on mobile
+- shrink
+- open/close
 
 #### Toolbar
 
