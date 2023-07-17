@@ -68,8 +68,8 @@
         *ngFor="let option of sortOptions"
       >
         <button
+          class="functionality-only-button"
           (click)="sortBy(option)"
-          (focus)="sortBy(option)"
         >{{ option.name }}</button>
       </li>
     </ul>

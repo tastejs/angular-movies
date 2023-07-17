@@ -34,6 +34,7 @@ type UiActions = {
       (submit)="ui.formSubmit($event)"
       #form
       class="form"
+      [tabIndex]="0"
       (focus)="ui.formClick($event)"
     >
       <button

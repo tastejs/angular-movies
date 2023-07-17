@@ -117,7 +117,8 @@
             IMDB
             <fast-svg class="btn__icon" name="imdb"></fast-svg>
           </a>
-          <a
+          <button
+            type="button"
             *ngIf="movie.videoUrl"
             class="btn"
             (mouseover)="ui.iframe('load')"
@@ -125,18 +126,16 @@
             (click)="
               $event.preventDefault(); ui({ dialog: 'show', iframe: 'load' })
             "
-            href="#trainer"
           >
             Trailer
             <fast-svg class="btn__icon" name="play"></fast-svg>
-          </a>
+          </button>
 
           <dialog class="video" #trailerDialog id="trailer-dialog">
             <button
               aria-controls="trailer-dialog"
-              class="close"
+              class="close functionality-only-button"
               (click)="ui.dialog('close')"
-              (focus)="ui.dialog('close')"
             >&nbsp;
             </button>
             <!--

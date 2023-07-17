@@ -1,6 +1,13 @@
+@import '../../ui/component/button/_button';
+
 :host {
   display: flex;
   flex-direction: column;
+}
+
+.functionality-only-button {
+  width: 100%;
+  padding: 0 15px;
 }
 
 div {
