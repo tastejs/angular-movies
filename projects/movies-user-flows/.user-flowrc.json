@@ -1,12 +1,11 @@
 {
   "collect": {
-    "url": "http://localhost:4200",
-    "ufPath": "./projects/movies-user-flows/src/user-flows",
-    "serveCommand": "npm run start:ssr:prod",
-    "awaitServeStdout": "Angular Universal Live Development Server is listening on"
+    "ufPath": "./projects/movies-user-flows/user-flows",
+    "outPath": "./dist/user-flow/movies-user-flows"
   },
   "persist": {
-    "outPath": "./measures/user-flows",
-    "format": ["json"]
+    "format": [
+      "md"
+    ]
   }
 }

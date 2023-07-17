@@ -1,7 +1,7 @@
-import { UserFlowOptions } from '@push-based/user-flow';
-import { readFileSync } from 'fs';
+import {readFileSync} from 'fs';
 import Budget from 'lighthouse/types/lhr/budget';
-import { readBudgets } from '@push-based/user-flow/src/lib/commands/assert/utils/budgets';
+import {readBudgets} from '@push-based/user-flow/src/lib/commands/assert/utils/budgets';
+import {LhConfigJson} from "@push-based/user-flow";
 
 type Test = {
   name: string;
@@ -35,7 +35,7 @@ export function getTestSets(
         cfg.config = {
           extends: 'lighthouse:default',
           settings: {
-            budgets: mergeBudgets(test.lhBudget),
+            budgets: mergeBudgetPaths(test.lhBudget),
           },
         };
       }
@@ -47,7 +47,18 @@ export function getTestSets(
     });
 }
 
-export function mergeBudgets(lhBudgetPaths: string[]): Budget[] {
+export function getLhConfig(budgets: Budget[]): LhConfigJson {
+  // cache by filename?
+  return {
+    extends: 'lighthouse:default',
+    settings: {
+      budgets
+    },
+  } satisfies LhConfigJson;
+
+}
+
+export function mergeBudgetPaths(lhBudgetPaths: string[]): Budget[] {
   return [
     lhBudgetPaths
       // map path to json ( string => Budget[] )
@@ -56,21 +67,56 @@ export function mergeBudgets(lhBudgetPaths: string[]): Budget[] {
         (mergedBudget, budget: Budget) => {
           // @ts-ignore
           budget.resourceCounts &&
-            (mergedBudget.resourceCounts = [
-              ...mergedBudget.resourceCounts,
+          (mergedBudget.resourceCounts = [
+            ...mergedBudget.resourceCounts || [],
               ...budget.resourceCounts,
             ]);
           budget.resourceSizes &&
             (mergedBudget.resourceSizes = [
-              ...mergedBudget.resourceSizes,
+              ...mergedBudget.resourceSizes || [],
               ...budget.resourceSizes,
             ]);
           // @ts-ignore
           budget.timings &&
             (mergedBudget.timings = [
-              ...mergedBudget.timings,
+              ...mergedBudget.timings || [],
               ...budget.timings,
             ]);
+          return mergedBudget;
+        },
+        {
+          resourceCounts: [],
+          resourceSizes: [],
+          timings: [],
+        } as Budget
+      ),
+  ];
+}
+
+export function mergeBudgets(lhBudgets: Budget[]): Budget[] {
+  return [
+    lhBudgets
+      // map path to json ( string => Budget[] )
+      .flatMap((b) => b)
+      .reduce(
+        (mergedBudget, budget: Budget) => {
+          // @ts-ignore
+          budget.resourceCounts &&
+          (mergedBudget.resourceCounts = [
+            ...mergedBudget.resourceCounts || [],
+            ...budget.resourceCounts,
+          ]);
+          budget.resourceSizes &&
+          (mergedBudget.resourceSizes = [
+            ...mergedBudget.resourceSizes || [],
+            ...budget.resourceSizes,
+          ]);
+          // @ts-ignore
+          budget.timings &&
+          (mergedBudget.timings = [
+            ...mergedBudget.timings || [],
+            ...budget.timings,
+          ]);
           return mergedBudget;
         },
         {

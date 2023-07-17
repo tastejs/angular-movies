@@ -1,16 +1,11 @@
-import { LetDirective } from '@rx-angular/template/let';
-import {
-  Component,
-  ChangeDetectionStrategy,
-  OnDestroy,
-  inject,
-} from '@angular/core';
-import { ListCreatePageAdapter } from './list-create-page.adapter';
-import { RxIf } from '@rx-angular/template/if';
+import {RxLet} from '@rx-angular/template/let';
+import {ChangeDetectionStrategy, Component, inject, OnDestroy,} from '@angular/core';
+import {ListCreatePageAdapter} from './list-create-page.adapter';
+import {RxIf} from '@rx-angular/template/if';
 
 @Component({
   standalone: true,
-  imports: [LetDirective, RxIf],
+  imports: [RxLet, RxIf],
   template: `
     <article>
       <header *rxIf="adapter.showHeader$">

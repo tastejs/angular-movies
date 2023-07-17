@@ -1,16 +1,11 @@
-import { DOCUMENT } from '@angular/common';
-import {
-  ChangeDetectionStrategy,
-  Component,
-  inject,
-  ViewEncapsulation,
-} from '@angular/core';
-import { RxState } from '@rx-angular/state';
-import { LetDirective } from '@rx-angular/template/let';
+import {DOCUMENT} from '@angular/common';
+import {ChangeDetectionStrategy, Component, inject, ViewEncapsulation,} from '@angular/core';
+import {RxState} from '@rx-angular/state';
+import {RxLet} from '@rx-angular/template/let';
 
 @Component({
   standalone: true,
-  imports: [LetDirective],
+  imports: [RxLet],
   selector: 'ui-dark-mode-toggle',
   template: `
     <div class="dark-mode-toggle">
@@ -29,7 +24,7 @@ import { LetDirective } from '@rx-angular/template/let';
           class="toggle-track"
           type="checkbox"
           id="dark-mode"
-          [checked]="isLightTheme"
+          [checked]="!isLightTheme"
           (change)="setChecked(!isLightTheme)"
         />
         <label style="color: transparent" for="dark-mode">

@@ -1,0 +1,42 @@
+{
+  "name": "docs",
+  "$schema": "../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "movies-user-flows/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "outputs": [
+        "./README.md"
+      ],
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          "nx run docs:generate-bundle-audit",
+          "nx run docs:update-readme"
+        ],
+        "parallel": false
+      }
+    },
+    "generate-bundle-audit": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          "nx run movies:build:production --stats-json --source-map --no-budgets",
+          "npx cpx dist/projects/movies/browser/stats.json dist/measures/movies",
+          "npx webpack-bundle-analyzer dist/projects/movies/browser/stats.json -m static -r dist/measures/movies/bundle-size-report.prod.html"
+        ],
+        "parallel": false
+      }
+    },
+    "update-readme": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          "npx ts-node -P ./projects/docs/tsconfig.tooling.json  ./projects/docs/tooling/bundle-stats/index.ts update-bundle-stats --stats=./dist/measures/movies/stats.json --target=./README.md --source=./projects/docs/static/BASE_README.md"
+        ],
+        "parallel": false
+      }
+    }
+  },
+  "tags": []
+}

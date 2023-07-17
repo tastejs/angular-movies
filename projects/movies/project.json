@@ -1,0 +1,244 @@
+{
+  "name": "movies",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "generators": {
+    "@schematics/angular:component": {
+      "style": "scss",
+      "changeDetection": "OnPush"
+    },
+    "@schematics/angular:application": {
+      "strict": true
+    }
+  },
+  "sourceRoot": "projects/movies/src",
+  "targets": {
+    "build": {
+      "executor": "@angular-devkit/build-angular:browser",
+      "options": {
+        "outputPath": "dist/projects/movies/browser",
+        "index": "projects/movies/src/index.html",
+        "main": "projects/movies/src/main.ts",
+        "tsConfig": "projects/movies/tsconfig.app.json",
+        "inlineStyleLanguage": "scss",
+        "namedChunks": true,
+        "assets": [
+          "projects/movies/src/favicon.ico",
+          "projects/movies/src/manifest.json",
+          "projects/movies/src/manifest.webmanifest",
+          "projects/movies/src/assets",
+          "projects/movies/src/_routes.json"
+        ],
+        "styles": [
+          "projects/movies/src/styles.scss"
+        ],
+        "scripts": []
+      },
+      "configurations": {
+        "development": {
+          "namedChunks": true,
+          "sourceMap": true,
+          "vendorChunk": true,
+          "extractLicenses": false,
+          "buildOptimizer": false,
+          "optimization": false,
+          "serviceWorker": false
+        },
+        "production": {
+          "serviceWorker": true,
+          "ngswConfigPath": "projects/movies/src/ngsw-config.json",
+          "fileReplacements": [
+            {
+              "replace": "projects/movies/src/environments/environment.ts",
+              "with": "projects/movies/src/environments/environment.production.ts"
+            }
+          ],
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "349.9kb",
+              "maximumError": "350KB"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "3000b",
+              "maximumError": "4.5kb"
+            },
+            {
+              "type": "bundle",
+              "name": "main",
+              "maximumWarning": "338.69KB",
+              "maximumError": "342KB"
+            },
+            {
+              "type": "bundle",
+              "name": "styles",
+              "maximumWarning": "6320b",
+              "maximumError": "6.18KB"
+            },
+            {
+              "type": "bundle",
+              "name": "common",
+              "maximumWarning": "10KB",
+              "maximumError": "11.22KB"
+            },
+            {
+              "type": "bundle",
+              "name": "polyfills",
+              "maximumWarning": "118b",
+              "maximumError": "118b"
+            }
+          ]
+        }
+      },
+      "defaultConfiguration": "production",
+      "outputs": [
+        "{options.outputPath}"
+      ]
+    },
+    "build-esbuild": {
+      "executor": "@angular-devkit/build-angular:browser-esbuild",
+      "options": {
+        "outputPath": "dist/projects/movies/browser",
+        "index": "projects/movies/src/index.html",
+        "main": "projects/movies/src/main.ts",
+        "tsConfig": "projects/movies/tsconfig.app.json",
+        "inlineStyleLanguage": "scss",
+        "namedChunks": true,
+        "assets": [
+          "projects/movies/src/favicon.ico",
+          "projects/movies/src/manifest.json",
+          "projects/movies/src/manifest.webmanifest",
+          "projects/movies/src/assets",
+          "projects/movies/src/_routes.json"
+        ],
+        "styles": [
+          "projects/movies/src/styles.scss"
+        ],
+        "scripts": []
+      },
+      "configurations": {
+        "development": {
+          "namedChunks": true,
+          "sourceMap": true,
+          "vendorChunk": true,
+          "extractLicenses": false,
+          "buildOptimizer": false,
+          "optimization": false,
+          "serviceWorker": false
+        },
+        "production": {
+          "serviceWorker": true,
+          "ngswConfigPath": "projects/movies/src/ngsw-config.json",
+          "fileReplacements": [
+            {
+              "replace": "projects/movies/src/environments/environment.ts",
+              "with": "projects/movies/src/environments/environment.production.ts"
+            }
+          ]
+        }
+      },
+      "defaultConfiguration": "production",
+      "outputs": [
+        "{options.outputPath}"
+      ]
+    },
+    "serve": {
+      "executor": "@angular-devkit/build-angular:dev-server",
+      "options": {
+        "port": 4200
+      },
+      "configurations": {
+        "development": {
+          "browserTarget": "movies:build:development"
+        },
+        "production": {
+          "port": 4201,
+          "browserTarget": "movies:build:production"
+        }
+      },
+      "defaultConfiguration": "development"
+    },
+    "ngsw-config": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          "node_modules/.bin/ngsw-config dist ./src/ngsw-config.json"
+        ]
+      }
+    },
+    "serve-ngsw": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          "npm run ngsw-config && http-server dist -p 8080"
+        ]
+      }
+    },
+    "lint": {
+      "executor": "@angular-eslint/builder:lint",
+      "options": {
+        "lintFilePatterns": [
+          "projects/movies/src/app/**/*.ts",
+          "projects/movies/src/app/**/*.html"
+        ]
+      },
+      "outputs": [
+        "{options.outputFile}"
+      ]
+    },
+    "extract-i18n": {
+      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "options": {
+        "browserTarget": "movies:build"
+      }
+    },
+    "emulate-firebase": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          "firebase emulators:start --only hosting --project angular-movies"
+        ],
+        "parallel": false
+      }
+    },
+    "deploy-firebase": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          "npx firebase deploy --only hosting --project angular-movies"
+        ],
+        "parallel": false
+      }
+    },
+    "user-flow": {
+      "executor": "@push-based/user-flow-nx-plugin:user-flow",
+      "outputs": [
+        "{options.outputPath}"
+      ],
+      "options": {
+        "url": "http://localhost:4200",
+        "rcPath": "projects/movies/.user-flowrc.json",
+        "outputPath": "dist/user-flow/movies",
+        "ufPath": "projects/movies/user-flows",
+        "format": [
+          "html"
+        ]
+      },
+      "configurations": {
+        "development": {
+          "verbose": true,
+          "dryRun": true,
+          "serveCommand": "nx run movies:serve:development",
+          "awaitServeStdout": "Angular Live Development Server is listening on"
+        },
+        "production": {
+          "url": "http://localhost:4201",
+          "serveCommand": "nx run movies:serve:production",
+          "awaitServeStdout": "Angular Live Development Server is listening on"
+        }
+      },
+      "defaultConfiguration": "production"
+    }
+  }
+}

@@ -1,38 +1,23 @@
-import { RxState } from '@rx-angular/state';
-import { DOCUMENT } from '@angular/common';
-import {
-  ChangeDetectionStrategy,
-  Component,
-  inject,
-  TrackByFunction,
-  ViewEncapsulation,
-} from '@angular/core';
-import { NavigationEnd, Router, RouterLink } from '@angular/router';
-import {
-  distinctUntilChanged,
-  filter,
-  map,
-  shareReplay,
-  switchMap,
-} from 'rxjs';
-import { TMDBMovieGenreModel } from '../data-access/api/model/movie-genre.model';
-import { trackByProp } from '../shared/cdk/track-by';
-import { RxActionFactory } from '@rx-angular/state/actions';
-import {
-  RouterState,
-  fallbackRouteToDefault,
-} from '../shared/router/router.state';
-import { getIdentifierOfTypeAndLayoutUtil } from '../shared/router/get-identifier-of-type-and-layout.util';
-import { GenreResource } from '../data-access/api/resources/genre.resource';
-import { RxEffects } from '@rx-angular/state/effects';
-import { HamburgerButtonComponent } from '../ui/component/hamburger-button/hamburger-button.component';
-import { LetDirective } from '@rx-angular/template/let';
-import { SideDrawerComponent } from '../ui/component/side-drawer/side-drawer.component';
-import { SearchBarComponent } from '../ui/component/search-bar/search-bar.component';
-import { DarkModeToggleComponent } from '../ui/component/dark-mode-toggle/dark-mode-toggle.component';
-import { RxFor } from '@rx-angular/template/for';
-import { LazyDirective } from '../shared/cdk/lazy/lazy.directive';
-import { FastSvgComponent } from '@push-based/ngx-fast-svg';
+import {RxState} from '@rx-angular/state';
+import {DOCUMENT} from '@angular/common';
+import {ChangeDetectionStrategy, Component, inject, TrackByFunction, ViewEncapsulation,} from '@angular/core';
+import {NavigationEnd, Router, RouterLink} from '@angular/router';
+import {distinctUntilChanged, filter, map, shareReplay, switchMap,} from 'rxjs';
+import {TMDBMovieGenreModel} from '../data-access/api/model/movie-genre.model';
+import {trackByProp} from '../shared/cdk/track-by';
+import {RxActionFactory} from '@rx-angular/state/actions';
+import {fallbackRouteToDefault, RouterState,} from '../shared/router/router.state';
+import {getIdentifierOfTypeAndLayoutUtil} from '../shared/router/get-identifier-of-type-and-layout.util';
+import {GenreResource} from '../data-access/api/resources/genre.resource';
+import {RxEffects} from '@rx-angular/state/effects';
+import {HamburgerButtonComponent} from '../ui/component/hamburger-button/hamburger-button.component';
+import {RxLet} from '@rx-angular/template/let';
+import {SideDrawerComponent} from '../ui/component/side-drawer/side-drawer.component';
+import {SearchBarComponent} from '../ui/component/search-bar/search-bar.component';
+import {DarkModeToggleComponent} from '../ui/component/dark-mode-toggle/dark-mode-toggle.component';
+import {RxFor} from '@rx-angular/template/for';
+import {LazyDirective} from '../shared/cdk/lazy/lazy.directive';
+import {FastSvgComponent} from '@push-based/ngx-fast-svg';
 
 type Actions = {
   sideDrawerOpenToggle: boolean;
@@ -43,7 +28,7 @@ type Actions = {
   standalone: true,
   imports: [
     RouterLink,
-    LetDirective,
+    RxLet,
     RxFor,
     FastSvgComponent,
     HamburgerButtonComponent,
@@ -92,7 +77,9 @@ export class AppShellComponent {
       this.router.navigate([
         // The pathname route seems to work correctly on SSR but when pre-rendering it is an empty string.
         // We have to fall back to document URL as a fix.
-        fallbackRouteToDefault(this.document.location.pathname || document.URL),
+        fallbackRouteToDefault(
+          this.document.location.pathname || this.document.URL
+        ),
       ]);
     });
   }

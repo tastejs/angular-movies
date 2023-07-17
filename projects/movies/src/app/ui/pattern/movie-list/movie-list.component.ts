@@ -7,11 +7,11 @@ import {coerceObservable} from '../../../shared/cdk/coerceObservable';
 import {RxInputType} from '../../../shared/cdk/input-type.typing';
 import {RouterLink} from '@angular/router';
 import {StarRatingComponent} from '../star-rating/star-rating.component';
-import {ForModule} from '@rx-angular/template/for';
+import {RxFor} from '@rx-angular/template/for';
 import {ElementVisibilityDirective} from '../../../shared/cdk/element-visibility/element-visibility.directive';
 import {FastSvgComponent} from '@push-based/ngx-fast-svg';
 import {GridListComponent} from '../../component/grid-list/grid-list.component';
-import {IfModule} from '@rx-angular/template/if';
+import {RxIf} from '@rx-angular/template/if';
 import {Movie} from '../../../state/movie.state';
 
 type UiActions = { paginate: boolean };
@@ -21,11 +21,11 @@ type UiActions = { paginate: boolean };
   imports: [
     RouterLink,
     StarRatingComponent,
-    ForModule,
+    RxFor,
     ElementVisibilityDirective,
     FastSvgComponent,
     GridListComponent,
-    IfModule,
+    RxIf,
     NgOptimizedImage,
   ],
   selector: 'ui-movie-list',
