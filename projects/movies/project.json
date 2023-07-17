@@ -229,7 +229,7 @@
         "development": {
           "verbose": true,
           "dryRun": true,
-          "serveCommand": "nx run movies:serve:production",
+          "serveCommand": "nx run movies:serve:development",
           "awaitServeStdout": "Angular Live Development Server is listening on"
         },
         "production": {

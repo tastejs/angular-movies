@@ -1,13 +1,12 @@
-import {
-  UserFlowContext,
-  UserFlowInteractionsFn,
-  UserFlowOptions,
-  UserFlowProvider,
-} from '@push-based/user-flow';
+import {UserFlowContext, UserFlowInteractionsFn, UserFlowOptions, UserFlowProvider,} from '@push-based/user-flow';
 
-import { mergeBudgets } from '../../movies-user-flows/src/internals/test-sets';
-import { ToolBarUfo } from '../../movies-user-flows/src/ufo/desktop/tool-bar.ufo';
-import { TmdbUfo } from '../../movies-user-flows/src/ufo/desktop/tmdb.ufo';
+import * as angularBudgets from '../testing/budgets/angular.budgets.json';
+import * as generalTimingBudget from '../testing/budgets/general-timing.budgets.json';
+import * as movieListBudgets from '../testing/budgets/movie-list.budgets.json';
+
+import {getLhConfig, mergeBudgets} from '../../movies-user-flows/src/internals/test-sets';
+import {ToolBarUfo} from '../../movies-user-flows/src/ufo/desktop/tool-bar.ufo';
+import {TmdbUfo} from '../../movies-user-flows/src/ufo/desktop/tmdb.ufo';
 
 const flowOptions: UserFlowOptions = {
   name: 'Login And Logout User Flow',
@@ -16,7 +15,7 @@ const flowOptions: UserFlowOptions = {
 const interactions: UserFlowInteractionsFn = async (
   ctx: UserFlowContext
 ): Promise<any> => {
-  const { page, flow, collectOptions } = ctx;
+  const {page, flow, collectOptions} = ctx;
   const url = `${collectOptions.url}/list/category/popular`;
   const toolbar = new ToolBarUfo(ctx);
   const tmdbPage = new TmdbUfo(ctx);
@@ -28,16 +27,9 @@ const interactions: UserFlowInteractionsFn = async (
 
   await flow.navigate(url, {
     stepName: '🧭 Initial navigation',
-    config: {
-      extends: 'lighthouse:default',
-      settings: {
-        budgets: mergeBudgets([
-          './projects/movies/testing/budgets/angular.budgets.json',
-          './projects/movies/testing/budgets/general-timing.budgets.json',
-          './projects/movies/testing/budgets/movie-list.budgets.json',
-        ]),
-      },
-    },
+    config: getLhConfig(
+      mergeBudgets([angularBudgets, generalTimingBudget, movieListBudgets])
+    )
   });
   await flow.snapshot({
     stepName: '✔ Initial navigation done',

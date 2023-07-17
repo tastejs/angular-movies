@@ -1,16 +1,10 @@
-import {
-  UserFlowContext,
-  UserFlowInteractionsFn,
-  UserFlowOptions,
-  UserFlowProvider,
-} from '@push-based/user-flow';
+import {UserFlowContext, UserFlowInteractionsFn, UserFlowOptions, UserFlowProvider,} from '@push-based/user-flow';
 
-import {
-  mergeBudgets,
-  MovieDetailPageUFO,
-  MovieListPageUFO,
-  SidebarUFO,
-} from '../../movies-user-flows/src';
+import {mergeBudgets, MovieDetailPageUFO, MovieListPageUFO, SidebarUFO,} from '../../movies-user-flows/src';
+import {getLhConfig} from "../../movies-user-flows/src/internals/test-sets";
+import * as angularBudgets from "../testing/budgets/angular.budgets.json";
+import * as generalTimingBudget from "../testing/budgets/general-timing.budgets.json";
+import * as movieListBudgets from "../testing/budgets/movie-list.budgets.json";
 
 const flowOptions: UserFlowOptions = {
   name: 'Basic user flow to ensure basic functionality',
@@ -19,7 +13,7 @@ const flowOptions: UserFlowOptions = {
 const interactions: UserFlowInteractionsFn = async (
   ctx: UserFlowContext
 ): Promise<any> => {
-  const { flow, collectOptions } = ctx;
+  const {flow, collectOptions} = ctx;
   const url = `${collectOptions.url}/list/category/popular`;
   const sidebar = new SidebarUFO(ctx);
   const movieListPage = new MovieListPageUFO(ctx);
@@ -28,16 +22,9 @@ const interactions: UserFlowInteractionsFn = async (
 
   await flow.navigate(url, {
     stepName: '🧭 Initial navigation',
-    config: {
-      extends: 'lighthouse:default',
-      settings: {
-        budgets: mergeBudgets([
-          './projects/movies/testing/budgets/angular.budgets.json',
-          './projects/movies/testing/budgets/general-timing.budgets.json',
-          './projects/movies/testing/budgets/movie-list.budgets.json',
-        ]),
-      },
-    },
+    config: getLhConfig(
+      mergeBudgets([angularBudgets, generalTimingBudget, movieListBudgets])
+    )
   });
   await flow.snapshot({
     stepName: '✔ Initial navigation done',
