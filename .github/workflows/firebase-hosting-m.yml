@@ -39,4 +39,4 @@ jobs:
           verbose: on
           url: https://angular-movies-a12d3.web.app
           # url: ${{ fromJson(steps.deployStep.outputs.urls)[0] }} // @TODO figure out why outputs urls are different from `https://angular-movies-a12d3.web.app`
-          rcPath: ./projects/movies-user-flows/.user-flowrc.json
+          rcPath: ./projects/movies/.user-flowrc.json
