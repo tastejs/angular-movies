@@ -230,9 +230,8 @@
           "verbose": true,
           "dryRun": true,
           "openReport": false,
-          "ufPath": "projects/movies/user-flows/movie-details.uf.ts",
-          "url": "http://localhost:4207",
-          "serveCommand": "nx run movies:serve:development --port=4207",
+          "ufPath": "projects/movies/user-flows",
+          "serveCommand": "nx run movies:serve:development",
           "awaitServeStdout": "Angular Live Development Server is listening on"
         },
         "production": {
