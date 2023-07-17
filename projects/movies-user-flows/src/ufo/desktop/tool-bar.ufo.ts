@@ -1,4 +1,4 @@
-import {CwvInterface} from '../typings/cwv.interface';
+import { CwvInterface } from '../typings/cwv.interface';
 import {
   GenreIds,
   profileMenu,
@@ -6,11 +6,11 @@ import {
   profileMenuLoginItem,
   profileMenuSignoutItem,
   searchSelector,
-  searchSubmitKeys
+  searchSubmitKeys,
 } from '../../../../movies/testing';
 import * as tmdbfixtures from '../../fixtures/tmdb.fixtures';
-import {Ufo, UserFlowContext} from '@push-based/user-flow';
-import {TmdbUfo} from "./tmdb.ufo";
+import { Ufo, UserFlowContext } from '@push-based/user-flow';
+import { TmdbUfo } from './tmdb.ufo';
 
 export class ToolBarUfo extends Ufo implements CwvInterface {
   tmdbPage: TmdbUfo;
@@ -40,7 +40,6 @@ export class ToolBarUfo extends Ufo implements CwvInterface {
     await this.page.waitForSelector(profileMenuContent);
   }
 
-
   async goToTmDbLogin(): Promise<any> {
     // open menu
     await this.openProfileMenu();
@@ -48,18 +47,32 @@ export class ToolBarUfo extends Ufo implements CwvInterface {
     await this.page.waitForSelector(profileMenuLoginItem);
     await this.page.click(profileMenuLoginItem);
 
-    await this.page.waitForResponse(r => r.url().includes(tmdbfixtures.TmdbAuthUrl))
+    await this.page
+      .waitForResponse((r) => r.url().includes(tmdbfixtures.TmdbAuthUrl))
       .catch(() => {
-        throw new Error('Navigation to tmdb failed')
+        throw new Error('Navigation to tmdb failed');
       });
   }
 
   async ensureLoginDone(): Promise<any> {
     // navigate back to movies app
-    await this.page.waitForResponse(r => r.url().includes('angular'));
+    await this.page.waitForResponse((r) => r.url().includes('angular'));
     // open menu
-    await this.openProfileMenu()
+    await this.openProfileMenu();
     await this.page.waitForSelector(profileMenuSignoutItem);
+  }
+
+  async logout(): Promise<any> {
+    // open menu
+    await this.openProfileMenu();
+    await this.page.waitForSelector(profileMenuSignoutItem);
+    await this.page.click(profileMenuSignoutItem);
+  }
+
+  async ensureLogoutDone(): Promise<any> {
+    // open menu
+    await this.openProfileMenu();
+    await this.page.waitForSelector(profileMenuLoginItem);
   }
 
   async awaitLCPContent(): Promise<any> {

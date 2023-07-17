@@ -4,8 +4,8 @@
     "urls": ["/list/category/popular"],
     "ufs": ["src/user-flows/ci-flow.uf.ts"],
     "lhBudget": [
-      "./projects/movies-user-flows/budgets/angular.budgets.json",
-      "./projects/movies-user-flows/budgets/general-timing.budgets.json",
+      "./projects/movies/testing/budgets/angular.budgets.json",
+      "./projects/movies/testing/budgets/general-timing.budgets.json",
       "./projects/movies/testing/budgets/movie-list.budgets.json"
     ]
   },
@@ -17,8 +17,8 @@
       "/list/category/upcoming"
     ],
     "lhBudget": [
-      "./projects/movies-user-flows/budgets/angular.budgets.json",
-      "./projects/movies-user-flows/budgets/general-timing.budgets.json",
+      "./projects/movies/testing/budgets/angular.budgets.json",
+      "./projects/movies/testing/budgets/general-timing.budgets.json",
       "./projects/movies/testing/budgets/movie-list.budgets.json"
     ],
     "ufs": ["src/user-flows/navigation.uf.ts"]
@@ -27,8 +27,8 @@
     "name": "Movie Genre List",
     "urls": ["/list/genre/28"],
     "lhBudget": [
-      "./projects/movies-user-flows/budgets/angular.budgets.json",
-      "./projects/movies-user-flows/budgets/general-timing.budgets.json",
+      "./projects/movies/testing/budgets/angular.budgets.json",
+      "./projects/movies/testing/budgets/general-timing.budgets.json",
       "./projects/movies/testing/budgets/movie-list.budgets.json"
     ],
     "ufs": ["src/user-flows/navigation.uf.ts"]
@@ -37,8 +37,8 @@
     "name": "Movie Detail",
     "urls": ["/detail/movie/594767"],
     "lhBudget": [
-      "./projects/movies-user-flows/budgets/angular.budgets.json",
-      "./projects/movies-user-flows/budgets/general-timing.budgets.json",
+      "./projects/movies/testing/budgets/angular.budgets.json",
+      "./projects/movies/testing/budgets/general-timing.budgets.json",
       "./projects/movies/testing/budgets/movie-detail.budgets.json"
     ],
     "ufs": ["src/user-flows/navigation.uf.ts"]
@@ -47,8 +47,8 @@
     "name": "Person Detail",
     "urls": ["/detail/person/1023139"],
     "lhBudget": [
-      "./projects/movies-user-flows/budgets/angular.budgets.json",
-      "./projects/movies-user-flows/budgets/general-timing.budgets.json",
+      "./projects/movies/testing/budgets/angular.budgets.json",
+      "./projects/movies/testing/budgets/general-timing.budgets.json",
       "./projects/movies/testing/budgets/person-detail.budgets.json"
     ],
     "ufs": ["src/user-flows/navigation.uf.ts"]
