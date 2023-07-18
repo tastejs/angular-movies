@@ -1,11 +1,20 @@
 {
   "extends": [
-    "../.eslintrc.json"
+    "../../.eslintrc.json"
   ],
   "ignorePatterns": [
     "!**/*"
   ],
   "overrides": [
+    {
+      "files": [
+        "*.md"
+      ],
+      "parser": "eslint-plugin-markdownlint/parser",
+      "extends": [
+        "plugin:markdownlint/recommended"
+      ]
+    },
     {
       "files": [
         "*.ts",
