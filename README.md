@@ -22,7 +22,7 @@ For now you can search the codebase for "Perf Tip" later on there will be proppe
 [Measures after optimization](https://lighthouse-metrics.com/checks/6a888a17-b17b-46a6-abc9-e605b73a530c/runs/503701ad-36aa-43ad-8de3-cb40e775c770)
 ![angular-movies-after-optimization_michael-hladky](https://user-images.githubusercontent.com/10064416/146446241-ad9eeed4-b0a4-44a2-a88e-4ea7c97e1acf.PNG)
 
-**Bundle Stats**
+### Bundle Stats
 
 <!-- bundle-stats-start -->
 
@@ -34,7 +34,7 @@ For now you can search the codebase for "Perf Tip" later on there will be proppe
 | **Initial Total**                                                                   | **349.96 KB** |
 | Names                                                                               | Size          |
 | app_pages_movie-detail-page_movie-detail-page_component_ts.js                       | 16.91 KB      |
-| app_pages_person-detail-page_person-detail-page_component_ts.js                     | 11.85 KB      |
+| app_pages_person-detail-page_person-detail-page_component_ts.js                     | 11.86 KB      |
 | a-6a8199.js                                                                         | 10.16 KB      |
 | app_pages_account-feature_list-detail-page_list-movies_list-movies_compon-d13d08.js | 9.91 KB       |
 | common.js                                                                           | 7.62 KB       |
@@ -50,7 +50,6 @@ For now you can search the codebase for "Perf Tip" later on there will be proppe
 | app_pages_not-found-page_not-found-page_component_ts.js                             | 1.86 KB       |
 | app_pages_account-feature_list-detail-page_list-detail-page_routes_ts.js            | 1.66 KB       |
 | app_pages_account-feature_account-feature-page_routes_ts.js                         | 1.01 KB       |
-
 <!-- bundle-stats-end -->
 
 ## Comparison to next and nuxt

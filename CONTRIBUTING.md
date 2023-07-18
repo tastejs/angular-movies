@@ -66,6 +66,7 @@ In this mono repository we agree on a set of tasks that need to be consistent ac
 - **build** - build project for different reason
   - **development** - environments fast to build and easy to debug. No bundle budgets.
   - **production** - final build and. Bundle budgets used.
+- **prerender** - prerender static pages of `movies` project for `deploy-hodting-*` tasks
 - **serve** - serves for development and production build in a self hosted (emulated) environment
 - **test** - project related tests (unit, integration) with optional postfix (if postfix is needed use `test-*`)
 - **e2e** - e2e tests with optional postfix (if postfix is needed use `e2e-*`)
@@ -74,6 +75,17 @@ In this mono repository we agree on a set of tasks that need to be consistent ac
 - **user-flow** - e2e tests inc lighthouse measures
   - **development** - environments fast to start and easy to debug. No perf measures.
   - **production** - environments close to the released version
+
+### Caching Strategies (`nx.json#"tasksRunnerOptions#default#options#cacheableOperations`)
+
+`nx` is used for local caching, `nx-cloud` for distributed caching.
+
+The cacheableOperations are:
+
+- lint
+- build
+- test
+- prerender - only static pages are pre-rendered therefor we can cache it
 
 # Projects (`nx.json#layout`)
 

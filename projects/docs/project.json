@@ -5,9 +5,7 @@
   "projectType": "library",
   "targets": {
     "build": {
-      "outputs": [
-        "./README.md"
-      ],
+      "outputs": ["./README.md"],
       "executor": "nx:run-commands",
       "options": {
         "commands": [
@@ -19,9 +17,7 @@
     },
     "lint": {
       "executor": "@nx/linter:eslint",
-      "outputs": [
-        "{options.outputFile}"
-      ],
+      "outputs": ["{options.outputFile}"],
       "options": {
         "lintFilePatterns": [
           "projects/docs/src/**/*.md",
@@ -33,7 +29,7 @@
       "executor": "nx:run-commands",
       "options": {
         "commands": [
-          "nx run movies:build:production --stats-json --source-map --no-budgets",
+          "nx run movies:build:stats",
           "npx cpx dist/projects/movies/browser/stats.json dist/measures/movies",
           "npx webpack-bundle-analyzer dist/projects/movies/browser/stats.json -m static -r dist/measures/movies/bundle-size-report.prod.html"
         ],

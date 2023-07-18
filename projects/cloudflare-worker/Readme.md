@@ -6,4 +6,7 @@
 - use nx executor to build
 - configure tags
 - resolve action hack by fixing gh action
-- clean dist
+- clean dist before build
+- deploy pages
+- deploy worker
+

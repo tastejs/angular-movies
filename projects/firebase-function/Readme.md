@@ -2,6 +2,7 @@
 
 ## Todos
 
+- build over nx executor
 - use nx executor to build
   - prod and dev configs for build
 - configure tags

@@ -4,10 +4,10 @@
   "include": [],
   "references": [
     {
-      "path": "./tsconfig.function.json"
-    },
-    {
-      "path": "./tsconfig.spec.json"
+      "path": "./tsconfig.tooling.json"
     }
-  ]
+  ],
+  "compilerOptions": {
+    "esModuleInterop": true
+  }
 }

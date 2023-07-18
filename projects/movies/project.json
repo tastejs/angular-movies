@@ -29,9 +29,7 @@
           "projects/movies/src/assets",
           "projects/movies/src/_routes.json"
         ],
-        "styles": [
-          "projects/movies/src/styles.scss"
-        ],
+        "styles": ["projects/movies/src/styles.scss"],
         "scripts": []
       },
       "configurations": {
@@ -43,6 +41,16 @@
           "buildOptimizer": false,
           "optimization": false,
           "serviceWorker": false
+        },
+        "stats": {
+          "statsJson": true,
+          "namedChunks": true,
+          "sourceMap": true,
+          "extractLicenses": false,
+          "buildOptimizer": false,
+          "optimization": false,
+          "serviceWorker": false,
+          "budgets": false
         },
         "production": {
           "serviceWorker": true,
@@ -92,9 +100,7 @@
         }
       },
       "defaultConfiguration": "production",
-      "outputs": [
-        "{options.outputPath}"
-      ]
+      "outputs": ["{options.outputPath}"]
     },
     "build-esbuild": {
       "executor": "@angular-devkit/build-angular:browser-esbuild",
@@ -112,9 +118,7 @@
           "projects/movies/src/assets",
           "projects/movies/src/_routes.json"
         ],
-        "styles": [
-          "projects/movies/src/styles.scss"
-        ],
+        "styles": ["projects/movies/src/styles.scss"],
         "scripts": []
       },
       "configurations": {
@@ -139,9 +143,7 @@
         }
       },
       "defaultConfiguration": "production",
-      "outputs": [
-        "{options.outputPath}"
-      ]
+      "outputs": ["{options.outputPath}"]
     },
     "serve": {
       "executor": "@angular-devkit/build-angular:dev-server",
@@ -170,9 +172,7 @@
     "serve-ngsw": {
       "executor": "nx:run-commands",
       "options": {
-        "commands": [
-          "npm run ngsw-config && http-server dist -p 8080"
-        ]
+        "commands": ["npm run ngsw-config && http-server dist -p 8080"]
       }
     },
     "lint": {
@@ -183,9 +183,7 @@
           "projects/movies/src/app/**/*.html"
         ]
       },
-      "outputs": [
-        "{options.outputFile}"
-      ]
+      "outputs": ["{options.outputFile}"]
     },
     "extract-i18n": {
       "executor": "@angular-devkit/build-angular:extract-i18n",
@@ -213,17 +211,13 @@
     },
     "user-flow": {
       "executor": "@push-based/user-flow-nx-plugin:user-flow",
-      "outputs": [
-        "{options.outputPath}"
-      ],
+      "outputs": ["{options.outputPath}"],
       "options": {
         "url": "http://localhost:4200",
         "rcPath": "projects/movies/.user-flowrc.json",
         "outputPath": "dist/user-flow/movies",
         "ufPath": "projects/movies/user-flows",
-        "format": [
-          "html"
-        ]
+        "format": ["html"]
       },
       "configurations": {
         "development": {
