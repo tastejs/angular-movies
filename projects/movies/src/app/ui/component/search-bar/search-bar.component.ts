@@ -6,7 +6,6 @@ import {
   ElementRef,
   inject,
   Input,
-  OnInit,
   Output,
   ViewChild,
   ViewEncapsulation,
@@ -61,7 +60,7 @@ type UiActions = {
   encapsulation: ViewEncapsulation.Emulated,
   providers: [RxState],
 })
-export class SearchBarComponent implements OnInit {
+export class SearchBarComponent {
   private readonly document = inject(DOCUMENT);
   private readonly elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
   @ViewChild('searchInput') inputRef!: ElementRef<HTMLInputElement>;
@@ -74,6 +73,7 @@ export class SearchBarComponent implements OnInit {
 
   @Input()
   set query(v: string | Observable<string>) {
+    // eslint-disable-next-line @rx-angular/no-rxstate-subscriptions-outside-constructor
     this.state.connect('search', coerceObservable(v) as Observable<string>);
   }
 
@@ -118,13 +118,7 @@ export class SearchBarComponent implements OnInit {
     private state: RxState<{ search: string; open: boolean }>,
     private actions: RxActionFactory<UiActions>
   ) {
-    this.state.set({ open: false });
-  }
-
-  ngOnInit() {
-    this.state.hold(this.state.select('open'), this.setOpenedStyling);
-    this.state.hold(this.closedFormClick$, this.focusInput);
-
+    this.state.set({open: false});
     this.state.connect('search', this.ui.searchChange$.pipe(startWith('')));
     this.state.connect(
       'open',
@@ -132,9 +126,13 @@ export class SearchBarComponent implements OnInit {
       () => false
     );
     this.state.connect('open', this.closedFormClick$, () => true);
+    this.state.hold(this.state.select('open'), this.setOpenedStyling);
+    this.state.hold(this.closedFormClick$, this.focusInput);
+
   }
 
   private readonly focusInput = () => {
+    // eslint-disable-next-line @rx-angular/prefer-no-layout-sensitive-apis
     return this.inputRef.nativeElement.focus();
   };
 

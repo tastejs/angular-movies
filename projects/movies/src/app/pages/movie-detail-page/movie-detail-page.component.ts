@@ -97,8 +97,10 @@ export default class MovieDetailPageComponent {
 
   move(increment: number) {
     if (this.castListWrapper) {
+      // eslint-disable-next-line @rx-angular/prefer-no-layout-sensitive-apis
       const scrollLeft = this.castListWrapper.nativeElement.scrollLeft;
       const newScrollLetf = scrollLeft - increment;
+      // eslint-disable-next-line @rx-angular/prefer-no-layout-sensitive-apis
       this.castListWrapper.nativeElement.scrollLeft =
         newScrollLetf > 0
           ? Math.max(0, newScrollLetf)

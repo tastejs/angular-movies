@@ -66,7 +66,17 @@ export class AppShellComponent {
   );
 
   constructor(private actionsF: RxActionFactory<Actions>) {
-    this.init();
+    this.state.set({sideDrawerOpen: false});
+    this.state.connect('sideDrawerOpen', this.ui.sideDrawerOpenToggle$);
+
+    this.effects.register(
+      this.router.events.pipe(
+        filter((e) => e instanceof NavigationEnd),
+        map((e) => (e as NavigationEnd).urlAfterRedirects),
+        distinctUntilChanged()
+      ),
+      () => this.closeSidenav()
+    );
     /**
      * **🚀 Perf Tip for TBT:**
      *
@@ -84,19 +94,6 @@ export class AppShellComponent {
     });
   }
 
-  init() {
-    this.state.set({ sideDrawerOpen: false });
-    this.state.connect('sideDrawerOpen', this.ui.sideDrawerOpenToggle$);
-
-    this.effects.register(
-      this.router.events.pipe(
-        filter((e) => e instanceof NavigationEnd),
-        map((e) => (e as NavigationEnd).urlAfterRedirects),
-        distinctUntilChanged()
-      ),
-      () => this.closeSidenav()
-    );
-  }
 
   readonly genres$ = this.genreResource.getGenresCached();
 
