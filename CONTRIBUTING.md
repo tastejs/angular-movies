@@ -61,19 +61,18 @@ In this mono repository we agree on a set of tasks that need to be consistent ac
 
 ### Tasks (`nx.json#targetDefaults`)
 
-- **format** - TODO
+- **format** - defined in `prettierrc.json`
 - **lint** - global linting
 - **build** - build project for different reason
   - **development-x** - environments fast to build and easy to debug. No perf measures.
-- **serve** - TODO
-- **test** - TODO
-- **e2e** - e2e tests with optional postfix (if no postfix is needed use just `e2e`)
-- **emulate-x** - emulated environments
-- **deploy-x** - deployment targets
+- **serve** - serves for development and production build in a self hosted (emulated) environment
+- **test** - project related tests (unit, integration) with optional postfix (if postfix is needed use `test-*`)
+- **e2e** - e2e tests with optional postfix (if postfix is needed use `e2e-*`)
+- **emulate** - emulated environments with optional postfix (if postfix is needed use `emulate-*`)
+- **deploy** - deployment targets with optional postfix (if postfix is needed use `deploy-*`)
 - **user-flow** - e2e tests inc lighthouse measures
-  - **development-x** - environments fast to start and easy to debug. No perf measures.
-  - **production-x** - environments close to the released version
-  - **emulated-x** - emulated environments
+  - **development** - environments fast to start and easy to debug. No perf measures.
+  - **production** - environments close to the released version
 
 # Projects (`nx.json#layout`)
 
@@ -93,7 +92,7 @@ pre-rendered pages or `routes.txt`
 
 ### Tasks
 
-- **format** - TODO Angular specific formatting
+- **format** - base formatting
 - **lint** - adds `@angular-eslint`, `@rx-angular/eslint-plugin`
 - **build** - the executor `browser` from the package `@angular-devkit/build-angular` is used
   - **production**
@@ -127,7 +126,7 @@ The ng-universal application is needed to run SSR in different environments e.g.
 
 ### Tasks
 
-- **format** - TODO node specific formatting
+- **format** - base formatting
 - **lint** - adds `plugin:unicorn/recommended`
 - **build** - the executor `server` from the package `@angular-devkit/build-angular` is used
   - **development** - TODO
@@ -137,8 +136,6 @@ The ng-universal application is needed to run SSR in different environments e.g.
 - **serve** - the executor `ssr-dev-server` from the package `@nguniversal/builders` is used
   - **development** - TODO
   - **production** - TODO
-- **test** - TODO
-- **e2e** - TODO
 - **pre-prerender** - precondition logic prerender e.g. preparation of `routs.txt`
 - **prerender** - the executor `prerender` from the package `@nguniversal/builders` is used
 - **emulate-firebase** - firebase hosting emulation over `firebase` CLI
@@ -156,7 +153,7 @@ The firebase-function application is needed to execute the ng-universal express 
 
 ### Tasks
 
-- **format** - esm specific formatting
+- **format** - base formatting
 - **lint** - adds `plugin:unicorn/recommended`
 - **build** - `tsc` is used directly
 - **emulate-firebase** - firebase function emulation over `firebase` CLI
@@ -195,35 +192,35 @@ The user-flows application is needed to execute e2e tests against the different 
 ### Tasks
 
 - **format** - exception rules for the different code parts
-- **lint** -
-- **build** - 
+- **lint** - adds `plugin:unicorn/recommended`
+- **build** - `tsc` is used directly
 
 # CI
 
 The CI has different actions:
 
-- `pr` - `pull_request` on `main`
-- `m` - `merge` on `main`
+- **`pr`** - `pull_request` on `main`
+- **`m`** - `merge` on `main`
 
 ## Docs
 
-- `docs-hosting-m.yml` - runs on `m`
+- **`docs-hosting-m.yml`** - runs on `m`
 
 ## Test and Build
 
-- `ci.yml` - runs on `pr` and `m` --affected build,test,lint
+- **`ci.yml`** - runs on `pr` and `m` --affected build,test,lint
 
 ### Firebase Hosting
 
-- `firebase-hosting-m.yml` - runs on `m` firebase-function:deploy + movies:user-flow:production,
-- `firebase-hosting-pr.yml` - runs on `pr` ng-universal-express:deploy + ng-universal-express:user-flow:preview
+- **`firebase-hosting-m.yml`** - runs on `m` firebase-function:deploy + movies:user-flow:production,
+- **`firebase-hosting-pr.yml`** - runs on `pr` ng-universal-express:deploy + ng-universal-express:user-flow:preview
 
 ### Firebase Function
 
 As the build will not break because of require usage we need to test against function emulator
 
-- `firebase-function-pr.yml` - runs on `pr` firebase-function:build + firebase-function:user-flow:emulate,
+- **`firebase-function-pr.yml`** - runs on `pr` firebase-function:build + firebase-function:user-flow:emulate,
 
 ### Cloudflare Hosting
 
-- `cloudflare-hosting-pr.yml` - runs on `pr` cloudflare-worker:deploy + cloudflare-worker:user-flow:emulate,
+- **`cloudflare-hosting-pr.yml`** - runs on `pr` cloudflare-worker:deploy + cloudflare-worker:user-flow:emulate,
