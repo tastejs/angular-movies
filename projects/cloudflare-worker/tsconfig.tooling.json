@@ -7,7 +7,7 @@
     // Remove if you want ts-node to do typechecking.
     "transpileOnly": true,
     "files": true,
+    "includes": ["tooling/**/*.js"],
     "compilerOptions": {}
-  },
-  "compilerOptions": {}
+  }
 }
