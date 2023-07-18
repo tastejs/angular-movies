@@ -70,6 +70,17 @@
         "parallel": false
       }
     },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": [
+        "{options.outputFile}"
+      ],
+      "options": {
+        "lintFilePatterns": [
+          "projects/cloudflare-worker/**/*.ts"
+        ]
+      }
+    },
     "emulate": {
       "dependsOn": [
         "build"
