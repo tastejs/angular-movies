@@ -8,5 +8,5 @@ export interface AppInitializer {
    *
    * @param args implementation detail of the user
    */
-  initialize: (...args: any[]) => void;
+  initialize: (...args: unknown[]) => void;
 }

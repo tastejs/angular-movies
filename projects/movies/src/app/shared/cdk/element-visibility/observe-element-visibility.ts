@@ -1,9 +1,4 @@
-import {
-  distinctUntilChanged,
-  isObservable,
-  Observable,
-  takeUntil,
-} from 'rxjs';
+import {distinctUntilChanged, isObservable, Observable, takeUntil,} from 'rxjs';
 
 export function observeElementVisibility(
   element: HTMLElement,
@@ -11,7 +6,7 @@ export function observeElementVisibility(
     root?: HTMLElement | null;
     rootMargin?: string;
     threshold?: number;
-    stop$?: Observable<any>;
+    stop$?: Observable<unknown>;
   }
 ): Observable<boolean> {
   const { stop$, ..._cgf } = cfg || {};

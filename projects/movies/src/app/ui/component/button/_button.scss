@@ -30,3 +30,11 @@
     background-color: var(--palette-primary-light);
   }
 }
+
+.functionality-only-button {
+  background: none;
+  border: none;
+  display: block;
+  text-align: left;
+  height: inherit;
+}

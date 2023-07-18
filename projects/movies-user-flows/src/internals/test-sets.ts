@@ -93,10 +93,9 @@ export function mergeBudgetPaths(lhBudgetPaths: string[]): Budget[] {
   ];
 }
 
-export function mergeBudgets(lhBudgets: Budget[]): Budget[] {
+export function mergeBudgets(lhBudgets: Budget[][]): Budget[] {
   return [
     lhBudgets
-      // map path to json ( string => Budget[] )
       .flatMap((b) => b)
       .reduce(
         (mergedBudget, budget: Budget) => {

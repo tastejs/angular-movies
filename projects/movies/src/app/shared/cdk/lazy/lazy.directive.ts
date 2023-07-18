@@ -31,12 +31,12 @@ import {distinctUntilChanged} from 'rxjs';
   selector: '[lazy]',
 })
 export class LazyDirective extends RxState<{
-  component: Type<any>;
+  component: Type<unknown>;
 }> {
   private readonly vCR: ViewContainerRef = inject(ViewContainerRef);
 
   @Input({required: true})
-  set lazy(component: RxInputType<Type<any>>) {
+  set lazy(component: RxInputType<Type<unknown>>) {
     this.connect('component', coerceObservable(component));
   }
 

@@ -1,5 +1,5 @@
 import {UserFlowContext, UserFlowInteractionsFn, UserFlowOptions, UserFlowProvider,} from '@push-based/user-flow';
-import {mergeBudgets} from '../../movies-user-flows/src';
+import {mergeBudgets} from "../../movies-user-flows/src";
 import {getLhConfig} from "../../movies-user-flows/src/internals/test-sets";
 import * as angularBudgets from "../testing/budgets/angular.budgets.json";
 import * as generalTimingBudget from "../testing/budgets/general-timing.budgets.json";
@@ -10,8 +10,8 @@ const flowOptions: UserFlowOptions = {
   name: 'Initial Navigation of the Main Pages',
 };
 
-const listBudgets = mergeBudgets([angularBudgets, generalTimingBudget, movieListBudgets]);
-const detailBudgets = mergeBudgets([angularBudgets, generalTimingBudget, movieDetailBudgets]);
+const listBudgets = mergeBudgets([angularBudgets, generalTimingBudget, movieListBudgets] as any);
+const detailBudgets = mergeBudgets([angularBudgets, generalTimingBudget, movieDetailBudgets] as any);
 
 const interactions: UserFlowInteractionsFn = async (
   ctx: UserFlowContext

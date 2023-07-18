@@ -1,5 +1,5 @@
-import { EventEmitter } from '@angular/core';
-import { BehaviorSubject, timer } from 'rxjs';
+import {EventEmitter} from '@angular/core';
+import {BehaviorSubject, timer} from 'rxjs';
 
 /**
  * Provides a noop like implementation of `NgZone` which does nothing and provides a way to customize behavior.
@@ -33,16 +33,19 @@ export class CustomNgZone {
     });
   }
 
-  run(fn: () => any, applyThis: any, applyArgs: any) {
+  run(fn: () => unknown, applyThis: unknown, applyArgs: []) {
     return fn.apply(applyThis, applyArgs);
   }
-  runGuarded(fn: () => any, applyThis: any, applyArgs: any) {
+
+  runGuarded(fn: () => unknown, applyThis: unknown, applyArgs: []) {
     return fn.apply(applyThis, applyArgs);
   }
-  runOutsideAngular(fn: () => any) {
+
+  runOutsideAngular(fn: () => unknown) {
     return fn();
   }
-  runTask(fn: () => any, applyThis: any, applyArgs: any, _: any) {
+
+  runTask(fn: () => unknown, applyThis: unknown, applyArgs: []) {
     return fn.apply(applyThis, applyArgs);
   }
 }

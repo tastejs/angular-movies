@@ -1,13 +1,13 @@
-import { select, selectSlice } from '@rx-angular/state/selections';
-import { RxState } from '@rx-angular/state';
-import { DOCUMENT } from '@angular/common';
-import { inject, Injectable } from '@angular/core';
-import { filter, map, Observable, startWith } from 'rxjs';
-import { NavigationEnd, Router } from '@angular/router';
-import { RxInputType } from '../cdk/input-type.typing';
-import { coerceObservable } from '../cdk/coerceObservable';
-import { RouterParams } from './router.model';
-import { defaultRedirectRoute } from '../../constants';
+import {select, selectSlice} from '@rx-angular/state/selections';
+import {RxState} from '@rx-angular/state';
+import {DOCUMENT} from '@angular/common';
+import {inject, Injectable} from '@angular/core';
+import {filter, map, Observable, startWith} from 'rxjs';
+import {NavigationEnd, Router} from '@angular/router';
+import {RxInputType} from '../cdk/input-type.typing';
+import {coerceObservable} from '../cdk/coerceObservable';
+import {RouterParams} from './router.model';
+import {defaultRedirectRoute} from '../../constants';
 
 export const fallbackRouteToDefault = (route: string) =>
   route !== '/' ? route : defaultRedirectRoute;
@@ -25,7 +25,7 @@ export class RouterState extends RxState<RouterParams> {
     select(
       filter((event): event is NavigationEnd => event instanceof NavigationEnd),
       startWith('anyValue'),
-      map((_) => {
+      map(() => {
         // This is a naive way to reduce scripting of router service :)
         // Obviously the params relay on routing structure heavily and could be done more dynamically
         const [layout, type, identifier] = fallbackRouteToDefault(
@@ -44,8 +44,7 @@ export class RouterState extends RxState<RouterParams> {
         ).split('?');
 
         if (queryParams) {
-          const [, sortByAndRest]: (string | undefined)[] =
-            queryParams?.split('sort_by=');
+          const [, sortByAndRest]: (string | undefined)[] = queryParams?.split('sort_by=') || queryParams;
           sortBy = sortByAndRest?.split('&')?.shift() || null;
         }
         return { layout, type, identifier, sortBy };

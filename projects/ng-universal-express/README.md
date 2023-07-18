@@ -3,3 +3,4 @@
 ## Todos
 
 - configure tags
+- clean dist

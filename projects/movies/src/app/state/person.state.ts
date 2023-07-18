@@ -1,18 +1,15 @@
-import { RxState } from '@rx-angular/state';
-import { patch, toDictionary } from '@rx-angular/cdk/transformations';
-import { DestroyRef, inject, Injectable } from '@angular/core';
-import { map } from 'rxjs';
-import { optimizedFetch } from '../shared/cdk/optimized-fetch';
-import { RxActionFactory } from '@rx-angular/state/actions';
-import { withLoadingEmission } from '../shared/cdk/loading/withLoadingEmissions';
-import {
-  PersonResource,
-  PersonResponse,
-} from '../data-access/api/resources/person.resource';
-import { AppInitializer } from '../shared/cdk/app-initializer';
-import { WithContext } from '../shared/cdk/loading/context.interface';
-import { pluck } from '../shared/cdk/get';
-import { TMDBSortOptions } from '../data-access/api/sort/sort.interface';
+import {RxState} from '@rx-angular/state';
+import {patch, toDictionary} from '@rx-angular/cdk/transformations';
+import {DestroyRef, inject, Injectable} from '@angular/core';
+import {map} from 'rxjs';
+import {optimizedFetch} from '../shared/cdk/optimized-fetch';
+import {RxActionFactory} from '@rx-angular/state/actions';
+import {withLoadingEmission} from '../shared/cdk/loading/withLoadingEmissions';
+import {PersonResource, PersonResponse,} from '../data-access/api/resources/person.resource';
+import {AppInitializer} from '../shared/cdk/app-initializer';
+import {WithContext} from '../shared/cdk/loading/context.interface';
+import {pluck} from '../shared/cdk/get';
+import {TMDBSortOptions} from '../data-access/api/sort/sort.interface';
 
 export interface State {
   person: WithContext<Record<string, PersonResponse>>;
@@ -59,14 +56,14 @@ export class PersonState extends RxState<State> implements AppInitializer {
         )
       ),
       (oldState, newPartial) => {
-        let resultState = patch(oldState?.person, newPartial);
+        const resultState = patch(oldState?.person, newPartial);
         resultState.value = patch(oldState?.person?.value, resultState.value);
         return resultState;
       }
     );
   }
 
-  initialize(identifier: string): void {
-    this.fetchPerson(identifier);
+  initialize(identifier: unknown): void {
+    this.fetchPerson(identifier as string);
   }
 }

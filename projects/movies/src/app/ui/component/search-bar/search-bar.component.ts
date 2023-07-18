@@ -34,7 +34,8 @@ type UiActions = {
       (submit)="ui.formSubmit($event)"
       #form
       class="form"
-      (click)="ui.formClick($event)"
+      [tabIndex]="0"
+      (focus)="ui.formClick($event)"
     >
       <button
         type="submit"
@@ -49,7 +50,7 @@ type UiActions = {
         aria-label="Search Input"
         #searchInput
         [value]="search"
-        (change)="ui.searchChange(searchInput.value)"
+        (change)="ui.searchChange($any(searchInput.value))"
         placeholder="Search for a movie..."
         class="input"
       />
@@ -79,20 +80,20 @@ export class SearchBarComponent implements OnInit {
   search$ = this.state.select('search');
   @Output() searchSubmit = this.ui.formSubmit$.pipe(
     withLatestFrom(this.state.select('search')),
-    map(([_, search]) => search)
+    map(([, search]) => search)
   );
 
   private readonly closedFormClick$ = this.ui.formClick$.pipe(
     withLatestFrom(this.state.select('open')),
-    filter(([_, opened]) => !opened)
+    filter(([, opened]) => !opened)
   );
 
   private outsideClick(): Observable<Event> {
     // any click on the page (we can't use the option `once:true` as we might get multiple false trigger)
     return fromEvent(this.document, 'click').pipe(
-      // forward if the form did NOT triggered the click
+      // forward if the form did NOT trigger the click
       // means we clicked somewhere else in the page but the form
-      filter((e) => !this.formRef.nativeElement.contains(e.target as any))
+      filter((e) => !this.formRef.nativeElement.contains(e.target as Node))
     );
   }
 

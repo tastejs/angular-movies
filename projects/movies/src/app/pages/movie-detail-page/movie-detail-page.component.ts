@@ -9,7 +9,7 @@ import {
   ViewChild,
   ViewEncapsulation,
 } from '@angular/core';
-import {filter, map, mergeWith} from 'rxjs';
+import {filter, map, mergeWith, tap} from 'rxjs';
 import {TMDBMovieGenreModel} from '../../data-access/api/model/movie-genre.model';
 
 import {MovieCast, MovieDetailAdapter} from './movie-detail-page.adapter';
@@ -87,7 +87,7 @@ export default class MovieDetailPageComponent {
     }>
   ) {
     this.effects.register(
-      this.ui.dialog$.pipe(map((v) => v === 'show')),
+      this.ui.dialog$.pipe(map((v) => v === 'show'), tap(console.log)),
       (openDialog) =>
         openDialog
           ? this.trailerDialog?.nativeElement?.showModal()

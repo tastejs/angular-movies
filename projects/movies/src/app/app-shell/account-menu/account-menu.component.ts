@@ -1,6 +1,6 @@
 import {RxLet} from '@rx-angular/template/let';
 import {RxState} from '@rx-angular/state';
-import {ChangeDetectionStrategy, Component, inject} from '@angular/core';
+import {ChangeDetectionStrategy, Component, inject, ViewEncapsulation} from '@angular/core';
 import {RxActionFactory} from '@rx-angular/state/actions';
 import {AuthEffects} from '../../auth/auth.effects';
 import {RouterLink} from '@angular/router';
@@ -22,6 +22,7 @@ type Actions = {
   templateUrl: './account-menu.component.html',
   styleUrls: ['./account-menu.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.Emulated,
   providers: [RxState, RxEffects],
 })
 export default class AccountMenuComponent {

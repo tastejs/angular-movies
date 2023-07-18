@@ -1,6 +1,6 @@
-import { LinkTag } from './a-tag.interface';
+import {LinkTag} from './a-tag.interface';
 
-export function addLinkTag<T extends Object>(
+export function addLinkTag<T>(
   _res: T,
   prop: keyof T,
   options: {
@@ -8,7 +8,7 @@ export function addLinkTag<T extends Object>(
     baseUrl?: string;
   } = {}
 ): T & LinkTag {
-  let { target, baseUrl } = options;
+  let {target, baseUrl} = options;
   target = target || `_blank`;
   baseUrl = baseUrl || `https://www.imdb.com/title/`;
 
