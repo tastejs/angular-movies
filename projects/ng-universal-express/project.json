@@ -81,20 +81,14 @@
     },
     "lint": {
       "executor": "@nx/linter:eslint",
-      "outputs": [
-        "{options.outputFile}"
-      ],
+      "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": [
-          "projects/ng-universal-express/**/*.ts"
-        ]
+        "lintFilePatterns": ["projects/ng-universal-express/**/*.ts"]
       }
     },
     "test": {
       "executor": "@nx/jest:jest",
-      "outputs": [
-        "{workspaceRoot}/dist/coverage/ng-universal-express"
-      ],
+      "outputs": ["{workspaceRoot}/dist/coverage/ng-universal-express"],
       "options": {
         "jestConfig": "projects/ng-universal-express/jest.config.ts",
         "passWithNoTests": true
@@ -111,7 +105,7 @@
       "executor": "nx:run-commands",
       "options": {
         "commands": [
-          "npx ts-node -P projects/ng-universal-express/tsconfig.tooling.json ./projects/ng-universal-express/tooling/generate-routes/generate-routes.ts --source-file=./projects/ng-universal-express/routes.txt --target-file=./dist/tmp/projects/movies/server/routes.txt"
+          "npx ts-node -P projects/ng-universal-express/tsconfig.tooling.json ./projects/ng-universal-express/tooling/generate-routes/generate-routes.ts --source-file=./projects/ng-universal-express/routes.txt --target-file=./dist/tmp/projects/ng-universal-express/routes.txt"
         ],
         "parallel": false
       }
@@ -121,9 +115,7 @@
       "outputs": ["dist/projects/movies/browser"],
       "executor": "@nguniversal/builders:prerender",
       "options": {
-        "routes": [
-          "dist/tmp/projects/movies/server/routes.txt"
-        ]
+        "routes": ["dist/tmp/projects/ng-universal-express/routes.txt"]
       },
       "configurations": {
         "development": {
@@ -149,9 +141,7 @@
     },
     "deploy-firebase": {
       "executor": "nx:run-commands",
-      "dependsOn": [
-        "prerender"
-      ],
+      "dependsOn": ["prerender"],
       "options": {
         "commands": [
           "npx firebase deploy --only hosting --project angular-movies"
@@ -161,17 +151,13 @@
     },
     "user-flow": {
       "executor": "@push-based/user-flow-nx-plugin:user-flow",
-      "outputs": [
-        "{options.outputPath}"
-      ],
+      "outputs": ["{options.outputPath}"],
       "options": {
         "url": "http://localhost:4300",
         "rcPath": "projects/ng-universal-express/.user-flowrc.json",
         "outputPath": "dist/user-flow/ng-universal-express",
         "ufPath": "projects/ng-universal-express/user-flows",
-        "format": [
-          "html"
-        ]
+        "format": ["html"]
       },
       "configurations": {
         "development": {
@@ -205,9 +191,7 @@
         },
         "firebase-preview": {
           "ufPath": "projects/movies-user-flows/user-flows",
-          "format": [
-            "html"
-          ]
+          "format": ["html"]
         }
       },
       "defaultConfiguration": "production"
