@@ -46,9 +46,9 @@ In this mono repository we agree on a set of tasks that need to be consistent ac
 
 ### Tasks (`nx.json#targetDefaults`)
 
-- **format** - global formatting
+- **format** - TODO
 - **lint** - global linting
-- **build** - build project for different reasond
+- **build** - build project for different reason
   - **development-x** - environments fast to build and easy to debug. No perf measures.
 - **serve** - TODO
 - **test** - TODO
@@ -67,7 +67,7 @@ In this mono repository we agree on a set of tasks that need to be consistent ac
 ### Tasks
 
 - **format** - Markdown specific formatting
-- **lint** - TODO
+- **lint** - adds `plugin:markdownlint/recommended`
 - **build-report** - `state.json` and bundle analyzer generation
 - **update-readme** - update the main readme (`./README.md`) with data from our builds and reports
 
@@ -78,8 +78,8 @@ pre-rendered pages or `routes.txt`
 
 ### Tasks
 
-- **format** - Angular specific formatting
-- **lint** - TODO
+- **format** - TODO Angular specific formatting
+- **lint** - adds `@angular-eslint`, `@rx-angular/eslint-plugin`
 - **build** - the executor `browser` from the package `@angular-devkit/build-angular` is used
   - **production**
   - **development**
@@ -111,8 +111,8 @@ The ng-universal application is needed to run SSR in different environments e.g.
 
 ### Tasks
 
-- **format** - node specific formatting
-- **lint** - TODO
+- **format** - TODO node specific formatting
+- **lint** - adds `plugin:unicorn/recommended`
 - **build** - the executor `server` from the package `@angular-devkit/build-angular` is used
   - **development** - TODO
   - **production** - TODO
@@ -138,9 +138,10 @@ The ng-universal application is needed to run SSR in different environments e.g.
 
 The firebase-function application is needed to execute the ng-universal express server in a cloud function.
 
-#ß## Tasks
+### Tasks
 
 - **format** - esm specific formatting
+- **lint** - adds `plugin:unicorn/recommended`
 - **build** - `tsc` is used directly
 - **emulate-firebase** - firebase function emulation over `firebase` CLI
 - **deploy-firebase** - We deploy over a GH action. This can be used optionally
@@ -150,7 +151,24 @@ The firebase-function application is needed to execute the ng-universal express 
   - **emulated** - `build` for `pruduction` and run `prerender`. `serve` it with the `emulate-firebase` task.  
     XY tests are executed.
 
-## User Flows
+## Cloudflare Worker
+
+The cloudflare-worker application is needed to execute the ng-universal express server in a edge worker.
+
+### Tasks
+
+- **format** - esm specific formatting
+- **lint** - adds `plugin:unicorn/recommended`
+- **build** - `tsc` is used directly
+- **emulate** - cloudflare emulation over `wrangler` CLI
+- **cloudflare-deploy** - We deploy over a GH action. This can be used optionally
+  It deploys the worker as well as the CSR version including all pre-rendered pages of the application.
+  The `wrangler` CLI deploys pages and worker.
+- **user-flow** - co-located e2e tests
+  - **emulated** - `build` for `pruduction`. `serve` it with the `emulate-firebase` task.  
+    XY tests are executed.
+
+# Testing
 
 ### ???
 
