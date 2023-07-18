@@ -64,7 +64,8 @@ In this mono repository we agree on a set of tasks that need to be consistent ac
 - **format** - defined in `prettierrc.json`
 - **lint** - global linting
 - **build** - build project for different reason
-  - **development-x** - environments fast to build and easy to debug. No perf measures.
+  - **development** - environments fast to build and easy to debug. No bundle budgets.
+  - **production** - final build and. Bundle budgets used.
 - **serve** - serves for development and production build in a self hosted (emulated) environment
 - **test** - project related tests (unit, integration) with optional postfix (if postfix is needed use `test-*`)
 - **e2e** - e2e tests with optional postfix (if postfix is needed use `e2e-*`)
@@ -98,15 +99,10 @@ pre-rendered pages or `routes.txt`
   - **production**
   - **development**
 - **serve** - the executor `dev-server` from the package `@angular-devkit/build-angular` is used
-
   - **production** - TODO
   - **development** - TODO
-
 - **ngsw-config** - TODO
 - **serve:ngsw** - TODO
-
-- **test** - TODO
-- **e2e** - TODO
 - **emulate-firebase** - firebase hosting emulation over `firebase` CLI
 - **deploy-firebase** - We deploy over a GH action. This is be used optionally.  
   It deploys the CSR version of the application excluding the pre-generated sites.
