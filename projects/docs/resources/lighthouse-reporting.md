@@ -87,7 +87,7 @@ In another console type `npm run lhci wizard`. This will spin up a prompt where 
 
 > Which wizard do you want to run? **new-project**
 
-> What is the URL of your LHCI server? **http://localhost:9001**
+> What is the URL of your LHCI server? **<http://localhost:9001>**
 
 > What would you like to name the project? **[PROJECT_NAME]**
 
