@@ -15,6 +15,12 @@
 <ng-template #guest>
   <div><p>Guest Profile</p></div>
   <div>
-    <a data-uf="profile-menu-item-login" (click)="ui.signIn($event)" title="sign in">Login</a>
+    <button
+      type="button"
+      class="functionality-only-button"
+      data-uf="profile-menu-item-login"
+      (click)="ui.signIn($event)"
+      title="sign in">Login
+    </button>
   </div>
 </ng-template>

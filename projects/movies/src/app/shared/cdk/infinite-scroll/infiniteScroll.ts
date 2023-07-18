@@ -1,22 +1,10 @@
-import { insert, patch } from '@rx-angular/cdk/transformations';
-import {
-  concat,
-  concatMap,
-  EMPTY,
-  map,
-  Observable,
-  scan,
-  takeWhile,
-} from 'rxjs';
-import { withLoadingEmission } from '../loading/withLoadingEmissions';
-import {
-  InfiniteScrollOptions,
-  InfiniteScrollResult,
-  InfiniteScrollState,
-} from './infinite-scroll.interface';
-import { coerceObservable } from '../coerceObservable';
+import {insert, patch} from '@rx-angular/cdk/transformations';
+import {concat, concatMap, EMPTY, map, Observable, scan, takeWhile,} from 'rxjs';
+import {withLoadingEmission} from '../loading/withLoadingEmissions';
+import {InfiniteScrollOptions, InfiniteScrollResult, InfiniteScrollState,} from './infinite-scroll.interface';
+import {coerceObservable} from '../coerceObservable';
 
-type PartialInfiniteScrollState<T extends {}> = Partial<InfiniteScrollState<T>>;
+type PartialInfiniteScrollState<T> = Partial<InfiniteScrollState<T>>;
 
 /**
  *
@@ -56,14 +44,14 @@ type PartialInfiniteScrollState<T extends {}> = Partial<InfiniteScrollState<T>>;
  * );
  *
  */
-export function infiniteScroll<T extends {}>(
+export function infiniteScroll<T>(
   fetchFn: (
     incrementedOptions: InfiniteScrollOptions
   ) => Observable<PartialInfiniteScrollState<T>>,
-  trigger$: Observable<any>,
+  trigger$: Observable<unknown>,
   initialPageOrLastResult:
-    | InfiniteScrollResult<any>
-    | Observable<InfiniteScrollResult<T>> = {} as InfiniteScrollResult<any>
+    | InfiniteScrollResult<unknown>
+    | Observable<InfiniteScrollResult<T>> = {} as InfiniteScrollResult<unknown>
 ): Observable<InfiniteScrollState<T>> {
   let page = 0;
   let total_pages = 2;
@@ -99,7 +87,7 @@ export function infiniteScroll<T extends {}>(
     )
   ).pipe(
     scan(
-      (acc: InfiniteScrollState<T>, response) => {
+      (acc: InfiniteScrollState<T>, response: PartialInfiniteScrollState<T>) => {
         // in case the initial value was no set we take total pages from the result
         if (response?.total_pages) {
           total_pages = response.total_pages;

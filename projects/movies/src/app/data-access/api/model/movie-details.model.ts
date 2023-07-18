@@ -1,9 +1,9 @@
-import { TMDBMovieGenreModel } from './movie-genre.model';
+import {TMDBMovieGenreModel} from './movie-genre.model';
 
 export interface TMDBMovieDetailsModel {
   adult: boolean;
   backdrop_path: string;
-  belongs_to_collection: any;
+  belongs_to_collection: unknown;
   budget: number;
   genres: TMDBMovieGenreModel[];
   homepage: string;

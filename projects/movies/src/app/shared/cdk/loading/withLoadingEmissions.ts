@@ -1,10 +1,10 @@
-import { endWith, Observable, startWith } from 'rxjs';
-import { DefaultLoadingProp, LoadingState } from './loading-state.interface';
+import {endWith, Observable, startWith} from 'rxjs';
+import {DefaultLoadingProp, LoadingState} from './loading-state.interface';
 
 const defaultLoadingProp: DefaultLoadingProp = 'loading';
 
 export function withLoadingEmission<
-  T extends {},
+  T,
   K extends string = DefaultLoadingProp
 >(property?: K) {
   const _property =

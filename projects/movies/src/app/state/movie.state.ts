@@ -1,20 +1,16 @@
-import { RxState } from '@rx-angular/state';
-import { patch, toDictionary } from '@rx-angular/cdk/transformations';
-import { DestroyRef, inject, Injectable } from '@angular/core';
-import { filter, map } from 'rxjs';
-import { optimizedFetch } from '../shared/cdk/optimized-fetch';
-import { AppInitializer } from '../shared/cdk/app-initializer';
-import { RxActionFactory } from '@rx-angular/state/actions';
-import { withLoadingEmission } from '../shared/cdk/loading/withLoadingEmissions';
-import {
-  CategoryResponse,
-  MovieResource,
-  MovieResponse,
-} from '../data-access/api/resources/movie.resource';
-import { WithContext } from '../shared/cdk/loading/context.interface';
-import { pluck } from '../shared/cdk/get';
-import { TMDBMovieModel } from '../data-access/api/model/movie.model';
-import { ImageTag } from '../shared/cdk/image/image-tag.interface';
+import {RxState} from '@rx-angular/state';
+import {patch, toDictionary} from '@rx-angular/cdk/transformations';
+import {DestroyRef, inject, Injectable} from '@angular/core';
+import {filter, map} from 'rxjs';
+import {optimizedFetch} from '../shared/cdk/optimized-fetch';
+import {AppInitializer} from '../shared/cdk/app-initializer';
+import {RxActionFactory} from '@rx-angular/state/actions';
+import {withLoadingEmission} from '../shared/cdk/loading/withLoadingEmissions';
+import {CategoryResponse, MovieResource, MovieResponse,} from '../data-access/api/resources/movie.resource';
+import {WithContext} from '../shared/cdk/loading/context.interface';
+import {pluck} from '../shared/cdk/get';
+import {TMDBMovieModel} from '../data-access/api/model/movie.model';
+import {ImageTag} from '../shared/cdk/image/image-tag.interface';
 
 export type Movie = TMDBMovieModel & ImageTag;
 
@@ -74,7 +70,7 @@ export class MovieState extends RxState<MovieModel> implements AppInitializer {
         )
       ),
       (oldState, newPartial) => {
-        let resultState = patch(oldState?.movies || {}, newPartial);
+        const resultState = patch(oldState?.movies || {}, newPartial);
         resultState.value = patch(
           oldState?.movies?.value || {},
           resultState?.value || {}
@@ -101,9 +97,7 @@ export class MovieState extends RxState<MovieModel> implements AppInitializer {
         )
       ),
       (oldState, newPartial) => {
-        let resultState = patch(oldState?.categoryMovies, newPartial);
-        // @ts-ignore
-        // resultState?.value.results = resultState?.value?.results.map((m: TMDBMovieModel) => ({...m, poster_path: m.poster_path}) as TMDBMovieModel)
+        const resultState = patch(oldState?.categoryMovies, newPartial);
         resultState.value = patch(
           oldState?.categoryMovies?.value,
           resultState?.value
@@ -114,12 +108,13 @@ export class MovieState extends RxState<MovieModel> implements AppInitializer {
   }
 
   // prefetch categories / movie
-  initialize(options: { category: string } | { movieId: string }): void {
-    if ('category' in options && options.category) {
-      this.fetchCategoryMovies(options.category);
+  initialize(options: unknown): void {
+    const opts = options as { category: string } | { movieId: string }
+    if ('category' in opts && opts.category) {
+      this.fetchCategoryMovies(opts.category);
     }
-    if ('movieId' in options && options.movieId) {
-      this.fetchMovie(options.movieId);
+    if ('movieId' in opts && opts.movieId) {
+      this.fetchMovie(opts.movieId);
     }
   }
 }

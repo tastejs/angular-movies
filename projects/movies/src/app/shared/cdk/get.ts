@@ -2,7 +2,7 @@
  * Safely plucks a property value from an object
  * `obj && prop in obj ? obj[prop] : fallback`
  */
-export function pluck<T extends {}, K extends keyof T>(
+export function pluck<T extends Record<string, unknown>, K extends keyof T>(
   o: T,
   p: K,
   f?: T[K]

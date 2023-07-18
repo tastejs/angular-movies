@@ -1,17 +1,14 @@
-import { map, Observable } from 'rxjs';
-import { TMDBMovieModel } from '../model/movie.model';
-import { getTMDBPaginateOptions } from '../paginate/utils';
-import {
-  TMDBPaginateResult,
-  TMDBPaginateOptions,
-} from '../paginate/paginate.interface';
-import { TMDBMovieCreditsModel } from '../model/movie-credits.model';
-import { baseUrlApiV3 } from './internal/base-urls.constant';
-import { TMDBAppendOptions } from './model/append-options';
-import { TMDBDiscoverOptions } from './discover.resource';
-import { getTMDBSortOptions } from '../sort/utils';
-import { inject, Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import {map, Observable} from 'rxjs';
+import {TMDBMovieModel} from '../model/movie.model';
+import {getTMDBPaginateOptions} from '../paginate/utils';
+import {TMDBPaginateOptions, TMDBPaginateResult,} from '../paginate/paginate.interface';
+import {TMDBMovieCreditsModel} from '../model/movie-credits.model';
+import {baseUrlApiV3} from './internal/base-urls.constant';
+import {TMDBAppendOptions} from './model/append-options';
+import {TMDBDiscoverOptions} from './discover.resource';
+import {getTMDBSortOptions} from '../sort/utils';
+import {inject, Injectable} from '@angular/core';
+import {HttpClient, HttpParams} from '@angular/common/http';
 
 const base = [baseUrlApiV3, 'movie'].join('/');
 
@@ -43,9 +40,9 @@ export class MovieResource {
     return this.http.get<RecommendationsResponse>(
       URL_MOVIE_RECOMMENDATIONS(id),
       {
-        params,
+        params: params as unknown as HttpParams
       }
-    );
+    ) as unknown as Observable<RecommendationsResponse>;
   };
   getMovie = (
     id: string,
@@ -62,7 +59,7 @@ export class MovieResource {
   ): Observable<CategoryResponse> => {
     params = getTMDBMovieOptions(params);
     return this.http.get<CategoryResponse>(URL_MOVIE_CATEGORY(category), {
-      params,
+      params: params as unknown as HttpParams
     });
   };
 
@@ -71,7 +68,8 @@ export class MovieResource {
       .get<{ results: MovieResponse[] }>(URL_MOVIE_QUERY(query))
       .pipe(map((res) => res.results));
 }
-function getTMDBMovieOptions(options: any): TMDBDiscoverOptions {
+
+function getTMDBMovieOptions(options: TMDBPaginateOptions): TMDBDiscoverOptions {
   const discoverOptions = {
     ...getTMDBPaginateOptions(options),
     ...getTMDBSortOptions(options),

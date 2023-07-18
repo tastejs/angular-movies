@@ -21,6 +21,7 @@ HTTP Transfer State
 - configure tags
 - modern app bootstrap
 - service worker refactoring
+- clean dist
 
 ## Components to test
 

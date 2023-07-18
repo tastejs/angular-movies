@@ -9,6 +9,6 @@ export type TBDMSortByTypes =
   | 'vote_count';
 export type TBDMSortByValues = `${TBDMSortByTypes}.${TBDMSortByDirections}`;
 
-export interface TMDBSortOptions extends Record<string, any> {
+export interface TMDBSortOptions extends Record<string, unknown> {
   sort_by?: TBDMSortByValues;
 }

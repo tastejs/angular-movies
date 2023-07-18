@@ -18,9 +18,8 @@
           index as idx;
           trackBy: trackByMovieId
         "
-        (click)="adapter.ui.addMovie(movie)"
       >
-        <div class="poster">
+        <button class="poster" (click)="adapter.ui.addMovie(movie)">
           <img
             class="result-image gradient"
             [ngSrc]="movie.imgSrc"
@@ -29,7 +28,7 @@
             alt="poster movie"
             [title]="movie.title"
           />
-        </div>
+        </button>
         <h3 class="title">{{ movie.title }}</h3>
       </li>
     </ul>
@@ -53,9 +52,12 @@
     </li>
   </ol>
 
-  <div
+  <button
+    type="button"
     class="results-overlay"
     (click)="adapter.ui.toggleResults(false)"
+    (focus)="adapter.ui.toggleResults(false)"
     [hidden]="!vm.searchResults.length"
-  ></div>
+  >&nbsp;
+  </button>
 </ng-container>
