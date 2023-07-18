@@ -2,22 +2,22 @@ import 'zone.js';
 import 'zone.js/dist/zone-node';
 // The Express app is exported so that it can be used by serverless Functions.
 import express from 'express';
-import {existsSync} from 'fs';
-import {join} from 'path';
+import {existsSync} from 'node:fs';
+import {join} from 'node:path';
 import {ISRHandler} from 'ngx-isr';
 import {environment} from '../../movies/src/environments/environment';
 import {ngExpressEngine} from '@nguniversal/express-engine';
 import bootstrap from './app/bootstrap';
 import {useCompression, useTiming} from "./app/utils";
 // bootstrap needs to get exported for the pre-render task
-export default bootstrap;
+
 // The Express app is exported so that it can be used by serverless Functions.
 export function app(): express.Express {
   const server = express();
 
-  const distFolder = join(process.cwd(), 'dist/projects/movies/browser');
+  const distributionFolder = join(process.cwd(), 'dist/projects/movies/browser');
 
-  const indexHtml = existsSync(join(distFolder, 'index.html'))
+  const indexHtml = existsSync(join(distributionFolder, 'index.html'))
     ? 'index.html'
     : 'index';
 
@@ -40,14 +40,14 @@ export function app(): express.Express {
   );
 
   server.set('view engine', 'html');
-  server.set('views', distFolder);
+  server.set('views', distributionFolder);
 
   // Example Express Rest API endpoints
   // server.get('/api/**', (req, res) => { });
   // Serve static files from /browser
   server.get(
     '*.*',
-    express.static(distFolder, {
+    express.static(distributionFolder, {
       maxAge: '1y',
 
       // missing assets results in 404 instead of continuing to next route handler (and rendering route)
@@ -73,15 +73,17 @@ export function app(): express.Express {
       );
     },*/
     // Serve page if it exists in cache
-    async (req, res, next) => {
-      return await isr.serveFromCache(req, res, next);
+    async (request, response, next) => {
+      return await isr.serveFromCache(request, response, next);
     },
     // Server side render the page and add to cache if needed
-    async (req, res, next) => {
-      return await isr.render(req, res, next);
+    async (request, response, next) => {
+      return await isr.render(request, response, next);
     }
   );
 
   return server;
 }
 
+
+export {default} from './app/bootstrap';

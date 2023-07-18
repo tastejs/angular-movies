@@ -1,4 +1,3 @@
-/* eslint-disable */
 export default {
   displayName: 'projects-ng-universal-express',
   preset: '../../jest.preset.js',

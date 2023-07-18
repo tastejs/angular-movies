@@ -1,6 +1,6 @@
-import {existsSync, mkdirSync, readFileSync, WriteFileOptions, writeFileSync} from 'fs';
-import {dirname} from 'path';
-import {EOL} from 'os';
+import {existsSync, mkdirSync, readFileSync, WriteFileOptions, writeFileSync} from 'node:fs';
+import {dirname} from 'node:path';
+import {EOL} from 'node:os';
 import axios from 'axios';
 
 import {TMDBMovieModel} from '../../../movies/src/app/data-access/api/model/movie.model';
@@ -20,9 +20,9 @@ let defaultRoutes: string[] = [];
 
 const sourceFile = getArgv('source-file');
 if (existsSync(sourceFile)) {
-  console.log('Read source rout.txt ', sourceFile);
+  console.log(`Read source rout.txt ${sourceFile}`);
   defaultRoutes = readFileSync(sourceFile).toString().split(EOL).filter(v => !!v);
-  console.log('Default routes: ', defaultRoutes);
+  console.log(`Default routes: ${defaultRoutes}`);
 }
 
 // URLs
@@ -36,18 +36,19 @@ const movieGenresRoutes = axios
   .get<{ genres: GenresResponse }>(movieGenresURL, {
     headers: getTmdbHeaders()
   })
+  // eslint-disable-next-line unicorn/prefer-top-level-await
   .then(({data}) => data.genres.map(({id}) => genresListURL(id)));
 
 
 // how many page details of popular movies should be pre-rendered
 // @ts-ignore
-const moviesPopularRoutes = (options: { pages: number }) => [...Array(options.pages).keys()].map((_, i) =>
+const moviesPopularRoutes = (options: { pages: number }) => [...Array.from({length: options.pages}).keys()].map((_, index) =>
   axios
     .get<TMDBPaginateResult<TMDBMovieModel>>(moviesPopularURL, {
       headers: getTmdbHeaders(),
       params: {
         sort_by: 'popularity.asc',
-        page: i + 1,
+        page: index + 1,
       },
     })
     .then(({data}) => data.results.map(({id}) => movieDetailURL(id)))
@@ -65,14 +66,16 @@ Promise.all([
     console.log('write to target ' + (mutation ? 'with' : 'without') + ' mutations', targetFile);
     writeFileSyncRecursive(targetFile, mutation ? defaultRoutes.flat().join(EOL) : routes.flat().join(EOL));
   })
-  .catch((e) => console.error(e));
+  // eslint-disable-next-line unicorn/prefer-top-level-await
+  .catch((error) => console.error(error));
 
 
 /// HELPER
-function getArgv(propName: string): string {
-  return process.argv.find((i: string) => i.includes(`--${propName}`))?.split(/[= ]/).pop() || '';
+function getArgv(propertyName: string): string {
+  return process.argv.find((index: string) => index.includes(`--${propertyName}`))?.split(/[ =]/).pop() || '';
 }
 
+// eslint-disable-next-line unicorn/no-object-as-default-parameter
 function writeFileSyncRecursive(filename: string, content: string, options: WriteFileOptions = {encoding: 'utf8'}) {
   mkdirSync(dirname(filename), {recursive: true})
   writeFileSync(filename, content, options)

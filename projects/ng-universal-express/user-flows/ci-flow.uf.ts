@@ -7,9 +7,9 @@ const flowOptions: UserFlowOptions = {
 
 // Verifies that the movies app is pre-rendered
 const interactions: UserFlowInteractionsFn = async (
-  ctx: UserFlowContext
+  context: UserFlowContext
 ): Promise<void> => {
-  const {flow, collectOptions, page} = ctx;
+  const {flow, collectOptions, page} = context;
   const url = `${collectOptions.url}/list/category/popular`;
   await page.setRequestInterception(true);
 
@@ -19,7 +19,7 @@ const interactions: UserFlowInteractionsFn = async (
   let initialResponse: Promise<string>;
   // listen to the first match, then stop
   let indexHtmlArrived = false;
-  page.on('request', req => req.continue());
+  page.on('request', request => request.continue());
 
   function responseHandler(response) {
     console.log('on', response.url());
@@ -40,7 +40,7 @@ const interactions: UserFlowInteractionsFn = async (
   const responseText = await initialResponse.then(v => v.toString());
   ensureRenderType(responseText, 'pre-rendered');
 
-  return Promise.resolve();
+  return;
 };
 
 export const userFlowProvider: UserFlowProvider = {
@@ -48,6 +48,6 @@ export const userFlowProvider: UserFlowProvider = {
   interactions,
 };
 
-module.exports = userFlowProvider;
+export default userFlowProvider;
 
 
