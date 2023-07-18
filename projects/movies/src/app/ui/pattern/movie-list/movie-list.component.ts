@@ -107,6 +107,7 @@ export class MovieListComponent {
 
   @Input({required: true})
   set movies(movies$: RxInputType<Movie[]>) {
+    // eslint-disable-next-line @rx-angular/no-rxstate-subscriptions-outside-constructor
     this.state.connect('movies', coerceObservable(movies$));
   }
 

@@ -22,6 +22,7 @@ HTTP Transfer State
 - modern app bootstrap
 - service worker refactoring
 - clean dist
+- https://www.darraghoriordan.com/2021/06/23/best-eight-8-eslint-plugins-nestjs-node-application/
 
 ## Components to test
 

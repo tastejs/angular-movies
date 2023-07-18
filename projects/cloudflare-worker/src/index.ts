@@ -3,7 +3,7 @@ import 'zone.js/dist/zone-node';
 import '@angular/platform-server/init';
 
 import {renderApplication} from '@angular/platform-server';
-import {EdgeEnv, provideEdgeEnv} from './app/env.token';
+import {EdgeEnvironment, provideEdgeEnvironment} from './app/environment.token';
 import bootstrap from './app/bootstrap';
 
 // We attach the Cloudflare `fetch()` handler to the global scope
@@ -11,20 +11,20 @@ import bootstrap from './app/bootstrap';
 // See tools/bundle.mjs
 (globalThis as any).__workerFetchHandler = async function fetch(
   request: Request,
-  env: EdgeEnv
+  environment: EdgeEnvironment
 ) {
   const url = new URL(request.url);
   const cacheKey = new Request(url.toString(), request).url;
 
-  console.log(JSON.stringify(env, null, 2));
+  console.log(JSON.stringify(environment, undefined, 2));
 
-  const contentFromKV = await env.NGMOVIES.get(cacheKey, {
+  const contentFromKV = await environment.NGMOVIES.get(cacheKey, {
     type: 'text',
   });
 
   // Get the root `index.html` content.
   const indexUrl = new URL('/', url);
-  const indexResponse = await env.ASSETS.fetch(new Request(indexUrl));
+  const indexResponse = await environment.ASSETS.fetch(new Request(indexUrl));
   const document = await indexResponse.text();
 
   // return directly from CF KV if given
@@ -36,11 +36,11 @@ import bootstrap from './app/bootstrap';
 
 
   const content = await renderApplication(
-    () => bootstrap({providers: [provideEdgeEnv({request, env})]}),
+    () => bootstrap({providers: [provideEdgeEnvironment({request, env: environment})]}),
     {document, url: url.pathname}
   );
 
-  await env.NGMOVIES.put(cacheKey, content, {
+  await environment.NGMOVIES.put(cacheKey, content, {
     // seconds
     expirationTtl: 1000,
   });

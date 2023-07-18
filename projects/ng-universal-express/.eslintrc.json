@@ -13,7 +13,11 @@
         "*.js",
         "*.jsx"
       ],
-      "rules": {}
+      "extends": [
+        "plugin:unicorn/recommended"
+      ],
+      "rules": {
+      }
     },
     {
       "files": [

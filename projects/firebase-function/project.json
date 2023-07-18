@@ -27,6 +27,17 @@
         "parallel": false
       }
     },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": [
+        "{options.outputFile}"
+      ],
+      "options": {
+        "lintFilePatterns": [
+          "projects/firebase-function/**/*.ts"
+        ]
+      }
+    },
     "test": {
       "executor": "@nx/jest:jest",
       "outputs": [

@@ -45,7 +45,7 @@ For large changes, please file an issue to discuss your proposed changes with us
 
 Clone and install the dependencies for `angular-movies` locally:
 
-```bash 
+```bash
   git clone https://github.com/tastejs/angular-movies.git
   cd angular-movies 
   npm install
@@ -61,29 +61,29 @@ Clone and install the dependencies for `angular-movies` locally:
 
 ## Running locally
 
-* `npm run build:dev`: dev build
-* `npm run build:prod`: production build
-* `npm run build:prod:ssr`: production build for SSR
-* `npm run start`: serve the project locally for development
-* `npm run start:ssr:dev`: serve the project locally SSR for development
-* `npm run start:ssr:prod`: serve the project locally SSR for production
-* `npm run analyze:bundlesize`: bundle size analysis
+- `npm run build:dev`: dev build
+- `npm run build:prod`: production build
+- `npm run build:prod:ssr`: production build for SSR
+- `npm run start`: serve the project locally for development
+- `npm run start:ssr:dev`: serve the project locally SSR for development
+- `npm run start:ssr:prod`: serve the project locally SSR for production
+- `npm run analyze:bundlesize`: bundle size analysis
 
 ## Tech Stack
 
 Built with:
 
-* [Angular](https://angular.io)
-* [rx-angular](https://github.com/rx-angular/rx-angular)
+- [Angular](https://angular.io)
+- [rx-angular](https://github.com/rx-angular/rx-angular)
 
 [![angular-and-rx-angular](https://user-images.githubusercontent.com/10064416/154189195-c32cbdec-b061-46a5-8590-a9e3d8dc050a.png)](https://www.rx-angular.io/)
 
 Measures:
 
-* Bundle sice listed fron dist
-* Comparison videos with [webpagetest](https://www.webpagetest.org)
-* Lighthoure reports with [lighthouse-metrics](https://lighthouse-metrics.com)
-* User-flows created with [@push-based/user-flow](https://www.npmjs.com/package/@push-based/user-flow)
+- Bundle sice listed fron dist
+- Comparison videos with [webpagetest](https://www.webpagetest.org)
+- Lighthoure reports with [lighthouse-metrics](https://lighthouse-metrics.com)
+- User-flows created with [@push-based/user-flow](https://www.npmjs.com/package/@push-based/user-flow)
 
 ## Authors
 

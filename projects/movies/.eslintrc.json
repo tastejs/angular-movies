@@ -12,8 +12,9 @@
         "eslint:recommended",
         "plugin:@typescript-eslint/recommended",
         "plugin:@angular-eslint/recommended",
-        // This is required if you use inline templates in Components
-        "plugin:@angular-eslint/template/process-inline-templates"
+        // This is required if you use inline templates in Components,
+        "plugin:@angular-eslint/template/process-inline-templates",
+        "plugin:@rx-angular/eslint-plugin/recommended"
       ],
       "rules": {
         "no-restricted-imports": [

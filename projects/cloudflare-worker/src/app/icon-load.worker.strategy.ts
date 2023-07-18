@@ -2,11 +2,11 @@ import {HttpClient} from '@angular/common/http';
 import {inject, Injectable} from '@angular/core';
 import {SvgLoadStrategy} from '@push-based/ngx-fast-svg';
 import {from, Observable} from 'rxjs';
-import {EdgeEnvToken} from './env.token';
+import {EdgeEnvironmentToken} from './environment.token';
 
 @Injectable()
 export class IconLoadStrategyWorker implements SvgLoadStrategy {
-  edgeEnv = inject(EdgeEnvToken);
+  edgeEnv = inject(EdgeEnvironmentToken);
   http = inject(HttpClient);
 
   load(url: string): Observable<string> {
@@ -14,11 +14,11 @@ export class IconLoadStrategyWorker implements SvgLoadStrategy {
     const assetUrl = `https://${hostname}/${url}`;
 
     return from(
-      this.edgeEnv.env.ASSETS.fetch(new Request(assetUrl)).then((res) => {
-        if (!res.ok) {
-          throw new Error(res.statusText);
+      this.edgeEnv.env.ASSETS.fetch(new Request(assetUrl)).then((response) => {
+        if (!response.ok) {
+          throw new Error(response.statusText);
         }
-        return res.text();
+        return response.text();
       })
     );
   }

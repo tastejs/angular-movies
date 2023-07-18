@@ -6,17 +6,17 @@ const flowOptions: UserFlowOptions = {
 };
 
 const interactions: UserFlowInteractionsFn = async (
-  ctx: UserFlowContext
+  context: UserFlowContext
 ): Promise<any> => {
-  const {flow, collectOptions} = ctx;
+  const {flow, collectOptions} = context;
   const url = `${collectOptions.url}/list/category/popular`;
-  const movieListPage = new MovieListPageUFO(ctx);
+  const movieListPage = new MovieListPageUFO(context);
 
   await flow.navigate(url, {
     stepName: '🧭 Initial navigation'
   });
-  await movieListPage.awaitHeadingContent({timeout: 120000});
-  return Promise.resolve();
+  await movieListPage.awaitHeadingContent({timeout: 120_000});
+  return;
 };
 
 export const userFlowProvider: UserFlowProvider = {
@@ -24,4 +24,4 @@ export const userFlowProvider: UserFlowProvider = {
   interactions,
 };
 
-module.exports = userFlowProvider;
+export default userFlowProvider;
