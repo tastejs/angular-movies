@@ -1,5 +1,21 @@
 # General
 
+## Commits
+
+### Hooks
+
+To set up commit hooks run `npm run prepare`.
+
+### Message Standard
+
+Commit lint is used to enforce the standard. The repositories commit message standard is defined
+in `commit-lint.config.json`.
+
+### Commit hooks
+
+- commit-msg - executes `commitlint`
+- pre-commit - executes `lint-staged`
+
 ## Task Hierarchy
 
 ```mermaid
