@@ -6,7 +6,7 @@ import {
   categorySelector,
   GenreIds,
   genreSelector,
-  sideMenuBtnSelector
+  sideMenuBtnSelector,
 } from '../../../../movies/testing';
 
 export class SidebarUFO extends Ufo implements CwvInterface {
@@ -40,9 +40,7 @@ export class SidebarUFO extends Ufo implements CwvInterface {
   }
 
   async awaitAllContent(): Promise<any> {
-    return await Promise.all([
-      this.page.waitForSelector(sideMenuBtnSelector),
-    ]);
+    return await Promise.all([this.page.waitForSelector(sideMenuBtnSelector)]);
   }
 
   async awaitLCPContent(): Promise<any> {

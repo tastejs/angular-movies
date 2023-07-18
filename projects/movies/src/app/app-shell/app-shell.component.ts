@@ -94,7 +94,6 @@ export class AppShellComponent {
     });
   }
 
-
   readonly genres$ = this.genreResource.getGenresCached();
 
   readonly viewState$ = this.state.select();

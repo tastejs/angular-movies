@@ -8,14 +8,17 @@ import {ISRHandler} from 'ngx-isr';
 import {environment} from '../../movies/src/environments/environment';
 import {ngExpressEngine} from '@nguniversal/express-engine';
 import bootstrap from './app/bootstrap';
-import {useCompression, useTiming} from "./app/utils";
+import {useCompression, useTiming} from './app/utils';
 // bootstrap needs to get exported for the pre-render task
 
 // The Express app is exported so that it can be used by serverless Functions.
 export function app(): express.Express {
   const server = express();
 
-  const distributionFolder = join(process.cwd(), 'dist/projects/movies/browser');
+  const distributionFolder = join(
+    process.cwd(),
+    'dist/projects/movies/browser'
+  );
 
   const indexHtml = existsSync(join(distributionFolder, 'index.html'))
     ? 'index.html'
@@ -34,10 +37,7 @@ export function app(): express.Express {
   useTiming(server);
 
   // Our Universal express-engine (found @ https://github.com/angular/universal/tree/master/modules/express-engine)
-  server.engine(
-    'html',
-    ngExpressEngine({bootstrap})
-  );
+  server.engine('html', ngExpressEngine({bootstrap}));
 
   server.set('view engine', 'html');
   server.set('views', distributionFolder);
@@ -84,6 +84,5 @@ export function app(): express.Express {
 
   return server;
 }
-
 
 export {default} from './app/bootstrap';

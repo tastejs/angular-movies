@@ -12,14 +12,16 @@ const URL_DISCOVER_MOVIE = [baseUrlApiV3, 'discover', 'movie'].join('/');
 
 export type TMDBDiscoverOptions = TMDBPaginateOptions &
   TMDBSortOptions & {
-    with_cast?: string;
-    with_genres?: string;
-  };
+  with_cast?: string;
+  with_genres?: string;
+};
 
 export type TMDBDiscoverResponse = TMDBSortOptions &
   TMDBPaginateResult<TMDBMovieModel>;
 
-function getTMDBDiscoverOptions(options: TMDBPaginateOptions): TMDBDiscoverOptions {
+function getTMDBDiscoverOptions(
+  options: TMDBPaginateOptions
+): TMDBDiscoverOptions {
   const {with_cast, with_genres, ...tmdbOptions} = options;
   const discoverOptions = {
     ...getTMDBPaginateOptions(tmdbOptions),
@@ -44,6 +46,11 @@ export class DiscoverResource {
     discoverOptions: TMDBDiscoverOptions = {} as TMDBDiscoverOptions
   ): Observable<TMDBDiscoverResponse> =>
     this.http.get<TMDBDiscoverResponse>(URL_DISCOVER_MOVIE, {
-      params: new HttpParams({fromObject: getTMDBDiscoverOptions(discoverOptions) as Record<string, string>}),
+      params: new HttpParams({
+        fromObject: getTMDBDiscoverOptions(discoverOptions) as Record<
+          string,
+          string
+        >,
+      }),
     });
 }

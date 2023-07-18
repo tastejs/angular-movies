@@ -101,9 +101,7 @@ export class ListDetailAdapter extends RxState<{
       this.listState.updateList({ backdrop_path, id: +id })
     );
 
-    this.hold(this.listDeleteEvent$, ([, id]) =>
-      this.listState.deleteList(id)
-    );
+    this.hold(this.listDeleteEvent$, ([, id]) => this.listState.deleteList(id));
   }
 }
 
@@ -120,7 +118,10 @@ export function transformToMovieDetail(_res: TMDBMovieModel): MovieDetail {
     res.runtime
   } MIN. / ${new Date(res.release_date).getFullYear()}`;
 
-  addVideoTag(res, {pathPropFn: (r) => r?.videos?.results && r?.videos?.results[0]?.key + '' || ''});
+  addVideoTag(res, {
+    pathPropFn: (r) =>
+      (r?.videos?.results && r?.videos?.results[0]?.key + '') || '',
+  });
   addImageTag(res, {
     pathProp: 'poster_path',
     dims: W300H450,

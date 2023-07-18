@@ -9,18 +9,12 @@ import {RxLet} from '@rx-angular/template/let';
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [
-    BrowserModule,
-    RouterOutlet,
-    AppShellComponent,
-    RxLet
-  ],
-  providers: [
-    ...appConfig().providers
-  ],
+  imports: [BrowserModule, RouterOutlet, AppShellComponent, RxLet],
+  providers: [...appConfig().providers],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule {
+}
 
 /**
  * We have to use `platformBrowserDynamic` until Angular allows to run `bootstrapApplication` in zone-less mode

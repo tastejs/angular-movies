@@ -1,17 +1,19 @@
-import fs from "node:fs/promises";
-import path from "node:path";
-import {resolvePath} from "./paths.mjs";
-import * as esbuild from "esbuild";
-import {NodeGlobalsPolyfillPlugin} from "@esbuild-plugins/node-globals-polyfill";
-import {NodeModulesPolyfillPlugin} from "@esbuild-plugins/node-modules-polyfill";
-import fg from "fast-glob";
-import {setupArgv} from "./utils.mjs";
+import fs from 'node:fs/promises';
+import path from 'node:path';
+import {resolvePath} from './paths.mjs';
+import * as esbuild from 'esbuild';
+import {NodeGlobalsPolyfillPlugin} from '@esbuild-plugins/node-globals-polyfill';
+import {NodeModulesPolyfillPlugin} from '@esbuild-plugins/node-modules-polyfill';
+import fg from 'fast-glob';
+import {setupArgv} from './utils.mjs';
 
-let target = resolvePath(setupArgv('target', {success: (v) => `Build folder ${v}`}));
+let target = resolvePath(
+  setupArgv('target', {success: (v) => `Build folder ${v}`})
+);
 
 // Process each of the JS files in the `_worker.js` directory
-for (const entry of await fg("**/*.js", {cwd: target, onlyFiles: true})) {
-  if (entry === "index.js") {
+for (const entry of await fg('**/*.js', {cwd: target, onlyFiles: true})) {
+  if (entry === 'index.js') {
     // This is the main bundle and gets special treatment
     await bundleMain();
   } else {
@@ -26,13 +28,13 @@ for (const entry of await fg("**/*.js", {cwd: target, onlyFiles: true})) {
 // - ensure that the Cloudflare `fetch()` handler is exported
 async function bundleMain() {
   const result = await esbuild.build({
-    entryPoints: ["index.js"],
+    entryPoints: ['index.js'],
     bundle: true,
-    format: "iife",
+    format: 'iife',
     write: false,
     absWorkingDir: target,
     define: {
-      global: "globalThis",
+      global: 'globalThis',
     },
     plugins: [
       NodeGlobalsPolyfillPlugin({buffer: true}),
@@ -48,9 +50,9 @@ async function bundleMain() {
     'promises.push(import("./" + __webpack_require__.u(chunkId)).then((mod) => installChunk(mod.default))'
   );
   // Export the fetch handler (grabbing it from the global).
-  main += "\nexport default { fetch : globalThis.__workerFetchHandler };";
+  main += '\nexport default { fetch : globalThis.__workerFetchHandler };';
 
-  await fs.writeFile(path.resolve(target, "index.js"), main);
+  await fs.writeFile(path.resolve(target, 'index.js'), main);
 }
 
 // Use esbuild to process the lazy load modules
@@ -59,11 +61,11 @@ async function bundleLazyModule(filePath) {
   const result = await esbuild.build({
     entryPoints: [filePath],
     bundle: true,
-    format: "cjs",
+    format: 'cjs',
     write: false,
     absWorkingDir: target,
     define: {
-      global: "globalThis",
+      global: 'globalThis',
     },
     plugins: [NodeModulesPolyfillPlugin()],
   });
@@ -71,7 +73,7 @@ async function bundleLazyModule(filePath) {
   let content = result.outputFiles[0].text;
 
   // Export the fetch handler (grabbing it from the global).
-  content = "const exports = {};\n" + content + "\nexport default exports";
+  content = 'const exports = {};\n' + content + '\nexport default exports';
 
   await fs.writeFile(path.resolve(target, filePath), content);
 }

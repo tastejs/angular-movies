@@ -71,7 +71,10 @@ export class PersonDetailAdapter extends RxState<PersonDetailPageAdapterState> {
   readonly routedPersonCtx$ = this.routerPersonId$.pipe(
     switchMap(this.personState.personByIdCtx),
     map((ctx: WithContext<TMDBPersonModel>): WithContext<MoviePerson> => {
-      ctx.value && ((ctx as unknown as { value: unknown }).value = transformToPersonDetail(ctx.value));
+      ctx.value &&
+      ((ctx as unknown as { value: unknown }).value = transformToPersonDetail(
+        ctx.value
+      ));
       return ctx as unknown as WithContext<MoviePerson>;
     })
   );

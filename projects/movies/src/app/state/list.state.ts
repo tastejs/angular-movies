@@ -141,5 +141,4 @@ export class ListState extends RxState<ListModel> implements AppInitializer {
   initialize(): void {
     return;
   }
-
 }

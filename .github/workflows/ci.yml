@@ -9,7 +9,7 @@ jobs:
   ci:
     runs-on: ubuntu-latest
     steps:
-        # needed for all cases
+      # needed for all cases
       - if: github.event_name == 'push' && github.ref_name == 'main'
         uses: actions/checkout@v3
       # needed for nx affected command
@@ -32,6 +32,3 @@ jobs:
 
       - name: lint,build,test affected projects
         run: npx nx affected --targets=lint,build,test --exclude docs,cloudflare-worker
-
-
-

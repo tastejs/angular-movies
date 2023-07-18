@@ -16,8 +16,7 @@
       "extends": [
         "plugin:unicorn/recommended"
       ],
-      "rules": {
-      }
+      "rules": {}
     },
     {
       "files": [

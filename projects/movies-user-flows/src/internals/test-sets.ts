@@ -1,7 +1,7 @@
 import {readFileSync} from 'fs';
 import Budget from 'lighthouse/types/lhr/budget';
 import {readBudgets} from '@push-based/user-flow/src/lib/commands/assert/utils/budgets';
-import {LhConfigJson} from "@push-based/user-flow";
+import {LhConfigJson} from '@push-based/user-flow';
 
 type Test = {
   name: string;
@@ -52,10 +52,9 @@ export function getLhConfig(budgets: Budget[]): LhConfigJson {
   return {
     extends: 'lighthouse:default',
     settings: {
-      budgets
+      budgets,
     },
   } satisfies LhConfigJson;
-
 }
 
 export function mergeBudgetPaths(lhBudgetPaths: string[]): Budget[] {
@@ -68,18 +67,18 @@ export function mergeBudgetPaths(lhBudgetPaths: string[]): Budget[] {
           // @ts-ignore
           budget.resourceCounts &&
           (mergedBudget.resourceCounts = [
-            ...mergedBudget.resourceCounts || [],
-              ...budget.resourceCounts,
-            ]);
+            ...(mergedBudget.resourceCounts || []),
+            ...budget.resourceCounts,
+          ]);
           budget.resourceSizes &&
-            (mergedBudget.resourceSizes = [
-              ...mergedBudget.resourceSizes || [],
-              ...budget.resourceSizes,
-            ]);
+          (mergedBudget.resourceSizes = [
+            ...(mergedBudget.resourceSizes || []),
+            ...budget.resourceSizes,
+          ]);
           // @ts-ignore
           budget.timings &&
             (mergedBudget.timings = [
-              ...mergedBudget.timings || [],
+              ...(mergedBudget.timings || []),
               ...budget.timings,
             ]);
           return mergedBudget;
@@ -102,18 +101,18 @@ export function mergeBudgets(lhBudgets: Budget[][]): Budget[] {
           // @ts-ignore
           budget.resourceCounts &&
           (mergedBudget.resourceCounts = [
-            ...mergedBudget.resourceCounts || [],
+            ...(mergedBudget.resourceCounts || []),
             ...budget.resourceCounts,
           ]);
           budget.resourceSizes &&
           (mergedBudget.resourceSizes = [
-            ...mergedBudget.resourceSizes || [],
+            ...(mergedBudget.resourceSizes || []),
             ...budget.resourceSizes,
           ]);
           // @ts-ignore
           budget.timings &&
           (mergedBudget.timings = [
-            ...mergedBudget.timings || [],
+            ...(mergedBudget.timings || []),
             ...budget.timings,
           ]);
           return mergedBudget;

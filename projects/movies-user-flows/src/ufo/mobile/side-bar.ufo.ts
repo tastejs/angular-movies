@@ -1,6 +1,6 @@
 import {SidebarUFO as DesktopSidebarUFO} from '../desktop/side-bar.ufo';
 import {UserFlowContext} from '@push-based/user-flow';
-import {ANIM_DURATION_SHORT, CategoryNames, GenreIds, sideMenuBtnSelector} from '../../../../movies/testing';
+import {ANIM_DURATION_SHORT, CategoryNames, GenreIds, sideMenuBtnSelector,} from '../../../../movies/testing';
 
 export class SidebarUFO extends DesktopSidebarUFO {
   async toggelSideMenu() {
@@ -9,7 +9,9 @@ export class SidebarUFO extends DesktopSidebarUFO {
     await this.page.waitForTimeout(ANIM_DURATION_SHORT);
   }
 
-  override async navigateToCategory(c: CategoryNames = 'popular'): Promise<void> {
+  override async navigateToCategory(
+    c: CategoryNames = 'popular'
+  ): Promise<void> {
     await this.ensureSidebarOpen();
     await super.navigateToCategory(c);
   }

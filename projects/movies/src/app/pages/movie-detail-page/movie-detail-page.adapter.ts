@@ -20,7 +20,7 @@ import {TMDBMovieDetailsModel} from '../../data-access/api/model/movie-details.m
 import {LinkTag} from '../../shared/cdk/link/a-tag.interface';
 import {ImageTag} from '../../shared/cdk/image/image-tag.interface';
 import {VideoTag} from '../../shared/cdk/video/video.interface';
-import {RxEffects} from "@rx-angular/state/effects";
+import {RxEffects} from '@rx-angular/state/effects';
 
 type Actions = { paginateRecommendations: void };
 
@@ -41,7 +41,10 @@ export class MovieDetailAdapter extends RxEffects {
   readonly routedMovieCtx$ = this.routerMovieId$.pipe(
     switchMap(this.movieState.movieByIdCtx),
     map((ctx) => {
-      ctx.value && ((ctx as unknown as { value: unknown }).value = transformToMovieDetail(ctx.value));
+      ctx.value &&
+      ((ctx as unknown as { value: unknown }).value = transformToMovieDetail(
+        ctx.value
+      ));
       return ctx as unknown as WithContext<MovieDetail>;
     })
   );
@@ -94,7 +97,10 @@ export function transformToMovieDetail(_res: TMDBMovieModel): MovieDetail {
     res.runtime
   } MIN. / ${new Date(res.release_date).getFullYear()}`;
 
-  addVideoTag(res, {pathPropFn: (r) => r?.videos?.results && r?.videos?.results[0]?.key + '' || ''});
+  addVideoTag(res, {
+    pathPropFn: (r) =>
+      (r?.videos?.results && r?.videos?.results[0]?.key + '') || '',
+  });
   addImageTag(res, {
     pathProp: 'poster_path',
     dims: W300H450,

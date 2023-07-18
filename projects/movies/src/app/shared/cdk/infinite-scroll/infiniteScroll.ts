@@ -87,7 +87,10 @@ export function infiniteScroll<T>(
     )
   ).pipe(
     scan(
-      (acc: InfiniteScrollState<T>, response: PartialInfiniteScrollState<T>) => {
+      (
+        acc: InfiniteScrollState<T>,
+        response: PartialInfiniteScrollState<T>
+      ) => {
         // in case the initial value was no set we take total pages from the result
         if (response?.total_pages) {
           total_pages = response.total_pages;

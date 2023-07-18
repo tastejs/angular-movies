@@ -1,5 +1,21 @@
 # General
 
+## Commits
+
+### Hooks
+
+To set up commit hooks run `npm run prepare`.
+
+### Message Standard
+
+Commit lint is used to enforce the standard. The repositories commit message standard is defined
+in `commit-lint.config.json`.
+
+### Commit hooks
+
+- commit-msg - executes `commitlint`
+- pre-commit - executes `lint-staged`
+
 ## Task Hierarchy
 
 ```mermaid
@@ -21,7 +37,6 @@ The repository maintains the following projects:
 - ng-universal-express - a node express server using `@nguniversal` for SSR and SSG of the angular-movies
 - firebase-function - a firebase function used to execute SSR of the ng-universal-express in firebase functions
 - cloudflare-worker - a cloudflare worker used to execute SSR of the angular-movies app in a worker
-
 
 ```mermaid
 graph TD;
@@ -84,6 +99,7 @@ pre-rendered pages or `routes.txt`
   - **production**
   - **development**
 - **serve** - the executor `dev-server` from the package `@angular-devkit/build-angular` is used
+
   - **production** - TODO
   - **development** - TODO
 
@@ -212,10 +228,10 @@ The CI has different actions:
 
 #### Firebase Hosting
 
-- `firebase-hosting-m.yml` - runs on `m`  firebase-function:deploy + movies:user-flow:production,
+- `firebase-hosting-m.yml` - runs on `m` firebase-function:deploy + movies:user-flow:production,
 - `firebase-hosting-pr.yml` - runs on `pr` ng-universal-express:deploy + ng-universal-express:user-flow:preview
 
-#### Firebase  Function
+#### Firebase Function
 
 As the build will not break because of require usage we need to test against function emulator
 

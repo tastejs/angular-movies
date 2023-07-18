@@ -1,6 +1,6 @@
 import {UiMovieListUFO} from './ui-movie-list.ufo';
 import {CwvInterface} from '../typings/cwv.interface';
-import {heandlineSelector, subheandlineSelector} from '../../../../movies/testing';
+import {heandlineSelector, subheandlineSelector,} from '../../../../movies/testing';
 import {Ufo, UserFlowContext} from '@push-based/user-flow';
 
 export class MovieListPageUFO extends Ufo implements CwvInterface {
@@ -10,11 +10,13 @@ export class MovieListPageUFO extends Ufo implements CwvInterface {
     await this.movieList.awaitLCPContent();
   }
 
-  async awaitHeadingContent(options: {
-    visible?: boolean;
-    hidden?: boolean;
-    timeout?: number;
-  } = {}): Promise<void> {
+  async awaitHeadingContent(
+    options: {
+      visible?: boolean;
+      hidden?: boolean;
+      timeout?: number;
+    } = {}
+  ): Promise<void> {
     await Promise.all([
       this.page.waitForSelector(heandlineSelector, options),
       this.page.waitForSelector(subheandlineSelector, options),

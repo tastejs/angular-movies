@@ -13,7 +13,15 @@
       "parser": "eslint-plugin-markdownlint/parser",
       "extends": [
         "plugin:markdownlint/recommended"
-      ]
+      ],
+      "rules": {
+        "markdownlint/md013": [
+          "error",
+          {
+            "line_length": 120
+          }
+        ]
+      }
     },
     {
       "files": [

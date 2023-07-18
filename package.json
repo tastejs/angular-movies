@@ -12,7 +12,8 @@
     "husky": "husky",
     "serve:dist": "npx http-server -p 8080 -c-1 dist/projects/movies/browser",
     "format:all": "prettier --write .",
-    "commit": "git-cz"
+    "commit": "git-cz",
+    "prepare": "husky install"
   },
   "config": {
     "commitizen": {
@@ -105,7 +106,7 @@
     "jest": "^29.4.1",
     "jest-environment-node": "^29.4.1",
     "lighthouse": "^9.6.8",
-    "lint-staged": "^11.2.3",
+    "lint-staged": "^11.2.6",
     "markdownlint": "^0.29.0",
     "nx": "16.5.1",
     "nx-cloud": "16.1.0",

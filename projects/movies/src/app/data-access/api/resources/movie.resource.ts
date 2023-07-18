@@ -40,7 +40,7 @@ export class MovieResource {
     return this.http.get<RecommendationsResponse>(
       URL_MOVIE_RECOMMENDATIONS(id),
       {
-        params: params as unknown as HttpParams
+        params: params as unknown as HttpParams,
       }
     ) as unknown as Observable<RecommendationsResponse>;
   };
@@ -59,7 +59,7 @@ export class MovieResource {
   ): Observable<CategoryResponse> => {
     params = getTMDBMovieOptions(params);
     return this.http.get<CategoryResponse>(URL_MOVIE_CATEGORY(category), {
-      params: params as unknown as HttpParams
+      params: params as unknown as HttpParams,
     });
   };
 
@@ -69,7 +69,9 @@ export class MovieResource {
       .pipe(map((res) => res.results));
 }
 
-function getTMDBMovieOptions(options: TMDBPaginateOptions): TMDBDiscoverOptions {
+function getTMDBMovieOptions(
+  options: TMDBPaginateOptions
+): TMDBDiscoverOptions {
   const discoverOptions = {
     ...getTMDBPaginateOptions(options),
     ...getTMDBSortOptions(options),
