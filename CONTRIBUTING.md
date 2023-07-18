@@ -184,59 +184,46 @@ The cloudflare-worker application is needed to execute the ng-universal express 
   - **emulated** - `build` for `pruduction`. `serve` it with the `emulate-firebase` task.  
     XY tests are executed.
 
-# Testing
-
-### ???
-
-To test a applications with user flow we consider the following libs/apps:
+## Movies User Flow
 
 - **{centralized}-user-flows** - globally shared user-flow logic or tests
   - **test-data/index.ts** - global fixtures, data, budgets
   - **/src/index.ts** - configurable UFO objects entry point
-  - **/user-flows** - folder for shared user flows
-- **{application}**
-  - **/test** - co-located user-flow tests logic
-  - **/user-flows** - co-located user-flow tests
 
 The user-flows application is needed to execute e2e tests against the different deployments.
 
 ### Tasks
 
 - **format** - exception rules for the different code parts
-- TODO
+- **lint** -
+- **build** - 
 
-## Development
-
-- nx run movie:serve:development
-- nx run movie:serve:development
-- before commit --affected build,test,user-flow
-
-## CI
+# CI
 
 The CI has different actions:
 
 - `pr` - `pull_request` on `main`
 - `m` - `merge` on `main`
 
-### Docs
+## Docs
 
 - `docs-hosting-m.yml` - runs on `m`
 
-### Test and Build
+## Test and Build
 
 - `ci.yml` - runs on `pr` and `m` --affected build,test,lint
 
-#### Firebase Hosting
+### Firebase Hosting
 
 - `firebase-hosting-m.yml` - runs on `m` firebase-function:deploy + movies:user-flow:production,
 - `firebase-hosting-pr.yml` - runs on `pr` ng-universal-express:deploy + ng-universal-express:user-flow:preview
 
-#### Firebase Function
+### Firebase Function
 
 As the build will not break because of require usage we need to test against function emulator
 
 - `firebase-function-pr.yml` - runs on `pr` firebase-function:build + firebase-function:user-flow:emulate,
 
-#### Cloudflare Hosting
+### Cloudflare Hosting
 
 - `cloudflare-hosting-pr.yml` - runs on `pr` cloudflare-worker:deploy + cloudflare-worker:user-flow:emulate,
