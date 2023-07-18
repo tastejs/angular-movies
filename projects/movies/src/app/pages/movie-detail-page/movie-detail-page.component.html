@@ -1,7 +1,7 @@
 <article class="movie-detail-wrapper">
   <ng-container *rxLet="movie$; let movie">
-    <ui-detail-grid [style.opacity]="!!movie ? 1 : 0">
-      <div detailGridMedia>
+    <ui-detail-grid [style.opacity]="!!movie ? 1 : 0" [rerenderDetailGridMedia]="movie.imgSrc">
+      <ng-template #detailGridMedia>
         <img
           class="aspectRatio-2-3 fit-cover"
           [ngSrc]="movie.imgSrc"
@@ -14,8 +14,8 @@
           [title]="movie.title"
           data-uf="hero-img"
         />
-      </div>
-      <div detailGridDescription>
+      </ng-template>
+      <ng-template #detailGridDescription>
         <header>
           <h1 data-uf="header-main">{{ movie.title }}</h1>
           <h2 data-uf="header-sub">{{ movie.tagline }}</h2>
@@ -166,7 +166,7 @@
             >&nbsp;Back
           </button>
         </section>
-      </div>
+      </ng-template>
     </ui-detail-grid>
     <div class="loader" *ngIf="!movie"></div>
   </ng-container>
