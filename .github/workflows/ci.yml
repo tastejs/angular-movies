@@ -31,4 +31,4 @@ jobs:
         run: npm ci
 
       - name: lint,build,test affected projects
-        run: npx nx affected --targets=lint,build,test --exclude docs,cloudflare-worker
+        run: npx nx affected --targets=lint,build,test,prerender --exclude cloudflare-worker
