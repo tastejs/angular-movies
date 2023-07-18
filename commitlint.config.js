@@ -1,5 +1,13 @@
 const fs = require('fs');
+const path = require('path');
 
+const projectNames = fs
+  .readdirSync('projects')
+  .map((subPath) => path.join('projects', subPath, 'project.json'))
+  .map(
+    (projectJsonPath) =>
+      JSON.parse(fs.readFileSync(projectJsonPath).toString()).name
+  );
 /*
  * Type-Enums and their documentation as reusable const.
  */
@@ -86,11 +94,9 @@ const Configuration = {
      */
     'type-enum': [2, 'always', Object.keys(typeEnumDescription)],
     /*
-     * Scope enums derived from projects registered in `angular.json`
+     * Scope enums derived from projects registered in
      */
-    'scope-enum': fs.promises.readFile('./angular.json').then((rawContent) => {
-      return [2, 'always', Object.keys(JSON.parse(rawContent).projects)];
-    }),
+    'scope-enum': [2, 'always', projectNames],
   },
   /*
    * Prompt config for commit message support
