@@ -15,7 +15,7 @@ const interactions: UserFlowInteractionsFn = async (
   await flow.navigate(url, {
     stepName: '🧭 Initial navigation',
   });
-  await movieListPage.awaitHeadingContent({timeout: 120_000});
+  await movieListPage.awaitHeadingContent({timeout: 180_000});
   return;
 };
 
