@@ -71,10 +71,10 @@ export function mergeBudgetPaths(lhBudgetPaths: string[]): Budget[] {
             ...budget.resourceCounts,
           ]);
           budget.resourceSizes &&
-            (mergedBudget.resourceSizes = [
-              ...(mergedBudget.resourceSizes || []),
-              ...budget.resourceSizes,
-            ]);
+          (mergedBudget.resourceSizes = [
+            ...(mergedBudget.resourceSizes || []),
+            ...budget.resourceSizes,
+          ]);
           // @ts-ignore
           budget.timings &&
             (mergedBudget.timings = [

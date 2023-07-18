@@ -22,7 +22,7 @@ For now you can search the codebase for "Perf Tip" later on there will be proppe
 [Measures after optimization](https://lighthouse-metrics.com/checks/6a888a17-b17b-46a6-abc9-e605b73a530c/runs/503701ad-36aa-43ad-8de3-cb40e775c770)
 ![angular-movies-after-optimization_michael-hladky](https://user-images.githubusercontent.com/10064416/146446241-ad9eeed4-b0a4-44a2-a88e-4ea7c97e1acf.PNG)
 
-**Bundle Stats**
+### Bundle Stats
 
 <!-- bundle-stats-start -->
 <!-- bundle-stats-end -->

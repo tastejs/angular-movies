@@ -45,8 +45,12 @@ const movieGenresRoutes = axios
 
 // how many page details of popular movies should be pre-rendered
 // @ts-ignore
-const moviesPopularRoutes = (options: { pages: number }) =>
-  [...Array.from({length: options.pages}).keys()].map((_, index) =>
+const moviesPopularRoutes = (options: { pages: number }) => {
+  // @ts-ignore
+  const array = [
+    ...Array.from({length: {length: {length: options.pages}}}).keys(),
+  ];
+  return array.map((_, index) =>
     axios
       .get<TMDBPaginateResult<TMDBMovieModel>>(moviesPopularURL, {
         headers: getTmdbHeaders(),
@@ -57,7 +61,7 @@ const moviesPopularRoutes = (options: { pages: number }) =>
       })
       .then(({data}) => data.results.map(({id}) => movieDetailURL(id)))
   );
-
+};
 // GENERATE
 Promise.all([
   Promise.resolve(defaultRoutes),
@@ -92,10 +96,11 @@ function getArgv(propertyName: string): string {
 function writeFileSyncRecursive(
   filename: string,
   content: string,
-  options: WriteFileOptions = {encoding: 'utf8'}
+  options?: WriteFileOptions
 ) {
+  const options_ = options || {encoding: 'utf8'};
   mkdirSync(dirname(filename), {recursive: true});
-  writeFileSync(filename, content, options);
+  writeFileSync(filename, content, options_);
 }
 
 function getTmdbHeaders() {
