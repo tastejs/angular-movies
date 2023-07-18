@@ -7,7 +7,7 @@ export const getIdentifierOfTypeAndLayoutUtil = (
 ): OperatorFunction<RouterParams, string> => {
   return pipe(
     filter(
-      ({ type, layout }: RouterParams) =>
+      ({type, layout}: RouterParams) =>
         type === filterType && layout === filterLayout
     ),
     map(({ identifier }) => identifier)

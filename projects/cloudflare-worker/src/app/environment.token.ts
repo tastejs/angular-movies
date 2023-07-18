@@ -10,9 +10,14 @@ export interface EdgeEnvironmentData {
   request: Request;
 }
 
-export const EdgeEnvironmentToken = new InjectionToken<EdgeEnvironmentData>('EdgeEnv');
+export const EdgeEnvironmentToken = new InjectionToken<EdgeEnvironmentData>(
+  'EdgeEnv'
+);
 
-export const provideEdgeEnvironment = ({env, request}: EdgeEnvironmentData): Provider => ({
+export const provideEdgeEnvironment = ({
+                                         env,
+                                         request,
+                                       }: EdgeEnvironmentData): Provider => ({
   provide: EdgeEnvironmentToken,
   useValue: {env, request},
 });

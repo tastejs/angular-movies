@@ -44,7 +44,8 @@ export class RouterState extends RxState<RouterParams> {
         ).split('?');
 
         if (queryParams) {
-          const [, sortByAndRest]: (string | undefined)[] = queryParams?.split('sort_by=') || queryParams;
+          const [, sortByAndRest]: (string | undefined)[] =
+          queryParams?.split('sort_by=') || queryParams;
           sortBy = sortByAndRest?.split('&')?.shift() || null;
         }
         return { layout, type, identifier, sortBy };

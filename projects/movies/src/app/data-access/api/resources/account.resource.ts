@@ -11,7 +11,9 @@ import {inject, Injectable} from '@angular/core';
 const URL_ACCOUNT_LIST = (uid: string) =>
   [baseUrlApiV4, 'account', uid, 'lists'].join('/');
 
-function getTMDBAcountListOptions(options: TMDBPaginateOptions): TMDBDiscoverOptions {
+function getTMDBAcountListOptions(
+  options: TMDBPaginateOptions
+): TMDBDiscoverOptions {
   const discoverOptions = {
     ...getTMDBPaginateOptions(options),
     ...getTMDBSortOptions(options),
@@ -31,7 +33,9 @@ export class AccountResource {
     params: TMDBPaginateOptions = {} as TMDBPaginateOptions
   ): Observable<TMDBAccountListResponse> => {
     return this.http.get<TMDBAccountListResponse>(URL_ACCOUNT_LIST(accountId), {
-      params: new HttpParams({fromObject: getTMDBAcountListOptions(params) as Record<string, string>}),
+      params: new HttpParams({
+        fromObject: getTMDBAcountListOptions(params) as Record<string, string>,
+      }),
     });
   };
 }

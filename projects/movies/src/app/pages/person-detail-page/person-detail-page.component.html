@@ -67,17 +67,17 @@
         class="option"
         *ngFor="let option of sortOptions"
       >
-        <button
-          class="functionality-only-button"
-          (click)="sortBy(option)"
-        >{{ option.name }}</button>
+        <button class="functionality-only-button" (click)="sortBy(option)">
+          {{ option.name }}
+        </button>
       </li>
     </ul>
     <button
       class="select-wrapper-overlay"
       (click)="toggleSorting(false)"
       [hidden]="!sorting.showSorting"
-    >&nbsp;
+    >
+      &nbsp;
     </button>
   </div>
   <ng-container

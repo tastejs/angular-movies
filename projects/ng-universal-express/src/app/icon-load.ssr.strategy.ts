@@ -7,9 +7,7 @@ import {Observable, of} from 'rxjs';
 @Injectable()
 export class IconLoadStrategySsr implements SvgLoadStrategy {
   load(url: string): Observable<string> {
-    const iconPath = join(
-      url
-    );
+    const iconPath = join(url);
     const iconSVG = readFileSync(iconPath, 'utf8');
     return of(iconSVG);
   }

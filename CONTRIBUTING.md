@@ -22,7 +22,6 @@ The repository maintains the following projects:
 - firebase-function - a firebase function used to execute SSR of the ng-universal-express in firebase functions
 - cloudflare-worker - a cloudflare worker used to execute SSR of the angular-movies app in a worker
 
-
 ```mermaid
 graph TD;
     docs
@@ -84,6 +83,7 @@ pre-rendered pages or `routes.txt`
   - **production**
   - **development**
 - **serve** - the executor `dev-server` from the package `@angular-devkit/build-angular` is used
+
   - **production** - TODO
   - **development** - TODO
 
@@ -212,10 +212,10 @@ The CI has different actions:
 
 #### Firebase Hosting
 
-- `firebase-hosting-m.yml` - runs on `m`  firebase-function:deploy + movies:user-flow:production,
+- `firebase-hosting-m.yml` - runs on `m` firebase-function:deploy + movies:user-flow:production,
 - `firebase-hosting-pr.yml` - runs on `pr` ng-universal-express:deploy + ng-universal-express:user-flow:preview
 
-#### Firebase  Function
+#### Firebase Function
 
 As the build will not break because of require usage we need to test against function emulator
 

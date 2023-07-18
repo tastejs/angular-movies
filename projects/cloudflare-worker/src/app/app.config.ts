@@ -1,4 +1,4 @@
-import {ApplicationConfig,} from '@angular/core';
+import {ApplicationConfig} from '@angular/core';
 import {provideServerRendering} from '@angular/platform-server';
 import {provideFastSVG} from '@push-based/ngx-fast-svg';
 import {RX_RENDER_STRATEGIES_CONFIG} from '@rx-angular/cdk/render-strategies';
@@ -17,8 +17,8 @@ export const cloudflareServerConfig: ApplicationConfig = {
     {
       provide: RX_RENDER_STRATEGIES_CONFIG,
       useValue: {primaryStrategy: 'native'},
-    }
-  ]
+    },
+  ],
 };
 
 // We provide the config function as closure to be able to inject configuration from the consuming end

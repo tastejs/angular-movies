@@ -1,10 +1,10 @@
 import {UserFlowContext, UserFlowInteractionsFn, UserFlowOptions, UserFlowProvider,} from '@push-based/user-flow';
 
-import * as angularBudgets from "../testing/budgets/angular.budgets.json";
-import * as generalTimingBudget from "../testing/budgets/general-timing.budgets.json";
-import * as movieListBudgets from "../testing/budgets/movie-list.budgets.json";
+import * as angularBudgets from '../testing/budgets/angular.budgets.json';
+import * as generalTimingBudget from '../testing/budgets/general-timing.budgets.json';
+import * as movieListBudgets from '../testing/budgets/movie-list.budgets.json';
 
-import {getLhConfig, mergeBudgets} from '../../movies-user-flows/src/internals/test-sets';
+import {getLhConfig, mergeBudgets,} from '../../movies-user-flows/src/internals/test-sets';
 import {ToolBarUfo} from '../../movies-user-flows/src/ufo/desktop/tool-bar.ufo';
 import {TmdbUfo} from '../../movies-user-flows/src/ufo/desktop/tmdb.ufo';
 
@@ -27,9 +27,13 @@ const interactions: UserFlowInteractionsFn = async (
 
   await flow.navigate(url, {
     config: getLhConfig(
-      mergeBudgets([angularBudgets, generalTimingBudget, movieListBudgets] as any)
+      mergeBudgets([
+        angularBudgets,
+        generalTimingBudget,
+        movieListBudgets,
+      ] as any)
     ),
-    stepName: '🧭 Initial navigation'
+    stepName: '🧭 Initial navigation',
   });
   await flow.snapshot({
     stepName: '✔ Initial navigation done',

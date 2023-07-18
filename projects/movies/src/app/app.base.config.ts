@@ -1,5 +1,5 @@
 import {provideHttpClient, withInterceptors} from '@angular/common/http';
-import {APP_INITIALIZER, ApplicationConfig, mergeApplicationConfig} from '@angular/core';
+import {APP_INITIALIZER, ApplicationConfig, mergeApplicationConfig,} from '@angular/core';
 import {provideClientHydration} from '@angular/platform-browser';
 import {provideRouter, withDisabledInitialNavigation, withInMemoryScrolling,} from '@angular/router';
 import {provideFastSVG} from '@push-based/ngx-fast-svg';

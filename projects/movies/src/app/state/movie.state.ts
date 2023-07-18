@@ -109,7 +109,7 @@ export class MovieState extends RxState<MovieModel> implements AppInitializer {
 
   // prefetch categories / movie
   initialize(options: unknown): void {
-    const opts = options as { category: string } | { movieId: string }
+    const opts = options as { category: string } | { movieId: string };
     if ('category' in opts && opts.category) {
       this.fetchCategoryMovies(opts.category);
     }

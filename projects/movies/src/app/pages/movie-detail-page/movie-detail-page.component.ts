@@ -87,7 +87,10 @@ export default class MovieDetailPageComponent {
     }>
   ) {
     this.effects.register(
-      this.ui.dialog$.pipe(map((v) => v === 'show'), tap(console.log)),
+      this.ui.dialog$.pipe(
+        map((v) => v === 'show'),
+        tap(console.log)
+      ),
       (openDialog) =>
         openDialog
           ? this.trailerDialog?.nativeElement?.showModal()

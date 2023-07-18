@@ -1,5 +1,5 @@
 import {UserFlowContext, UserFlowInteractionsFn, UserFlowOptions, UserFlowProvider,} from '@push-based/user-flow';
-import {ensureRenderType} from "../../movies/testing";
+import {ensureRenderType} from '../../movies/testing';
 
 const flowOptions: UserFlowOptions = {
   name: 'Ng Universal Express - HTML is already rendered (SSR + Pre-render)',
@@ -19,7 +19,7 @@ const interactions: UserFlowInteractionsFn = async (
   let initialResponse: Promise<string>;
   // listen to the first match, then stop
   let indexHtmlArrived = false;
-  page.on('request', request => request.continue());
+  page.on('request', (request) => request.continue());
 
   function responseHandler(response) {
     console.log('on', response.url());
@@ -29,15 +29,14 @@ const interactions: UserFlowInteractionsFn = async (
       console.log('hit', response.url());
       page.off('response', responseHandler);
     }
-  };
+  }
   page.on('response', responseHandler);
 
-
   await flow.navigate(url, {
-    stepName: '🧭 Initial navigation'
+    stepName: '🧭 Initial navigation',
   });
   // TODO remove await
-  const responseText = await initialResponse.then(v => v.toString());
+  const responseText = await initialResponse.then((v) => v.toString());
   ensureRenderType(responseText, 'pre-rendered');
 
   return;
@@ -49,5 +48,3 @@ export const userFlowProvider: UserFlowProvider = {
 };
 
 export default userFlowProvider;
-
-

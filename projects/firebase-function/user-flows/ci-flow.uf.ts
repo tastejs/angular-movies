@@ -13,7 +13,7 @@ const interactions: UserFlowInteractionsFn = async (
   const movieListPage = new MovieListPageUFO(context);
 
   await flow.navigate(url, {
-    stepName: '🧭 Initial navigation'
+    stepName: '🧭 Initial navigation',
   });
   await movieListPage.awaitHeadingContent();
   return;

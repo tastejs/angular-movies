@@ -24,34 +24,34 @@ For now you can search the codebase for "Perf Tip" later on there will be proppe
 
 **Bundle Stats**
 
-
 <!-- bundle-stats-start -->
-| Names             |       Size |
-| ---               | ---        |
-| main.js           | 341.11 KB |
-| styles.css           | 6.21 KB |
-| runtime.js           | 2.65 KB |
-  | **Initial Total** | **349.96 KB** |
-  | Names             |       Size |
-| app_pages_movie-detail-page_movie-detail-page_component_ts.js           | 16.91 KB |
-| app_pages_person-detail-page_person-detail-page_component_ts.js           | 11.85 KB |
-| a-6a8199.js           | 10.16 KB |
-| app_pages_account-feature_list-detail-page_list-movies_list-movies_compon-d13d08.js           | 9.91 KB |
-| common.js           | 7.62 KB |
-| app_pages_account-feature_list-detail-page_list-items-edit_list-items-edi-13eb42.js           | 7.24 KB |
-| app_pages_movie-list-page_movie-list-page_component_ts.js           | 5.9 KB |
-| app_pages_account-feature_list-create-page_list-create-page_component_ts--1f481e.js           | 5.8 KB |
-| app_app-shell_account-menu_account-menu_component_ts.js           | 5.7 KB |
-| app_pages_account-feature_account-list-page_account-list-page_component_ts.js           | 4.97 KB |
-| app_pages_account-feature_list-detail-page_list-image_list-image_componen-cb4b89.js           | 4.42 KB |
-| default-node_modules_rx-angular_template_fesm2022_template-if_mjs.js           | 4.31 KB |
-| app_pages_account-feature_list-detail-page_list-remove_list-remove_compon-a10eb2.js           | 3.53 KB |
-| app_pages_account-feature_list-detail-page_list-detail-page_component_ts--a2c81d.js           | 3.35 KB |
-| app_pages_not-found-page_not-found-page_component_ts.js           | 1.86 KB |
-| app_pages_account-feature_list-detail-page_list-detail-page_routes_ts.js           | 1.66 KB |
-| app_pages_account-feature_account-feature-page_routes_ts.js           | 1.01 KB |
-<!-- bundle-stats-end -->
 
+| Names                                                                               | Size          |
+|-------------------------------------------------------------------------------------|---------------|
+| main.js                                                                             | 341.11 KB     |
+| styles.css                                                                          | 6.21 KB       |
+| runtime.js                                                                          | 2.65 KB       |
+| **Initial Total**                                                                   | **349.96 KB** |
+| Names                                                                               | Size          |
+| app_pages_movie-detail-page_movie-detail-page_component_ts.js                       | 16.91 KB      |
+| app_pages_person-detail-page_person-detail-page_component_ts.js                     | 11.85 KB      |
+| a-6a8199.js                                                                         | 10.16 KB      |
+| app_pages_account-feature_list-detail-page_list-movies_list-movies_compon-d13d08.js | 9.91 KB       |
+| common.js                                                                           | 7.62 KB       |
+| app_pages_account-feature_list-detail-page_list-items-edit_list-items-edi-13eb42.js | 7.24 KB       |
+| app_pages_movie-list-page_movie-list-page_component_ts.js                           | 5.9 KB        |
+| app_pages_account-feature_list-create-page_list-create-page_component_ts--1f481e.js | 5.8 KB        |
+| app_app-shell_account-menu_account-menu_component_ts.js                             | 5.7 KB        |
+| app_pages_account-feature_account-list-page_account-list-page_component_ts.js       | 4.97 KB       |
+| app_pages_account-feature_list-detail-page_list-image_list-image_componen-cb4b89.js | 4.42 KB       |
+| default-node_modules_rx-angular_template_fesm2022_template-if_mjs.js                | 4.31 KB       |
+| app_pages_account-feature_list-detail-page_list-remove_list-remove_compon-a10eb2.js | 3.53 KB       |
+| app_pages_account-feature_list-detail-page_list-detail-page_component_ts--a2c81d.js | 3.35 KB       |
+| app_pages_not-found-page_not-found-page_component_ts.js                             | 1.86 KB       |
+| app_pages_account-feature_list-detail-page_list-detail-page_routes_ts.js            | 1.66 KB       |
+| app_pages_account-feature_account-feature-page_routes_ts.js                         | 1.01 KB       |
+
+<!-- bundle-stats-end -->
 
 ## Comparison to next and nuxt
 
@@ -73,7 +73,7 @@ Clone and install the dependencies for `angular-movies` locally:
 
 ```bash
   git clone https://github.com/tastejs/angular-movies.git
-  cd angular-movies 
+  cd angular-movies
   npm install
 ```
 

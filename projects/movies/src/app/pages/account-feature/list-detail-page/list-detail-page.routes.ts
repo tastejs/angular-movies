@@ -4,9 +4,7 @@ const ROUTES: Routes = [
   {
     path: '',
     loadComponent: () =>
-      import(
-        '../list-detail-page/list-detail-page.component'
-      ),
+      import('../list-detail-page/list-detail-page.component'),
     children: [
       {
         path: '',
@@ -20,9 +18,7 @@ const ROUTES: Routes = [
       {
         path: 'edit',
         loadComponent: () =>
-          import(
-            '../list-create-page/list-create-page.component'
-          ),
+          import('../list-create-page/list-create-page.component'),
       },
       {
         path: 'add-remove-items',

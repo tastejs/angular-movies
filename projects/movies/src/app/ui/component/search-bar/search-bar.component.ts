@@ -128,7 +128,6 @@ export class SearchBarComponent {
     this.state.connect('open', this.closedFormClick$, () => true);
     this.state.hold(this.state.select('open'), this.setOpenedStyling);
     this.state.hold(this.closedFormClick$, this.focusInput);
-
   }
 
   private readonly focusInput = () => {

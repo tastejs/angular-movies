@@ -47,7 +47,7 @@ Clone and install the dependencies for `angular-movies` locally:
 
 ```bash
   git clone https://github.com/tastejs/angular-movies.git
-  cd angular-movies 
+  cd angular-movies
   npm install
 ```
 

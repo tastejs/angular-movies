@@ -12,11 +12,7 @@ import {AppShellComponent} from './app-shell/app-shell.component';
     </app-shell>
   `,
   standalone: true,
-  imports: [
-    RouterOutlet,
-    AppShellComponent,
-    RxLet,
-  ],
+  imports: [RouterOutlet, AppShellComponent, RxLet],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppStandaloneComponent {

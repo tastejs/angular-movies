@@ -1,6 +1,6 @@
 import {RxLet} from '@rx-angular/template/let';
 import {RxState} from '@rx-angular/state';
-import {ChangeDetectionStrategy, Component, inject, ViewEncapsulation} from '@angular/core';
+import {ChangeDetectionStrategy, Component, inject, ViewEncapsulation,} from '@angular/core';
 import {RxActionFactory} from '@rx-angular/state/actions';
 import {AuthEffects} from '../../auth/auth.effects';
 import {RouterLink} from '@angular/router';
