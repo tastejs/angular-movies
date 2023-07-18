@@ -82,7 +82,7 @@
         "parallel": false
       }
     },
-    "deploy": {
+    "cloudflare-deploy": {
       "dependsOn": [
         "build"
       ],
