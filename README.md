@@ -105,7 +105,7 @@ Built with:
 
 Measures:
 
-- Bundle sice listed fron dist
+- Bundle size listed from dist folder
 - Comparison videos with [webpagetest](https://www.webpagetest.org)
 - Lighthoure reports with [lighthouse-metrics](https://lighthouse-metrics.com)
 - User-flows created with [@push-based/user-flow](https://www.npmjs.com/package/@push-based/user-flow)
