@@ -216,7 +216,7 @@ The CI has different actions:
 
 ## Test and Build
 
-- **`ci.yml`** - runs on `pr` and `m` --affected build,test,lint
+- **`ci.yml`** - runs on `pr` and `m` --affected build,test,lint,prerender
 
 ### Firebase Hosting
 

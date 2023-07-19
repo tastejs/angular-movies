@@ -9,7 +9,14 @@ import {GenresResponse} from '../../../movies/src/app/data-access/api/resources/
 import {environment} from '../../../movies/src/environments/environment';
 
 // PARAMS
+const verbose = !getArgv('verbose');
 const mutation = !getArgv('no-mutation');
+
+function log(...logs: string[]) {
+  if (verbose) {
+    console.log(...logs);
+  }
+}
 
 const targetFile = getArgv('target-file');
 if (!targetFile) {
