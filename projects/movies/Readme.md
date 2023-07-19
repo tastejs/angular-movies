@@ -1,30 +1,11 @@
 # Movies
 
-The SSR setup builds 2 applications.
-One executed on the server to produce the static DOM, and one shipped to the client with all the interactivity.
-There are several thing to notice here:
+Real live app with data and image API including the latest features of Angular and optimized for performance.
+The app war created with ❤️ by the company [Push Based](push-based.io).
 
-- The SSR version is never executed in a real browser. Any native API is mocked there or not working at all.
-- The resulting HTML is later enriched with the CSR version bundled javascript and served to the client.
-- The generated DOM from SSR helps for a LCP
-- When javascript kick's in Angular takes over the site. It removes the existing DOM completely and renders Angular.
-- HTTP requests executed on the server are cached and replayed on the client
+# Testing
 
-HTTP Transfer State
-
-- Is used on both sides to read or write to the DOM cache
-- By default `HTTPInterceptor`'s are in place to hook into every get request and store the data in the DOM
-- On the client side the
-
-## Todos
-
-- configure tags
-- modern app bootstrap
-- service worker refactoring
-- clean dist
-- https://www.darraghoriordan.com/2021/06/23/best-eight-8-eslint-plugins-nestjs-node-application/
-
-## Components to test
+## Components Tests
 
 ### Shell
 
