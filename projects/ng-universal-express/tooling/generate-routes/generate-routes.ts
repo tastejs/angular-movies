@@ -1,16 +1,22 @@
-import {existsSync, mkdirSync, readFileSync, WriteFileOptions, writeFileSync,} from 'node:fs';
-import {dirname} from 'node:path';
-import {EOL} from 'node:os';
+import {
+  existsSync,
+  mkdirSync,
+  readFileSync,
+  WriteFileOptions,
+  writeFileSync,
+} from 'node:fs';
+import { dirname } from 'node:path';
+import { EOL } from 'node:os';
 import axios from 'axios';
 
-import {TMDBMovieModel} from '../../../movies/src/app/data-access/api/model/movie.model';
-import {TMDBPaginateResult} from '../../../movies/src/app/data-access/api/paginate/paginate.interface';
-import {GenresResponse} from '../../../movies/src/app/data-access/api/resources/genre.resource';
-import {environment} from '../../../movies/src/environments/environment';
+import { TMDBMovieModel } from '../../../movies/src/app/data-access/api/model/movie.model';
+import { TMDBPaginateResult } from '../../../movies/src/app/data-access/api/paginate/paginate.interface';
+import { GenresResponse } from '../../../movies/src/app/data-access/api/resources/genre.resource';
+import { environment } from '../../../movies/src/environments/environment';
 
 // PARAMS
 const verbose = !getArgv('verbose');
-const mutation = !getArgv('no-mutation');
+const noMutation = !getArgv('no-mutation');
 
 function log(...logs: string[]) {
   if (verbose) {
@@ -48,16 +54,12 @@ const movieGenresRoutes = axios
     headers: getTmdbHeaders(),
   })
   // eslint-disable-next-line unicorn/prefer-top-level-await
-  .then(({data}) => data.genres.map(({id}) => genresListURL(id)));
+  .then(({ data }) => data.genres.map(({ id }) => genresListURL(id)));
 
 // how many page details of popular movies should be pre-rendered
 // @ts-ignore
 const moviesPopularRoutes = (options: { pages: number }) => {
-  // @ts-ignore
-  const array = [
-    ...Array.from({length: {length: {length: options.pages}}}).keys(),
-  ];
-  return array.map((_, index) =>
+  return Array.from({ length: options.pages }, (_, index) =>
     axios
       .get<TMDBPaginateResult<TMDBMovieModel>>(moviesPopularURL, {
         headers: getTmdbHeaders(),
@@ -66,7 +68,7 @@ const moviesPopularRoutes = (options: { pages: number }) => {
           page: index + 1,
         },
       })
-      .then(({data}) => data.results.map(({id}) => movieDetailURL(id)))
+      .then(({ data }) => data.results.map(({ id }) => movieDetailURL(id)))
   );
 };
 // GENERATE
@@ -74,16 +76,24 @@ Promise.all([
   Promise.resolve(defaultRoutes),
   movieGenresRoutes, // list the routes of the genres featured in the app sidebar
   // list routes for movie details equivalent to N pages of popular movies list
-  ...moviesPopularRoutes({pages: 2}),
+  ...moviesPopularRoutes({ pages: 2 }),
 ])
   .then((routes) => {
+    const normalizedRoutes = routes
+      .flat()
+      .flatMap(
+        (route) => route.replace('https://api.themoviedb.org/3', '') as string
+      )
+      .join(EOL);
+
     console.log(
-      'write to target ' + (mutation ? 'with' : 'without') + ' mutations',
+      'write to target ' + (noMutation ? 'without' : 'with') + ' mutations',
       targetFile
     );
+
     writeFileSyncRecursive(
       targetFile,
-      mutation ? defaultRoutes.flat().join(EOL) : routes.flat().join(EOL)
+      noMutation ? normalizedRoutes : defaultRoutes.flat().join(EOL)
     );
   })
   // eslint-disable-next-line unicorn/prefer-top-level-await
@@ -105,8 +115,8 @@ function writeFileSyncRecursive(
   content: string,
   options?: WriteFileOptions
 ) {
-  const options_ = options || {encoding: 'utf8'};
-  mkdirSync(dirname(filename), {recursive: true});
+  const options_ = options || { encoding: 'utf8' };
+  mkdirSync(dirname(filename), { recursive: true });
   writeFileSync(filename, content, options_);
 }
 
