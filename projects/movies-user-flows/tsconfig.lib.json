@@ -5,13 +5,15 @@
     "declaration": true,
     "types": [
       "node"
-    ]
+    ],
+    "resolveJsonModule": true
   },
   "files": [
     "src/index.ts"
   ],
   "include": [
-    "src/**/*.ts"
+    "src/**/*.ts",
+    "user-flows/**/*.ts"
   ],
   "exclude": [
     "jest.config.ts",

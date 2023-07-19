@@ -8,9 +8,12 @@ import * as movieListBudgets from '../testing/budgets/movie-list.budgets.json';
 import Budget from 'lighthouse/types/lhr/budget';
 import {
   ANIM_DURATION_STANDARD,
+  backBtnSelector,
+  castImgSelector,
   categorySelector,
   genreSelector,
   heandlineSelector,
+  heroImageSelector,
   movieImgSelector,
   sideMenuBtnSelector,
   subheandlineSelector
@@ -33,7 +36,14 @@ const interactions: UserFlowInteractionsFn = async (
   });
   const movieListPage = new MovieListPageUFO(ctx, {movieImgSelector, subheandlineSelector, heandlineSelector});
   const topRatedName = 'topRated';
-  const movieDetailPage = new MovieDetailPageUFO(ctx);
+  const movieDetailPage = new MovieDetailPageUFO(ctx, {
+    movieImgSelector,
+    subheandlineSelector,
+    heandlineSelector,
+    castImgSelector,
+    backBtnSelector,
+    heroImageSelector
+  });
 
   await flow.navigate(url, {
     stepName: '🧭 Initial navigation',
