@@ -16,6 +16,13 @@ export const W154H205: ImageDimensions = {
   WIDTH: 154,
   HEIGHT: 205,
 } as const;
+
+export const W342H200: ImageDimensions = {
+  SIZE: '154w',
+  WIDTH: 342,
+  HEIGHT: 200,
+} as const;
+
 export const W185H278: ImageDimensions = {
   SIZE: '185w',
   WIDTH: 185,
