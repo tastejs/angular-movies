@@ -1,5 +1,5 @@
 import {getArgv} from "../utils";
-import {run} from "./generate-routes-command";
+import {run} from "./generate-routes.impl";
 
 // collect params
 const verbose = !getArgv('verbose');

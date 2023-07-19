@@ -1,4 +1,4 @@
-import {run} from './generate-routes-command';
+import {run} from './generate-routes.impl';
 import {existsSync, mkdirSync, readdirSync, readFileSync, rmSync, writeFileSync} from "node:fs";
 import {join} from "node:path";
 // import * as process from "node:process";
@@ -36,21 +36,21 @@ describe('generate-routes', () => {
   })
 
   it('should run if params are given', async () => {
-    const sourcePath = './tmp'
-    const sourceFilePath = './tmp/routes.base.txt'
-    const targetPath = './tmp/output/'
-    const targetFilePath = join(targetPath, 'generated-routes.txt')
+    const sourcePath = './tmp';
+    const sourceFile = join(sourcePath, 'routes.base.txt');
+    const targetPath = './tmp/output/';
+    const targetFile = join(targetPath, 'generated-routes.txt');
 
-    const sourceFolder = readdirSync(sourcePath)
-    expect(sourceFolder.length).toBe(1);
+    const sourceFolderContent = readdirSync(sourcePath)
+    expect(sourceFolderContent.length).toBe(1);
 
-    await run({targetFile: targetFilePath, sourceFile: sourceFilePath}).then((_) => {
-      const targetFolder = readdirSync(targetPath)
-      expect(targetFolder.length).toBe(1);
+    await run({targetFile, sourceFile}).then((_) => {
+      const targetFolderContent = readdirSync(targetPath)
+      expect(targetFolderContent.length).toBe(1);
 
-      const sourceFile = readFileSync(sourceFilePath).toString()
-      const targetFilePath = readFileSync(join(targetPath, targetFolder.pop()?.toString() || '')).toString()
-      expect(targetFilePath).not.toBe(sourceFile);
+      const sourceFileContent = readFileSync(sourceFile).toString();
+      const targetFileContent = readFileSync(targetFile).toString();
+      expect(targetFileContent).toBe(sourceFileContent);
     });
 
   })

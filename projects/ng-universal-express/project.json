@@ -105,7 +105,7 @@
       "executor": "nx:run-commands",
       "options": {
         "commands": [
-          "npx ts-node -P projects/ng-universal-express/tsconfig.tooling.json ./projects/ng-universal-express/tooling/generate-routes/generate-routes.ts --source-file=./projects/ng-universal-express/routes.txt --target-file=./dist/tmp/routes.txt"
+          "npx ts-node -P projects/ng-universal-express/tsconfig.tooling.json ./projects/ng-universal-express/tooling/generate-routes/bin.ts --source-file=./projects/ng-universal-express/routes.base.txt --target-file=./dist/tmp/routes.txt"
         ],
         "parallel": false
       }

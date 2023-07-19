@@ -9,7 +9,6 @@ import {GenresResponse} from '../../../movies/src/app/data-access/api/resources/
 import {environment} from '../../../movies/src/environments/environment';
 import {getLog} from "../utils";
 
-
 export function run(parameters: { targetFile: string, sourceFile?: string, verbose?: boolean, noMutation?: boolean }): Promise<void> {
 
   // setup
@@ -51,8 +50,9 @@ export function run(parameters: { targetFile: string, sourceFile?: string, verbo
 // how many page details of popular movies should be pre-rendered
 // @ts-ignore
   const moviesPopularRoutes = (options: { pages: number }) => {
-    return Array.from({length: options.pages}, (_, index) =>
-      axios
+    return Array.from({length: options.pages}, (_, index) => {
+      log('render', index);
+      return axios
         .get<TMDBPaginateResult<TMDBMovieModel>>(moviesPopularURL, {
           headers: getTmdbHeaders(),
           params: {
@@ -61,7 +61,7 @@ export function run(parameters: { targetFile: string, sourceFile?: string, verbo
           },
         })
         .then(({data}) => data.results.map(({id}) => movieDetailURL(id)))
-    );
+    });
   };
 // GENERATE
   return Promise.all([
@@ -83,14 +83,14 @@ export function run(parameters: { targetFile: string, sourceFile?: string, verbo
         targetFile
       );
 
+      const content = noMutation ? normalizedRoutes : defaultRoutes.flat().join(EOL)
       writeFileSyncRecursive(
         targetFile,
-        noMutation ? normalizedRoutes : defaultRoutes.flat().join(EOL)
+        content
       );
     })
     // eslint-disable-next-line unicorn/prefer-top-level-await
     .catch((error) => console.error(error));
-
 }
 
 function readApi(url: string) {
