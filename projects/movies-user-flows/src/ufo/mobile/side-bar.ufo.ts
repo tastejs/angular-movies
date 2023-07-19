@@ -1,12 +1,12 @@
-import {SidebarUFO as DesktopSidebarUFO} from '../desktop/side-bar.ufo';
+import {SidebarFixtures, SidebarUFO as DesktopSidebarUFO} from '../desktop/side-bar.ufo';
 import {UserFlowContext} from '@push-based/user-flow';
-import {ANIM_DURATION_SHORT, CategoryNames, GenreIds, sideMenuBtnSelector,} from '../../../../movies/testing';
+import {CategoryNames, GenreIds} from '../../../../movies/testing';
 
 export class SidebarUFO extends DesktopSidebarUFO {
   async toggelSideMenu() {
-    await this.page.waitForSelector(sideMenuBtnSelector);
-    await this.page.click(sideMenuBtnSelector);
-    await this.page.waitForTimeout(ANIM_DURATION_SHORT);
+    await this.page.waitForSelector(this.fixtures.sideMenuBtnSelector);
+    await this.page.click(this.fixtures.sideMenuBtnSelector);
+    await this.page.waitForTimeout(this.fixtures.ANIM_DURATION);
   }
 
   override async navigateToCategory(
@@ -24,7 +24,7 @@ export class SidebarUFO extends DesktopSidebarUFO {
   async ensureSidebarOpen(): Promise<void> {
     const anySideBarLink = this.categorySelector('popular');
     await this.toggelSideMenu()
-      .then(() => this.page.waitForTimeout(ANIM_DURATION_SHORT))
+      .then(() => this.page.waitForTimeout(this.fixtures.ANIM_DURATION))
       .then(() => this.page.waitForSelector(anySideBarLink));
   }
 
@@ -33,10 +33,10 @@ export class SidebarUFO extends DesktopSidebarUFO {
   }
 
   override async awaitLCPContent(): Promise<any> {
-    await this.page.waitForSelector(sideMenuBtnSelector);
+    await this.page.waitForSelector(this.fixtures.sideMenuBtnSelector);
   }
 
-  constructor(ctx: UserFlowContext) {
-    super(ctx);
+  constructor(ctx: UserFlowContext, fixtures: SidebarFixtures) {
+    super(ctx, fixtures);
   }
 }

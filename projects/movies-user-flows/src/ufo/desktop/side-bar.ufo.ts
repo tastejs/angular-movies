@@ -1,27 +1,30 @@
 import {CwvInterface} from '../typings/cwv.interface';
 import {Ufo, UserFlowContext} from '@push-based/user-flow';
-import {
-  ANIM_DURATION_STANDARD,
-  CategoryNames,
-  categorySelector,
-  GenreIds,
-  genreSelector,
-  sideMenuBtnSelector,
-} from '../../../../movies/testing';
+import {CategoryNames, GenreIds,} from '../../../../movies/testing';
+
+
+export type SidebarFixtures = {
+  ANIM_DURATION: number;
+  categorySelector: (c: CategoryNames) => string;
+  genreSelector: (g: GenreIds) => string;
+  sideMenuBtnSelector: string;
+}
 
 export class SidebarUFO extends Ufo implements CwvInterface {
-  protected categorySelector = categorySelector;
-  protected genreSelector = genreSelector;
+  protected categorySelector;
+  protected genreSelector;
 
   // @ts-ignore
-  constructor(private ctx: UserFlowContext) {
+  constructor(private ctx: UserFlowContext, public fixtures: SidebarFixtures) {
     super(ctx);
+    this.genreSelector = this.fixtures.genreSelector;
+    this.categorySelector = this.fixtures.categorySelector;
   }
 
   async clickSideMenuBtn() {
-    await this.page.waitForSelector(sideMenuBtnSelector);
-    await this.page.click(sideMenuBtnSelector);
-    await this.page.waitForTimeout(ANIM_DURATION_STANDARD);
+    await this.page.waitForSelector(this.fixtures.sideMenuBtnSelector);
+    await this.page.click(this.fixtures.sideMenuBtnSelector);
+    await this.page.waitForTimeout(this.fixtures.ANIM_DURATION);
   }
 
   async navigateToCategory(c: CategoryNames = 'popular') {
@@ -40,7 +43,7 @@ export class SidebarUFO extends Ufo implements CwvInterface {
   }
 
   async awaitAllContent(): Promise<any> {
-    return await Promise.all([this.page.waitForSelector(sideMenuBtnSelector)]);
+    return await Promise.all([this.page.waitForSelector(this.fixtures.sideMenuBtnSelector)]);
   }
 
   async awaitLCPContent(): Promise<any> {

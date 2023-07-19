@@ -6,6 +6,7 @@ import * as angularBudgets from '../testing/budgets/angular.budgets.json';
 import * as generalTimingBudget from '../testing/budgets/general-timing.budgets.json';
 import * as movieListBudgets from '../testing/budgets/movie-list.budgets.json';
 import Budget from 'lighthouse/types/lhr/budget';
+import {ANIM_DURATION_STANDARD, categorySelector, genreSelector, sideMenuBtnSelector} from "../testing";
 
 const flowOptions: UserFlowOptions = {
   name: 'Basic user flow to ensure basic functionality',
@@ -16,7 +17,12 @@ const interactions: UserFlowInteractionsFn = async (
 ): Promise<any> => {
   const {flow, collectOptions} = ctx;
   const url = `${collectOptions.url}/list/category/popular`;
-  const sidebar = new SidebarUFO(ctx);
+  const sidebar = new SidebarUFO(ctx, {
+    ANIM_DURATION: ANIM_DURATION_STANDARD,
+    categorySelector,
+    genreSelector,
+    sideMenuBtnSelector
+  });
   const movieListPage = new MovieListPageUFO(ctx);
   const topRatedName = 'topRated';
   const movieDetailPage = new MovieDetailPageUFO(ctx);

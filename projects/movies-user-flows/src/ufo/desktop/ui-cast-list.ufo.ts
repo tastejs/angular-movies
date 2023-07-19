@@ -1,13 +1,19 @@
 import {CwvInterface} from '../typings/cwv.interface';
-import {castImgSelector} from '../../../../movies/testing';
 import {Ufo, UserFlowContext} from '@push-based/user-flow';
 
+export type UiCastListFixtures = {
+  castImgSelector: (idx: number) => string;
+}
+
 export class UiCastListUFO extends Ufo implements CwvInterface {
-  protected itemSelector = castImgSelector;
+  private fixtures: UiCastListFixtures;
+  protected itemSelector;
 
   // @ts-ignore
-  constructor(private ctx: UserFlowContext) {
+  constructor(private ctx: UserFlowContext, fixtures: UiCastListFixtures) {
     super(ctx);
+    this.fixtures = fixtures;
+    this.itemSelector = this.fixtures.castImgSelector;
   }
 
   async clickMovieListImage(idx: number) {

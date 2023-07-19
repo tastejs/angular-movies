@@ -1,9 +1,8 @@
 import {CwvInterface} from '../typings/cwv.interface';
-import {movieImgSelector} from '../../../../movies/testing';
 import {Ufo, UserFlowContext} from '@push-based/user-flow';
 
 export class UiMovieListUFO extends Ufo implements CwvInterface {
-  protected itemSelector = movieImgSelector;
+  protected itemSelector;
 
   async clickMovieListImage(idx: number = 0) {
     const selector = this.itemSelector(idx);
@@ -12,8 +11,9 @@ export class UiMovieListUFO extends Ufo implements CwvInterface {
   }
 
   // @ts-ignore
-  constructor(private ctx: UserFlowContext) {
+  constructor(private ctx: UserFlowContext, private fixtures: { movieImgSelector: (idx: number) => string }) {
     super(ctx);
+    this.itemSelector = this.fixtures.movieImgSelector
   }
 
   async awaitAllContent(): Promise<any> {

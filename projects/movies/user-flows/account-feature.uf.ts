@@ -7,6 +7,14 @@ import * as movieListBudgets from '../testing/budgets/movie-list.budgets.json';
 import {getLhConfig, mergeBudgets,} from '../../movies-user-flows/src/internals/test-sets';
 import {ToolBarUfo} from '../../movies-user-flows/src/ufo/desktop/tool-bar.ufo';
 import {TmdbUfo} from '../../movies-user-flows/src/ufo/desktop/tmdb.ufo';
+import {
+  profileMenu,
+  profileMenuContent,
+  profileMenuLoginItem,
+  profileMenuSignoutItem,
+  searchSelector,
+  searchSubmitKeys
+} from '../testing';
 
 const flowOptions: UserFlowOptions = {
   name: 'Login And Logout User Flow',
@@ -17,7 +25,14 @@ const interactions: UserFlowInteractionsFn = async (
 ): Promise<any> => {
   const {page, flow, collectOptions} = ctx;
   const url = `${collectOptions.url}/list/category/popular`;
-  const toolbar = new ToolBarUfo(ctx);
+  const toolbar = new ToolBarUfo(ctx, {
+    searchSubmitKeys,
+    searchSelector,
+    profileMenu,
+    profileMenuContent,
+    profileMenuLoginItem,
+    profileMenuSignoutItem
+  });
   const tmdbPage = new TmdbUfo(ctx);
 
   //This is needed to have it working in headless : true

@@ -1,10 +1,10 @@
 import {UiMovieListUFO} from './ui-movie-list.ufo';
 import {CwvInterface} from '../typings/cwv.interface';
-import {heandlineSelector, subheandlineSelector,} from '../../../../movies/testing';
+import {heandlineSelector, movieImgSelector, subheandlineSelector,} from '../../../../movies/testing';
 import {Ufo, UserFlowContext} from '@push-based/user-flow';
 
 export class MovieListPageUFO extends Ufo implements CwvInterface {
-  movieList = new UiMovieListUFO(this.ctx);
+  movieList = new UiMovieListUFO(this.ctx, {movieImgSelector});
 
   async awaitLCPContent() {
     await this.movieList.awaitLCPContent();
