@@ -38,6 +38,8 @@ export class ListItemsEditAdapter extends RxState<{
   private moviesResource = inject(MovieResource);
   readonly ui = new RxActionFactory<Actions>().create();
 
+  readonly srcset = '92w, 154w, 185w, 342w, 500w, 780w';
+
   readonly vm$ = this.select(
     selectSlice(['items', 'searchResults', 'showResults', 'searchValue']),
     map(({ items, searchResults, showResults, searchValue }) => ({

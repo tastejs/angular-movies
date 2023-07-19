@@ -44,6 +44,8 @@ export class ListDetailAdapter extends RxState<{
   private readonly routerState = inject(RouterState);
   readonly ui = new RxActionFactory<Actions>().create();
 
+  readonly srcset = '154w, 185w, 342w, 500w, 780w';
+
   readonly routerListId$ = this.routerState.select(map((state) => state?.type));
 
   private readonly listInfoUpdateEvent$ = this.ui.listInfoUpdate$.pipe(
