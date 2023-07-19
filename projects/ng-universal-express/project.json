@@ -105,7 +105,7 @@
       "executor": "nx:run-commands",
       "options": {
         "commands": [
-          "npx ts-node -P projects/ng-universal-express/tsconfig.tooling.json ./projects/ng-universal-express/tooling/generate-routes/generate-routes.ts --source-file=./projects/ng-universal-express/routes.txt --target-file=./dist/tmp/projects/ng-universal-express/routes.txt"
+          "npx ts-node -P projects/ng-universal-express/tsconfig.tooling.json ./projects/ng-universal-express/tooling/generate-routes/generate-routes.ts --source-file=./projects/ng-universal-express/routes.txt --target-file=./dist/tmp/routes.txt"
         ],
         "parallel": false
       }
@@ -115,13 +115,9 @@
       "outputs": ["dist/projects/movies/browser"],
       "executor": "@nguniversal/builders:prerender",
       "options": {
-        "routes": ["dist/tmp/projects/ng-universal-express/routes.txt"]
+        "routesFile": "dist/tmp/routes.txt"
       },
       "configurations": {
-        "development": {
-          "browserTarget": "movies:build:development",
-          "serverTarget": "ng-universal-express:build:development"
-        },
         "production": {
           "browserTarget": "movies:build:production",
           "serverTarget": "ng-universal-express:build:production"
