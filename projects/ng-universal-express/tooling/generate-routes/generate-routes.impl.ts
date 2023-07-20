@@ -9,10 +9,10 @@ import {GenresResponse} from '../../../movies/src/app/data-access/api/resources/
 import {environment} from '../../../movies/src/environments/environment';
 import {getLog} from "../utils";
 
-export function run(parameters: { targetFile: string, sourceFile?: string, verbose?: boolean, noMutation?: boolean }): Promise<void> {
+export function run(parameters: { targetFile: string, sourceFile?: string, verbose?: boolean }): Promise<void> {
 
   // setup
-  let {targetFile, sourceFile, noMutation, verbose} = parameters;
+  let {targetFile, sourceFile, verbose} = parameters;
 
   const log = getLog(verbose);
 
@@ -45,7 +45,10 @@ export function run(parameters: { targetFile: string, sourceFile?: string, verbo
       headers: getTmdbHeaders(),
     })
     // eslint-disable-next-line unicorn/prefer-top-level-await
-    .then(({data}) => data.genres.map(({id}) => genresListURL(id)));
+    .then(({data}) => {
+      log('data: ', data);
+      return data.genres.map(({id}) => genresListURL(id))
+    });
 
 // how many page details of popular movies should be pre-rendered
 // @ts-ignore
@@ -71,19 +74,19 @@ export function run(parameters: { targetFile: string, sourceFile?: string, verbo
     ...moviesPopularRoutes({pages: 2}),
   ])
     .then((routes) => {
+      log(
+        `Routes: ${JSON.stringify(routes)}`
+      );
       const normalizedRoutes = routes
         .flat()
         .flatMap(
           (route) => route.replace('https://api.themoviedb.org/3', '') as string
         )
-        .join(EOL);
 
+      const content = normalizedRoutes.join(EOL)
       log(
-        'write to target ' + (noMutation ? 'without' : 'with') + ' mutations',
-        targetFile
+        `Content: ${content}`
       );
-
-      const content = noMutation ? normalizedRoutes : defaultRoutes.flat().join(EOL)
       writeFileSyncRecursive(
         targetFile,
         content
@@ -93,7 +96,7 @@ export function run(parameters: { targetFile: string, sourceFile?: string, verbo
     .catch((error) => console.error(error));
 }
 
-function readApi(url: string) {
+function readApi(url: string): string {
   return `${environment.tmdbBaseUrl}/${environment.apiV3}/${url}`;
 }
 
@@ -102,7 +105,7 @@ function writeFileSyncRecursive(
   filename: string,
   content: string,
   options?: WriteFileOptions
-) {
+): void {
   const options_ = options || {encoding: 'utf8'};
   mkdirSync(dirname(filename), {recursive: true});
   writeFileSync(filename, content, options_);

@@ -1,8 +1,6 @@
 import {run} from './generate-routes.impl';
 import {existsSync, mkdirSync, readdirSync, readFileSync, rmSync, writeFileSync} from "node:fs";
 import {join} from "node:path";
-// import * as process from "node:process";
-// let originalCwd = '';
 
 function setupFolder(): void {
   const target = './tmp';
@@ -19,11 +17,9 @@ function cleanupFolder(): void {
 describe('generate-routes', () => {
 
   beforeEach(() => {
-    // originalCwd = process.cwd();
     setupFolder();
   });
   afterEach(() => {
-    // process.chdir(originalCwd);
     cleanupFolder();
   });
 
@@ -32,7 +28,7 @@ describe('generate-routes', () => {
 
     // eslint-disable-next-line unicorn/prefer-module
     expect(() => run({} as any)).toThrow(errorMessage);
-    expect(() => run({targetFile: ''})).toThrow(errorMessage);
+    expect(() => run({verbose: true, targetFile: ''})).toThrow(errorMessage);
   })
 
   it('should run if params are given', async () => {
@@ -44,13 +40,13 @@ describe('generate-routes', () => {
     const sourceFolderContent = readdirSync(sourcePath)
     expect(sourceFolderContent.length).toBe(1);
 
-    await run({targetFile, sourceFile}).then((_) => {
+    await run({targetFile, sourceFile, verbose: true}).then((_) => {
       const targetFolderContent = readdirSync(targetPath)
       expect(targetFolderContent.length).toBe(1);
 
       const sourceFileContent = readFileSync(sourceFile).toString();
       const targetFileContent = readFileSync(targetFile).toString();
-      expect(targetFileContent).toBe(sourceFileContent);
+      expect(targetFileContent).not.toBe(sourceFileContent);
     });
 
   })
