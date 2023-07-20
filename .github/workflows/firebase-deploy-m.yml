@@ -4,8 +4,17 @@ jobs:
   deploy_firebase_function_and_hosting:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout the repository
+      # needed for all cases
+      - if: github.event_name == 'push' && github.ref_name == 'main'
         uses: actions/checkout@v3
+      # needed for nx affected command
+      - if: github.event_name == 'pull_request'
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      # needed for nx affected command
+      - if: github.event_name == 'pull_request'
+        run: git fetch --no-tags --depth=1 origin $BASE_BRANCH
 
       - name: Setup Node.js
         uses: actions/setup-node@v3
