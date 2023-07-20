@@ -13,7 +13,7 @@
     "serve:dist": "npx http-server -p 8080 -c-1 dist/projects/movies/browser",
     "format:all": "prettier --write .",
     "commit": "git-cz",
-    "prepare": "husky install"
+    "prepare": "husky install || true"
   },
   "config": {
     "commitizen": {

@@ -25,7 +25,8 @@ jobs:
       - name: Deploy firebase live hosting
         id: deployStep
         # We can not use the firebase github action as it throws because of "channelID requires"
-        # ${{ fromJson(steps.deployStep.outputs.urls)[0] }} // @TODO figure out why outputs urls are different from `https://angular-movies-a12d3.web.app`
+        # Notes: in package.json there is a hack (`|| true`) in the prepare script to make it pass (`"prepare": "husky install || true"`).
+        # Since we don't upload the node_modules. The real reason dough is we don't put a custom `package.json` in the dist folder.
         run: |
           npm run nx run firebase-function:deploy
         env:
