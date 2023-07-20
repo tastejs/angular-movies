@@ -20,7 +20,7 @@ jobs:
         id: deployStep
         # We can not use the firebase GitHub action as it throws because of "channelID requires"
         run: |
-          nx affected --targets=deploy-firebase  --no-parallel
+          npm run nx -- affected --targets=deploy-firebase  --no-parallel
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
 
