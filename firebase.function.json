@@ -5,11 +5,7 @@
     }
   },
   "functions": {
-    "source": "./dist",
-    "ignore": [
-      "**/node_modules/**",
-      "**/tooling/**",
-      "**/.*/**"
-    ]
+    "source": ".",
+    "ignore": ["**/node_modules/**", "**/tooling/**", "**/.*/**"]
   }
 }

@@ -50,17 +50,13 @@
       "executor": "nx:run-commands",
       "dependsOn": ["build"],
       "options": {
-        "commands": [
-          "npx firebase deploy --project angular-movies"
-        ],
+        "commands": ["npx firebase deploy --project angular-movies"],
         "parallel": false
       }
     },
     "pre-deploy": {
       "executor": "nx:run-commands",
-      "dependsOn": [
-        "build"
-      ],
+      "dependsOn": ["build"],
       "options": {
         "commands": [
           "npx cpx package.lock.json dist/projects/movies",
@@ -69,23 +65,9 @@
         "parallel": false
       }
     },
-    "pre-deploy-function": {
-      "outputs": [
-        "dist/projects/movies/server"
-      ],
-      "executor": "nx:run-commands",
-      "options": {
-        "commands": [
-          "npx ts-node -P projects/firebase-function/tsconfig.tooling.json ./projects/firebase-function/tooling/generate-package-json/bin.ts --source-file=./projects/firebase-function/package.json --target-folder=./dist/projects/movies"
-        ],
-        "parallel": false
-      }
-    },
     "deploy-function": {
       "executor": "nx:run-commands",
-      "dependsOn": [
-        "pre-deploy"
-      ],
+      "dependsOn": ["build"],
       "options": {
         "commands": [
           "npx firebase --config=firebase.function.json deploy --only=functions --project=angular-movies"
@@ -96,9 +78,7 @@
     "emulate": {
       "executor": "nx:run-commands",
       "options": {
-        "commands": [
-          "firebase emulators:start --project angular-movies"
-        ],
+        "commands": ["firebase emulators:start --project angular-movies"],
         "parallel": false
       }
     },
