@@ -1,0 +1,11 @@
+{
+  "collect": {
+    "ufPath": "./projects/agnostic-tests/user-flows",
+    "outPath": "./dist/user-flow/agnostic-tests"
+  },
+  "persist": {
+    "format": [
+      "md"
+    ]
+  }
+}

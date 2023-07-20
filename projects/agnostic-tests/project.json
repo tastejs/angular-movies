@@ -1,0 +1,38 @@
+{
+  "name": "agnostic-tests",
+  "$schema": "../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "agnostic-tests/src",
+  "projectType": "library",
+  "targets": {
+    "user-flow": {
+      "executor": "@push-based/user-flow-nx-plugin:user-flow",
+      "outputs": [
+        "{options.outputPath}"
+      ],
+      "options": {
+        "url": "http://localhost:4200",
+        "rcPath": "projects/agnostic-tests/.user-flowrc.json",
+        "outputPath": "dist/user-flow/agnostic-tests",
+        "ufPath": "projects/agnostic-tests/user-flows",
+        "format": [
+          "html"
+        ]
+      },
+      "configurations": {
+        "development": {
+          "verbose": true,
+          "dryRun": true,
+          "serveCommand": "nx run movies:serve:development",
+          "awaitServeStdout": "Angular Live Development Server is listening on"
+        },
+        "production": {
+          "url": "http://localhost:4201",
+          "serveCommand": "nx run movies:serve:production",
+          "awaitServeStdout": "Angular Live Development Server is listening on"
+        }
+      },
+      "defaultConfiguration": "production"
+    }
+  },
+  "tags": []
+}
