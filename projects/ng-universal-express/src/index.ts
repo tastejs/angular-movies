@@ -15,6 +15,7 @@ import {useCompression, useTiming} from './app/utils';
 export function app(): express.Express {
   const server = express();
 
+  // cwd is wherever the closest package.json is. for firebase function deploy and emulators
   const distributionFolder = join(
     process.cwd(),
     'dist/projects/movies/browser'

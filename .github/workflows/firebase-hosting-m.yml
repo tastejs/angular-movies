@@ -1,8 +1,5 @@
 name: E2E Firebase Live Hosting on Merge
-'on':
-  push:
-    branches:
-      - main
+
 jobs:
   deploy_firebase_function_and_hosting:
     runs-on: ubuntu-latest
@@ -28,7 +25,7 @@ jobs:
         # Notes: in package.json there is a hack (`|| true`) in the prepare script to make it pass (`"prepare": "husky install || true"`).
         # Since we don't upload the node_modules. The real reason dough is we don't put a custom `package.json` in the dist folder.
         run: |
-          npm run nx run firebase-function:deploy
+          npm run nx run firebase-function:deploy-function
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
 

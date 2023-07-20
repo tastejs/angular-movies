@@ -1,0 +1,15 @@
+{
+  "emulators": {
+    "functions": {
+      "port": 4402
+    }
+  },
+  "functions": {
+    "source": "./dist",
+    "ignore": [
+      "**/node_modules/**",
+      "**/tooling/**",
+      "**/.*/**"
+    ]
+  }
+}
