@@ -1,4 +1,4 @@
-name: Deploy Firebase Functions on Merge
+name: Deploy Firebase Function|Hosting on Merge
 'on': pull_request
 jobs:
   deploy_firebase_function_and_hosting:
@@ -19,11 +19,11 @@ jobs:
       - name: Production build (client + prerender + server)
         run: npm run nx run firebase-function:build:production
 
-      - name: Deploy firebase function
+      - name: Deploy firebase function|hosting
         id: deployStep
         # We can not use the firebase GitHub action as it throws because of "channelID requires"
         run: |
-          npm run nx run firebase-function:deploy-function
+          npm run nx affected --targets=deploy-firebase  --no-parallel
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
 

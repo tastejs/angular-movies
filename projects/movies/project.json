@@ -204,7 +204,8 @@
       "executor": "nx:run-commands",
       "options": {
         "commands": [
-          "npx firebase deploy --only hosting --project angular-movies"
+          "nx prerender ng-universal-express",
+          "npx firebase --config=firebase.hosting.json deploy --only=hosting --project=angular-movies"
         ],
         "parallel": false
       }

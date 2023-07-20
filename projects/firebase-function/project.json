@@ -65,7 +65,7 @@
         "parallel": false
       }
     },
-    "deploy-function": {
+    "deploy-firebase": {
       "executor": "nx:run-commands",
       "dependsOn": ["build"],
       "options": {
