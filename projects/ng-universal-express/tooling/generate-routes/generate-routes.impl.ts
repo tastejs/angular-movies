@@ -45,16 +45,12 @@ export function run(parameters: { targetFile: string, sourceFile?: string, verbo
       headers: getTmdbHeaders(),
     })
     // eslint-disable-next-line unicorn/prefer-top-level-await
-    .then(({data}) => {
-      log('data: ', data);
-      return data.genres.map(({id}) => genresListURL(id))
-    });
+    .then(({data}) => data.genres.map(({id}) => genresListURL(id)));
 
 // how many page details of popular movies should be pre-rendered
 // @ts-ignore
   const moviesPopularRoutes = (options: { pages: number }) => {
     return Array.from({length: options.pages}, (_, index) => {
-      log('render', index);
       return axios
         .get<TMDBPaginateResult<TMDBMovieModel>>(moviesPopularURL, {
           headers: getTmdbHeaders(),
@@ -74,9 +70,6 @@ export function run(parameters: { targetFile: string, sourceFile?: string, verbo
     ...moviesPopularRoutes({pages: 2}),
   ])
     .then((routes) => {
-      log(
-        `Routes: ${JSON.stringify(routes)}`
-      );
       const normalizedRoutes = routes
         .flat()
         .flatMap(
@@ -84,9 +77,7 @@ export function run(parameters: { targetFile: string, sourceFile?: string, verbo
         )
 
       const content = normalizedRoutes.join(EOL)
-      log(
-        `Content: ${content}`
-      );
+      log(`Content: ${content}`);
       writeFileSyncRecursive(
         targetFile,
         content
