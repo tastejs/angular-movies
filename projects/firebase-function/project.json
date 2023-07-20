@@ -54,6 +54,16 @@
         "parallel": false
       }
     },
+    "deploy-function": {
+      "executor": "nx:run-commands",
+      "dependsOn": ["build"],
+      "options": {
+        "commands": [
+          "npx firebase deploy --only functions --project angular-movies"
+        ],
+        "parallel": false
+      }
+    },
     "emulate": {
       "executor": "nx:run-commands",
       "options": {

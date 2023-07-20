@@ -1,0 +1,37 @@
+name: Deploy Firebase Functions on Merge
+'on': push_pull
+jobs:
+  deploy_firebase_function_and_hosting:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the repository
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Production build (client + prerender + server)
+        run: npm run nx run firebase-function:build:production
+
+      - name: Deploy firebase function
+        id: deployStep
+        # We can not use the firebase GitHub action as it throws because of "channelID requires"
+        run: |
+          npm run nx run firebase-function:deploy-function
+        env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+
+      - name: Test firebase function deploy [live]
+        id: test-firebase-function--deploy-live
+        uses: push-based/user-flow-gh-action@v0.4.0
+        with:
+          commentId: test-firebase-function--deploy-live
+          verbose: on
+          url: https://angular-movies-a12d3.web.app
+          rcPath: projects/firebase-function/.user-flowrc.json
