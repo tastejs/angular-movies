@@ -1,5 +1,5 @@
 name: Deploy Firebase Functions on Merge
-'on': push_pull
+'on': pull_request
 jobs:
   deploy_firebase_function_and_hosting:
     runs-on: ubuntu-latest
