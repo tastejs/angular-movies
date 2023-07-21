@@ -16,20 +16,17 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Production build (client + prerender + server)
-        run: npm run nx run firebase-function:build:production
-
       - name: Deploy firebase live hosting
         id: deployStep
-        # We can not use the firebase github action as it throws because of "channelID requires"
+        # We can not use the firebase GitHub action as it throws because of "channelID requires"
         # Notes: in package.json there is a hack (`|| true`) in the prepare script to make it pass (`"prepare": "husky install || true"`).
         # Since we don't upload the node_modules. The real reason dough is we don't put a custom `package.json` in the dist folder.
         run: |
-          npm run nx run firebase-function:deploy-function
+          npm run nx run movies:deploy-firebase
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
 
-      - name: Test firebase live hosting
+      - name: Test firebase live hosting + function
         id: firebase-live-hosting
         uses: push-based/user-flow-gh-action@v0.4.0
         with:
