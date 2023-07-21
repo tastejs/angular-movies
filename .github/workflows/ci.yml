@@ -29,3 +29,15 @@ jobs:
 
       - name: Run Nx Affected
         run: npx nx affected --targets=lint,build,test,prerender --exclude cloudflare-worker
+
+      - name: Run Nx Affected user-flow
+        run: npx nx affected --targets=user-flow --outPath=dist/user-flows
+
+      - name: Test firebase functions deploy [emulation]
+        id: test-firebase-function--deploy-emulation
+        uses: push-based/user-flow-gh-action@v0.4.0
+        with:
+          commentId: test-firebase-function--deploy-emulation
+          onlyComments: on
+          verbose: on
+          rcPath: projects/firebase-function/.user-flowrc.json

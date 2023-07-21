@@ -39,5 +39,4 @@ jobs:
         with:
           commentId: test-firebase-function--deploy-live
           verbose: on
-          url: https://angular-movies-a12d3.web.app
           rcPath: projects/firebase-function/.user-flowrc.json
