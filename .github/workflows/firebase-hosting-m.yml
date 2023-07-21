@@ -34,7 +34,7 @@ jobs:
 
       - name: Test firebase live hosting
         id: firebase-live-hosting
-        uses: push-based/user-flow-gh-action@v0.4.0
+        uses: push-based/user-flow-gh-action@v0.4.1
         with:
           commentId: firebase-live-hosting
           verbose: on

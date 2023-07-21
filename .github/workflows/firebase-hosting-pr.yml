@@ -34,7 +34,7 @@ jobs:
 
       - name: Test firebase preview channel hosting
         id: firebase-preview-channel-hosting
-        uses: push-based/user-flow-gh-action@v0.4.0
+        uses: push-based/user-flow-gh-action@v0.4.1
         with:
           commentId: firebase-preview-channel-hosting
           verbose: on
