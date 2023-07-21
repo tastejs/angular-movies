@@ -26,5 +26,5 @@ jobs:
         with:
           commentId: firebase-function-emulation
           verbose: on
-          customScript: "'npm run nx user-flow firebase-function'"
+          customScript: "npm run nx user-flow firebase-function"
           rcPath: projects/firebase-function/.user-flowrc.json
