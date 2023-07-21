@@ -1,4 +1,4 @@
-import {readFileSync,} from 'node:fs';
+import {readFileSync, writeFileSync,} from 'node:fs';
 import {join, relative} from 'node:path';
 import {getLog} from "../utils";
 
@@ -20,10 +20,11 @@ export function run(parameters: { targetFolder: string, sourceFile?: string, ver
   const targetFile = join(targetFolder, 'package.json');
   const sourcePackageJson = JSON.parse(readFileSync(sourceFile).toString());
   log(relative(sourceFile, targetFile));
-
-  // writeFileSyncRecursive();
   const targetPackageJson = adoptPackageJson(sourcePackageJson, {main: relative(sourceFile, targetFile)});
-  log(targetPackageJson);
+
+  log(`Write ${targetPackageJson} to ${targetFile}`);
+  writeFileSync(targetFile, targetPackageJson)
+
   return Promise.resolve();
 
 }
