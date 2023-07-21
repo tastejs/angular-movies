@@ -1,8 +1,5 @@
 name: E2E Firebase Live Hosting on Merge
 'on':
-  push:
-    branches:
-      - main
 jobs:
   deploy_firebase_function_and_hosting:
     runs-on: ubuntu-latest
