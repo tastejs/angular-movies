@@ -35,7 +35,7 @@ jobs:
 
       - name: Test firebase functions deploy [emulation]
         id: test-firebase-function--deploy-emulation
-        uses: push-based/user-flow-gh-action@v0.4.0
+        uses: push-based/user-flow-gh-action@v0.4.1
         with:
           commentId: test-firebase-function--deploy-emulation
           onlyComments: on
