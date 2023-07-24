@@ -27,4 +27,4 @@ jobs:
           commentId: ng-universal-express
           verbose: on
           onlyComments: on
-          outPath: dist/user-flow/ng-universal-express
+          outPath: ./dist/user-flow/ng-universal-express
