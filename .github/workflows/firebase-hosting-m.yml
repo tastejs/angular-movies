@@ -32,12 +32,13 @@ jobs:
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
 
+      - name: User Flow
+        run: npm run nx user-flow movies --url=https://angular-movies-a12d3.web.app
+
       - name: Test firebase live hosting
         id: firebase-live-hosting
         uses: push-based/user-flow-gh-action@v0.4.1
         with:
           commentId: firebase-live-hosting
+          commentsOnly: on
           verbose: on
-          url: https://angular-movies-a12d3.web.app
-          # url: ${{ fromJson(steps.deployStep.outputs.urls)[0] }} // @TODO figure out why outputs urls are different from `https://angular-movies-a12d3.web.app`
-          rcPath: ./projects/movies/.user-flowrc.json

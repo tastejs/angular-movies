@@ -18,7 +18,7 @@ jobs:
         run: npm ci
 
       - name: Production build for static file hosting (client + prerender)
-        run: npm run nx prerender ng-universal-express
+        run: npm run nx user-flow ng-universal-express
 
       - name: Test ng-universal-express
         id: firebase-preview-channel-hosting
@@ -26,5 +26,5 @@ jobs:
         with:
           commentId: ng-universal-express
           verbose: on
-          rcPath: projects/ng-universal-express/.user-flowrc.json
+          onlyComments: on
           outPath: dist/user-flow/ng-universal-express
