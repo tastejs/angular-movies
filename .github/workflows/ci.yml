@@ -34,7 +34,7 @@ jobs:
         run: npx nx affected --targets=lint,build,test,prerender --exclude cloudflare-worker
 
       - name: Run Nx Affected user-flow
-        run: npx nx affected --targets=user-flow --args='--outPath=./dist/user-flows'
+        run: npx nx affected --targets=user-flow --args="--outPath=./dist/user-flows"
 
       - name: Test firebase functions deploy [emulation]
         id: test-firebase-function--deploy-emulation
