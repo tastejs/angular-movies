@@ -1,13 +1,12 @@
 import {existsSync, mkdirSync, readFileSync, WriteFileOptions, writeFileSync,} from 'node:fs';
 import {dirname} from 'node:path';
 import {EOL} from 'node:os';
-import axios from 'axios';
 
 import {TMDBMovieModel} from '../../../movies/src/app/data-access/api/model/movie.model';
-import {TMDBPaginateResult} from '../../../movies/src/app/data-access/api/paginate/paginate.interface';
 import {GenresResponse} from '../../../movies/src/app/data-access/api/resources/genre.resource';
 import {environment} from '../../../movies/src/environments/environment';
 import {getLog} from "../utils";
+
 
 export function run(parameters: { targetFile: string, sourceFile?: string, verbose?: boolean }): Promise<void> {
 
@@ -40,26 +39,25 @@ export function run(parameters: { targetFile: string, sourceFile?: string, verbo
   const movieDetailURL = (id: string | number) => readApi(`detail/movie/${id}`);
   const moviesPopularURL = readApi('movie/popular');
 
-  const movieGenresRoutes = axios
-    .get<{ genres: GenresResponse }>(movieGenresURL, {
-      headers: getTmdbHeaders(),
-    })
+  const movieGenresRoutes = _fetch<{ genres: GenresResponse }>(movieGenresURL, {
+    headers: getTmdbHeaders(),
+  })
     // eslint-disable-next-line unicorn/prefer-top-level-await
-    .then(({data}) => data.genres.map(({id}) => genresListURL(id)));
+    .then(({genres}) => {
+      return genres.map(({id}) => genresListURL(id))
+    })
 
 // how many page details of popular movies should be pre-rendered
 // @ts-ignore
   const moviesPopularRoutes = (options: { pages: number }) => {
     return Array.from({length: options.pages}, (_, index) => {
-      return axios
-        .get<TMDBPaginateResult<TMDBMovieModel>>(moviesPopularURL, {
-          headers: getTmdbHeaders(),
-          params: {
-            sort_by: 'popularity.asc',
-            page: index + 1,
-          },
-        })
-        .then(({data}) => data.results.map(({id}) => movieDetailURL(id)))
+      return _fetch<{ results: TMDBMovieModel[] }>(moviesPopularURL, {
+        headers: getTmdbHeaders(),
+        params: {
+          sort_by: 'popularity.asc',
+          page: index + 1,
+        },
+      }).then(({results}) => results.map(({id}) => movieDetailURL(id)))
     });
   };
 // GENERATE
@@ -109,4 +107,11 @@ function getTmdbHeaders() {
       'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36',
     authorization: `Bearer ${environment.tmdbApiReadAccessKey}`,
   };
+}
+
+function _fetch<T>(url: string, f: RequestInit & { params?: Record<string, any> }) {
+  const {params, ...fetchRequestInit} = f
+  const parametersAsString = new URLSearchParams(params).toString();
+  const urlToFetch = `${url}${parametersAsString ? '?' + parametersAsString : ''}`;
+  return fetch(urlToFetch, fetchRequestInit).then((response: Response) => response.json()) as Promise<T>
 }
