@@ -24,7 +24,7 @@ jobs:
         id: previewDeployStep
         uses: FirebaseExtended/action-hosting-deploy@v0.7.1
         with:
-          entryPoint: /firebase.hosting.json
+          config: firebase.hosting.json
           repoToken: ${{ secrets.GITHUB_TOKEN }}
           firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_ANGULAR_MOVIES_A12D3 }}
           projectId: angular-movies-a12d3
