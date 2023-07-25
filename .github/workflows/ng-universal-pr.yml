@@ -18,7 +18,7 @@ jobs:
         run: npm ci
 
       - name: Production build for static file hosting (client + prerender)
-        run: npm run nx user-flow ng-universal-express
+        run: npm run nx user-flow ng-universal-express -- --format=md
 
       - name: Test ng-universal-express
         id: firebase-preview-channel-hosting
