@@ -1,5 +1,5 @@
 name: E2E NG Universal Express on PR
-'on':
+'on': pull_request
 jobs:
   build_and_ng-universal-express:
     if: '${{ github.event.pull_request.head.repo.full_name == github.repository }}'
@@ -24,7 +24,7 @@ jobs:
         id: firebase-preview-channel-hosting
         uses: push-based/user-flow-gh-action@v0.4.1
         with:
-          commentId: ng-universal-express
           verbose: on
+          commentId: ng-universal-express
           onlyComments: on
           outPath: ./dist/user-flow/ng-universal-express
