@@ -1,11 +1,4 @@
 {
-  "collect": {
-    "ufPath": "./projects/movies/user-flows",
-    "outPath": "./dist/user-flow/movies"
-  },
-  "persist": {
-    "format": [
-      "md"
-    ]
-  }
+  "collect": {},
+  "persist": {}
 }

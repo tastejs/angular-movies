@@ -3,6 +3,7 @@ name: E2E Firebase Live Hosting on Merge
   push:
     branches:
       - main
+
 jobs:
   deploy_firebase_function_and_hosting:
     runs-on: ubuntu-latest
@@ -32,12 +33,15 @@ jobs:
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
 
-      - name: Test firebase live hosting
+      - name: Run user flow against firebase live hosting
+        run: npm run nx run movies:user-flow:production -- --format=md --url=https://angular-movies-a12d3.web.app
+
+      - name: Collect user flows
         id: firebase-live-hosting
-        uses: push-based/user-flow-gh-action@v0.4.0
+        uses: push-based/user-flow-gh-action@v0.4.1
         with:
-          commentId: firebase-live-hosting
           verbose: on
-          url: https://angular-movies-a12d3.web.app
-          # url: ${{ fromJson(steps.deployStep.outputs.urls)[0] }} // @TODO figure out why outputs urls are different from `https://angular-movies-a12d3.web.app`
+          commentId: firebase-live-hosting
+          onlyComments: on
+          outPath: ./dist/user-flow/movies
           rcPath: ./projects/movies/.user-flowrc.json
