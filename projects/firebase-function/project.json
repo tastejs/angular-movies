@@ -16,6 +16,10 @@
         "outputFileName": "index.js",
         "main": "projects/firebase-function/src/index.ts",
         "tsConfig": "./projects/firebase-function/tsconfig.function.json"
+      },
+      "configurations": {
+        "production": {},
+        "development": {}
       }
     },
     "serve": {
