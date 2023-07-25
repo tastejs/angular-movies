@@ -1,5 +1,9 @@
 name: Deploy to GitHub README.md on Merge
 'on':
+  push:
+    branches:
+      - main
+
   update_docs:
     runs-on: ubuntu-latest
     steps:
