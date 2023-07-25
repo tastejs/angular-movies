@@ -82,8 +82,10 @@ const t = {
 
 - Github action
 
+
 As we want to have independent configuration filed (and separate deployments)
 we splitted the initial `firebase.json` and extracted the configuration for the function
 into a separate file `firebase.function.json` that we reference when using the `firebase` CLI.
 We have to keep the main `firebase.json` as is as it's name is hardcoded in the firebase action.
 We have to keep the config files at root level because they reference `packag.json`
+We can not just do it over the CLI as we need the comment in the PR
