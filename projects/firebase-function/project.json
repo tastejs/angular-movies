@@ -9,17 +9,30 @@
       "executor": "@nx/webpack:webpack",
       "outputs": ["{options.outputPath}"],
       "options": {
+        "deleteOutputPath": true,
+        "optimization": {
+          "scripts": true,
+          "styles": true
+        },
+        "sourceMap": true,
         "target": "node",
         "compiler": "tsc",
-        "deleteOutputPath": false,
         "outputPath": "./dist/projects/movies/server",
         "outputFileName": "index.js",
         "main": "projects/firebase-function/src/index.ts",
         "tsConfig": "./projects/firebase-function/tsconfig.function.json"
       },
       "configurations": {
-        "production": {},
-        "development": {}
+        "production": {
+          "generatePackageJson": true
+        },
+        "development": {
+          "verbose": true,
+          "generatePackageJson": false,
+          "sourceMap": false,
+          "progress": false,
+          "optimization": false
+        }
       }
     },
     "serve": {
