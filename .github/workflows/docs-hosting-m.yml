@@ -1,6 +1,8 @@
 name: Deploy to GitHub README.md on Merge
-'on': pull_request
-
+'on':
+  push:
+    branches:
+      - main
 jobs:
   update_docs:
     runs-on: ubuntu-latest
