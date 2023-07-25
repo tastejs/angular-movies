@@ -1,11 +1,4 @@
 {
-  "collect": {
-    "ufPath": "./projects/firebase-function/user-flows",
-    "outPath": "./dist/user-flow/firebase-function",
-    "serveCommand": "nx run firebase-function:emulate",
-    "awaitServeStdout": "Other reserved ports"
-  },
-  "persist": {
-    "format": ["md"]
-  }
+  "collect": {},
+  "persist": {}
 }
