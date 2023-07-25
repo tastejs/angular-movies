@@ -192,5 +192,5 @@
       "defaultConfiguration": "production"
     }
   },
-  "tags": []
+  "tags": ["scope:server", "type:app"]
 }

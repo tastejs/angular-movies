@@ -234,5 +234,6 @@
       },
       "defaultConfiguration": "production"
     }
-  }
+  },
+  "tags": ["scope:client", "type:app"]
 }

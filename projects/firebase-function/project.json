@@ -89,5 +89,5 @@
       "defaultConfiguration": "development"
     }
   },
-  "tags": []
+  "tags": ["scope:server", "type:app"]
 }
