@@ -33,10 +33,16 @@ jobs:
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
 
-      - name: Test firebase function deploy [live]
+      - name: Run user flow against firebase live hosting
+        run: npm run nx run movies:user-flow:production -- --format=md --url=https://angular-movies-a12d3.web.app
+
+      - name: Collect user flows
         id: test-firebase-function--deploy-live
-        uses: push-based/user-flow-gh-action@v0.4.0
+        uses: push-based/user-flow-gh-action@v0.4.1
         with:
-          commentId: test-firebase-function--deploy-live
           verbose: on
-          rcPath: projects/firebase-function/.user-flowrc.json
+          commentId: test-firebase-function--deploy-live
+          onlyComments: on
+          outPath: ./dist/user-flow/movies
+          rcPath: ./projects/movies/.user-flowrc.json
+
