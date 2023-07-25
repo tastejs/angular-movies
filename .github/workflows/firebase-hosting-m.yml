@@ -33,10 +33,10 @@ jobs:
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
 
-      - name: User Flow
+      - name: Run user flow against firebase live hosting
         run: npm run nx run movies:user-flow:production -- --format=md --url=https://angular-movies-a12d3.web.app
 
-      - name: Test firebase live hosting
+      - name: Collect user flows
         id: firebase-live-hosting
         uses: push-based/user-flow-gh-action@v0.4.1
         with:
