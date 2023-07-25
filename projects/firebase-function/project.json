@@ -54,17 +54,6 @@
         "parallel": false
       }
     },
-    "pre-deploy": {
-      "executor": "nx:run-commands",
-      "dependsOn": ["build"],
-      "options": {
-        "commands": [
-          "npx cpx package.lock.json dist/projects/movies",
-          "npx cpx package.json dist/projects/movies"
-        ],
-        "parallel": false
-      }
-    },
     "deploy-firebase": {
       "executor": "nx:run-commands",
       "dependsOn": ["build"],
