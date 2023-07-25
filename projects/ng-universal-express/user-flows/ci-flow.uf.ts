@@ -1,5 +1,6 @@
 import {UserFlowContext, UserFlowInteractionsFn, UserFlowOptions, UserFlowProvider,} from '@push-based/user-flow';
 import {ensureRenderType} from '../../movies/testing';
+import {MovieListPageUFO} from "../../movies-user-flows/src";
 
 const flowOptions: UserFlowOptions = {
   name: 'Ng Universal Express - HTML is already rendered (SSR + Pre-render)',
@@ -12,6 +13,7 @@ const interactions: UserFlowInteractionsFn = async (
   const {flow, collectOptions, page} = context;
   const url = `${collectOptions.url}/list/category/popular`;
   await page.setRequestInterception(true);
+  const movieListPage = new MovieListPageUFO(context);
 
   /**
    * request interceptors to check content
@@ -30,6 +32,7 @@ const interactions: UserFlowInteractionsFn = async (
       page.off('response', responseHandler);
     }
   }
+
   page.on('response', responseHandler);
 
   await flow.navigate(url, {
@@ -38,6 +41,8 @@ const interactions: UserFlowInteractionsFn = async (
   // TODO remove await
   const responseText = await initialResponse.then((v) => v.toString());
   ensureRenderType(responseText, 'pre-rendered');
+
+  await movieListPage.awaitHeadingContent();
 
   return;
 };
