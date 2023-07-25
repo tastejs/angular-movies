@@ -4,6 +4,7 @@ name: Deploy to GitHub README.md on Merge
     branches:
       - main
 
+jobs:
   update_docs:
     runs-on: ubuntu-latest
     steps:
