@@ -1,14 +1,1 @@
-{
-  "collect": {
-    "ufPath": "projects/ng-universal-express/user-flows",
-    "outPath": "./dist/user-flow/ng-universal-express",
-    "url": "http://127.0.0.1:4301",
-    "serveCommand": "nx run ng-universal-express:serve:production",
-    "awaitServeStdout": "Angular Universal Live Development Server is listening on"
-  },
-  "persist": {
-    "format": [
-      "md"
-    ]
-  }
-}
+{}
