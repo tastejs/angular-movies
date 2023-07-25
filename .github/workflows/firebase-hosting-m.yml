@@ -1,5 +1,5 @@
 name: E2E Firebase Live Hosting on Merge
-'on':
+'on': pull_request
 
 jobs:
   deploy_firebase_function_and_hosting:
@@ -37,6 +37,7 @@ jobs:
         id: firebase-live-hosting
         uses: push-based/user-flow-gh-action@v0.4.1
         with:
+          verbose: on
           commentId: firebase-live-hosting
           commentsOnly: on
-          verbose: on
+          outPath: ./dist/user-flow/movies
