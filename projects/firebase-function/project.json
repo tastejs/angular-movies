@@ -59,7 +59,7 @@
       "dependsOn": ["build"],
       "options": {
         "commands": [
-          "npx firebase --config=firebase.function.json deploy --only=functions --project=angular-movies"
+          "npx firebase --project=angular-movies --config=firebase.function.json deploy --only=functions "
         ],
         "parallel": false
       }
@@ -68,7 +68,7 @@
       "executor": "nx:run-commands",
       "options": {
         "commands": [
-          "npx firebase --config=firebase.function.json emulators:start --project angular-movies"
+          "npx firebase --project=angular-movies --config=firebase.function.json emulators:start"
         ],
         "parallel": false
       }
