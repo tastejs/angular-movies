@@ -135,16 +135,6 @@
         "parallel": false
       }
     },
-    "deploy-firebase": {
-      "executor": "nx:run-commands",
-      "dependsOn": ["prerender"],
-      "options": {
-        "commands": [
-          "npx firebase deploy --only hosting --project angular-movies"
-        ],
-        "parallel": false
-      }
-    },
     "user-flow": {
       "executor": "@push-based/user-flow-nx-plugin:user-flow",
       "outputs": ["{options.outputPath}"],
