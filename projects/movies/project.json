@@ -205,7 +205,7 @@
       "options": {
         "commands": [
           "nx prerender ng-universal-express",
-          "npx firebase --config=firebase.hosting.json deploy --only=hosting --project=angular-movies"
+          "npx firebase --config=firebase.json deploy --only=hosting --project=angular-movies"
         ],
         "parallel": false
       }

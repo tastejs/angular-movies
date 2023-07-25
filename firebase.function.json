@@ -18,7 +18,7 @@
       "**/database.rules.json",
       "**/firebase-debug.log",
       "**/firebase.function.json",
-      "**/firebase.hosting.json",
+      "**/firebase.json",
       "**/jest.config.ts",
       "**/jest.preset.js",
       "**/migrations.json",
