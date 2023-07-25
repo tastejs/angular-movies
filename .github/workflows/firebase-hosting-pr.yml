@@ -39,6 +39,8 @@ jobs:
         id: firebase-preview-channel-hosting
         uses: push-based/user-flow-gh-action@v0.4.1
         with:
-          commentId: firebase-preview-channel-hosting
           verbose: on
+          commentId: firebase-preview-channel-hosting
           onlyComments: on
+          outPath: ./dist/user-flow/movies
+
