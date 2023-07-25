@@ -6,7 +6,7 @@ import {TMDBMovieModel} from '../../../movies/src/app/data-access/api/model/movi
 import {GenresResponse} from '../../../movies/src/app/data-access/api/resources/genre.resource';
 import {environment} from '../../../movies/src/environments/environment';
 import {getLog} from "../utils";
-import {log} from "firebase-functions/lib/logger";
+
 
 export function run(parameters: { targetFile: string, sourceFile?: string, verbose?: boolean }): Promise<void> {
 
@@ -111,6 +111,5 @@ function _fetch<T>(url, f: RequestInit & { params?: Record<string, any> }) {
   const {params, ...fetchRequestInit} = f
   const parametersAsString = new URLSearchParams(params).toString();
   const urlToFetch = `https://jsonplaceholder.typicode.com/users${parametersAsString ? '?' + parametersAsString : ''}`;
-  log("url:", urlToFetch)
   return fetch(urlToFetch, fetchRequestInit).then((response: Response) => response.json()) as Promise<T>
 }
