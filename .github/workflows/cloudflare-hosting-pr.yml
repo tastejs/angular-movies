@@ -1,5 +1,5 @@
 name: E2E Cloudflare Pages Preview Channel on PR
-on: pull_request
+on:
 
 jobs:
   build_and_cloudflare_preview:

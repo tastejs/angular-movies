@@ -27,7 +27,7 @@
       "options": {
         "commands": [
           "nx build firebase-function",
-          "firebase emulators:start --project angular-movies"
+          "nx emulate firebase-function"
         ],
         "parallel": false
       }
