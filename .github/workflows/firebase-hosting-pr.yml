@@ -1,5 +1,5 @@
 name: E2E Firebase Preview Channel Hosting on PR
-'on':
+'on': pull_request
 jobs:
   build_and_firebase_preview:
     if: '${{ github.event.pull_request.head.repo.full_name == github.repository }}'
@@ -33,7 +33,7 @@ jobs:
           FIREBASE_CLI_PREVIEWS: hostingchannels
 
       - name: User Flow
-        run: npm run nx user-flow movies --url=${{ fromJson(steps.previewDeployStep.outputs.urls)[0] }}
+        run: npm run nx run movies:user-flow:production -- --format=md --url=${{ fromJson(steps.previewDeployStep.outputs.urls)[0] }}
 
       - name: Test firebase preview channel hosting
         id: firebase-preview-channel-hosting

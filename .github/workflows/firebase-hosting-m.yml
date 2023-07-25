@@ -1,5 +1,5 @@
 name: E2E Firebase Live Hosting on Merge
-'on':
+'on': pull_request
 
 jobs:
   deploy_firebase_function_and_hosting:
@@ -31,7 +31,7 @@ jobs:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
 
       - name: User Flow
-        run: npm run nx user-flow movies --url=https://angular-movies-a12d3.web.app
+        run: npm run nx run movies:user-flow:production -- --format=md --url=https://angular-movies-a12d3.web.app
 
       - name: Test firebase live hosting
         id: firebase-live-hosting

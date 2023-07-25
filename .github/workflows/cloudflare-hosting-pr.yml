@@ -1,5 +1,5 @@
 name: E2E Cloudflare Pages Preview Channel on PR
-'on':
+'on': pull_request
 jobs:
   build_and_cloudflare_preview:
     if: '${{ github.event.pull_request.head.repo.full_name == github.repository }}'
@@ -18,7 +18,7 @@ jobs:
         run: npm ci
 
       - name: Production build for static file hosting (client only)
-        run: npm run nx run cloudflare-worker:build:production
+        run: npm run nx run cloudflare-worker:user-flow:production -- --format=md
 
       # use preview deployment
       - name: Test cloudflare preview pages hosting
@@ -26,5 +26,7 @@ jobs:
         uses: push-based/user-flow-gh-action@v0.4.1
         with:
           commentId: cloudflare-preview-pages-hosting
+          onlyComments: on
           verbose: on
+          outPath: ./dist/user-flow/cloudflare-worker
           rcPath: projects/cloudflare-worker/.user-flowrc.action-hack.json
