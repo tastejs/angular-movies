@@ -25,8 +25,8 @@ jobs:
         id: cloudflare-preview-pages-hosting
         uses: push-based/user-flow-gh-action@v0.4.1
         with:
+          verbose: on
           commentId: cloudflare-preview-pages-hosting
           onlyComments: on
-          verbose: on
           outPath: ./dist/user-flow/cloudflare-worker
           rcPath: projects/cloudflare-worker/.user-flowrc.action-hack.json

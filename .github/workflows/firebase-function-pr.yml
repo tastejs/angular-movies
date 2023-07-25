@@ -24,7 +24,8 @@ jobs:
         id: firebase-function-emulation
         uses: push-based/user-flow-gh-action@v0.4.1
         with:
-          commentId: firebase-function-emulation
           verbose: on
+          commentId: firebase-function-emulation
+          onlyComments: on
           outPath: ./dist/user-flow/firebase-function
           rcPath: projects/firebase-function/.user-flowrc.json
