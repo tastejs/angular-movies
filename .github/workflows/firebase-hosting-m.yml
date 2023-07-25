@@ -41,3 +41,4 @@ jobs:
           commentId: firebase-live-hosting
           commentsOnly: on
           outPath: ./dist/user-flow/movies
+          rcPath: ./projects/movies/.user-flowrc.json

@@ -28,3 +28,4 @@ jobs:
           commentId: ng-universal-express
           onlyComments: on
           outPath: ./dist/user-flow/ng-universal-express
+          rcPath: ./projects/ng-universal-express/.user-flowrc.json

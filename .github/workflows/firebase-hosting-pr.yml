@@ -43,4 +43,5 @@ jobs:
           commentId: firebase-preview-channel-hosting
           onlyComments: on
           outPath: ./dist/user-flow/movies
+          rcPath: ./projects/movies/.user-flowrc.json
 
