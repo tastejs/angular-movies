@@ -3,16 +3,19 @@
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "projects/firebase-function/src",
   "projectType": "application",
+  "implicitDependencies": ["ng-universal-express"],
   "targets": {
     "build": {
-      "outputs": ["dist/projects/movies/server"],
-      "executor": "nx:run-commands",
+      "executor": "@nx/webpack:webpack",
+      "outputs": ["{options.outputPath}"],
       "options": {
-        "commands": [
-          "nx build ng-universal-express",
-          "tsc --build projects/firebase-function/tsconfig.function.json"
-        ],
-        "parallel": false
+        "target": "node",
+        "compiler": "tsc",
+        "deleteOutputPath": false,
+        "outputPath": "./dist/projects/movies/server",
+        "outputFileName": "index.js",
+        "main": "projects/firebase-function/src/index.ts",
+        "tsConfig": "./projects/firebase-function/tsconfig.function.json"
       }
     },
     "serve": {
