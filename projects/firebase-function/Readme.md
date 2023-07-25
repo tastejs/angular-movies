@@ -23,4 +23,13 @@ How does it currently work:
   - The closest `package.json` is used to execute the function (defined under the `main` property)
   - This also is used as root in the functions and so in the angular app and affects the assets paths etc.
 
-##   
+
+- file ignore in fb.function.json
+- https://www.codejam.info/2023/04/firebase-functions-ignore.html
+-       "**/package-lock.json",
+-       "**/package.json",
+-       "**/projects/**",
+
+ATM
+
+##      
