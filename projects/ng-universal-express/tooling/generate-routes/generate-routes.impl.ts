@@ -39,23 +39,25 @@ export function run(parameters: { targetFile: string, sourceFile?: string, verbo
   const movieDetailURL = (id: string | number) => readApi(`detail/movie/${id}`);
   const moviesPopularURL = readApi('movie/popular');
 
-  const movieGenresRoutes = _fetch<GenresResponse>(movieGenresURL, {
+  const movieGenresRoutes = _fetch<{ genres: GenresResponse }>(movieGenresURL, {
     headers: getTmdbHeaders(),
   })
     // eslint-disable-next-line unicorn/prefer-top-level-await
-    .then((genres) => genres.map(({id}) => genresListURL(id)));
+    .then(({genres}) => {
+      return genres.map(({id}) => genresListURL(id))
+    })
 
 // how many page details of popular movies should be pre-rendered
 // @ts-ignore
   const moviesPopularRoutes = (options: { pages: number }) => {
     return Array.from({length: options.pages}, (_, index) => {
-      return _fetch<TMDBMovieModel[]>(moviesPopularURL, {
+      return _fetch<{ results: TMDBMovieModel[] }>(moviesPopularURL, {
         headers: getTmdbHeaders(),
         params: {
           sort_by: 'popularity.asc',
           page: index + 1,
         },
-      }).then((results) => results.map(({id}) => movieDetailURL(id)))
+      }).then(({results}) => results.map(({id}) => movieDetailURL(id)))
     });
   };
 // GENERATE
@@ -107,9 +109,9 @@ function getTmdbHeaders() {
   };
 }
 
-function _fetch<T>(url, f: RequestInit & { params?: Record<string, any> }) {
+function _fetch<T>(url: string, f: RequestInit & { params?: Record<string, any> }) {
   const {params, ...fetchRequestInit} = f
   const parametersAsString = new URLSearchParams(params).toString();
-  const urlToFetch = `https://jsonplaceholder.typicode.com/users${parametersAsString ? '?' + parametersAsString : ''}`;
+  const urlToFetch = `${url}${parametersAsString ? '?' + parametersAsString : ''}`;
   return fetch(urlToFetch, fetchRequestInit).then((response: Response) => response.json()) as Promise<T>
 }
