@@ -73,7 +73,7 @@
         "awaitServeStdout": "Other reserved ports",
         "format": ["html"]
       },
-      "development": {
+      "configurations": {
         "development": {
           "verbose": true,
           "dryRun": true
