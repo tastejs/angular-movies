@@ -20,7 +20,7 @@ jobs:
       - name: Production build for static file hosting (client + prerender + function)
         run: npm run nx run firebase-function:build:production
 
-      - name: Usr Flow
+      - name: User Flow
         run: npm run nx run firebase-function:user-flow:production -- --format=md
 
       - name: Test firebase function emulation
