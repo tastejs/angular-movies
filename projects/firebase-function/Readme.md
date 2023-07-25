@@ -28,7 +28,7 @@ How does it currently work:
 - https://www.codejam.info/2023/04/firebase-functions-ignore.html
 -       "**/package-lock.json",
 -       "**/package.json",
--       "**/projects/**",
+-       "**/projects/**"
 
 ATM
 

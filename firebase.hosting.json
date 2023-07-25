@@ -9,9 +9,9 @@
     "cleanUrls": true,
     "trailingSlash": false,
     "ignore": [
+      " **/.*",
       "**/node_modules/**",
       "**/tmp/**",
-      "**/.*/**",
       "**/.DS_Store/**",
       "**/.angular/**",
       "**/.firebase/**",
