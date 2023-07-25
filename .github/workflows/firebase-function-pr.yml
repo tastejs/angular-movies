@@ -18,13 +18,14 @@ jobs:
         run: npm ci
 
       - name: Production build for static file hosting (client + prerender + function)
-        run: npm run nx run firebase-function:build:production
+        run: npm run nx run firebase-function:user-flow:production -- --format=md
 
-      - name: Test firebase functions deploy [emulation]
-        id: test-firebase-function--deploy-emulation
-        uses: push-based/user-flow-gh-action@v0.4.0
+      - name: Test firebase function emulation
+        id: firebase-function-emulation
+        uses: push-based/user-flow-gh-action@v0.4.1
         with:
-          commentId: test-firebase-function--deploy-emulation
           verbose: on
-          url: http://127.0.0.1:4402/angular-movies-a12d3/us-central1/ssr
+          commentId: test-firebase-function--deploy-emulation
+          onlyComments: on
+          outPath: ./dist/user-flow/firebase-function
           rcPath: projects/firebase-function/.user-flowrc.json

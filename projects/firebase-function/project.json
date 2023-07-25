@@ -19,7 +19,7 @@
       "executor": "nx:run-commands",
       "options": {
         "commands": [
-          "nx build firebase-function:production",
+          "nx build firebase-function",
           "firebase emulators:start --project angular-movies"
         ],
         "parallel": false
@@ -93,7 +93,7 @@
         "awaitServeStdout": "Other reserved ports",
         "format": ["html"]
       },
-      "development": {
+      "configurations": {
         "development": {
           "verbose": true,
           "dryRun": true

@@ -186,8 +186,7 @@
           "awaitServeStdout": "✔  hosting[angular-movies-a12d3]: Local server:"
         },
         "firebase-preview": {
-          "ufPath": "projects/movies-user-flows/user-flows",
-          "format": ["html"]
+          "ufPath": "projects/movies-user-flows/user-flows"
         }
       },
       "defaultConfiguration": "production"

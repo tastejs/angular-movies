@@ -32,12 +32,16 @@ jobs:
         env:
           FIREBASE_CLI_PREVIEWS: hostingchannels
 
+      - name: User Flow
+        run: npm run nx run movies:user-flow:production -- --format=md --url=${{ fromJson(steps.previewDeployStep.outputs.urls)[0] }}
+
       - name: Test firebase preview channel hosting
         id: firebase-preview-channel-hosting
-        uses: push-based/user-flow-gh-action@v0.4.0
+        uses: push-based/user-flow-gh-action@v0.4.1
         with:
-          commentId: firebase-preview-channel-hosting
           verbose: on
-          url: ${{ fromJson(steps.previewDeployStep.outputs.urls)[0] }}
-          rcPath: projects/movies/.user-flowrc.json
-          outPath: dist/user-flow/ng-universal-express
+          commentId: firebase-preview-channel-hosting
+          onlyComments: on
+          outPath: ./dist/user-flow/movies
+          rcPath: ./projects/movies/.user-flowrc.json
+
