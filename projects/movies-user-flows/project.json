@@ -7,9 +7,7 @@
     "build-lib": {
       "dependsOn": [],
       "executor": "@nx/js:tsc",
-      "outputs": [
-        "{options.outputPath}"
-      ],
+      "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/projects/movies-user-flows",
         "main": "movies-user-flows/src/index.ts",
@@ -18,5 +16,5 @@
       }
     }
   },
-  "tags": []
+  "tags": ["scope:shared", "type:util"]
 }

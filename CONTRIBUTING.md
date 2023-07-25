@@ -55,6 +55,15 @@ We consider the following types a archetypal project:
 - Angular Universal Express Application - maintaining a node express server for Angular and the related projects
 - Firebase Function Application - maintaining a node function hosted on firebase cloud functions
 
+# Tags
+
+- docs - ["scope:shared", "type:util"]
+- movies-user-flow - ["scope:shared", "type:util"]
+- angular-movies - ["scope:client", "type:app"]
+- ng-universal-express - ["scope:server", "type:app"]
+- firebase-function - ["scope:server", "type:app"]
+- cloudflare-worker - ["scope:server", "type:app"]
+
 ## Global Project Targets (`nx.json`)
 
 In this mono repository we agree on a set of tasks that need to be consistent across the platforms:
