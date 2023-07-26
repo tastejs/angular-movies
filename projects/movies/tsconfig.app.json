@@ -4,7 +4,13 @@
   "compilerOptions": {
     "outDir": "../../out-tsc",
     "types": [],
+    "allowSyntheticDefaultImports": true,
     "resolveJsonModule": true
+  },
+  "angularCompilerOptions": {
+    "strictTemplates": true,
+    "fullTemplateTypeCheck": true,
+    "strictInjectionParameters": true
   },
   "files": ["src/main.ts"],
   "include": ["src/**/*.d.ts"]
