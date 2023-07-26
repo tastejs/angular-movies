@@ -114,7 +114,7 @@
     "lighthouse": "^9.6.8",
     "lint-staged": "^11.2.6",
     "markdownlint": "^0.29.0",
-    "ng-packagr": "~16.1.0",
+    "ng-packagr": "16.2.0-next.1",
     "nx": "16.5.1",
     "nx-cloud": "16.1.0",
     "open": "^8.4.0",
