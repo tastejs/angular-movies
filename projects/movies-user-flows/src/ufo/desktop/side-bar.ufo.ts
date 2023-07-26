@@ -1,6 +1,11 @@
 import {CwvInterface} from '../typings/cwv.interface';
 import {Ufo, UserFlowContext} from '@push-based/user-flow';
-import {ANIM_DURATION_STANDARD, categorySelector, genreSelector, sideMenuBtnSelector,} from 'test-selectors';
+import {
+  ANIM_DURATION_STANDARD,
+  categorySelector,
+  genreSelector,
+  sideMenuBtnSelector,
+} from '../../../../test-selectors/src';
 
 export class SidebarUFO extends Ufo implements CwvInterface {
   protected categorySelector = categorySelector;
@@ -37,7 +42,7 @@ export class SidebarUFO extends Ufo implements CwvInterface {
   }
 
   async awaitLCPContent(): Promise<any> {
-    const anySideBarGenreLink = this.genreSelector(28);
+    const anySideBarGenreLink = this.genreSelector('28');
     return await this.page.waitForSelector(anySideBarGenreLink);
   }
 }

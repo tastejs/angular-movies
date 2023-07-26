@@ -1,6 +1,6 @@
 import {SidebarUFO as DesktopSidebarUFO} from '../desktop/side-bar.ufo';
 import {UserFlowContext} from '@push-based/user-flow';
-import {ANIM_DURATION_SHORT, sideMenuBtnSelector,} from 'test-selectors';
+import {ANIM_DURATION_SHORT, sideMenuBtnSelector,} from '../../../../test-selectors/src';
 
 export class SidebarUFO extends DesktopSidebarUFO {
   async toggelSideMenu() {
