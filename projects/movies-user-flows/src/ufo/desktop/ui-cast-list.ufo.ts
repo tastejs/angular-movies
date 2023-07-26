@@ -1,5 +1,5 @@
 import {CwvInterface} from '../typings/cwv.interface';
-import {castImgSelector} from 'test-selectors';
+import {castImgSelector} from '../../../../test-selectors/src';
 import {Ufo, UserFlowContext} from '@push-based/user-flow';
 
 export class UiCastListUFO extends Ufo implements CwvInterface {
