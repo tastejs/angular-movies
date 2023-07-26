@@ -6,7 +6,7 @@ import {
   profileMenuSignoutItem,
   searchSelector,
   searchSubmitKeys,
-} from 'test-selectors';
+} from '../../../../test-selectors/src';
 import * as tmdbfixtures from '../../fixtures/tmdb.fixtures';
 import {Ufo, UserFlowContext} from '@push-based/user-flow';
 import {TmdbUfo} from './tmdb.ufo';
