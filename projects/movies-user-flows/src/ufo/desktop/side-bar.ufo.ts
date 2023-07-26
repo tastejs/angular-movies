@@ -1,13 +1,6 @@
 import {CwvInterface} from '../typings/cwv.interface';
 import {Ufo, UserFlowContext} from '@push-based/user-flow';
-import {
-  ANIM_DURATION_STANDARD,
-  CategoryNames,
-  categorySelector,
-  GenreIds,
-  genreSelector,
-  sideMenuBtnSelector,
-} from '../../../../movies/testing';
+import {ANIM_DURATION_STANDARD, categorySelector, genreSelector, sideMenuBtnSelector,} from 'test-selectors';
 
 export class SidebarUFO extends Ufo implements CwvInterface {
   protected categorySelector = categorySelector;
@@ -24,7 +17,7 @@ export class SidebarUFO extends Ufo implements CwvInterface {
     await this.page.waitForTimeout(ANIM_DURATION_STANDARD);
   }
 
-  async navigateToCategory(c: CategoryNames = 'popular') {
+  async navigateToCategory(c: string = 'popular') {
     const selector = this.categorySelector(c);
     await this.page.waitForSelector(selector).then(() =>
       this.page.click(selector).catch(() => {
@@ -35,7 +28,7 @@ export class SidebarUFO extends Ufo implements CwvInterface {
     );
   }
 
-  async navigateToGenre(g: GenreIds) {
+  async navigateToGenre(g: string) {
     await this.page.click(this.genreSelector(g));
   }
 

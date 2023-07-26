@@ -1,5 +1,5 @@
 import {CwvInterface} from '../typings/cwv.interface';
-import {movieImgSelector} from '../../../../movies/testing';
+import {movieImgSelector} from 'test-selectors';
 import {Ufo, UserFlowContext} from '@push-based/user-flow';
 
 export class UiMovieListUFO extends Ufo implements CwvInterface {

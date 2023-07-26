@@ -25,8 +25,15 @@
         "dist/projects/movies/src/main.js",
         "projects/movies/src/index.ts"
       ],
-      "angular-movies-renderer2": ["angular-movies-renderer2/src/index.ts"],
-      "movies-ufo": ["projects/movies-user-flows/src/index.ts"]
+      "angular-movies-renderer2": [
+        "angular-movies-renderer2/src/index.ts"
+      ],
+      "movies-ufo": [
+        "projects/movies-user-flows/src/index.ts"
+      ],
+      "test-selectors": [
+        "projects/test-selectors/src/index.ts"
+      ]
     }
   },
   "ts-node": {
