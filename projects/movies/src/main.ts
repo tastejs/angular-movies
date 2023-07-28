@@ -10,7 +10,7 @@ import {RxLet} from '@rx-angular/template/let';
 @NgModule({
   declarations: [AppComponent],
   imports: [BrowserModule, RouterOutlet, AppShellComponent, RxLet],
-  providers: [...appConfig().providers],
+  providers: [...appConfig.providers],
   bootstrap: [AppComponent],
 })
 export class AppModule {

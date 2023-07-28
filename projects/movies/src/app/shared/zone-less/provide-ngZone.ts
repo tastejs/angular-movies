@@ -1,11 +1,30 @@
-import {EventEmitter} from '@angular/core';
-import {BehaviorSubject, timer} from 'rxjs';
+import {waitForElementTiming} from "../cdk/element-timing/wait-for-element-timing";
+import {EventEmitter, inject, Injectable, NgZone} from "@angular/core";
+import {ApplicationRendered} from "../cdk/application-rendered/applicationRenderdToken";
+import {BehaviorSubject} from "rxjs";
+
+declare const ngDevMode: boolean;
+
+export function provideNgZoneZoneless() {
+  return [{
+    provide: ApplicationRendered,
+    useFactory: () => () => waitForElementTiming(['header-main', 'tile-img'])
+  },
+    {
+      provide: NgZone,
+      useClass: AppRenderedNgZoneZoneless,
+    }]
+}
 
 /**
  * Provides a noop like implementation of `NgZone` which does nothing and provides a way to customize behavior.
  * This zone requires explicit calls to framework to perform rendering.
  */
-export class CustomNgZone {
+@Injectable({
+  providedIn: "root",
+})
+export class AppRenderedNgZoneZoneless {
+  applicationRenderDone = inject(ApplicationRendered);
   hasPendingMicrotasks = true;
   hasPendingMacrotasks = true;
 
@@ -21,16 +40,23 @@ export class CustomNgZone {
   onError = new EventEmitter();
 
   constructor() {
+    if (ngDevMode)
+      console.time("onStableTrigger");
+
     /**
      * Notice:
      * This is a hack to delay the emission of isStable for a micro task
      * This helps HttpTransferCache to get its values first from the cache
      */
-    timer(2000).subscribe(() => {
-      this.hasPendingMicrotasks = false;
-      this.hasPendingMacrotasks = false;
-      this.onStable.next(true);
-    });
+    this.applicationRenderDone()
+      .then(() => {
+        if (ngDevMode)
+          console.timeEnd('onStableTrigger');
+
+        this.hasPendingMicrotasks = false;
+        this.hasPendingMacrotasks = false;
+        this.onStable.next(true);
+      });
   }
 
   run(fn: () => unknown, applyThis: unknown, applyArgs: []) {

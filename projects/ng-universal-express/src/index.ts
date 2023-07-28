@@ -4,11 +4,10 @@ import 'zone.js/dist/zone-node';
 import express from 'express';
 import {existsSync} from 'node:fs';
 import {join} from 'node:path';
-import {ISRHandler} from 'ngx-isr';
-import {environment} from '../../movies/src/environments/environment';
 import {ngExpressEngine} from '@nguniversal/express-engine';
 import bootstrap from './app/bootstrap';
 import {useCompression, useTiming} from './app/utils';
+import {APP_BASE_HREF} from "@angular/common";
 // bootstrap needs to get exported for the pre-render task
 
 // The Express app is exported so that it can be used by serverless Functions.
@@ -23,13 +22,6 @@ export function app(): express.Express {
   const indexHtml = existsSync(join(distributionFolder, 'index.html'))
     ? 'index.html'
     : 'index';
-
-  // @ts-ignore
-  const isr = new ISRHandler({
-    indexHtml,
-    invalidateSecretToken: 'MY_TOKEN',
-    enableLogging: !environment.production,
-  });
 
   // use gzip
   useCompression(server);
@@ -57,28 +49,20 @@ export function app(): express.Express {
 
   server.get(
     '*',
-    /*
+
     // Version with server timings for SSR
-    (req, res) => {
+    (request, response) => {
       // return rendered HTML including Angular generated DOM
-      console.log('SSR for route', req.url);
-      res.startTime('SSR', 'Total SSR Time');
-      res.render(
+      console.log('SSR for route', request.url);
+      response.startTime('SSR', 'Total SSR Time');
+      response.render(
         indexHtml,
-        {req, providers: [{provide: APP_BASE_HREF, useValue: req.baseUrl}],},
+        {req: request, providers: [{provide: APP_BASE_HREF, useValue: request.baseUrl}]},
         (_, html) => {
-          res.endTime('SSR')
-          res.send(html);
+          response.endTime('SSR')
+          response.send(html);
         }
       );
-    },*/
-    // Serve page if it exists in cache
-    async (request, response, next) => {
-      return await isr.serveFromCache(request, response, next);
-    },
-    // Server side render the page and add to cache if needed
-    async (request, response, next) => {
-      return await isr.render(request, response, next);
     }
   );
 
