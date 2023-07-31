@@ -1,9 +1,18 @@
 declare const ngDevMode: boolean;
 
 export function waitForElementTiming(
-  identifiers: string[]
+  identifiers: string[],
+  config: {
+    timeout: number
+  } = {timeout: 5000}
 ): Promise<void> {
   return new Promise<void>((resolve, reject) => {
+    const {timeout} = config;
+    const timeoutId = setTimeout(() => {
+      if (ngDevMode)
+        console.log(`waitForElementTiming timed out after ${timeout}ms`);
+      resolve();
+    }, timeout);
     try {
       const performanceObserver = new PerformanceObserver((l) => {
         if (identifiers.length > 0 && l.getEntries().length) {
@@ -18,6 +27,8 @@ export function waitForElementTiming(
           if (identifiers.length === 0) {
             if (ngDevMode)
               console.log("All elements observed");
+            // cleanup
+            clearTimeout(timeoutId);
             performanceObserver.disconnect();
             resolve();
           }

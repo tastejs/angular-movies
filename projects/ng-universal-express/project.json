@@ -26,6 +26,13 @@
             }
           ]
         },
+        "development": {
+          "buildOptimizer": false,
+          "optimization": false,
+          "sourceMap": true,
+          "extractLicenses": false,
+          "vendorChunk": true
+        },
         "serve-production": {
           "sourceMap": false,
           "fileReplacements": [
@@ -36,13 +43,6 @@
           ],
           "main": "projects/ng-universal-express/src/main.ts",
           "tsConfig": "projects/ng-universal-express/tsconfig.serve.json"
-        },
-        "development": {
-          "buildOptimizer": false,
-          "optimization": false,
-          "sourceMap": true,
-          "extractLicenses": false,
-          "vendorChunk": true
         },
         "serve-development": {
           "buildOptimizer": false,
@@ -119,7 +119,7 @@
       },
       "configurations": {
         "production": {
-          "browserTarget": "movies:build:production",
+          "browserTarget": "movies:build:stats",
           "serverTarget": "ng-universal-express:build:production"
         }
       },

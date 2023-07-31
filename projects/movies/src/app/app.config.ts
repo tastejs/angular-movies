@@ -1,4 +1,8 @@
-import {ApplicationConfig} from '@angular/core';
+import {
+  APP_INITIALIZER,
+  ApplicationConfig,
+  ɵInitialRenderPendingTasks as InitialRenderPendingTasks
+} from '@angular/core';
 import {mergeBaseConfig} from './app.base.config';
 import {provideFastSVG} from '@push-based/ngx-fast-svg';
 import {provideHttpClient, withInterceptors} from '@angular/common/http';
@@ -8,15 +12,16 @@ import {tmdbContentTypeInterceptor} from './data-access/api/tmdbContentTypeInter
 import {tmdbReadAccessInterceptor} from './auth/tmdb-http-interceptor.feature';
 import {provideServiceWorker} from '@angular/service-worker';
 import {environment} from '../environments/environment';
-import {ApplicationRendered} from "./shared/cdk/application-rendered/applicationRenderdToken";
 import {waitForElementTiming} from "./shared/cdk/element-timing/wait-for-element-timing";
-import {provideNgZoneZoneless} from "./shared/zone-less/provideNgZone";
+import {provideNgZoneZoneless} from "./shared/zone-less/provide-ngZone";
 
+InitialRenderPendingTasks;
+APP_INITIALIZER;
 const browserConfig: ApplicationConfig = {
   providers: [
     provideClientHydration(),
     provideHttpClient(
-        withInterceptors([tmdbContentTypeInterceptor, tmdbReadAccessInterceptor])
+      withInterceptors([tmdbContentTypeInterceptor, tmdbReadAccessInterceptor])
     ),
     provideFastSVG({
       url: (name: string) => `assets/svg-icons/${name}.svg`,
@@ -30,11 +35,35 @@ const browserConfig: ApplicationConfig = {
       provide: RX_RENDER_STRATEGIES_CONFIG,
       useValue: {patchZone: false},
     },
-    {
-      provide: ApplicationRendered,
-      useFactory: () => () => waitForElementTiming(['header-main', 'tile-img'])
+    /**/{
+      provide: APP_INITIALIZER,
+      useFactory: (initialRenderPendingTasks: InitialRenderPendingTasks) =>
+        // () => Observable<unknown> | Promise<unknown> | void
+        (): void => {
+          const taskId = initialRenderPendingTasks.add();
+          waitForElementTiming(['header-main', 'tile-img']).finally(() => {
+            console.log(' initialRenderPendingTasks.remove(taskId)', taskId);
+            initialRenderPendingTasks.remove(taskId)
+          });
+        },
+      deps: [InitialRenderPendingTasks],
+      multi: true
     },
     provideNgZoneZoneless(),
+    /**
+     * **🚀 Perf Tip for TBT:**
+     *
+     * Chunk app bootstrap over APP_INITIALIZER.
+
+     {
+      provide: APP_INITIALIZER,
+      useFactory: () => (): Promise<void> =>
+        new Promise<void>((resolve) => {
+          setTimeout(() => resolve());
+        }),
+      deps: [],
+      multi: true,
+    },*/
     provideServiceWorker('ngsw-worker.js', {
       enabled: environment.production,
       // Register the ServiceWorker as soon as the app is stable

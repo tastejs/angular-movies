@@ -1,19 +1,19 @@
-import {waitForElementTiming} from "../cdk/element-timing/wait-for-element-timing";
-import {EventEmitter, inject, Injectable, NgZone} from "@angular/core";
-import {ApplicationRendered} from "../cdk/application-rendered/applicationRenderdToken";
-import {BehaviorSubject} from "rxjs";
+import {
+  EventEmitter,
+  inject,
+  Injectable,
+  NgZone,
+  ɵInitialRenderPendingTasks as InitialRenderPendingTasks,
+} from "@angular/core";
+import {BehaviorSubject, skip, startWith, tap} from "rxjs";
 
 declare const ngDevMode: boolean;
 
 export function provideNgZoneZoneless() {
-  return [{
-    provide: ApplicationRendered,
-    useFactory: () => () => waitForElementTiming(['header-main', 'tile-img'])
-  },
-    {
-      provide: NgZone,
-      useClass: AppRenderedNgZoneZoneless,
-    }]
+  return {
+    provide: NgZone,
+    useClass: AppRenderedNgZoneZoneless,
+  }
 }
 
 /**
@@ -24,7 +24,7 @@ export function provideNgZoneZoneless() {
   providedIn: "root",
 })
 export class AppRenderedNgZoneZoneless {
-  applicationRenderDone = inject(ApplicationRendered);
+  private initialRenderPendingTasks = inject(InitialRenderPendingTasks)
   hasPendingMicrotasks = true;
   hasPendingMacrotasks = true;
 
@@ -40,22 +40,32 @@ export class AppRenderedNgZoneZoneless {
   onError = new EventEmitter();
 
   constructor() {
+    const timeToken = "onStableTrigger" + Math.random();
     if (ngDevMode)
-      console.time("onStableTrigger");
+      console.time(timeToken);
 
     /**
      * Notice:
      * This is a hack to delay the emission of isStable for a micro task
      * This helps HttpTransferCache to get its values first from the cache
      */
-    this.applicationRenderDone()
-      .then(() => {
-        if (ngDevMode)
-          console.timeEnd('onStableTrigger');
 
-        this.hasPendingMicrotasks = false;
-        this.hasPendingMacrotasks = false;
-        this.onStable.next(true);
+    this.initialRenderPendingTasks.hasPendingTasks
+      .pipe(
+        skip(1),
+        startWith(true),
+        tap(console.log)
+      )
+      .subscribe((isPending: boolean) => {
+        if (!isPending) {
+
+          if (ngDevMode)
+            console.timeEnd(timeToken);
+
+          this.hasPendingMicrotasks = false;
+          this.hasPendingMacrotasks = false;
+          this.onStable.next(true);
+        }
       });
   }
 

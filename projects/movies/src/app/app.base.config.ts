@@ -1,15 +1,15 @@
 import {provideHttpClient, withInterceptors} from '@angular/common/http';
 import {APP_INITIALIZER, ApplicationConfig, mergeApplicationConfig,} from '@angular/core';
 import {provideClientHydration} from '@angular/platform-browser';
-import {provideRouter, withDisabledInitialNavigation, withInMemoryScrolling,} from '@angular/router';
-import {provideFastSVG} from '@push-based/ngx-fast-svg';
+import {provideRouter, withInMemoryScrolling,} from '@angular/router';
 import {RxActionFactory} from '@rx-angular/state/actions';
 import {ROUTES} from './routes';
-import {withGobalStateInitializer} from './state/state-app-initializer.provider';
-import {RX_RENDER_STRATEGIES_CONFIG} from '@rx-angular/cdk/render-strategies';
 import {tmdbReadAccessInterceptor} from './auth/tmdb-http-interceptor.feature';
 import {tmdbContentTypeInterceptor} from './data-access/api/tmdbContentTypeInterceptor';
 import {provideTmdbImageLoader} from './data-access/images/image-loader';
+import {withGlobalStateInitializer} from "./state/state-app-initializer.provider";
+
+APP_INITIALIZER;
 
 const appConfig: ApplicationConfig = {
   providers: [
@@ -26,7 +26,7 @@ const appConfig: ApplicationConfig = {
        *
        * Disable initial sync navigation in router config and schedule it in router-outlet container component
        */
-      withDisabledInitialNavigation(),
+      // withDisabledInitialNavigation(),
       withInMemoryScrolling({
         /**
          * **💡 UX Tip for InfiniteScroll:**
@@ -39,9 +39,6 @@ const appConfig: ApplicationConfig = {
         scrollPositionRestoration: 'top',
       })
     ),
-    provideFastSVG({
-      url: (name: string) => `assets/svg-icons/${name}.svg`,
-    }),
     // global actions
     RxActionFactory,
     /**
@@ -49,30 +46,7 @@ const appConfig: ApplicationConfig = {
      *
      * Fetch data visible in viewport on app bootstrap instead of component initialization.
      */
-    withGobalStateInitializer(),
-    /**
-     * **🚀 Perf Tip for TBT:**
-     *
-     * Chunk app bootstrap over APP_INITIALIZER.
-     */
-    {
-      provide: APP_INITIALIZER,
-      useFactory: () => (): Promise<void> =>
-        new Promise<void>((resolve) => {
-          setTimeout(() => resolve());
-        }),
-      deps: [],
-      multi: true,
-    },
-    /**
-     * **🚀 Perf Tip for TBT, LCP, CLS:**
-     *
-     * Configure RxAngular to get maximum performance.
-     */
-    {
-      provide: RX_RENDER_STRATEGIES_CONFIG,
-      useValue: {patchZone: false},
-    },
+    withGlobalStateInitializer()
   ],
 };
 
