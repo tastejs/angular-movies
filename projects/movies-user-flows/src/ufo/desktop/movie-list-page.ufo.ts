@@ -1,6 +1,6 @@
 import {UiMovieListUFO} from './ui-movie-list.ufo';
 import {CwvInterface} from '../typings/cwv.interface';
-import {heandlineSelector, subheandlineSelector,} from '../../../../movies/testing';
+import {heandlineSelector, subheandlineSelector,} from '../../../../test-selectors/src';
 import {Ufo, UserFlowContext} from '@push-based/user-flow';
 
 export class MovieListPageUFO extends Ufo implements CwvInterface {

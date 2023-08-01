@@ -1,0 +1,15 @@
+{
+  "collect": {
+    "url": "http://127.0.0.1:4501/",
+    "ufPath": "./projects/cloudflare-worker/user-flows",
+    "outPath": "./dist/user-flow/cloudflare-worker",
+    "serveCommand": "nx run cloudflare-worker:emulate",
+    "awaitServeStdout": "[mf:inf] Ready on"
+  },
+  "persist": {
+    "outPath": "./dist/user-flow/cloudflare-worker",
+    "format": [
+      "md"
+    ]
+  }
+}

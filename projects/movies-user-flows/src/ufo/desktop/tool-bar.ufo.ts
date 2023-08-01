@@ -1,16 +1,15 @@
-import { CwvInterface } from '../typings/cwv.interface';
+import {CwvInterface} from '../typings/cwv.interface';
 import {
-  GenreIds,
   profileMenu,
   profileMenuContent,
   profileMenuLoginItem,
   profileMenuSignoutItem,
   searchSelector,
   searchSubmitKeys,
-} from '../../../../movies/testing';
+} from '../../../../test-selectors/src';
 import * as tmdbfixtures from '../../fixtures/tmdb.fixtures';
-import { Ufo, UserFlowContext } from '@push-based/user-flow';
-import { TmdbUfo } from './tmdb.ufo';
+import {Ufo, UserFlowContext} from '@push-based/user-flow';
+import {TmdbUfo} from './tmdb.ufo';
 
 export class ToolBarUfo extends Ufo implements CwvInterface {
   tmdbPage: TmdbUfo;
@@ -30,7 +29,7 @@ export class ToolBarUfo extends Ufo implements CwvInterface {
     await this.page.keyboard.type(query);
   }
 
-  async toggleDarkMode(_: GenreIds) {
+  async toggleDarkMode() {
     throw new Error('not implemented');
   }
 

@@ -2,7 +2,12 @@ import {UiMovieListUFO} from './ui-movie-list.ufo';
 import {UiCastListUFO} from './ui-cast-list.ufo';
 import {CwvInterface} from '../typings/cwv.interface';
 import {BackNavigationInterface} from '../typings/back-navigation.interface';
-import {backBtnSelector, heandlineSelector, heroImageSelector, subheandlineSelector,} from '../../../../movies/testing';
+import {
+  backBtnSelector,
+  heandlineSelector,
+  heroImageSelector,
+  subheandlineSelector,
+} from '../../../../test-selectors/src';
 import {Ufo, UserFlowContext} from '@push-based/user-flow';
 
 export class MovieDetailPageUFO

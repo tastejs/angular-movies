@@ -12,8 +12,8 @@
     "outDir": "../../dist/projects/movies/server",
     "sourceMap": false,
     "target": "es2019",
-    "allowJs": false,
-    "noImplicitAny": true,
+    "allowJs": true,
+    "noImplicitAny": false,
     "strict": true,
     "esModuleInterop": true
   },

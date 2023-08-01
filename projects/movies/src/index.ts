@@ -7,6 +7,3 @@ const bootstrap = (config: ApplicationConfig = {providers: []}) =>
   bootstrapApplication(AppStandaloneComponent, mergeBaseConfig(config));
 
 export default bootstrap;
-export {environment} from "./environments/environment";
-export {tmdbContentTypeInterceptor} from "./app/data-access/api/tmdbContentTypeInterceptor";
-export {tmdbReadAccessInterceptor} from "./app/auth/tmdb-http-interceptor.feature";

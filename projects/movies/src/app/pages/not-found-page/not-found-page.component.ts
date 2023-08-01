@@ -1,10 +1,9 @@
 import {ChangeDetectionStrategy, Component, ViewEncapsulation,} from '@angular/core';
 import {FastSvgComponent} from '@push-based/ngx-fast-svg';
-import {RouterLink} from "@angular/router";
 
 @Component({
   standalone: true,
-  imports: [FastSvgComponent, RouterLink, FastSvgComponent],
+  imports: [FastSvgComponent],
   selector: 'ct-not-found',
   template: `
     <div class="not-found-container">

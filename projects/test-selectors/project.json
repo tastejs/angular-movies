@@ -1,0 +1,40 @@
+{
+  "name": "test-selectors",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "projects/test-selectors/src",
+  "prefix": "lib",
+  "tags": [],
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nx/angular:ng-packagr-lite",
+      "outputs": [
+        "{workspaceRoot}/dist/projects/{projectRoot}"
+      ],
+      "options": {
+        "project": "projects/test-selectors/ng-package.json"
+      },
+      "configurations": {
+        "production": {
+          "tsConfig": "projects/test-selectors/tsconfig.lib.prod.json"
+        },
+        "development": {
+          "tsConfig": "projects/test-selectors/tsconfig.lib.json"
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": [
+        "{options.outputFile}"
+      ],
+      "options": {
+        "lintFilePatterns": [
+          "projects/test-selectors/**/*.ts",
+          "projects/test-selectors/**/*.html"
+        ]
+      }
+    }
+  }
+}

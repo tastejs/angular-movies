@@ -9,13 +9,8 @@
       "executor": "@angular-devkit/build-angular:server",
       "options": {
         "deleteOutputPath": false,
-        "namedChunks": true,
-        "sourceMap": true,
-        "optimization": false,
-        "buildOptimizer": false,
-        "vendorChunk": true,
-        "extractLicenses": false,
         "outputHashing": "media",
+        "sourceMap": true,
         "outputPath": "dist/projects/movies/server",
         "main": "projects/ng-universal-express/src/index.ts",
         "tsConfig": "projects/ng-universal-express/tsconfig.app.json",
@@ -23,25 +18,7 @@
       },
       "configurations": {
         "production": {
-          "optimization": true,
-          "buildOptimizer": true,
-          "extractLicenses": true,
-          "fileReplacements": [
-            {
-              "replace": "projects/movies/src/environments/environment.ts",
-              "with": "projects/movies/src/environments/environment.production.ts"
-            }
-          ]
-        },
-        "development": {
-          "sourceMap": true
-        },
-        "stats": {
-          "statsJson": true,
           "sourceMap": false,
-          "optimization": true,
-          "buildOptimizer": true,
-          "extractLicenses": true,
           "fileReplacements": [
             {
               "replace": "projects/movies/src/environments/environment.ts",
@@ -60,25 +37,21 @@
           "main": "projects/ng-universal-express/src/main.ts",
           "tsConfig": "projects/ng-universal-express/tsconfig.serve.json"
         },
-        "serve-development": {
+        "development": {
+          "buildOptimizer": false,
+          "optimization": false,
           "sourceMap": true,
           "extractLicenses": false,
+          "vendorChunk": true
+        },
+        "serve-development": {
+          "buildOptimizer": false,
+          "optimization": false,
+          "sourceMap": true,
+          "extractLicenses": false,
+          "vendorChunk": true,
           "main": "projects/ng-universal-express/src/main.ts",
           "tsConfig": "projects/ng-universal-express/tsconfig.serve.json"
-        },
-        "prerender": {
-          "sourceMap": true,
-          "optimization": true,
-          "buildOptimizer": true,
-          "extractLicenses": true,
-          "fileReplacements": [
-            {
-              "replace": "projects/movies/src/environments/environment.ts",
-              "with": "projects/movies/src/environments/environment.production.ts"
-            }
-          ],
-          "main": "projects/ng-universal-express/src/prerender.ts",
-          "tsConfig": "projects/ng-universal-express/tsconfig.prerender.json"
         }
       },
       "defaultConfiguration": "production"
@@ -90,6 +63,11 @@
       },
       "configurations": {
         "development": {
+          "browserTarget": "movies:build:development",
+          "serverTarget": "ng-universal-express:build:serve-development"
+        },
+        "development-prerender": {
+          "port": 4310,
           "browserTarget": "movies:build:development",
           "serverTarget": "ng-universal-express:build:serve-development"
         },
@@ -133,14 +111,23 @@
       }
     },
     "prerender": {
-      "dependsOn": ["pre-prerender"],
-      "outputs": ["dist/projects/movies/browser"],
+      "dependsOn": [
+        "pre-prerender"
+      ],
+      "outputs": [
+        "dist/projects/movies/browser"
+      ],
       "executor": "@nguniversal/builders:prerender",
       "options": {
-        "routesFile": "dist/tmp/routes.txt",
-        "browserTarget": "movies:build:production",
-        "serverTarget": "ng-universal-express:build:prerender"
-      }
+        "routesFile": "dist/tmp/routes.txt"
+      },
+      "configurations": {
+        "production": {
+          "browserTarget": "movies:build:production",
+          "serverTarget": "ng-universal-express:build:production"
+        }
+      },
+      "defaultConfiguration": "production"
     },
     "emulate-firebase": {
       "executor": "nx:run-commands",

@@ -17,7 +17,7 @@ export class AuthEffects {
 
   constructor() {
     if (isPlatformBrowser(this.platformId)) {
-      // @TODO should we finish the signIn?
+      // should we finish the signIn ?
       const requestToken = window.localStorage.getItem('requestToken');
       requestToken && this.signInFinish(requestToken);
     }

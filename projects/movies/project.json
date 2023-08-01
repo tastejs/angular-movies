@@ -45,7 +45,12 @@
         "stats": {
           "statsJson": true,
           "namedChunks": true,
-          "budgets": []
+          "sourceMap": true,
+          "extractLicenses": false,
+          "buildOptimizer": false,
+          "optimization": false,
+          "serviceWorker": false,
+          "budgets": false
         },
         "production": {
           "serviceWorker": true,
@@ -59,8 +64,8 @@
           "budgets": [
             {
               "type": "initial",
-              "maximumWarning": "350.8kb",
-              "maximumError": "351KB"
+              "maximumWarning": "349.9kb",
+              "maximumError": "350KB"
             },
             {
               "type": "anyComponentStyle",
