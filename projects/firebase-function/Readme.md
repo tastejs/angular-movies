@@ -11,17 +11,19 @@ It is also fragile and does not allow save changes of the code.
 How does it currently work:
 
 - The `ng-universal-express` application is built in independently before the `firebase-function` build is executed
-- The firebase build is a custom `tsc` execution and fragile not integrated well.
-  - The source code of the `ng-universal-express` application is used over a `require` statement.
-    This is needed to avoid consume the `main.js` bundle built the Angular CLI over webpack.
+- The firebase build is a custom `tsc` execution and fragile + not integrated well.
+  - The source code of the `ng-universal-express` application is used over a `require` statement. ()
+    This is needed to avoid consume the `main.js` bundle built by the Angular CLI over webpack.
 - The deployment of the `firebase-function` is entangled with the
   static hosting folder structure of the `ng-universal-express` application and the `movies` application.
-  This is needed as the express server needs to spin up the Angular application and render it in case already rendered
-  version is available.
+  This is needed as the express server needs to spin up the Angular application and render it in case a already rendered
+  version is not available.
 - The files `firebase.json` and `.firebaserc.json` define the project root.
-- Firebase executes npm ci on the server to run the deployment.
+- Firebase executes `npm ci` on the server to run the deployment. (no errors allowed no --force allowed)
   - The closest `package.json` is used to execute the function (defined under the `main` property)
   - This also is used as root in the functions and so in the angular app and affects the assets paths etc.
+- For the targets `build`, `perender`, `serve` there are a couple of different requirements given.
+  ATM all of them live in the same file and are concurrent. It only works because of hacks.
 
 
 - file ignore in fb.function.json

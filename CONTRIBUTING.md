@@ -55,6 +55,15 @@ We consider the following types a archetypal project:
 - Angular Universal Express Application - maintaining a node express server for Angular and the related projects
 - Firebase Function Application - maintaining a node function hosted on firebase cloud functions
 
+# Tags
+
+- docs - ["scope:shared", "type:util"]
+- movies-user-flow - ["scope:shared", "type:util"]
+- angular-movies - ["scope:client", "type:app"]
+- ng-universal-express - ["scope:server", "type:app"]
+- firebase-function - ["scope:server", "type:app"]
+- cloudflare-worker - ["scope:server", "type:app"]
+
 ## Global Project Targets (`nx.json`)
 
 In this mono repository we agree on a set of tasks that need to be consistent across the platforms:
@@ -212,18 +221,20 @@ The CI has different actions:
 
 ## Docs
 
-- **`docs-hosting-m.yml`** - runs on `m`
+- **`docs-hosting-pr+m.yml`** - runs on `m`
 
 ## Test and Build
 
 - **`ci.yml`** - runs on `pr` and `m` --affected build,test,lint,prerender
 
-### Firebase Hosting
+### Firebase
+
+#### Hosting
 
 - **`firebase-hosting-m.yml`** - runs on `m` firebase-function:deploy + movies:user-flow:production,
 - **`firebase-hosting-pr.yml`** - runs on `pr` ng-universal-express:deploy + ng-universal-express:user-flow:preview
 
-### Firebase Function
+#### Function
 
 As the build will not break because of require usage we need to test against function emulator
 

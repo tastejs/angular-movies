@@ -48,6 +48,7 @@ type UiActions = { paginate: boolean };
           This avoids bootstrap and template evaluation time and reduces scripting time in general.
           -->
         <img
+          elementtiming="tile-img"
           [ngSrc]="movie.imgSrc"
           [ngSrcset]="movie.imgSrcset"
           [sizes]="movie.imgSizes"

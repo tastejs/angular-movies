@@ -45,12 +45,7 @@
         "stats": {
           "statsJson": true,
           "namedChunks": true,
-          "sourceMap": true,
-          "extractLicenses": false,
-          "buildOptimizer": false,
-          "optimization": false,
-          "serviceWorker": false,
-          "budgets": false
+          "budgets": []
         },
         "production": {
           "serviceWorker": true,
@@ -64,8 +59,8 @@
           "budgets": [
             {
               "type": "initial",
-              "maximumWarning": "349.9kb",
-              "maximumError": "350KB"
+              "maximumWarning": "350.8kb",
+              "maximumError": "351KB"
             },
             {
               "type": "anyComponentStyle",
@@ -235,5 +230,9 @@
       },
       "defaultConfiguration": "production"
     }
-  }
+  },
+  "tags": [
+    "scope:client",
+    "type:app"
+  ]
 }

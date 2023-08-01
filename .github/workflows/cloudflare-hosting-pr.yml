@@ -30,4 +30,3 @@ jobs:
           commentId: cloudflare-preview-pages-hosting
           onlyComments: on
           outPath: ./dist/user-flow/cloudflare-worker
-          rcPath: projects/cloudflare-worker/.user-flowrc.action-hack.json

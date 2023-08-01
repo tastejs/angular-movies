@@ -7,31 +7,32 @@
   "targets": {
     "build": {
       "executor": "@nx/webpack:webpack",
-      "outputs": ["{options.outputPath}"],
+      "outputs": [
+        "{options.outputPath}"
+      ],
       "options": {
-        "deleteOutputPath": true,
-        "optimization": {
-          "scripts": true,
-          "styles": true
-        },
-        "sourceMap": true,
-        "target": "node",
+        "deleteOutputPath": false,
+        "sourceMap": false,
+        "namedChunks": true,
         "compiler": "tsc",
+        "target": "node",
         "outputPath": "./dist/projects/movies/server",
-        "outputFileName": "index.js",
+        "tsConfig": "./projects/firebase-function/tsconfig.function.json",
         "main": "projects/firebase-function/src/index.ts",
-        "tsConfig": "./projects/firebase-function/tsconfig.function.json"
+        "outputFileName": "index.js"
       },
       "configurations": {
         "production": {
-          "generatePackageJson": true
+          "optimization": true,
+          "sourceMap": true
         },
         "development": {
-          "verbose": true,
-          "generatePackageJson": false,
-          "sourceMap": false,
-          "progress": false,
-          "optimization": false
+          "optimization": false,
+          "sourceMap": false
+        },
+        "stats": {
+          "optimization": true,
+          "statsJson": true
         }
       }
     },
@@ -39,7 +40,7 @@
       "executor": "nx:run-commands",
       "options": {
         "commands": [
-          "nx build firebase-function",
+          "nx run firebase-function:build",
           "nx emulate firebase-function"
         ],
         "parallel": false
@@ -119,5 +120,8 @@
       "defaultConfiguration": "development"
     }
   },
-  "tags": []
+  "tags": [
+    "scope:server",
+    "type:app"
+  ]
 }

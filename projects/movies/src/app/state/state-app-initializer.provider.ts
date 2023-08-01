@@ -1,8 +1,8 @@
-import { APP_INITIALIZER } from '@angular/core';
-import { GenreResource } from '../data-access/api/resources/genre.resource';
-import { MovieState } from './movie.state';
-import { RouterState } from '../shared/router/router.state';
-import { take } from 'rxjs';
+import {APP_INITIALIZER} from '@angular/core';
+import {GenreResource} from '../data-access/api/resources/genre.resource';
+import {MovieState} from './movie.state';
+import {RouterState} from '../shared/router/router.state';
+import {take} from 'rxjs';
 
 /**
  * **🚀 Perf Tip for LCP, TTI:**
@@ -10,7 +10,7 @@ import { take } from 'rxjs';
  * Use `APP_INITIALIZER` and an init method in data services to run data fetching
  * on app bootstrap instead of component initialization.
  */
-export function withGobalStateInitializer() {
+export function withGlobalStateInitializer() {
   return [
     {
       provide: APP_INITIALIZER,
