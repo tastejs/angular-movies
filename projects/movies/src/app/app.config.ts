@@ -15,8 +15,6 @@ import {environment} from '../environments/environment';
 import {waitForElementTiming} from "./shared/cdk/element-timing/wait-for-element-timing";
 import {provideNgZoneZoneless} from "./shared/zone-less/provide-ngZone";
 
-InitialRenderPendingTasks;
-APP_INITIALIZER;
 const browserConfig: ApplicationConfig = {
   providers: [
     provideClientHydration(),
@@ -54,8 +52,8 @@ const browserConfig: ApplicationConfig = {
      * **🚀 Perf Tip for TBT:**
      *
      * Chunk app bootstrap over APP_INITIALIZER.
-
-     {
+     */
+    {
       provide: APP_INITIALIZER,
       useFactory: () => (): Promise<void> =>
         new Promise<void>((resolve) => {
@@ -63,7 +61,7 @@ const browserConfig: ApplicationConfig = {
         }),
       deps: [],
       multi: true,
-    },*/
+    },
     provideServiceWorker('ngsw-worker.js', {
       enabled: environment.production,
       // Register the ServiceWorker as soon as the app is stable
