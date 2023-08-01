@@ -40,7 +40,7 @@
       "executor": "nx:run-commands",
       "options": {
         "commands": [
-          "nx build firebase-function",
+          "nx run firebase-function:build",
           "firebase emulators:start --project angular-movies"
         ],
         "parallel": false
