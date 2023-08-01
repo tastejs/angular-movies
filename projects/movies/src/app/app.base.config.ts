@@ -1,5 +1,5 @@
 import {provideHttpClient, withInterceptors} from '@angular/common/http';
-import {APP_INITIALIZER, ApplicationConfig, mergeApplicationConfig,} from '@angular/core';
+import {ApplicationConfig, mergeApplicationConfig,} from '@angular/core';
 import {provideClientHydration} from '@angular/platform-browser';
 import {provideRouter, withInMemoryScrolling,} from '@angular/router';
 import {RxActionFactory} from '@rx-angular/state/actions';
@@ -8,8 +8,6 @@ import {tmdbReadAccessInterceptor} from './auth/tmdb-http-interceptor.feature';
 import {tmdbContentTypeInterceptor} from './data-access/api/tmdbContentTypeInterceptor';
 import {provideTmdbImageLoader} from './data-access/images/image-loader';
 import {withGlobalStateInitializer} from "./state/state-app-initializer.provider";
-
-APP_INITIALIZER;
 
 const appConfig: ApplicationConfig = {
   providers: [
