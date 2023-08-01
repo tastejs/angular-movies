@@ -7,19 +7,15 @@
   "targets": {
     "build": {
       "executor": "@nx/webpack:webpack",
-      "outputs": [
-        "{options.outputPath}"
-      ],
+      "outputs": ["{options.outputPath}"],
       "options": {
-        "deleteOutputPath": false,
-        "sourceMap": false,
-        "namedChunks": true,
-        "compiler": "tsc",
         "target": "node",
+        "compiler": "tsc",
+        "deleteOutputPath": false,
         "outputPath": "./dist/projects/movies/server",
-        "tsConfig": "./projects/firebase-function/tsconfig.function.json",
+        "outputFileName": "index.js",
         "main": "projects/firebase-function/src/index.ts",
-        "outputFileName": "index.js"
+        "tsConfig": "./projects/firebase-function/tsconfig.function.json"
       },
       "configurations": {
         "production": {
@@ -120,8 +116,5 @@
       "defaultConfiguration": "development"
     }
   },
-  "tags": [
-    "scope:server",
-    "type:app"
-  ]
+  "tags": ["scope:server", "type:app"]
 }
