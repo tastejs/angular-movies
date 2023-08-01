@@ -1,7 +1,7 @@
 import {provideHttpClient, withInterceptors} from '@angular/common/http';
 import {ApplicationConfig, mergeApplicationConfig,} from '@angular/core';
 import {provideClientHydration} from '@angular/platform-browser';
-import {provideRouter, withInMemoryScrolling,} from '@angular/router';
+import {provideRouter, withDisabledInitialNavigation, withInMemoryScrolling,} from '@angular/router';
 import {RxActionFactory} from '@rx-angular/state/actions';
 import {ROUTES} from './routes';
 import {tmdbReadAccessInterceptor} from './auth/tmdb-http-interceptor.feature';
@@ -24,7 +24,7 @@ const appConfig: ApplicationConfig = {
        *
        * Disable initial sync navigation in router config and schedule it in router-outlet container component
        */
-      // withDisabledInitialNavigation(),
+      withDisabledInitialNavigation(),
       withInMemoryScrolling({
         /**
          * **💡 UX Tip for InfiniteScroll:**
@@ -37,7 +37,7 @@ const appConfig: ApplicationConfig = {
         scrollPositionRestoration: 'top',
       })
     ),
-    // global actions
+    // Global actions
     RxActionFactory,
     /**
      * **🚀 Perf Tip for LCP, TTI:**
