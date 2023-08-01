@@ -26,6 +26,7 @@ describe('generate-routes', () => {
   it('should throw if params are not given', () => {
     const errorMessage = 'CLI param --targetFile is required';
 
+    // eslint-disable-next-line unicorn/prefer-module
     expect(() => run({} as any)).toThrow(errorMessage);
     expect(() => run({verbose: true, targetFile: ''})).toThrow(errorMessage);
   })

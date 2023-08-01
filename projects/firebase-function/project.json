@@ -7,40 +7,22 @@
   "targets": {
     "build": {
       "executor": "@nx/webpack:webpack",
-      "outputs": [
-        "{options.outputPath}"
-      ],
+      "outputs": ["{options.outputPath}"],
       "options": {
-        "deleteOutputPath": false,
-        "sourceMap": false,
-        "namedChunks": true,
-        "compiler": "tsc",
         "target": "node",
+        "compiler": "tsc",
+        "deleteOutputPath": false,
         "outputPath": "./dist/projects/movies/server",
-        "tsConfig": "./projects/firebase-function/tsconfig.function.json",
+        "outputFileName": "index.js",
         "main": "projects/firebase-function/src/index.ts",
-        "outputFileName": "index.js"
-      },
-      "configurations": {
-        "production": {
-          "optimization": true,
-          "sourceMap": true
-        },
-        "development": {
-          "optimization": false,
-          "sourceMap": false
-        },
-        "stats": {
-          "optimization": true,
-          "statsJson": true
-        }
+        "tsConfig": "./projects/firebase-function/tsconfig.function.json"
       }
     },
     "serve": {
       "executor": "nx:run-commands",
       "options": {
         "commands": [
-          "nx run firebase-function:build",
+          "nx build firebase-function",
           "firebase emulators:start --project angular-movies"
         ],
         "parallel": false

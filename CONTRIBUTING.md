@@ -221,20 +221,18 @@ The CI has different actions:
 
 ## Docs
 
-- **`docs-hosting-pr+m.yml`** - runs on `m`
+- **`docs-hosting-m.yml`** - runs on `m`
 
 ## Test and Build
 
 - **`ci.yml`** - runs on `pr` and `m` --affected build,test,lint,prerender
 
-### Firebase
-
-#### Hosting
+### Firebase Hosting
 
 - **`firebase-hosting-m.yml`** - runs on `m` firebase-function:deploy + movies:user-flow:production,
 - **`firebase-hosting-pr.yml`** - runs on `pr` ng-universal-express:deploy + ng-universal-express:user-flow:preview
 
-#### Function
+### Firebase Function
 
 As the build will not break because of require usage we need to test against function emulator
 

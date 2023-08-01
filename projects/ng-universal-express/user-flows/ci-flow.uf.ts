@@ -1,5 +1,5 @@
 import {UserFlowContext, UserFlowInteractionsFn, UserFlowOptions, UserFlowProvider,} from '@push-based/user-flow';
-import {ensureRenderType} from '../../movies/testing';
+import {ensureRenderType} from '../../test-selectors/src';
 import {MovieListPageUFO} from "../../movies-user-flows/src";
 
 const flowOptions: UserFlowOptions = {

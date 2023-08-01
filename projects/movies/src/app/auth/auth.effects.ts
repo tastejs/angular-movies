@@ -1,8 +1,12 @@
-import {DOCUMENT, isPlatformBrowser} from '@angular/common';
-import {inject, Injectable, PLATFORM_ID} from '@angular/core';
-import {AccessTokenResponse, Authv4Resource, RequestTokenResponse,} from '../data-access/api/resources/authv4.resource';
-import {AccessTokenFacade} from './access-token-facade.service';
-import {AccountState} from '../state/account.state';
+import { DOCUMENT, isPlatformBrowser } from '@angular/common';
+import { inject, Injectable, PLATFORM_ID } from '@angular/core';
+import {
+  AccessTokenResponse,
+  Authv4Resource,
+  RequestTokenResponse,
+} from '../data-access/api/resources/authv4.resource';
+import { AccessTokenFacade } from './access-token-facade.service';
+import { AccountState } from '../state/account.state';
 
 @Injectable({
   providedIn: 'root',
@@ -17,7 +21,7 @@ export class AuthEffects {
 
   constructor() {
     if (isPlatformBrowser(this.platformId)) {
-      // @TODO should we finish the signIn?
+      // should we finish the signIn ?
       const requestToken = window.localStorage.getItem('requestToken');
       requestToken && this.signInFinish(requestToken);
     }

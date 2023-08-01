@@ -42,6 +42,7 @@ export function run(parameters: { targetFile: string, sourceFile?: string, verbo
   const movieGenresRoutes = _fetch<{ genres: GenresResponse }>(movieGenresURL, {
     headers: getTmdbHeaders(),
   })
+    // eslint-disable-next-line unicorn/prefer-top-level-await
     .then(({genres}) => {
       return genres.map(({id}) => genresListURL(id))
     })
@@ -80,6 +81,7 @@ export function run(parameters: { targetFile: string, sourceFile?: string, verbo
         content
       );
     })
+    // eslint-disable-next-line unicorn/prefer-top-level-await
     .catch((error) => console.error(error));
 }
 
@@ -87,6 +89,7 @@ function readApi(url: string): string {
   return `${environment.tmdbBaseUrl}/${environment.apiV3}/${url}`;
 }
 
+// eslint-disable-next-line unicorn/no-object-as-default-parameter
 function writeFileSyncRecursive(
   filename: string,
   content: string,
