@@ -45,11 +45,6 @@
         "stats": {
           "statsJson": true,
           "namedChunks": true,
-          "sourceMap": true,
-          "extractLicenses": false,
-          "buildOptimizer": false,
-          "optimization": false,
-          "serviceWorker": false,
           "budgets": []
         },
         "production": {
