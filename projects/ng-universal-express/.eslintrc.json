@@ -14,7 +14,6 @@
         "*.jsx"
       ],
       "extends": [
-        "plugin:unicorn/recommended"
       ],
       "rules": {}
     },

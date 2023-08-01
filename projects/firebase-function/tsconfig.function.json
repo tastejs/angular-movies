@@ -1,14 +1,19 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
-    "lib": ["es6", "dom", "es2015", "es2017"],
+    "lib": [
+      "es6",
+      "dom",
+      "es2015",
+      "es2017"
+    ],
     "module": "commonjs",
     "noImplicitReturns": true,
     "outDir": "../../dist/projects/movies/server",
     "sourceMap": false,
     "target": "es2019",
-    "allowJs": true,
-    "noImplicitAny": false,
+    "allowJs": false,
+    "noImplicitAny": true,
     "strict": true,
     "esModuleInterop": true
   },
