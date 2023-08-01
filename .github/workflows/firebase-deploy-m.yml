@@ -1,5 +1,6 @@
 name: Deploy Firebase Function|Hosting on Merge
 'on':
+  pull_request:
   push:
     branches:
       - main
