@@ -138,7 +138,7 @@
       "executor": "@nguniversal/builders:prerender",
       "options": {
         "routesFile": "dist/tmp/routes.txt",
-        "browserTarget": "movies:build:stats",
+        "browserTarget": "movies:build:production",
         "serverTarget": "ng-universal-express:build:prerender"
       }
     },
