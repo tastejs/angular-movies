@@ -1,6 +1,6 @@
 {
   "name": "docs",
-  "$schema": "../node_modules/nx/schemas/project-schema.json",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "movies-user-flows/src",
   "projectType": "library",
   "targets": {
@@ -46,8 +46,5 @@
       }
     }
   },
-  "tags": [
-    "scope:shared",
-    "type:util"
-  ]
+  "tags": ["scope:shared", "type:util"]
 }

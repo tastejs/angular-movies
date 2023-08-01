@@ -1,15 +1,13 @@
 {
   "name": "movies-user-flows",
-  "$schema": "../node_modules/nx/schemas/project-schema.json",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "movies-user-flows/src",
   "projectType": "library",
   "targets": {
     "build-lib": {
       "dependsOn": [],
       "executor": "@nx/js:tsc",
-      "outputs": [
-        "{options.outputPath}"
-      ],
+      "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/projects/movies-user-flows",
         "main": "movies-user-flows/src/index.ts",
@@ -18,8 +16,5 @@
       }
     }
   },
-  "tags": [
-    "scope:shared",
-    "type:util"
-  ]
+  "tags": ["scope:shared", "type:util"]
 }
