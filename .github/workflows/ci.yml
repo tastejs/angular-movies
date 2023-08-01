@@ -30,5 +30,10 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Run Nx Affected
-        run: npx nx affected --targets=lint,build,test,prerender
+      # TODO: have different dist locations to un in parallel
+      - name: Run Nx Affected lint,test
+        run: npx nx affected --targets=lint,test
+      - name: Run Nx Affected build
+        run: npx nx affected --targets=build
+      - name: Run Nx Affected prerende
+        run: npx nx affected --targets=prerende
