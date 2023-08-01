@@ -3,7 +3,7 @@ import {provideServerRendering} from '@angular/platform-server';
 import {provideFastSVG} from '@push-based/ngx-fast-svg';
 import {RX_RENDER_STRATEGIES_CONFIG} from '@rx-angular/cdk/render-strategies';
 import {provideHttpClient, withInterceptors} from '@angular/common/http';
-import {IconLoadStrategySsr} from './icon-load.ssr.strategy';
+import {IconLoadStrategySsr} from './angular/icon-load.ssr.strategy';
 import {tmdbContentTypeInterceptor, tmdbReadAccessInterceptor} from "angular-movies";
 
 const serverConfig: ApplicationConfig = {

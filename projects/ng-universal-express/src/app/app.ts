@@ -1,19 +1,21 @@
 import 'zone.js/dist/zone-node';
+
 import express from 'express';
 import {existsSync} from 'node:fs';
 import {join} from 'node:path';
 import {ngExpressEngine} from '@nguniversal/express-engine';
-import bootstrap from './bootstrap';
-import {useCompression, useTiming} from './utils';
 import {APP_BASE_HREF} from "@angular/common";
+import bootstrap from './bootstrap';
+import {useCompression} from "./utils/express-compression";
+import {useTiming} from "./utils/express-timing";
 
 // The Express app is exported so that it can be used by serverless Functions.
 export function app(): express.Express {
   const server = express();
 
-  // use gzip
+  // Serve gzip for faster load
   useCompression(server);
-  // use server-timing
+  // Use server-timing fo better debugging
   useTiming(server);
 
   const distributionFolder = join(

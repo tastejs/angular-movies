@@ -5,9 +5,7 @@ import {
   NgZone,
   ɵInitialRenderPendingTasks as InitialRenderPendingTasks
 } from "@angular/core";
-import {tap} from "rxjs";
 
-// eslint
 declare const ngDevMode: boolean;
 
 export function provideNgZone() {
@@ -33,14 +31,12 @@ export class AppRenderedNgZone extends NgZone {
     const timeToken = "onStableTrigger" + Math.random();
 
     if (ngDevMode)
-      console.log(timeToken);
-    console.time(timeToken);
+      console.time(timeToken);
 
     this.initialRenderPendingTasks.hasPendingTasks
-      .pipe(
-        tap(v => console.log('this.initialRenderPendingTasks', v))
-      )
       .subscribe((isPending: boolean) => {
+        if (ngDevMode)
+          console.log('initialRenderPendingTasks', isPending);
         if (!isPending) {
           if (ngDevMode)
             console.timeEnd(timeToken);
