@@ -10,6 +10,7 @@
       "options": {
         "deleteOutputPath": false,
         "outputHashing": "media",
+        "namedChunks": true,
         "sourceMap": true,
         "outputPath": "dist/projects/movies/server",
         "main": "projects/ng-universal-express/src/index.ts",
@@ -111,12 +112,8 @@
       }
     },
     "prerender": {
-      "dependsOn": [
-        "pre-prerender"
-      ],
-      "outputs": [
-        "dist/projects/movies/browser"
-      ],
+      "dependsOn": ["pre-prerender"],
+      "outputs": ["dist/projects/movies/browser"],
       "executor": "@nguniversal/builders:prerender",
       "options": {
         "routesFile": "dist/tmp/routes.txt"
@@ -186,8 +183,5 @@
       "defaultConfiguration": "production"
     }
   },
-  "tags": [
-    "scope:server",
-    "type:app"
-  ]
+  "tags": ["scope:server", "type:app"]
 }

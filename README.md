@@ -26,7 +26,6 @@ For now you can search the codebase for "Perf Tip" later on there will be proppe
 
 
 <!-- bundle-stats-start -->
-
 | Names                                                                               | Size        |
 |-------------------------------------------------------------------------------------|-------------|
 | main.js                                                                             | 2.5 MB      |

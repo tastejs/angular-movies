@@ -3,6 +3,7 @@
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "movies-user-flows/src",
   "projectType": "library",
+  "implicitDependencies": ["movies"],
   "targets": {
     "build": {
       "outputs": ["./README.md"],
@@ -39,9 +40,7 @@
     "update-readme": {
       "executor": "nx:run-commands",
       "options": {
-        "commands": [
-          "npx ts-node -P ./projects/docs/tsconfig.tooling.json  ./projects/docs/tooling/bundle-stats/index.ts update-bundle-stats --stats=./dist/measures/movies/stats.json --target=./README.md --source=./projects/docs/src/static/BASE_README.md"
-        ],
+        "commands": "npx ts-node -P ./projects/docs/tsconfig.tooling.json  ./projects/docs/tooling/bundle-stats/index.ts update-bundle-stats --stats=./dist/measures/movies/stats.json --target=./README.md --source=./projects/docs/src/static/BASE_README.md",
         "parallel": false
       }
     }
