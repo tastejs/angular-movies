@@ -228,7 +228,9 @@
           "awaitServeStdout": "Angular Live Development Server is listening on"
         },
         "production": {
+          "verbose": true,
           "url": "http://localhost:4201",
+          "ufPath": "projects/movies/user-flows/ci-flow.uf.ts",
           "serveCommand": "nx run movies:serve:production",
           "awaitServeStdout": "Angular Live Development Server is listening on"
         }
@@ -236,8 +238,5 @@
       "defaultConfiguration": "production"
     }
   },
-  "tags": [
-    "scope:client",
-    "type:app"
-  ]
+  "tags": ["scope:client", "type:app"]
 }
