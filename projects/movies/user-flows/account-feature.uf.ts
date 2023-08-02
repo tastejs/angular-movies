@@ -1,12 +1,23 @@
-import {UserFlowContext, UserFlowInteractionsFn, UserFlowOptions, UserFlowProvider,} from '@push-based/user-flow';
+import {
+  UserFlowContext,
+  UserFlowInteractionsFn,
+  UserFlowOptions,
+  UserFlowProvider,
+} from '@push-based/user-flow';
+import {
+  getLhConfig,
+  mergeBudgets,
+} from '../../movies-user-flows/src/internals/test-sets';
+import { ToolBarUfo } from '../../movies-user-flows/src/ufo/desktop/tool-bar.ufo';
+import { TmdbUfo } from '../../movies-user-flows/src/ufo/desktop/tmdb.ufo';
+import Budget from 'lighthouse/types/lhr/budget';
 
-import * as angularBudgets from '../testing/budgets/angular.budgets.json';
-import * as generalTimingBudget from '../testing/budgets/general-timing.budgets.json';
-import * as movieListBudgets from '../testing/budgets/movie-list.budgets.json';
-
-import {getLhConfig, mergeBudgets,} from '../../movies-user-flows/src/internals/test-sets';
-import {ToolBarUfo} from '../../movies-user-flows/src/ufo/desktop/tool-bar.ufo';
-import {TmdbUfo} from '../../movies-user-flows/src/ufo/desktop/tmdb.ufo';
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const angularBudgets: Budget[] = require('../testing/budgets/angular.budgets.json');
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const generalTimingBudget: Budget[] = require('../testing/budgets/general-timing.budgets.json');
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const movieListBudgets: Budget[] = require('../testing/budgets/movie-list.budgets.json');
 
 const flowOptions: UserFlowOptions = {
   name: 'Login And Logout User Flow',
@@ -15,7 +26,7 @@ const flowOptions: UserFlowOptions = {
 const interactions: UserFlowInteractionsFn = async (
   ctx: UserFlowContext
 ): Promise<any> => {
-  const {page, flow, collectOptions} = ctx;
+  const { page, flow, collectOptions } = ctx;
   const url = `${collectOptions.url}/list/category/popular`;
   const toolbar = new ToolBarUfo(ctx);
   const tmdbPage = new TmdbUfo(ctx);
@@ -27,11 +38,7 @@ const interactions: UserFlowInteractionsFn = async (
 
   await flow.navigate(url, {
     config: getLhConfig(
-      mergeBudgets([
-        angularBudgets,
-        generalTimingBudget,
-        movieListBudgets,
-      ] as any)
+      mergeBudgets([angularBudgets, generalTimingBudget, movieListBudgets])
     ),
     stepName: '🧭 Initial navigation',
   });

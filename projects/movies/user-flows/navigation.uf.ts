@@ -1,10 +1,22 @@
-import {UserFlowContext, UserFlowInteractionsFn, UserFlowOptions, UserFlowProvider,} from '@push-based/user-flow';
-import {mergeBudgets} from '../../movies-user-flows/src';
-import {getLhConfig} from '../../movies-user-flows/src/internals/test-sets';
-import * as angularBudgets from '../testing/budgets/angular.budgets.json';
-import * as generalTimingBudget from '../testing/budgets/general-timing.budgets.json';
-import * as movieListBudgets from '../testing/budgets/movie-list.budgets.json';
-import * as movieDetailBudgets from '../testing/budgets/movie-detail.budgets.json';
+import {
+  UserFlowContext,
+  UserFlowInteractionsFn,
+  UserFlowOptions,
+  UserFlowProvider,
+} from '@push-based/user-flow';
+import { mergeBudgets } from '../../movies-user-flows/src';
+import { getLhConfig } from '../../movies-user-flows/src/internals/test-sets';
+
+import Budget from 'lighthouse/types/lhr/budget';
+
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const angularBudgets: Budget[] = require('../testing/budgets/angular.budgets.json');
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const generalTimingBudget: Budget[] = require('../testing/budgets/general-timing.budgets.json');
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const movieListBudgets: Budget[] = require('../testing/budgets/movie-list.budgets.json');
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const movieDetailBudgets: Budget[] = require('../testing/budgets/movie-detail.budgets.json');
 
 const flowOptions: UserFlowOptions = {
   name: 'Initial Navigation of the Main Pages',
@@ -14,17 +26,17 @@ const listBudgets = mergeBudgets([
   angularBudgets,
   generalTimingBudget,
   movieListBudgets,
-] as any);
+]);
 const detailBudgets = mergeBudgets([
   angularBudgets,
   generalTimingBudget,
   movieDetailBudgets,
-] as any);
+]);
 
 const interactions: UserFlowInteractionsFn = async (
   ctx: UserFlowContext
 ): Promise<any> => {
-  const {flow, collectOptions} = ctx;
+  const { flow, collectOptions } = ctx;
   const baseUrl = `${collectOptions.url}`;
   const ListNavigations = [
     '/list/category/popular',
