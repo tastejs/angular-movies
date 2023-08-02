@@ -29,7 +29,7 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      # TODO: have different dist locations to un in parallel
+      # TODO: have different dist locations to run in parallel
       - name: Run Nx Affected lint,test
         run: npx nx affected --targets=lint,test
       - name: Run Nx Affected build
