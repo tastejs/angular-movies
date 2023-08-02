@@ -34,6 +34,8 @@ jobs:
       - name: Run Nx Affected lint,test
         run: npx nx affected --targets=lint,test
       - name: Run Nx Affected build
-        run: npx nx affected --targets=build
+        run: npx nx affected --targets=build --exclude docs
+      - name: Run build docs
+        run: npx nx run build docs
       - name: Run Nx Affected prerende
         run: npx nx affected --targets=prerende

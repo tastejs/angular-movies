@@ -1,14 +1,10 @@
-import {Injectable} from '@angular/core';
-import {SvgLoadStrategy} from '@push-based/ngx-fast-svg';
-import {readFileSync} from 'node:fs';
-import {join} from 'node:path';
-import {Observable, of} from 'rxjs';
+import { Injectable } from '@angular/core';
+import { SvgLoadStrategy } from '@push-based/ngx-fast-svg';
+import { readFileSync } from 'node:fs';
 
 @Injectable()
 export class IconLoadStrategySsr implements SvgLoadStrategy {
-  load(url: string): Observable<string> {
-    const iconPath = join(url);
-    const iconSVG = readFileSync(iconPath, 'utf8');
-    return of(iconSVG);
+  load(url: string) {
+    return [readFileSync(url, 'utf8')] as any; // could be of(val). but arrays are observable like, and we have just one static value (saves bytes)
   }
 }
