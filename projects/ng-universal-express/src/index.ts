@@ -44,27 +44,25 @@ export function app(): express.Express {
     })
   );
 
-  server.get(
-    '*',
-    // Version with server timings for SSR
-    (request, response, _) => {
-      console.log('req', request.url);
-      // return rendered HTML including Angular generated DOM
-      console.log('SSR for route', request.url);
-      response.startTime('SSR', 'Total SSR Time');
-      response.render(
-        indexHtml,
-        {
-          req: request,
-          providers: [{ provide: APP_BASE_HREF, useValue: request.baseUrl }],
-        },
-        (_, html) => {
-          response.endTime('SSR');
-          response.send(html);
-        }
-      );
-    }
-  );
+  server.get('*', (request, response, _) => {
+    console.log('req', request.url);
+    // return rendered HTML including Angular generated DOM
+    console.log('SSR for route', request.url);
+    response.startTime('SSR', 'Total SSR Time');
+    response.render(
+      indexHtml,
+      {
+        req: request,
+        providers: [{ provide: APP_BASE_HREF, useValue: request.baseUrl }],
+      },
+      (_, html) => {
+        response.endTime('SSR');
+        response.send(
+          html + `<!-- ngUniversal SSR ${new Date().toISOString()} -->`
+        );
+      }
+    );
+  });
 
   return server;
 }
