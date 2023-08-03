@@ -9,7 +9,7 @@ import {
   tmdbContentTypeInterceptor,
   tmdbReadAccessInterceptor,
 } from 'angular-movies';
-import { requestTimingInterceptor } from './http-timing.interceptor';
+import { requestTimingInterceptor } from '../shared/server-timing/http-timing.interceptor';
 
 const serverConfig: ApplicationConfig = {
   providers: [

@@ -1,14 +1,12 @@
-import 'zone.js';
 import 'zone.js/dist/zone-node';
-// The Express app is exported so that it can be used by serverless Functions.
 import express from 'express';
 import { existsSync } from 'node:fs';
 import { join } from 'node:path';
 import { ngExpressEngine } from '@nguniversal/express-engine';
 import bootstrap from './app/bootstrap';
-import { useCompression, useTiming } from './app/utils';
+import { useCompression } from './shared/compression/use-compression';
+import { useTiming } from './shared/server-timing/use-server-timing';
 import { APP_BASE_HREF } from '@angular/common';
-// bootstrap needs to get exported for the pre-render task
 
 // The Express app is exported so that it can be used by serverless Functions.
 export function app(): express.Express {

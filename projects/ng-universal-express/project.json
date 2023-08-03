@@ -53,6 +53,17 @@
           "vendorChunk": true,
           "main": "projects/ng-universal-express/src/main.ts",
           "tsConfig": "projects/ng-universal-express/tsconfig.serve.json"
+        },
+        "prerender": {
+          "sourceMap": false,
+          "tsConfig": "projects/ng-universal-express/tsconfig.prerender.json",
+          "main": "projects/ng-universal-express/src/app/bootstrap.ts",
+          "fileReplacements": [
+            {
+              "replace": "projects/movies/src/environments/environment.ts",
+              "with": "projects/movies/src/environments/environment.production.ts"
+            }
+          ]
         }
       },
       "defaultConfiguration": "production"
@@ -121,7 +132,7 @@
       "configurations": {
         "production": {
           "browserTarget": "movies:build:production",
-          "serverTarget": "ng-universal-express:build:production"
+          "serverTarget": "ng-universal-express:build:prerender"
         }
       },
       "defaultConfiguration": "production"
