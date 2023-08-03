@@ -18,7 +18,7 @@ jobs:
         run: npm ci
 
       - name: Production build for static file hosting (client + prerender)
-        run: npm run nx prerender ng-universal-express
+        run: npm run nx build movies
 
       - name: Deploy firebase preview channel hosting
         id: previewDeployStep
