@@ -230,7 +230,6 @@
         "production": {
           "verbose": true,
           "url": "http://localhost:4201",
-          "ufPath": "projects/movies/user-flows/ci-flow.uf.ts",
           "serveCommand": "nx run movies:serve:production",
           "awaitServeStdout": "Angular Live Development Server is listening on"
         }
