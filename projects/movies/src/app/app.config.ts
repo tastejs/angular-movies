@@ -1,4 +1,4 @@
-import { ApplicationConfig, NgZone } from '@angular/core';
+import { APP_INITIALIZER, ApplicationConfig, NgZone } from '@angular/core';
 import { mergeBaseConfig } from './app.base.config';
 import { provideFastSVG } from '@push-based/ngx-fast-svg';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
@@ -9,6 +9,7 @@ import { tmdbReadAccessInterceptor } from './auth/tmdb-http-interceptor.feature'
 import { CustomNgZone } from './shared/zone-less/custom-zone';
 import { provideServiceWorker } from '@angular/service-worker';
 import { environment } from '../environments/environment';
+import { provideTmdbImageLoader } from './data-access/images/image-loader';
 
 const browserConfig: ApplicationConfig = {
   providers: [
@@ -16,9 +17,24 @@ const browserConfig: ApplicationConfig = {
     provideHttpClient(
       withInterceptors([tmdbContentTypeInterceptor, tmdbReadAccessInterceptor])
     ),
+    provideTmdbImageLoader(),
     provideFastSVG({
       url: (name: string) => `assets/svg-icons/${name}.svg`,
     }),
+    /**
+     * **🚀 Perf Tip for TBT:**
+     *
+     * Chunk app bootstrap over APP_INITIALIZER.
+     */
+    {
+      provide: APP_INITIALIZER,
+      useFactory: () => (): Promise<void> =>
+        new Promise<void>((resolve) => {
+          setTimeout(() => resolve());
+        }),
+      deps: [],
+      multi: true,
+    },
     /**
      * **🚀 Perf Tip for TBT, LCP, CLS:**
      *
@@ -28,6 +44,7 @@ const browserConfig: ApplicationConfig = {
       provide: RX_RENDER_STRATEGIES_CONFIG,
       useValue: { patchZone: false },
     },
+    /*needed to fix zone-less hydration*/
     {
       provide: NgZone,
       useClass: CustomNgZone,
