@@ -1,5 +1,5 @@
 name: E2E Firebase Preview Channel Hosting on PR
-'on': pull_request
+on: pull_request
 jobs:
   build_and_firebase_preview:
     if: '${{ github.event.pull_request.head.repo.full_name == github.repository }}'

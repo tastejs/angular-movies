@@ -1,5 +1,5 @@
 name: CI - build,test affected projects on Pr+Merge
-'on':
+on:
   pull_request:
   push:
     branches:

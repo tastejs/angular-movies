@@ -1,6 +1,5 @@
 name: Deploy Firebase Function|Hosting on Merge
-'on':
-  pull_request:
+on:
   push:
     branches:
       - main
@@ -49,4 +48,3 @@ jobs:
           onlyComments: on
           outPath: ./dist/user-flow/movies
           rcPath: ./projects/movies/.user-flowrc.json
-
