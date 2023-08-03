@@ -22,8 +22,19 @@ How does it currently work:
 - Firebase executes npm ci on the server to run the deployment.
   - The closest `package.json` is used to execute the function (defined under the `main` property)
   - This also is used as root in the functions and so in the angular app and affects the assets paths etc.
+- For the targets `build`, `perender`, `serve` there are a couple of different requirements given.
+  ATM all of them live in the same file and are concurrent. It only works because of hacks.
 
-##     
+
+- file ignore in fb.function.json
+- https://www.codejam.info/2023/04/firebase-functions-ignore.html
+- "**/package-lock.json",
+- "**/package.json",
+- "**/projects/**"
+
+ATM
+
+##       
 
 - The root `package.json` is used to execute the function because we dont want to manually maintain the needed
   dependencies
@@ -58,7 +69,7 @@ const t = {
       "**/database.rules.json",
       "**/firebase-debug.log",
       "**/firebase.function.json",
-      "**/firebase.hosting.json",
+      "**/firebase.json",
       "**/jest.config.ts",
       "**/jest.preset.js",
       "**/migrations.json",
@@ -70,3 +81,13 @@ const t = {
   }
 }
 ``` 
+
+- Github action
+
+
+As we want to have independent configuration filed (and separate deployments)
+we splitted the initial `firebase.json` and extracted the configuration for the function
+into a separate file `firebase.function.json` that we reference when using the `firebase` CLI.
+We have to keep the main `firebase.json` as is as it's name is hardcoded in the firebase action.
+We have to keep the config files at root level because they reference `packag.json`
+We can not just do it over the CLI as we need the comment in the PR

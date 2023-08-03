@@ -1,0 +1,31 @@
+{
+  "emulators": {
+    "functions": {
+      "port": 4402
+    }
+  },
+  "functions": {
+    "source": ".",
+    "ignore": [
+      " **/.*",
+      "**/node_modules/**",
+      "**/tmp/**",
+      "**/tooling/**",
+      "**/LICENSE",
+      "**/CONTRIBUTING.md",
+      "**/README.md",
+      "**/commitlint.config.js",
+      "**/database.rules.json",
+      "**/firebase-debug.log",
+      "**/firebase.function.json",
+      "**/firebase.json",
+      "**/jest.config.ts",
+      "**/jest.preset.js",
+      "**/migrations.json",
+      "**/nx.json",
+      "**/tsconfig.json",
+      "**/ui-debug.log",
+      "**/wrangler.toml"
+    ]
+  }
+}

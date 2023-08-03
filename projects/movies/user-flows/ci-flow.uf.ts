@@ -1,11 +1,24 @@
-import {UserFlowContext, UserFlowInteractionsFn, UserFlowOptions, UserFlowProvider,} from '@push-based/user-flow';
+import {
+  UserFlowContext,
+  UserFlowInteractionsFn,
+  UserFlowOptions,
+  UserFlowProvider,
+} from '@push-based/user-flow';
 
-import {mergeBudgets, MovieDetailPageUFO, MovieListPageUFO, SidebarUFO,} from '../../movies-user-flows/src';
-import {getLhConfig} from '../../movies-user-flows/src/internals/test-sets';
-import * as angularBudgets from '../testing/budgets/angular.budgets.json';
-import * as generalTimingBudget from '../testing/budgets/general-timing.budgets.json';
-import * as movieListBudgets from '../testing/budgets/movie-list.budgets.json';
+import {
+  mergeBudgets,
+  MovieDetailPageUFO,
+  MovieListPageUFO,
+  SidebarUFO,
+} from '../../movies-user-flows/src';
+import { getLhConfig } from '../../movies-user-flows/src/internals/test-sets';
 import Budget from 'lighthouse/types/lhr/budget';
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const angularBudgets: Budget[] = require('../testing/budgets/angular.budgets.json');
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const generalTimingBudget: Budget[] = require('../testing/budgets/general-timing.budgets.json');
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const movieListBudgets: Budget[] = require('../testing/budgets/movie-list.budgets.json');
 
 const flowOptions: UserFlowOptions = {
   name: 'Basic user flow to ensure basic functionality',
@@ -14,22 +27,21 @@ const flowOptions: UserFlowOptions = {
 const interactions: UserFlowInteractionsFn = async (
   ctx: UserFlowContext
 ): Promise<any> => {
-  const {flow, collectOptions} = ctx;
+  const { flow, collectOptions } = ctx;
   const url = `${collectOptions.url}/list/category/popular`;
   const sidebar = new SidebarUFO(ctx);
   const movieListPage = new MovieListPageUFO(ctx);
   const topRatedName = 'topRated';
   const movieDetailPage = new MovieDetailPageUFO(ctx);
 
+  const cfg = mergeBudgets([
+    angularBudgets,
+    generalTimingBudget,
+    movieListBudgets,
+  ]);
   await flow.navigate(url, {
     stepName: '🧭 Initial navigation',
-    config: getLhConfig(
-      mergeBudgets([
-        angularBudgets,
-        generalTimingBudget,
-        movieListBudgets,
-      ] as unknown as Budget[][])
-    ),
+    config: getLhConfig(cfg),
   });
   await flow.snapshot({
     stepName: '✔ Initial navigation done',

@@ -10,6 +10,7 @@
       "options": {
         "deleteOutputPath": false,
         "outputHashing": "media",
+        "namedChunks": true,
         "sourceMap": true,
         "outputPath": "dist/projects/movies/server",
         "main": "projects/ng-universal-express/src/index.ts",
@@ -131,16 +132,6 @@
         "commands": [
           "nx prerender ng-universal-express",
           "firebase emulators:start --only hosting --project angular-movies"
-        ],
-        "parallel": false
-      }
-    },
-    "deploy-firebase": {
-      "executor": "nx:run-commands",
-      "dependsOn": ["prerender"],
-      "options": {
-        "commands": [
-          "npx firebase deploy --only hosting --project angular-movies"
         ],
         "parallel": false
       }

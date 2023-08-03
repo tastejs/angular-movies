@@ -16,14 +16,28 @@
         "outputFileName": "index.js",
         "main": "projects/firebase-function/src/index.ts",
         "tsConfig": "./projects/firebase-function/tsconfig.function.json"
+      },
+      "configurations": {
+        "production": {
+          "optimization": true,
+          "sourceMap": true
+        },
+        "development": {
+          "optimization": false,
+          "sourceMap": false
+        },
+        "stats": {
+          "optimization": true,
+          "statsJson": true
+        }
       }
     },
     "serve": {
       "executor": "nx:run-commands",
       "options": {
         "commands": [
-          "nx build firebase-function",
-          "firebase emulators:start --project angular-movies"
+          "nx run firebase-function:build",
+          "nx emulate firebase-function"
         ],
         "parallel": false
       }
@@ -57,10 +71,22 @@
         "parallel": false
       }
     },
+    "deploy-firebase": {
+      "executor": "nx:run-commands",
+      "dependsOn": ["build"],
+      "options": {
+        "commands": [
+          "npx firebase --project=angular-movies --config=firebase.function.json deploy --only=functions "
+        ],
+        "parallel": false
+      }
+    },
     "emulate": {
       "executor": "nx:run-commands",
       "options": {
-        "commands": ["firebase emulators:start --project angular-movies"],
+        "commands": [
+          "npx firebase --project=angular-movies --config=firebase.function.json emulators:start"
+        ],
         "parallel": false
       }
     },

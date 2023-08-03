@@ -1,15 +1,23 @@
-name: E2E Firebase Live Hosting on Merge
-'on':
+name: Deploy Firebase Function|Hosting on Merge
+on:
   push:
     branches:
       - main
-
 jobs:
   deploy_firebase_function_and_hosting:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout the repository
+      # needed for all cases
+      - if: github.event_name == 'push' && github.ref_name == 'main'
         uses: actions/checkout@v3
+      # needed for nx affected command
+      - if: github.event_name == 'pull_request'
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      # needed for nx affected command
+      - if: github.event_name == 'pull_request'
+        run: git fetch --no-tags --depth=1 origin $BASE_BRANCH
 
       - name: Setup Node.js
         uses: actions/setup-node@v3
@@ -20,16 +28,11 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Production build (client + prerender + server)
-        run: npm run nx run firebase-function:build:production
-
-      - name: Deploy firebase live hosting
+      - name: Deploy firebase function|hosting
         id: deployStep
-        # We can not use the firebase github action as it throws because of "channelID requires"
-        # Notes: in package.json there is a hack (`|| true`) in the prepare script to make it pass (`"prepare": "husky install || true"`).
-        # Since we don't upload the node_modules. The real reason dough is we don't put a custom `package.json` in the dist folder.
+        # We can not use the firebase GitHub action as it throws because of "channelID requires"
         run: |
-          npm run nx run firebase-function:deploy
+          npm run nx affected -- --targets=deploy-firebase  --no-parallel
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
 
@@ -37,11 +40,11 @@ jobs:
         run: npm run nx run movies:user-flow:production -- --format=md --url=https://angular-movies-a12d3.web.app
 
       - name: Collect user flows
-        id: firebase-live-hosting
+        id: test-firebase-function--deploy-live
         uses: push-based/user-flow-gh-action@v0.4.1
         with:
           verbose: on
-          commentId: firebase-live-hosting
+          commentId: test-firebase-function--deploy-live
           onlyComments: on
           outPath: ./dist/user-flow/movies
           rcPath: ./projects/movies/.user-flowrc.json

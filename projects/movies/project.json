@@ -204,7 +204,8 @@
       "executor": "nx:run-commands",
       "options": {
         "commands": [
-          "npx firebase deploy --only hosting --project angular-movies"
+          "nx prerender ng-universal-express",
+          "npx firebase --config=firebase.json deploy --only=hosting --project=angular-movies"
         ],
         "parallel": false
       }
@@ -227,6 +228,7 @@
           "awaitServeStdout": "Angular Live Development Server is listening on"
         },
         "production": {
+          "verbose": true,
           "url": "http://localhost:4201",
           "serveCommand": "nx run movies:serve:production",
           "awaitServeStdout": "Angular Live Development Server is listening on"

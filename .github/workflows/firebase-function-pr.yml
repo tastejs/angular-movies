@@ -1,5 +1,5 @@
 name: E2E Firebase Function on PR
-'on': pull_request
+on: pull_request
 jobs:
   emulate_firebase_function_and_test:
     if: '${{ github.event.pull_request.head.repo.full_name == github.repository }}'
@@ -28,7 +28,7 @@ jobs:
         uses: push-based/user-flow-gh-action@v0.4.1
         with:
           verbose: on
-          commentId: firebase-function-emulation
+          commentId: test-firebase-function--deploy-emulation
           onlyComments: on
           outPath: ./dist/user-flow/firebase-function
           rcPath: projects/firebase-function/.user-flowrc.json

@@ -1,7 +1,12 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
-    "lib": ["es6", "dom", "es2015", "es2017"],
+    "lib": [
+      "es6",
+      "dom",
+      "es2015",
+      "es2017"
+    ],
     "module": "commonjs",
     "noImplicitReturns": true,
     "outDir": "../../dist/projects/movies/server",
@@ -12,6 +17,10 @@
     "strict": true,
     "esModuleInterop": true
   },
-  "files": ["src/index.ts"],
-  "include": ["src/index.ts"]
+  "files": [
+    "src/index.ts"
+  ],
+  "include": [
+    "src/index.ts"
+  ]
 }

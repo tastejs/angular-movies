@@ -1,10 +1,9 @@
 name: CI - build,test affected projects on Pr+Merge
-'on':
+on:
   pull_request:
   push:
     branches:
       - main
-
 jobs:
   ci:
     runs-on: ubuntu-latest
@@ -30,5 +29,12 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Run Nx Affected
-        run: npx nx affected --targets=lint,build,test,prerender --exclude cloudflare-worker
+      # TODO: have different dist locations to run in parallel
+      - name: Run Nx Affected lint,test
+        run: npx nx affected --targets=lint,test
+      - name: Run Nx Affected build
+        run: npx nx affected --targets=build --exclude docs
+      - name: Run build docs
+        run: npx nx build docs
+      - name: Run Nx Affected prerende
+        run: npx nx affected --targets=prerende

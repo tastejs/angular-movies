@@ -1,8 +1,9 @@
 {
   "name": "docs",
-  "$schema": "../node_modules/nx/schemas/project-schema.json",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "movies-user-flows/src",
   "projectType": "library",
+  "implicitDependencies": ["movies"],
   "targets": {
     "build": {
       "outputs": ["./README.md"],
@@ -29,9 +30,9 @@
       "executor": "nx:run-commands",
       "options": {
         "commands": [
-          "nx run movies:build:stats",
-          "npx cpx dist/projects/movies/browser/stats.json dist/measures/movies",
-          "npx webpack-bundle-analyzer dist/projects/movies/browser/stats.json -m static -r dist/measures/movies/bundle-size-report.prod.html"
+          "nx run movies:build:stats --outputPath=dist/tmp/stats-movies",
+          "npx cpx dist/tmp/stats-movies/stats.json dist/measures/movies",
+          "npx webpack-bundle-analyzer dist/measures/movies/stats.json -m static -r dist/measures/movies/bundle-size-report.prod.html"
         ],
         "parallel": false
       }
@@ -39,9 +40,7 @@
     "update-readme": {
       "executor": "nx:run-commands",
       "options": {
-        "commands": [
-          "npx ts-node -P ./projects/docs/tsconfig.tooling.json  ./projects/docs/tooling/bundle-stats/index.ts update-bundle-stats --stats=./dist/measures/movies/stats.json --target=./README.md --source=./projects/docs/src/static/BASE_README.md"
-        ],
+        "command": "npx ts-node -P ./projects/docs/tsconfig.tooling.json  ./projects/docs/tooling/bundle-stats/index.ts update-bundle-stats --stats=./dist/measures/movies/stats.json --target=./README.md --source=./projects/docs/src/static/BASE_README.md",
         "parallel": false
       }
     }
