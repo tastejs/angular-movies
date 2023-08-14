@@ -1,12 +1,20 @@
 import { Injectable } from '@angular/core';
 import { SvgLoadStrategy } from '@push-based/ngx-fast-svg';
-import { readFileSync } from 'node:fs';
+import { readFile } from 'node:fs';
 import { resolve } from 'node:path';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 
 @Injectable()
 export class IconLoadStrategySsr implements SvgLoadStrategy {
   load(url: string): Observable<string> {
-    return of(readFileSync(resolve(url), 'utf8'));
+    return new Observable<string>((observer) => {
+      readFile(resolve(url), { encoding: 'utf8' }, (error, data) => {
+        if (error) {
+          observer.error(error);
+        } else {
+          observer.next(data);
+        }
+      });
+    });
   }
 }
