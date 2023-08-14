@@ -6,7 +6,7 @@
   "implicitDependencies": ["movies"],
   "targets": {
     "build": {
-      "outputs": ["./README.md"],
+      "outputs": ["{projectRoot}/README.md"],
       "executor": "nx:run-commands",
       "options": {
         "commands": [

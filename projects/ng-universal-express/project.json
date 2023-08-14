@@ -5,7 +5,7 @@
   "projectType": "application",
   "targets": {
     "build": {
-      "outputs": ["dist/projects/movies/server"],
+      "outputs": ["{workspaceRoot}/dist/projects/movies/server"],
       "executor": "@angular-devkit/build-angular:server",
       "options": {
         "deleteOutputPath": false,
@@ -102,7 +102,7 @@
       }
     },
     "pre-prerender": {
-      "outputs": ["dist/projects/movies/server"],
+      "outputs": ["{workspaceRoot}/dist/projects/movies/server"],
       "executor": "nx:run-commands",
       "options": {
         "commands": [
@@ -113,7 +113,7 @@
     },
     "prerender": {
       "dependsOn": ["pre-prerender"],
-      "outputs": ["dist/projects/movies/browser"],
+      "outputs": ["{workspaceRoot}/dist/projects/movies/browser"],
       "executor": "@nguniversal/builders:prerender",
       "options": {
         "routesFile": "dist/tmp/routes.txt"

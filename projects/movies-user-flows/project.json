@@ -12,7 +12,8 @@
         "outputPath": "dist/projects/movies-user-flows",
         "main": "movies-user-flows/src/index.ts",
         "tsConfig": "movies-user-flows/tsconfig.lib.json",
-        "assets": []
+        "assets": [],
+        "updateBuildableProjectDepsInPackageJson": true
       }
     }
   },
