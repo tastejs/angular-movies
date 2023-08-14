@@ -21,10 +21,10 @@ export function requestTimingInterceptor(
       optional: true,
     }) as unknown as HttpRequest<any> & ServerTimingRequest;
     const u = 'request' + index++;
-    responseWithTiming.startTime(
+    responseWithTiming?.startTime(
       u,
       requestName ? requestName(request) : request.urlWithParams
     );
-    return next(request).pipe(finalize(() => responseWithTiming.endTime(u)));
+    return next(request).pipe(finalize(() => responseWithTiming?.endTime(u)));
   };
 }
