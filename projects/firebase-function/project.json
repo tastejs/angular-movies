@@ -84,9 +84,7 @@
     "emulate": {
       "executor": "nx:run-commands",
       "options": {
-        "commands": [
-          "npx firebase --project=angular-movies --config=firebase.function.json emulators:start"
-        ],
+        "commands": ["npx firebase emulators:start --project=angular-movies"],
         "parallel": false
       }
     },
