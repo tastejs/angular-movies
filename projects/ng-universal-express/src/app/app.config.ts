@@ -10,6 +10,8 @@ import {
   tmdbReadAccessInterceptor,
 } from 'angular-movies';
 import { requestTimingInterceptor } from '../shared/server-timing/http-timing.interceptor';
+import { join } from 'node:path';
+import { cwd } from 'node:process';
 
 const serverConfig: ApplicationConfig = {
   providers: [
@@ -29,7 +31,16 @@ const serverConfig: ApplicationConfig = {
     provideTmdbImageLoader(),
     provideFastSVG({
       url: (name: string) =>
-        `dist/projects/movies/browser/assets/svg-icons/${name}.svg`,
+        join(
+          cwd(),
+          'dist',
+          'projects',
+          'movies',
+          'browser',
+          'assets',
+          'svg-icons',
+          `${name}.svg`
+        ),
       svgLoadStrategy: IconLoadStrategySsr,
     }),
     {
