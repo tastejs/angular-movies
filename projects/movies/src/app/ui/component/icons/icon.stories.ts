@@ -34,6 +34,7 @@ export const Suspense: Story = { args: { name: 'sad', size: '24' } };
 
 
 export const SupportedIcons: Story = {
+  parameters: { controls: { disabled: true } },
   decorators: [
     moduleMetadata({
       imports: [NgFor]
