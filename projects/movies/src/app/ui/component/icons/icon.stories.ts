@@ -2,6 +2,7 @@ import { componentWrapperDecorator, Meta, moduleMetadata, StoryObj } from '@stor
 import { SUPPORTED_ICONS } from './icon-data';
 import { FastSvgComponent } from '@push-based/ngx-fast-svg';
 import { NgFor } from '@angular/common';
+import { withBothColorScheme } from '../../../../../.storybook/decorators';
 
 const meta: Meta = {
   title: 'Component/Icon',
@@ -19,7 +20,10 @@ const meta: Meta = {
       defaultValue: '12',
       description: 'Size of the box dimensions of the Icon in pixels'
     }
-  }
+  },
+  decorators: [
+    withBothColorScheme()
+  ]
 };
 
 export default meta;
