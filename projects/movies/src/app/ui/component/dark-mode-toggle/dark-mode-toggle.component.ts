@@ -1,5 +1,5 @@
 import {DOCUMENT} from '@angular/common';
-import {ChangeDetectionStrategy, Component, inject, ViewEncapsulation,} from '@angular/core';
+import {ChangeDetectionStrategy, Component, inject, ViewEncapsulation} from '@angular/core';
 import {RxState} from '@rx-angular/state';
 import {RxLet} from '@rx-angular/template/let';
 

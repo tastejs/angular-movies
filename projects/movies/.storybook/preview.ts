@@ -1,8 +1,10 @@
 import '!style-loader!css-loader!sass-loader!../src/styles.scss';
-import { applicationConfig, componentWrapperDecorator, Decorator, Preview } from '@storybook/angular';
+import { applicationConfig, Preview, Parameters, moduleMetadata } from '@storybook/angular';
 import { provideFastSVG } from '@push-based/ngx-fast-svg';
+import { withBothColorScheme } from './decorators';
+import { NgIf } from '@angular/common';
 
-export const parameters = {
+export const parameters: Parameters = {
   layout: 'full-screen',
   backgrounds: {
     values: [
@@ -11,22 +13,26 @@ export const parameters = {
   }
 };
 
-function withBothColorScheme(): Decorator {
-  return componentWrapperDecorator(
-    (story) => {
-      return `
-      <body class='light' style='padding: 10px; max-width: 100%;'>${story}</body>
-      <body class='dark' style='padding: 10px; max-width: 100%'>${story}</body>
-    `;
-    },
-    (context) => {
-      return { colorScheme: context.globals['scheme']};
+export const globalTypes = {
+  scheme: {
+    name: "Scheme",
+    description: "Select light of dark mode",
+    defaultValue: "both",
+    toolbar: {
+      icon: "mirror",
+      items: ["light", "dark", "both"],
+      dynamicTitle: true,
     }
-  );
+  }
 }
 
 const preview: Preview = {
   decorators: [
+    moduleMetadata({
+      imports: [
+        NgIf
+      ]
+    }),
     applicationConfig({
       providers: [
         provideFastSVG({
@@ -34,7 +40,7 @@ const preview: Preview = {
         })
       ]
     }),
-    withBothColorScheme()
+    withBothColorScheme(),
   ],
 };
 
