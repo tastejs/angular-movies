@@ -8,6 +8,9 @@
     },
     {
       "path": "./tsconfig.uf.json"
+    },
+    {
+      "path": "./tsconfig.storybook.json"
     }
   ]
 }

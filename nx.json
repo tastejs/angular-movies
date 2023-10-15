@@ -1,7 +1,10 @@
 {
   "tasksRunnerOptions": {
     "default": {
-      "runner": "nx-cloud"
+      "runner": "nx-cloud",
+      "options": {
+        "cacheableOperations": ["build-storybook"]
+      }
     }
   },
   "affected": {
@@ -16,7 +19,10 @@
       "!{projectRoot}/**/?(*.)+(spec|test).[jt]s?(x)?(.snap)",
       "!{projectRoot}/tsconfig.spec.json",
       "!{projectRoot}/jest.config.[jt]s",
-      "!{projectRoot}/src/test-setup.[jt]s"
+      "!{projectRoot}/src/test-setup.[jt]s",
+      "!{projectRoot}/**/*.stories.@(js|jsx|ts|tsx|mdx)",
+      "!{projectRoot}/.storybook/**/*",
+      "!{projectRoot}/tsconfig.storybook.json"
     ]
   },
   "targetDefaults": {
@@ -39,6 +45,14 @@
     },
     "deploy-firebase": {
       "dependsOn": ["build"]
+    },
+    "build-storybook": {
+      "inputs": [
+        "default",
+        "^production",
+        "{projectRoot}/.storybook/**/*",
+        "{projectRoot}/tsconfig.storybook.json"
+      ]
     }
   },
   "generators": {
