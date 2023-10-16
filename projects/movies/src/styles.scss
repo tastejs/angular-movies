@@ -4,8 +4,15 @@
  * Only include styles visible in the main bundle and move other imports directly into the respective component. e.g. button style
  * This reduces bundle-size of your styles.
  */
-@forward 'app/ui/token/tokens.default';
 @import 'styles/normalize';
+@import 'app/ui/token/mixins/media';
+@import 'app/ui/token/variables/borderRadius';
+@import 'app/ui/token/variables/aspectRatio';
+@import 'app/ui/token/variables/zIndex';
+@import 'app/ui/token/variables/animations';
+@import 'app/ui/token/variables/shadow';
+@import 'app/ui/token/dark-light-mode';
+@import 'app/ui/token/typography';
 
 body {
   color: var(--palette-text-primary);

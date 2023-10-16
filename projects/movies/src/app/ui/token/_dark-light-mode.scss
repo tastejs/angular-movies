@@ -1,4 +1,4 @@
-.light-mode {
+body.light {
   --palette-background-default: #fafafa;
   --palette-text-primary: rgba(0, 0, 0, 0.87);
   --palette-text-secondary: rgba(0, 0, 0, 0.54);
@@ -30,5 +30,39 @@
   --background-blend-gradient: linear-gradient(
     rgba(255, 255, 255, 0) 68%,
     rgb(255, 255, 255) 100%
+  );
+}
+
+body.dark {
+  --image-filter: grayscale(0%);
+  --palette-background-default: #303030;
+  --palette-text-primary: #fff;
+  --palette-text-secondary: rgba(255, 255, 255, 0.7);
+  --palette-text-disabled: rgba(255, 255, 255, 0.5);
+  --palette-divider: rgba(255, 255, 255, 0.12);
+  --palette-action-active: #fff;
+  --palette-action-hover: rgba(255, 255, 255, 0.08);
+  --palette-action-hover-opacity: 0.08;
+  --palette-action-selected: rgba(255, 255, 255, 0.16);
+  --palette-action-disabled: rgba(255, 255, 255, 0.3);
+  --palette-action-disabled-background: rgba(255, 255, 255, 0.12);
+  --palette-background-paper: #424242;
+  --palette-primary-main: #41ead4;
+  --palette-primary-main-rgb: 65, 234, 212;
+  --palette-primary-dark: #fff;
+  --palette-primary-light: #67eedc;
+  --palette-primary-contrast-text: rgba(0, 0, 0, 0.87);
+  --palette-secondary-main: #ff206e;
+  --palette-secondary-main-rgb: 255, 32, 110;
+  --palette-secondary-dark: #b2164d;
+  --palette-secondary-light: #ff4c8b;
+  --palette-secondary-contrast-text: #fff;
+  --palette-warning-main: #fbff12;
+  --palette-warning-dark: #afb20c;
+  --palette-warning-light: #fbff41;
+  --palette-warning-contrast-text: rgba(0, 0, 0, 0.87);
+  --background-blend-gradient: linear-gradient(
+    rgba(255, 255, 255, 0) 68%,
+    rgb(48, 48, 48) 100%
   );
 }
