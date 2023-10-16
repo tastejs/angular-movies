@@ -7,7 +7,10 @@ import {
 import { SUPPORTED_ICONS } from './icon-data';
 import { FastSvgComponent } from '@push-based/ngx-fast-svg';
 import { NgFor } from '@angular/common';
-import { withBothColorScheme } from '../../../../../.storybook/decorators';
+import {
+  withBothColorScheme,
+  wrappedInPaddedDiv,
+} from '../../../../../.storybook/decorators';
 
 const meta: Meta = {
   title: 'Component/Icon',
@@ -26,7 +29,7 @@ const meta: Meta = {
       description: 'Size of the box dimensions of the Icon in pixels',
     },
   },
-  decorators: [withBothColorScheme],
+  decorators: [wrappedInPaddedDiv, withBothColorScheme],
 };
 
 export default meta;
