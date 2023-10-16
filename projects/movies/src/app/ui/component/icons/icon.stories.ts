@@ -61,7 +61,7 @@ export const SupportedIcons: Story = {
           ]"
         >
           <span style='font-size: medium; font-weight: bold'>{{icon}}</span>
-          <fast-svg style="display: block; margin: auto;"[name]='icon' size='32'/>
+          <fast-svg style="display: block; margin: auto;" [name]='icon' size='32'/>
         </div>
       </div>
   `
