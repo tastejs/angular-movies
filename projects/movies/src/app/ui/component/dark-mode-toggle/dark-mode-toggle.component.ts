@@ -1,7 +1,12 @@
-import {DOCUMENT} from '@angular/common';
-import {ChangeDetectionStrategy, Component, inject, ViewEncapsulation} from '@angular/core';
-import {RxState} from '@rx-angular/state';
-import {RxLet} from '@rx-angular/template/let';
+import { DOCUMENT } from '@angular/common';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  ViewEncapsulation,
+} from '@angular/core';
+import { RxState } from '@rx-angular/state';
+import { RxLet } from '@rx-angular/template/let';
 
 @Component({
   standalone: true,
@@ -59,11 +64,11 @@ export class DarkModeToggleComponent extends RxState<{
 
   toggleTheme = (isLightTheme: boolean): void => {
     if (isLightTheme) {
-      this.document.body.classList.remove('dark');
-      this.document.body.classList.add('light');
+      this.document.body.classList.remove('dark-mode');
+      this.document.body.classList.add('light-mode');
     } else {
-      this.document.body.classList.add('dark');
-      this.document.body.classList.remove('light');
+      this.document.body.classList.add('dark-mode');
+      this.document.body.classList.remove('light-mode');
     }
   };
 
