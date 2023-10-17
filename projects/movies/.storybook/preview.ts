@@ -1,7 +1,7 @@
 import '!style-loader!css-loader!sass-loader!../src/styles.scss';
 import { applicationConfig, moduleMetadata, Parameters, Preview } from '@storybook/angular';
 import { provideFastSVG } from '@push-based/ngx-fast-svg';
-import { NgIf } from '@angular/common';
+import { NgFor, NgIf } from '@angular/common';
 
 export const parameters: Parameters = {
   backgrounds: {
@@ -27,9 +27,7 @@ export const globalTypes = {
 const preview: Preview = {
   decorators: [
     moduleMetadata({
-      imports: [
-        NgIf
-      ]
+      imports: [NgIf, NgFor]
     }),
     applicationConfig({
       providers: [

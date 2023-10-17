@@ -286,7 +286,14 @@
       "options": {
         "buildTarget": "movies:build-storybook",
         "tsConfig": "projects/movies/tsconfig.storybook.json",
-        "staticFilePath": "dist/storybook/movies"
+        "staticFilePath": "dist/storybook/movies",
+        "assets": [
+          {
+            "glob": "**/*",
+            "input": "src/assets",
+            "output": "assets"
+          }
+        ]
       },
       "configurations": {
         "ci": {

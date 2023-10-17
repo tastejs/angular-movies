@@ -1,16 +1,7 @@
-import {
-  componentWrapperDecorator,
-  Meta,
-  moduleMetadata,
-  StoryObj,
-} from '@storybook/angular';
+import { componentWrapperDecorator, Meta, StoryObj, } from '@storybook/angular';
 import { SUPPORTED_ICONS } from './icon-data';
 import { FastSvgComponent } from '@push-based/ngx-fast-svg';
-import { NgFor } from '@angular/common';
-import {
-  withBothColorScheme,
-  wrappedInPaddedDiv,
-} from '../../../../../.storybook/decorators';
+import { withBothColorScheme, wrappedInPaddedDiv, } from '../../../../../.storybook/decorators';
 
 const meta: Meta = {
   title: 'Component/Icon',
@@ -41,9 +32,6 @@ export const Suspense: Story = { args: { name: 'sad', size: '24' } };
 export const SupportedIcons: Story = {
   parameters: { controls: { disabled: true } },
   decorators: [
-    moduleMetadata({
-      imports: [NgFor],
-    }),
     componentWrapperDecorator(
       () => `
       <div style='display: flex; max-width: 100%; flex-wrap: wrap;'>
