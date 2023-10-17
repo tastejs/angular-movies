@@ -25,32 +25,33 @@ For now you can search the codebase for "Perf Tip" later on there will be proppe
 ### Bundle Stats
 
 <!-- bundle-stats-start -->
-| Names             |       Size |
-| ---               | ---        |
-| main.js           | 343.15 KB |
-| styles.css           | 6.17 KB |
-| runtime.js           | 2.61 KB |
-  | **Initial Total** | **351.93 KB** |
-  | Names             |       Size |
-| app_pages_movie-detail-page_movie-detail-page_component_ts.js           | 16.83 KB |
-| app_pages_person-detail-page_person-detail-page_component_ts.js           | 11.79 KB |
-| a-6a8199.js           | 10.07 KB |
-| app_pages_account-feature_list-detail-page_list-movies_list-movies_compon-d13d08.js           | 9.83 KB |
-| common.js           | 7.69 KB |
-| app_pages_account-feature_list-detail-page_list-items-edit_list-items-edi-13eb42.js           | 7.23 KB |
-| app_pages_movie-list-page_movie-list-page_component_ts.js           | 5.84 KB |
-| app_pages_account-feature_list-create-page_list-create-page_component_ts--1f481e.js           | 5.7 KB |
-| app_app-shell_account-menu_account-menu_component_ts.js           | 5.63 KB |
-| app_pages_account-feature_account-list-page_account-list-page_component_ts.js           | 4.89 KB |
-| app_pages_account-feature_list-detail-page_list-image_list-image_componen-cb4b89.js           | 4.36 KB |
-| default-node_modules_rx-angular_template_fesm2022_template-if_mjs.js           | 4.23 KB |
-| app_pages_account-feature_list-detail-page_list-remove_list-remove_compon-a10eb2.js           | 3.41 KB |
-| app_pages_account-feature_list-detail-page_list-detail-page_component_ts--a2c81d.js           | 3.24 KB |
-| app_pages_not-found-page_not-found-page_component_ts.js           | 1.77 KB |
-| app_pages_account-feature_list-detail-page_list-detail-page_routes_ts.js           | 1.54 KB |
-| app_pages_account-feature_account-feature-page_routes_ts.js           | 926 Bytes |
-<!-- bundle-stats-end -->
 
+| Names                                                                               | Size          |
+| ----------------------------------------------------------------------------------- | ------------- |
+| main.js                                                                             | 343.15 KB     |
+| styles.css                                                                          | 6.17 KB       |
+| runtime.js                                                                          | 2.61 KB       |
+| **Initial Total**                                                                   | **351.93 KB** |
+| Names                                                                               | Size          |
+| app_pages_movie-detail-page_movie-detail-page_component_ts.js                       | 16.83 KB      |
+| app_pages_person-detail-page_person-detail-page_component_ts.js                     | 11.79 KB      |
+| a-6a8199.js                                                                         | 10.07 KB      |
+| app_pages_account-feature_list-detail-page_list-movies_list-movies_compon-d13d08.js | 9.83 KB       |
+| common.js                                                                           | 7.69 KB       |
+| app_pages_account-feature_list-detail-page_list-items-edit_list-items-edi-13eb42.js | 7.23 KB       |
+| app_pages_movie-list-page_movie-list-page_component_ts.js                           | 5.84 KB       |
+| app_pages_account-feature_list-create-page_list-create-page_component_ts--1f481e.js | 5.7 KB        |
+| app_app-shell_account-menu_account-menu_component_ts.js                             | 5.63 KB       |
+| app_pages_account-feature_account-list-page_account-list-page_component_ts.js       | 4.89 KB       |
+| app_pages_account-feature_list-detail-page_list-image_list-image_componen-cb4b89.js | 4.36 KB       |
+| default-node_modules_rx-angular_template_fesm2022_template-if_mjs.js                | 4.23 KB       |
+| app_pages_account-feature_list-detail-page_list-remove_list-remove_compon-a10eb2.js | 3.41 KB       |
+| app_pages_account-feature_list-detail-page_list-detail-page_component_ts--a2c81d.js | 3.24 KB       |
+| app_pages_not-found-page_not-found-page_component_ts.js                             | 1.77 KB       |
+| app_pages_account-feature_list-detail-page_list-detail-page_routes_ts.js            | 1.54 KB       |
+| app_pages_account-feature_account-feature-page_routes_ts.js                         | 926 Bytes     |
+
+<!-- bundle-stats-end -->
 
 ## Comparison to next and nuxt
 
