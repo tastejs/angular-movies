@@ -27,7 +27,10 @@ export const globalTypes = {
 const preview: Preview = {
   decorators: [
     moduleMetadata({
-      imports: [NgIf, NgFor]
+      imports: [
+        NgIf,
+        NgFor
+      ]
     }),
     applicationConfig({
       providers: [
