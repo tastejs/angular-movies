@@ -11,3 +11,8 @@ export const withBothColorScheme: Decorator = componentWrapperDecorator(
 export const wrappedInPaddedDiv: Decorator = componentWrapperDecorator(
   (story) => `<div style='padding: 10px; max-width: 100%;'>${story}</div>`
 );
+
+export const wrappedInBody: Decorator = componentWrapperDecorator(
+  (story) => `<body [class]='mode'>${story}</body>`,
+  (context) => ({ mode: context.globals['scheme'] })
+);

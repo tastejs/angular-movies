@@ -9,6 +9,7 @@ const meta: Meta = {
   title: 'Component/Hamburger',
   component: HamburgerButtonComponent,
   decorators: [wrappedInPaddedDiv, withBothColorScheme],
+  tags: ['autodocs'],
 };
 export default meta;
 

@@ -4,33 +4,38 @@ import { userEvent, within } from '@storybook/testing-library';
 import { expect } from '@storybook/jest';
 
 import { DarkModeToggleComponent } from './dark-mode-toggle.component';
+import {
+  wrappedInBody,
+  wrappedInPaddedDiv,
+} from '../../../../../.storybook/decorators';
 
 const meta: Meta = {
   title: 'Component/DarkModeToggle',
   component: DarkModeToggleComponent,
   tags: ['autodocs'],
+  decorators: [wrappedInPaddedDiv, wrappedInBody],
   parameters: {
     controls: {
       disabled: true,
-    }
-  }
-}
+    },
+  },
+};
 export default meta;
 
 type Story = StoryObj<DarkModeToggleComponent>;
 
 export const ToggleButtonsMode: Story = {
-  play: async ({canvasElement, step}) => {
+  play: async ({ canvasElement, step }) => {
     const canvas = within(canvasElement);
     const buttons = canvas.getAllByRole('button');
     await expect(buttons.length).toEqual(2);
 
-    const lightModeBtn = buttons.filter(value => (
-      value.classList.contains('light')
-    )).at(0)
-    const darkModeBtn = buttons.filter(value => (
-      value.classList.contains('dark')
-    )).at(0)
+    const lightModeBtn = buttons
+      .filter((value) => value.classList.contains('light'))
+      .at(0);
+    const darkModeBtn = buttons
+      .filter((value) => value.classList.contains('dark'))
+      .at(0);
 
     await step('Click dark mode buttons', async () => {
       await expect(darkModeBtn).toBeInTheDocument();
