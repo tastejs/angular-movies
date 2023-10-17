@@ -1,7 +1,10 @@
-import { componentWrapperDecorator, Meta, StoryObj, } from '@storybook/angular';
+import { componentWrapperDecorator, Meta, StoryObj } from '@storybook/angular';
 import { SUPPORTED_ICONS } from './icon-data';
 import { FastSvgComponent } from '@push-based/ngx-fast-svg';
-import { withBothColorScheme, wrappedInPaddedDiv, } from '../../../../../.storybook/decorators';
+import {
+  withBothColorScheme,
+  wrappedInPaddedDiv,
+} from '../../../../../.storybook/decorators';
 
 const meta: Meta = {
   title: 'Component/Icon',
