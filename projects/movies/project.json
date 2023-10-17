@@ -266,7 +266,14 @@
         "configDir": "projects/movies/.storybook",
         "tsConfig": "projects/movies/tsconfig.storybook.json",
         "browserTarget": "movies:build",
-        "compodoc": false
+        "compodoc": false,
+        "assets": [
+          {
+            "glob": "**/*",
+            "input": "src/assets",
+            "output": "assets"
+          }
+        ]
       },
       "configurations": {
         "ci": {
