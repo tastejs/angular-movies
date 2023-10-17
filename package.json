@@ -13,7 +13,8 @@
     "serve:dist": "npx http-server -p 8080 -c-1 dist/projects/movies/browser",
     "format:all": "prettier --write .",
     "commit": "git-cz",
-    "prepare": "husky install || true"
+    "prepare": "husky install || true",
+    "build-storybook": "nx run movies:build-storybook"
   },
   "config": {
     "commitizen": {
@@ -99,6 +100,7 @@
     "@typescript-eslint/eslint-plugin": "^5.59.2",
     "@typescript-eslint/parser": "^5.59.2",
     "cash-true": "0.0.2",
+    "chromatic": "^7.4.0",
     "commitizen": "^4.2.4",
     "compression": "^1.7.4",
     "concurrently": "^6.2.0",
