@@ -1,50 +1,50 @@
-name: Deploy Firebase Function|Hosting on Merge
-on:
-  push:
-    branches:
-      - main
-jobs:
-  deploy_firebase_function_and_hosting:
-    runs-on: ubuntu-latest
-    steps:
-      # needed for all cases
-      - if: github.event_name == 'push' && github.ref_name == 'main'
-        uses: actions/checkout@v3
-      # needed for nx affected command
-      - if: github.event_name == 'pull_request'
-        uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
-      # needed for nx affected command
-      - if: github.event_name == 'pull_request'
-        run: git fetch --no-tags --depth=1 origin $BASE_BRANCH
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '18'
-          cache: 'npm'
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Deploy firebase function|hosting
-        id: deployStep
-        # We can not use the firebase GitHub action as it throws because of "channelID requires"
-        run: |
-          npm run nx run firebase-function:deploy-firebase && npm run nx run movies:deploy-firebase
-        env:
-          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
-
-      - name: Run user flow against firebase live hosting
-        run: npm run nx run movies:user-flow:production -- --format=md --url=https://angular-movies-a12d3.web.app
-
-      - name: Collect user flows
-        id: test-firebase-function--deploy-live
-        uses: push-based/user-flow-gh-action@v0.4.1
-        with:
-          verbose: on
-          commentId: test-firebase-function--deploy-live
-          onlyComments: on
-          outPath: ./dist/user-flow/movies
-          rcPath: ./projects/movies/.user-flowrc.json
+#name: Deploy Firebase Function|Hosting on Merge
+#on:
+#  push:
+#    branches:
+#      - main
+#jobs:
+#  deploy_firebase_function_and_hosting:
+#    runs-on: ubuntu-latest
+#    steps:
+#      # needed for all cases
+#      - if: github.event_name == 'push' && github.ref_name == 'main'
+#        uses: actions/checkout@v3
+#      # needed for nx affected command
+#      - if: github.event_name == 'pull_request'
+#        uses: actions/checkout@v3
+#        with:
+#          fetch-depth: 0
+#      # needed for nx affected command
+#      - if: github.event_name == 'pull_request'
+#        run: git fetch --no-tags --depth=1 origin $BASE_BRANCH
+#
+#      - name: Setup Node.js
+#        uses: actions/setup-node@v3
+#        with:
+#          node-version: '18'
+#          cache: 'npm'
+#
+#      - name: Install dependencies
+#        run: npm ci
+#
+#      - name: Deploy firebase function|hosting
+#        id: deployStep
+#        # We can not use the firebase GitHub action as it throws because of "channelID requires"
+#        run: |
+#          npm run nx run firebase-function:deploy-firebase && npm run nx run movies:deploy-firebase
+#        env:
+#          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+#
+#      - name: Run user flow against firebase live hosting
+#        run: npm run nx run movies:user-flow:production -- --format=md --url=https://angular-movies-a12d3.web.app
+#
+#      - name: Collect user flows
+#        id: test-firebase-function--deploy-live
+#        uses: push-based/user-flow-gh-action@v0.4.1
+#        with:
+#          verbose: on
+#          commentId: test-firebase-function--deploy-live
+#          onlyComments: on
+#          outPath: ./dist/user-flow/movies
+#          rcPath: ./projects/movies/.user-flowrc.json

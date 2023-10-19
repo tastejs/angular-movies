@@ -235,6 +235,71 @@
         }
       },
       "defaultConfiguration": "production"
+    },
+    "storybook": {
+      "executor": "@storybook/angular:start-storybook",
+      "options": {
+        "port": 4400,
+        "configDir": "projects/movies/.storybook",
+        "tsConfig": "projects/movies/tsconfig.storybook.json",
+        "browserTarget": "movies:build",
+        "compodoc": false,
+        "assets": [
+          {
+            "glob": "**/*",
+            "input": "src/assets",
+            "output": "assets"
+          }
+        ]
+      },
+      "configurations": {
+        "ci": {
+          "quiet": true
+        }
+      }
+    },
+    "build-storybook": {
+      "executor": "@storybook/angular:build-storybook",
+      "outputs": ["{options.outputDir}"],
+      "options": {
+        "outputDir": "dist/storybook/movies",
+        "configDir": "projects/movies/.storybook",
+        "tsConfig": "projects/movies/tsconfig.storybook.json",
+        "browserTarget": "movies:build",
+        "compodoc": false,
+        "assets": [
+          {
+            "glob": "**/*",
+            "input": "src/assets",
+            "output": "assets"
+          }
+        ]
+      },
+      "configurations": {
+        "ci": {
+          "quiet": true
+        }
+      }
+    },
+    "static-storybook": {
+      "executor": "@nx/web:file-server",
+      "options": {
+        "buildTarget": "movies:build-storybook",
+        "tsConfig": "projects/movies/tsconfig.storybook.json",
+        "staticFilePath": "dist/storybook/movies",
+        "assets": [
+          {
+            "glob": "**/*",
+            "input": "src/assets",
+            "output": "assets"
+          }
+        ]
+      },
+      "configurations": {
+        "ci": {
+          "buildTarget": "movies:build-storybook:ci"
+        }
+      }
     }
   },
   "tags": ["scope:client", "type:app"]
