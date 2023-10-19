@@ -1,6 +1,12 @@
-import {ChangeDetectionStrategy, Component, Input, TrackByFunction, ViewEncapsulation,} from '@angular/core';
-import {trackByIndex} from '../../../shared/cdk/track-by';
-import {NgClass, NgFor, NgIf} from '@angular/common';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  TrackByFunction,
+  ViewEncapsulation,
+} from '@angular/core';
+import { trackByIndex } from '../../../shared/cdk/track-by';
+import { NgClass, NgFor, NgIf } from '@angular/common';
 
 const range = 10;
 const numStars = 5;
@@ -43,7 +49,7 @@ export class StarRatingComponent {
   trackByIndex: TrackByFunction<number> = trackByIndex();
 
   private _rating = 5;
-  @Input({required: true})
+  @Input({ required: true })
   set rating(rating: number) {
     this._rating = rating || 0;
 
@@ -51,7 +57,7 @@ export class StarRatingComponent {
 
     const scaledRating = this._rating / (this.range / this.numStars);
     const full = Math.floor(scaledRating);
-    const half = scaledRating % 1 > 0.5 ? 1 : 0;
+    const half = scaledRating % 1 > 0 ? 1 : 0;
     const empty = this.numStars - full - half;
     this.stars = new Array(full)
       .fill(1)
