@@ -1,0 +1,5 @@
+@use '_color-scheme' as scheme;
+
+.dark-scheme {
+  @include scheme.light-scheme
+}

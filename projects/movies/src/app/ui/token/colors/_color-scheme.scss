@@ -1,0 +1,93 @@
+@use '_primitives' as c;
+
+@mixin light-scheme {
+
+  // Background Colors
+  --palette-background-default: c.$light-neutral-100;
+  --palette-background-paper: c.$light-neutral-200;
+  --background-blend-gradient: c.$light-neutral-gradient;
+
+  // Primary Colors
+  --palette-primary-main: c.$teal-200;
+  --palette-primary-main-rgb: 20, 184, 162;
+  --palette-primary-dark: c.$teal-100;
+  --palette-primary-light: c.$teal-300;
+
+  // Secondary Colors
+  --palette-secondary-main: c.$magenta-200;
+  --palette-secondary-main-rgb: 184, 0, 64;
+  --palette-secondary-dark: c.$magenta-100;
+  --palette-secondary-light: c.$magenta-300;
+
+  // Warning Colors
+  --palette-warning-main: c.$yellow-green-800;
+  --palette-warning-dark: c.$yellow-green-900;
+  --palette-warning-light: c.$yellow-green-500;
+
+  // Text Colors
+  --palette-text-primary: c.$dark-opacity-70;
+  --palette-text-secondary: c.$dark-opacity-60;
+  --palette-text-disabled: c.$dark-opacity-50;
+
+  // Divider & Actions
+  --palette-divider: c.$dark-opacity-30;
+  --palette-action-active: c.$dark-opacity-60;
+  --palette-action-hover: c.$dark-opacity-10;
+  --palette-action-hover-opacity: 0.04;
+  --palette-action-selected: c.$dark-opacity-20;
+  --palette-action-disabled: c.$dark-opacity-40;
+  --palette-action-disabled-background: c.$dark-opacity-30;
+
+  // Contrast & Miscellaneous
+  --palette-primary-contrast-text: c.$dark-opacity-70;
+  --palette-secondary-contrast-text: c.$light-neutral-200;
+  --palette-toggle-light-light: c.$bright-100;
+  --palette-custom-lightBlue: c.$bright-200;
+  --palette-warning-contrast-text: c.$dark-opacity-70;
+}
+
+@mixin dark-scheme {
+  // Background Colors
+  --palette-background-default: c.$dark-100;
+  --palette-background-paper: c.$dark-200;
+  --background-blend-gradient: c.$dark-gradient;
+
+  // Primary Colors
+  --palette-primary-main: c.$cyan-pink-100;
+  --palette-primary-main-rgb: 65, 234, 212;
+  --palette-primary-dark: c.$light-neutral-200;
+  --palette-primary-light: c.$cyan-pink-200;
+
+  // Secondary Colors
+  --palette-secondary-main: c.$cyan-pink-300;
+  --palette-secondary-main-rgb: 255, 32, 110;
+  --palette-secondary-dark: c.$cyan-pink-400;
+  --palette-secondary-light: c.$cyan-pink-500;
+
+  // Warning Colors
+  --palette-warning-main: c.$yellow-green-400;
+  --palette-warning-dark: c.$yellow-green-700;
+  --palette-warning-light: c.$yellow-green-200;
+
+  // Image Filter
+  --image-filter: grayscale(0%);
+
+  // Text Colors
+  --palette-text-primary: c.$light-neutral-200;
+  --palette-text-secondary: c.$white-opacity-60;
+  --palette-text-disabled: c.$white-opacity-50;
+
+  // Divider & Actions
+  --palette-divider: c.$white-opacity-20;
+  --palette-action-active: c.$light-neutral-200;
+  --palette-action-hover: c.$white-opacity-10;
+  --palette-action-hover-opacity: 0.08;
+  --palette-action-selected: c.$white-opacity-30;
+  --palette-action-disabled: c.$white-opacity-40;
+  --palette-action-disabled-background: c.$white-opacity-20;
+
+  // Contrast & Miscellaneous
+  --palette-primary-contrast-text: c.$dark-opacity-70;
+  --palette-secondary-contrast-text: c.$light-neutral-200;
+  --palette-warning-contrast-text: c.$dark-opacity-70;
+}

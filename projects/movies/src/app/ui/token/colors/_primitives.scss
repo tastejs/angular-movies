@@ -1,0 +1,57 @@
+// Light & Neutral Palette
+$light-neutral-100: #fafafa;
+$light-neutral-200: #fff;
+$light-neutral-gradient: linear-gradient(rgba(255, 255, 255, 0) 68%, rgb(255, 255, 255) 100%);
+
+// Teal Palette
+$teal-100: #0e8071;
+$teal-200: #14b8a2;
+$teal-300: #43c6b4;
+
+// Magenta & Pink Palette
+$magenta-100: #80002c;
+$magenta-200: #b80040;
+$magenta-300: #c63366;
+
+// Yellow Green Primitives
+$yellow-green-100: #fdfec7;
+$yellow-green-200: #fbff41;
+$yellow-green-300: #e6ff66;
+$yellow-green-400: #fbff12;
+$yellow-green-500: #c3c633;
+$yellow-green-600: #b5b800;
+$yellow-green-700: #afb20c;
+$yellow-green-800: #787600;
+$yellow-green-900: #575800;
+
+// Dark & Black Palette
+$dark-100: #303030;
+$dark-200: #424242;
+$dark-opacity-10: rgba(0, 0, 0, 0.04);
+$dark-opacity-20: rgba(0, 0, 0, 0.08);
+$dark-opacity-30: rgba(0, 0, 0, 0.12);
+$dark-opacity-40: rgba(0, 0, 0, 0.26);
+$dark-opacity-50: rgba(0, 0, 0, 0.38);
+$dark-opacity-60: rgba(0, 0, 0, 0.54);
+$dark-opacity-70: rgba(0, 0, 0, 0.87);
+$dark-gradient: linear-gradient(rgba(255, 255, 255, 0) 68%, rgb(48, 48, 48) 100%);
+
+// Brighter Palette
+$bright-100: #ffb74d;
+$bright-200: #add8e6;
+
+// Cyan & Pink Palette
+$cyan-pink-100: #41ead4;
+$cyan-pink-200: #67eedc;
+$cyan-pink-300: #ff206e;
+$cyan-pink-400: #b2164d;
+$cyan-pink-500: #ff4c8b;
+
+// White & Opacity Palette
+$white-opacity-10: rgba(255, 255, 255, 0.08);
+$white-opacity-20: rgba(255, 255, 255, 0.12);
+$white-opacity-30: rgba(255, 255, 255, 0.16);
+$white-opacity-40: rgba(255, 255, 255, 0.3);
+$white-opacity-50: rgba(255, 255, 255, 0.5);
+$white-opacity-60: rgba(255, 255, 255, 0.7);
+$white: #fff;

@@ -1,4 +1,6 @@
 import '!style-loader!css-loader!sass-loader!../src/styles.scss';
+import '!style-loader!css-loader!sass-loader!../src/app/ui/token/colors/__scheme-light.scss';
+import '!style-loader!css-loader!sass-loader!../src/app/ui/token/colors/__scheme-dark.scss';
 import { applicationConfig, moduleMetadata, Parameters, Preview } from '@storybook/angular';
 import { provideFastSVG } from '@push-based/ngx-fast-svg';
 import { NgFor, NgIf } from '@angular/common';
