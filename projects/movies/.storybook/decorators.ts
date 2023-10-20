@@ -2,8 +2,8 @@ import { componentWrapperDecorator, Decorator } from '@storybook/angular';
 
 export const withBothColorScheme: Decorator = componentWrapperDecorator(
   (story) => `
-      <body lang='en' class='light' *ngIf='mode === "light" || mode === "both"'>${story}</body>
-      <body lang='en' class='dark' *ngIf='mode === "dark" || mode === "both"'>${story}</body>
+      <body class='light' *ngIf='mode === "light" || mode === "both"'>${story}</body>
+      <body class='dark' *ngIf='mode === "dark" || mode === "both"'>${story}</body>
     `,
   (context) => ({ mode: context.globals['scheme'] })
 );
@@ -13,6 +13,6 @@ export const wrappedInPaddedDiv: Decorator = componentWrapperDecorator(
 );
 
 export const wrappedInBody: Decorator = componentWrapperDecorator(
-  (story) => `<body lang='en' [class]='mode'>${story}</body>`,
+  (story) => `<body [class]='mode'>${story}</body>`,
   (context) => ({ mode: context.globals['scheme'] })
 );
