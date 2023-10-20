@@ -132,6 +132,7 @@
     "puppeteer": "^13.4.1",
     "source-map-explorer": "^2.5.3",
     "sqlite3": "^5.0.2",
+    "storybook-design-token": "^3.0.0-beta.6",
     "stylelint": "^13.13.1",
     "stylelint-prettier": "^1.2.0",
     "terminate": "^2.2.1",

@@ -7,6 +7,7 @@ const config: StorybookConfig = {
   ],
   addons: [
     '@storybook/addon-essentials',
+    { name: 'storybook-design-token', options: { preserveCSSVars: true } },
     '@storybook/addon-interactions',
     '@storybook/addon-a11y'
   ],
