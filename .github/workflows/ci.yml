@@ -4,6 +4,10 @@ on:
   push:
     branches:
       - main
+      -
+env:
+  NX_NON_NATIVE_HASHER: true
+
 jobs:
   ci:
     runs-on: ubuntu-latest

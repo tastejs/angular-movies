@@ -30,7 +30,7 @@
       "executor": "nx:run-commands",
       "options": {
         "commands": [
-          "nx run movies:build:stats --outputPath=dist/tmp/stats-movies",
+          "nx build movies --configuration production --stats-json --outputPath=dist/measures/movies",
           "npx cpx dist/tmp/stats-movies/stats.json dist/measures/movies",
           "npx webpack-bundle-analyzer dist/measures/movies/stats.json -m static -r dist/measures/movies/bundle-size-report.prod.html"
         ],
