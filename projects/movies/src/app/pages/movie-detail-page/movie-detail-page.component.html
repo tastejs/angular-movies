@@ -180,15 +180,11 @@
   <ng-container
     *rxLet="infiniteScrollRecommendations$; let ctx; strategy: 'immediate'"
   >
-    @defer (on viewport) {
     <ui-movie-list
       (paginate)="paginateRecommendations()"
       [movies]="ctx.results"
       [withImgPriority]="0"
     />
-    } @placeholder {
-    <div>Recommended</div>
-    }
 
     <div *ngIf="ctx.loading" class="loader"></div>
   </ng-container>
