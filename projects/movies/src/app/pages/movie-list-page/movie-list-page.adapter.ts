@@ -113,9 +113,7 @@ export class MovieListPageAdapter {
   }
 
   readonly paginate = this.actions.paginate;
-  readonly effects = rxEffects(({register}) => {
-    register(this.routerState.routerParams$, this.routerFetchEffect);
-  });
+  readonly effects = rxEffects();
 
   private routerFetchEffect = ({
     layout,
@@ -128,6 +126,10 @@ export class MovieListPageAdapter {
       this.discoverState.fetchDiscoverGenreMovies(identifier);
     }
   };
+
+  constructor() {
+    this.effects.register(this.routerState.routerParams$, this.routerFetchEffect);
+  }
 }
 
 function getFetchByType(
