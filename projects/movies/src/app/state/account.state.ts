@@ -1,9 +1,8 @@
-import { inject, Injectable, PLATFORM_ID } from '@angular/core';
+import {afterNextRender, inject, Injectable} from '@angular/core';
 import {rxState} from '@rx-angular/state';
 import { filter, map, switchMap } from 'rxjs';
 import { TMDBAccountList } from '../data-access/api/model/list.model';
 import { AccountResource } from '../data-access/api/resources/account.resource';
-import { isPlatformBrowser } from '@angular/common';
 
 export interface AccountStateModel {
   accountId: string | null;
@@ -17,10 +16,10 @@ export class AccountState {
   // if account id changes update lists in state
   private readonly authResource = inject(AccountResource);
   private readonly state = rxState<AccountStateModel>(({connect, set}) => {
-    if (isPlatformBrowser(this.platformId)) {
+    afterNextRender(() => {
       // set accountId if found in localStorage
       set({ accountId: window.localStorage.getItem('accountId') });
-    }
+  })
     connect('lists', this.accountId$.pipe(
         // process only given accountId
         filter((accountId): accountId is string => accountId !== null),
@@ -30,7 +29,6 @@ export class AccountState {
   });
   set = this.state.set;
   select = this.state.select;
-  private readonly platformId = inject(PLATFORM_ID);
 
   readonly accountId$ = this.state.select('accountId');
   readonly loggedIn$ = this.state.select(map(({ accountId }) => accountId !== null));
