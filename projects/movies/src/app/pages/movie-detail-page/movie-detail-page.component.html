@@ -21,10 +21,7 @@
           <h2 data-uf="header-sub">{{ movie.tagline }}</h2>
         </header>
         <section class="movie-detail--basic-infos">
-          <ui-star-rating
-            [rating]="movie.vote_average"
-            [showRating]="true"
-          ></ui-star-rating>
+          <ui-star-rating [rating]="movie.vote_average" [showRating]="true" />
           <div class="movie-detail--languages-runtime-release">
             <strong>{{ movie.languages_runtime_release }}</strong>
           </div>
@@ -32,14 +29,15 @@
         <section>
           <h3>The Genres</h3>
           <div class="movie-detail--genres">
+            @for (genre of movie.genres; track genre.name) {
             <a
               class="movie-detail--genres-link"
-              *ngFor="let genre of movie.genres; trackBy: trackByGenre"
               [routerLink]="['/list/genre/', genre.id]"
             >
-              <fast-svg name="genre" style="margin-right: 0.5rem"></fast-svg>
+              <fast-svg name="genre" style="margin-right: 0.5rem" />
               {{ genre.name }}
             </a>
+            }
           </div>
         </section>
         <section>
@@ -83,7 +81,9 @@
                   />
                 </picture>
               </a>
-              <div *ngIf="ctx.loading" class="loader"></div>
+              @if (ctx.loading) {
+              <div class="loader"></div>
+              }
             </div>
             <button
               aria-label="Scroll cast right"
@@ -97,29 +97,29 @@
           </div>
         </section>
         <section class="movie-detail--ad-section-links">
+          @if (movie.homepage) {
           <a
-            *ngIf="movie.homepage"
             class="btn"
             target="_blank"
             rel="noopener noreferrer"
             [href]="movie.homepage"
           >
             Website
-            <fast-svg class="btn__icon" name="website"></fast-svg>
+            <fast-svg class="btn__icon" name="website" />
           </a>
+          } @if (movie.imdb_id) {
           <a
-            *ngIf="movie.imdb_id"
             class="btn"
             [target]="movie.target"
             rel="noopener noreferrer"
             [href]="movie.href"
           >
             IMDB
-            <fast-svg class="btn__icon" name="imdb"></fast-svg>
+            <fast-svg class="btn__icon" name="imdb" />
           </a>
+          } @if (movie.videoUrl) {
           <button
             type="button"
-            *ngIf="movie.videoUrl"
             class="btn"
             (mouseover)="ui.iframe('load')"
             (focus)="ui.iframe('load')"
@@ -128,8 +128,9 @@
             "
           >
             Trailer
-            <fast-svg class="btn__icon" name="play"></fast-svg>
+            <fast-svg class="btn__icon" name="play" />
           </button>
+          }
 
           <dialog class="video" #trailerDialog id="trailer-dialog">
             <button
@@ -163,13 +164,14 @@
             class="btn primary-button"
             (click)="back()"
           >
-            <fast-svg class="btn__icon" name="back" size="1em"></fast-svg
-            >&nbsp;Back
+            <fast-svg class="btn__icon" name="back" size="1em" />&nbsp;Back
           </button>
         </section>
       </div>
     </ui-detail-grid>
-    <div class="loader" *ngIf="!movie"></div>
+    @if (!movie) {
+    <div class="loader"></div>
+    }
   </ng-container>
 </article>
 <article class="recommendations">
@@ -184,8 +186,9 @@
       (paginate)="paginateRecommendations()"
       [movies]="ctx.results"
       [withImgPriority]="0"
-    >
-    </ui-movie-list>
-    <div *ngIf="ctx.loading" class="loader"></div>
+    />
+    @if (ctx.loading) {
+    <div class="loader"></div>
+    }
   </ng-container>
 </article>
