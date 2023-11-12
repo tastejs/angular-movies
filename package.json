@@ -8,7 +8,7 @@
   },
   "scripts": {
     "nx": "nx",
-    "start": "nx serve movies:development",
+    "start": "nx run movies:serve:development",
     "husky": "husky",
     "serve:dist": "npx http-server -p 8080 -c-1 dist/projects/movies/browser",
     "format:all": "prettier --write .",
