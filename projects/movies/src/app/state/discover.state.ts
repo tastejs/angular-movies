@@ -1,14 +1,17 @@
-import {rxState} from '@rx-angular/state';
-import {patch} from '@rx-angular/cdk/transformations';
-import {inject, Injectable} from '@angular/core';
-import {map} from 'rxjs';
-import {optimizedFetch} from '../shared/cdk/optimized-fetch';
-import {rxActions} from '@rx-angular/state/actions';
-import {withLoadingEmission} from '../shared/cdk/loading/withLoadingEmissions';
-import {DiscoverResource, TMDBDiscoverResponse,} from '../data-access/api/resources/discover.resource';
-import {AppInitializer} from '../shared/cdk/app-initializer';
-import {WithContext} from '../shared/cdk/loading/context.interface';
-import {pluck} from '../shared/cdk/get';
+import { rxState } from '@rx-angular/state';
+import { patch } from '@rx-angular/cdk/transformations';
+import { inject, Injectable } from '@angular/core';
+import { map } from 'rxjs';
+import { optimizedFetch } from '../shared/cdk/optimized-fetch';
+import { rxActions } from '@rx-angular/state/actions';
+import { withLoadingEmission } from '../shared/cdk/loading/withLoadingEmissions';
+import {
+  DiscoverResource,
+  TMDBDiscoverResponse,
+} from '../data-access/api/resources/discover.resource';
+import { AppInitializer } from '../shared/cdk/app-initializer';
+import { WithContext } from '../shared/cdk/loading/context.interface';
+import { pluck } from '../shared/cdk/get';
 
 export interface State {
   genreMovies: WithContext<Record<string, TMDBDiscoverResponse>>;
@@ -24,13 +27,15 @@ interface Actions {
   providedIn: 'root',
 })
 export class DiscoverState implements AppInitializer {
-  private readonly actions = rxActions<Actions>(({transforms}) => transforms({
-    fetchDiscoverGenreMovies: String,
-    fetchDiscoverCastMovies: String,
-  }));
+  private readonly actions = rxActions<Actions>(({ transforms }) =>
+    transforms({
+      fetchDiscoverGenreMovies: String,
+      fetchDiscoverCastMovies: String,
+    })
+  );
   readonly fetchDiscoverGenreMovies = this.actions.fetchDiscoverGenreMovies;
 
-  private readonly state = rxState<State>(({connect}) => {
+  private readonly state = rxState<State>(({ connect }) => {
     connect(
       'genreMovies',
       this.actions.fetchDiscoverGenreMovies$.pipe(

@@ -1,5 +1,5 @@
-import {RxState} from '@rx-angular/state';
-import {DOCUMENT} from '@angular/common';
+import { RxState } from '@rx-angular/state';
+import { DOCUMENT } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -10,11 +10,21 @@ import {
   ViewChild,
   ViewEncapsulation,
 } from '@angular/core';
-import {filter, fromEvent, map, merge, Observable, startWith, switchMap, take, withLatestFrom,} from 'rxjs';
-import {preventDefault, rxActions} from '@rx-angular/state/actions';
-import {coerceObservable} from '@rx-angular/cdk/coercing';
-import {RxLet} from '@rx-angular/template/let';
-import {FastSvgComponent} from '@push-based/ngx-fast-svg';
+import {
+  filter,
+  fromEvent,
+  map,
+  merge,
+  Observable,
+  startWith,
+  switchMap,
+  take,
+  withLatestFrom,
+} from 'rxjs';
+import { preventDefault, rxActions } from '@rx-angular/state/actions';
+import { coerceObservable } from '@rx-angular/cdk/coercing';
+import { RxLet } from '@rx-angular/template/let';
+import { FastSvgComponent } from '@push-based/ngx-fast-svg';
 
 type UiActions = {
   searchChange: string;
@@ -66,10 +76,12 @@ export class SearchBarComponent {
   @ViewChild('searchInput') inputRef!: ElementRef<HTMLInputElement>;
   @ViewChild('form') formRef!: ElementRef<HTMLFormElement>;
 
-  ui = rxActions<UiActions>(({transforms}) => transforms({
-    searchChange: String,
-    formSubmit: preventDefault,
-  }));
+  ui = rxActions<UiActions>(({ transforms }) =>
+    transforms({
+      searchChange: String,
+      formSubmit: preventDefault,
+    })
+  );
 
   @Input()
   set query(v: string | Observable<string>) {
@@ -114,10 +126,8 @@ export class SearchBarComponent {
 
   private readonly classList = this.elementRef.nativeElement.classList;
 
-  constructor(
-    private state: RxState<{ search: string; open: boolean }>
-  ) {
-    this.state.set({open: false});
+  constructor(private state: RxState<{ search: string; open: boolean }>) {
+    this.state.set({ open: false });
     this.state.connect('search', this.ui.searchChange$.pipe(startWith('')));
     this.state.connect(
       'open',

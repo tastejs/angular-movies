@@ -1,18 +1,24 @@
-import {NgOptimizedImage} from '@angular/common';
-import {rxState} from '@rx-angular/state';
-import {ChangeDetectionStrategy, Component, Input, Output, ViewEncapsulation,} from '@angular/core';
-import {filter, map, Observable} from 'rxjs';
-import {rxActions} from '@rx-angular/state/actions';
-import {coerceObservable} from '../../../shared/cdk/coerceObservable';
-import {RxInputType} from '../../../shared/cdk/input-type.typing';
-import {RouterLink} from '@angular/router';
-import {StarRatingComponent} from '../star-rating/star-rating.component';
-import {RxFor} from '@rx-angular/template/for';
-import {ElementVisibilityDirective} from '../../../shared/cdk/element-visibility/element-visibility.directive';
-import {FastSvgComponent} from '@push-based/ngx-fast-svg';
-import {GridListComponent} from '../../component/grid-list/grid-list.component';
-import {RxIf} from '@rx-angular/template/if';
-import {Movie} from '../../../state/movie.state';
+import { NgOptimizedImage } from '@angular/common';
+import { rxState } from '@rx-angular/state';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  Output,
+  ViewEncapsulation,
+} from '@angular/core';
+import { filter, map, Observable } from 'rxjs';
+import { rxActions } from '@rx-angular/state/actions';
+import { coerceObservable } from '../../../shared/cdk/coerceObservable';
+import { RxInputType } from '../../../shared/cdk/input-type.typing';
+import { RouterLink } from '@angular/router';
+import { StarRatingComponent } from '../star-rating/star-rating.component';
+import { RxFor } from '@rx-angular/template/for';
+import { ElementVisibilityDirective } from '../../../shared/cdk/element-visibility/element-visibility.directive';
+import { FastSvgComponent } from '@push-based/ngx-fast-svg';
+import { GridListComponent } from '../../component/grid-list/grid-list.component';
+import { RxIf } from '@rx-angular/template/if';
+import { Movie } from '../../../state/movie.state';
 
 type UiActions = { paginate: boolean };
 type MovieListState = { movies?: Movie[]; numPriority: number };
@@ -81,7 +87,9 @@ type MovieListState = { movies?: Movie[]; numPriority: number };
 })
 export class MovieListComponent {
   protected readonly ui = rxActions<UiActions>();
-  private readonly state = rxState<MovieListState>(({set}) => set({ numPriority: 2 }));
+  private readonly state = rxState<MovieListState>(({ set }) =>
+    set({ numPriority: 2 })
+  );
 
   numPriority() {
     return this.state.get('numPriority');
@@ -90,9 +98,9 @@ export class MovieListComponent {
   @Input()
   set withImgPriority(p: number) {
     if (p) {
-      this.state.set({numPriority: p});
+      this.state.set({ numPriority: p });
     } else {
-      this.state.set({numPriority: 0});
+      this.state.set({ numPriority: 0 });
     }
   }
 
@@ -103,7 +111,7 @@ export class MovieListComponent {
     map((state) => !!state.movies && state.movies.length > 0)
   );
 
-  @Input({required: true})
+  @Input({ required: true })
   set movies(movies$: RxInputType<Movie[]>) {
     // eslint-disable-next-line @rx-angular/no-rxstate-subscriptions-outside-constructor
     this.state.connect('movies', coerceObservable(movies$));

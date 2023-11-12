@@ -1,5 +1,5 @@
-import {select, selectSlice} from '@rx-angular/state/selections';
-import {Location, NgFor, NgIf, NgOptimizedImage} from '@angular/common';
+import { select, selectSlice } from '@rx-angular/state/selections';
+import { Location, NgFor, NgIf, NgOptimizedImage } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -9,21 +9,21 @@ import {
   ViewChild,
   ViewEncapsulation,
 } from '@angular/core';
-import {filter, map, mergeWith, tap} from 'rxjs';
-import {TMDBMovieGenreModel} from '../../data-access/api/model/movie-genre.model';
+import { filter, map, mergeWith, tap } from 'rxjs';
+import { TMDBMovieGenreModel } from '../../data-access/api/model/movie-genre.model';
 
-import {MovieCast, MovieDetailAdapter} from './movie-detail-page.adapter';
-import {rxActions} from '@rx-angular/state/actions';
-import {rxEffects} from '@rx-angular/state/effects';
-import {DetailGridComponent} from '../../ui/component/detail-grid/detail-grid.component';
-import {StarRatingComponent} from '../../ui/pattern/star-rating/star-rating.component';
-import {MovieListComponent} from '../../ui/pattern/movie-list/movie-list.component';
-import {RxLet} from '@rx-angular/template/let';
-import {BypassSrcDirective} from '../../shared/cdk/bypass-src.directive';
-import {RxFor} from '@rx-angular/template/for';
-import {FastSvgComponent} from '@push-based/ngx-fast-svg';
-import {RxIf} from '@rx-angular/template/if';
-import {RouterLink} from '@angular/router';
+import { MovieCast, MovieDetailAdapter } from './movie-detail-page.adapter';
+import { rxActions } from '@rx-angular/state/actions';
+import { rxEffects } from '@rx-angular/state/effects';
+import { DetailGridComponent } from '../../ui/component/detail-grid/detail-grid.component';
+import { StarRatingComponent } from '../../ui/pattern/star-rating/star-rating.component';
+import { MovieListComponent } from '../../ui/pattern/movie-list/movie-list.component';
+import { RxLet } from '@rx-angular/template/let';
+import { BypassSrcDirective } from '../../shared/cdk/bypass-src.directive';
+import { RxFor } from '@rx-angular/template/for';
+import { FastSvgComponent } from '@push-based/ngx-fast-svg';
+import { RxIf } from '@rx-angular/template/if';
+import { RouterLink } from '@angular/router';
 
 type UiActions = {
   dialog: 'show' | 'close';
@@ -83,16 +83,18 @@ export default class MovieDetailPageComponent {
   castListWrapper: ElementRef<HTMLElement> | undefined = undefined;
 
   constructor() {
-    rxEffects(e => e.register(
-      this.ui.dialog$.pipe(
-        map((v) => v === 'show'),
-        tap(console.log)
-      ),
-      (openDialog) =>
-        openDialog
-          ? this.trailerDialog?.nativeElement?.showModal()
-          : this.trailerDialog?.nativeElement.close()
-    ))
+    rxEffects((e) =>
+      e.register(
+        this.ui.dialog$.pipe(
+          map((v) => v === 'show'),
+          tap(console.log)
+        ),
+        (openDialog) =>
+          openDialog
+            ? this.trailerDialog?.nativeElement?.showModal()
+            : this.trailerDialog?.nativeElement.close()
+      )
+    );
   }
 
   move(increment: number) {

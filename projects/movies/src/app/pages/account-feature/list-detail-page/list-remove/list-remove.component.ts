@@ -21,12 +21,12 @@ type Actions = {
   selector: 'app-list-remove',
   templateUrl: './list-remove.component.html',
   styleUrls: ['./list-remove.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export default class ListRemoveComponent implements AfterViewInit
-{
-  public ef = rxEffects(e => e.
-    register(this.ui.confirm$, this.adapter.ui.deleteList));
+export default class ListRemoveComponent implements AfterViewInit {
+  public ef = rxEffects((e) =>
+    e.register(this.ui.confirm$, this.adapter.ui.deleteList)
+  );
   public adapter = inject(ListDetailAdapter);
 
   @ViewChild('dialog', { static: true }) dialog!: ElementRef<{
@@ -40,7 +40,8 @@ export default class ListRemoveComponent implements AfterViewInit
     this.ef.register(merge(this.ui.confirm$, this.ui.closeDialog$), () =>
       this.dialog.nativeElement.close()
     );
-    this.ef.register(this.ui.openDialog$, () => this.dialog.nativeElement.showModal());
+    this.ef.register(this.ui.openDialog$, () =>
+      this.dialog.nativeElement.showModal()
+    );
   }
-
 }

@@ -1,24 +1,37 @@
-import {rxState} from '@rx-angular/state';
-import {selectSlice} from '@rx-angular/state/selections';
-import {inject, Injectable} from '@angular/core';
-import {distinctUntilKeyChanged, EMPTY, map, Observable, switchMap, withLatestFrom,} from 'rxjs';
-import {TMDBMovieModel} from '../../data-access/api/model/movie.model';
-import {TMDBPaginateOptions, TMDBPaginateResult,} from '../../data-access/api/paginate/paginate.interface';
-import {DiscoverState} from '../../state/discover.state';
-import {Movie, MovieState} from '../../state/movie.state';
-import {RouterState} from '../../shared/router/router.state';
-import {RouterParams} from '../../shared/router/router.model';
-import {infiniteScroll} from '../../shared/cdk/infinite-scroll/infiniteScroll';
-import {rxActions} from '@rx-angular/state/actions';
-import {InfiniteScrollOptions, InfiniteScrollState,} from '../../shared/cdk/infinite-scroll/infinite-scroll.interface';
-import {DiscoverResource} from '../../data-access/api/resources/discover.resource';
-import {MovieResource} from '../../data-access/api/resources/movie.resource';
-import {SearchResource} from '../../data-access/api/resources/search.resource';
-import {GenreResource} from '../../data-access/api/resources/genre.resource';
-import {W154H205} from '../../data-access/images/image-sizes';
-import {addImageTag} from '../../shared/cdk/image/image-tag.transform';
-import {TMDBMovieGenreModel} from '../../data-access/api/model/movie-genre.model';
-import {rxEffects} from "@rx-angular/state/effects";
+import { rxState } from '@rx-angular/state';
+import { selectSlice } from '@rx-angular/state/selections';
+import { inject, Injectable } from '@angular/core';
+import {
+  distinctUntilKeyChanged,
+  EMPTY,
+  map,
+  Observable,
+  switchMap,
+  withLatestFrom,
+} from 'rxjs';
+import { TMDBMovieModel } from '../../data-access/api/model/movie.model';
+import {
+  TMDBPaginateOptions,
+  TMDBPaginateResult,
+} from '../../data-access/api/paginate/paginate.interface';
+import { DiscoverState } from '../../state/discover.state';
+import { Movie, MovieState } from '../../state/movie.state';
+import { RouterState } from '../../shared/router/router.state';
+import { RouterParams } from '../../shared/router/router.model';
+import { infiniteScroll } from '../../shared/cdk/infinite-scroll/infiniteScroll';
+import { rxActions } from '@rx-angular/state/actions';
+import {
+  InfiniteScrollOptions,
+  InfiniteScrollState,
+} from '../../shared/cdk/infinite-scroll/infinite-scroll.interface';
+import { DiscoverResource } from '../../data-access/api/resources/discover.resource';
+import { MovieResource } from '../../data-access/api/resources/movie.resource';
+import { SearchResource } from '../../data-access/api/resources/search.resource';
+import { GenreResource } from '../../data-access/api/resources/genre.resource';
+import { W154H205 } from '../../data-access/images/image-sizes';
+import { addImageTag } from '../../shared/cdk/image/image-tag.transform';
+import { TMDBMovieGenreModel } from '../../data-access/api/model/movie-genre.model';
+import { rxEffects } from '@rx-angular/state/effects';
 
 type MovieListRouterParams = Pick<RouterParams, 'type' | 'identifier'>;
 export type MovieListPageModel = InfiniteScrollState<TMDBMovieModel> &
@@ -50,7 +63,7 @@ export class MovieListPageAdapter {
   private readonly searchResource = inject(SearchResource);
   private readonly genreResource = inject(GenreResource);
   private readonly actions = rxActions<Actions>();
-  private readonly state = rxState<MovieListPageModel>(({connect}) => {
+  private readonly state = rxState<MovieListPageModel>(({ connect }) => {
     const routerParamsFromPaginationTrigger$ = this.actions.paginate$.pipe(
       withLatestFrom(this.routerState.routerParams$),
       map(([, routerParams]) => routerParams)
@@ -68,7 +81,7 @@ export class MovieListPageAdapter {
         // we emit if a change in identifier takes place (search query, category name, genre id)
         distinctUntilKeyChanged('identifier'),
         // we clear the current result on route change with switchMap and restart the initial scroll
-        switchMap(({type, identifier}) =>
+        switchMap(({ type, identifier }) =>
           infiniteScroll(
             (options: InfiniteScrollOptions) =>
               getFetchByType(
@@ -78,34 +91,34 @@ export class MovieListPageAdapter {
                 this.searchResource
               )(identifier, options),
             routerParamsFromPaginationTrigger$,
-            this.getInitialFetchByType({type, identifier})
+            this.getInitialFetchByType({ type, identifier })
           )
         )
       )
-    )
+    );
   });
 
-  readonly select = this.state.select
-  readonly set = this.state.set
+  readonly select = this.state.select;
+  readonly set = this.state.set;
 
   readonly movies$ = this.state.select(
-    map(({results}) => results?.map(transformToMovieModel))
+    map(({ results }) => results?.map(transformToMovieModel))
   );
 
   getInitialFetchByType({
-                          type,
-                          identifier,
-                        }: Omit<RouterParams, 'layout'>): Observable<
+    type,
+    identifier,
+  }: Omit<RouterParams, 'layout'>): Observable<
     TMDBPaginateResult<TMDBMovieModel>
   > {
     if (type === 'category') {
       return this.movieState
         .categoryMoviesByIdCtx(identifier)
-        .pipe(map(({loading, value}) => ({loading, ...value})));
+        .pipe(map(({ loading, value }) => ({ loading, ...value })));
     } else if (type === 'genre') {
       return this.discoverState
         .genreMoviesByIdSlice(identifier)
-        .pipe(map(({loading, value}) => ({loading, ...value})));
+        .pipe(map(({ loading, value }) => ({ loading, ...value })));
     } else if (type === 'search') {
       return this.searchResource.getSearch(identifier);
     }
@@ -128,7 +141,10 @@ export class MovieListPageAdapter {
   };
 
   constructor() {
-    this.effects.register(this.routerState.routerParams$, this.routerFetchEffect);
+    this.effects.register(
+      this.routerState.routerParams$,
+      this.routerFetchEffect
+    );
   }
 }
 

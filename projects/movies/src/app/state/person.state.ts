@@ -1,15 +1,18 @@
-import {rxState} from '@rx-angular/state';
-import {patch, toDictionary} from '@rx-angular/cdk/transformations';
-import {inject, Injectable} from '@angular/core';
-import {map} from 'rxjs';
-import {optimizedFetch} from '../shared/cdk/optimized-fetch';
-import {rxActions} from '@rx-angular/state/actions';
-import {withLoadingEmission} from '../shared/cdk/loading/withLoadingEmissions';
-import {PersonResource, PersonResponse,} from '../data-access/api/resources/person.resource';
-import {AppInitializer} from '../shared/cdk/app-initializer';
-import {WithContext} from '../shared/cdk/loading/context.interface';
-import {pluck} from '../shared/cdk/get';
-import {TMDBSortOptions} from '../data-access/api/sort/sort.interface';
+import { rxState } from '@rx-angular/state';
+import { patch, toDictionary } from '@rx-angular/cdk/transformations';
+import { inject, Injectable } from '@angular/core';
+import { map } from 'rxjs';
+import { optimizedFetch } from '../shared/cdk/optimized-fetch';
+import { rxActions } from '@rx-angular/state/actions';
+import { withLoadingEmission } from '../shared/cdk/loading/withLoadingEmissions';
+import {
+  PersonResource,
+  PersonResponse,
+} from '../data-access/api/resources/person.resource';
+import { AppInitializer } from '../shared/cdk/app-initializer';
+import { WithContext } from '../shared/cdk/loading/context.interface';
+import { pluck } from '../shared/cdk/get';
+import { TMDBSortOptions } from '../data-access/api/sort/sort.interface';
 
 export interface State {
   person: WithContext<Record<string, PersonResponse>>;
@@ -24,8 +27,8 @@ interface Actions {
   providedIn: 'root',
 })
 export class PersonState implements AppInitializer {
-  private readonly state = rxState<State>(s => s.
-    connect(
+  private readonly state = rxState<State>((s) =>
+    s.connect(
       'person',
       this.actions.fetchPerson$.pipe(
         optimizedFetch(
@@ -43,7 +46,8 @@ export class PersonState implements AppInitializer {
         resultState.value = patch(oldState?.person?.value, resultState.value);
         return resultState;
       }
-    ));
+    )
+  );
 
   private personResource = inject(PersonResource);
   private actions = rxActions<Actions>();

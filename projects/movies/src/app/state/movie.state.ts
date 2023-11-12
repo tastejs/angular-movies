@@ -1,16 +1,20 @@
-import {rxState} from '@rx-angular/state';
-import {patch, toDictionary} from '@rx-angular/cdk/transformations';
-import {inject, Injectable} from '@angular/core';
-import {filter, map} from 'rxjs';
-import {optimizedFetch} from '../shared/cdk/optimized-fetch';
-import {AppInitializer} from '../shared/cdk/app-initializer';
-import {rxActions} from '@rx-angular/state/actions';
-import {withLoadingEmission} from '../shared/cdk/loading/withLoadingEmissions';
-import {CategoryResponse, MovieResource, MovieResponse,} from '../data-access/api/resources/movie.resource';
-import {WithContext} from '../shared/cdk/loading/context.interface';
-import {pluck} from '../shared/cdk/get';
-import {TMDBMovieModel} from '../data-access/api/model/movie.model';
-import {ImageTag} from '../shared/cdk/image/image-tag.interface';
+import { rxState } from '@rx-angular/state';
+import { patch, toDictionary } from '@rx-angular/cdk/transformations';
+import { inject, Injectable } from '@angular/core';
+import { filter, map } from 'rxjs';
+import { optimizedFetch } from '../shared/cdk/optimized-fetch';
+import { AppInitializer } from '../shared/cdk/app-initializer';
+import { rxActions } from '@rx-angular/state/actions';
+import { withLoadingEmission } from '../shared/cdk/loading/withLoadingEmissions';
+import {
+  CategoryResponse,
+  MovieResource,
+  MovieResponse,
+} from '../data-access/api/resources/movie.resource';
+import { WithContext } from '../shared/cdk/loading/context.interface';
+import { pluck } from '../shared/cdk/get';
+import { TMDBMovieModel } from '../data-access/api/model/movie.model';
+import { ImageTag } from '../shared/cdk/image/image-tag.interface';
 
 export type Movie = TMDBMovieModel & ImageTag;
 
@@ -30,7 +34,7 @@ interface Actions {
 export class MovieState implements AppInitializer {
   private readonly movieResource = inject(MovieResource);
   private readonly actions = rxActions<Actions>();
-  private readonly state = rxState<MovieModel>(({connect}) => {
+  private readonly state = rxState<MovieModel>(({ connect }) => {
     connect(
       'movies',
       this.actions.fetchMovie$.pipe(
@@ -85,7 +89,8 @@ export class MovieState implements AppInitializer {
   fetchMovie = this.actions.fetchMovie;
   fetchCategoryMovies = this.actions.fetchCategoryMovies;
 
-  categoryMoviesByIdCtx = (id: string) => this.state.select(
+  categoryMoviesByIdCtx = (id: string) =>
+    this.state.select(
       filter(({ categoryMovies }) => !!categoryMovies),
       map(({ categoryMovies: { value, loading } }) => ({
         loading,
@@ -93,7 +98,8 @@ export class MovieState implements AppInitializer {
       }))
     );
 
-  movieByIdCtx = (id: string) => this.state.select(
+  movieByIdCtx = (id: string) =>
+    this.state.select(
       map(({ movies: { value, loading } }) => ({
         loading,
         value: pluck(value, id),

@@ -1,18 +1,30 @@
-import {inject, Injectable} from '@angular/core';
-import {dictionaryToArray, toDictionary,} from '@rx-angular/cdk/transformations';
-import {rxState} from '@rx-angular/state';
-import {selectSlice} from '@rx-angular/state/selections';
-import {W92H138} from '../../../..//data-access/images/image-sizes';
-import {ImageTag} from '../../../..//shared/cdk/image/image-tag.interface';
-import {addImageTag} from '../../../..//shared/cdk/image/image-tag.transform';
-import {distinctUntilChanged, exhaustMap, filter, map, withLatestFrom,} from 'rxjs';
-import {TMDBMovieDetailsModel} from '../../../../data-access/api/model/movie-details.model';
-import {TMDBMovieModel} from '../../../../data-access/api/model/movie.model';
-import {MovieResource, MovieResponse,} from '../../../../data-access/api/resources/movie.resource';
-import {ListDetailAdapter} from '../../../../pages/account-feature/list-detail-page/list-detail-page.adapter';
-import {rxActions} from '@rx-angular/state/actions';
-import {rxEffects} from '@rx-angular/state/effects';
-import {ListState} from '../../../../state/list.state';
+import { inject, Injectable } from '@angular/core';
+import {
+  dictionaryToArray,
+  toDictionary,
+} from '@rx-angular/cdk/transformations';
+import { rxState } from '@rx-angular/state';
+import { selectSlice } from '@rx-angular/state/selections';
+import { W92H138 } from '../../../..//data-access/images/image-sizes';
+import { ImageTag } from '../../../..//shared/cdk/image/image-tag.interface';
+import { addImageTag } from '../../../..//shared/cdk/image/image-tag.transform';
+import {
+  distinctUntilChanged,
+  exhaustMap,
+  filter,
+  map,
+  withLatestFrom,
+} from 'rxjs';
+import { TMDBMovieDetailsModel } from '../../../../data-access/api/model/movie-details.model';
+import { TMDBMovieModel } from '../../../../data-access/api/model/movie.model';
+import {
+  MovieResource,
+  MovieResponse,
+} from '../../../../data-access/api/resources/movie.resource';
+import { ListDetailAdapter } from '../../../../pages/account-feature/list-detail-page/list-detail-page.adapter';
+import { rxActions } from '@rx-angular/state/actions';
+import { rxEffects } from '@rx-angular/state/effects';
+import { ListState } from '../../../../state/list.state';
 
 interface Actions {
   search: string;
@@ -28,13 +40,13 @@ export type MovieSearchResult = TMDBMovieModel & ImageTag;
 })
 export class ListItemsEditAdapter {
   private state = rxState<{
-      id: number;
-      items: Record<number, Partial<TMDBMovieDetailsModel>>;
-      searchResults: MovieSearchResult[];
-      showResults: boolean;
-      searchValue: string;
-      latestSelectedTitle: string;
-    }>(({connect, set}) => {
+    id: number;
+    items: Record<number, Partial<TMDBMovieDetailsModel>>;
+    searchResults: MovieSearchResult[];
+    showResults: boolean;
+    searchValue: string;
+    latestSelectedTitle: string;
+  }>(({ connect, set }) => {
     set({
       showResults: false,
       searchResults: [],
@@ -62,8 +74,7 @@ export class ListItemsEditAdapter {
       searchValue: movie.title,
       latestSelectedTitle: movie.title,
     }));
-
-  })
+  });
   private listState = inject(ListState);
   private detailsAdapter = inject(ListDetailAdapter);
   private moviesResource = inject(MovieResource);
@@ -104,7 +115,7 @@ export class ListItemsEditAdapter {
   );
 
   constructor() {
-    rxEffects(({register}) => {
+    rxEffects(({ register }) => {
       register(this.addMovieEvent$, this.listState.addMovieToList);
       register(this.deleteMovieEvent$, this.listState.deleteMovieFromList);
     });

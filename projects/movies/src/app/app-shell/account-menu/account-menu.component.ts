@@ -1,12 +1,17 @@
-import {RxLet} from '@rx-angular/template/let';
-import {rxState} from '@rx-angular/state';
-import {ChangeDetectionStrategy, Component, inject, ViewEncapsulation,} from '@angular/core';
-import {AuthEffects} from '../../auth/auth.effects';
-import {RouterLink} from '@angular/router';
-import {RxIf} from '@rx-angular/template/if';
-import {AccountState} from '../../state/account.state';
-import {rxEffects} from "@rx-angular/state/effects";
-import {rxActions} from "@rx-angular/state/actions";
+import { RxLet } from '@rx-angular/template/let';
+import { rxState } from '@rx-angular/state';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  ViewEncapsulation,
+} from '@angular/core';
+import { AuthEffects } from '../../auth/auth.effects';
+import { RouterLink } from '@angular/router';
+import { RxIf } from '@rx-angular/template/if';
+import { AccountState } from '../../state/account.state';
+import { rxEffects } from '@rx-angular/state/effects';
+import { rxActions } from '@rx-angular/state/actions';
 
 export const imports = [RouterLink, RxLet, RxIf];
 

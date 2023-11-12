@@ -1,4 +1,4 @@
-import {Routes} from '@angular/router';
+import { Routes } from '@angular/router';
 
 export const ROUTES: Routes = [
   /**
@@ -42,7 +42,7 @@ export const ROUTES: Routes = [
     loadChildren: () =>
       import(
         './pages/account-feature/list-detail-page/list-detail-page.routes'
-        ),
+      ),
   },
   {
     path: 'detail/person/:identifier',

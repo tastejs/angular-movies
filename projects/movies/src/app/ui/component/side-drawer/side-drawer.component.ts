@@ -27,7 +27,7 @@ import { BackdropComponent } from '../backdrop/backdrop.component';
   encapsulation: ViewEncapsulation.Emulated,
 })
 export class SideDrawerComponent {
-  protected ui = rxActions<{ openedChange: boolean }>()
+  protected ui = rxActions<{ openedChange: boolean }>();
   @Input() opened = false;
 
   @Output() openedChange = this.ui.openedChange$;

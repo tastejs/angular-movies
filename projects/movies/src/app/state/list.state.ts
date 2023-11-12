@@ -1,15 +1,18 @@
-import {inject, Injectable} from '@angular/core';
-import {rxState} from '@rx-angular/state';
-import {rxEffects} from '@rx-angular/state/effects';
-import {AppInitializer} from '../shared/cdk/app-initializer';
-import {concatMap, filter, merge, tap} from 'rxjs';
-import {ListResource} from '../data-access/api/resources/list.resource';
-import {TMDBListCreateUpdateParams, TMDBListModel,} from '../data-access/api/model/list.model';
-import {Router} from '@angular/router';
-import {MovieResponse} from '../data-access/api/resources/movie.resource';
-import {TMDBMovieDetailsModel} from '../data-access/api/model/movie-details.model';
-import {deleteProp, patch} from '@rx-angular/cdk/transformations';
-import {rxActions} from '@rx-angular/state/actions';
+import { inject, Injectable } from '@angular/core';
+import { rxState } from '@rx-angular/state';
+import { rxEffects } from '@rx-angular/state/effects';
+import { AppInitializer } from '../shared/cdk/app-initializer';
+import { concatMap, filter, merge, tap } from 'rxjs';
+import { ListResource } from '../data-access/api/resources/list.resource';
+import {
+  TMDBListCreateUpdateParams,
+  TMDBListModel,
+} from '../data-access/api/model/list.model';
+import { Router } from '@angular/router';
+import { MovieResponse } from '../data-access/api/resources/movie.resource';
+import { TMDBMovieDetailsModel } from '../data-access/api/model/movie-details.model';
+import { deleteProp, patch } from '@rx-angular/cdk/transformations';
+import { rxActions } from '@rx-angular/state/actions';
 
 export interface ListModel {
   lists: Record<string, TMDBListModel>;
@@ -31,7 +34,7 @@ export class ListState implements AppInitializer {
   private readonly router = inject(Router);
   private readonly listResource = inject(ListResource);
   private readonly actions = rxActions<Actions>();
-  private readonly state = rxState<ListModel>(({connect}) => {
+  private readonly state = rxState<ListModel>(({ connect }) => {
     connect(
       'lists',
       this.actions.fetchList$.pipe(
@@ -51,21 +54,17 @@ export class ListState implements AppInitializer {
       return state.lists;
     });
 
-    connect(
-      'lists',
-      this.actions.addMovieToList$,
-      (state, [movie, id]) => {
-        if (state && id) {
-          return patch(state.lists, {
-            [id]: patch(state.lists[id], {
-              results: [...(state.lists[id].results || []), movie],
-            }),
-          });
-        }
-
-        return state.lists;
+    connect('lists', this.actions.addMovieToList$, (state, [movie, id]) => {
+      if (state && id) {
+        return patch(state.lists, {
+          [id]: patch(state.lists[id], {
+            results: [...(state.lists[id].results || []), movie],
+          }),
+        });
       }
-    );
+
+      return state.lists;
+    });
 
     connect('lists', this.actions.deleteList$, (state, id) => {
       if (state && id) {
@@ -134,7 +133,7 @@ export class ListState implements AppInitializer {
   readonly select = this.state.select;
 
   constructor() {
-    rxEffects(e => e.register(this.sideEffects$));
+    rxEffects((e) => e.register(this.sideEffects$));
   }
   initialize(): void {
     return;

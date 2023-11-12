@@ -22,22 +22,27 @@ export interface AccountListPageAdapterState {
 export class AccountListPageAdapter {
   private readonly accountState = inject(AccountState);
   private readonly list = inject(ListState);
-  private readonly state = rxState<AccountListPageAdapterState>(({connect}) => {
-    connect(
-      'lists',
-      this.accountState.accountLists$.pipe(
-        map((lists) => lists.map((l) =>
-            addImageTag(l, {
-              pathProp: 'backdrop_path',
-              dims: W500H282,
-              fallback: MY_LIST_FALLBACK,
-            })
-          ))
-      ));
+  private readonly state = rxState<AccountListPageAdapterState>(
+    ({ connect }) => {
+      connect(
+        'lists',
+        this.accountState.accountLists$.pipe(
+          map((lists) =>
+            lists.map((l) =>
+              addImageTag(l, {
+                pathProp: 'backdrop_path',
+                dims: W500H282,
+                fallback: MY_LIST_FALLBACK,
+              })
+            )
+          )
+        )
+      );
 
-    connect('lists', this.list.deleteListSignal$, (state, id) =>
-      state.lists?.filter((l) => l.id !== +id)
-    );
-  });
+      connect('lists', this.list.deleteListSignal$, (state, id) =>
+        state.lists?.filter((l) => l.id !== +id)
+      );
+    }
+  );
   select = this.state.select;
 }

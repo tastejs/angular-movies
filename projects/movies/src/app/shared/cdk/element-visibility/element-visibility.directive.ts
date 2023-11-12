@@ -1,6 +1,13 @@
-import {afterNextRender, DestroyRef, Directive, ElementRef, inject, Output} from '@angular/core';
-import {rxActions} from '@rx-angular/state/actions';
-import {observeElementVisibility} from './observe-element-visibility';
+import {
+  afterNextRender,
+  DestroyRef,
+  Directive,
+  ElementRef,
+  inject,
+  Output,
+} from '@angular/core';
+import { rxActions } from '@rx-angular/state/actions';
+import { observeElementVisibility } from './observe-element-visibility';
 
 type Actions = { visible: boolean; onDestroy: void };
 
@@ -19,9 +26,10 @@ export class ElementVisibilityDirective {
 
   constructor(elRef: ElementRef) {
     afterNextRender(() => {
-      const sub = observeElementVisibility(elRef.nativeElement)
-        .subscribe(this.events.visible);
+      const sub = observeElementVisibility(elRef.nativeElement).subscribe(
+        this.events.visible
+      );
       this.destroyRef.onDestroy(() => sub.unsubscribe());
-    })
+    });
   }
 }

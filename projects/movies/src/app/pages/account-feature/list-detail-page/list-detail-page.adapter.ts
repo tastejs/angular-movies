@@ -1,25 +1,30 @@
-import {inject, Injectable} from '@angular/core';
-import {rxState} from '@rx-angular/state';
-import {rxActions} from '@rx-angular/state/actions';
-import {select, selectSlice} from '@rx-angular/state/selections';
-import {map, Observable, startWith, switchMap, withLatestFrom} from 'rxjs';
-import {W154H205, W300H450, W500H282, W92H138,} from '../../../data-access/images/image-sizes';
-import {TMDBListCreateUpdateParams} from '../../../data-access/api/model/list.model';
-import {TMDBMovieModel} from '../../../data-access/api/model/movie.model';
-import {ListState} from '../../../state/list.state';
+import { inject, Injectable } from '@angular/core';
+import { rxState } from '@rx-angular/state';
+import { rxActions } from '@rx-angular/state/actions';
+import { select, selectSlice } from '@rx-angular/state/selections';
+import { map, Observable, startWith, switchMap, withLatestFrom } from 'rxjs';
+import {
+  W154H205,
+  W300H450,
+  W500H282,
+  W92H138,
+} from '../../../data-access/images/image-sizes';
+import { TMDBListCreateUpdateParams } from '../../../data-access/api/model/list.model';
+import { TMDBMovieModel } from '../../../data-access/api/model/movie.model';
+import { ListState } from '../../../state/list.state';
 
-import {RouterState} from '../../../shared/router/router.state';
-import {ImageTag} from '../../../shared/cdk/image/image-tag.interface';
-import {addImageTag} from '../../../shared/cdk/image/image-tag.transform';
-import {addVideoTag} from '../../../shared/cdk/video/video-tag.transform';
-import {addLinkTag} from '../../../shared/cdk/link/a-tag.transform';
-import {TMDBMovieCastModel} from '../../../data-access/api/model/movie-credits.model';
-import {Movie} from '../../../state/movie.state';
-import {TMDBMovieDetailsModel} from '../../../data-access/api/model/movie-details.model';
-import {LinkTag} from '../../../shared/cdk/link/a-tag.interface';
-import {VideoTag} from '../../../shared/cdk/video/video.interface';
-import {MY_LIST_FALLBACK} from '../../../constants';
-import {rxEffects} from "@rx-angular/state/effects";
+import { RouterState } from '../../../shared/router/router.state';
+import { ImageTag } from '../../../shared/cdk/image/image-tag.interface';
+import { addImageTag } from '../../../shared/cdk/image/image-tag.transform';
+import { addVideoTag } from '../../../shared/cdk/video/video-tag.transform';
+import { addLinkTag } from '../../../shared/cdk/link/a-tag.transform';
+import { TMDBMovieCastModel } from '../../../data-access/api/model/movie-credits.model';
+import { Movie } from '../../../state/movie.state';
+import { TMDBMovieDetailsModel } from '../../../data-access/api/model/movie-details.model';
+import { LinkTag } from '../../../shared/cdk/link/a-tag.interface';
+import { VideoTag } from '../../../shared/cdk/video/video.interface';
+import { MY_LIST_FALLBACK } from '../../../constants';
+import { rxEffects } from '@rx-angular/state/effects';
 
 type Actions = {
   listInfoUpdate: TMDBListCreateUpdateParams;
@@ -39,9 +44,9 @@ export type MovieCast = TMDBMovieCastModel & ImageTag;
   providedIn: 'root',
 })
 export class ListDetailAdapter {
-  private readonly state =   rxState<{
-      id: string;
-    }>(s => s.connect('id', this.routerListId$))
+  private readonly state = rxState<{
+    id: string;
+  }>((s) => s.connect('id', this.routerListId$));
   private readonly listState = inject(ListState);
   private readonly routerState = inject(RouterState);
   readonly ui = rxActions<Actions>();
@@ -62,16 +67,16 @@ export class ListDetailAdapter {
     withLatestFrom(this.state.select('id'))
   );
 
-  readonly listDetails$ = this.state.select('id').pipe(
-    switchMap((id) => this.listState.select('lists', id))
-  );
+  readonly listDetails$ = this.state
+    .select('id')
+    .pipe(switchMap((id) => this.listState.select('lists', id)));
 
   readonly movies$ = this.listDetails$.pipe(
     select('results'),
     map((r) => (r !== undefined ? r.map(transformToMovieModel) : []))
   );
 
-  readonly effects = rxEffects(({register}) => {
+  readonly effects = rxEffects(({ register }) => {
     register(this.routerListId$, this.listState.fetchList);
     register(this.listInfoUpdateEvent$, ([info, id]) =>
       this.listState.updateList({ ...info, id: +id })
@@ -80,7 +85,7 @@ export class ListDetailAdapter {
       this.listState.updateList({ backdrop_path, id: +id })
     );
     register(this.listDeleteEvent$, ([, id]) => this.listState.deleteList(id));
-  })
+  });
 
   readonly posters$: Observable<ListPoster[] | undefined> =
     this.listDetails$.pipe(
@@ -101,7 +106,6 @@ export class ListDetailAdapter {
     select('name'),
     startWith('Loading...')
   );
-
 }
 
 export function transformToMovieDetail(_res: TMDBMovieModel): MovieDetail {

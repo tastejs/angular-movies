@@ -1,12 +1,7 @@
-import {
-  afterNextRender,
-  inject,
-  Injectable,
-  NgZone,
-} from '@angular/core';
-import {NavigationEnd, Router} from '@angular/router';
-import {isZonePresent} from './is-zone-present';
-import {rxEffects} from '@rx-angular/state/effects';
+import { afterNextRender, inject, Injectable, NgZone } from '@angular/core';
+import { NavigationEnd, Router } from '@angular/router';
+import { isZonePresent } from './is-zone-present';
+import { rxEffects } from '@rx-angular/state/effects';
 
 /**
  * A small service encapsulating the hacks needed for routing (and bootstrapping) in zone-less applications
@@ -41,7 +36,7 @@ export class ZonelessRouting {
             }
           }
         );
-      })
+      });
     }
   }
 }

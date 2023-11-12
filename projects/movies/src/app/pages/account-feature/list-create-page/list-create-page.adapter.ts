@@ -1,13 +1,13 @@
-import {inject, Injectable} from '@angular/core';
-import {patch} from '@rx-angular/cdk/transformations';
-import {rxState} from '@rx-angular/state';
-import {map, startWith, withLatestFrom} from 'rxjs';
+import { inject, Injectable } from '@angular/core';
+import { patch } from '@rx-angular/cdk/transformations';
+import { rxState } from '@rx-angular/state';
+import { map, startWith, withLatestFrom } from 'rxjs';
 
-import {TMDBListCreateUpdateParams} from '../../../data-access/api/model/list.model';
-import {ListDetailAdapter} from '../list-detail-page/list-detail-page.adapter';
-import {rxActions} from '@rx-angular/state/actions';
-import {ListState} from '../../../state/list.state';
-import {rxEffects} from "@rx-angular/state/effects";
+import { TMDBListCreateUpdateParams } from '../../../data-access/api/model/list.model';
+import { ListDetailAdapter } from '../list-detail-page/list-detail-page.adapter';
+import { rxActions } from '@rx-angular/state/actions';
+import { ListState } from '../../../state/list.state';
+import { rxEffects } from '@rx-angular/state/effects';
 
 interface Actions {
   submit: void;
@@ -34,8 +34,7 @@ export class ListCreatePageAdapter {
   private readonly state = rxState<{
     mode: FormMode;
     request: TMDBListCreateUpdateParams;
-  }>(({connect}) => {
-
+  }>(({ connect }) => {
     connect('request', this.ui.update$, (state, update) => {
       if (update['private']) {
         update['private'] = JSON.parse(update['private']);
@@ -75,7 +74,9 @@ export class ListCreatePageAdapter {
   );
   readonly name$ = this.state.select('request', 'name');
   readonly description$ = this.state.select('request', 'description');
-  readonly valid$ = this.state.select(map((state) => !!state?.request?.name?.length));
+  readonly valid$ = this.state.select(
+    map((state) => !!state?.request?.name?.length)
+  );
   readonly private$ = this.state.select('request', 'private');
 
   private readonly submitEvent$ = this.ui.submit$.pipe(
@@ -83,15 +84,17 @@ export class ListCreatePageAdapter {
   );
 
   constructor() {
-    rxEffects(e => e.register(this.submitEvent$, ([, state]) => {
-      if (state.mode === 'edit') {
-        this.detailsAdapter.ui.listInfoUpdate(state.request);
-      }
+    rxEffects((e) =>
+      e.register(this.submitEvent$, ([, state]) => {
+        if (state.mode === 'edit') {
+          this.detailsAdapter.ui.listInfoUpdate(state.request);
+        }
 
-      if (state.mode === 'create') {
-        this.listState.createList(this.state.get('request'));
-      }
-    }));
+        if (state.mode === 'create') {
+          this.listState.createList(this.state.get('request'));
+        }
+      })
+    );
   }
 
   resetForm() {

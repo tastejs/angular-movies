@@ -1,23 +1,23 @@
-import {rxState} from '@rx-angular/state';
-import {selectSlice} from '@rx-angular/state/selections';
-import {TMDBMovieModel} from '../../data-access/api/model/movie.model';
-import {inject, Injectable} from '@angular/core';
-import {infiniteScroll} from '../../shared/cdk/infinite-scroll/infiniteScroll';
-import {rxActions} from '@rx-angular/state/actions';
-import {RouterState} from '../../shared/router/router.state';
-import {combineLatestWith, map, switchMap, withLatestFrom} from 'rxjs';
-import {W300H450} from '../../data-access/images/image-sizes';
-import {ImageTag} from '../../shared/cdk/image/image-tag.interface';
-import {addImageTag} from '../../shared/cdk/image/image-tag.transform';
-import {getIdentifierOfTypeAndLayoutUtil} from '../../shared/router/get-identifier-of-type-and-layout.util';
-import {TMDBPersonModel} from '../../data-access/api/model/person.model';
-import {PersonState} from '../../state/person.state';
-import {WithContext} from '../../shared/cdk/loading/context.interface';
-import {MoviesSortValue} from '../../data-access/api/sort/sort.data';
-import {DiscoverResource} from '../../data-access/api/resources/discover.resource';
+import { rxState } from '@rx-angular/state';
+import { selectSlice } from '@rx-angular/state/selections';
+import { TMDBMovieModel } from '../../data-access/api/model/movie.model';
+import { inject, Injectable } from '@angular/core';
+import { infiniteScroll } from '../../shared/cdk/infinite-scroll/infiniteScroll';
+import { rxActions } from '@rx-angular/state/actions';
+import { RouterState } from '../../shared/router/router.state';
+import { combineLatestWith, map, switchMap, withLatestFrom } from 'rxjs';
+import { W300H450 } from '../../data-access/images/image-sizes';
+import { ImageTag } from '../../shared/cdk/image/image-tag.interface';
+import { addImageTag } from '../../shared/cdk/image/image-tag.transform';
+import { getIdentifierOfTypeAndLayoutUtil } from '../../shared/router/get-identifier-of-type-and-layout.util';
+import { TMDBPersonModel } from '../../data-access/api/model/person.model';
+import { PersonState } from '../../state/person.state';
+import { WithContext } from '../../shared/cdk/loading/context.interface';
+import { MoviesSortValue } from '../../data-access/api/sort/sort.data';
+import { DiscoverResource } from '../../data-access/api/resources/discover.resource';
 
-import {Movie} from '../../state/movie.state';
-import {rxEffects} from "@rx-angular/state/effects";
+import { Movie } from '../../state/movie.state';
+import { rxEffects } from '@rx-angular/state/effects';
 
 export type MoviePerson = TMDBPersonModel & ImageTag;
 export type Actions = {
@@ -59,13 +59,15 @@ export class PersonDetailAdapter {
   private readonly routerState = inject(RouterState);
   private readonly personState = inject(PersonState);
   private readonly discoverResource = inject(DiscoverResource);
-  private readonly state = rxState<PersonDetailPageAdapterState>(({connect}) => {
-    connect('showSorting', this.actions.toggleSorting$);
-    connect(this.actions.sortBy$, (_, sortBy) => ({
-      showSorting: false,
-      activeSorting: sortBy.name,
-    }));
-  });
+  private readonly state = rxState<PersonDetailPageAdapterState>(
+    ({ connect }) => {
+      connect('showSorting', this.actions.toggleSorting$);
+      connect(this.actions.sortBy$, (_, sortBy) => ({
+        showSorting: false,
+        activeSorting: sortBy.name,
+      }));
+    }
+  );
   private readonly actions = rxActions<Actions>();
   readonly set = this.state.set;
   readonly paginate = this.actions.paginate;
@@ -81,9 +83,9 @@ export class PersonDetailAdapter {
     switchMap(this.personState.personByIdCtx),
     map((ctx: WithContext<TMDBPersonModel>): WithContext<MoviePerson> => {
       ctx.value &&
-      ((ctx as unknown as { value: unknown }).value = transformToPersonDetail(
-        ctx.value
-      ));
+        ((ctx as unknown as { value: unknown }).value = transformToPersonDetail(
+          ctx.value
+        ));
       return ctx as unknown as WithContext<MoviePerson>;
     })
   );
@@ -127,6 +129,8 @@ export class PersonDetailAdapter {
   );
 
   constructor() {
-    rxEffects(e => e.register(this.routerPersonId$, this.personState.fetchPerson));
+    rxEffects((e) =>
+      e.register(this.routerPersonId$, this.personState.fetchPerson)
+    );
   }
 }
