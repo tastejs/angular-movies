@@ -21,38 +21,38 @@
     }
   },
   "dependencies": {
-    "@angular/animations": "^16.2.0",
-    "@angular/common": "^16.2.0",
-    "@angular/core": "^16.2.0",
-    "@angular/platform-browser": "^16.2.0",
-    "@angular/platform-browser-dynamic": "^16.2.0",
-    "@angular/platform-server": "^16.2.0",
-    "@angular/router": "^16.2.0",
-    "@angular/service-worker": "^16.2.0",
-    "@push-based/ngx-fast-svg": "^0.3.1",
+    "@angular/animations": "17.0.2",
+    "@angular/common": "17.0.2",
+    "@angular/core": "17.0.2",
+    "@angular/platform-browser": "17.0.2",
+    "@angular/platform-browser-dynamic": "17.0.2",
+    "@angular/platform-server": "17.0.2",
+    "@angular/router": "17.0.2",
+    "@angular/service-worker": "17.0.2",
+    "@push-based/ngx-fast-svg": "^0.5.0",
     "@rx-angular/cdk": "^16.0.0",
     "@rx-angular/eslint-plugin": "^1.0.0",
-    "@rx-angular/state": "^16.0.0",
-    "@rx-angular/template": "^16.0.2",
+    "@rx-angular/state": "^16.3.0",
+    "@rx-angular/template": "^16.1.1",
     "core-js": "^2.6.12",
     "express": "^4.18.2",
     "firebase-functions": "^4.4.0",
     "ngx-isr": "^0.5.5",
     "rxjs": "^7.8.1",
     "server-timing": "^3.3.3",
-    "zone.js": "~0.13.1"
+    "zone.js": "0.14.2"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "^16.2.0",
-    "@angular-eslint/builder": "^16.1.0",
-    "@angular-eslint/eslint-plugin": "^16.1.0",
-    "@angular-eslint/eslint-plugin-template": "^16.1.0",
-    "@angular-eslint/schematics": "^16.1.0",
-    "@angular-eslint/template-parser": "^16.1.0",
-    "@angular/cli": "^16.2.0",
-    "@angular/compiler": "^16.2.0",
-    "@angular/compiler-cli": "^16.2.0",
-    "@angular/language-service": "^16.2.0",
+    "@angular-devkit/build-angular": "17.0.0",
+    "@angular-eslint/builder": "^17.0.1",
+    "@angular-eslint/eslint-plugin": "17.0.1",
+    "@angular-eslint/eslint-plugin-template": "17.0.1",
+    "@angular-eslint/schematics": "^17.0.1",
+    "@angular-eslint/template-parser": "17.0.1",
+    "@angular/cli": "^17.0.0",
+    "@angular/compiler": "17.0.2",
+    "@angular/compiler-cli": "17.0.2",
+    "@angular/language-service": "17.0.2",
     "@cloudflare/workers-types": "^4.20230511.0",
     "@commitlint/cli": "^12.1.4",
     "@commitlint/config-conventional": "^12.1.4",
@@ -63,33 +63,33 @@
     "@nguniversal/builders": "^16.2.0",
     "@nguniversal/common": "^16.2.0",
     "@nguniversal/express-engine": "^16.2.0",
-    "@nx/angular": "16.6.0",
-    "@nx/devkit": "16.6.0",
-    "@nx/esbuild": "16.6.0",
-    "@nx/eslint-plugin": "16.6.0",
-    "@nx/jest": "16.6.0",
-    "@nx/js": "16.6.0",
-    "@nx/node": "16.6.0",
-    "@nx/webpack": "16.6.0",
-    "@nx/workspace": "16.6.0",
+    "@nx/angular": "17.1.1",
+    "@nx/devkit": "17.1.1",
+    "@nx/esbuild": "17.1.1",
+    "@nx/eslint-plugin": "17.1.1",
+    "@nx/jest": "17.1.1",
+    "@nx/js": "17.1.1",
+    "@nx/node": "17.1.1",
+    "@nx/webpack": "17.1.1",
+    "@nx/workspace": "17.1.1",
     "@push-based/user-flow": "^0.20.0",
     "@push-based/user-flow-nx-plugin": "^0.1.0",
     "@rx-angular/import-graph-visualizer": "^0.2.0",
-    "@schematics/angular": "^16.0.3",
+    "@schematics/angular": "17.0.0",
     "@size-limit/file": "^7.0.8",
     "@types/compression": "^1.7.2",
     "@types/express": "^4.17.17",
     "@types/jest": "^29.4.0",
     "@types/node": "^18.11.7",
     "@types/yargs": "^17.0.24",
-    "@typescript-eslint/eslint-plugin": "^5.59.2",
-    "@typescript-eslint/parser": "^5.59.2",
+    "@typescript-eslint/eslint-plugin": "^6.10.0",
+    "@typescript-eslint/parser": "^6.10.0",
     "cash-true": "0.0.2",
     "commitizen": "^4.2.4",
     "compression": "^1.7.4",
     "concurrently": "^6.2.0",
     "domino": "^2.1.6",
-    "esbuild": "^0.17.19",
+    "esbuild": "^0.19.2",
     "eslint": "^8.39.0",
     "eslint-plugin-import": "^2.25.3",
     "eslint-plugin-markdownlint": "^0.4.1",
@@ -108,8 +108,8 @@
     "lighthouse": "^9.6.8",
     "lint-staged": "^11.2.6",
     "markdownlint": "^0.29.0",
-    "nx": "16.6.0",
-    "nx-cloud": "16.3.0",
+    "nx": "17.1.1",
+    "nx-cloud": "16.5.2",
     "open": "^8.4.0",
     "postcss-preset-env": "^9.1.0",
     "prettier": "^2.6.2",
@@ -122,7 +122,7 @@
     "ts-jest": "^29.1.0",
     "ts-node": "10.9.1",
     "tslib": "^2.5.0",
-    "typescript": "5.0.4",
+    "typescript": "5.2.2",
     "webpack-bundle-analyzer": "^3.3.2",
     "wrangler": "^3.0.1",
     "yargs": "^17.3.1"
@@ -135,51 +135,13 @@
   },
   "overrides": {
     "@rx-angular/cdk": {
-      "@angular/core": ">16.2.0-next.0"
+      "@angular/core": ">17.0.0"
     },
     "@rx-angular/state": {
-      "@angular/core": ">16.2.0-next.0"
+      "@angular/core": ">17.0.0"
     },
     "@rx-angular/template": {
-      "@angular/core": ">16.2.0-next.0"
-    },
-    "@nx/angular": {
-      "@angular-eslint/schematics": ">16.2.0-next.0",
-      "@angular/cli": ">16.2.0-next.0",
-      "@nguniversal/common": ">16.2.0-next.0",
-      "@angular-devkit/build-angular": ">16.2.0-next.0"
-    },
-    "@angular-eslint/schematics": {
-      "@angular/cli": ">16.2.0-next.0",
-      "@nguniversal/common": ">16.2.0-next.0",
-      "@angular-devkit/build-angular": ">16.2.0-next.0"
-    },
-    "@nguniversal/builders": {
-      "@angular-eslint/schematics": ">16.2.0-next.0",
-      "@angular/core": ">16.2.0-next.0",
-      "@angular/common": ">16.2.0-next.0",
-      "@angular-devkit/build-angular": ">16.2.0-next.0"
-    },
-    "@nguniversal/common": {
-      "@angular-eslint/schematics": ">16.2.0-next.0",
-      "@angular/core": ">16.2.0-next.0",
-      "@angular/common": ">16.2.0-next.0",
-      "@angular-devkit/build-angular": ">16.2.0-next.0"
-    },
-    "@nguniversal/express-engine": {
-      "@angular-eslint/schematics": ">16.2.0-next.0",
-      "@angular/core": ">16.2.0-next.0",
-      "@angular/common": ">16.2.0-next.0",
-      "@angular-devkit/build-angular": ">16.2.0-next.0"
-    },
-    "@push-based/ngx-fast-svg": {
-      "@angular/core": ">16.2.0-next.0",
-      "@angular/common": ">16.2.0-next.0"
-    },
-    "ngx-isr": {
-      "@types/node": "^18.16.14",
-      "@angular/core": ">16.2.0-next.0",
-      "@angular/common": ">16.2.0-next.0"
+      "@angular/core": ">17.0.0"
     }
   }
 }
