@@ -50,8 +50,7 @@
           "budgets": false
         },
         "production": {
-          "serviceWorker": true,
-          "ngswConfigPath": "projects/movies/src/ngsw-config.json",
+          "serviceWorker": "projects/movies/src/ngsw-config.json",
           "fileReplacements": [
             {
               "replace": "projects/movies/src/environments/environment.ts",
