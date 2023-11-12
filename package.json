@@ -72,8 +72,6 @@
     "@nx/node": "17.1.1",
     "@nx/webpack": "17.1.1",
     "@nx/workspace": "17.1.1",
-    "@push-based/user-flow": "^0.20.0",
-    "@push-based/user-flow-nx-plugin": "^0.1.0",
     "@rx-angular/import-graph-visualizer": "^0.2.0",
     "@schematics/angular": "17.0.0",
     "@size-limit/file": "^7.0.8",
