@@ -1,5 +1,4 @@
 import {Routes} from '@angular/router';
-// import { RouteISRConfig } from 'ngx-isr';
 
 export const ROUTES: Routes = [
   /**

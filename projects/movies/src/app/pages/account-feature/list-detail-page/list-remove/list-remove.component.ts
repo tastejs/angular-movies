@@ -4,11 +4,10 @@ import {
   Component,
   ElementRef,
   inject,
-  OnDestroy,
   ViewChild,
 } from '@angular/core';
-import { RxState } from '@rx-angular/state';
-import { RxActionFactory } from '@rx-angular/state/actions';
+import { rxEffects } from '@rx-angular/state/effects';
+import { rxActions } from '@rx-angular/state/actions';
 import { merge } from 'rxjs';
 import { ListDetailAdapter } from '../list-detail-page.adapter';
 
@@ -22,13 +21,12 @@ type Actions = {
   selector: 'app-list-remove',
   templateUrl: './list-remove.component.html',
   styleUrls: ['./list-remove.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [RxActionFactory],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export default class ListRemoveComponent
-  extends RxState<never>
-  implements AfterViewInit, OnDestroy
+export default class ListRemoveComponent implements AfterViewInit
 {
+  public ef = rxEffects(e => e.
+    register(this.ui.confirm$, this.adapter.ui.deleteList));
   public adapter = inject(ListDetailAdapter);
 
   @ViewChild('dialog', { static: true }) dialog!: ElementRef<{
@@ -36,21 +34,13 @@ export default class ListRemoveComponent
     close: () => void;
   }>;
 
-  readonly ui = this.actionsF.create();
-
-  constructor(private actionsF: RxActionFactory<Actions>) {
-    super();
-    this.hold(this.ui.confirm$, this.adapter.ui.deleteList);
-  }
+  readonly ui = rxActions<Actions>();
 
   ngAfterViewInit(): void {
-    this.hold(merge(this.ui.confirm$, this.ui.closeDialog$), () =>
+    this.ef.register(merge(this.ui.confirm$, this.ui.closeDialog$), () =>
       this.dialog.nativeElement.close()
     );
-    this.hold(this.ui.openDialog$, () => this.dialog.nativeElement.showModal());
+    this.ef.register(this.ui.openDialog$, () => this.dialog.nativeElement.showModal());
   }
 
-  ngOnDestroy(): void {
-    super.ngOnDestroy();
-  }
 }

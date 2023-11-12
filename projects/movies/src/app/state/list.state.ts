@@ -1,5 +1,6 @@
-import {DestroyRef, inject, Injectable} from '@angular/core';
-import {RxState} from '@rx-angular/state';
+import {inject, Injectable} from '@angular/core';
+import {rxState} from '@rx-angular/state';
+import {rxEffects} from '@rx-angular/state/effects';
 import {AppInitializer} from '../shared/cdk/app-initializer';
 import {concatMap, filter, merge, tap} from 'rxjs';
 import {ListResource} from '../data-access/api/resources/list.resource';
@@ -8,7 +9,7 @@ import {Router} from '@angular/router';
 import {MovieResponse} from '../data-access/api/resources/movie.resource';
 import {TMDBMovieDetailsModel} from '../data-access/api/model/movie-details.model';
 import {deleteProp, patch} from '@rx-angular/cdk/transformations';
-import {RxActionFactory} from '@rx-angular/state/actions';
+import {rxActions} from '@rx-angular/state/actions';
 
 export interface ListModel {
   lists: Record<string, TMDBListModel>;
@@ -26,19 +27,72 @@ interface Actions {
 @Injectable({
   providedIn: 'root',
 })
-export class ListState extends RxState<ListModel> implements AppInitializer {
+export class ListState implements AppInitializer {
   private readonly router = inject(Router);
-  private readonly actionsF = new RxActionFactory<Actions>();
   private readonly listResource = inject(ListResource);
-  private actions = this.actionsF.create();
+  private readonly actions = rxActions<Actions>();
+  private readonly state = rxState<ListModel>(({connect}) => {
+    connect(
+      'lists',
+      this.actions.fetchList$.pipe(
+        filter((id) => !isNaN(Number(id))),
+        concatMap((id) => this.listResource.fetchList(id))
+      ),
+      (state, list) => patch(state?.lists || {}, list)
+    );
 
-  readonly createList = this.actions.createList;
-  readonly fetchList = this.actions.fetchList;
-  readonly updateList = this.actions.updateList;
-  readonly addMovieToList = this.actions.addMovieToList;
-  readonly deleteMovieFromList = this.actions.deleteMovieFromList;
-  readonly deleteList = this.actions.deleteList;
-  readonly deleteListSignal$ = this.actions.deleteList$;
+    connect('lists', this.actions.updateList$, (state, update) => {
+      if (state && update.id) {
+        return patch(state.lists, {
+          [update.id]: patch(state.lists[update.id], update),
+        });
+      }
+
+      return state.lists;
+    });
+
+    connect(
+      'lists',
+      this.actions.addMovieToList$,
+      (state, [movie, id]) => {
+        if (state && id) {
+          return patch(state.lists, {
+            [id]: patch(state.lists[id], {
+              results: [...(state.lists[id].results || []), movie],
+            }),
+          });
+        }
+
+        return state.lists;
+      }
+    );
+
+    connect('lists', this.actions.deleteList$, (state, id) => {
+      if (state && id) {
+        return deleteProp(state.lists, `${id}`);
+      }
+
+      return state.lists;
+    });
+
+    connect(
+      'lists',
+      this.actions.deleteMovieFromList$,
+      (state, [movie, id]) => {
+        if (state && id) {
+          return patch(state.lists, {
+            [id]: patch(state.lists[id], {
+              results: (state.lists[id].results || []).filter(
+                (m) => m.id !== movie.id
+              ),
+            }),
+          });
+        }
+
+        return state.lists;
+      }
+    );
+  });
 
   private readonly sideEffects$ = merge(
     this.actions.addMovieToList$.pipe(
@@ -70,74 +124,18 @@ export class ListState extends RxState<ListModel> implements AppInitializer {
     )
   );
 
+  readonly createList = this.actions.createList;
+  readonly fetchList = this.actions.fetchList;
+  readonly updateList = this.actions.updateList;
+  readonly addMovieToList = this.actions.addMovieToList;
+  readonly deleteMovieFromList = this.actions.deleteMovieFromList;
+  readonly deleteList = this.actions.deleteList;
+  readonly deleteListSignal$ = this.actions.deleteList$;
+  readonly select = this.state.select;
+
   constructor() {
-    inject(DestroyRef).onDestroy(() => this.actionsF.destroy());
-    super();
-
-    this.connect(
-      'lists',
-      this.actions.fetchList$.pipe(
-        filter((id) => !isNaN(Number(id))),
-        concatMap((id) => this.listResource.fetchList(id))
-      ),
-      (state, list) => patch(state?.lists || {}, list)
-    );
-
-    this.connect('lists', this.actions.updateList$, (state, update) => {
-      if (state && update.id) {
-        return patch(state.lists, {
-          [update.id]: patch(state.lists[update.id], update),
-        });
-      }
-
-      return state.lists;
-    });
-
-    this.connect(
-      'lists',
-      this.actions.addMovieToList$,
-      (state, [movie, id]) => {
-        if (state && id) {
-          return patch(state.lists, {
-            [id]: patch(state.lists[id], {
-              results: [...(state.lists[id].results || []), movie],
-            }),
-          });
-        }
-
-        return state.lists;
-      }
-    );
-
-    this.connect('lists', this.actions.deleteList$, (state, id) => {
-      if (state && id) {
-        return deleteProp(state.lists, `${id}`);
-      }
-
-      return state.lists;
-    });
-
-    this.connect(
-      'lists',
-      this.actions.deleteMovieFromList$,
-      (state, [movie, id]) => {
-        if (state && id) {
-          return patch(state.lists, {
-            [id]: patch(state.lists[id], {
-              results: (state.lists[id].results || []).filter(
-                (m) => m.id !== movie.id
-              ),
-            }),
-          });
-        }
-
-        return state.lists;
-      }
-    );
-
-    this.hold(this.sideEffects$);
+    rxEffects(e => e.register(this.sideEffects$));
   }
-
   initialize(): void {
     return;
   }

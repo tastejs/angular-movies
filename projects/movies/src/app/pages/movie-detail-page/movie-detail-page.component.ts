@@ -13,8 +13,8 @@ import {filter, map, mergeWith, tap} from 'rxjs';
 import {TMDBMovieGenreModel} from '../../data-access/api/model/movie-genre.model';
 
 import {MovieCast, MovieDetailAdapter} from './movie-detail-page.adapter';
-import {RxActionFactory} from '@rx-angular/state/actions';
-import {RxEffects} from '@rx-angular/state/effects';
+import {rxActions} from '@rx-angular/state/actions';
+import {rxEffects} from '@rx-angular/state/effects';
 import {DetailGridComponent} from '../../ui/component/detail-grid/detail-grid.component';
 import {StarRatingComponent} from '../../ui/pattern/star-rating/star-rating.component';
 import {MovieListComponent} from '../../ui/pattern/movie-list/movie-list.component';
@@ -25,6 +25,10 @@ import {FastSvgComponent} from '@push-based/ngx-fast-svg';
 import {RxIf} from '@rx-angular/template/if';
 import {RouterLink} from '@angular/router';
 
+type UiActions = {
+  dialog: 'show' | 'close';
+  iframe: 'load' | 'unload';
+};
 @Component({
   standalone: true,
   imports: [
@@ -46,13 +50,11 @@ import {RouterLink} from '@angular/router';
   styleUrls: ['./movie-detail-page.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.Emulated,
-  providers: [RxEffects],
 })
 export default class MovieDetailPageComponent {
   private readonly location = inject(Location);
   private readonly adapter = inject(MovieDetailAdapter);
-  private readonly effects = inject(RxEffects);
-  readonly ui = this.actionsF.create();
+  readonly ui = rxActions<UiActions>();
   private readonly movieCtx$ = this.adapter.routedMovieCtx$;
   readonly loadIframe$ = this.ui.iframe$.pipe(
     mergeWith(
@@ -80,13 +82,8 @@ export default class MovieDetailPageComponent {
   @ViewChild('castListWrapper')
   castListWrapper: ElementRef<HTMLElement> | undefined = undefined;
 
-  constructor(
-    private actionsF: RxActionFactory<{
-      dialog: 'show' | 'close';
-      iframe: 'load' | 'unload';
-    }>
-  ) {
-    this.effects.register(
+  constructor() {
+    rxEffects(e => e.register(
       this.ui.dialog$.pipe(
         map((v) => v === 'show'),
         tap(console.log)
@@ -95,7 +92,7 @@ export default class MovieDetailPageComponent {
         openDialog
           ? this.trailerDialog?.nativeElement?.showModal()
           : this.trailerDialog?.nativeElement.close()
-    );
+    ))
   }
 
   move(increment: number) {

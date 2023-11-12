@@ -1,9 +1,9 @@
-import {RxState} from '@rx-angular/state';
+import {rxState} from '@rx-angular/state';
 import {selectSlice} from '@rx-angular/state/selections';
 import {TMDBMovieModel} from '../../data-access/api/model/movie.model';
 import {inject, Injectable} from '@angular/core';
 import {infiniteScroll} from '../../shared/cdk/infinite-scroll/infiniteScroll';
-import {RxActionFactory} from '@rx-angular/state/actions';
+import {rxActions} from '@rx-angular/state/actions';
 import {RouterState} from '../../shared/router/router.state';
 import {combineLatestWith, map, switchMap, withLatestFrom} from 'rxjs';
 import {W300H450} from '../../data-access/images/image-sizes';
@@ -17,6 +17,7 @@ import {MoviesSortValue} from '../../data-access/api/sort/sort.data';
 import {DiscoverResource} from '../../data-access/api/resources/discover.resource';
 
 import {Movie} from '../../state/movie.state';
+import {rxEffects} from "@rx-angular/state/effects";
 
 export type MoviePerson = TMDBPersonModel & ImageTag;
 export type Actions = {
@@ -54,18 +55,26 @@ function transformToMovieModel(_res: TMDBMovieModel): Movie {
 @Injectable({
   providedIn: 'root',
 })
-export class PersonDetailAdapter extends RxState<PersonDetailPageAdapterState> {
+export class PersonDetailAdapter {
   private readonly routerState = inject(RouterState);
   private readonly personState = inject(PersonState);
   private readonly discoverResource = inject(DiscoverResource);
-  private readonly actions = new RxActionFactory<Actions>().create();
+  private readonly state = rxState<PersonDetailPageAdapterState>(({connect}) => {
+    connect('showSorting', this.actions.toggleSorting$);
+    connect(this.actions.sortBy$, (_, sortBy) => ({
+      showSorting: false,
+      activeSorting: sortBy.name,
+    }));
+  });
+  private readonly actions = rxActions<Actions>();
+  readonly set = this.state.set;
   readonly paginate = this.actions.paginate;
   readonly toggleSorting = this.actions.toggleSorting;
   readonly sortBy = this.actions.sortBy;
   readonly routerPersonId$ = this.routerState.select(
     getIdentifierOfTypeAndLayoutUtil('person', 'detail')
   );
-  readonly sortingModel$ = this.select(
+  readonly sortingModel$ = this.state.select(
     selectSlice(['showSorting', 'activeSorting'])
   );
   readonly routedPersonCtx$ = this.routerPersonId$.pipe(
@@ -118,14 +127,6 @@ export class PersonDetailAdapter extends RxState<PersonDetailPageAdapterState> {
   );
 
   constructor() {
-    super();
-
-    this.connect('showSorting', this.actions.toggleSorting$);
-    this.connect(this.actions.sortBy$, (_, sortBy) => ({
-      showSorting: false,
-      activeSorting: sortBy.name,
-    }));
-
-    this.hold(this.routerPersonId$, this.personState.fetchPerson);
+    rxEffects(e => e.register(this.routerPersonId$, this.personState.fetchPerson));
   }
 }

@@ -1,15 +1,7 @@
-import { isPlatformBrowser } from '@angular/common';
-import {
-  Directive,
-  ElementRef,
-  inject,
-  OnDestroy,
-  Output,
-  PLATFORM_ID,
-} from '@angular/core';
-import { RxActionFactory } from '@rx-angular/state/actions';
-import { observeElementVisibility } from './observe-element-visibility';
-import { takeUntil } from 'rxjs';
+import {isPlatformBrowser} from '@angular/common';
+import {DestroyRef, Directive, ElementRef, inject, Output, PLATFORM_ID} from '@angular/core';
+import {rxActions} from '@rx-angular/state/actions';
+import {observeElementVisibility} from './observe-element-visibility';
 
 type Actions = { visible: boolean; onDestroy: void };
 
@@ -18,23 +10,20 @@ type Actions = { visible: boolean; onDestroy: void };
   // eslint-disable-next-line @angular-eslint/directive-selector
   selector: '[elementVisibility]',
 })
-export class ElementVisibilityDirective implements OnDestroy {
+export class ElementVisibilityDirective {
   private readonly platformId = inject(PLATFORM_ID);
+  private readonly destroyRef = inject(DestroyRef);
 
-  signals = this.actionsF.create();
+  events = rxActions<Actions>();
 
   @Output()
-  elementVisibility = this.signals.visible$;
+  elementVisibility = this.events.visible$;
 
-  constructor(private actionsF: RxActionFactory<Actions>, elRef: ElementRef) {
+  constructor(elRef: ElementRef) {
     if (isPlatformBrowser(this.platformId)) {
-      observeElementVisibility(elRef.nativeElement)
-        .pipe(takeUntil(this.signals.onDestroy$))
-        .subscribe(this.signals.visible);
+      const sub = observeElementVisibility(elRef.nativeElement)
+        .subscribe(this.events.visible);
+      this.destroyRef.onDestroy(() => sub.unsubscribe());
     }
-  }
-
-  ngOnDestroy(): void {
-    this.signals.onDestroy();
   }
 }

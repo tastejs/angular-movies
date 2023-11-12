@@ -1,6 +1,5 @@
 import { isPlatformBrowser } from '@angular/common';
 import {
-  ErrorHandler,
   inject,
   Injectable,
   NgZone,
@@ -8,23 +7,19 @@ import {
 } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { isZonePresent } from './is-zone-present';
-import { RxEffects } from '@rx-angular/state/effects';
+import {rxEffects} from '@rx-angular/state/effects';
 
 /**
  * A small service encapsulating the hacks needed for routing (and bootstrapping) in zone-less applications
  */
 @Injectable({
   providedIn: 'root',
-  deps: [RxEffects],
 })
-export class ZonelessRouting extends RxEffects {
+export class ZonelessRouting {
+  private readonly effects = rxEffects();
   private readonly router = inject(Router);
   private readonly platformId = inject(PLATFORM_ID);
   private readonly ngZone = inject(NgZone);
-
-  constructor(errorHandler: ErrorHandler) {
-    super(errorHandler);
-  }
 
   init() {
     /**
@@ -34,7 +29,7 @@ export class ZonelessRouting extends RxEffects {
      * This is a necessity to make it work zone-less, but does not make the app faster.
      */
     if (isPlatformBrowser(this.platformId) && !isZonePresent()) {
-      this.register(
+      this.effects.register(
         // Filter relevant navigation events for change detection
         this.router.events,
         // In a service we have to use `ApplicationRef#tick` to trigger change detection.

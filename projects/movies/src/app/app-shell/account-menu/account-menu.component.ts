@@ -1,12 +1,12 @@
 import {RxLet} from '@rx-angular/template/let';
-import {RxState} from '@rx-angular/state';
+import {rxState} from '@rx-angular/state';
 import {ChangeDetectionStrategy, Component, inject, ViewEncapsulation,} from '@angular/core';
-import {RxActionFactory} from '@rx-angular/state/actions';
 import {AuthEffects} from '../../auth/auth.effects';
 import {RouterLink} from '@angular/router';
-import {RxEffects} from '@rx-angular/state/effects';
 import {RxIf} from '@rx-angular/template/if';
 import {AccountState} from '../../state/account.state';
+import {rxEffects} from "@rx-angular/state/effects";
+import {rxActions} from "@rx-angular/state/actions";
 
 export const imports = [RouterLink, RxLet, RxIf];
 
@@ -23,19 +23,18 @@ type Actions = {
   styleUrls: ['./account-menu.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.Emulated,
-  providers: [RxState, RxEffects],
 })
 export default class AccountMenuComponent {
-  private readonly effects = inject(RxEffects);
+  private readonly effects = rxEffects();
   private readonly authEffects = inject(AuthEffects);
   private readonly accountState = inject(AccountState);
-  private readonly state = inject<RxState<{ loggedIn: boolean }>>(RxState);
+  private readonly state = rxState<{ loggedIn: boolean }>();
 
-  ui = this.actionsF.create();
+  ui = rxActions<Actions>();
 
   loggedIn$ = this.state.select('loggedIn');
 
-  constructor(private actionsF: RxActionFactory<Actions>) {
+  constructor() {
     this.state.connect('loggedIn', this.accountState.loggedIn$);
     this.effects.register(this.ui.signOut$, this.authEffects.signOut);
     this.effects.register(this.ui.signIn$, this.authEffects.signInStart);

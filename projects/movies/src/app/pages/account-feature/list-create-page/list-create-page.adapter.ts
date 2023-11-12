@@ -1,12 +1,13 @@
-import { inject, Injectable } from '@angular/core';
-import { patch } from '@rx-angular/cdk/transformations';
-import { RxState } from '@rx-angular/state';
-import { map, startWith, withLatestFrom } from 'rxjs';
+import {inject, Injectable} from '@angular/core';
+import {patch} from '@rx-angular/cdk/transformations';
+import {rxState} from '@rx-angular/state';
+import {map, startWith, withLatestFrom} from 'rxjs';
 
-import { TMDBListCreateUpdateParams } from '../../../data-access/api/model/list.model';
-import { ListDetailAdapter } from '../list-detail-page/list-detail-page.adapter';
-import { RxActionFactory } from '@rx-angular/state/actions';
-import { ListState } from '../../../state/list.state';
+import {TMDBListCreateUpdateParams} from '../../../data-access/api/model/list.model';
+import {ListDetailAdapter} from '../list-detail-page/list-detail-page.adapter';
+import {rxActions} from '@rx-angular/state/actions';
+import {ListState} from '../../../state/list.state';
+import {rxEffects} from "@rx-angular/state/effects";
 
 interface Actions {
   submit: void;
@@ -27,30 +28,15 @@ const enum FormMode {
 @Injectable({
   providedIn: 'root',
 })
-export class ListCreatePageAdapter extends RxState<{
-  mode: FormMode;
-  request: TMDBListCreateUpdateParams;
-}> {
-  private readonly state = inject(ListState);
-  private readonly detailsAdapter = inject(ListDetailAdapter);
-  readonly ui = new RxActionFactory<Actions>().create();
+export class ListCreatePageAdapter {
+  private readonly listState = inject(ListState);
 
-  readonly showHeader$ = this.select(
-    map((state) => state.mode === FormMode.Create)
-  );
-  readonly name$ = this.select('request', 'name');
-  readonly description$ = this.select('request', 'description');
-  readonly valid$ = this.select(map((state) => !!state?.request?.name?.length));
-  readonly private$ = this.select('request', 'private');
+  private readonly state = rxState<{
+    mode: FormMode;
+    request: TMDBListCreateUpdateParams;
+  }>(({connect}) => {
 
-  private readonly submitEvent$ = this.ui.submit$.pipe(
-    withLatestFrom(this.select())
-  );
-
-  constructor() {
-    super();
-
-    this.connect('request', this.ui.update$, (state, update) => {
+    connect('request', this.ui.update$, (state, update) => {
       if (update['private']) {
         update['private'] = JSON.parse(update['private']);
       }
@@ -58,7 +44,7 @@ export class ListCreatePageAdapter extends RxState<{
       return patch(state.request, update);
     });
 
-    this.connect(
+    connect(
       this.detailsAdapter.listDetails$.pipe(
         map((list) => ({
           request: {
@@ -80,20 +66,36 @@ export class ListCreatePageAdapter extends RxState<{
         })
       )
     );
+  });
+  private readonly detailsAdapter = inject(ListDetailAdapter);
+  readonly ui = rxActions<Actions>();
 
-    this.hold(this.submitEvent$, ([, state]) => {
+  readonly showHeader$ = this.state.select(
+    map((state) => state.mode === FormMode.Create)
+  );
+  readonly name$ = this.state.select('request', 'name');
+  readonly description$ = this.state.select('request', 'description');
+  readonly valid$ = this.state.select(map((state) => !!state?.request?.name?.length));
+  readonly private$ = this.state.select('request', 'private');
+
+  private readonly submitEvent$ = this.ui.submit$.pipe(
+    withLatestFrom(this.state.select())
+  );
+
+  constructor() {
+    rxEffects(e => e.register(this.submitEvent$, ([, state]) => {
       if (state.mode === 'edit') {
         this.detailsAdapter.ui.listInfoUpdate(state.request);
       }
 
       if (state.mode === 'create') {
-        this.state.createList(this.get('request'));
+        this.listState.createList(this.state.get('request'));
       }
-    });
+    }));
   }
 
   resetForm() {
-    this.set({
+    this.state.set({
       mode: FormMode.Create,
       request: {
         name: '',

@@ -1,7 +1,8 @@
 import {DOCUMENT} from '@angular/common';
 import {ChangeDetectionStrategy, Component, inject, ViewEncapsulation,} from '@angular/core';
-import {RxState} from '@rx-angular/state';
 import {RxLet} from '@rx-angular/template/let';
+import {rxState} from '@rx-angular/state';
+import {rxEffects} from "@rx-angular/state/effects";
 
 @Component({
   standalone: true,
@@ -46,16 +47,14 @@ import {RxLet} from '@rx-angular/template/let';
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.Emulated,
 })
-export class DarkModeToggleComponent extends RxState<{
-  isLightTheme: boolean;
-}> {
-  isLightTheme$ = this.select('isLightTheme');
+export class DarkModeToggleComponent {
+  state = rxState<{ isLightTheme: boolean }>(({set}) => {
+    set({ isLightTheme: true });
+  });
+  isLightTheme$ = this.state.select('isLightTheme');
+  effects = rxEffects(e => e.
+  register(this.isLightTheme$, this.toggleTheme));
   private readonly document = inject(DOCUMENT);
-  constructor() {
-    super();
-    this.set({ isLightTheme: true });
-    this.hold(this.isLightTheme$, this.toggleTheme);
-  }
 
   toggleTheme = (isLightTheme: boolean): void => {
     if (isLightTheme) {
@@ -68,6 +67,6 @@ export class DarkModeToggleComponent extends RxState<{
   };
 
   setChecked(isLightTheme: boolean): void {
-    this.set({ isLightTheme });
+    this.state.set({ isLightTheme });
   }
 }

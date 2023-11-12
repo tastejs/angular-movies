@@ -4,7 +4,6 @@ import {
   withDisabledInitialNavigation,
   withInMemoryScrolling,
 } from '@angular/router';
-import { RxActionFactory } from '@rx-angular/state/actions';
 import { ROUTES } from './routes';
 import { withGobalStateInitializer } from './state/state-app-initializer.provider';
 import { provideClientHydration } from '@angular/platform-browser';
@@ -33,8 +32,6 @@ const appConfig: ApplicationConfig = {
         scrollPositionRestoration: 'top',
       })
     ),
-    // global actions
-    RxActionFactory,
     /**
      * **🚀 Perf Tip for LCP, TTI:**
      *

@@ -1,8 +1,9 @@
-import {RxState} from '@rx-angular/state';
+import {rxState} from '@rx-angular/state';
 import {Directive, inject, Input, Type, ViewContainerRef,} from '@angular/core';
 import {RxInputType} from '../../cdk/input-type.typing';
 import {coerceObservable} from '../../cdk/coerceObservable';
 import {distinctUntilChanged} from 'rxjs';
+import {rxEffects} from "@rx-angular/state/effects";
 
 /**
  * @example
@@ -30,26 +31,22 @@ import {distinctUntilChanged} from 'rxjs';
   // eslint-disable-next-line @angular-eslint/directive-selector
   selector: '[lazy]',
 })
-export class LazyDirective extends RxState<{
-  component: Type<unknown>;
-}> {
+export class LazyDirective {
+  private readonly state = rxState<{ component: Type<unknown> }>();
   private readonly vCR: ViewContainerRef = inject(ViewContainerRef);
-
-  @Input({required: true})
-  set lazy(component: RxInputType<Type<unknown>>) {
-    this.connect('component', coerceObservable(component));
-  }
-
   constructor() {
-    super();
-
-    this.hold(
+    rxEffects(e => e.
+    register(
       // avoid recreation of a component with the same class (distinctUntilChanged)
-      this.select('component').pipe(distinctUntilChanged()),
+      this.state.select('component').pipe(distinctUntilChanged()),
       (c) => {
         this.vCR.clear();
         this.vCR.createComponent(c);
       }
-    );
+    ));
+  }
+  @Input({required: true})
+  set lazy(component: RxInputType<Type<unknown>>) {
+    this.state.connect('component', coerceObservable(component));
   }
 }

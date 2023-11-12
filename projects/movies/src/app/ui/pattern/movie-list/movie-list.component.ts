@@ -1,8 +1,8 @@
 import {NgOptimizedImage} from '@angular/common';
-import {RxState} from '@rx-angular/state';
-import {ChangeDetectionStrategy, Component, inject, Input, Output, ViewEncapsulation,} from '@angular/core';
+import {rxState} from '@rx-angular/state';
+import {ChangeDetectionStrategy, Component, Input, Output, ViewEncapsulation,} from '@angular/core';
 import {filter, map, Observable} from 'rxjs';
-import {RxActionFactory} from '@rx-angular/state/actions';
+import {rxActions} from '@rx-angular/state/actions';
 import {coerceObservable} from '../../../shared/cdk/coerceObservable';
 import {RxInputType} from '../../../shared/cdk/input-type.typing';
 import {RouterLink} from '@angular/router';
@@ -15,7 +15,7 @@ import {RxIf} from '@rx-angular/template/if';
 import {Movie} from '../../../state/movie.state';
 
 type UiActions = { paginate: boolean };
-
+type MovieListState = { movies?: Movie[]; numPriority: number };
 @Component({
   standalone: true,
   imports: [
@@ -76,14 +76,12 @@ type UiActions = { paginate: boolean };
     </ng-template>
   `,
   styleUrls: ['./movie-list.component.scss'],
-  providers: [RxState, RxActionFactory],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.Emulated,
 })
 export class MovieListComponent {
-  private readonly state =
-    inject<RxState<{ movies?: Movie[]; numPriority: number }>>(RxState);
-  ui = this.actions.create();
+  protected readonly ui = rxActions<UiActions>();
+  private readonly state = rxState<MovieListState>(({set}) => set({ numPriority: 2 }));
 
   numPriority() {
     return this.state.get('numPriority');
@@ -115,10 +113,6 @@ export class MovieListComponent {
   @Output() readonly paginate: Observable<true> = this.ui.paginate$.pipe(
     filter(Boolean)
   );
-
-  constructor(private actions: RxActionFactory<UiActions>) {
-    this.state.set({ numPriority: 2 });
-  }
 
   trackByMovieId(_: number, movie: Movie) {
     return movie.id;

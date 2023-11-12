@@ -1,5 +1,5 @@
 import { inject, Injectable } from '@angular/core';
-import { RxState } from '@rx-angular/state';
+import { rxState } from '@rx-angular/state';
 import { map } from 'rxjs';
 import { W500H282 } from '../../../data-access/images/image-sizes';
 
@@ -19,29 +19,25 @@ export interface AccountListPageAdapterState {
 @Injectable({
   providedIn: 'root',
 })
-export class AccountListPageAdapter extends RxState<AccountListPageAdapterState> {
+export class AccountListPageAdapter {
+  private readonly accountState = inject(AccountState);
   private readonly list = inject(ListState);
-
-  constructor() {
-    super();
-    const accountState = inject(AccountState);
-    this.connect(
+  private readonly state = rxState<AccountListPageAdapterState>(({connect}) => {
+    connect(
       'lists',
-      accountState.accountLists$.pipe(
-        map((lists) =>
-          lists.map((l) =>
+      this.accountState.accountLists$.pipe(
+        map((lists) => lists.map((l) =>
             addImageTag(l, {
               pathProp: 'backdrop_path',
               dims: W500H282,
               fallback: MY_LIST_FALLBACK,
             })
-          )
-        )
-      )
-    );
+          ))
+      ));
 
-    this.connect('lists', this.list.deleteListSignal$, (state, id) =>
+    connect('lists', this.list.deleteListSignal$, (state, id) =>
       state.lists?.filter((l) => l.id !== +id)
     );
-  }
+  });
+  select = this.state.select;
 }
