@@ -1,12 +1,10 @@
+import { NgClass } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
   Input,
-  TrackByFunction,
   ViewEncapsulation,
 } from '@angular/core';
-import { trackByIndex } from '../../../shared/cdk/track-by';
-import { NgClass } from '@angular/common';
 
 const range = 10;
 const numStars = 5;
@@ -47,7 +45,6 @@ export class StarRatingComponent {
   stars: number[] = starsArray;
   @Input() showRating = false;
   tooltipText = `0 average rating`;
-  trackByIndex: TrackByFunction<number> = trackByIndex();
 
   private _rating = 5;
   @Input({ required: true })
