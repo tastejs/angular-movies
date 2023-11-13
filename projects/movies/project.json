@@ -2,21 +2,12 @@
   "name": "movies",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "application",
-  "generators": {
-    "@schematics/angular:component": {
-      "style": "scss",
-      "changeDetection": "OnPush"
-    },
-    "@schematics/angular:application": {
-      "strict": true
-    }
-  },
   "sourceRoot": "projects/movies/src",
   "targets": {
     "build": {
       "executor": "@angular-devkit/build-angular:application",
       "options": {
-        "outputPath": "dist/projects/movies/browser",
+        "outputPath": "dist/projects/movies",
         "index": "projects/movies/src/index.html",
         "browser": "projects/movies/src/main.ts",
         "tsConfig": "projects/movies/tsconfig.app.json",
@@ -30,7 +21,14 @@
           "projects/movies/src/_routes.json"
         ],
         "styles": ["projects/movies/src/styles.scss"],
-        "scripts": []
+        "scripts": [],
+        "server": "projects/movies/src/main.server.ts",
+        "prerender": {
+          "routesFile": "projects/movies/prerender-routes.txt"
+        },
+        "ssr": {
+          "entry": "projects/movies/server.ts"
+        }
       },
       "configurations": {
         "development": {
@@ -51,6 +49,7 @@
         },
         "production": {
           "serviceWorker": "projects/movies/src/ngsw-config.json",
+          "outputHashing": "all",
           "fileReplacements": [
             {
               "replace": "projects/movies/src/environments/environment.ts",
@@ -188,6 +187,15 @@
         }
       },
       "defaultConfiguration": "production"
+    }
+  },
+  "generators": {
+    "@schematics/angular:component": {
+      "style": "scss",
+      "changeDetection": "OnPush"
+    },
+    "@schematics/angular:application": {
+      "strict": true
     }
   },
   "tags": ["scope:client", "type:app"]

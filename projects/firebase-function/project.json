@@ -3,7 +3,6 @@
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "projects/firebase-function/src",
   "projectType": "application",
-  "implicitDependencies": ["ng-universal-express"],
   "targets": {
     "build": {
       "executor": "@nx/webpack:webpack",
