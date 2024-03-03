@@ -87,13 +87,7 @@ Clone and install the dependencies for `angular-movies` locally:
 
 ## Running locally
 
-- `npm run build:dev`: dev build
-- `npm run build:prod`: production build
-- `npm run build:prod:ssr`: production build for SSR
-- `npm run start`: serve the project locally for development
-- `npm run start:ssr:dev`: serve the project locally SSR for development
-- `npm run start:ssr:prod`: serve the project locally SSR for production
-- `npm run analyze:bundlesize`: bundle size analysis
+- `nx run movies:serve`: dev server
 
 ## Tech Stack
 
