@@ -1,7 +1,7 @@
 <article *rxLet="personCtx$; let personCtx">
   <ng-container *ngIf="personCtx?.value as person; else loading">
     <ui-detail-grid>
-      <div detailGridMedia>
+      <ng-template #detailGridMedia>
         <img
           class="aspectRatio-2-3 fit-cover"
           [ngSrc]="person.imgSrc"
@@ -14,8 +14,8 @@
           [title]="person?.name"
           data-uf="hero-img"
         />
-      </div>
-      <div detailGridDescription>
+      </ng-template>
+      <ng-template #detailGridDescription>
         <header>
           <h1>{{ person.name }}</h1>
           <h2>{{ person.birthday }}</h2>
@@ -39,7 +39,7 @@
             <fast-svg name="back" size="1em"></fast-svg>&nbsp; Back
           </button>
         </section>
-      </div>
+      </ng-template>
     </ui-detail-grid>
   </ng-container>
   <ng-template #loading>
