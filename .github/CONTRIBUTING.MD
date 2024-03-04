@@ -53,4 +53,4 @@ The `<type>` and `<summary>` fields are mandatory, the `(<scope>)` field is opti
 
 ### Commit Message Details
 
-See `commitlint.config.js` for details.
+See `commitlint.config.cjs` for details.

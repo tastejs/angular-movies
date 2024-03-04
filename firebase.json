@@ -35,7 +35,7 @@
       "**/LICENSE",
       "**/CONTRIBUTING.md",
       "**/README.md",
-      "**/commitlint.config.js",
+      "**/commitlint.config.cjs",
       "**/database.rules.json",
       "**/firebase-debug.log",
       "**/firebase.function.json",
