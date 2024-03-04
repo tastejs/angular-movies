@@ -30,18 +30,22 @@ const enum FormMode {
 })
 export class ListCreatePageAdapter {
   private readonly listState = inject(ListState);
-
+  private readonly detailsAdapter = inject(ListDetailAdapter);
+  readonly ui = rxActions<Actions>();
   private readonly state = rxState<{
     mode: FormMode;
     request: TMDBListCreateUpdateParams;
   }>(({ connect }) => {
-    connect('request', this.ui.update$, (state, update) => {
-      if (update['private']) {
-        update['private'] = JSON.parse(update['private']);
-      }
+    console.log('this.ui.update$', this.ui);
+    if (this.ui) {
+      connect('request', this.ui.update$, (state, update) => {
+        if (update['private']) {
+          update['private'] = JSON.parse(update['private']);
+        }
 
-      return patch(state.request, update);
-    });
+        return patch(state.request, update);
+      });
+    }
 
     connect(
       this.detailsAdapter.listDetails$.pipe(
@@ -66,8 +70,6 @@ export class ListCreatePageAdapter {
       )
     );
   });
-  private readonly detailsAdapter = inject(ListDetailAdapter);
-  readonly ui = rxActions<Actions>();
 
   readonly showHeader$ = this.state.select(
     map((state) => state.mode === FormMode.Create)

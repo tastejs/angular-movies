@@ -39,6 +39,22 @@ export type MovieSearchResult = TMDBMovieModel & ImageTag;
   providedIn: 'root',
 })
 export class ListItemsEditAdapter {
+  readonly ui = rxActions<Actions>();
+  readonly searchResponse$ = this.ui.search$.pipe(
+    distinctUntilChanged(),
+    filter(Boolean),
+    exhaustMap((request) => this.moviesResource.queryMovie(request)),
+    map((movies) =>
+      movies.map((m) =>
+        addImageTag(
+          { ...m, inList: false },
+          { pathProp: 'poster_path', dims: W92H138 }
+        )
+      )
+    )
+  );
+  private detailsAdapter = inject(ListDetailAdapter);
+
   private state = rxState<{
     id: number;
     items: Record<number, Partial<TMDBMovieDetailsModel>>;
@@ -76,9 +92,7 @@ export class ListItemsEditAdapter {
     }));
   });
   private listState = inject(ListState);
-  private detailsAdapter = inject(ListDetailAdapter);
   private moviesResource = inject(MovieResource);
-  readonly ui = rxActions<Actions>();
 
   readonly srcset = '92w, 154w, 185w, 342w, 500w, 780w';
 
@@ -99,21 +113,6 @@ export class ListItemsEditAdapter {
   readonly deleteMovieEvent$ = this.ui.deleteMovie$.pipe(
     withLatestFrom(this.state.select('id'))
   );
-
-  readonly searchResponse$ = this.ui.search$.pipe(
-    distinctUntilChanged(),
-    filter(Boolean),
-    exhaustMap((request) => this.moviesResource.queryMovie(request)),
-    map((movies) =>
-      movies.map((m) =>
-        addImageTag(
-          { ...m, inList: false },
-          { pathProp: 'poster_path', dims: W92H138 }
-        )
-      )
-    )
-  );
-
   constructor() {
     rxEffects(({ register }) => {
       register(this.addMovieEvent$, this.listState.addMovieToList);

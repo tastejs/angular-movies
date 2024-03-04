@@ -1,13 +1,12 @@
 import { Injectable } from '@angular/core';
 import { SvgLoadStrategy } from '@push-based/ngx-fast-svg';
-import { readFile } from 'node:fs';
-import { join, resolve } from 'node:path';
-import { Observable } from 'rxjs';
-import { cwd } from 'node:process';
+import { Observable, of } from 'rxjs';
 
 @Injectable()
 export class IconLoadStrategySsr implements SvgLoadStrategy {
   load(url: string): Observable<string> {
+    return of(url);
+    /*
     return new Observable<string>((observer) => {
       const fullIconPath = join(
         cwd(),
@@ -31,5 +30,6 @@ export class IconLoadStrategySsr implements SvgLoadStrategy {
         }
       });
     });
+*/
   }
 }
