@@ -6,6 +6,7 @@
   "engines": {
     "node": "20"
   },
+  "type": "module",
   "scripts": {
     "nx": "nx",
     "start": "nx run movies:serve:development",

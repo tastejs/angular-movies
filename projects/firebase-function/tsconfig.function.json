@@ -1,26 +1,21 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
-    "lib": [
-      "es6",
-      "dom",
-      "es2015",
-      "es2017"
-    ],
-    "module": "commonjs",
+    "lib": ["es6", "dom", "es2015", "es2017"],
+    "module": "ESNext",
     "noImplicitReturns": true,
     "outDir": "../../dist/projects/movies/server",
     "sourceMap": false,
-    "target": "es2019",
+    "target": "ES2022",
     "allowJs": true,
-    "noImplicitAny": false,
+    "noImplicitAny": true,
     "strict": true,
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "paths": {
+      "server": ["./server"]
+    },
+    "types": ["node"]
   },
-  "files": [
-    "src/index.ts"
-  ],
-  "include": [
-    "src/index.ts"
-  ]
+  "files": ["src/index.ts"],
+  "include": ["src/index.ts"]
 }

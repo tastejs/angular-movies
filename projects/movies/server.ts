@@ -8,8 +8,8 @@ import bootstrap from './src/main.server';
 import compressionModule from 'compression';
 import serverTiming from 'server-timing';
 
-// The Express app is exported so that it can be used by serverless Functions.
-export function app(): express.Express {
+// The Express app is default exported, so that it can be used by serverless Functions.
+export default function app(): express.Express {
   const server = express();
   const serverDistFolder = dirname(fileURLToPath(import.meta.url));
   const browserDistFolder = resolve(serverDistFolder, '../browser');
