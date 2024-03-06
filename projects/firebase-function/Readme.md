@@ -34,7 +34,7 @@ How does it currently work:
 
 ATM
 
-##       
+##
 
 - The root `package.json` is used to execute the function because we dont want to manually maintain the needed
   dependencies
@@ -50,7 +50,7 @@ const t = {
     "source": ".",
     // In general the ignore paths are somehow broken:
     // - we can't use negotiation "!". Therefore we have to specifi all manually
-    // - every patter is through all paths so === `./node_modules/**` === `node_modules/**` === `**/node_modules/**`  
+    // - every patter is through all paths so === `./node_modules/**` === `node_modules/**` === `**/node_modules/**`
     //   therefore we put **/ everywhere to make it clear
     "ignore": [
       // Ignores all files starting with "." (folder too?)
@@ -65,10 +65,9 @@ const t = {
       "**/LICENSE",
       "**/CONTRIBUTING.md",
       "**/README.md",
-      "**/commitlint.config.js",
+      "**/commitlint.config.cjs",
       "**/database.rules.json",
       "**/firebase-debug.log",
-      "**/firebase.function.json",
       "**/firebase.json",
       "**/jest.config.ts",
       "**/jest.preset.js",
@@ -80,7 +79,7 @@ const t = {
     ]
   }
 }
-``` 
+```
 
 - Github action
 
@@ -89,5 +88,5 @@ As we want to have independent configuration filed (and separate deployments)
 we splitted the initial `firebase.json` and extracted the configuration for the function
 into a separate file `firebase.function.json` that we reference when using the `firebase` CLI.
 We have to keep the main `firebase.json` as is as it's name is hardcoded in the firebase action.
-We have to keep the config files at root level because they reference `packag.json`
+We have to keep the config files at root level because they reference `package.json`
 We can not just do it over the CLI as we need the comment in the PR
