@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { SvgLoadStrategy } from '@push-based/ngx-fast-svg';
-import { Observable, of } from 'rxjs';
+import { cwd } from 'node:process';
+import { Observable } from 'rxjs';
+import { join, resolve } from 'node:path';
+import { readFileSync } from 'node:fs';
 
 @Injectable()
 export class IconLoadStrategySsr implements SvgLoadStrategy {
   load(url: string): Observable<string> {
-    return of(url);
-    /*
     return new Observable<string>((observer) => {
       const fullIconPath = join(
         cwd(),
@@ -19,17 +20,8 @@ export class IconLoadStrategySsr implements SvgLoadStrategy {
         `${url}`
       );
 
-      // log all current folder content
-      console.log('cwd', cwd());
-
-      readFile(resolve(fullIconPath), { encoding: 'utf8' }, (error, data) => {
-        if (error) {
-          observer.error(error);
-        } else {
-          observer.next(data);
-        }
-      });
+      const icon = readFileSync(resolve(fullIconPath), 'utf-8');
+      observer.next(icon);
     });
-*/
   }
 }

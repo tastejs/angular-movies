@@ -63,9 +63,10 @@ type MovieListState = { movies?: Movie[]; numPriority: number };
           [height]="movie.imgHeight"
           alt="poster movie"
           [title]="movie.title"
+          style="view-transition-name: {{ movie.id }}"
         />
         <div class="movies-list--details">
-          <h3 class="movies-list--details-title">
+          <h3 class="movies-list--details-title" style="view-transition-name: {{ movie.id + 'title' }}">
             {{ movie.title }}
           </h3>
           <ui-star-rating [rating]="movie.vote_average"></ui-star-rating>

@@ -1,4 +1,4 @@
-import { APP_INITIALIZER, ApplicationConfig, NgZone } from '@angular/core';
+import { APP_INITIALIZER, ApplicationConfig, NgZone, ɵprovideZonelessChangeDetection as provideZonelessChangeDetection } from '@angular/core';
 import { provideFastSVG } from '@push-based/ngx-fast-svg';
 import {
   provideHttpClient,
@@ -16,7 +16,7 @@ import { provideClientHydration } from '@angular/platform-browser';
 import {
   provideRouter,
   withDisabledInitialNavigation,
-  withInMemoryScrolling,
+  withInMemoryScrolling, withViewTransitions
 } from '@angular/router';
 import { ROUTES } from './routes';
 import { withGobalStateInitializer } from './state/state-app-initializer.provider';
@@ -48,7 +48,8 @@ export const appConfig: ApplicationConfig = {
          * also: otherwise infinite scroll isn't working properly
          */
         scrollPositionRestoration: 'top',
-      })
+      }),
+      withViewTransitions()
     ),
     /**
      * **🚀 Perf Tip for LCP, TTI:**
@@ -97,5 +98,7 @@ export const appConfig: ApplicationConfig = {
       // or after 30 seconds (whichever comes first).
       registrationStrategy: 'registerWhenStable:30000',
     }),
+
+    provideZonelessChangeDetection(),
   ],
 };

@@ -17,6 +17,7 @@
     -->
     <img
       class="aspectRatio-4-3 gradient"
+      style="view-transition-name: {{ movie.id }}"
       [ngSrc]="movie.imgSrc"
       [ngSrcset]="adapter.srcset"
       width="355"
@@ -25,7 +26,7 @@
       [title]="movie.title"
     />
     <div class="movies-list--details">
-      <h3 class="movies-list--details-title">
+      <h3 class="movies-list--details-title" style="view-transition-name: {{ movie.id + 'title' }}">
         {{ movie.title }}
         <h2 class="ribbon">
           {{ movie.selected ? 'Selected' : 'Select' }}

@@ -27,6 +27,12 @@ interface Actions {
   providedIn: 'root',
 })
 export class PersonState implements AppInitializer {
+  private personResource = inject(PersonResource);
+
+  private actions = rxActions<Actions>();
+  fetchPerson = this.actions.fetchPerson;
+  sortMovies = this.actions.sortMovies;
+
   private readonly state = rxState<State>((s) =>
     s.connect(
       'person',
@@ -49,10 +55,6 @@ export class PersonState implements AppInitializer {
     )
   );
 
-  private personResource = inject(PersonResource);
-  private actions = rxActions<Actions>();
-  fetchPerson = this.actions.fetchPerson;
-  sortMovies = this.actions.sortMovies;
 
   personByIdCtx = (id: string) =>
     this.state.select(
