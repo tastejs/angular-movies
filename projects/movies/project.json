@@ -25,6 +25,9 @@
         "server": "projects/movies/src/main.server.ts",
         "ssr": {
           "entry": "projects/movies/server.ts"
+        },
+        "prerender": {
+          "routesFile": "projects/movies/prerender-routes.txt"
         }
       },
       "configurations": {
