@@ -1,7 +1,14 @@
-import { afterNextRender, inject, Injectable, NgZone } from '@angular/core';
+import {
+  afterNextRender,
+  inject,
+  Injectable,
+  NgZone,
+  PLATFORM_ID,
+} from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { isZonePresent } from './is-zone-present';
 import { rxEffects } from '@rx-angular/state/effects';
+import { isPlatformServer } from '@angular/common';
 
 /**
  * A small service encapsulating the hacks needed for routing (and bootstrapping) in zone-less applications
@@ -10,11 +17,13 @@ import { rxEffects } from '@rx-angular/state/effects';
   providedIn: 'root',
 })
 export class ZonelessRouting {
+  private platformId = inject(PLATFORM_ID);
   private readonly effects = rxEffects();
   private readonly router = inject(Router);
   private readonly ngZone = inject(NgZone);
 
   init() {
+    if (isPlatformServer(this.platformId)) return;
     /**
      * **🚀 Perf Tip:**
      *

@@ -48,6 +48,7 @@
   .profile-menu-content {
     visibility: hidden;
     width: 200px;
+    min-height: 50px;
     background: var(--palette-background-default);
     pointer-events: none;
     position: absolute;

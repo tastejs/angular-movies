@@ -44,16 +44,19 @@ export type MovieCast = TMDBMovieCastModel & ImageTag;
   providedIn: 'root',
 })
 export class ListDetailAdapter {
+  private readonly routerState = inject(RouterState);
+  readonly routerListId$ = this.routerState.select(map((state) => state?.type));
   private readonly state = rxState<{
     id: string;
-  }>((s) => s.connect('id', this.routerListId$));
+  }>(({ connect }) => {
+    connect('id', this.routerListId$);
+  });
+
   private readonly listState = inject(ListState);
-  private readonly routerState = inject(RouterState);
+
   readonly ui = rxActions<Actions>();
 
   readonly srcset = '154w, 185w, 342w, 500w, 780w';
-
-  readonly routerListId$ = this.routerState.select(map((state) => state?.type));
 
   private readonly listInfoUpdateEvent$ = this.ui.listInfoUpdate$.pipe(
     withLatestFrom(this.state.select('id'))

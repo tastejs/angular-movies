@@ -59,6 +59,9 @@ export class PersonDetailAdapter {
   private readonly routerState = inject(RouterState);
   private readonly personState = inject(PersonState);
   private readonly discoverResource = inject(DiscoverResource);
+
+  private readonly actions = rxActions<Actions>();
+
   private readonly state = rxState<PersonDetailPageAdapterState>(
     ({ connect }) => {
       connect('showSorting', this.actions.toggleSorting$);
@@ -68,7 +71,6 @@ export class PersonDetailAdapter {
       }));
     }
   );
-  private readonly actions = rxActions<Actions>();
   readonly set = this.state.set;
   readonly paginate = this.actions.paginate;
   readonly toggleSorting = this.actions.toggleSorting;

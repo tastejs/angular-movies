@@ -3,19 +3,20 @@
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "projects/firebase-function/src",
   "projectType": "application",
-  "implicitDependencies": ["ng-universal-express"],
   "targets": {
     "build": {
-      "executor": "@nx/webpack:webpack",
+      "executor": "@nx/esbuild:esbuild",
       "outputs": ["{options.outputPath}"],
       "options": {
-        "target": "node",
-        "compiler": "tsc",
-        "deleteOutputPath": false,
-        "outputPath": "./dist/projects/movies/server",
-        "outputFileName": "index.js",
         "main": "projects/firebase-function/src/index.ts",
-        "tsConfig": "./projects/firebase-function/tsconfig.function.json"
+        "outputPath": "./dist/projects/movies/server",
+        "deleteOutputPath": false,
+        "minify": true,
+        "outputFileName": "index.js",
+        "tsConfig": "./projects/firebase-function/tsconfig.function.json",
+        "esbuildOptions": {
+          "external": ["server"]
+        }
       },
       "configurations": {
         "production": {
@@ -76,7 +77,7 @@
       "dependsOn": ["build"],
       "options": {
         "commands": [
-          "npx firebase --project=angular-movies --config=firebase.function.json deploy --only=functions "
+          "npx firebase --project=angular-movies --config=firebase.json deploy --only=functions "
         ],
         "parallel": false
       }
@@ -85,7 +86,7 @@
       "executor": "nx:run-commands",
       "options": {
         "commands": [
-          "npx firebase --project=angular-movies --config=firebase.function.json emulators:start"
+          "npx firebase --project=angular-movies --config=firebase.json emulators:start"
         ],
         "parallel": false
       }

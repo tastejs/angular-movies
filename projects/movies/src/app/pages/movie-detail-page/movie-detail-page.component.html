@@ -3,6 +3,7 @@
     <ui-detail-grid [style.opacity]="!!movie ? 1 : 0">
       <div detailGridMedia>
         <img
+          style="view-transition-name: {{ movie.id }}"
           class="aspectRatio-2-3 fit-cover"
           [ngSrc]="movie.imgSrc"
           [ngSrcset]="movie.imgSrcset"
@@ -17,7 +18,7 @@
       </div>
       <div detailGridDescription>
         <header>
-          <h1 data-uf="header-main">{{ movie.title }}</h1>
+          <h1 data-uf="header-main" style="view-transition-name: {{ movie.id + 'title' }}">{{ movie.title }}</h1>
           <h2 data-uf="header-sub">{{ movie.tagline }}</h2>
         </header>
         <section class="movie-detail--basic-infos">
@@ -170,25 +171,31 @@
       </div>
     </ui-detail-grid>
     @if (!movie) {
-    <div class="loader"></div>
+      <div class="loader"></div>
     }
   </ng-container>
 </article>
-<article class="recommendations">
-  <header>
-    <h1>Recommended</h1>
-    <h2>Movies</h2>
-  </header>
-  <ng-container
-    *rxLet="infiniteScrollRecommendations$; let ctx; strategy: 'immediate'"
-  >
-    <ui-movie-list
-      (paginate)="paginateRecommendations()"
-      [movies]="ctx.results"
-      [withImgPriority]="0"
-    />
-    @if (ctx.loading) {
-    <div class="loader"></div>
-    }
-  </ng-container>
-</article>
+
+@defer (on viewport) {
+  <article class="recommendations">
+    <header>
+      <h1>Recommended</h1>
+      <h2>Movies</h2>
+    </header>
+    <ng-container
+      *rxLet="infiniteScrollRecommendations$; let ctx; strategy: 'immediate'"
+    >
+      <ui-movie-list
+        (paginate)="paginateRecommendations()"
+        [movies]="ctx.results"
+        [withImgPriority]="0"
+      />
+      @if (ctx.loading) {
+        <div class="loader"></div>
+      }
+    </ng-container>
+  </article>
+} @placeholder {
+  <div class="loader"></div>
+}
+

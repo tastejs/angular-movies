@@ -115,12 +115,12 @@ The shell has the following sections:
 - show description
 - show recommended movies
 
-### Account Freatures
+### Account Features
 
 - login as user and see authed menu options
 - logout as user ans see default menu options
 
-### Account Freatures Navigations
+### Account Features Navigations
 
 - navigate to [My lists](#My-lists) over account menu
 - navigate to [Lists detail](#List-detail) over my lists

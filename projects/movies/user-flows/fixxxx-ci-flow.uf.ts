@@ -1,6 +1,11 @@
-import {UserFlowContext, UserFlowInteractionsFn, UserFlowOptions, UserFlowProvider,} from '@push-based/user-flow';
-import {ensureRenderType} from '../../test-selectors/src';
-import {MovieListPageUFO} from "../../movies-user-flows/src";
+import {
+  UserFlowContext,
+  UserFlowInteractionsFn,
+  UserFlowOptions,
+  UserFlowProvider,
+} from '@push-based/user-flow';
+import { ensureRenderType } from 'test-selectors';
+import { MovieListPageUFO } from 'movies-ufo';
 
 const flowOptions: UserFlowOptions = {
   name: 'Ng Universal Express - HTML is already rendered (SSR + Pre-render)',
@@ -10,7 +15,7 @@ const flowOptions: UserFlowOptions = {
 const interactions: UserFlowInteractionsFn = async (
   context: UserFlowContext
 ): Promise<void> => {
-  const {flow, collectOptions, page} = context;
+  const { flow, collectOptions, page } = context;
   const url = `${collectOptions.url}/list/category/popular`;
   await page.setRequestInterception(true);
   const movieListPage = new MovieListPageUFO(context);
