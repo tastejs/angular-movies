@@ -1,11 +1,13 @@
-import {DOCUMENT} from '@angular/common';
-import {ChangeDetectionStrategy, Component, inject, ViewEncapsulation,} from '@angular/core';
-import {RxState} from '@rx-angular/state';
-import {RxLet} from '@rx-angular/template/let';
+import { DOCUMENT } from '@angular/common';
+import {
+  ChangeDetectionStrategy,
+  Component, effect,
+  inject, signal,
+  ViewEncapsulation
+} from '@angular/core';
 
 @Component({
   standalone: true,
-  imports: [RxLet],
   selector: 'ui-dark-mode-toggle',
   template: `
     <div class="dark-mode-toggle">
@@ -13,19 +15,18 @@ import {RxLet} from '@rx-angular/template/let';
         aria-label="Enable dark mode"
         type="button"
         class="light"
-        (click)="setChecked(true)"
+        (click)="isLightTheme.set(true)"
       >
         ☀
       </button>
 
       <span class="toggle">
         <input
-          *rxLet="isLightTheme$; let isLightTheme"
           class="toggle-track"
           type="checkbox"
           id="dark-mode"
-          [checked]="!isLightTheme"
-          (change)="setChecked(!isLightTheme)"
+          [checked]="!isLightTheme()"
+          (change)="isLightTheme.set(!isLightTheme())"
         />
         <label style="color: transparent" for="dark-mode">
           Toggle Switch
@@ -36,7 +37,7 @@ import {RxLet} from '@rx-angular/template/let';
         aria-label="Disable dark mode"
         type="button"
         class="dark"
-        (click)="setChecked(false)"
+        (click)="isLightTheme.set(false)"
       >
         ☾
       </button>
@@ -46,15 +47,15 @@ import {RxLet} from '@rx-angular/template/let';
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.Emulated,
 })
-export class DarkModeToggleComponent extends RxState<{
-  isLightTheme: boolean;
-}> {
-  isLightTheme$ = this.select('isLightTheme');
+export class DarkModeToggleComponent {
+  isLightTheme = signal(true);
+
   private readonly document = inject(DOCUMENT);
+
   constructor() {
-    super();
-    this.set({ isLightTheme: true });
-    this.hold(this.isLightTheme$, this.toggleTheme);
+    effect(() => {
+      this.toggleTheme(this.isLightTheme());
+    });
   }
 
   toggleTheme = (isLightTheme: boolean): void => {
@@ -66,8 +67,4 @@ export class DarkModeToggleComponent extends RxState<{
       this.document.body.classList.remove('light');
     }
   };
-
-  setChecked(isLightTheme: boolean): void {
-    this.set({ isLightTheme });
-  }
 }

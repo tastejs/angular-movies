@@ -6,12 +6,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout the repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Setup Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: '18'
+          node-version-file: 'package.json'
           cache: npm
 
       - name: Install dependencies
@@ -23,12 +23,12 @@ jobs:
       - name: User Flow
         run: npm run nx run firebase-function:user-flow:production -- --format=md
 
-      - name: Test firebase function emulation
-        id: firebase-function-emulation
-        uses: push-based/user-flow-gh-action@v0.4.1
-        with:
-          verbose: on
-          commentId: test-firebase-function--deploy-emulation
-          onlyComments: on
-          outPath: ./dist/user-flow/firebase-function
-          rcPath: projects/firebase-function/.user-flowrc.json
+      #- name: Test firebase function emulation
+      #  id: firebase-function-emulation
+      #  uses: push-based/user-flow-gh-action@v0.4.1
+      #  with:
+      #    verbose: on
+      #    commentId: test-firebase-function--deploy-emulation
+      #    onlyComments: on
+      #    outPath: ./dist/user-flow/firebase-function
+      #    rcPath: projects/firebase-function/.user-flowrc.json

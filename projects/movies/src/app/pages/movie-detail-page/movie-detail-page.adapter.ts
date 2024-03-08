@@ -1,37 +1,41 @@
-import {ErrorHandler, inject, Injectable} from '@angular/core';
-import {map, Observable, switchMap} from 'rxjs';
-import {RouterState} from '../../shared/router/router.state';
-import {Movie, MovieState} from '../../state/movie.state';
-import {getIdentifierOfTypeAndLayoutUtil} from '../../shared/router/get-identifier-of-type-and-layout.util';
-import {MovieResource} from '../../data-access/api/resources/movie.resource';
+import { inject, Injectable } from '@angular/core';
+import { map, Observable, switchMap } from 'rxjs';
+import { RouterState } from '../../shared/router/router.state';
+import { Movie, MovieState } from '../../state/movie.state';
+import { getIdentifierOfTypeAndLayoutUtil } from '../../shared/router/get-identifier-of-type-and-layout.util';
+import { MovieResource } from '../../data-access/api/resources/movie.resource';
 
-import {RxActionFactory} from '@rx-angular/state/actions';
-import {infiniteScroll} from '../../shared/cdk/infinite-scroll/infiniteScroll';
+import { rxActions } from '@rx-angular/state/actions';
+import { infiniteScroll } from '../../shared/cdk/infinite-scroll/infiniteScroll';
 
-import {WithContext} from '../../shared/cdk/loading/context.interface';
-import {withLoadingEmission} from '../../shared/cdk/loading/withLoadingEmissions';
-import {TMDBMovieModel} from '../../data-access/api/model/movie.model';
-import {addVideoTag} from '../../shared/cdk/video/video-tag.transform';
-import {addImageTag} from '../../shared/cdk/image/image-tag.transform';
-import {W154H205, W300H450, W44H66,} from '../../data-access/images/image-sizes';
-import {addLinkTag} from '../../shared/cdk/link/a-tag.transform';
-import {TMDBMovieCastModel} from '../../data-access/api/model/movie-credits.model';
-import {TMDBMovieDetailsModel} from '../../data-access/api/model/movie-details.model';
-import {LinkTag} from '../../shared/cdk/link/a-tag.interface';
-import {ImageTag} from '../../shared/cdk/image/image-tag.interface';
-import {VideoTag} from '../../shared/cdk/video/video.interface';
-import {RxEffects} from '@rx-angular/state/effects';
+import { WithContext } from '../../shared/cdk/loading/context.interface';
+import { withLoadingEmission } from '../../shared/cdk/loading/withLoadingEmissions';
+import { TMDBMovieModel } from '../../data-access/api/model/movie.model';
+import { addVideoTag } from '../../shared/cdk/video/video-tag.transform';
+import { addImageTag } from '../../shared/cdk/image/image-tag.transform';
+import {
+  W154H205,
+  W300H450,
+  W44H66,
+} from '../../data-access/images/image-sizes';
+import { addLinkTag } from '../../shared/cdk/link/a-tag.transform';
+import { TMDBMovieCastModel } from '../../data-access/api/model/movie-credits.model';
+import { TMDBMovieDetailsModel } from '../../data-access/api/model/movie-details.model';
+import { LinkTag } from '../../shared/cdk/link/a-tag.interface';
+import { ImageTag } from '../../shared/cdk/image/image-tag.interface';
+import { VideoTag } from '../../shared/cdk/video/video.interface';
+import { rxEffects } from '@rx-angular/state/effects';
 
 type Actions = { paginateRecommendations: void };
 
 @Injectable({
   providedIn: 'root',
 })
-export class MovieDetailAdapter extends RxEffects {
+export class MovieDetailAdapter {
+  private readonly actions = rxActions<Actions>();
   private readonly movieState = inject(MovieState);
   private readonly routerState = inject(RouterState);
   private readonly movieResource = inject(MovieResource);
-  private readonly actions = new RxActionFactory<Actions>().create();
   readonly paginateRecommendations = this.actions.paginateRecommendations;
 
   readonly routerMovieId$: Observable<string> = this.routerState.select(
@@ -42,9 +46,9 @@ export class MovieDetailAdapter extends RxEffects {
     switchMap(this.movieState.movieByIdCtx),
     map((ctx) => {
       ctx.value &&
-      ((ctx as unknown as { value: unknown }).value = transformToMovieDetail(
-        ctx.value
-      ));
+        ((ctx as unknown as { value: unknown }).value = transformToMovieDetail(
+          ctx.value
+        ));
       return ctx as unknown as WithContext<MovieDetail>;
     })
   );
@@ -65,15 +69,16 @@ export class MovieDetailAdapter extends RxEffects {
         (incrementedParams) =>
           this.movieResource.getMoviesRecommendations(id, incrementedParams),
         this.actions.paginateRecommendations$,
-        this.movieResource.getMoviesRecommendations(id, {page: 1})
+        this.movieResource.getMoviesRecommendations(id, { page: 1 })
       )
     ),
-    map((v) => ({...v, results: v?.results?.map(transformToMovieModel)}))
+    map((v) => ({ ...v, results: v?.results?.map(transformToMovieModel) }))
   );
 
-  constructor(errorHandler: ErrorHandler) {
-    super(errorHandler);
-    this.register(this.routerMovieId$, this.movieState.fetchMovie);
+  constructor() {
+    rxEffects((e) =>
+      e.register(this.routerMovieId$, this.movieState.fetchMovie)
+    );
   }
 }
 

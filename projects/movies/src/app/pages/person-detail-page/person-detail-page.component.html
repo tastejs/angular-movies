@@ -1,50 +1,50 @@
 <article *rxLet="personCtx$; let personCtx">
-  <ng-container *ngIf="personCtx?.value as person; else loading">
-    <ui-detail-grid>
-      <div detailGridMedia>
-        <img
-          class="aspectRatio-2-3 fit-cover"
-          [ngSrc]="person.imgSrc"
-          [ngSrcset]="person.imgSrcset"
-          [sizes]="person.imgSizes"
-          [width]="person.imgWidth"
-          [height]="person.imgHeight"
-          priority="high"
-          alt="poster movie"
-          [title]="person?.name"
-          data-uf="hero-img"
-        />
-      </div>
-      <div detailGridDescription>
-        <header>
-          <h1>{{ person.name }}</h1>
-          <h2>{{ person.birthday }}</h2>
-        </header>
-        <section>
-          <h3>The Biography</h3>
-          <p>{{ person.biography || 'There is no synopsis available...' }}</p>
-        </section>
-        <section class="movie-detail--ad-section-links">
-          <a
-            *ngIf="person.imdb_id"
-            class="btn"
-            target="_blank"
-            rel="noopener noreferrer"
-            [href]="'https://www.imdb.com/person/' + person.imdb_id"
-          >
-            IMDB
-            <fast-svg class="btn__icon" name="imdb"></fast-svg>
-          </a>
-          <button aria-label="Back" class="btn primary-button" (click)="back()">
-            <fast-svg name="back" size="1em"></fast-svg>&nbsp; Back
-          </button>
-        </section>
-      </div>
-    </ui-detail-grid>
-  </ng-container>
-  <ng-template #loading>
-    <div class="loader"></div>
-  </ng-template>
+  @if (personCtx?.value; as person) {
+  <ui-detail-grid>
+    <div detailGridMedia>
+      <img
+        class="aspectRatio-2-3 fit-cover"
+        [ngSrc]="person.imgSrc"
+        [ngSrcset]="person.imgSrcset"
+        [sizes]="person.imgSizes"
+        [width]="person.imgWidth"
+        [height]="person.imgHeight"
+        priority="high"
+        alt="poster movie"
+        [title]="person?.name"
+        data-uf="hero-img"
+      />
+    </div>
+    <div detailGridDescription>
+      <header>
+        <h1>{{ person.name }}</h1>
+        <h2>{{ person.birthday }}</h2>
+      </header>
+      <section>
+        <h3>The Biography</h3>
+        <p>{{ person.biography || 'There is no synopsis available...' }}</p>
+      </section>
+      <section class="movie-detail--ad-section-links">
+        @if (person.imdb_id) {
+        <a
+          class="btn"
+          target="_blank"
+          rel="noopener noreferrer"
+          [href]="'https://www.imdb.com/person/' + person.imdb_id"
+        >
+          IMDB
+          <fast-svg class="btn__icon" name="imdb" />
+        </a>
+        }
+        <button aria-label="Back" class="btn primary-button" (click)="back()">
+          <fast-svg name="back" size="1em" />&nbsp; Back
+        </button>
+      </section>
+    </div>
+  </ui-detail-grid>
+  } @else {
+  <div class="loader"></div>
+  }
 </article>
 <article>
   <header *rxLet="personCtx$; let p">
@@ -62,15 +62,16 @@
       (click)="toggleSorting(true)"
     />
     <ul class="options" [hidden]="!sorting.showSorting">
+      @for (option of sortOptions; track option) {
       <li
-        [ngClass]="{ selected: option.name === sorting.activeSorting }"
+        [class.selected]="option.name === sorting.activeSorting"
         class="option"
-        *ngFor="let option of sortOptions"
       >
         <button class="functionality-only-button" (click)="sortBy(option)">
           {{ option.name }}
         </button>
       </li>
+      }
     </ul>
     <button
       class="select-wrapper-overlay"
@@ -83,8 +84,9 @@
   <ng-container
     *rxLet="infiniteScrollRecommendations$; let ctx; strategy: 'immediate'"
   >
-    <ui-movie-list (paginate)="paginate()" [movies]="ctx.results">
-    </ui-movie-list>
-    <div *ngIf="ctx.loading" class="loader"></div>
+    <ui-movie-list (paginate)="paginate()" [movies]="ctx.results" />
+    @if (ctx.loading) {
+    <div class="loader"></div>
+    }
   </ng-container>
 </article>

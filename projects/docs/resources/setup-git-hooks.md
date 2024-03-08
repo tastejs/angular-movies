@@ -20,7 +20,7 @@
 
 9. Add pre-commit hook: `yarn husky -- add .husky/pre-commit "yarn lint-staged"`
 
-10. Add commitlint.config.js `echo module.exports = {extends: ['@commitlint/config-conventional']} > commitlint.config.js`
+10. Add commitlint.config.cjs `echo module.exports = {extends: ['@commitlint/config-conventional']} > commitlint.config.cjs`
 
 11. Add pre-commit hook: `yarn husky add .husky/commit-msg "yarn commitlint --edit $1"`
 

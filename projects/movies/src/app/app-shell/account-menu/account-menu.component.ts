@@ -1,43 +1,52 @@
-import {RxLet} from '@rx-angular/template/let';
-import {RxState} from '@rx-angular/state';
-import {ChangeDetectionStrategy, Component, inject, ViewEncapsulation,} from '@angular/core';
-import {RxActionFactory} from '@rx-angular/state/actions';
-import {AuthEffects} from '../../auth/auth.effects';
-import {RouterLink} from '@angular/router';
-import {RxEffects} from '@rx-angular/state/effects';
-import {RxIf} from '@rx-angular/template/if';
-import {AccountState} from '../../state/account.state';
-
-export const imports = [RouterLink, RxLet, RxIf];
-
-type Actions = {
-  signOut: Event;
-  signIn: Event;
-};
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+} from '@angular/core';
+import { AuthEffects } from '../../auth/auth.effects';
+import { RouterLink } from '@angular/router';
+import { AccountState } from '../../state/account.state';
+import { AsyncPipe } from '@angular/common';
+import { RxPush } from '@rx-angular/template/push';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 @Component({
   standalone: true,
-  imports: [RouterLink, RxIf, RxLet],
-  selector: 'ct-account-menu',
-  templateUrl: './account-menu.component.html',
+  imports: [RouterLink, AsyncPipe, RxPush],
+  selector: 'app-account-menu',
+  template: `
+    @if (loggedIn()) {
+      <div><a [routerLink]="['account/list/create']">Create New List</a></div>
+      <div><a [routerLink]="['account/my-lists']">My Lists</a></div>
+      <div>
+        <a
+          data-uf="profile-menu-item-signout"
+          (click)="authEffects.signOut()"
+          title="sign out"
+          [routerLink]="'/list/category/popular'">
+          Logout
+        </a>
+      </div>
+    } @else {
+      <div><p>Guest Profile</p></div>
+      <div>
+        <button
+          type="button"
+          class="functionality-only-button"
+          data-uf="profile-menu-item-login"
+          (click)="authEffects.signInStart()"
+          title="sign in">
+          Login
+        </button>
+      </div>
+    }
+  `,
   styleUrls: ['./account-menu.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  encapsulation: ViewEncapsulation.Emulated,
-  providers: [RxState, RxEffects],
 })
 export default class AccountMenuComponent {
-  private readonly effects = inject(RxEffects);
-  private readonly authEffects = inject(AuthEffects);
-  private readonly accountState = inject(AccountState);
-  private readonly state = inject<RxState<{ loggedIn: boolean }>>(RxState);
+  authEffects = inject(AuthEffects);
+  accountState = inject(AccountState);
 
-  ui = this.actionsF.create();
-
-  loggedIn$ = this.state.select('loggedIn');
-
-  constructor(private actionsF: RxActionFactory<Actions>) {
-    this.state.connect('loggedIn', this.accountState.loggedIn$);
-    this.effects.register(this.ui.signOut$, this.authEffects.signOut);
-    this.effects.register(this.ui.signIn$, this.authEffects.signInStart);
-  }
+  loggedIn = toSignal(this.accountState.loggedIn$, { initialValue: false })
 }

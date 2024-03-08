@@ -1,14 +1,17 @@
-import {RxState} from '@rx-angular/state';
-import {patch} from '@rx-angular/cdk/transformations';
-import {DestroyRef, inject, Injectable} from '@angular/core';
-import {map} from 'rxjs';
-import {optimizedFetch} from '../shared/cdk/optimized-fetch';
-import {RxActionFactory} from '@rx-angular/state/actions';
-import {withLoadingEmission} from '../shared/cdk/loading/withLoadingEmissions';
-import {DiscoverResource, TMDBDiscoverResponse,} from '../data-access/api/resources/discover.resource';
-import {AppInitializer} from '../shared/cdk/app-initializer';
-import {WithContext} from '../shared/cdk/loading/context.interface';
-import {pluck} from '../shared/cdk/get';
+import { rxState } from '@rx-angular/state';
+import { patch } from '@rx-angular/cdk/transformations';
+import { inject, Injectable } from '@angular/core';
+import { map } from 'rxjs';
+import { optimizedFetch } from '../shared/cdk/optimized-fetch';
+import { rxActions } from '@rx-angular/state/actions';
+import { withLoadingEmission } from '../shared/cdk/loading/withLoadingEmissions';
+import {
+  DiscoverResource,
+  TMDBDiscoverResponse,
+} from '../data-access/api/resources/discover.resource';
+import { AppInitializer } from '../shared/cdk/app-initializer';
+import { WithContext } from '../shared/cdk/loading/context.interface';
+import { pluck } from '../shared/cdk/get';
 
 export interface State {
   genreMovies: WithContext<Record<string, TMDBDiscoverResponse>>;
@@ -23,28 +26,17 @@ interface Actions {
 @Injectable({
   providedIn: 'root',
 })
-export class DiscoverState extends RxState<State> implements AppInitializer {
-  private readonly actionsF = new RxActionFactory<Actions>();
-  private readonly discoverResource = inject(DiscoverResource);
-  private actions = this.actionsF.create({
-    fetchDiscoverGenreMovies: String,
-    fetchDiscoverCastMovies: String,
-  });
-
+export class DiscoverState implements AppInitializer {
+  private readonly actions = rxActions<Actions>(({ transforms }) =>
+    transforms({
+      fetchDiscoverGenreMovies: String,
+      fetchDiscoverCastMovies: String,
+    })
+  );
   readonly fetchDiscoverGenreMovies = this.actions.fetchDiscoverGenreMovies;
 
-  readonly genreMoviesByIdSlice = (id: string) =>
-    this.select(
-      map(({ genreMovies: { value, loading } }) => ({
-        loading,
-        value: pluck(value, id),
-      }))
-    );
-
-  constructor() {
-    super();
-    inject(DestroyRef).onDestroy(() => this.actionsF.destroy());
-    this.connect(
+  private readonly state = rxState<State>(({ connect }) => {
+    connect(
       'genreMovies',
       this.actions.fetchDiscoverGenreMovies$.pipe(
         optimizedFetch(
@@ -68,7 +60,7 @@ export class DiscoverState extends RxState<State> implements AppInitializer {
       }
     );
 
-    this.connect(
+    connect(
       'personMovies',
       this.actions.fetchDiscoverCastMovies$.pipe(
         optimizedFetch(
@@ -91,7 +83,16 @@ export class DiscoverState extends RxState<State> implements AppInitializer {
         return resultState;
       }
     );
-  }
+  });
+  private readonly discoverResource = inject(DiscoverResource);
+
+  readonly genreMoviesByIdSlice = (id: string) =>
+    this.state.select(
+      map(({ genreMovies: { value, loading } }) => ({
+        loading,
+        value: pluck(value, id),
+      }))
+    );
 
   initialize(category: unknown): void {
     this.fetchDiscoverGenreMovies(category as string);

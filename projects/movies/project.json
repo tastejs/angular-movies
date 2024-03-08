@@ -2,23 +2,14 @@
   "name": "movies",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "application",
-  "generators": {
-    "@schematics/angular:component": {
-      "style": "scss",
-      "changeDetection": "OnPush"
-    },
-    "@schematics/angular:application": {
-      "strict": true
-    }
-  },
   "sourceRoot": "projects/movies/src",
   "targets": {
     "build": {
-      "executor": "@angular-devkit/build-angular:browser",
+      "executor": "@angular-devkit/build-angular:application",
       "options": {
-        "outputPath": "dist/projects/movies/browser",
+        "outputPath": "dist/projects/movies",
         "index": "projects/movies/src/index.html",
-        "main": "projects/movies/src/main.ts",
+        "browser": "projects/movies/src/main.ts",
         "tsConfig": "projects/movies/tsconfig.app.json",
         "inlineStyleLanguage": "scss",
         "namedChunks": true,
@@ -30,31 +21,36 @@
           "projects/movies/src/_routes.json"
         ],
         "styles": ["projects/movies/src/styles.scss"],
-        "scripts": []
+        "scripts": [],
+        "server": "projects/movies/src/main.server.ts",
+        "ssr": {
+          "entry": "projects/movies/server.ts"
+        },
+        "prerender": {
+          "routesFile": "projects/movies/prerender-routes.txt"
+        }
       },
       "configurations": {
         "development": {
           "namedChunks": true,
           "sourceMap": true,
-          "vendorChunk": true,
           "extractLicenses": false,
-          "buildOptimizer": false,
           "optimization": false,
-          "serviceWorker": false
+          "serviceWorker": false,
+          "ssr": false
         },
         "stats": {
           "statsJson": true,
           "namedChunks": true,
           "sourceMap": true,
           "extractLicenses": false,
-          "buildOptimizer": false,
           "optimization": false,
           "serviceWorker": false,
           "budgets": false
         },
         "production": {
-          "serviceWorker": true,
-          "ngswConfigPath": "projects/movies/src/ngsw-config.json",
+          "serviceWorker": "projects/movies/src/ngsw-config.json",
+          "outputHashing": "all",
           "fileReplacements": [
             {
               "replace": "projects/movies/src/environments/environment.ts",
@@ -82,7 +78,7 @@
               "type": "bundle",
               "name": "styles",
               "maximumWarning": "6320b",
-              "maximumError": "6.18KB"
+              "maximumError": "6.35KB"
             },
             {
               "type": "bundle",
@@ -102,49 +98,6 @@
       "defaultConfiguration": "production",
       "outputs": ["{options.outputPath}"]
     },
-    "build-esbuild": {
-      "executor": "@angular-devkit/build-angular:browser-esbuild",
-      "options": {
-        "outputPath": "dist/projects/movies/browser",
-        "index": "projects/movies/src/index.html",
-        "main": "projects/movies/src/main.ts",
-        "tsConfig": "projects/movies/tsconfig.app.json",
-        "inlineStyleLanguage": "scss",
-        "namedChunks": true,
-        "assets": [
-          "projects/movies/src/favicon.ico",
-          "projects/movies/src/manifest.json",
-          "projects/movies/src/manifest.webmanifest",
-          "projects/movies/src/assets",
-          "projects/movies/src/_routes.json"
-        ],
-        "styles": ["projects/movies/src/styles.scss"],
-        "scripts": []
-      },
-      "configurations": {
-        "development": {
-          "namedChunks": true,
-          "sourceMap": true,
-          "vendorChunk": true,
-          "extractLicenses": false,
-          "buildOptimizer": false,
-          "optimization": false,
-          "serviceWorker": false
-        },
-        "production": {
-          "serviceWorker": true,
-          "ngswConfigPath": "projects/movies/src/ngsw-config.json",
-          "fileReplacements": [
-            {
-              "replace": "projects/movies/src/environments/environment.ts",
-              "with": "projects/movies/src/environments/environment.production.ts"
-            }
-          ]
-        }
-      },
-      "defaultConfiguration": "production",
-      "outputs": ["{options.outputPath}"]
-    },
     "serve": {
       "executor": "@angular-devkit/build-angular:dev-server",
       "options": {
@@ -152,11 +105,11 @@
       },
       "configurations": {
         "development": {
-          "browserTarget": "movies:build:development"
+          "buildTarget": "movies:build:development"
         },
         "production": {
           "port": 4201,
-          "browserTarget": "movies:build:production"
+          "buildTarget": "movies:build:production"
         }
       },
       "defaultConfiguration": "development"
@@ -235,6 +188,15 @@
         }
       },
       "defaultConfiguration": "production"
+    }
+  },
+  "generators": {
+    "@schematics/angular:component": {
+      "style": "scss",
+      "changeDetection": "OnPush"
+    },
+    "@schematics/angular:application": {
+      "strict": true
     }
   },
   "tags": ["scope:client", "type:app"]

@@ -1,6 +1,10 @@
-import {ChangeDetectionStrategy, Component, Input, TrackByFunction, ViewEncapsulation,} from '@angular/core';
-import {trackByIndex} from '../../../shared/cdk/track-by';
-import {NgClass, NgFor, NgIf} from '@angular/common';
+import { NgClass } from '@angular/common';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  ViewEncapsulation,
+} from '@angular/core';
 
 const range = 10;
 const numStars = 5;
@@ -8,24 +12,25 @@ const starsArray: number[] = new Array(numStars).fill(1);
 
 @Component({
   standalone: true,
-  imports: [NgFor, NgIf, NgClass],
+  imports: [NgClass],
   selector: 'ui-star-rating',
   template: `
     <span class="tooltip">
       {{ tooltipText }}
     </span>
     <div class="stars">
+      @for (fill of stars; track $index) {
       <span
-        *ngFor="let fill of stars; trackBy: trackByIndex"
         class="star"
-        [ngClass]="{
-          'star-half': fill === 0,
-          'star-empty': fill === -1
-        }"
-        >★</span
+        [ngClass]="{ 'star-half': fill === 0, 'star-empty': fill === -1 }"
       >
+        ★
+      </span>
+      }
     </div>
-    <div class="rating-value" *ngIf="showRating">{{ rating }}</div>
+    @if (showRating) {
+    <div class="rating-value">{{ rating }}</div>
+    }
   `,
   styleUrls: [
     'star-rating.component.scss',
@@ -40,10 +45,9 @@ export class StarRatingComponent {
   stars: number[] = starsArray;
   @Input() showRating = false;
   tooltipText = `0 average rating`;
-  trackByIndex: TrackByFunction<number> = trackByIndex();
 
   private _rating = 5;
-  @Input({required: true})
+  @Input({ required: true })
   set rating(rating: number) {
     this._rating = rating || 0;
 
