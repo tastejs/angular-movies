@@ -195,7 +195,7 @@
       "executor": "nx:run-commands",
       "options": {
         "commands": [
-          "firebase emulators:start --only hosting --project angular-movies"
+          "npx firebase emulators:start --only hosting --project angular-movies"
         ],
         "parallel": false
       }

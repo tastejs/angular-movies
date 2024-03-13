@@ -1,5 +1,4 @@
-import compressionModule from 'compression';
-import {Express} from 'express';
+import { Express } from 'express';
 import serverTiming from 'server-timing';
 
 export function addServerTiming(
@@ -12,12 +11,6 @@ export function addServerTiming(
     response.endTime(cfg.name);
     return result;
   };
-}
-
-export function useCompression(server: Express) {
-  // **🚀 Perf Tip:**
-  // Serve gzip for faster load
-  server.use(compressionModule());
 }
 
 export function useTiming(server: Express) {

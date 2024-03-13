@@ -4,11 +4,8 @@
   "compilerOptions": {
     "outDir": "../../out-tsc",
     "target": "es2022",
-    "types": [
-      "node"
-    ]
+    "types": ["node"],
+    "resolveJsonModule": true
   },
-  "files": [
-    "./src/index.ts"
-  ]
+  "files": ["./src/index.ts"]
 }

@@ -1,5 +1,4 @@
-import {Routes} from '@angular/router';
-// import { RouteISRConfig } from 'ngx-isr';
+import { Routes } from '@angular/router';
 
 export const ROUTES: Routes = [
   /**
@@ -10,7 +9,7 @@ export const ROUTES: Routes = [
    *
    * E.g.:
    *
-   * _Bad_
+   * _Bad_ (multiple routs for the same component)
    *  {
    *  path: 'list-category/:category',
    *  loadComponent: import('list.component')
@@ -20,7 +19,7 @@ export const ROUTES: Routes = [
    *  loadComponent: import('list.component')
    *  }
    *
-   * _Good_
+   * _Good_ (multiple params instead of routs for the same component)
    * {
    *  path: 'list/:type/:identifier',
    *  loadComponent: import('list.component')
@@ -43,7 +42,7 @@ export const ROUTES: Routes = [
     loadChildren: () =>
       import(
         './pages/account-feature/list-detail-page/list-detail-page.routes'
-        ),
+      ),
   },
   {
     path: 'detail/person/:identifier',

@@ -1,14 +1,13 @@
-import 'zone.js';
 import 'zone.js/dist/zone-node';
-// The Express app is exported so that it can be used by serverless Functions.
 import express from 'express';
 import { existsSync } from 'node:fs';
 import { join } from 'node:path';
 import { ngExpressEngine } from '@nguniversal/express-engine';
 import bootstrap from './app/bootstrap';
-import { useCompression, useTiming } from './app/utils';
-import { APP_BASE_HREF } from '@angular/common';
-// bootstrap needs to get exported for the pre-render task
+import { useCompression } from './shared/compression/use-compression';
+import { useTiming } from './shared/server-timing/use-server-timing';
+import packageJson from '../../../package.json';
+import { REQUEST, RESPONSE } from '@nguniversal/express-engine/tokens';
 
 // The Express app is exported so that it can be used by serverless Functions.
 export function app(): express.Express {
@@ -18,7 +17,6 @@ export function app(): express.Express {
     process.cwd(),
     'dist/projects/movies/browser'
   );
-
   const indexHtml = existsSync(join(distributionFolder, 'index.html'))
     ? 'index.html'
     : 'index';
@@ -44,27 +42,29 @@ export function app(): express.Express {
     })
   );
 
-  server.get(
-    '*',
-    // Version with server timings for SSR
-    (request, response, _) => {
-      console.log('req', request.url);
-      // return rendered HTML including Angular generated DOM
-      console.log('SSR for route', request.url);
-      response.startTime('SSR', 'Total SSR Time');
-      response.render(
-        indexHtml,
-        {
-          req: request,
-          providers: [{ provide: APP_BASE_HREF, useValue: request.baseUrl }],
-        },
-        (_, html) => {
-          response.endTime('SSR');
-          response.send(html);
-        }
-      );
-    }
-  );
+  server.get('*', (request, response, _) => {
+    // return rendered HTML including Angular generated DOM
+    console.log('SSR for route:', request.url);
+    response.startTime('SSR', `Total SSR Time - v${packageJson.version}`);
+    response.render(
+      indexHtml,
+      {
+        providers: [
+          { provide: REQUEST, useValue: request },
+          { provide: RESPONSE, useValue: response },
+        ],
+      },
+      (_, html) => {
+        response.endTime('SSR');
+        response.send(
+          html +
+            `<!-- ngUniversal SSR ${new Date().toISOString()} - v${
+              packageJson.version
+            }-->`
+        );
+      }
+    );
+  });
 
   return server;
 }
