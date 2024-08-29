@@ -1,11 +1,7 @@
-import 'zone.js';
-import 'zone.js/dist/zone-node';
 // The Express app is exported so that it can be used by serverless Functions.
 import express from 'express';
 import { existsSync } from 'node:fs';
 import { join } from 'node:path';
-import { ngExpressEngine } from '@nguniversal/express-engine';
-import bootstrap from './app/bootstrap';
 import { useCompression, useTiming } from './app/utils';
 import { APP_BASE_HREF } from '@angular/common';
 // bootstrap needs to get exported for the pre-render task
@@ -16,7 +12,7 @@ export function app(): express.Express {
 
   const distributionFolder = join(
     process.cwd(),
-    'dist/projects/movies/browser'
+    'dist/projects/movies/browser',
   );
 
   const indexHtml = existsSync(join(distributionFolder, 'index.html'))
@@ -29,7 +25,7 @@ export function app(): express.Express {
   useTiming(server);
 
   // Our Universal express-engine (found @ https://github.com/angular/universal/tree/master/modules/express-engine)
-  server.engine('html', ngExpressEngine({ bootstrap }));
+  // server.engine('html', ngExpressEngine({ bootstrap }));
 
   server.set('view engine', 'html');
   server.set('views', distributionFolder);
@@ -41,7 +37,7 @@ export function app(): express.Express {
       maxAge: '1y',
       // missing assets results in 404 instead of continuing to next route handler (and rendering route)
       fallthrough: false,
-    })
+    }),
   );
 
   server.get(
@@ -61,9 +57,9 @@ export function app(): express.Express {
         (_, html) => {
           response.endTime('SSR');
           response.send(html);
-        }
+        },
       );
-    }
+    },
   );
 
   return server;

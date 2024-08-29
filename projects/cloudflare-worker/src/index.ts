@@ -1,9 +1,10 @@
-import 'zone.js';
-import 'zone.js/dist/zone-node';
 import '@angular/platform-server/init';
 
-import {renderApplication} from '@angular/platform-server';
-import {EdgeEnvironment, provideEdgeEnvironment,} from './app/environment.token';
+import { renderApplication } from '@angular/platform-server';
+import {
+  EdgeEnvironment,
+  provideEdgeEnvironment,
+} from './app/environment.token';
 import bootstrap from './app/bootstrap';
 
 // We attach the Cloudflare `fetch()` handler to the global scope
@@ -11,7 +12,7 @@ import bootstrap from './app/bootstrap';
 // See tools/bundle.mjs
 (globalThis as any).__workerFetchHandler = async function fetch(
   request: Request,
-  environment: EdgeEnvironment
+  environment: EdgeEnvironment,
 ) {
   const url = new URL(request.url);
   const cacheKey = new Request(url.toString(), request).url;
@@ -37,9 +38,9 @@ import bootstrap from './app/bootstrap';
   const content = await renderApplication(
     () =>
       bootstrap({
-        providers: [provideEdgeEnvironment({request, env: environment})],
+        providers: [provideEdgeEnvironment({ request, env: environment })],
       }),
-    {document, url: url.pathname}
+    { document, url: url.pathname },
   );
 
   await environment.NGMOVIES.put(cacheKey, content, {

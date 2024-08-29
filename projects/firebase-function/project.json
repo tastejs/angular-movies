@@ -13,11 +13,11 @@
         "target": "node",
         "compiler": "tsc",
         "deleteOutputPath": false,
-        "outputPath": "./dist/projects/movies/server",
+        "outputPath": "{workspaceRoot}/dist/projects/movies/server",
         "outputFileName": "index.js",
-        "main": "projects/firebase-function/src/index.ts",
-        "tsConfig": "./projects/firebase-function/tsconfig.function.json",
-        "webpackConfig": "projects/firebase-function/webpack.config.js"
+        "main": "{projectRoot}/src/index.ts",
+        "tsConfig": "{projectRoot}/tsconfig.function.json",
+        "webpackConfig": "{projectRoot}/webpack.config.js"
       },
       "configurations": {
         "production": {
