@@ -23,10 +23,10 @@ const serverConfig: ApplicationConfig = {
         requestTimingInterceptor((_request) => {
           return _request.urlWithParams.replace(
             'https://api.themoviedb.org/3',
-            'api'
+            'api',
           );
         }),
-      ])
+      ]),
     ),
     provideTmdbImageLoader(),
     provideFastSVG({
@@ -39,7 +39,7 @@ const serverConfig: ApplicationConfig = {
           'browser',
           'assets',
           'svg-icons',
-          `${name}.svg`
+          `${name}.svg`,
         ),
       svgLoadStrategy: IconLoadStrategySsr,
     }),

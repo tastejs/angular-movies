@@ -3,6 +3,7 @@
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "movies-user-flows/src",
   "projectType": "library",
+  "tags": ["scope:shared", "type:util"],
   "targets": {
     "build-lib": {
       "dependsOn": [],
@@ -12,10 +13,8 @@
         "outputPath": "dist/projects/movies-user-flows",
         "main": "movies-user-flows/src/index.ts",
         "tsConfig": "movies-user-flows/tsconfig.lib.json",
-        "assets": [],
-        "updateBuildableProjectDepsInPackageJson": true
+        "assets": []
       }
     }
-  },
-  "tags": ["scope:shared", "type:util"]
+  }
 }

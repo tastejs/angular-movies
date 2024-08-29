@@ -1,12 +1,4 @@
 {
-  "tasksRunnerOptions": {
-    "default": {
-      "runner": "nx-cloud"
-    }
-  },
-  "affected": {
-    "defaultBase": "origin/main"
-  },
   "namedInputs": {
     "sharedGlobals": [],
     "default": ["{projectRoot}/**/*", "sharedGlobals"],
@@ -22,23 +14,31 @@
   "targetDefaults": {
     "build": {
       "dependsOn": ["^build"],
-      "inputs": ["production", "^production"]
+      "inputs": ["production", "^production"],
+      "cache": true
     },
     "lint": {
-      "inputs": ["default", "{workspaceRoot}/.eslintrc.json"]
-    },
-    "test": {
-      "inputs": ["default", "^production", "{workspaceRoot}/jest.preset.js"]
-    },
-    "serve-static": {
-      "dependsOn": ["build"],
-      "inputs": ["development", "^development"]
+      "inputs": ["default", "{workspaceRoot}/.eslintrc.json"],
+      "cache": true
     },
     "emulate-firebase": {
       "dependsOn": ["build"]
     },
     "deploy-firebase": {
       "dependsOn": ["build"]
+    },
+    "@nx/jest:jest": {
+      "inputs": ["default", "^production", "{workspaceRoot}/jest.preset.js"],
+      "cache": true,
+      "options": {
+        "passWithNoTests": true
+      },
+      "configurations": {
+        "ci": {
+          "ci": true,
+          "codeCoverage": true
+        }
+      }
     }
   },
   "generators": {
@@ -58,5 +58,6 @@
     "@nx/angular:component": {
       "style": "css"
     }
-  }
+  },
+  "useInferencePlugins": false
 }

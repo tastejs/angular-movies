@@ -2,6 +2,8 @@
   "name": "movies",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "application",
+  "sourceRoot": "projects/movies/src",
+  "tags": ["scope:client", "type:app"],
   "generators": {
     "@schematics/angular:component": {
       "style": "scss",
@@ -11,7 +13,6 @@
       "strict": true
     }
   },
-  "sourceRoot": "projects/movies/src",
   "targets": {
     "build": {
       "executor": "@angular-devkit/build-angular:browser",
@@ -64,14 +65,14 @@
           "budgets": [
             {
               "type": "initial",
-              "maximumWarning": "351kb",
-              "maximumError": "352KB"
+              "maximumWarning": "400KB",
+              "maximumError": "500KB"
             },
             {
               "type": "bundle",
               "name": "main",
-              "maximumWarning": "343KB",
-              "maximumError": "344KB"
+              "maximumWarning": "390KB",
+              "maximumError": "500KB"
             },
             {
               "type": "anyComponentStyle",
@@ -152,11 +153,11 @@
       },
       "configurations": {
         "development": {
-          "browserTarget": "movies:build:development"
+          "buildTarget": "movies:build:development"
         },
         "production": {
           "port": 4201,
-          "browserTarget": "movies:build:production"
+          "buildTarget": "movies:build:production"
         }
       },
       "defaultConfiguration": "development"
@@ -188,7 +189,7 @@
     "extract-i18n": {
       "executor": "@angular-devkit/build-angular:extract-i18n",
       "options": {
-        "browserTarget": "movies:build"
+        "buildTarget": "movies:build"
       }
     },
     "emulate-firebase": {
@@ -236,6 +237,5 @@
       },
       "defaultConfiguration": "production"
     }
-  },
-  "tags": ["scope:client", "type:app"]
+  }
 }

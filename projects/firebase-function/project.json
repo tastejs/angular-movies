@@ -3,6 +3,7 @@
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "projects/firebase-function/src",
   "projectType": "application",
+  "tags": ["scope:server", "type:app"],
   "implicitDependencies": ["ng-universal-express"],
   "targets": {
     "build": {
@@ -12,10 +13,11 @@
         "target": "node",
         "compiler": "tsc",
         "deleteOutputPath": false,
-        "outputPath": "./dist/projects/movies/server",
+        "outputPath": "{workspaceRoot}/dist/projects/movies/server",
         "outputFileName": "index.js",
-        "main": "projects/firebase-function/src/index.ts",
-        "tsConfig": "./projects/firebase-function/tsconfig.function.json"
+        "main": "{projectRoot}/src/index.ts",
+        "tsConfig": "{projectRoot}/tsconfig.function.json",
+        "webpackConfig": "{projectRoot}/webpack.config.js"
       },
       "configurations": {
         "production": {
@@ -53,14 +55,7 @@
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/dist/coverage/firebase-function"],
       "options": {
-        "jestConfig": "projects/firebase-function/jest.config.ts",
-        "passWithNoTests": true
-      },
-      "configurations": {
-        "ci": {
-          "ci": true,
-          "codeCoverage": true
-        }
+        "jestConfig": "projects/firebase-function/jest.config.ts"
       }
     },
     "deploy": {
@@ -114,6 +109,5 @@
       },
       "defaultConfiguration": "development"
     }
-  },
-  "tags": ["scope:server", "type:app"]
+  }
 }

@@ -6,11 +6,11 @@ import {
 
 export const tmdbContentTypeInterceptor: HttpInterceptorFn = (
   req: HttpRequest<unknown>,
-  next: HttpHandlerFn
+  next: HttpHandlerFn,
 ) => {
   return next(
     req.clone({
       setHeaders: { 'Content-Type': 'application/json;charset=utf-8' },
-    })
+    }),
   );
 };
