@@ -3,6 +3,7 @@
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "projects/cloudflare-worker/src",
   "projectType": "application",
+  "tags": ["scope:server", "type:app"],
   "implicitDependencies": ["movies"],
   "targets": {
     "pre-build": {
@@ -104,6 +105,5 @@
       },
       "defaultConfiguration": "production"
     }
-  },
-  "tags": ["scope:server", "type:app"]
+  }
 }

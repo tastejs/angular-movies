@@ -3,6 +3,7 @@
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "projects/ng-universal-express/src",
   "projectType": "application",
+  "tags": ["scope:server", "type:app"],
   "targets": {
     "build": {
       "outputs": ["{workspaceRoot}/dist/projects/movies/server"],
@@ -58,7 +59,7 @@
       "defaultConfiguration": "production"
     },
     "serve": {
-      "executor": "@nguniversal/builders:ssr-dev-server",
+      "executor": "@angular-devkit/build-angular:ssr-dev-server",
       "options": {
         "port": 4300
       },
@@ -91,14 +92,7 @@
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/dist/coverage/ng-universal-express"],
       "options": {
-        "jestConfig": "projects/ng-universal-express/jest.config.ts",
-        "passWithNoTests": true
-      },
-      "configurations": {
-        "ci": {
-          "ci": true,
-          "codeCoverage": true
-        }
+        "jestConfig": "projects/ng-universal-express/jest.config.ts"
       }
     },
     "pre-prerender": {
@@ -114,7 +108,7 @@
     "prerender": {
       "dependsOn": ["pre-prerender"],
       "outputs": ["{workspaceRoot}/dist/projects/movies/browser"],
-      "executor": "@nguniversal/builders:prerender",
+      "executor": "@angular-devkit/build-angular:prerender",
       "options": {
         "routesFile": "dist/tmp/routes.txt"
       },
@@ -182,6 +176,5 @@
       },
       "defaultConfiguration": "production"
     }
-  },
-  "tags": ["scope:server", "type:app"]
+  }
 }
