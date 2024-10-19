@@ -32,9 +32,9 @@
     "@push-based/ngx-fast-svg": "^0.3.1",
     "@rx-angular/cdk": "^18.0.0",
     "@rx-angular/eslint-plugin": "^2.1.0",
-    "@rx-angular/isr": "^18.0.3",
-    "@rx-angular/state": "^18.0.0",
-    "@rx-angular/template": "^18.0.1",
+    "@rx-angular/isr": "^18.1.0",
+    "@rx-angular/state": "^18.1.0",
+    "@rx-angular/template": "^18.0.3",
     "core-js": "^3.38.1",
     "express": "^4.18.2",
     "firebase-functions": "^4.4.0",
@@ -59,17 +59,18 @@
     "@esbuild-plugins/node-globals-polyfill": "^0.2.3",
     "@esbuild-plugins/node-modules-polyfill": "^0.2.2",
     "@miniflare/tre": "^3.0.0-next.13",
-    "@nx/angular": "19.6.4",
-    "@nx/devkit": "19.6.4",
-    "@nx/esbuild": "19.6.4",
-    "@nx/eslint-plugin": "19.6.4",
-    "@nx/jest": "19.6.4",
-    "@nx/js": "19.6.4",
-    "@nx/node": "19.6.4",
-    "@nx/webpack": "19.6.4",
-    "@nx/workspace": "19.6.4",
-    "@push-based/user-flow": "^0.21.1",
-    "@push-based/user-flow-nx-plugin": "^0.1.4",
+    "@nx/angular": "20.0.3",
+    "@nx/devkit": "20.0.3",
+    "@nx/esbuild": "20.0.3",
+    "@nx/eslint": "20.0.3",
+    "@nx/eslint-plugin": "20.0.3",
+    "@nx/jest": "20.0.3",
+    "@nx/js": "20.0.3",
+    "@nx/node": "20.0.3",
+    "@nx/webpack": "20.0.3",
+    "@nx/workspace": "20.0.3",
+    "@push-based/user-flow": "0.20.0",
+    "@push-based/user-flow-nx-plugin": "0.1.0",
     "@rx-angular/import-graph-visualizer": "^0.2.0",
     "@schematics/angular": "18.2.1",
     "@size-limit/file": "^7.0.8",
@@ -104,8 +105,8 @@
     "lighthouse": "^12.2.0",
     "lint-staged": "^15.2.9",
     "markdownlint": "^0.29.0",
-    "nx": "19.6.4",
-    "nx-cloud": "19.0.0",
+    "nx": "20.0.3",
+    "nx-cloud": "19.1.0",
     "open": "^8.4.0",
     "postcss-preset-env": "^9.1.0",
     "prettier": "^3.3.3",
@@ -120,18 +121,25 @@
     "tslib": "^2.7.0",
     "typescript": "5.5.4",
     "webpack-bundle-analyzer": "^3.3.2",
-    "wrangler": "^3.0.1",
+    "wrangler": "3.19.0",
     "yargs": "^17.3.1"
   },
   "optionalDependencies": {
-    "@nx/nx-darwin-arm64": "19.6.4",
-    "@nx/nx-darwin-x64": "19.6.4",
-    "@nx/nx-linux-x64-gnu": "19.6.4",
-    "@nx/nx-win32-x64-msvc": "19.6.4"
+    "@nx/nx-darwin-arm64": "20.0.3",
+    "@nx/nx-darwin-x64": "20.0.3",
+    "@nx/nx-linux-x64-gnu": "20.0.3",
+    "@nx/nx-win32-x64-msvc": "20.0.3",
+    "@rollup/rollup-darwin-arm64": "4.24.0",
+    "@rollup/rollup-darwin-x64": "4.24.0",
+    "@rollup/rollup-linux-x64-gnu": "4.24.0",
+    "@rollup/rollup-win32-x64-msvc": "4.24.0"
   },
   "overrides": {
+    "@push-based/user-flow": {
+      "@nx/devkit": "20.0.3"
+    },
     "@push-based/user-flow-nx-plugin": {
-      "@nx/devkit": "19.6.4"
+      "@nx/devkit": "20.0.3"
     }
   }
 }
