@@ -68,7 +68,8 @@
     "@nx/node": "20.0.3",
     "@nx/webpack": "20.0.3",
     "@nx/workspace": "20.0.3",
-    "@push-based/user-flow": "^0.21.1",
+    "@push-based/user-flow": "0.20.0",
+    "@push-based/user-flow-nx-plugin": "0.1.0",
     "@rx-angular/import-graph-visualizer": "^0.2.0",
     "@schematics/angular": "18.2.1",
     "@size-limit/file": "^7.0.8",
@@ -127,5 +128,13 @@
     "@nx/nx-darwin-x64": "19.6.4",
     "@nx/nx-linux-x64-gnu": "19.6.4",
     "@nx/nx-win32-x64-msvc": "19.6.4"
+  },
+  "overrides": {
+    "@push-based/user-flow": {
+      "@nx/devkit": "20.0.3"
+    },
+    "@push-based/user-flow-nx-plugin": {
+      "@nx/devkit": "20.0.3"
+    }
   }
 }
