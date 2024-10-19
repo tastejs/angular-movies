@@ -100,7 +100,7 @@
         "production": {
           "url": "http://127.0.0.1:4501/",
           "serveCommand": "nx run cloudflare-worker:emulate",
-          "awaitServeStdout": "[mf:inf] Ready on"
+          "awaitServeStdout": "[wrangler:inf] Ready on"
         }
       },
       "defaultConfiguration": "production"

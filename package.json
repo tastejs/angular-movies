@@ -125,10 +125,14 @@
     "yargs": "^17.3.1"
   },
   "optionalDependencies": {
-    "@nx/nx-darwin-arm64": "19.6.4",
-    "@nx/nx-darwin-x64": "19.6.4",
-    "@nx/nx-linux-x64-gnu": "19.6.4",
-    "@nx/nx-win32-x64-msvc": "19.6.4"
+    "@nx/nx-darwin-arm64": "20.0.3",
+    "@nx/nx-darwin-x64": "20.0.3",
+    "@nx/nx-linux-x64-gnu": "20.0.3",
+    "@nx/nx-win32-x64-msvc": "20.0.3",
+    "@rollup/rollup-darwin-arm64": "4.24.0",
+    "@rollup/rollup-darwin-x64": "4.24.0",
+    "@rollup/rollup-linux-x64-gnu": "4.24.0",
+    "@rollup/rollup-win32-x64-msvc": "4.24.0"
   },
   "overrides": {
     "@push-based/user-flow": {
