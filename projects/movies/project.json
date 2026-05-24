@@ -22,12 +22,14 @@
         ],
         "styles": ["projects/movies/src/styles.scss"],
         "scripts": [],
+        "allowedCommonJsDependencies": ["compression", "server-timing"],
         "server": "projects/movies/src/main.server.ts",
         "ssr": {
           "entry": "projects/movies/server.ts"
         },
         "prerender": {
-          "routesFile": "projects/movies/prerender-routes.txt"
+          "routesFile": "projects/movies/prerender-routes.txt",
+          "discoverRoutes": false
         }
       },
       "configurations": {
@@ -37,7 +39,8 @@
           "extractLicenses": false,
           "optimization": false,
           "serviceWorker": false,
-          "ssr": false
+          "ssr": false,
+          "prerender": false
         },
         "stats": {
           "statsJson": true,
@@ -46,11 +49,13 @@
           "extractLicenses": false,
           "optimization": false,
           "serviceWorker": false,
+          "prerender": false,
           "budgets": false
         },
         "production": {
           "serviceWorker": "projects/movies/src/ngsw-config.json",
           "outputHashing": "all",
+          "prerender": false,
           "fileReplacements": [
             {
               "replace": "projects/movies/src/environments/environment.ts",
@@ -60,8 +65,8 @@
           "budgets": [
             {
               "type": "initial",
-              "maximumWarning": "353KB",
-              "maximumError": "354KB"
+              "maximumWarning": "370KB",
+              "maximumError": "375KB"
             },
             {
               "type": "bundle",

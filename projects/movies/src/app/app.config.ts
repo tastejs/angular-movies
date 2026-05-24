@@ -1,4 +1,9 @@
-import { APP_INITIALIZER, ApplicationConfig, NgZone, ɵprovideZonelessChangeDetection as provideZonelessChangeDetection } from '@angular/core';
+import {
+  APP_INITIALIZER,
+  ApplicationConfig,
+  NgZone,
+  provideExperimentalZonelessChangeDetection as provideZonelessChangeDetection,
+} from '@angular/core';
 import { provideFastSVG } from '@push-based/ngx-fast-svg';
 import {
   provideHttpClient,
@@ -16,7 +21,8 @@ import { provideClientHydration } from '@angular/platform-browser';
 import {
   provideRouter,
   withDisabledInitialNavigation,
-  withInMemoryScrolling, withViewTransitions
+  withInMemoryScrolling,
+  withViewTransitions,
 } from '@angular/router';
 import { ROUTES } from './routes';
 import { withGobalStateInitializer } from './state/state-app-initializer.provider';
