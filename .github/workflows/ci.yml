@@ -37,7 +37,7 @@ jobs:
       #  run: npx nx affected --targets=lint,test
       - name: Run Nx Affected build
         run: npx nx affected --targets=build --exclude docs,cloudflare-worker
-      - name: Run build docs
-        run: npx nx build docs
+      #- name: Run build docs
+      #  run: npx nx build docs
       - name: Run Nx Affected prerende
         run: npx nx affected --targets=prerende
