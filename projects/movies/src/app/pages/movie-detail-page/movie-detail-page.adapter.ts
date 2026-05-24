@@ -45,10 +45,11 @@ export class MovieDetailAdapter {
   readonly routedMovieCtx$ = this.routerMovieId$.pipe(
     switchMap(this.movieState.movieByIdCtx),
     map((ctx) => {
-      ctx.value &&
-        ((ctx as unknown as { value: unknown }).value = transformToMovieDetail(
+      if (ctx.value) {
+        (ctx as unknown as { value: unknown }).value = transformToMovieDetail(
           ctx.value
-        ));
+        );
+      }
       return ctx as unknown as WithContext<MovieDetail>;
     })
   );

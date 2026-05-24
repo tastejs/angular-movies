@@ -1,6 +1,10 @@
-import {Routes} from '@angular/router';
-import {provideHttpClient, withInterceptors, withRequestsMadeViaParent,} from '@angular/common/http';
-import {tmdbReadAccessInterceptor} from '../../auth/tmdb-http-interceptor.feature';
+import { Routes } from '@angular/router';
+import {
+  provideHttpClient,
+  withInterceptors,
+  withRequestsMadeViaParent,
+} from '@angular/common/http';
+import { tmdbReadAccessInterceptor } from '../../auth/tmdb-http-interceptor.feature';
 
 const ROUTES: Routes = [
   {

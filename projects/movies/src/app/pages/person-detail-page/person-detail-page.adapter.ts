@@ -84,10 +84,11 @@ export class PersonDetailAdapter {
   readonly routedPersonCtx$ = this.routerPersonId$.pipe(
     switchMap(this.personState.personByIdCtx),
     map((ctx: WithContext<TMDBPersonModel>): WithContext<MoviePerson> => {
-      ctx.value &&
-        ((ctx as unknown as { value: unknown }).value = transformToPersonDetail(
+      if (ctx.value) {
+        (ctx as unknown as { value: unknown }).value = transformToPersonDetail(
           ctx.value
-        ));
+        );
+      }
       return ctx as unknown as WithContext<MoviePerson>;
     })
   );

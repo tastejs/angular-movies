@@ -1,12 +1,15 @@
-import {getTMDBPaginateOptions} from '../paginate/utils';
-import {TMDBPaginateOptions, TMDBPaginateResult,} from '../paginate/paginate.interface';
-import {Observable} from 'rxjs';
-import {TMDBAccountList} from '../model/list.model';
-import {baseUrlApiV4} from './internal/base-urls.constant';
-import {getTMDBSortOptions} from '../sort/utils';
-import {TMDBDiscoverOptions} from './discover.resource';
-import {HttpClient, HttpParams} from '@angular/common/http';
-import {inject, Injectable} from '@angular/core';
+import { getTMDBPaginateOptions } from '../paginate/utils';
+import {
+  TMDBPaginateOptions,
+  TMDBPaginateResult,
+} from '../paginate/paginate.interface';
+import { Observable } from 'rxjs';
+import { TMDBAccountList } from '../model/list.model';
+import { baseUrlApiV4 } from './internal/base-urls.constant';
+import { getTMDBSortOptions } from '../sort/utils';
+import { TMDBDiscoverOptions } from './discover.resource';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { inject, Injectable } from '@angular/core';
 
 const URL_ACCOUNT_LIST = (uid: string) =>
   [baseUrlApiV4, 'account', uid, 'lists'].join('/');
@@ -14,11 +17,10 @@ const URL_ACCOUNT_LIST = (uid: string) =>
 function getTMDBAcountListOptions(
   options: TMDBPaginateOptions
 ): TMDBDiscoverOptions {
-  const discoverOptions = {
+  return {
     ...getTMDBPaginateOptions(options),
     ...getTMDBSortOptions(options),
   };
-  return discoverOptions;
 }
 
 export type TMDBAccountListResponse = TMDBPaginateResult<TMDBAccountList>;

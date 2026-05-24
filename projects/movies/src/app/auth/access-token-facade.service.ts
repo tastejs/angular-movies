@@ -13,7 +13,9 @@ export class AccessTokenFacade {
     afterNextRender(() => {
       // set accessToken if found in localStorage
       const accessToken = window.localStorage.getItem('accessToken');
-      accessToken && this.setUserAccessToken(accessToken);
+      if (accessToken) {
+        this.setUserAccessToken(accessToken);
+      }
     });
   }
 

@@ -22,7 +22,9 @@ export class AuthEffects {
     afterNextRender(() => {
       // should we finish the signIn ?
       const requestToken = window.localStorage.getItem('requestToken');
-      requestToken && this.signInFinish(requestToken);
+      if (requestToken) {
+        this.signInFinish(requestToken);
+      }
     });
   }
 

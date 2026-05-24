@@ -1,10 +1,25 @@
 import { DOCUMENT } from '@angular/common';
-import { ChangeDetectionStrategy, Component, inject, signal, TrackByFunction, ViewEncapsulation } from '@angular/core';
-import { NavigationEnd, Router, RouterLink, RouterLinkActive } from '@angular/router';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  signal,
+  TrackByFunction,
+  ViewEncapsulation,
+} from '@angular/core';
+import {
+  NavigationEnd,
+  Router,
+  RouterLink,
+  RouterLinkActive,
+} from '@angular/router';
 import { distinctUntilChanged, filter, map } from 'rxjs';
 import { TMDBMovieGenreModel } from '../data-access/api/model/movie-genre.model';
 import { trackByProp } from '../shared/cdk/track-by';
-import { fallbackRouteToDefault, RouterState } from '../shared/router/router.state';
+import {
+  fallbackRouteToDefault,
+  RouterState,
+} from '../shared/router/router.state';
 import { getIdentifierOfTypeAndLayoutUtil } from '../shared/router/get-identifier-of-type-and-layout.util';
 import { GenreResource } from '../data-access/api/resources/genre.resource';
 import { rxEffects } from '@rx-angular/state/effects';
@@ -29,7 +44,7 @@ import AccountMenuComponent from './account-menu/account-menu.component';
     SearchBarComponent,
     DarkModeToggleComponent,
     RouterLinkActive,
-    AccountMenuComponent
+    AccountMenuComponent,
   ],
   selector: 'app-shell',
   templateUrl: './app-shell.component.html',
@@ -85,8 +100,10 @@ export class AppShellComponent {
     trackByProp<TMDBMovieGenreModel>('name');
 
   searchMovie(term: string) {
-    term === ''
-      ? this.router.navigate(['list/category/popular'])
-      : this.router.navigate([`list/search/${term}`]);
+    if (term === '') {
+      this.router.navigate(['list/category/popular']);
+    } else {
+      this.router.navigate([`list/search/${term}`]);
+    }
   }
 }

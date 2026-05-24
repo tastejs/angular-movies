@@ -1,8 +1,8 @@
-import {APP_INITIALIZER} from '@angular/core';
-import {GenreResource} from '../data-access/api/resources/genre.resource';
-import {MovieState} from './movie.state';
-import {RouterState} from '../shared/router/router.state';
-import {take} from 'rxjs';
+import { APP_INITIALIZER } from '@angular/core';
+import { GenreResource } from '../data-access/api/resources/genre.resource';
+import { MovieState } from './movie.state';
+import { RouterState } from '../shared/router/router.state';
+import { take } from 'rxjs';
 
 /**
  * **🚀 Perf Tip for LCP, TTI:**
@@ -27,13 +27,13 @@ export function withGobalStateInitializer() {
             .pipe(take(1))
             .subscribe(({ layout, type, identifier }) => {
               // default route
-              layout === 'list' &&
-                type === 'category' &&
+              if (layout === 'list' && type === 'category') {
                 movieState.initialize({ category: identifier });
+              }
               // movie detail route
-              layout === 'detail' &&
-                type === 'movie' &&
+              if (layout === 'detail' && type === 'movie') {
                 movieState.initialize({ movieId: identifier });
+              }
             });
         };
       },

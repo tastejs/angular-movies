@@ -145,6 +145,10 @@ export class SearchBarComponent {
   };
 
   private readonly setOpenedStyling = (opened: boolean) => {
-    opened ? this.classList.add('opened') : this.classList.remove('opened');
+    if (opened) {
+      this.classList.add('opened');
+    } else {
+      this.classList.remove('opened');
+    }
   };
 }

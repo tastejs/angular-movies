@@ -1,14 +1,17 @@
-import {map, Observable} from 'rxjs';
-import {TMDBMovieModel} from '../model/movie.model';
-import {getTMDBPaginateOptions} from '../paginate/utils';
-import {TMDBPaginateOptions, TMDBPaginateResult,} from '../paginate/paginate.interface';
-import {TMDBMovieCreditsModel} from '../model/movie-credits.model';
-import {baseUrlApiV3} from './internal/base-urls.constant';
-import {TMDBAppendOptions} from './model/append-options';
-import {TMDBDiscoverOptions} from './discover.resource';
-import {getTMDBSortOptions} from '../sort/utils';
-import {inject, Injectable} from '@angular/core';
-import {HttpClient, HttpParams} from '@angular/common/http';
+import { map, Observable } from 'rxjs';
+import { TMDBMovieModel } from '../model/movie.model';
+import { getTMDBPaginateOptions } from '../paginate/utils';
+import {
+  TMDBPaginateOptions,
+  TMDBPaginateResult,
+} from '../paginate/paginate.interface';
+import { TMDBMovieCreditsModel } from '../model/movie-credits.model';
+import { baseUrlApiV3 } from './internal/base-urls.constant';
+import { TMDBAppendOptions } from './model/append-options';
+import { TMDBDiscoverOptions } from './discover.resource';
+import { getTMDBSortOptions } from '../sort/utils';
+import { inject, Injectable } from '@angular/core';
+import { HttpClient, HttpParams } from '@angular/common/http';
 
 const base = [baseUrlApiV3, 'movie'].join('/');
 
@@ -72,9 +75,8 @@ export class MovieResource {
 function getTMDBMovieOptions(
   options: TMDBPaginateOptions
 ): TMDBDiscoverOptions {
-  const discoverOptions = {
+  return {
     ...getTMDBPaginateOptions(options),
     ...getTMDBSortOptions(options),
   };
-  return discoverOptions;
 }
