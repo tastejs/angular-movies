@@ -10,7 +10,6 @@ import { rxActions } from '@rx-angular/state/actions';
 import { BackdropComponent } from '../backdrop/backdrop.component';
 
 @Component({
-  standalone: true,
   imports: [BackdropComponent],
   selector: 'ui-side-drawer',
   template: `

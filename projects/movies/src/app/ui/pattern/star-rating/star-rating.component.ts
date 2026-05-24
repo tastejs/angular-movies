@@ -11,7 +11,6 @@ const numStars = 5;
 const starsArray: number[] = new Array(numStars).fill(1);
 
 @Component({
-  standalone: true,
   imports: [NgClass],
   selector: 'ui-star-rating',
   template: `

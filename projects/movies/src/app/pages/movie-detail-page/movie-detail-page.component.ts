@@ -30,7 +30,6 @@ type UiActions = {
   iframe: 'load' | 'unload';
 };
 @Component({
-  standalone: true,
   imports: [
     NgIf,
     NgFor,

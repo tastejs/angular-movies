@@ -23,7 +23,6 @@ import { Movie } from '../../../state/movie.state';
 type UiActions = { paginate: boolean };
 type MovieListState = { movies?: Movie[]; numPriority: number };
 @Component({
-  standalone: true,
   imports: [
     RouterLink,
     StarRatingComponent,
@@ -66,7 +65,10 @@ type MovieListState = { movies?: Movie[]; numPriority: number };
           style="view-transition-name: {{ movie.id }}"
         />
         <div class="movies-list--details">
-          <h3 class="movies-list--details-title" style="view-transition-name: {{ movie.id + 'title' }}">
+          <h3
+            class="movies-list--details-title"
+            style="view-transition-name: {{ movie.id + 'title' }}"
+          >
             {{ movie.title }}
           </h3>
           <ui-star-rating [rating]="movie.vote_average"></ui-star-rating>
