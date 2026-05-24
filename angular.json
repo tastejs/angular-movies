@@ -1,0 +1,130 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
+  "newProjectRoot": "projects",
+  "projects": {
+    "movies": {
+      "projectType": "application",
+      "root": "projects/movies",
+      "sourceRoot": "projects/movies/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:application",
+          "options": {
+            "outputPath": "dist/projects/movies",
+            "index": "projects/movies/src/index.html",
+            "browser": "projects/movies/src/main.ts",
+            "tsConfig": "projects/movies/tsconfig.app.json",
+            "inlineStyleLanguage": "scss",
+            "namedChunks": true,
+            "assets": [
+              "projects/movies/src/favicon.ico",
+              "projects/movies/src/manifest.json",
+              "projects/movies/src/manifest.webmanifest",
+              "projects/movies/src/assets",
+              "projects/movies/src/_routes.json"
+            ],
+            "styles": ["projects/movies/src/styles.scss"],
+            "scripts": [],
+            "server": "projects/movies/src/main.server.ts",
+            "ssr": {
+              "entry": "projects/movies/server.ts"
+            },
+            "prerender": {
+              "routesFile": "projects/movies/prerender-routes.txt"
+            }
+          },
+          "configurations": {
+            "development": {
+              "namedChunks": true,
+              "sourceMap": true,
+              "extractLicenses": false,
+              "optimization": false,
+              "serviceWorker": false,
+              "ssr": false
+            },
+            "production": {
+              "serviceWorker": "projects/movies/src/ngsw-config.json",
+              "outputHashing": "all",
+              "fileReplacements": [
+                {
+                  "replace": "projects/movies/src/environments/environment.ts",
+                  "with": "projects/movies/src/environments/environment.production.ts"
+                }
+              ],
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "351kb",
+                  "maximumError": "352KB"
+                },
+                {
+                  "type": "bundle",
+                  "name": "main",
+                  "maximumWarning": "343KB",
+                  "maximumError": "344KB"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "3000b",
+                  "maximumError": "4.5kb"
+                },
+                {
+                  "type": "bundle",
+                  "name": "styles",
+                  "maximumWarning": "6320b",
+                  "maximumError": "6.35KB"
+                },
+                {
+                  "type": "bundle",
+                  "name": "common",
+                  "maximumWarning": "10KB",
+                  "maximumError": "11.22KB"
+                },
+                {
+                  "type": "bundle",
+                  "name": "polyfills",
+                  "maximumWarning": "118b",
+                  "maximumError": "118b"
+                }
+              ]
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "port": 4200
+          },
+          "configurations": {
+            "development": {
+              "buildTarget": "movies:build:development"
+            },
+            "production": {
+              "port": 4201,
+              "buildTarget": "movies:build:production"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "projects/movies/src/app/**/*.ts",
+              "projects/movies/src/app/**/*.html"
+            ]
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "movies:build"
+          }
+        }
+      }
+    }
+  }
+}
