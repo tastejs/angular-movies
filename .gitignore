@@ -43,6 +43,7 @@ testem.log
 Thumbs.db
 
 .angular
+angular.json
 
 .nx/cache
 .nx/workspace-data/
