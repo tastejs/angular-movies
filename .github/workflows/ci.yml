@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - main
-      -
 env:
   NX_NON_NATIVE_HASHER: true
 
