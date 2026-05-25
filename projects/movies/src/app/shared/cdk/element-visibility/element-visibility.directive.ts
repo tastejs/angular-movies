@@ -24,7 +24,9 @@ export class ElementVisibilityDirective {
   @Output()
   elementVisibility = this.events.visible$;
 
-  constructor(elRef: ElementRef) {
+  constructor() {
+    const elRef = inject(ElementRef);
+
     afterNextRender(() => {
       const sub = observeElementVisibility(elRef.nativeElement).subscribe(
         this.events.visible

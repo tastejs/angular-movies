@@ -71,7 +71,7 @@ type MovieListState = { movies?: Movie[]; numPriority: number };
           >
             {{ movie.title }}
           </h3>
-          <ui-star-rating [rating]="movie.vote_average"></ui-star-rating>
+          <ui-star-rating [rating]="movie.vote_average" />
         </div>
       </a>
       <!-- If this element is visible in the viewport the paginate event fires -->
@@ -80,7 +80,7 @@ type MovieListState = { movies?: Movie[]; numPriority: number };
     <ng-template #noData>
       <div style="display: flex; align-items: center;">
         <span style="font-size: 1.5rem">No results</span>
-        <fast-svg name="sad"></fast-svg>
+        <fast-svg name="sad" />
       </div>
     </ng-template>
   `,

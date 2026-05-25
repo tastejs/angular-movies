@@ -4,7 +4,7 @@ import {
   Component,
   ElementRef,
   inject,
-  ViewChild,
+  viewChild,
 } from '@angular/core';
 import { rxEffects } from '@rx-angular/state/effects';
 import { rxActions } from '@rx-angular/state/actions';
@@ -29,19 +29,21 @@ export default class ListRemoveComponent implements AfterViewInit {
   );
   public adapter = inject(ListDetailAdapter);
 
-  @ViewChild('dialog', { static: true }) dialog!: ElementRef<{
-    showModal: () => void;
-    close: () => void;
-  }>;
+  readonly dialog = viewChild.required<
+    ElementRef<{
+      showModal: () => void;
+      close: () => void;
+    }>
+  >('dialog');
 
   readonly ui = rxActions<Actions>();
 
   ngAfterViewInit(): void {
     this.ef.register(merge(this.ui.confirm$, this.ui.closeDialog$), () =>
-      this.dialog.nativeElement.close()
+      this.dialog().nativeElement.close()
     );
     this.ef.register(this.ui.openDialog$, () =>
-      this.dialog.nativeElement.showModal()
+      this.dialog().nativeElement.showModal()
     );
   }
 }

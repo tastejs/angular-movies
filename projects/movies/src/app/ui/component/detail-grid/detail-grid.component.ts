@@ -9,10 +9,10 @@ import {
   selector: 'ui-detail-grid',
   template: `
     <div class="grid--item gradient">
-      <ng-content select="[detailGridMedia]"></ng-content>
+      <ng-content select="[detailGridMedia]" />
     </div>
     <div class="grid--item media">
-      <ng-content select="[detailGridDescription]"></ng-content>
+      <ng-content select="[detailGridDescription]" />
     </div>
   `,
   styleUrls: ['./detail-grid.component.css'],

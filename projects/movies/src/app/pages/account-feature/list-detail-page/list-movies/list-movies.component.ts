@@ -5,7 +5,7 @@ import { MovieListComponent } from '../../../../ui/pattern/movie-list/movie-list
 @Component({
   imports: [MovieListComponent],
   selector: 'ct-list-movies',
-  template: `<ui-movie-list [movies]="adapter.movies$"></ui-movie-list>`,
+  template: `<ui-movie-list [movies]="adapter.movies$" />`,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export default class ListMoviesComponent {

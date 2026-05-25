@@ -6,8 +6,8 @@ import {
   ElementRef,
   inject,
   TrackByFunction,
-  ViewChild,
   ViewEncapsulation,
+  viewChild,
 } from '@angular/core';
 import { filter, map, mergeWith, tap } from 'rxjs';
 import { TMDBMovieGenreModel } from '../../data-access/api/model/movie-genre.model';
@@ -73,11 +73,10 @@ export default class MovieDetailPageComponent {
   readonly infiniteScrollRecommendations$ =
     this.adapter.infiniteScrollRecommendations$;
 
-  @ViewChild('trailerDialog')
-  trailerDialog: ElementRef | undefined = undefined;
+  readonly trailerDialog = viewChild<ElementRef>('trailerDialog');
 
-  @ViewChild('castListWrapper')
-  castListWrapper: ElementRef<HTMLElement> | undefined = undefined;
+  readonly castListWrapper =
+    viewChild<ElementRef<HTMLElement>>('castListWrapper');
 
   constructor() {
     rxEffects((e) =>
@@ -88,24 +87,25 @@ export default class MovieDetailPageComponent {
         ),
         (openDialog) =>
           openDialog
-            ? this.trailerDialog?.nativeElement?.showModal()
-            : this.trailerDialog?.nativeElement.close()
+            ? this.trailerDialog()?.nativeElement?.showModal()
+            : this.trailerDialog()?.nativeElement.close()
       )
     );
   }
 
   move(increment: number) {
-    if (this.castListWrapper) {
+    const castListWrapper = this.castListWrapper();
+    if (castListWrapper) {
       // eslint-disable-next-line @rx-angular/prefer-no-layout-sensitive-apis
-      const scrollLeft = this.castListWrapper.nativeElement.scrollLeft;
+      const scrollLeft = castListWrapper.nativeElement.scrollLeft;
       const newScrollLetf = scrollLeft - increment;
       // eslint-disable-next-line @rx-angular/prefer-no-layout-sensitive-apis
-      this.castListWrapper.nativeElement.scrollLeft =
+      castListWrapper.nativeElement.scrollLeft =
         newScrollLetf > 0
           ? Math.max(0, newScrollLetf)
           : Math.min(
               newScrollLetf,
-              this.castListWrapper.nativeElement.children.length * increment
+              castListWrapper.nativeElement.children.length * increment
             );
     }
   }

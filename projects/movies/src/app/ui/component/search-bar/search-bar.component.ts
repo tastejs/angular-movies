@@ -7,8 +7,8 @@ import {
   inject,
   Input,
   Output,
-  ViewChild,
   ViewEncapsulation,
+  viewChild,
 } from '@angular/core';
 import {
   filter,
@@ -50,7 +50,7 @@ type UiActions = {
         class="magnifier-button"
         aria-label="Search for a movie"
       >
-        <fast-svg name="search" size="1.125em"></fast-svg>
+        <fast-svg name="search" size="1.125em" />
       </button>
       <input
         data-uf="q"
@@ -72,9 +72,11 @@ type UiActions = {
 export class SearchBarComponent {
   private readonly document = inject(DOCUMENT);
   private readonly elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
-  private readonly state = inject<RxState<{ search: string; open: boolean }>>(RxState);
-  @ViewChild('searchInput') inputRef!: ElementRef<HTMLInputElement>;
-  @ViewChild('form') formRef!: ElementRef<HTMLFormElement>;
+  private readonly state =
+    inject<RxState<{ search: string; open: boolean }>>(RxState);
+  readonly inputRef =
+    viewChild.required<ElementRef<HTMLInputElement>>('searchInput');
+  readonly formRef = viewChild.required<ElementRef<HTMLFormElement>>('form');
 
   ui = rxActions<UiActions>(({ transforms }) =>
     transforms({
@@ -105,7 +107,7 @@ export class SearchBarComponent {
     return fromEvent(this.document, 'click').pipe(
       // forward if the form did NOT trigger the click
       // means we clicked somewhere else in the page but the form
-      filter((e) => !this.formRef.nativeElement.contains(e.target as Node))
+      filter((e) => !this.formRef().nativeElement.contains(e.target as Node))
     );
   }
 
@@ -141,7 +143,7 @@ export class SearchBarComponent {
 
   private readonly focusInput = () => {
     // eslint-disable-next-line @rx-angular/prefer-no-layout-sensitive-apis
-    return this.inputRef.nativeElement.focus();
+    return this.inputRef().nativeElement.focus();
   };
 
   private readonly setOpenedStyling = (opened: boolean) => {

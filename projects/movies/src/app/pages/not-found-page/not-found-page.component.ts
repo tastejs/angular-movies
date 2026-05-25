@@ -9,7 +9,7 @@ import { FastSvgComponent } from '@push-based/ngx-fast-svg';
   imports: [FastSvgComponent],
   selector: 'ct-not-found',
   template: ` <div class="not-found-container">
-    <fast-svg size="350px" name="error"></fast-svg>
+    <fast-svg size="350px" name="error" />
     <h1 class="title">Sorry, page not found</h1>
     <a class="btn" routerLink="/list/category/popular">See popular</a>
   </div>`,

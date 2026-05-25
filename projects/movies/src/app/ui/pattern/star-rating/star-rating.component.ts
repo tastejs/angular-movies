@@ -1,9 +1,9 @@
-import { NgClass } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
   Input,
   ViewEncapsulation,
+  input,
 } from '@angular/core';
 
 const range = 10;
@@ -11,7 +11,6 @@ const numStars = 5;
 const starsArray: number[] = new Array(numStars).fill(1);
 
 @Component({
-  imports: [NgClass],
   selector: 'ui-star-rating',
   template: `
     <span class="tooltip">
@@ -21,13 +20,13 @@ const starsArray: number[] = new Array(numStars).fill(1);
       @for (fill of stars; track $index) {
       <span
         class="star"
-        [ngClass]="{ 'star-half': fill === 0, 'star-empty': fill === -1 }"
+        [class]="{ 'star-half': fill === 0, 'star-empty': fill === -1 }"
       >
         ★
       </span>
       }
     </div>
-    @if (showRating) {
+    @if (showRating()) {
     <div class="rating-value">{{ rating }}</div>
     }
   `,
@@ -42,7 +41,7 @@ export class StarRatingComponent {
   range = range;
   numStars = numStars;
   stars: number[] = starsArray;
-  @Input() showRating = false;
+  readonly showRating = input(false);
   tooltipText = `0 average rating`;
 
   private _rating = 5;
