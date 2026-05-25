@@ -15,7 +15,6 @@ import { RouterLink } from '@angular/router';
 import { NgOptimizedImage } from '@angular/common';
 
 @Component({
-  standalone: true,
   imports: [RouterLink, RxFor, GridListComponent, NgOptimizedImage],
   selector: 'ct-person',
   templateUrl: './account-list-page.component.html',

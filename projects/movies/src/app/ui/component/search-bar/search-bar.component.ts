@@ -34,7 +34,6 @@ type UiActions = {
 };
 
 @Component({
-  standalone: true,
   imports: [RxLet, FastSvgComponent],
   selector: 'ui-search-bar',
   template: `

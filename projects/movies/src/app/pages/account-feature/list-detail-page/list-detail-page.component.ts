@@ -1,13 +1,12 @@
-import {ChangeDetectionStrategy, Component, inject} from '@angular/core';
-import {RxLet} from '@rx-angular/template/let';
-import {RxFor} from '@rx-angular/template/for';
-import {MovieListComponent} from '../../../ui/pattern/movie-list/movie-list.component';
-import {FastSvgComponent} from '@push-based/ngx-fast-svg';
-import {RouterLink, RouterOutlet} from '@angular/router';
-import {ListDetailAdapter} from './list-detail-page.adapter';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { RxLet } from '@rx-angular/template/let';
+import { RxFor } from '@rx-angular/template/for';
+import { MovieListComponent } from '../../../ui/pattern/movie-list/movie-list.component';
+import { FastSvgComponent } from '@push-based/ngx-fast-svg';
+import { RouterLink, RouterOutlet } from '@angular/router';
+import { ListDetailAdapter } from './list-detail-page.adapter';
 
 @Component({
-  standalone: true,
   imports: [
     RouterLink,
     RouterOutlet,

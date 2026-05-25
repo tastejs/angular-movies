@@ -1,15 +1,17 @@
-import {RxLet} from '@rx-angular/template/let';
-import {ChangeDetectionStrategy, Component, inject} from '@angular/core';
-import {TMDBMovieDetailsModel} from '../../../../data-access/api/model/movie-details.model';
+import { RxLet } from '@rx-angular/template/let';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { TMDBMovieDetailsModel } from '../../../../data-access/api/model/movie-details.model';
 
-import {trackByProp} from '../../../../shared/cdk/track-by';
-import {ListItemsEditAdapter, MovieSearchResult,} from './list-items-edit.adapter';
-import {RxFor} from '@rx-angular/template/for';
-import {FastSvgComponent} from '@push-based/ngx-fast-svg';
-import {NgOptimizedImage} from '@angular/common';
+import { trackByProp } from '../../../../shared/cdk/track-by';
+import {
+  ListItemsEditAdapter,
+  MovieSearchResult,
+} from './list-items-edit.adapter';
+import { RxFor } from '@rx-angular/template/for';
+import { FastSvgComponent } from '@push-based/ngx-fast-svg';
+import { NgOptimizedImage } from '@angular/common';
 
 @Component({
-  standalone: true,
   imports: [NgOptimizedImage, RxFor, RxLet, FastSvgComponent],
   selector: 'ct-list-items-edit',
   templateUrl: './list-items-edit.component.html',

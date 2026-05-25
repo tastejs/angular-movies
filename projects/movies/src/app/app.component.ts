@@ -12,7 +12,6 @@ import { RxLet } from '@rx-angular/template/let';
     </app-shell>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: true,
   imports: [AppShellComponent, RouterOutlet, RxLet],
 })
 export class AppComponent {
