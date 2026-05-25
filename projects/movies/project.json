@@ -11,7 +11,7 @@
         "index": "projects/movies/src/index.html",
         "browser": "projects/movies/src/main.ts",
         "tsConfig": "projects/movies/tsconfig.app.json",
-        "inlineStyleLanguage": "scss",
+        "inlineStyleLanguage": "css",
         "namedChunks": true,
         "assets": [
           "projects/movies/src/favicon.ico",
@@ -20,7 +20,7 @@
           "projects/movies/src/assets",
           "projects/movies/src/_routes.json"
         ],
-        "styles": ["projects/movies/src/styles.scss"],
+        "styles": ["projects/movies/src/styles.css"],
         "scripts": [],
         "allowedCommonJsDependencies": ["compression", "server-timing"],
         "server": "projects/movies/src/main.server.ts",
@@ -197,7 +197,7 @@
   },
   "generators": {
     "@schematics/angular:component": {
-      "style": "scss",
+      "style": "css",
       "changeDetection": "OnPush"
     },
     "@schematics/angular:application": {

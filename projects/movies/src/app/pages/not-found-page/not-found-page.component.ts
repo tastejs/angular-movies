@@ -13,7 +13,7 @@ import { FastSvgComponent } from '@push-based/ngx-fast-svg';
     <h1 class="title">Sorry, page not found</h1>
     <a class="btn" routerLink="/list/category/popular">See popular</a>
   </div>`,
-  styleUrls: ['./not-found-page.component.scss'],
+  styleUrls: ['./not-found-page.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.Emulated,
 })

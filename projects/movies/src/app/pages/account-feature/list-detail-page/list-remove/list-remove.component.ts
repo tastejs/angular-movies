@@ -20,7 +20,7 @@ type Actions = {
   standalone: true,
   selector: 'app-list-remove',
   templateUrl: './list-remove.component.html',
-  styleUrls: ['./list-remove.component.scss'],
+  styleUrls: ['./list-remove.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export default class ListRemoveComponent implements AfterViewInit {

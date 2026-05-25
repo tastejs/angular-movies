@@ -1,0 +1,52 @@
+.aspectRatio-2-3 {
+  width: 100%;
+  display: block;
+  height: auto;
+  aspect-ratio: var(--theme-aspectRatio-2-3);
+}
+
+.aspectRatio-16-9 {
+  width: 100%;
+  display: block;
+  height: auto;
+  aspect-ratio: var(--theme-aspectRatio-16-9);
+}
+
+.aspectRatio-4-3 {
+  width: 100%;
+  display: block;
+  height: auto;
+  aspect-ratio: var(--theme-aspectRatio-4-3);
+}
+
+.fit-cover {
+  width: 100%;
+  display: block;
+  object-fit: cover;
+  height: 100%;
+}
+
+.account-list--details {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 1.5rem 3rem;
+}
+@media only screen and (max-width: 500px) {
+  .account-list--details {
+    padding: 1.5rem;
+  }
+}
+.account-list--details-title {
+  text-align: center;
+  margin-bottom: 1rem;
+  line-height: 1.4;
+}
+.account-list--details-stats {
+  color: var(--palette-text-secondary);
+}
+
+.ui-grid-list-item {
+  content-visibility: auto;
+}

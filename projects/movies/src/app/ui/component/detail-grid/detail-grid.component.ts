@@ -15,7 +15,7 @@ import {
       <ng-content select="[detailGridDescription]"></ng-content>
     </div>
   `,
-  styleUrls: ['./detail-grid.component.scss'],
+  styleUrls: ['./detail-grid.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.Emulated,
 })

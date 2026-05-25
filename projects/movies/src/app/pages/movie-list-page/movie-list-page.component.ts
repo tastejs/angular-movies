@@ -10,7 +10,6 @@ import {
   MovieListPageAdapter,
   MovieListPageModel,
 } from './movie-list-page.adapter';
-import { NgOptimizedImage } from '@angular/common';
 import { RxLet } from '@rx-angular/template/let';
 import { RxIf } from '@rx-angular/template/if';
 import { MovieListComponent } from '../../ui/pattern/movie-list/movie-list.component';
@@ -18,10 +17,10 @@ import { MovieListComponent } from '../../ui/pattern/movie-list/movie-list.compo
 type Heading = { main: string; sub: string };
 
 @Component({
-  imports: [NgOptimizedImage, RxLet, RxIf, MovieListComponent],
+  imports: [RxLet, RxIf, MovieListComponent],
   selector: 'ct-movies-list',
   templateUrl: './movie-list-page.component.html',
-  styleUrls: ['./movie-list-page.component.scss'],
+  styleUrls: ['./movie-list-page.component.css'],
   encapsulation: ViewEncapsulation.Emulated,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

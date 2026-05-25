@@ -1,0 +1,59 @@
+@charset "UTF-8";
+:host {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+:host:hover .tooltip {
+  visibility: visible;
+}
+
+.tooltip {
+  top: -28px;
+}
+
+.rating-value {
+  overflow: hidden;
+  color: var(--palette-warning-dark);
+  font-size: var(--text-sm);
+  padding: 5px 0 0 5px;
+}
+
+.stars {
+  overflow: hidden;
+  position: relative;
+}
+
+.star {
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  display: block;
+  float: left;
+  font-size: 24px;
+  color: var(--palette-warning-main);
+}
+
+.star-full {
+  color: var(--palette-warning-main);
+}
+
+.star-half {
+  color: var(--palette-text-secondary);
+}
+.star-half:before {
+  position: absolute;
+  overflow: hidden;
+  display: block;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  width: 50%;
+  content: '★';
+  color: var(--palette-warning-main);
+}
+
+.star-empty {
+  color: var(--palette-text-secondary);
+}

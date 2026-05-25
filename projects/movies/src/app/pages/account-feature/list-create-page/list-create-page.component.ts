@@ -67,8 +67,8 @@ import { RxIf } from '@rx-angular/template/if';
     </article>
   `,
   styleUrls: [
-    './list-create-page.component.scss',
-    '../../../ui/component/button/_button.scss',
+    './list-create-page.component.css',
+    '../../../ui/component/button/_button.css',
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

@@ -1,0 +1,40 @@
+.btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  display: inline-flex;
+  outline: none;
+  padding: 6px 16px;
+  min-width: 96px;
+  min-height: 48px;
+  font-weight: normal;
+  font-size: var(--text-md);
+  color: var(--palette-primary-dark);
+  border: 1px solid rgba(var(--palette-primary-main-rgb), 0.5);
+  border-radius: var(--theme-borderRadius-m);
+  box-shadow: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.btn__icon {
+  width: 24px;
+  height: 24px;
+  margin-left: 8px;
+}
+
+.primary-button {
+  background: var(--palette-primary-main);
+  color: var(--palette-primary-contrast-text);
+}
+.primary-button:hover {
+  background-color: var(--palette-primary-light);
+}
+
+.functionality-only-button {
+  background: none;
+  border: none;
+  display: block;
+  text-align: left;
+  height: inherit;
+}

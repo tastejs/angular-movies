@@ -2,12 +2,10 @@ import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { AuthEffects } from '../../auth/auth.effects';
 import { RouterLink } from '@angular/router';
 import { AccountState } from '../../state/account.state';
-import { AsyncPipe } from '@angular/common';
-import { RxPush } from '@rx-angular/template/push';
 import { toSignal } from '@angular/core/rxjs-interop';
 
 @Component({
-  imports: [RouterLink, AsyncPipe, RxPush],
+  imports: [RouterLink],
   selector: 'app-account-menu',
   template: `
     @if (loggedIn()) {
@@ -38,7 +36,7 @@ import { toSignal } from '@angular/core/rxjs-interop';
     </div>
     }
   `,
-  styleUrls: ['./account-menu.component.scss'],
+  styleUrls: ['./account-menu.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export default class AccountMenuComponent {

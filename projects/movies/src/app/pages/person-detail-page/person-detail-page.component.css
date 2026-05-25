@@ -1,0 +1,211 @@
+.btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  display: inline-flex;
+  outline: none;
+  padding: 6px 16px;
+  min-width: 96px;
+  min-height: 48px;
+  font-weight: normal;
+  font-size: var(--text-md);
+  color: var(--palette-primary-dark);
+  border: 1px solid rgba(var(--palette-primary-main-rgb), 0.5);
+  border-radius: var(--theme-borderRadius-m);
+  box-shadow: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.btn__icon {
+  width: 24px;
+  height: 24px;
+  margin-left: 8px;
+}
+
+.primary-button {
+  background: var(--palette-primary-main);
+  color: var(--palette-primary-contrast-text);
+}
+.primary-button:hover {
+  background-color: var(--palette-primary-light);
+}
+
+.functionality-only-button {
+  background: none;
+  border: none;
+  display: block;
+  text-align: left;
+  height: inherit;
+}
+
+.loader {
+  display: grid;
+  place-items: center;
+  min-width: 150px;
+  min-height: 150px;
+  width: 100%;
+}
+.loader:after {
+  content: ' ';
+  width: 3rem;
+  height: 3rem;
+  border-radius: var(--theme-borderRadius-circle);
+  background-color: var(--palette-primary-dark);
+  box-shadow: -5rem 0 0 var(--palette-primary-main);
+  animation: circle-classic 1s ease-in-out infinite alternate;
+}
+
+.loader.center-v {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+@keyframes circle-classic {
+  0% {
+    opacity: 0.1;
+    transform: rotate(0deg) scale(0.5);
+  }
+  100% {
+    opacity: 1;
+    transform: rotate(360deg) scale(1.2);
+  }
+}
+.aspectRatio-2-3 {
+  width: 100%;
+  display: block;
+  height: auto;
+  aspect-ratio: var(--theme-aspectRatio-2-3);
+}
+
+.aspectRatio-16-9 {
+  width: 100%;
+  display: block;
+  height: auto;
+  aspect-ratio: var(--theme-aspectRatio-16-9);
+}
+
+.aspectRatio-4-3 {
+  width: 100%;
+  display: block;
+  height: auto;
+  aspect-ratio: var(--theme-aspectRatio-4-3);
+}
+
+.fit-cover {
+  width: 100%;
+  display: block;
+  object-fit: cover;
+  height: 100%;
+}
+
+:host {
+  width: 100%;
+  display: block;
+}
+
+@media only screen and (max-width: 1500px) {
+  .movie-detail--grid-item {
+    padding: 3rem;
+  }
+}
+.movie-detail--ad-section-links .section--content {
+  display: flex;
+  margin-right: auto;
+}
+.movie-detail--ad-section-links .btn {
+  margin-right: 2rem;
+}
+@media only screen and (max-width: 1300px) {
+  .movie-detail--ad-section-links .btn {
+    margin-right: 1rem;
+  }
+}
+.movie-detail--ad-section-links > .btn:last-child {
+  margin-right: 0rem;
+  float: right;
+}
+
+.movie-detail--section {
+  margin-bottom: 3rem;
+}
+
+.select-wrapper {
+  position: relative;
+  max-width: 300px;
+}
+.select-wrapper:before {
+  transform: rotate(45deg);
+  border-right: 1px solid var(--palette-action-active);
+  border-bottom: 1px solid var(--palette-action-active);
+  pointer-events: none;
+  content: '';
+  display: inline-block;
+  position: absolute;
+  top: 10px;
+  right: 19px;
+  width: 11px;
+  height: 11px;
+  z-index: 1090;
+}
+.select-wrapper-overlay {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  margin: auto;
+  background: transparent;
+  z-index: 1000;
+  box-shadow: var(--theme-shadow-dropdown);
+}
+
+.select {
+  width: 100%;
+  background: var(--palette-background-paper);
+  padding: 0 16px;
+  min-height: 36px;
+  border-width: 1px;
+  cursor: pointer;
+  border: 1px solid var(--palette-divider);
+  box-shadow: var(--theme-shadow-dropdown);
+  font-size: var(--text-md);
+  -webkit-appearance: none;
+  position: relative;
+  display: block;
+}
+.select:focus {
+  outline: none;
+}
+
+.options {
+  max-height: 300px;
+  overflow: auto;
+  position: absolute;
+  top: calc(100% + 8px);
+  background: var(--palette-background-paper);
+  border: 1px solid var(--palette-divider);
+  width: 100%;
+  z-index: 2000;
+}
+
+.option {
+  font-size: var(--text-md);
+  padding: 0 16px;
+  min-height: 36px;
+  line-height: 36px;
+  border-bottom: 1px solid var(--palette-divider);
+  cursor: pointer;
+}
+.option.selected {
+  background: var(--palette-action-hover);
+}
+.option:hover {
+  background: var(--palette-action-hover);
+}
+
+.option .functionality-only-button {
+  width: 100%;
+}

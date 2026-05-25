@@ -1,0 +1,296 @@
+@charset "UTF-8";
+/**
+ * **🚀 Perf Tip for TBT:**
+ *
+ * Only include styles visible in the main bundle and move other imports directly into the respective component. e.g. button style
+ * This reduces bundle-size of your styles.
+ */
+html {
+  box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  background-color: var(--palette-background-default);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+@media screen and (prefers-reduced-motion: reduce) {
+  html {
+    -webkit-scroll-behavior: auto;
+    -moz-scroll-behavior: auto;
+    -ms-scroll-behavior: auto;
+    scroll-behavior: auto;
+  }
+}
+dialog,
+iframe {
+  border: 0;
+}
+
+dialog {
+  border: 0;
+  margin: auto;
+  overflow: visible;
+}
+
+form,
+input,
+textarea,
+button,
+select,
+a {
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+:root {
+  --theme-borderRadius-sm: 3px;
+  --theme-borderRadius-m: 4px;
+  --theme-borderRadius-circle: 50%;
+}
+
+:root {
+  --theme-aspectRatio-2-3: 2/3;
+  --theme-aspectRatio-16-9: 16/9;
+  --theme-aspectRatio-4-3: 4/3;
+}
+
+:root {
+  --theme-appbar-zIndex: 1100;
+  --theme-backdrop-zIndex: 1101;
+  --theme-drawer-zIndex: 1200;
+  --theme-tooptip-zIndex: 1300;
+}
+
+:root {
+  --duration: 0.5s;
+  --timing: ease;
+  --theme-anim-duration-short: 250ms;
+  --theme-anim-duration-standard: 300ms;
+  --theme-anim-duration-leavingScreen: 195ms;
+  --theme-anim-easing-easeInOut: cubic-bezier(0.4, 0, 0.2, 1);
+  --theme-anim-easing-easeOut: cubic-bezier(0.4, 0, 0.2, 1);
+  --theme-anim-easing-easeIn: cubic-bezier(0.4, 0, 0.2, 1);
+  --theme-anim-easing-sharp: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+:root {
+  --theme-shadow-1: 0px 2px 1px -1px rgba(0, 0, 0, 0.2),
+    0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
+  --theme-shadow-dropdown: rgb(0 0 0 / 20%) 0px 2px 1px -1px,
+    rgb(0 0 0 / 14%) 0px 1px 1px 0px, rgb(0 0 0 / 12%) 0px 1px 3px 0px;
+  --theme-shadow-16: 0px 8px 10px -5px rgba(0, 0, 0, 0.2),
+    0px 16px 24px 2px rgba(0, 0, 0, 0.14), 0px 6px 30px 5px rgba(0, 0, 0, 0.12);
+}
+
+body.light {
+  --palette-background-default: #fafafa;
+  --palette-text-primary: rgba(0, 0, 0, 0.87);
+  --palette-text-secondary: rgba(0, 0, 0, 0.54);
+  --palette-text-disabled: rgba(0, 0, 0, 0.38);
+  --palette-divider: rgba(0, 0, 0, 0.12);
+  --palette-action-active: rgba(0, 0, 0, 0.54);
+  --palette-action-hover: rgba(0, 0, 0, 0.04);
+  --palette-action-hover-opacity: 0.04;
+  --palette-action-selected: rgba(0, 0, 0, 0.08);
+  --palette-action-disabled: rgba(0, 0, 0, 0.26);
+  --palette-action-disabled-background: rgba(0, 0, 0, 0.12);
+  --palette-background-paper: #fff;
+  --palette-primary-main: #14b8a2;
+  --palette-primary-main-rgb: 20, 184, 162;
+  --palette-primary-dark: #0e8071;
+  --palette-primary-light: #43c6b4;
+  --palette-primary-contrast-text: rgba(0, 0, 0, 0.87);
+  --palette-secondary-main: #b80040;
+  --palette-secondary-main-rgb: 184, 0, 64;
+  --palette-secondary-dark: #80002c;
+  --palette-secondary-light: #c63366;
+  --palette-secondary-contrast-text: #fff;
+  --palette-warning-main: #b5b800;
+  --palette-warning-dark: #575800;
+  --palette-warning-light: #c3c633;
+  --palette-toggle-light-light: #ffb74d;
+  --palette-custom-lightBlue: #add8e6;
+  --palette-warning-contrast-text: rgba(0, 0, 0, 0.87);
+  --background-blend-gradient: linear-gradient(
+    rgba(255, 255, 255, 0) 68%,
+    rgb(255, 255, 255) 100%
+  );
+}
+
+body.dark {
+  --image-filter: grayscale(0%);
+  --palette-background-default: #303030;
+  --palette-text-primary: #fff;
+  --palette-text-secondary: rgba(255, 255, 255, 0.7);
+  --palette-text-disabled: rgba(255, 255, 255, 0.5);
+  --palette-divider: rgba(255, 255, 255, 0.12);
+  --palette-action-active: #fff;
+  --palette-action-hover: rgba(255, 255, 255, 0.08);
+  --palette-action-hover-opacity: 0.08;
+  --palette-action-selected: rgba(255, 255, 255, 0.16);
+  --palette-action-disabled: rgba(255, 255, 255, 0.3);
+  --palette-action-disabled-background: rgba(255, 255, 255, 0.12);
+  --palette-background-paper: #424242;
+  --palette-primary-main: #41ead4;
+  --palette-primary-main-rgb: 65, 234, 212;
+  --palette-primary-dark: #fff;
+  --palette-primary-light: #67eedc;
+  --palette-primary-contrast-text: rgba(0, 0, 0, 0.87);
+  --palette-secondary-main: #ff206e;
+  --palette-secondary-main-rgb: 255, 32, 110;
+  --palette-secondary-dark: #b2164d;
+  --palette-secondary-light: #ff4c8b;
+  --palette-secondary-contrast-text: #fff;
+  --palette-warning-main: #fbff12;
+  --palette-warning-dark: #afb20c;
+  --palette-warning-light: #fbff41;
+  --palette-warning-contrast-text: rgba(0, 0, 0, 0.87);
+  --background-blend-gradient: linear-gradient(
+    rgba(255, 255, 255, 0) 68%,
+    rgb(48, 48, 48) 100%
+  );
+}
+
+:root {
+  --text-sm: 1.38rem;
+  --text-md: 1.5rem;
+  --text-lg: 1.75rem;
+  --text-xl: 2rem;
+}
+
+html {
+  font-size: 62.5%;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 400;
+  line-height: 1.6;
+}
+
+@media only screen and (max-width: 1500px) {
+  html {
+    font-size: 57.5%;
+  }
+}
+@media only screen and (max-width: 1300px) {
+  html {
+    font-size: 55%;
+  }
+}
+h1,
+h2,
+h3,
+h4 {
+  font-weight: normal;
+  color: var(--palette-text-secondary);
+  text-transform: uppercase;
+  line-height: 1;
+  margin-bottom: 0.5rem;
+}
+
+h1 {
+  color: var(--palette-text-primary);
+  font-size: 3rem;
+  font-weight: 300;
+  letter-spacing: -0.5px;
+}
+
+h2 {
+  font-size: 1.75rem;
+  font-weight: 700;
+}
+
+h3 {
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+a {
+  cursor: pointer;
+  text-decoration: none;
+  font-size: 1.25rem;
+  color: var(--palette-secondary-main);
+}
+
+header {
+  margin-bottom: 2rem;
+  contain: content;
+}
+
+article {
+  padding-right: 4rem;
+  padding-left: 4rem;
+  margin-top: 4rem;
+}
+
+@media only screen and (max-width: 1462.5px) {
+  article {
+    padding-right: 3rem;
+    padding-left: 3rem;
+    margin-top: 3rem;
+  }
+}
+@media only screen and (max-width: 1300px) {
+  article {
+    padding-right: 2rem;
+    padding-left: 2rem;
+    margin-top: 2rem;
+  }
+}
+section {
+  display: block;
+  font-size: var(--text-md);
+  line-height: 1.8;
+  color: var(--palette-text-secondary);
+  margin-bottom: 3rem;
+}
+
+section a {
+  color: var(--palette-secondary-main);
+}
+
+section h3 {
+  color: var(--palette-text-primary);
+}
+
+label {
+  font-size: var(--text-md);
+}
+
+@media only screen and (max-width: 900px) {
+  .title {
+    font-size: 2.125rem;
+  }
+}
+body {
+  color: var(--palette-text-primary);
+  background-color: var(--palette-background-default);
+  transition: color var(--duration) var(--timing),
+    background-color var(--duration) var(--timing);
+}
+body.modal-visible .content {
+  contain: none;
+}
+
+body.dark img:not([src*='.svg']) {
+  filter: var(--image-filter);
+}

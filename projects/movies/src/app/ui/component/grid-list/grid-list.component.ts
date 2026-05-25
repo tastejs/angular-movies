@@ -8,6 +8,6 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
     <ng-content></ng-content>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  styleUrls: ['./grid-list.component.scss'],
+  styleUrls: ['./grid-list.component.css'],
 })
 export class GridListComponent {}

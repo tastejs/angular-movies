@@ -1,0 +1,53 @@
+.aspectRatio-2-3 {
+  width: 100%;
+  display: block;
+  height: auto;
+  aspect-ratio: var(--theme-aspectRatio-2-3);
+}
+
+.aspectRatio-16-9 {
+  width: 100%;
+  display: block;
+  height: auto;
+  aspect-ratio: var(--theme-aspectRatio-16-9);
+}
+
+.aspectRatio-4-3 {
+  width: 100%;
+  display: block;
+  height: auto;
+  aspect-ratio: var(--theme-aspectRatio-4-3);
+}
+
+.fit-cover {
+  width: 100%;
+  display: block;
+  object-fit: cover;
+  height: 100%;
+}
+
+.movies-list {
+  contain: content;
+}
+.movies-list--details {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 1.5rem 3rem;
+}
+@media only screen and (max-width: 500px) {
+  .movies-list--details {
+    padding: 1.5rem;
+  }
+}
+.movies-list--details-title {
+  text-align: center;
+  margin-bottom: 1rem;
+  line-height: 1.4;
+}
+
+.ui-grid-list-item {
+  content-visibility: auto;
+  contain-intrinsic-size: 450px;
+}
