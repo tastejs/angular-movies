@@ -3,8 +3,8 @@ import { getCliParam } from '../../../../../tooling/cli/utils';
 import {
   formatBytes,
   formatChunkName,
+  getInitialAssets,
   getStatsAssets,
-  isInitialAsset,
   isLazyAsset,
   readFile,
 } from '../utils';
@@ -27,12 +27,12 @@ export async function run(): Promise<void> {
   const [_, bottom] = rest.split('<!-- bundle-stats-end -->');
 
   const assets = getStatsAssets(stats);
-  const initialAssets: [string, number][] = assets
-    .filter(isInitialAsset)
-    .sort((a, b) => b.size - a.size)
-    .map(({ name, size }) => [name, size]);
+  const initialAssets: [string, number][] = getInitialAssets(stats).map(
+    ({ name, size }) => [name, size]
+  );
+  const initialNames = new Set(initialAssets.map(([name]) => name));
   const restAssets: [string, number, string?][] = assets
-    .filter(isLazyAsset)
+    .filter((asset) => !initialNames.has(asset.name) && isLazyAsset(asset))
     .sort((a, b) => b.size - a.size)
     .map(({ name, size, entryPoint }) => [name, size, entryPoint]);
 
