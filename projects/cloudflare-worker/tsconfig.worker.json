@@ -1,9 +1,8 @@
 {
-  "extends": "./tsconfig.json",
-  "files": [
-    "./src/index.ts"
-  ],
-  "include": [
-    "./src/index.ts"
-  ]
+  "extends": "../movies/tsconfig.app.json",
+  "compilerOptions": {
+    "types": ["node"]
+  },
+  "files": ["src/main.server.ts", "src/worker.ts", "../movies/src/main.ts"],
+  "include": ["src/**/*.ts"]
 }

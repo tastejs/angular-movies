@@ -7,25 +7,29 @@
   "targets": {
     "pre-build": {
       "outputs": ["{options.outputPath}"],
-      "executor": "@nx/angular:webpack-server",
+      "executor": "@angular/build:application",
       "options": {
-        "outputPath": "dist/tmp/_worker",
-        "main": "projects/cloudflare-worker/src/index.ts",
+        "outputPath": "dist/tmp/_worker-build",
+        "index": "projects/movies/src/index.html",
+        "browser": "projects/movies/src/main.ts",
+        "server": "projects/cloudflare-worker/src/main.server.ts",
         "tsConfig": "projects/cloudflare-worker/tsconfig.worker.json",
-        "outputHashing": "media",
-        "sourceMap": true,
-        "extractLicenses": true,
+        "inlineStyleLanguage": "css",
+        "styles": ["projects/movies/src/styles.css"],
+        "assets": [],
+        "ssr": {
+          "experimentalPlatform": "neutral"
+        },
+        "prerender": false,
         "optimization": true,
-        "buildOptimizer": true
+        "sourceMap": true,
+        "outputHashing": "media"
       },
       "configurations": {
         "development": {
           "outputHashing": "none",
           "optimization": false,
-          "sourceMap": true,
-          "extractLicenses": true,
-          "vendorChunk": true,
-          "buildOptimizer": false
+          "sourceMap": true
         },
         "production": {
           "fileReplacements": [
@@ -39,14 +43,13 @@
       "defaultConfiguration": "production"
     },
     "build": {
-      "outputs": ["{workspaceRoot}/dist/tmp/_worker"],
+      "outputs": ["{workspaceRoot}/dist/projects/movies/worker"],
       "executor": "nx:run-commands",
       "options": {
         "commands": [
           "nx build movies",
           "nx pre-build cloudflare-worker",
-          "node projects/cloudflare-worker/tooling/copy-files.mjs --source=dist/projects/movies/browser --target=dist/tmp/_worker",
-          "node projects/cloudflare-worker/tooling/copy-files.mjs --source=dist/tmp/_worker --target=dist/projects/movies/worker",
+          "node projects/cloudflare-worker/tooling/prepare-worker.mjs",
           "node projects/cloudflare-worker/tooling/bundle.mjs --target=dist/projects/movies/worker"
         ],
         "parallel": false

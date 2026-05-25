@@ -1,14 +1,16 @@
 import 'zone.js';
-import 'zone.js/dist/zone-node';
+import 'zone.js/node';
 import '@angular/platform-server/init';
 
-import {renderApplication} from '@angular/platform-server';
-import {EdgeEnvironment, provideEdgeEnvironment,} from './app/environment.token';
+import { renderApplication } from '@angular/platform-server';
+import {
+  EdgeEnvironment,
+  provideEdgeEnvironment,
+} from './app/environment.token';
 import bootstrap from './app/bootstrap';
 
-// We attach the Cloudflare `fetch()` handler to the global scope
-// so that we can export it when we process the Angular output.
-// See tools/bundle.mjs
+// Attach the Cloudflare `fetch()` handler to the global scope so that it can
+// be exported when we post-process the Angular build output. See tooling/bundle.mjs
 (globalThis as any).__workerFetchHandler = async function fetch(
   request: Request,
   environment: EdgeEnvironment
@@ -22,32 +24,29 @@ import bootstrap from './app/bootstrap';
     type: 'text',
   });
 
-  // Get the root `index.html` content.
   const indexUrl = new URL('/', url);
   const indexResponse = await environment.ASSETS.fetch(new Request(indexUrl));
   const document = await indexResponse.text();
 
-  // return directly from CF KV if given
   if (contentFromKV) {
-    let response = new Response(contentFromKV, indexResponse);
+    const response = new Response(contentFromKV, indexResponse);
     response.headers.append('Cache-Control', 's-maxage=200');
     return response;
   }
 
   const content = await renderApplication(
-    () =>
-      bootstrap({
-        providers: [provideEdgeEnvironment({request, env: environment})],
+    (context) =>
+      bootstrap(context, {
+        providers: [provideEdgeEnvironment({ request, env: environment })],
       }),
-    {document, url: url.pathname}
+    { document, url: url.pathname }
   );
 
   await environment.NGMOVIES.put(cacheKey, content, {
-    // seconds
     expirationTtl: 1000,
   });
 
-  let response = new Response(content, indexResponse);
+  const response = new Response(content, indexResponse);
   response.headers.append('Cache-Control', 's-maxage=200');
   return response;
 };
