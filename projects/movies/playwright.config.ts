@@ -7,7 +7,7 @@ const playwrightConfigPath = fileURLToPath(import.meta.url);
 
 const baseURL = process.env['BASE_URL'] || 'http://localhost:4200';
 
-const isCi = !!process.env['CI'];
+const isCi = !!(process.env['CI'] || process.env['GITHUB_ACTIONS']);
 
 /** OAuth setup, TMDB login pages, and authenticated account specs are skipped. */
 const loginTestIgnore = [
@@ -26,7 +26,9 @@ export default defineConfig({
     trace: 'on-first-retry',
   },
   webServer: {
-    command: 'bash scripts/with-node.sh nx run movies:serve:development',
+    command: isCi
+      ? 'npx nx run movies:serve:development'
+      : 'bash scripts/with-node.sh nx run movies:serve:development',
     url: 'http://localhost:4200',
     reuseExistingServer: !isCi,
     cwd: workspaceRoot,

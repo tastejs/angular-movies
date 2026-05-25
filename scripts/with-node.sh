@@ -16,6 +16,14 @@ ensure_node() {
 
 cd "$root"
 
+if [[ "${CI:-}" == "true" || "${GITHUB_ACTIONS:-}" == "true" ]]; then
+  ensure_node || {
+    echo "CI expects Node v${required} from setup-node (see .nvmrc)." >&2
+    exit 1
+  }
+  exec "$@"
+fi
+
 export NVM_DIR="${NVM_DIR:-$HOME/.nvm}"
 if [[ -s "$NVM_DIR/nvm.sh" ]]; then
   # shellcheck source=/dev/null
