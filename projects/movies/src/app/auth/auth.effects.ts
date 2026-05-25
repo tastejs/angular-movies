@@ -32,10 +32,8 @@ export class AuthEffects {
     this.authResource
       .createRequestToken(this.redirectUrl)
       .subscribe(({ request_token }: RequestTokenResponse) => {
-        afterNextRender(() => {
-          // after redirecting to the redirectUrl, the requestToken in localStorage will indicate that an accessToken should be requested
-          window.localStorage.setItem('requestToken', request_token);
-        });
+        // after redirecting to the redirectUrl, the requestToken in localStorage will indicate that an accessToken should be requested
+        window.localStorage.setItem('requestToken', request_token);
         this.document.location.replace(
           `https://www.themoviedb.org/auth/access?request_token=${request_token}`
         );
@@ -46,15 +44,13 @@ export class AuthEffects {
     this.authResource
       .createAccessToken(requestToken)
       .subscribe(({ access_token, account_id }: AccessTokenResponse) => {
-        afterNextRender(() => {
-          window.localStorage.removeItem('requestToken');
+        window.localStorage.removeItem('requestToken');
 
-          window.localStorage.setItem('accountId', account_id);
-          this.accountState.set({ accountId: account_id });
+        window.localStorage.setItem('accountId', account_id);
+        this.accountState.set({ accountId: account_id });
 
-          window.localStorage.setItem('accessToken', access_token);
-          this.accessTokenFacade.setUserAccessToken(access_token);
-        });
+        window.localStorage.setItem('accessToken', access_token);
+        this.accessTokenFacade.setUserAccessToken(access_token);
       });
   };
 

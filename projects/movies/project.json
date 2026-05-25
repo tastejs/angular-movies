@@ -119,6 +119,24 @@
       },
       "defaultConfiguration": "development"
     },
+    "serve-static": {
+      "continuous": true,
+      "executor": "nx:run-commands",
+      "dependsOn": ["build"],
+      "options": {
+        "command": "npx http-server dist/projects/movies/browser -p 4200 -c-1 -P http://localhost:4200?"
+      },
+      "configurations": {
+        "development": {
+          "dependsOn": ["build:development"]
+        },
+        "production": {
+          "dependsOn": ["build:production"],
+          "command": "npx http-server dist/projects/movies/browser -p 4201 -c-1 -P http://localhost:4201?"
+        }
+      },
+      "defaultConfiguration": "development"
+    },
     "ngsw-config": {
       "executor": "nx:run-commands",
       "options": {

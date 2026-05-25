@@ -27,7 +27,7 @@
     },
     "serve-static": {
       "dependsOn": ["build"],
-      "inputs": ["development", "^development"]
+      "inputs": ["default", "^production"]
     },
     "emulate-firebase": {
       "dependsOn": ["build"]
