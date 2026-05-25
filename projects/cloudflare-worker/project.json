@@ -7,7 +7,7 @@
   "targets": {
     "pre-build": {
       "outputs": ["{options.outputPath}"],
-      "executor": "@angular-devkit/build-angular:server",
+      "executor": "@nx/angular:webpack-server",
       "options": {
         "outputPath": "dist/tmp/_worker",
         "main": "projects/cloudflare-worker/src/index.ts",

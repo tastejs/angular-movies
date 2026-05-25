@@ -4,7 +4,7 @@
   "license": "MIT",
   "main": "dist/projects/movies/server/index.js",
   "engines": {
-    "node": "20"
+    "node": ">=20.19.0"
   },
   "type": "module",
   "scripts": {
@@ -22,20 +22,20 @@
     }
   },
   "dependencies": {
-    "@angular/animations": "19.2.22",
-    "@angular/common": "19.2.22",
-    "@angular/core": "19.2.22",
-    "@angular/platform-browser": "19.2.22",
-    "@angular/platform-browser-dynamic": "19.2.22",
-    "@angular/platform-server": "19.2.22",
-    "@angular/router": "19.2.22",
-    "@angular/ssr": "19.2.26",
-    "@angular/service-worker": "19.2.22",
+    "@angular/animations": "20.3.21",
+    "@angular/common": "20.3.21",
+    "@angular/core": "20.3.21",
+    "@angular/platform-browser": "20.3.21",
+    "@angular/platform-browser-dynamic": "20.3.21",
+    "@angular/platform-server": "20.3.21",
+    "@angular/router": "20.3.21",
+    "@angular/ssr": "20.3.26",
+    "@angular/service-worker": "20.3.21",
     "@push-based/ngx-fast-svg": "18.1.0",
-    "@rx-angular/cdk": "18.0.0",
+    "@rx-angular/cdk": "20.1.1",
     "@rx-angular/eslint-plugin": "3.0.0",
-    "@rx-angular/state": "18.1.0",
-    "@rx-angular/template": "18.0.3",
+    "@rx-angular/state": "20.1.0",
+    "@rx-angular/template": "20.1.0",
     "@typescript-eslint/eslint-plugin": "7.18.0",
     "express": "^4.18.2",
     "firebase-functions": "^4.7.0",
@@ -44,16 +44,16 @@
     "zone.js": "0.15.1"
   },
   "devDependencies": {
-    "@angular-eslint/builder": "18.4.3",
-    "@angular-eslint/eslint-plugin": "18.4.3",
-    "@angular-eslint/eslint-plugin-template": "18.4.3",
-    "@angular-eslint/schematics": "18.4.3",
-    "@angular-eslint/template-parser": "18.4.3",
-    "@angular/build": "^19.2.26",
-    "@angular/cli": "19.2.26",
-    "@angular/compiler": "19.2.22",
-    "@angular/compiler-cli": "19.2.22",
-    "@angular/language-service": "19.2.22",
+    "@angular-eslint/builder": "20.7.0",
+    "@angular-eslint/eslint-plugin": "20.7.0",
+    "@angular-eslint/eslint-plugin-template": "20.7.0",
+    "@angular-eslint/schematics": "20.7.0",
+    "@angular-eslint/template-parser": "20.7.0",
+    "@angular/build": "^20.3.26",
+    "@angular/cli": "20.3.26",
+    "@angular/compiler": "20.3.21",
+    "@angular/compiler-cli": "20.3.21",
+    "@angular/language-service": "20.3.21",
     "@cloudflare/workers-types": "^4.20230511.0",
     "@commitlint/cli": "^12.1.4",
     "@commitlint/config-conventional": "^12.1.4",
@@ -61,17 +61,17 @@
     "@esbuild-plugins/node-globals-polyfill": "^0.2.3",
     "@esbuild-plugins/node-modules-polyfill": "^0.2.2",
     "@miniflare/tre": "^3.0.0-next.13",
-    "@nx/angular": "20.8.4",
-    "@nx/devkit": "20.8.4",
-    "@nx/esbuild": "20.8.4",
-    "@nx/eslint-plugin": "20.8.4",
-    "@nx/jest": "20.8.4",
-    "@nx/js": "20.8.4",
-    "@nx/node": "20.8.4",
-    "@nx/webpack": "20.8.4",
-    "@nx/workspace": "20.8.4",
+    "@nx/angular": "22.7.3",
+    "@nx/devkit": "22.7.3",
+    "@nx/esbuild": "22.7.3",
+    "@nx/eslint-plugin": "22.7.3",
+    "@nx/jest": "22.7.3",
+    "@nx/js": "22.7.3",
+    "@nx/node": "22.7.3",
+    "@nx/webpack": "22.7.3",
+    "@nx/workspace": "22.7.3",
     "@rx-angular/import-graph-visualizer": "^0.2.0",
-    "@schematics/angular": "18.2.21",
+    "@schematics/angular": "20.3.26",
     "@size-limit/file": "^7.0.8",
     "@types/compression": "^1.7.2",
     "@types/express": "^4.17.17",
@@ -104,7 +104,7 @@
     "lighthouse": "^9.6.8",
     "lint-staged": "^11.2.6",
     "markdownlint": "^0.29.0",
-    "nx": "20.8.4",
+    "nx": "22.7.3",
     "nx-cloud": "19.1.3",
     "open": "^8.4.0",
     "postcss-preset-env": "^9.1.0",
@@ -118,24 +118,14 @@
     "ts-jest": "^29.1.0",
     "ts-node": "10.9.1",
     "tslib": "2.8.1",
-    "typescript": "5.5.4",
+    "typescript": "5.9.3",
     "webpack-bundle-analyzer": "^3.3.2",
     "wrangler": "^3.0.1",
     "yargs": "^17.3.1"
   },
   "overrides": {
-    "@rx-angular/cdk": {
-      "@angular/core": "^19.0.0"
-    },
-    "@rx-angular/state": {
-      "@angular/core": "^19.0.0"
-    },
-    "@rx-angular/template": {
-      "@angular/core": "^19.0.0"
-    },
     "@angular-eslint/schematics": {
-      "@angular/cli": "^19.0.0",
-      "@angular-devkit/build-angular": "^19.0.0"
+      "@angular/cli": "^20.0.0"
     }
   }
 }

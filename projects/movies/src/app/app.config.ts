@@ -2,7 +2,7 @@ import {
   APP_INITIALIZER,
   ApplicationConfig,
   NgZone,
-  provideExperimentalZonelessChangeDetection as provideZonelessChangeDetection,
+  provideZonelessChangeDetection,
 } from '@angular/core';
 import { provideFastSVG } from '@push-based/ngx-fast-svg';
 import {
