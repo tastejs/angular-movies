@@ -20,7 +20,8 @@ const starsArray: number[] = new Array(numStars).fill(1);
       @for (fill of stars; track $index) {
       <span
         class="star"
-        [class]="{ 'star-half': fill === 0, 'star-empty': fill === -1 }"
+        [class.star-half]="fill === 0"
+        [class.star-empty]="fill === -1"
       >
         ★
       </span>
