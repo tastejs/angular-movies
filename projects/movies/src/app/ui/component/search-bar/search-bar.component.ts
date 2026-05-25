@@ -72,7 +72,7 @@ type UiActions = {
 export class SearchBarComponent {
   private readonly document = inject(DOCUMENT);
   private readonly elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
-  private readonly state = inject(RxState<{ search: string; open: boolean }>);
+  private readonly state = inject<RxState<{ search: string; open: boolean }>>(RxState);
   @ViewChild('searchInput') inputRef!: ElementRef<HTMLInputElement>;
   @ViewChild('form') formRef!: ElementRef<HTMLFormElement>;
 
