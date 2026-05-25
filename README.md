@@ -103,10 +103,11 @@ Clone and install the dependencies for `angular-movies` locally:
 
 1. Use the Node version from [`.nvmrc`](.nvmrc) (enforced via `engine-strict` in [`.npmrc`](.npmrc)):
    ```bash
+   nvm install
    nvm use
    npm ci
    ```
-   `npm start` and `npm run e2e` run `nvm use` automatically via [`scripts/with-node.sh`](scripts/with-node.sh).
+   `npm start` and `npm run e2e` select the `.nvmrc` Node version automatically via [`scripts/with-node.sh`](scripts/with-node.sh) (installs via nvm locally; uses `setup-node` in CI).
 2. Copy [`projects/movies/src/environments/environment.local.example.ts`](projects/movies/src/environments/environment.local.example.ts) to
    `projects/movies/src/environments/environment.ts` (or `environment.production.ts` for prod builds).
 3. Add your [TMDb API key and read access token](https://developer.themoviedb.org/docs/getting-started).

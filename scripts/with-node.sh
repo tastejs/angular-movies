@@ -1,16 +1,34 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+root="$(cd "$(dirname "$0")/.." && pwd)"
+required="$(tr -d '[:space:]' < "$root/.nvmrc" | sed 's/^v//')"
+
+ensure_node() {
+  local actual
+  actual="$(node -v | sed 's/^v//')"
+  if [[ "$actual" == "$required" ]]; then
+    return 0
+  fi
+  echo "Expected Node v${required}, but got v${actual}." >&2
+  return 1
+}
+
+cd "$root"
+
 export NVM_DIR="${NVM_DIR:-$HOME/.nvm}"
 if [[ -s "$NVM_DIR/nvm.sh" ]]; then
   # shellcheck source=/dev/null
   . "$NVM_DIR/nvm.sh"
+  if ! nvm use "$required" 2>/dev/null; then
+    nvm install "$required"
+    nvm use "$required"
+  fi
 else
-  echo "nvm not found. Install nvm, then run: nvm use" >&2
-  exit 1
+  ensure_node || {
+    echo "nvm not found. Install nvm or use Node v${required} (see .nvmrc)." >&2
+    exit 1
+  }
 fi
-
-cd "$(dirname "$0")/.."
-nvm use
 
 exec "$@"
