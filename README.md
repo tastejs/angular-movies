@@ -28,62 +28,62 @@ For now you can search the codebase for "Perf Tip" later on there will be proppe
 <!-- bundle-stats-start -->
 | Names             |       Size |
 | ---               | ---        |
-| main.js           | 29.36 KB |
-| styles.css           | 5.56 KB |
-  | **Initial Total** | **34.92 KB** |
+| chunk-H73X5IJZ.js           | 171.91 KB |
+| chunk-J5RJBBBA.js           | 97.67 KB |
+| main-HAHZT3VR.js           | 29.36 KB |
+| chunk-26THTVGX.js           | 23.04 KB |
+| chunk-MFJP3XQD.js           | 13.03 KB |
+| chunk-DD4274WW.js           | 11.24 KB |
+| chunk-UJXKG7ZY.js           | 5.84 KB |
+| styles-6J6M4RLR.css           | 5.56 KB |
+| chunk-EVI72JMS.js           | 4.47 KB |
+| chunk-5U5GISVB.js           | 3.59 KB |
+| chunk-F6TX2SNN.js           | 3.48 KB |
+| chunk-XEGPBJW5.js           | 3.36 KB |
+| chunk-WWKH7ZTZ.js           | 2.88 KB |
+| chunk-CVADAK7V.js           | 2.7 KB |
+| chunk-BWRSEVT6.js           | 2.25 KB |
+| chunk-A6OUD7GF.js           | 1.89 KB |
+| chunk-ENKFPH2E.js           | 1.49 KB |
+| chunk-6WGLRJL2.js           | 1.44 KB |
+| chunk-S43YYWE6.js           | 1.35 KB |
+| chunk-3BVTSY3H.js           | 1.28 KB |
+| chunk-VNMZ5JEE.js           | 1.22 KB |
+| chunk-TERIXCX3.js           | 1.09 KB |
+| chunk-IPYUPOU3.js           | 1.08 KB |
+| chunk-IS6BG5PM.js           | 981 Bytes |
+| chunk-LHAROUAO.js           | 708 Bytes |
+| chunk-UAQLGPOG.js           | 690 Bytes |
+| chunk-HMA6A7BH.js           | 675 Bytes |
+| chunk-7CGTOI24.js           | 618 Bytes |
+| chunk-SRLHFTA6.js           | 559 Bytes |
+| chunk-4EXWTXAN.js           | 380 Bytes |
+| chunk-PNQWYDWA.js           | 310 Bytes |
+| chunk-UA2OID3I.js           | 300 Bytes |
+| chunk-53TECYDK.js           | 300 Bytes |
+| chunk-YPVBW5JE.js           | 197 Bytes |
+| chunk-6SM3TQVG.js           | 153 Bytes |
+| chunk-E2EYHV3P.js           | 136 Bytes |
+| chunk-QBRSGN6K.js           | 125 Bytes |
+| chunk-K3RHTP23.js           | 96 Bytes |
+| chunk-LFUTSNCE.js           | 37 Bytes |
+  | **Initial Total** | **397.31 KB** |
   | Names             |       Size |
-| list-items-edit.component           | 7.07 KB |
-| list-image.component           | 3 KB |
-| list-remove.component           | 3.07 KB |
-| list-detail-page.routes           | 610 Bytes |
-| person-detail-page.component           | 11.89 KB |
-| account-list-page.component           | 3.35 KB |
-| account-feature-page.routes           | 550 Bytes |
-| not-found-page.component           | 1.68 KB |
-| chunk.js           | 37 Bytes |
-| chunk.js           | 197 Bytes |
-| account-menu.component           | 4.99 KB |
-| chunk.js           | 1.22 KB |
-| chunk.js           | 559 Bytes |
-| movie-list.component           | 460 Bytes |
-| movie-list-page.component           | 6.08 KB |
-| chunk.js           | 708 Bytes |
-| chunk.js           | 675 Bytes |
 | movie-detail-page.component           | 15.7 KB |
-| chunk.js           | 1.35 KB |
-| chunk.js           | 153 Bytes |
-| chunk.js           | 690 Bytes |
-| chunk.js           | 1.49 KB |
-| chunk.js           | 981 Bytes |
-| chunk.js           | 310 Bytes |
-| chunk.js           | 125 Bytes |
-| list-detail-page.component           | 3.15 KB |
-| list-movies.component           | 1.05 KB |
-| chunk.js           | 4.47 KB |
-| chunk.js           | 1.44 KB |
-| chunk.js           | 2.88 KB |
-| chunk.js           | 3.36 KB |
-| chunk.js           | 5.84 KB |
+| person-detail-page.component           | 11.89 KB |
+| list-items-edit.component           | 7.07 KB |
 | list-create-page.component           | 6.19 KB |
-| chunk.js           | 3.48 KB |
-| chunk.js           | 3.59 KB |
-| chunk.js           | 1.89 KB |
-| chunk.js           | 2.7 KB |
-| chunk.js           | 300 Bytes |
-| chunk.js           | 300 Bytes |
-| chunk.js           | 1.08 KB |
-| chunk.js           | 2.25 KB |
-| chunk.js           | 136 Bytes |
-| chunk.js           | 380 Bytes |
-| chunk.js           | 1.28 KB |
-| chunk.js           | 96 Bytes |
-| chunk.js           | 13.03 KB |
-| chunk.js           | 1.09 KB |
-| chunk.js           | 97.67 KB |
-| chunk.js           | 23.04 KB |
-| chunk.js           | 11.24 KB |
-| chunk.js           | 171.91 KB |
-| chunk.js           | 618 Bytes |
+| movie-list-page.component           | 6.08 KB |
+| account-menu.component           | 4.99 KB |
+| account-list-page.component           | 3.35 KB |
+| list-detail-page.component           | 3.15 KB |
+| list-remove.component           | 3.07 KB |
+| list-image.component           | 3 KB |
+| not-found-page.component           | 1.68 KB |
+| list-movies.component           | 1.05 KB |
+| list-detail-page.routes           | 610 Bytes |
+| account-feature-page.routes           | 550 Bytes |
+| movie-list.component           | 460 Bytes |
 <!-- bundle-stats-end -->
 
 
@@ -121,13 +121,11 @@ Clone and install the dependencies for `angular-movies` locally:
 
 ## Running locally
 
-- `npm run build:dev`: dev build
-- `npm run build:prod`: production build
-- `npm run build:prod:ssr`: production build for SSR
-- `npm run start`: serve the project locally for development
-- `npm run start:ssr:dev`: serve the project locally SSR for development
-- `npm run start:ssr:prod`: serve the project locally SSR for production
-- `npm run analyze:bundlesize`: bundle size analysis
+- `nx run movies:build:development`: development build
+- `nx run movies:build:production`: production build (output: `dist/projects/movies`)
+- `npm start` / `nx run movies:serve:development`: dev server on port 4200
+- `nx run movies:serve-static`: serve the production build locally
+- `nx run docs:build`: regenerate README bundle stats (output: `dist/measures/movies`)
 
 ## Tech Stack
 
