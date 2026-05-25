@@ -55,8 +55,8 @@ For now you can search the codebase for "Perf Tip" later on there will be proppe
 | chunk-QBRSGN6K.js           | 125 Bytes |
 | chunk-K3RHTP23.js           | 96 Bytes |
 | chunk-LFUTSNCE.js           | 37 Bytes |
-  | **Initial Total** | **384.85 KB** |
-  | Names             |       Size |
+| **Initial Total** | **384.85 KB** |
+| Names             |       Size |
 | movie-detail-page.component           | 16.08 KB |
 | person-detail-page.component           | 12.17 KB |
 | list-items-edit.component           | 7.24 KB |

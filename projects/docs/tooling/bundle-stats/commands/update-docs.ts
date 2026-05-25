@@ -48,11 +48,11 @@ export async function run(): Promise<void> {
 | ${formatChunkName(name)}           | ${formatBytes(size)} |`;
   });
   statsContent += `
-  | **Initial Total** | **${formatBytes(
+| **Initial Total** | **${formatBytes(
     initialAssets.reduce((a, [_, s]) => a + s, 0)
   )}** |`;
   statsContent += `
-  | Names             |       Size |`;
+| Names             |       Size |`;
 
   restAssets.forEach(([name, size, entryPoint]) => {
     statsContent += `
