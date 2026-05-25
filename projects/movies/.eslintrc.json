@@ -1,18 +1,13 @@
 {
-  "extends": "../../.eslintrc.json",
-  "ignorePatterns": [
-    "!**/*"
-  ],
+  "extends": ["plugin:playwright/recommended", "../../.eslintrc.json"],
+  "ignorePatterns": ["!**/*", "**/vitest.config.*.timestamp*"],
   "overrides": [
     {
-      "files": [
-        "*.ts"
-      ],
+      "files": ["*.ts"],
       "extends": [
         "eslint:recommended",
         "plugin:@typescript-eslint/recommended",
         "plugin:@angular-eslint/recommended",
-        // This is required if you use inline templates in Components,
         "plugin:@angular-eslint/template/process-inline-templates",
         "plugin:@rx-angular/eslint-plugin/recommended"
       ],
@@ -22,12 +17,8 @@
           {
             "patterns": [
               {
-                "group": [
-                  "@angular/common"
-                ],
-                "importNames": [
-                  "CommonModule"
-                ],
+                "group": ["@angular/common"],
+                "importNames": ["CommonModule"],
                 "message": "Use the componen or directve directly e.g. `import {NgFor} from '@angular/common`'."
               }
             ]
@@ -37,10 +28,7 @@
           "error",
           {
             "type": "attribute",
-            "prefix": [
-              "app",
-              "ct"
-            ],
+            "prefix": ["app", "ct"],
             "style": "camelCase"
           }
         ],
@@ -48,28 +36,37 @@
           "error",
           {
             "type": "element",
-            "prefix": [
-              "app",
-              "ct"
-            ],
+            "prefix": ["app", "ct"],
             "style": "kebab-case"
           }
         ]
       }
     },
     {
-      "files": [
-        "*.html"
-      ],
+      "files": ["*.html"],
       "extends": [
         "plugin:@angular-eslint/template/recommended",
         "plugin:@angular-eslint/template/accessibility"
       ],
+      "rules": {}
+    },
+    {
+      "files": ["e2e/**/*.{ts,js,tsx,jsx}"],
       "rules": {
-        /**
-         * Any template/HTML related rules you wish to use/reconfigure over and above the
-         * recommended set provided by the @angular-eslint project would go here.
-         */
+        "@rx-angular/prefer-no-layout-sensitive-apis": "off",
+        "playwright/expect-expect": [
+          "warn",
+          {
+            "assertFunctionNames": [
+              "expectLoaded",
+              "expectLoaderVisible",
+              "expectHeroHidden",
+              "expectCastVisible",
+              "enableDarkMode",
+              "enableLightMode"
+            ]
+          }
+        ]
       }
     }
   ]

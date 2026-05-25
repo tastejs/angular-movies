@@ -4,6 +4,7 @@
     "angular.ng-template",
     "dbaeumer.vscode-eslint",
     "esbenp.prettier-vscode",
-    "firsttris.vscode-jest-runner"
+    "vitest.explorer",
+    "ms-playwright.playwright"
   ]
 }

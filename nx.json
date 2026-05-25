@@ -10,7 +10,7 @@
       "!{projectRoot}/.eslintrc.json",
       "!{projectRoot}/**/?(*.)+(spec|test).[jt]s?(x)?(.snap)",
       "!{projectRoot}/tsconfig.spec.json",
-      "!{projectRoot}/jest.config.[jt]s",
+      "!{projectRoot}/vitest.config.[jt]s",
       "!{projectRoot}/src/test-setup.[jt]s"
     ]
   },
@@ -23,7 +23,11 @@
       "inputs": ["default", "{workspaceRoot}/.eslintrc.json"]
     },
     "test": {
-      "inputs": ["default", "^production", "{workspaceRoot}/jest.preset.cjs"]
+      "inputs": [
+        "default",
+        "^production",
+        "{workspaceRoot}/vitest.workspace.ts"
+      ]
     },
     "serve-static": {
       "dependsOn": ["build"],
@@ -34,6 +38,10 @@
     },
     "deploy-firebase": {
       "dependsOn": ["build"]
+    },
+    "@nx/vitest:test": {
+      "cache": true,
+      "inputs": ["default", "^production"]
     }
   },
   "generators": {
@@ -43,16 +51,25 @@
     "@nx/angular:application": {
       "style": "css",
       "linter": "eslint",
-      "unitTestRunner": "jest",
-      "e2eTestRunner": "none"
+      "unitTestRunner": "vitest",
+      "e2eTestRunner": "playwright"
     },
     "@nx/angular:library": {
       "linter": "eslint",
-      "unitTestRunner": "jest"
+      "unitTestRunner": "vitest"
     },
     "@nx/angular:component": {
       "style": "css"
     }
   },
-  "analytics": false
+  "analytics": false,
+  "plugins": [
+    {
+      "plugin": "@nx/playwright/plugin",
+      "options": {
+        "targetName": "e2e",
+        "ciTargetName": "e2e-ci"
+      }
+    }
+  ]
 }

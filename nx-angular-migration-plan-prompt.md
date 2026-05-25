@@ -71,7 +71,7 @@ We analyzed your package.json, there are some packages to update:
    @angular/core                           18.2.14 -> 19.2.9        ng update @angular/core@19
    @nx/angular                             19.8.14 -> 22.7.3        ng update @nx/angular
    @nx/esbuild                             19.8.14 -> 22.7.3        ng update @nx/esbuild
-   @nx/jest                                19.8.14 -> 22.7.3        ng update @nx/jest
+   @nx/vitest                              testing                  npm install -D @nx/vitest vitest jsdom
    @nx/js                                  19.8.14 -> 22.7.3        ng update @nx/js
    @nx/node                                19.8.14 -> 22.7.3        ng update @nx/node
    @nx/webpack                             19.8.14 -> 22.7.3        ng update @nx/webpack

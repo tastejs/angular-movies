@@ -101,18 +101,38 @@ Clone and install the dependencies for `angular-movies` locally:
 
 ## Quick setup
 
-1. Take a copy of `src/environments/environment.local.example.ts` and re-name
-   to `src/environments/environment.production.ts`
-2. Get your TMDb API key
-3. Get your TMDB API read access token
-4. Enter the details into the `src/environments/environment.production.ts` file
+1. Use the Node version from [`.nvmrc`](.nvmrc) (enforced via `engine-strict` in [`.npmrc`](.npmrc)):
+   ```bash
+   nvm use
+   npm ci
+   ```
+   `npm start` and `npm run e2e` run `nvm use` automatically via [`scripts/with-node.sh`](scripts/with-node.sh).
+2. Copy [`projects/movies/src/environments/environment.local.example.ts`](projects/movies/src/environments/environment.local.example.ts) to
+   `projects/movies/src/environments/environment.ts` (or `environment.production.ts` for prod builds).
+3. Add your [TMDb API key and read access token](https://developer.themoviedb.org/docs/getting-started).
+4. If port 4200 is stuck, stop the old process: `lsof -ti:4200 | xargs kill -9`
 
 ## Running locally
+
+Per [Angular serve docs](https://angular.dev/tools/cli/serve), the dev server uses `@angular/build:dev-server` (Vite). When ready it prints `Local: http://localhost:4200/`.
 
 - `nx run movies:build:development`: development build
 - `nx run movies:build:production`: production build (output: `dist/projects/movies`)
 - `npm start` / `nx run movies:serve:development`: dev server on port 4200
 - `nx run movies:serve-static:production`: serve the production build locally
+- `npm run e2e` / `nx e2e movies`: Playwright E2E (Chromium; starts dev server automatically). Multi-browser: `PLAYWRIGHT_ALL_BROWSERS=1 npm run e2e`
+- `nx run movies:user-flow:development`: legacy Lighthouse user-flow (local only, not in CI)
+
+Playwright specs (legacy `.uf.ts` files kept under `projects/movies/user-flows/`):
+
+| Legacy user-flow | Playwright spec |
+|------------------|-----------------|
+| `ci-flow.uf.ts` | `e2e/sidebar-movie-detail.spec.ts` |
+| `navigation.uf.ts` | `e2e/routes.spec.ts` |
+| `account-feature.uf.ts` | `e2e/tmdb-auth.spec.ts` (skipped in CI; needs TMDB) |
+| `fixxxx-ci-flow.uf.ts` | not migrated (obsolete prerender check) |
+
+Run auth E2E locally: `nx e2e movies --grep @auth`
 - `nx run docs:build`: regenerate README bundle stats (output: `dist/measures/movies`)
 
 ## Tech Stack
@@ -129,7 +149,8 @@ Measures:
 - Bundle size listed from dist folder
 - Comparison videos with [webpagetest](https://www.webpagetest.org)
 - Lighthoure reports with [lighthouse-metrics](https://lighthouse-metrics.com)
-- User-flows created with [@push-based/user-flow](https://www.npmjs.com/package/@push-based/user-flow)
+- E2E: [Playwright](https://playwright.dev/) (`npm run e2e`)
+- Legacy perf user-flows: [@push-based/user-flow](https://www.npmjs.com/package/@push-based/user-flow) (manual, not CI)
 
 ## Authors
 

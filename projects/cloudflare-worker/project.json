@@ -70,6 +70,15 @@
         "lintFilePatterns": ["projects/cloudflare-worker/**/*.ts"]
       }
     },
+    "test": {
+      "executor": "@nx/vitest:test",
+      "outputs": ["{options.reportsDirectory}"],
+      "options": {
+        "configFile": "projects/cloudflare-worker/vitest.config.ts",
+        "reportsDirectory": "{projectRoot}/../../coverage/cloudflare-worker",
+        "passWithNoTests": true
+      }
+    },
     "emulate": {
       "dependsOn": ["build"],
       "executor": "nx:run-commands",

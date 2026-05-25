@@ -1,3 +1,4 @@
+export const searchFormSelector = '*[data-uf="q-form"]';
 export const searchSelector = '*[data-uf="q"]';
 export const searchSubmitKeys = ['Enter'];
 

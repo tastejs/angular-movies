@@ -51,16 +51,17 @@
       }
     },
     "test": {
-      "executor": "@nx/jest:jest",
-      "outputs": ["{workspaceRoot}/dist/coverage/firebase-function"],
+      "executor": "@nx/vitest:test",
+      "outputs": ["{options.reportsDirectory}"],
       "options": {
-        "jestConfig": "projects/firebase-function/jest.config.ts",
+        "configFile": "projects/firebase-function/vitest.config.ts",
+        "reportsDirectory": "{projectRoot}/../../dist/coverage/firebase-function",
         "passWithNoTests": true
       },
       "configurations": {
         "ci": {
           "ci": true,
-          "codeCoverage": true
+          "coverage": true
         }
       }
     },

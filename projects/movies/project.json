@@ -3,6 +3,16 @@
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "application",
   "sourceRoot": "projects/movies/src",
+  "tags": ["scope:client", "type:app"],
+  "generators": {
+    "@schematics/angular:component": {
+      "style": "css",
+      "changeDetection": "OnPush"
+    },
+    "@schematics/angular:application": {
+      "strict": true
+    }
+  },
   "targets": {
     "build": {
       "executor": "@angular/build:application",
@@ -211,16 +221,13 @@
         }
       },
       "defaultConfiguration": "production"
-    }
-  },
-  "generators": {
-    "@schematics/angular:component": {
-      "style": "css",
-      "changeDetection": "OnPush"
     },
-    "@schematics/angular:application": {
-      "strict": true
+    "test": {
+      "executor": "@angular/build:unit-test",
+      "options": {
+        "tsConfig": "projects/movies/tsconfig.spec.json",
+        "buildTarget": "movies:build:development"
+      }
     }
-  },
-  "tags": ["scope:client", "type:app"]
+  }
 }

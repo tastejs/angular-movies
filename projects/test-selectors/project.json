@@ -6,6 +6,15 @@
   "tags": [],
   "projectType": "library",
   "targets": {
+    "test": {
+      "executor": "@nx/vitest:test",
+      "outputs": ["{options.reportsDirectory}"],
+      "options": {
+        "configFile": "projects/test-selectors/vitest.config.ts",
+        "reportsDirectory": "{projectRoot}/../../coverage/test-selectors",
+        "passWithNoTests": true
+      }
+    },
     "lint": {
       "executor": "@nx/eslint:lint",
       "outputs": ["{options.outputFile}"],

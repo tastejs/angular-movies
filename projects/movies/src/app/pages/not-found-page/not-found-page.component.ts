@@ -3,10 +3,11 @@ import {
   Component,
   ViewEncapsulation,
 } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { FastSvgComponent } from '@push-based/ngx-fast-svg';
 
 @Component({
-  imports: [FastSvgComponent],
+  imports: [FastSvgComponent, RouterLink],
   selector: 'ct-not-found',
   template: ` <div class="not-found-container">
     <fast-svg size="350px" name="error" />

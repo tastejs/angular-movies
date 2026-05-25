@@ -39,3 +39,11 @@ jobs:
         run: npx nx affected --targets=build --exclude docs,cloudflare-worker
       - name: Run build docs
         run: npx nx build docs
+
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps chromium
+
+      - name: Run Playwright E2E (movies)
+        run: npx nx e2e movies
+        env:
+          CI: true

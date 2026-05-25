@@ -47,3 +47,9 @@ angular.json
 
 .nx/cache
 .nx/workspace-data/
+
+vitest.config.*.timestamp*
+
+# Playwright auth storage (local OAuth setup)
+projects/movies/e2e/.auth/
+projects/movies/e2e/.debug/
