@@ -84,7 +84,7 @@ type MovieListState = { movies?: Movie[]; numPriority: number };
       </div>
     </ng-template>
   `,
-  styleUrls: ['./movie-list.component.scss'],
+  styleUrls: ['./movie-list.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.Emulated,
 })

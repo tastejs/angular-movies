@@ -1,0 +1,49 @@
+.movies-list--details {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 1.5rem 3rem;
+}
+@media only screen and (max-width: 500px) {
+  .movies-list--details {
+    padding: 1.5rem;
+  }
+}
+.movies-list--details-title {
+  text-align: center;
+  margin-bottom: 1rem;
+  line-height: 1.4;
+}
+
+.ui-grid-list-item {
+  content-visibility: auto;
+  position: relative;
+  cursor: pointer;
+}
+.ui-grid-list-item img {
+  transition: filter 150ms ease-in-out;
+}
+.ui-grid-list-item:hover .ribbon {
+  display: block;
+}
+.ui-grid-list-item:hover img {
+  filter: grayscale(1);
+}
+.ui-grid-list-item.selected .ribbon {
+  display: block;
+}
+
+.ribbon {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  height: 40px;
+  line-height: 40px;
+  width: 100%;
+  text-align: center;
+  margin: auto;
+  background: var(--palette-primary-main);
+}

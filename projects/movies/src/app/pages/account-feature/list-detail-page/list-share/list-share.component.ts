@@ -13,7 +13,7 @@ import { DOCUMENT } from '@angular/common';
   imports: [RxLet],
   selector: 'ct-list-share',
   templateUrl: './list-share.component.html',
-  styleUrls: ['./list-share.component.scss'],
+  styleUrls: ['./list-share.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ListShareComponent implements OnInit, OnDestroy {

@@ -1,23 +1,15 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { RxLet } from '@rx-angular/template/let';
 import { RxFor } from '@rx-angular/template/for';
-import { MovieListComponent } from '../../../ui/pattern/movie-list/movie-list.component';
 import { FastSvgComponent } from '@push-based/ngx-fast-svg';
 import { RouterLink, RouterOutlet } from '@angular/router';
 import { ListDetailAdapter } from './list-detail-page.adapter';
 
 @Component({
-  imports: [
-    RouterLink,
-    RouterOutlet,
-    RxLet,
-    RxFor,
-    MovieListComponent,
-    FastSvgComponent,
-  ],
+  imports: [RouterLink, RouterOutlet, RxLet, RxFor, FastSvgComponent],
   selector: 'ct-list-detail-page',
   templateUrl: './list-detail-page.component.html',
-  styleUrls: ['./list-detail-page.component.scss'],
+  styleUrls: ['./list-detail-page.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export default class ListDetailPageComponent {

@@ -15,7 +15,7 @@ import { NgOptimizedImage } from '@angular/common';
   imports: [NgOptimizedImage, RxFor, RxLet, FastSvgComponent],
   selector: 'ct-list-items-edit',
   templateUrl: './list-items-edit.component.html',
-  styleUrls: ['./list-items-edit.component.scss'],
+  styleUrls: ['./list-items-edit.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export default class ListItemsEditComponent {

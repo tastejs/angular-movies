@@ -9,7 +9,7 @@ import { NgOptimizedImage } from '@angular/common';
   imports: [RxFor, GridListComponent, NgOptimizedImage],
   selector: 'ct-list-image',
   templateUrl: './list-image.component.html',
-  styleUrls: ['./list-image.component.scss'],
+  styleUrls: ['./list-image.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export default class ListImageComponent {

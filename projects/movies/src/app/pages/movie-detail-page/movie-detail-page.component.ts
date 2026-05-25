@@ -1,5 +1,5 @@
 import { select, selectSlice } from '@rx-angular/state/selections';
-import { Location, NgFor, NgIf, NgOptimizedImage } from '@angular/common';
+import { Location, NgOptimizedImage } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -31,8 +31,6 @@ type UiActions = {
 };
 @Component({
   imports: [
-    NgIf,
-    NgFor,
     RouterLink,
     NgOptimizedImage,
     DetailGridComponent,
@@ -46,7 +44,7 @@ type UiActions = {
   ],
   selector: 'ct-movie',
   templateUrl: './movie-detail-page.component.html',
-  styleUrls: ['./movie-detail-page.component.scss'],
+  styleUrls: ['./movie-detail-page.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.Emulated,
 })

@@ -64,7 +64,7 @@ type UiActions = {
       />
     </form>
   `,
-  styleUrls: ['search-bar.component.scss'],
+  styleUrls: ['search-bar.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.Emulated,
   providers: [RxState],
@@ -72,6 +72,7 @@ type UiActions = {
 export class SearchBarComponent {
   private readonly document = inject(DOCUMENT);
   private readonly elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
+  private readonly state = inject(RxState<{ search: string; open: boolean }>);
   @ViewChild('searchInput') inputRef!: ElementRef<HTMLInputElement>;
   @ViewChild('form') formRef!: ElementRef<HTMLFormElement>;
 
@@ -125,7 +126,7 @@ export class SearchBarComponent {
 
   private readonly classList = this.elementRef.nativeElement.classList;
 
-  constructor(private state: RxState<{ search: string; open: boolean }>) {
+  constructor() {
     this.state.set({ open: false });
     this.state.connect('search', this.ui.searchChange$.pipe(startWith('')));
     this.state.connect(

@@ -1,10 +1,4 @@
-import {
-  Location,
-  NgClass,
-  NgFor,
-  NgIf,
-  NgOptimizedImage,
-} from '@angular/common';
+import { Location, NgOptimizedImage } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -15,26 +9,21 @@ import { PersonDetailAdapter } from './person-detail-page.adapter';
 import { SORT_VALUES } from '../../data-access/api/sort/sort.data';
 import { merge } from 'rxjs';
 import { DetailGridComponent } from '../../ui/component/detail-grid/detail-grid.component';
-import { StarRatingComponent } from '../../ui/pattern/star-rating/star-rating.component';
 import { MovieListComponent } from '../../ui/pattern/movie-list/movie-list.component';
 import { RxLet } from '@rx-angular/template/let';
 import { FastSvgComponent } from '@push-based/ngx-fast-svg';
 
 @Component({
   imports: [
-    NgFor,
-    NgIf,
-    NgClass,
     NgOptimizedImage,
     DetailGridComponent,
-    StarRatingComponent,
     MovieListComponent,
     RxLet,
     FastSvgComponent,
   ],
   selector: 'ct-person',
   templateUrl: './person-detail-page.component.html',
-  styleUrls: ['./person-detail-page.component.scss'],
+  styleUrls: ['./person-detail-page.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.Emulated,
 })

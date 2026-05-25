@@ -1,9 +1,11 @@
 import { DOCUMENT } from '@angular/common';
 import {
   ChangeDetectionStrategy,
-  Component, effect,
-  inject, signal,
-  ViewEncapsulation
+  Component,
+  effect,
+  inject,
+  signal,
+  ViewEncapsulation,
 } from '@angular/core';
 
 @Component({
@@ -43,7 +45,7 @@ import {
       </button>
     </div>
   `,
-  styleUrls: ['dark-mode-toggle.component.scss'],
+  styleUrls: ['dark-mode-toggle.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.Emulated,
 })
