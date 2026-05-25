@@ -112,7 +112,7 @@ Clone and install the dependencies for `angular-movies` locally:
 - `nx run movies:build:development`: development build
 - `nx run movies:build:production`: production build (output: `dist/projects/movies`)
 - `npm start` / `nx run movies:serve:development`: dev server on port 4200
-- `nx run movies:serve-static`: serve the production build locally
+- `nx run movies:serve-static:production`: serve the production build locally
 - `nx run docs:build`: regenerate README bundle stats (output: `dist/measures/movies`)
 
 ## Tech Stack
