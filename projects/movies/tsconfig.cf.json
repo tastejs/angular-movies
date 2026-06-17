@@ -1,0 +1,10 @@
+{
+  "extends": "./tsconfig.app.json",
+  "files": [
+    "server.cf.ts",
+    "src/app/shared/ssr/icon-load.cf.strategy.ts",
+    "src/main.ts",
+    "src/main.server.ts"
+  ],
+  "include": []
+}
