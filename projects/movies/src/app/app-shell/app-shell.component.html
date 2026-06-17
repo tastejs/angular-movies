@@ -16,9 +16,7 @@
       routerLinkActive="active"
     >
       <div class="navigation--menu-item">
-        <fast-svg
-          class="navigation--menu-item-icon"
-          name="popular" />
+        <fast-svg class="navigation--menu-item-icon" name="popular" />
         Popular
       </div>
     </a>
@@ -29,9 +27,7 @@
       routerLinkActive="active"
     >
       <div class="navigation--menu-item">
-        <fast-svg
-          class="navigation--menu-item-icon"
-          name="top_rated" />
+        <fast-svg class="navigation--menu-item-icon" name="top_rated" />
         Top Rated
       </div>
     </a>
@@ -42,9 +38,7 @@
       routerLinkActive="active"
     >
       <div class="navigation--menu-item">
-        <fast-svg
-          class="navigation--menu-item-icon"
-          name="upcoming" />
+        <fast-svg class="navigation--menu-item-icon" name="upcoming" />
         Upcoming
       </div>
     </a>
@@ -78,11 +72,10 @@
     <ui-hamburger-button
       data-uf="menu-btn"
       class="ui-toolbar--action"
-      (click)="sideDrawerOpen.set(!sideDrawerOpen())" />
+      (click)="sideDrawerOpen.set(!sideDrawerOpen())"
+    />
     <div class="ui-toolbar--widget-container">
-      <ui-search-bar
-        [query]="search$"
-        (searchSubmit)="searchMovie($event)" />
+      <ui-search-bar [query]="search$" (searchSubmit)="searchMovie($event)" />
       <ui-dark-mode-toggle />
       <div class="account-menu-dropdown">
         <button
@@ -91,7 +84,8 @@
           type="button"
           aria-label="Toggle profile menu"
           name="profile"
-          class="profile-button">
+          class="profile-button"
+        >
           <div class="focus-overlay"></div>
           <fast-svg name="account" />
         </button>

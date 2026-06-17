@@ -3,6 +3,7 @@
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "projects/firebase-function/src",
   "projectType": "application",
+  "tags": ["scope:server", "type:app"],
   "targets": {
     "build": {
       "executor": "@nx/esbuild:esbuild",
@@ -116,6 +117,5 @@
       },
       "defaultConfiguration": "development"
     }
-  },
-  "tags": ["scope:server", "type:app"]
+  }
 }

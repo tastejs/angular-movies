@@ -22,11 +22,11 @@ export class IconLoadStrategySsr implements SvgLoadStrategy {
           'browser',
           'assets',
           'svg-icons',
-          `${url}`
+          `${url}`,
         );
 
         return readFileSync(resolve(fullIconPath), 'utf-8');
-      })
+      }),
     );
   }
 }

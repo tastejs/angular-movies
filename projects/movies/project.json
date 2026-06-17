@@ -75,14 +75,14 @@
           "budgets": [
             {
               "type": "initial",
-              "maximumWarning": "388KB",
-              "maximumError": "390KB"
+              "maximumWarning": "408KB",
+              "maximumError": "415KB"
             },
             {
               "type": "bundle",
               "name": "main",
-              "maximumWarning": "343KB",
-              "maximumError": "344KB"
+              "maximumWarning": "358KB",
+              "maximumError": "360KB"
             },
             {
               "type": "anyComponentStyle",
@@ -162,12 +162,13 @@
       }
     },
     "lint": {
-      "executor": "@angular-eslint/builder:lint",
+      "executor": "@nx/eslint:lint",
       "options": {
         "lintFilePatterns": [
           "projects/movies/src/app/**/*.ts",
           "projects/movies/src/app/**/*.html"
-        ]
+        ],
+        "eslintConfig": "projects/movies/eslint.config.mjs"
       },
       "outputs": ["{options.outputFile}"]
     },
@@ -227,6 +228,96 @@
       "options": {
         "tsConfig": "projects/movies/tsconfig.spec.json",
         "buildTarget": "movies:build:development"
+      }
+    },
+    "generate-build-id": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "node scripts/generate-build-id.mjs"
+      }
+    },
+    "build-cf-worker": {
+      "executor": "@angular/build:application",
+      "dependsOn": ["generate-build-id"],
+      "outputs": ["{workspaceRoot}/dist/projects/movies/cf-worker"],
+      "options": {
+        "outputPath": "dist/projects/movies/cf-worker",
+        "index": "projects/movies/src/index.html",
+        "browser": "projects/movies/src/main.ts",
+        "server": "projects/movies/src/main.server.ts",
+        "tsConfig": "projects/movies/tsconfig.cf.json",
+        "inlineStyleLanguage": "css",
+        "styles": ["projects/movies/src/styles.css"],
+        "assets": [
+          "projects/movies/src/favicon.ico",
+          {
+            "glob": "**/*",
+            "input": "projects/movies/src/assets",
+            "output": "assets"
+          },
+          {
+            "glob": "manifest.webmanifest",
+            "input": "projects/movies/src",
+            "output": "/"
+          }
+        ],
+        "fileReplacements": [
+          {
+            "replace": "projects/movies/src/app/shared/ssr/icon-load.ssr.strategy.ts",
+            "with": "projects/movies/src/app/shared/ssr/icon-load.cf.strategy.ts"
+          }
+        ],
+        "outputMode": "server",
+        "ssr": {
+          "entry": "projects/movies/server.cf.ts",
+          "platform": "neutral"
+        },
+        "optimization": true,
+        "sourceMap": true,
+        "outputHashing": "media"
+      },
+      "configurations": {
+        "development": {
+          "optimization": false,
+          "sourceMap": true,
+          "outputHashing": "none"
+        },
+        "production": {
+          "fileReplacements": [
+            {
+              "replace": "projects/movies/src/environments/environment.ts",
+              "with": "projects/movies/src/environments/environment.production.ts"
+            },
+            {
+              "replace": "projects/movies/src/app/shared/ssr/icon-load.ssr.strategy.ts",
+              "with": "projects/movies/src/app/shared/ssr/icon-load.cf.strategy.ts"
+            }
+          ]
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "preview-cf-worker": {
+      "dependsOn": ["build-cf-worker"],
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": ["wrangler dev --config projects/movies/wrangler.jsonc"],
+        "parallel": false
+      }
+    },
+    "deploy-cf-worker": {
+      "dependsOn": ["build-cf-worker"],
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": ["wrangler deploy --config projects/movies/wrangler.jsonc"],
+        "parallel": false
+      }
+    },
+    "cf-typegen": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": ["wrangler types --config projects/movies/wrangler.jsonc"],
+        "parallel": false
       }
     }
   }

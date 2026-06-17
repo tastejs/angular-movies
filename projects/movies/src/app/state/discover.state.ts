@@ -31,7 +31,7 @@ export class DiscoverState implements AppInitializer {
     transforms({
       fetchDiscoverGenreMovies: String,
       fetchDiscoverCastMovies: String,
-    })
+    }),
   );
   readonly fetchDiscoverGenreMovies = this.actions.fetchDiscoverGenreMovies;
 
@@ -46,18 +46,18 @@ export class DiscoverState implements AppInitializer {
               .getDiscoverMovies({ with_genres, page: 1 })
               .pipe(
                 map((resp) => ({ value: { [with_genres]: resp } })),
-                withLoadingEmission()
-              )
-        )
+                withLoadingEmission(),
+              ),
+        ),
       ),
       (oldState, newPartial) => {
-        const resultState = patch(oldState?.genreMovies, newPartial);
+        const resultState = patch(oldState?.genreMovies || {}, newPartial);
         resultState.value = patch(
-          oldState?.genreMovies?.value,
-          resultState.value
+          oldState?.genreMovies?.value || {},
+          resultState.value || {},
         );
         return resultState;
-      }
+      },
     );
 
     connect(
@@ -70,18 +70,18 @@ export class DiscoverState implements AppInitializer {
               .getDiscoverMovies({ with_cast, page: 1 })
               .pipe(
                 map((resp) => ({ value: { [with_cast]: resp } })),
-                withLoadingEmission()
-              )
-        )
+                withLoadingEmission(),
+              ),
+        ),
       ),
       (oldState, newPartial) => {
-        const resultState = patch(oldState?.personMovies, newPartial);
+        const resultState = patch(oldState?.personMovies || {}, newPartial);
         resultState.value = patch(
-          oldState?.personMovies?.value,
-          resultState.value
+          oldState?.personMovies?.value || {},
+          resultState.value || {},
         );
         return resultState;
-      }
+      },
     );
   });
   private readonly discoverResource = inject(DiscoverResource);
@@ -91,7 +91,7 @@ export class DiscoverState implements AppInitializer {
       map(({ genreMovies: { value, loading } }) => ({
         loading,
         value: pluck(value, id),
-      }))
+      })),
     );
 
   initialize(category: unknown): void {

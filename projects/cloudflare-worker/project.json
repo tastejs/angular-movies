@@ -3,6 +3,7 @@
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "projects/cloudflare-worker/src",
   "projectType": "application",
+  "tags": ["scope:server", "type:app"],
   "implicitDependencies": ["movies"],
   "targets": {
     "pre-build": {
@@ -18,7 +19,7 @@
         "styles": ["projects/movies/src/styles.css"],
         "assets": [],
         "ssr": {
-          "experimentalPlatform": "neutral"
+          "platform": "neutral"
         },
         "prerender": false,
         "optimization": true,
@@ -116,6 +117,5 @@
       },
       "defaultConfiguration": "production"
     }
-  },
-  "tags": ["scope:server", "type:app"]
+  }
 }

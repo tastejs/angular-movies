@@ -53,3 +53,9 @@ vitest.config.*.timestamp*
 # Playwright auth storage (local OAuth setup)
 projects/movies/e2e/.auth/
 projects/movies/e2e/.debug/
+
+# Cloudflare Worker local state / build cache
+.wrangler/
+
+# Local env files
+**/.env

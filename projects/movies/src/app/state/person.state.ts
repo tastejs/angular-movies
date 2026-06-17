@@ -42,26 +42,28 @@ export class PersonState implements AppInitializer {
           (id) => {
             return this.personResource.getPerson(id).pipe(
               map((result) => ({ value: toDictionary([result], 'id') })),
-              withLoadingEmission()
+              withLoadingEmission(),
             );
-          }
-        )
+          },
+        ),
       ),
       (oldState, newPartial) => {
-        const resultState = patch(oldState?.person, newPartial);
-        resultState.value = patch(oldState?.person?.value, resultState.value);
+        const resultState = patch(oldState?.person || {}, newPartial);
+        resultState.value = patch(
+          oldState?.person?.value || {},
+          resultState.value || {},
+        );
         return resultState;
-      }
-    )
+      },
+    ),
   );
-
 
   personByIdCtx = (id: string) =>
     this.state.select(
       map(({ person: { value, loading } }) => ({
         loading,
         value: pluck(value, id),
-      }))
+      })),
     );
 
   initialize(identifier: unknown): void {
