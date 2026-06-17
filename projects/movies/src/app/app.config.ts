@@ -33,7 +33,7 @@ export const appConfig: ApplicationConfig = {
 
     provideHttpClient(
       withFetch(),
-      withInterceptors([tmdbContentTypeInterceptor, tmdbReadAccessInterceptor])
+      withInterceptors([tmdbContentTypeInterceptor, tmdbReadAccessInterceptor]),
     ),
 
     provideRouter(
@@ -55,7 +55,7 @@ export const appConfig: ApplicationConfig = {
          */
         scrollPositionRestoration: 'top',
       }),
-      withViewTransitions()
+      withViewTransitions(),
     ),
     /**
      * **🚀 Perf Tip for LCP, TTI:**

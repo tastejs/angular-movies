@@ -1,0 +1,21 @@
+/**
+ * For more details on how to configure Wrangler, refer to:
+ * https://developers.cloudflare.com/workers/wrangler/configuration/
+ */
+{
+	"$schema": "../../node_modules/wrangler/config-schema.json",
+	"name": "angular-movies-cf-worker",
+	"main": "../../dist/projects/cf-worker/server/server.mjs",
+	"compatibility_date": "2026-06-17",
+	"assets": {
+		"binding": "ASSETS",
+		"directory": "../../dist/projects/cf-worker/browser"
+	},
+	"observability": {
+		"enabled": true
+	},
+	"upload_source_maps": true,
+	"compatibility_flags": [
+		"nodejs_compat"
+	]
+}

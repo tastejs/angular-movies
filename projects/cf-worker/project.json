@@ -1,0 +1,104 @@
+{
+  "name": "cf-worker",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "projects/cf-worker/src",
+  "projectType": "application",
+  "implicitDependencies": ["movies"],
+  "targets": {
+    "build": {
+      "executor": "@angular/build:application",
+      "outputs": ["{workspaceRoot}/dist/projects/cf-worker"],
+      "options": {
+        "outputPath": "dist/projects/cf-worker",
+        "index": "projects/movies/src/index.html",
+        "browser": "projects/movies/src/main.ts",
+        "server": "projects/movies/src/main.server.ts",
+        "tsConfig": "projects/cf-worker/tsconfig.app.json",
+        "inlineStyleLanguage": "css",
+        "styles": ["projects/movies/src/styles.css"],
+        "assets": [
+          "projects/movies/src/favicon.ico",
+          {
+            "glob": "**/*",
+            "input": "projects/movies/src/assets",
+            "output": "assets"
+          },
+          {
+            "glob": "manifest.webmanifest",
+            "input": "projects/movies/src",
+            "output": "/"
+          }
+        ],
+        "fileReplacements": [
+          {
+            "replace": "projects/movies/src/app/shared/ssr/icon-load.ssr.strategy.ts",
+            "with": "projects/cf-worker/src/icon-load.cf.strategy.ts"
+          }
+        ],
+        "ssr": {
+          "entry": "projects/cf-worker/src/server.ts",
+          "platform": "neutral"
+        },
+        "prerender": false,
+        "optimization": true,
+        "sourceMap": true,
+        "outputHashing": "media"
+      },
+      "configurations": {
+        "development": {
+          "optimization": false,
+          "sourceMap": true,
+          "outputHashing": "none"
+        },
+        "production": {
+          "fileReplacements": [
+            {
+              "replace": "projects/movies/src/environments/environment.ts",
+              "with": "projects/movies/src/environments/environment.production.ts"
+            },
+            {
+              "replace": "projects/movies/src/app/shared/ssr/icon-load.ssr.strategy.ts",
+              "with": "projects/cf-worker/src/icon-load.cf.strategy.ts"
+            }
+          ]
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "preview": {
+      "dependsOn": ["build"],
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": ["wrangler dev --config projects/cf-worker/wrangler.jsonc"],
+        "parallel": false
+      }
+    },
+    "deploy": {
+      "dependsOn": ["build"],
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          "wrangler deploy --config projects/cf-worker/wrangler.jsonc"
+        ],
+        "parallel": false
+      }
+    },
+    "cf-typegen": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          "wrangler types --config projects/cf-worker/wrangler.jsonc"
+        ],
+        "parallel": false
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["projects/cf-worker/**/*.ts"]
+      }
+    }
+  },
+  "tags": ["scope:server", "type:app"]
+}

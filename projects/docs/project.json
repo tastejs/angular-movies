@@ -3,6 +3,7 @@
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "movies-user-flows/src",
   "projectType": "library",
+  "tags": ["scope:shared", "type:util"],
   "implicitDependencies": ["movies"],
   "targets": {
     "build": {
@@ -44,6 +45,5 @@
         "parallel": false
       }
     }
-  },
-  "tags": ["scope:shared", "type:util"]
+  }
 }

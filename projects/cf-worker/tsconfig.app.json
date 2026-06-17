@@ -1,10 +1,15 @@
 {
-  "extends": "./tsconfig.json",
+  "extends": "../movies/tsconfig.app.json",
   "compilerOptions": {
-    "outDir": "../../dist/out-tsc",
     "types": ["node"]
   },
-  "include": ["src/**/*.spec.ts", "src/**/*.test.ts"],
+  "files": [
+    "src/server.ts",
+    "src/icon-load.cf.strategy.ts",
+    "../movies/src/main.ts",
+    "../movies/src/main.server.ts"
+  ],
+  "include": ["src/**/*.ts"],
   "angularCompilerOptions": {
     "extendedDiagnostics": {
       "checks": {

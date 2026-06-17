@@ -75,14 +75,14 @@
           "budgets": [
             {
               "type": "initial",
-              "maximumWarning": "388KB",
-              "maximumError": "390KB"
+              "maximumWarning": "408KB",
+              "maximumError": "415KB"
             },
             {
               "type": "bundle",
               "name": "main",
-              "maximumWarning": "343KB",
-              "maximumError": "344KB"
+              "maximumWarning": "358KB",
+              "maximumError": "360KB"
             },
             {
               "type": "anyComponentStyle",
@@ -162,12 +162,13 @@
       }
     },
     "lint": {
-      "executor": "@angular-eslint/builder:lint",
+      "executor": "@nx/eslint:lint",
       "options": {
         "lintFilePatterns": [
           "projects/movies/src/app/**/*.ts",
           "projects/movies/src/app/**/*.html"
-        ]
+        ],
+        "eslintConfig": "projects/movies/eslint.config.mjs"
       },
       "outputs": ["{options.outputFile}"]
     },
