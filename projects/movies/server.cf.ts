@@ -15,9 +15,15 @@ const angularApp = new AngularAppEngine({
 });
 
 export const reqHandler = createRequestHandler(async (req) => {
-  const res = await angularApp.handle(req);
-
-  return res ?? new Response('Page not found.', { status: 404 });
+  try {
+    const res = await angularApp.handle(req);
+    if (!res) {
+      return new Response('Page render failed!', { status: 404 });
+    }
+    return res;
+  } catch {
+    return new Response('Page not found.', { status: 404 });
+  }
 });
 
 export default { fetch: reqHandler };

@@ -8,7 +8,7 @@ import { AccessTokenFacade } from './access-token-facade.service';
 
 export const tmdbReadAccessInterceptor: HttpInterceptorFn = (
   req: HttpRequest<unknown>,
-  next: HttpHandlerFn
+  next: HttpHandlerFn,
 ) => {
   const accessTokenFacade = inject(AccessTokenFacade);
 
@@ -17,6 +17,6 @@ export const tmdbReadAccessInterceptor: HttpInterceptorFn = (
       setHeaders: {
         Authorization: `Bearer ${accessTokenFacade.accessToken}`,
       },
-    })
+    }),
   );
 };

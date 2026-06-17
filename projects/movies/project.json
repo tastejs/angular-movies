@@ -260,11 +260,11 @@
             "with": "projects/movies/src/app/shared/ssr/icon-load.cf.strategy.ts"
           }
         ],
+        "outputMode": "server",
         "ssr": {
           "entry": "projects/movies/server.cf.ts",
           "platform": "neutral"
         },
-        "prerender": false,
         "optimization": true,
         "sourceMap": true,
         "outputHashing": "media"

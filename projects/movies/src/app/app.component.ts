@@ -1,5 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { ZonelessRouting } from './shared/zone-less/zone-less-routing.service';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { AppShellComponent } from './app-shell/app-shell.component';
 import { RouterOutlet } from '@angular/router';
 import { RxLet } from '@rx-angular/template/let';
@@ -14,21 +13,4 @@ import { RxLet } from '@rx-angular/template/let';
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [AppShellComponent, RouterOutlet, RxLet],
 })
-export class AppComponent {
-  /**
-   *  **🚀 Perf Tip:**
-   *
-   *  In zone-less applications we have to handle routing manually.
-   *  This is a necessity to make it work zone-less but does not make the app faster.
-
-   import { ZonelessRouting } from './shared/zone-agnostic/zone-less-routing.service';
-
-   constructor() {
-    inject(ZonelessRouting).init();
-  }
-   *
-   */
-  constructor() {
-    inject(ZonelessRouting).init();
-  }
-}
+export class AppComponent {}

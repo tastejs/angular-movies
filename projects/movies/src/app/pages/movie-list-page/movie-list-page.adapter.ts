@@ -66,13 +66,13 @@ export class MovieListPageAdapter {
   private readonly state = rxState<MovieListPageModel>(({ connect }) => {
     const routerParamsFromPaginationTrigger$ = this.actions.paginate$.pipe(
       withLatestFrom(this.routerState.routerParams$),
-      map(([, routerParams]) => routerParams)
+      map(([, routerParams]) => routerParams),
     );
 
     connect('genres', this.genreResource.getGenresDictionaryCached());
 
     connect(
-      this.routerState.routerParams$.pipe(selectSlice(['identifier', 'type']))
+      this.routerState.routerParams$.pipe(selectSlice(['identifier', 'type'])),
     );
 
     connect(
@@ -88,13 +88,13 @@ export class MovieListPageAdapter {
                 type,
                 this.movieResource,
                 this.discoverResource,
-                this.searchResource
+                this.searchResource,
               )(identifier, options),
             routerParamsFromPaginationTrigger$,
-            this.getInitialFetchByType({ type, identifier })
-          )
-        )
-      )
+            this.getInitialFetchByType({ type, identifier }),
+          ),
+        ),
+      ),
     );
   });
 
@@ -102,7 +102,7 @@ export class MovieListPageAdapter {
   readonly set = this.state.set;
 
   readonly movies$ = this.state.select(
-    map(({ results }) => results?.map(transformToMovieModel))
+    map(({ results }) => results?.map(transformToMovieModel)),
   );
 
   getInitialFetchByType({
@@ -143,7 +143,7 @@ export class MovieListPageAdapter {
   constructor() {
     this.effects.register(
       this.routerState.routerParams$,
-      this.routerFetchEffect
+      this.routerFetchEffect,
     );
   }
 }
@@ -152,10 +152,10 @@ function getFetchByType(
   type: RouterParams['type'],
   movieResource: MovieResource,
   discoverResource: DiscoverResource,
-  searchResource: SearchResource
+  searchResource: SearchResource,
 ): (
   s: string,
-  options: TMDBPaginateOptions
+  options: TMDBPaginateOptions,
 ) => Observable<TMDBPaginateResult<TMDBMovieModel>> {
   if (type === 'category') {
     return movieResource.getMovieCategory;

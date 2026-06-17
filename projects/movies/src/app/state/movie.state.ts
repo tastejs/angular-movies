@@ -43,19 +43,19 @@ export class MovieState implements AppInitializer {
           (id) => {
             return this.movieResource.getMovie(id).pipe(
               map((result) => ({ value: toDictionary([result], 'id') })),
-              withLoadingEmission()
+              withLoadingEmission(),
             );
-          }
-        )
+          },
+        ),
       ),
       (oldState, newPartial) => {
         const resultState = patch(oldState?.movies || {}, newPartial);
         resultState.value = patch(
           oldState?.movies?.value || {},
-          resultState?.value || {}
+          resultState?.value || {},
         );
         return resultState;
-      }
+      },
     );
 
     connect(
@@ -71,18 +71,18 @@ export class MovieState implements AppInitializer {
               map((paginatedResult) => ({
                 value: { [category]: paginatedResult },
               })),
-              withLoadingEmission()
-            )
-        )
+              withLoadingEmission(),
+            ),
+        ),
       ),
       (oldState, newPartial) => {
-        const resultState = patch(oldState?.categoryMovies, newPartial);
+        const resultState = patch(oldState?.categoryMovies || {}, newPartial);
         resultState.value = patch(
-          oldState?.categoryMovies?.value,
-          resultState?.value
+          oldState?.categoryMovies?.value || {},
+          resultState?.value || {},
         );
         return resultState;
-      }
+      },
     );
   });
 
@@ -95,7 +95,7 @@ export class MovieState implements AppInitializer {
       map(({ categoryMovies: { value, loading } }) => ({
         loading,
         value: pluck(value, id),
-      }))
+      })),
     );
 
   movieByIdCtx = (id: string) =>
@@ -103,7 +103,7 @@ export class MovieState implements AppInitializer {
       map(({ movies: { value, loading } }) => ({
         loading,
         value: pluck(value, id),
-      }))
+      })),
     );
 
   // prefetch categories / movie

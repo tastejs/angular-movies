@@ -1,22 +1,8 @@
 import { Routes } from '@angular/router';
-import {
-  provideHttpClient,
-  withInterceptors,
-  withRequestsMadeViaParent,
-  withXhr,
-} from '@angular/common/http';
-import { tmdbReadAccessInterceptor } from '../../auth/tmdb-http-interceptor.feature';
 
 const ROUTES: Routes = [
   {
     path: '',
-    providers: [
-      provideHttpClient(
-        withXhr(),
-        withRequestsMadeViaParent(),
-        withInterceptors([tmdbReadAccessInterceptor]),
-      ),
-    ],
     children: [
       {
         path: 'my-lists',

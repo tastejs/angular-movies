@@ -1,6 +1,11 @@
 import { Routes } from '@angular/router';
 
 export const ROUTES: Routes = [
+  {
+    path: '',
+    redirectTo: 'list/category/popular',
+    pathMatch: 'full',
+  },
   /**
    * **🚀 Perf Tip for TTI, TBT:**
    *

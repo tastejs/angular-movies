@@ -14,7 +14,11 @@ export class IconLoadStrategySsr implements SvgLoadStrategy {
     return url$.pipe(
       switchMap((url) => {
         const origin = this.request ? new URL(this.request.url).origin : '';
-        const assetUrl = `${origin}/${url}`;
+        // Icons are emitted as static assets under `assets/svg-icons/`.
+        // Fetching the bare `${origin}/${url}` (e.g. `/popular.svg`) would miss
+        // the asset, fall through to the Angular `**` route, redirect to
+        // `/page-not-found` and trigger a recursive SSR render per icon.
+        const assetUrl = `${origin}/assets/svg-icons/${url}`;
 
         return from(fetch(assetUrl).then((r) => r.text()));
       }),

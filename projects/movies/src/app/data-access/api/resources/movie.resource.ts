@@ -37,19 +37,19 @@ export class MovieResource {
 
   getMoviesRecommendations = (
     id: string,
-    params: TMDBPaginateOptions = {} as TMDBPaginateOptions
+    params: TMDBPaginateOptions = {} as TMDBPaginateOptions,
   ): Observable<RecommendationsResponse> => {
     params = getTMDBMovieOptions(params);
     return this.http.get<RecommendationsResponse>(
       URL_MOVIE_RECOMMENDATIONS(id),
       {
         params: params as unknown as HttpParams,
-      }
+      },
     ) as unknown as Observable<RecommendationsResponse>;
   };
   getMovie = (
     id: string,
-    params: TMDBAppendOptions = { append_to_response: 'videos' }
+    params: TMDBAppendOptions = { append_to_response: 'videos' },
   ): Observable<MovieResponse> =>
     this.http.get<MovieResponse>(URL_MOVIE(id), { params });
 
@@ -58,7 +58,7 @@ export class MovieResource {
 
   getMovieCategory = (
     category: string,
-    params: TMDBPaginateOptions = {} as TMDBPaginateOptions
+    params: TMDBPaginateOptions = {} as TMDBPaginateOptions,
   ): Observable<CategoryResponse> => {
     params = getTMDBMovieOptions(params);
     return this.http.get<CategoryResponse>(URL_MOVIE_CATEGORY(category), {
@@ -73,7 +73,7 @@ export class MovieResource {
 }
 
 function getTMDBMovieOptions(
-  options: TMDBPaginateOptions
+  options: TMDBPaginateOptions,
 ): TMDBDiscoverOptions {
   return {
     ...getTMDBPaginateOptions(options),
