@@ -11,7 +11,8 @@ import manifest from './angular-app-engine-manifest.mjs';
 const angularApp = new AngularAppEngine({
   // It is safe to allow `localhost`, so that SSR can run in local development,
   // as, in production, Cloudflare will ensure that `localhost` is not the host.
-  allowedHosts: ['localhost'],
+  allowedHosts: ['*'],
+  trustProxyHeaders: true,
 });
 
 export const reqHandler = createRequestHandler(async (req) => {

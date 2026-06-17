@@ -17,7 +17,6 @@ import { provideTmdbImageLoader } from './data-access/images/image-loader';
 import { provideClientHydration } from '@angular/platform-browser';
 import {
   provideRouter,
-  // withDisabledInitialNavigation,
   withInMemoryScrolling,
   withViewTransitions,
 } from '@angular/router';
@@ -37,12 +36,6 @@ export const appConfig: ApplicationConfig = {
 
     provideRouter(
       ROUTES,
-      // /**
-      //  * **🚀 Perf Tip for TBT:**
-      //  *
-      //  * Disable initial sync navigation in router config and schedule it in router-outlet container component
-      //  */
-      // withDisabledInitialNavigation(),
       withInMemoryScrolling({
         /**
          * **💡 UX Tip for InfiniteScroll:**

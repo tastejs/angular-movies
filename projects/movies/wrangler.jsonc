@@ -17,5 +17,9 @@
 	"upload_source_maps": true,
 	"compatibility_flags": [
 		"nodejs_compat"
-	]
+	],
+	"vars": {
+		"NG_ALLOWED_HOSTS": "angular-movies-cf-worker.ng-movies.workers.dev",
+		"NODE_VERSION": "24.15.0"
+  	}
 }
