@@ -18,6 +18,15 @@
 	"compatibility_flags": [
 		"nodejs_compat"
 	],
+	// SSR page cache. Create the namespace once with
+	// `wrangler kv namespace create ssr_cache` and replace the id below.
+	// Local `wrangler dev` uses a local KV store regardless of the id.
+	"kv_namespaces": [
+		{
+			"binding": "ssr_cache",
+			"id": "0000000000000000000000000000000000"
+		}
+	],
 	"vars": {
 		"NG_ALLOWED_HOSTS": "angular-movies-cf-worker.ng-movies.workers.dev",
 		"NODE_VERSION": "24.15.0"

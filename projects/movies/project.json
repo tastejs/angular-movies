@@ -230,8 +230,15 @@
         "buildTarget": "movies:build:development"
       }
     },
+    "generate-build-id": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "node scripts/generate-build-id.mjs"
+      }
+    },
     "build-cf-worker": {
       "executor": "@angular/build:application",
+      "dependsOn": ["generate-build-id"],
       "outputs": ["{workspaceRoot}/dist/projects/movies/cf-worker"],
       "options": {
         "outputPath": "dist/projects/movies/cf-worker",
